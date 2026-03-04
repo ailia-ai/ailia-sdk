@@ -46,57 +46,11 @@ This is the ONNX inference API, which serves as the core of everything.
 
 ## Supplemental and Specific Library Documentation
 
-### ailia Tokenizer
-
-ailia Tokenizer is a library for encode NLP text and decode NLP tokens. ailia Tokenizer supports tokenization without Python transformers.
-
-- [C++ API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/tokenizer/cpp/en/) [(JP)](https://ailia-ai.github.io/ailia-sdk/supplemental/tokenizer/cpp/jp/)
-- [Unity API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/tokenizer/unity/en/) [(JP)](https://ailia-ai.github.io/ailia-sdk/supplemental/tokenizer/unity/jp/)
-- [Python API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/tokenizer/python/en/)
-- [Python Example (EN) (PyPI)](https://pypi.org/project/ailia-tokenizer/)
-- [Flutter API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/tokenizer/flutter/en/)
-- [Binding (CPP)](https://github.com/ailia-ai/ailia-tokenizer-cpp) [(Unity)](https://github.com/ailia-ai/ailia-tokenizer-unity) [(Flutter)](https://github.com/ailia-ai/ailia-tokenizer-flutter) [(JNI)](https://github.com/ailia-ai/ailia-tokenizer-jni)
-
-### ailia Speech
-
-ailia Speech is a library for speech recognition. It uses ailia SDK and ailia.audio for doing Speech2Text.
-
-- [C++ API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/speech/cpp/en/) [(JP)](https://ailia-ai.github.io/ailia-sdk/supplemental/speech/cpp/jp/)
-- [Unity API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/speech/unity/en/) [(JP)](https://ailia-ai.github.io/ailia-sdk/supplemental/speech/unity/jp/)
-- [Python API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/speech/python/en/)
-- [Python Example (EN) (PyPI)](https://pypi.org/project/ailia-speech/)
-- [Flutter API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/speech/flutter/en/)
-- [Binding (CPP)](https://github.com/ailia-ai/ailia-tokenizer-cpp) [(Unity)](https://github.com/ailia-ai/ailia-tokenizer-unity) [(Flutter)](https://github.com/ailia-ai/ailia-tokenizer-flutter) [(JNI)](https://github.com/ailia-ai/ailia-tokenizer-jni)
-
-### ailia Voice
-
-ailia AI Voice is a library generating speech from text. Using ailia AI Voice, you can easily integrate AI powered text-to-speech into your applications.
-
-- [C++ API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/voice/cpp/en/) [(JP)](https://ailia-ai.github.io/ailia-sdk/supplemental/voice/cpp/jp/)
-- [Unity API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/voice/unity/en/) [(JP)](https://ailia-ai.github.io/ailia-sdk/supplemental/voice/unity/jp/)
-- [Python API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/voice/python/en/)
-- [Python Example (EN) (PyPI)](https://pypi.org/project/ailia-voice/)
-- [Flutter API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/voice/flutter/en/)
-- [Binding (CPP)](https://github.com/ailia-ai/ailia-voice-cpp) [(Unity)](https://github.com/ailia-ai/ailia-voice-unity) [(Flutter)](https://github.com/ailia-ai/ailia-voice-flutter) [(JNI)](https://github.com/ailia-ai/ailia-voice-jni)
-
-### ailia LLM
-
-ailia LLM is a library for running local LLMs. It can load GGUF and easily implement chat functionality.
-
-- [C++ API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/llm/cpp/en/) [(JP)](https://ailia-ai.github.io/ailia-sdk/supplemental/llm/cpp/jp/)
-- [Unity API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/llm/unity/en/) [(JP)](https://ailia-ai.github.io/ailia-sdk/supplemental/llm/unity/jp/)
-- [Python API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/llm/python/en/)
-- [Python Example (EN) (PyPI)](https://pypi.org/project/ailia-llm/)
-- [Flutter API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/llm/flutter/en/)
-- [Binding (Unity)](https://github.com/ailia-ai/ailia-llm-unity) [(Flutter)](https://github.com/ailia-ai/ailia-llm-flutter)
-
-### ailia Tracker
-
-ailia Tracker is a library for tracking the movement of objects based on object detection results. 
-
-- [C++ API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/tracker/cpp/en/) [(JP)](https://ailia-ai.github.io/ailia-sdk/supplemental/tracker/cpp/jp/)
-- [Unity API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/tracker/unity/en/) [(JP)](https://ailia-ai.github.io/ailia-sdk/supplemental/tracker/unity/jp/)
-- [Binding (Unity)](https://github.com/ailia-ai/ailia-tracker-unity)  [(JNI)](https://github.com/ailia-ai/ailia-tracker-jni)
+- [ailia Tokenizer](supplemental/tokenizer/) - Tokenization for NLP text encoding and decoding
+- [ailia Speech](supplemental/speech/) - Speech recognition (Speech2Text)
+- [ailia Voice](supplemental/voice/) - Text-to-speech synthesis
+- [ailia LLM](supplemental/llm/) - Local LLM inference with GGUF support
+- [ailia Tracker](supplemental/tracker/) - Object movement tracking
 
 ## Materials
 
