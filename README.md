@@ -2,12 +2,9 @@
 
 The ailia SDK is an inference engine that supports cross-platform operation. ONNX can perform GPU inference using Metal and Vulkan. It offers a model library with over 390 types and supports advanced pre-processing and post-processing. Bindings are provided for Python, C++, C#, and Flutter.
 
-## [Inference Library Documentation](api/)
+## Library Documentation
 
-This is the ONNX inference API, which serves as the core of everything. Supports Python, C++, Unity, Flutter, and JNI.
-
-## Supplemental and Specific Library Documentation
-
+- [ailia SDK](api/) - ONNX inference API (Python, C++, Unity, Flutter, JNI)
 - [ailia Tokenizer](supplemental/tokenizer/) - Tokenization for NLP text encoding and decoding
 - [ailia Speech](supplemental/speech/) - Speech recognition (Speech2Text)
 - [ailia Voice](supplemental/voice/) - Text-to-speech synthesis
