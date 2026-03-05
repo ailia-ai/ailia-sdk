@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['role_50',['role',['../classailiaLLM_1_1AiliaLLMChatMessage.html#a2c307c3647466738aaa49e8b1cd07449',1,'ailiaLLM.AiliaLLMChatMessage.role()'],['../classailiaLLM_1_1AiliaLLM_1_1AILIAChatMessage.html#a9767104e80717f7c2e26f47ee506219b',1,'ailiaLLM.AiliaLLM.AILIAChatMessage.role()']]]
+  ['open_69',['Open',['../classailiaLLM_1_1AiliaLLMModel.html#a9951a6b72080c05f415e98e337bf2ae7',1,'ailiaLLM::AiliaLLMModel']]],
+  ['openmultimodalprojector_70',['OpenMultimodalProjector',['../classailiaLLM_1_1AiliaLLMModel.html#a64b9e51e487c7bf84215300071d5948f',1,'ailiaLLM::AiliaLLMModel']]]
 ];

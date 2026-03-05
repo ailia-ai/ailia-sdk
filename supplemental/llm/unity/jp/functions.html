@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.3.3.0</span>
+   &#160;<span id="projectnumber">1.4.0.0</span>
    </div>
   </td>
  </tr>
@@ -71,6 +71,9 @@ $(function() {
 <li>AILIA_LLM_STATUS_CONTEXT_FULL
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a724d240075439199bde4c8d3055b8648">ailiaLLM.AiliaLLM</a>
 </li>
+<li>AILIA_LLM_STATUS_ERROR_BUFFER_API
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ae7abb46a4ff7a0a8c7e35d438fc08eaf">ailiaLLM.AiliaLLM</a>
+</li>
 <li>AILIA_LLM_STATUS_ERROR_FILE_API
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#af767bd92f9099ec816f674bdc761ac1e">ailiaLLM.AiliaLLM</a>
 </li>
@@ -107,6 +110,15 @@ $(function() {
 <li>ailiaLLMGenerate()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a4d642cee294951efad19710e448acfad">ailiaLLM.AiliaLLM</a>
 </li>
+<li>ailiaLLMGetBackendCount()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ad792a5d7b5ac83ef1af42a8b8d7ed603">ailiaLLM.AiliaLLM</a>
+</li>
+<li>ailiaLLMGetBackendName()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a7d50c364dbf2df7fe152c3da6af9f857">ailiaLLM.AiliaLLM</a>
+</li>
+<li>ailiaLLMGetContextSize()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a40c7d5ae8ba03610d1be543f2d9ae38d">ailiaLLM.AiliaLLM</a>
+</li>
 <li>ailiaLLMGetDeltaText()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a0759861b06b27ef0dbb80dbf92a2a4b4">ailiaLLM.AiliaLLM</a>
 </li>
@@ -116,6 +128,9 @@ $(function() {
 <li>ailiaLLMGetGeneratedTokenCount()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ae14bac2aaf0d16fce47bf57d2f2c1422">ailiaLLM.AiliaLLM</a>
 </li>
+<li>ailiaLLMGetMultimodalCapabilities()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#afe8feee1d4f1ace9dfe2790cfd35959d">ailiaLLM.AiliaLLM</a>
+</li>
 <li>ailiaLLMGetPromptTokenCount()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ae3fb8d50c4b71ffd12ff589b130c6ff9">ailiaLLM.AiliaLLM</a>
 </li>
@@ -124,6 +139,12 @@ $(function() {
 </li>
 <li>ailiaLLMOpenModelFile()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a95e5f66e1c4556c8506bff1197bd05d2">ailiaLLM.AiliaLLM</a>
+</li>
+<li>ailiaLLMOpenMultimodalProjectorFile()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ab4b15e5f0cf6582a8f8884f297829198">ailiaLLM.AiliaLLM</a>
+</li>
+<li>ailiaLLMSetMultimodalPrompt()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a6c4c91514abfd922ee11ffdb67e9be57">ailiaLLM.AiliaLLM</a>
 </li>
 <li>ailiaLLMSetPrompt()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a1dd8f7bcc0377f9a50fa22e19927faaa">ailiaLLM.AiliaLLM</a>
@@ -140,7 +161,9 @@ $(function() {
 </li>
 <li>content
 : <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIAChatMessage.html#ac0866a89eb7b5df6bbf7d6d6d0de2597">ailiaLLM.AiliaLLM.AILIAChatMessage</a>
+, <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMultimodalChatMessage.html#aa95cf52c276c67889126a56cd897897d">ailiaLLM.AiliaLLM.AILIALLMMultimodalChatMessage</a>
 , <a class="el" href="classailiaLLM_1_1AiliaLLMChatMessage.html#a8d73dacf1df5f0517c3cba47bf91c53f">ailiaLLM.AiliaLLMChatMessage</a>
+, <a class="el" href="classailiaLLM_1_1AiliaLLMMultimodalChatMessage.html#aeb815e8acc1acfc73a59248dd8ce3451">ailiaLLM.AiliaLLMMultimodalChatMessage</a>
 </li>
 <li>ContextFull()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a4f995c07315af8a45d56c9e04536c9da">ailiaLLM.AiliaLLMModel</a>
@@ -152,8 +175,23 @@ $(function() {
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>data
+: <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMediaData.html#a9b5f68a779951633f675ae4087c1e4e6">ailiaLLM.AiliaLLM.AILIALLMMediaData</a>
+, <a class="el" href="classailiaLLM_1_1AiliaLLMMediaData.html#ae1c09d7b7b1d1e6f0fcefeb0851975ea">ailiaLLM.AiliaLLMMediaData</a>
+</li>
+<li>data_size
+: <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMediaData.html#aec29e6bcb753b4b71967ddb28235b26f">ailiaLLM.AiliaLLM.AILIALLMMediaData</a>
+</li>
 <li>Dispose()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a18440b233b17b4ae5dd257614a6a3e6c">ailiaLLM.AiliaLLMModel</a>
+</li>
+</ul>
+
+
+<h3><a id="index_f"></a>- f -</h3><ul>
+<li>file_path
+: <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMediaData.html#a493419876f33032c51b99dfd689ef5ee">ailiaLLM.AiliaLLM.AILIALLMMediaData</a>
+, <a class="el" href="classailiaLLM_1_1AiliaLLMMediaData.html#a1a1e493c17dad1c108f2f71dffbe5e9d">ailiaLLM.AiliaLLMMediaData</a>
 </li>
 </ul>
 
@@ -162,8 +200,22 @@ $(function() {
 <li>Generate()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a1fc7b4d8291775d9e8dcf6fb14ac2ce5">ailiaLLM.AiliaLLMModel</a>
 </li>
+<li>GeneratedTokenCount()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a8f63f32e6140914027dd08d365da2993">ailiaLLM.AiliaLLMModel</a>
+</li>
 <li>GetDeltaText()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a1b1d08e0551152d6cb36f7e1a56494a5">ailiaLLM.AiliaLLMModel</a>
+</li>
+<li>GetMultimodalCapabilities()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a74e32e875a25aa23c31cb049487133e6">ailiaLLM.AiliaLLMModel</a>
+</li>
+</ul>
+
+
+<h3><a id="index_h"></a>- h -</h3><ul>
+<li>height
+: <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMediaData.html#aa90430e13d0bc7b332237198a86ec5a1">ailiaLLM.AiliaLLM.AILIALLMMediaData</a>
+, <a class="el" href="classailiaLLM_1_1AiliaLLMMediaData.html#a241227f40ac469b4b4aa34478bc5d021">ailiaLLM.AiliaLLMMediaData</a>
 </li>
 </ul>
 
@@ -175,9 +227,34 @@ $(function() {
 </ul>
 
 
+<h3><a id="index_m"></a>- m -</h3><ul>
+<li>media_count
+: <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMultimodalChatMessage.html#a988b813dd13c8ba6d29da1236cac91c0">ailiaLLM.AiliaLLM.AILIALLMMultimodalChatMessage</a>
+</li>
+<li>media_data
+: <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMultimodalChatMessage.html#a8cfc780d26ddefb473e593ae504c76e4">ailiaLLM.AiliaLLM.AILIALLMMultimodalChatMessage</a>
+, <a class="el" href="classailiaLLM_1_1AiliaLLMMultimodalChatMessage.html#a6c387cac5ddd193c2f260119a33f6d4a">ailiaLLM.AiliaLLMMultimodalChatMessage</a>
+</li>
+<li>media_type
+: <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMediaData.html#a61e4ae46a88c28d14bbab69a784e01b0">ailiaLLM.AiliaLLM.AILIALLMMediaData</a>
+, <a class="el" href="classailiaLLM_1_1AiliaLLMMediaData.html#a45bc9d8ac98a2c2656b84d75032f8187">ailiaLLM.AiliaLLMMediaData</a>
+</li>
+</ul>
+
+
 <h3><a id="index_o"></a>- o -</h3><ul>
 <li>Open()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a9951a6b72080c05f415e98e337bf2ae7">ailiaLLM.AiliaLLMModel</a>
+</li>
+<li>OpenMultimodalProjector()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a64b9e51e487c7bf84215300071d5948f">ailiaLLM.AiliaLLMModel</a>
+</li>
+</ul>
+
+
+<h3><a id="index_p"></a>- p -</h3><ul>
+<li>PromptTokenCount()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#aa3c7663989d814218845165d3ff61ae3">ailiaLLM.AiliaLLMModel</a>
 </li>
 </ul>
 
@@ -185,17 +262,30 @@ $(function() {
 <h3><a id="index_r"></a>- r -</h3><ul>
 <li>role
 : <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIAChatMessage.html#a9767104e80717f7c2e26f47ee506219b">ailiaLLM.AiliaLLM.AILIAChatMessage</a>
+, <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMultimodalChatMessage.html#a03de1918b1278492151b59f113b98c86">ailiaLLM.AiliaLLM.AILIALLMMultimodalChatMessage</a>
 , <a class="el" href="classailiaLLM_1_1AiliaLLMChatMessage.html#a2c307c3647466738aaa49e8b1cd07449">ailiaLLM.AiliaLLMChatMessage</a>
+, <a class="el" href="classailiaLLM_1_1AiliaLLMMultimodalChatMessage.html#a11547a06554cecaac647561eeb0fb275">ailiaLLM.AiliaLLMMultimodalChatMessage</a>
 </li>
 </ul>
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>SetMultimodalPrompt()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a4e8ecd0adc50f72fe1391adc13c77fc8">ailiaLLM.AiliaLLMModel</a>
+</li>
 <li>SetPrompt()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a1167fe00b2598e433b1ef09aa70734c7">ailiaLLM.AiliaLLMModel</a>
 </li>
 <li>SetSamplingParam()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a3f5f06a39299aa83e9bc0dbe79bdefcc">ailiaLLM.AiliaLLMModel</a>
+</li>
+</ul>
+
+
+<h3><a id="index_w"></a>- w -</h3><ul>
+<li>width
+: <a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMediaData.html#ac57d7895bfb8cacd4e6b5950a0f0eb9e">ailiaLLM.AiliaLLM.AILIALLMMediaData</a>
+, <a class="el" href="classailiaLLM_1_1AiliaLLMMediaData.html#a099cb9495f6c2acd00f3506877c3675c">ailiaLLM.AiliaLLMMediaData</a>
 </li>
 </ul>
 </div><!-- contents -->

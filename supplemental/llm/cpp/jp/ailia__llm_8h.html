@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.3.3.0</span>
+   &#160;<span id="projectnumber">1.4.0.0</span>
    </div>
   </td>
  </tr>
@@ -78,12 +78,28 @@ $(function() {
 
 <p>LLM推論ライブラリ  
 <a href="#details">[詳解]</a></p>
-
+<div class="textblock"><code>#include &lt;wchar.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+ailia_llm.h の依存先関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="ailia__llm_8h__incl.png" border="0" usemap="#aailia__llm_8h" alt=""/></div>
+<map name="aailia__llm_8h" id="aailia__llm_8h">
+<area shape="rect" title="LLM推論ライブラリ" alt="" coords="5,5,96,32"/>
+<area shape="rect" title=" " alt="" coords="15,80,87,107"/>
+</map>
+</div>
+</div>
 <p><a href="ailia__llm_8h_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 クラス</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMChatMessage.html">_AILIALLMChatMessage</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html">_AILIALLMMediaData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチモーダル用のメディアデータ構造体。オーディオは現在未サポートで、将来的な実装のために予約されています。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エンコード済みバッファの対応フォーマットはJPG、PNG、TGA、BMP、PSD、GIF、HDR、PICです。  <a href="struct__AILIALLMMediaData.html#details">[詳解]</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMultimodalChatMessage.html">_AILIALLMMultimodalChatMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチモーダル対応チャットメッセージ  <a href="struct__AILIALLMMultimodalChatMessage.html#details">[詳解]</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -117,6 +133,9 @@ $(function() {
 <tr class="memitem:a79bd7f952f014ed738d1753dffade081"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a79bd7f952f014ed738d1753dffade081">AILIA_LLM_STATUS_CONTEXT_FULL</a>&#160;&#160;&#160;(-8)</td></tr>
 <tr class="memdesc:a79bd7f952f014ed738d1753dffade081"><td class="mdescLeft">&#160;</td><td class="mdescRight">コンテキスト長を超えました  <a href="ailia__llm_8h.html#a79bd7f952f014ed738d1753dffade081">[詳解]</a><br /></td></tr>
 <tr class="separator:a79bd7f952f014ed738d1753dffade081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b34aa6721f17cdf6fe5497e3f367f18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a8b34aa6721f17cdf6fe5497e3f367f18">AILIA_LLM_STATUS_ERROR_BUFFER_API</a>&#160;&#160;&#160;(-9)</td></tr>
+<tr class="memdesc:a8b34aa6721f17cdf6fe5497e3f367f18"><td class="mdescLeft">&#160;</td><td class="mdescRight">バッファの読み込みに失敗した  <a href="ailia__llm_8h.html#a8b34aa6721f17cdf6fe5497e3f367f18">[詳解]</a><br /></td></tr>
+<tr class="separator:a8b34aa6721f17cdf6fe5497e3f367f18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab57dfcb2f409a6dbd07bb8423f2addfa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#ab57dfcb2f409a6dbd07bb8423f2addfa">AILIA_LLM_STATUS_UNIMPLEMENTED</a>&#160;&#160;&#160;(-15)</td></tr>
 <tr class="memdesc:ab57dfcb2f409a6dbd07bb8423f2addfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">未実装  <a href="ailia__llm_8h.html#ab57dfcb2f409a6dbd07bb8423f2addfa">[詳解]</a><br /></td></tr>
 <tr class="separator:ab57dfcb2f409a6dbd07bb8423f2addfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +147,12 @@ $(function() {
 型定義</h2></td></tr>
 <tr class="memitem:a54ac4162a7bbc022ceb36634d2c7e632"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct__AILIALLMChatMessage.html">_AILIALLMChatMessage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a54ac4162a7bbc022ceb36634d2c7e632">AILIALLMChatMessage</a></td></tr>
 <tr class="separator:a54ac4162a7bbc022ceb36634d2c7e632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf0f616a753f386a71a9ebcf2858d864"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct__AILIALLMMediaData.html">_AILIALLMMediaData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#aaf0f616a753f386a71a9ebcf2858d864">AILIALLMMediaData</a></td></tr>
+<tr class="memdesc:aaf0f616a753f386a71a9ebcf2858d864"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチモーダル用のメディアデータ構造体。オーディオは現在未サポートで、将来的な実装のために予約されています。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エンコード済みバッファの対応フォーマットはJPG、PNG、TGA、BMP、PSD、GIF、HDR、PICです。  <a href="ailia__llm_8h.html#aaf0f616a753f386a71a9ebcf2858d864">[詳解]</a><br /></td></tr>
+<tr class="separator:aaf0f616a753f386a71a9ebcf2858d864"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8fd3e86dc911ba9dd5462735362df06"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct__AILIALLMMultimodalChatMessage.html">_AILIALLMMultimodalChatMessage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#ac8fd3e86dc911ba9dd5462735362df06">AILIALLMMultimodalChatMessage</a></td></tr>
+<tr class="memdesc:ac8fd3e86dc911ba9dd5462735362df06"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチモーダル対応チャットメッセージ  <a href="ailia__llm_8h.html#ac8fd3e86dc911ba9dd5462735362df06">[詳解]</a><br /></td></tr>
+<tr class="separator:ac8fd3e86dc911ba9dd5462735362df06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 関数</h2></td></tr>
@@ -172,14 +197,25 @@ $(function() {
 <tr class="memitem:acae43f3347fdd12df1a30d9302ff169d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#acae43f3347fdd12df1a30d9302ff169d">ailiaLLMGetGeneratedTokenCount</a> (struct AILIALLM *llm, unsigned int *cnt)</td></tr>
 <tr class="memdesc:acae43f3347fdd12df1a30d9302ff169d"><td class="mdescLeft">&#160;</td><td class="mdescRight">生成したトークンの数を取得します。  <a href="ailia__llm_8h.html#acae43f3347fdd12df1a30d9302ff169d">[詳解]</a><br /></td></tr>
 <tr class="separator:acae43f3347fdd12df1a30d9302ff169d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf9eb2721656c69eca33fbfceaec306d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#adf9eb2721656c69eca33fbfceaec306d">ailiaLLMOpenMultimodalProjectorFileA</a> (struct AILIALLM *llm, const char *mmproj_path)</td></tr>
+<tr class="memdesc:adf9eb2721656c69eca33fbfceaec306d"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチモーダルプロジェクタファイルを読み込みます。  <a href="ailia__llm_8h.html#adf9eb2721656c69eca33fbfceaec306d">[詳解]</a><br /></td></tr>
+<tr class="separator:adf9eb2721656c69eca33fbfceaec306d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51db3ed32efdae0d1eab48d6fcfc08fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a51db3ed32efdae0d1eab48d6fcfc08fc">ailiaLLMOpenMultimodalProjectorFileW</a> (struct AILIALLM *llm, const wchar_t *mmproj_path)</td></tr>
+<tr class="separator:a51db3ed32efdae0d1eab48d6fcfc08fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f8af24efc1b0eafa572828c29bb94d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a5f8af24efc1b0eafa572828c29bb94d2">ailiaLLMGetMultimodalCapabilities</a> (struct AILIALLM *llm, unsigned int *vision_support, unsigned int *audio_support)</td></tr>
+<tr class="memdesc:a5f8af24efc1b0eafa572828c29bb94d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチモーダル機能がサポートされているかを確認します。  <a href="ailia__llm_8h.html#a5f8af24efc1b0eafa572828c29bb94d2">[詳解]</a><br /></td></tr>
+<tr class="separator:a5f8af24efc1b0eafa572828c29bb94d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b6ed4adee89f894289b749bf0898162"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162">ailiaLLMSetMultimodalPrompt</a> (struct AILIALLM *llm, const <a class="el" href="ailia__llm_8h.html#ac8fd3e86dc911ba9dd5462735362df06">AILIALLMMultimodalChatMessage</a> *message, unsigned int message_cnt)</td></tr>
+<tr class="memdesc:a7b6ed4adee89f894289b749bf0898162"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチモーダルプロンプトを設定します。  <a href="ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162">[詳解]</a><br /></td></tr>
+<tr class="separator:a7b6ed4adee89f894289b749bf0898162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa365516599d78f9dc6b633defe1c5a97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#aa365516599d78f9dc6b633defe1c5a97">ailiaLLMDestroy</a> (struct AILIALLM *llm)</td></tr>
 <tr class="memdesc:aa365516599d78f9dc6b633defe1c5a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">LLMオブジェクトを破棄します。  <a href="ailia__llm_8h.html#aa365516599d78f9dc6b633defe1c5a97">[詳解]</a><br /></td></tr>
 <tr class="separator:aa365516599d78f9dc6b633defe1c5a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>LLM推論ライブラリ </p>
-<dl class="section copyright"><dt>著作権所有</dt><dd>AXELL CORPORATION, ax Inc. </dd></dl>
-<dl class="section date"><dt>日付</dt><dd>2024/09/27 </dd></dl>
+<dl class="section copyright"><dt>著作権所有</dt><dd>AXELL CORPORATION, ailia Inc. </dd></dl>
+<dl class="section date"><dt>日付</dt><dd>2026/01/29 </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
 <a id="a3c69aad585c8ee619c34450cb5f35ea9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c69aad585c8ee619c34450cb5f35ea9">&#9670;&nbsp;</a></span>AILIA_LLM_API</h2>
@@ -226,6 +262,23 @@ $(function() {
 
 <p>コンテキスト長を超えました </p>
 <dl class="section remark"><dt>注釈</dt><dd>SetPromptに与えるコンテキスト長を削減してください。 </dd></dl>
+
+</div>
+</div>
+<a id="a8b34aa6721f17cdf6fe5497e3f367f18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b34aa6721f17cdf6fe5497e3f367f18">&#9670;&nbsp;</a></span>AILIA_LLM_STATUS_ERROR_BUFFER_API</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_LLM_STATUS_ERROR_BUFFER_API&#160;&#160;&#160;(-9)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>バッファの読み込みに失敗した </p>
+<dl class="section remark"><dt>注釈</dt><dd>バッファの形式やサイズが正しいことを確認してください。 </dd></dl>
 
 </div>
 </div>
@@ -393,6 +446,38 @@ $(function() {
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf0f616a753f386a71a9ebcf2858d864"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf0f616a753f386a71a9ebcf2858d864">&#9670;&nbsp;</a></span>AILIALLMMediaData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct__AILIALLMMediaData.html">_AILIALLMMediaData</a> <a class="el" href="ailia__llm_8h.html#aaf0f616a753f386a71a9ebcf2858d864">AILIALLMMediaData</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>マルチモーダル用のメディアデータ構造体。オーディオは現在未サポートで、将来的な実装のために予約されています。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エンコード済みバッファの対応フォーマットはJPG、PNG、TGA、BMP、PSD、GIF、HDR、PICです。 </p>
+
+</div>
+</div>
+<a id="ac8fd3e86dc911ba9dd5462735362df06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8fd3e86dc911ba9dd5462735362df06">&#9670;&nbsp;</a></span>AILIALLMMultimodalChatMessage</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct__AILIALLMMultimodalChatMessage.html">_AILIALLMMultimodalChatMessage</a> <a class="el" href="ailia__llm_8h.html#ac8fd3e86dc911ba9dd5462735362df06">AILIALLMMultimodalChatMessage</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>マルチモーダル対応チャットメッセージ </p>
 
 </div>
 </div>
@@ -716,6 +801,52 @@ $(function() {
 
 </div>
 </div>
+<a id="a5f8af24efc1b0eafa572828c29bb94d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f8af24efc1b0eafa572828c29bb94d2">&#9670;&nbsp;</a></span>ailiaLLMGetMultimodalCapabilities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMGetMultimodalCapabilities </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>vision_support</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>audio_support</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>マルチモーダル機能がサポートされているかを確認します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLMオブジェクトポインタ </td></tr>
+    <tr><td class="paramname">vision_support</td><td>画像処理をサポートしているか </td></tr>
+    <tr><td class="paramname">audio_support</td><td>音声処理をサポートしているか </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
+<p>ailiaLLMOpenMultimodalProjectorFileの後に呼び出し可能です。 </p>
+
+</div>
+</div>
 <a id="adb295064cede64f543611c8fc0df0951"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb295064cede64f543611c8fc0df0951">&#9670;&nbsp;</a></span>ailiaLLMGetPromptTokenCount()</h2>
 
@@ -880,6 +1011,119 @@ $(function() {
 
 </div>
 </div>
+<a id="adf9eb2721656c69eca33fbfceaec306d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf9eb2721656c69eca33fbfceaec306d">&#9670;&nbsp;</a></span>ailiaLLMOpenMultimodalProjectorFileA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMOpenMultimodalProjectorFileA </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>mmproj_path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>マルチモーダルプロジェクタファイルを読み込みます。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLMオブジェクトポインタ </td></tr>
+    <tr><td class="paramname">mmproj_path</td><td>MMPROJファイルのパス（GGUF形式） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
+<p>マルチモーダル機能を使用するには、先にailiaLLMOpenModelFileでテキストモデルを読み込み、 その後でこの関数でマルチモーダルプロジェクタを読み込む必要があります。 </p>
+
+</div>
+</div>
+<a id="a51db3ed32efdae0d1eab48d6fcfc08fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51db3ed32efdae0d1eab48d6fcfc08fc">&#9670;&nbsp;</a></span>ailiaLLMOpenMultimodalProjectorFileW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMOpenMultimodalProjectorFileW </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wchar_t *&#160;</td>
+          <td class="paramname"><em>mmproj_path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7b6ed4adee89f894289b749bf0898162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b6ed4adee89f894289b749bf0898162">&#9670;&nbsp;</a></span>ailiaLLMSetMultimodalPrompt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMSetMultimodalPrompt </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="ailia__llm_8h.html#ac8fd3e86dc911ba9dd5462735362df06">AILIALLMMultimodalChatMessage</a> *&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>message_cnt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>マルチモーダルプロンプトを設定します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLMオブジェクトポインタ </td></tr>
+    <tr><td class="paramname">message</td><td>マルチモーダルメッセージの配列 </td></tr>
+    <tr><td class="paramname">message_cnt</td><td>メッセージの数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
+<p>マルチモーダル対応のプロンプトを設定します。メッセージのcontentに&lt;<b>media</b>&gt;プレースホルダーを含め、 対応するメディアデータをmedia_dataに設定してください。 例: "この画像について説明してください: &lt;__media__&gt;" messageの内容は内部でコピーされるため、呼び出し後に開放することができます。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 </p>
+
+</div>
+</div>
 <a id="a0b39179b9fc2b13f30f9b5ff257aaaab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b39179b9fc2b13f30f9b5ff257aaaab">&#9670;&nbsp;</a></span>ailiaLLMSetPrompt()</h2>
 
@@ -922,7 +1166,7 @@ $(function() {
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>LLMに問い合わせるプロンプトを設定します。 ChatHistoryもmessageに含めてください。 </p>
+<p>LLMに問い合わせるプロンプトを設定します。 ChatHistoryもmessageに含めてください。 messageの内容は内部でコピーされるため、呼び出し後に開放することができます。 </p>
 
 </div>
 </div>
