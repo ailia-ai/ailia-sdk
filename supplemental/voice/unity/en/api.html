@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_voice
-   &#160;<span id="projectnumber">1.4.0.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -68,7 +68,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="autotoc_md6"></a>
 Basic Usage</h1>
-<p>Here is an example of speech synthesis using C#. You can obtain an AudioClip by creating an AiliaVoiceModel, loading the AI model with OpenModel, converting to phonemes with G2P, and calling Inference. In the case of GPT-SoVITS, you provide a reference AudioClip with SetReference before calling Inference.</p>
+<p>Here is an example of speech synthesis using C#. You can obtain an AudioClip by creating an AiliaVoiceModel, loading the AI model with OpenModel, converting to phonemes with G2P, and calling Inference. In the case of GPT-SoVITS, you provide a reference AudioClip with SetReference before calling Inference. For GPT-SoVITS v3, load the model with OpenModelV3. For GPT-SoVITS v2-pro, load the model with OpenModelGPTSoVITSV2Pro. You can also change the CFM sampling steps with SetSampleSteps (v3 only).</p>
 <div class="fragment"><div class="line">void Initialize(){</div>
 <div class="line">    bool status = voice.Create(Ailia.AILIA_ENVIRONMENT_ID_AUTO, AiliaVoice.AILIA_VOICE_FLAG_NONE);</div>
 <div class="line"> </div>
@@ -84,11 +84,27 @@ Basic Usage</h1>
 <div class="line">    case MODEL_GPT_SOVITS_JAPANESE:</div>
 <div class="line">        status = voice.OpenModel(path+&quot;onnx/gpt-sovits/t2s_encoder.onnx&quot;, path+&quot;onnx/gpt-sovits/t2s_fsdec.onnx&quot;, path+&quot;onnx/gpt-sovits/t2s_sdec.opt3.onnx&quot;, path+&quot;onnx/gpt-sovits/vits.onnx&quot;, path+&quot;onnx/gpt-sovits/cnhubert.onnx&quot;, AiliaVoice.AILIA_VOICE_MODEL_TYPE_GPT_SOVITS, AiliaVoice.AILIA_VOICE_CLEANER_TYPE_BASIC);</div>
 <div class="line">        break;</div>
+<div class="line">    case MODEL_GPT_SOVITS_V3_JAPANESE:</div>
+<div class="line">        status = voice.OpenModelV3(path+&quot;onnx/gpt-sovits-v3/t2s_encoder.onnx&quot;, path+&quot;onnx/gpt-sovits-v3/t2s_fsdec.onnx&quot;, path+&quot;onnx/gpt-sovits-v3/t2s_sdec.onnx&quot;, path+&quot;onnx/gpt-sovits-v3/cnhubert.onnx&quot;, path+&quot;onnx/gpt-sovits-v3/vq_model.onnx&quot;, path+&quot;onnx/gpt-sovits-v3/vq_cfm.onnx&quot;, path+&quot;onnx/gpt-sovits-v3/bigvgan_model.onnx&quot;, AiliaVoice.AILIA_VOICE_CLEANER_TYPE_BASIC);</div>
+<div class="line">        break;</div>
+<div class="line">    case MODEL_GPT_SOVITS_V2_PRO_JAPANESE:</div>
+<div class="line">        status = voice.OpenModelGPTSoVITSV2Pro(path+&quot;onnx/gpt-sovits-v3/t2s_encoder.onnx&quot;, path+&quot;onnx/gpt-sovits-v3/t2s_fsdec.onnx&quot;, path+&quot;onnx/gpt-sovits-v3/t2s_sdec.opt.onnx&quot;, path+&quot;onnx/gpt-sovits-v3/cnhubert.onnx&quot;, path+&quot;onnx/gpt-sovits-v2-pro/vits.onnx&quot;, path+&quot;onnx/gpt-sovits-v2-pro/sv.onnx&quot;);</div>
+<div class="line">        break;</div>
 <div class="line">    }</div>
 <div class="line"> }</div>
 <div class="line"> </div>
 <div class="line"> void Infer(string text){</div>
 <div class="line">    if (model == MODEL_GPT_SOVITS_JAPANESE){</div>
+<div class="line">        text = voice.G2P(text, AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);</div>
+<div class="line">        string ref_text = voice.G2P(&quot;水をマレーシアから買わなくてはならない。&quot;, AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);</div>
+<div class="line">        voice.SetReference(ref_clip, ref_text);</div>
+<div class="line">    }</div>
+<div class="line">    if (model == MODEL_GPT_SOVITS_V3_JAPANESE){</div>
+<div class="line">        text = voice.G2P(text, AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);</div>
+<div class="line">        string ref_text = voice.G2P(&quot;水をマレーシアから買わなくてはならない。&quot;, AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);</div>
+<div class="line">        voice.SetReference(ref_clip, ref_text);</div>
+<div class="line">    }</div>
+<div class="line">    if (model == MODEL_GPT_SOVITS_V2_PRO_JAPANESE){</div>
 <div class="line">        text = voice.G2P(text, AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);</div>
 <div class="line">        string ref_text = voice.G2P(&quot;水をマレーシアから買わなくてはならない。&quot;, AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);</div>
 <div class="line">        voice.SetReference(ref_clip, ref_text);</div>

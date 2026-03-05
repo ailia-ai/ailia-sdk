@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_voice
-   &#160;<span id="projectnumber">1.4.0.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -66,52 +66,63 @@ $(function() {
 <div class="title">Setup and Build </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md24"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md27"></a>
 Compiler setup</h1>
-<h2><a class="anchor" id="autotoc_md25"></a>
+<h2><a class="anchor" id="autotoc_md28"></a>
 Windows</h2>
 <p>Requirements:</p><ul>
 <li>VisualStudio 2019 and higher</li>
 <li>CMake</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md26"></a>
+<h2><a class="anchor" id="autotoc_md29"></a>
 macOS</h2>
 <p>Requirements:</p><ul>
 <li>Xcode 14.2 and higher</li>
 <li>CMake</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md27"></a>
+<h2><a class="anchor" id="autotoc_md30"></a>
 Linux</h2>
 <p>Requirements:</p><ul>
 <li>clang</li>
 <li>cmake</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 License file placement</h1>
 <p>A license file is required to use the evaluation version. Please place the license file in the folder as described below.</p>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md32"></a>
 Windows</h2>
 <p>Place the license file <code>ailia.lic</code> in the same foolder as <code>ailia.dll</code> (or in the <code>cpp</code> folder if this is the sample).</p>
-<h2><a class="anchor" id="autotoc_md30"></a>
+<h2><a class="anchor" id="autotoc_md33"></a>
 macOS</h2>
 <p>Place the license file <code>ailia.lic</code> in <code>~/Library/SHALO/</code>.</p>
-<h2><a class="anchor" id="autotoc_md31"></a>
+<h2><a class="anchor" id="autotoc_md34"></a>
 Linux</h2>
 <p>Place the license file <code>ailia.lic</code> in <code>~/.shalo/</code>.</p>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md35"></a>
+Downloading models</h1>
+<p>Move to the <code>onnx</code> folder and run the download script.</p>
+<h2><a class="anchor" id="autotoc_md36"></a>
+Windows</h2>
+<div class="fragment"><div class="line">cd onnx</div>
+<div class="line">download_models.bat</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md37"></a>
+macOS / Linux</h2>
+<div class="fragment"><div class="line">cd onnx</div>
+<div class="line">bash download_models.sh</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md38"></a>
 Building the sample</h1>
 <p>Move to the <code>cpp</code> folder, then run the command corresponding to your OS as described below.</p>
-<h2><a class="anchor" id="autotoc_md33"></a>
+<h2><a class="anchor" id="autotoc_md39"></a>
 Windows</h2>
 <div class="fragment"><div class="line">cl ailia_voice_sample.cpp wave_writer.cpp wave_reader.cpp ailia_voice.lib ailia.lib ailia_audio.lib</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md34"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md40"></a>
 macOS</h2>
 <div class="fragment"><div class="line">clang++ -o ailia_voice_sample ailia_voice_sample.cpp wave_writer.cpp wave_reader.cpp libailia_voice.dylib libailia.dylib libailia_audio.dylib -Wl,-rpath,./ -std=c++17</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md35"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md41"></a>
 Linux</h2>
 <div class="fragment"><div class="line">export LD_LIBRARY_PATH=./</div>
 <div class="line">g++ -o ailia_voice_sample ailia_voice_sample.cpp wave_writer.cpp wave_reader.cpp libailia_voice.so libailia.so libailia_audio.so</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md36"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md42"></a>
 Running the sample</h1>
 <p>Run the sample by executing the command below.</p>
 <div class="fragment"><div class="line">./ailia_voice_sample tacotron2</div>
@@ -123,22 +134,22 @@ Running the sample</h1>
 <div class="line">Wave samples : 121344</div>
 <div class="line">Wave channles : 1</div>
 <div class="line">Wave sampling rate : 22050</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md37"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md43"></a>
 Available options when executing the sample</h1>
 <p>The sample executable can take the following options.</p>
-<div class="fragment"><div class="line">./ailia_voice_sample [tacotron2/gpt-sovits/gpt-sovits-en] [input_text]</div>
+<div class="fragment"><div class="line">./ailia_voice_sample [tacotron2/gpt-sovits/gpt-sovits-en/gpt-sovits-zh/gpt-sovits-v2/gpt-sovits-v2-en/gpt-sovits-v2-zh/gpt-sovits-v3/gpt-sovits-v3-en/gpt-sovits-v3-zh] [input_text]</div>
 </div><!-- fragment --><p>See below for details about each argument:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Contents   </th><th class="markdownTableHeadNone">Details    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Model   </td><td class="markdownTableBodyNone">Specify the model to use. For English, specify tacotron2 or gpt-sovits-en, and for Japanese, specify gpt-sovits.    </td></tr>
+<td class="markdownTableBodyNone">Model   </td><td class="markdownTableBodyNone">Specify the model to use. For Japanese, specify gpt-sovits/gpt-sovits-v2/gpt-sovits-v3. For English, specify tacotron2/gpt-sovits-en/gpt-sovits-v2-en/gpt-sovits-v3-en. For Chinese, specify gpt-sovits-zh/gpt-sovits-v2-zh/gpt-sovits-v3-zh.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Input text   </td><td class="markdownTableBodyNone">Indicates the text input file.   </td></tr>
+<td class="markdownTableBodyNone">Input text   </td><td class="markdownTableBodyNone">Specify the text to synthesize.   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md38"></a>
+<h1><a class="anchor" id="autotoc_md44"></a>
 Platform-specific remarks</h1>
-<h2><a class="anchor" id="autotoc_md39"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 Release the 'downloaded' attribute in MacOS</h2>
 <p>Binaries downloaded from the browser in macOS may have a 'downloaded' attribute and may not be able to be executed. In that case, it is possible to remove the attribute by right-clicking on the <code>.dylib</code> file and executing it. You can also release the 'downloaded' attribute by executing the following command from the command line:</p>
 <div class="fragment"><div class="line">xattr -d com.apple.quarantine libailia_voice.dylib</div>

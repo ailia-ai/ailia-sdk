@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_voice
-   &#160;<span id="projectnumber">1.4.0.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -73,20 +73,46 @@ ailia AI Voiceの機能</h1>
 音声合成</h2>
 <h3><a class="anchor" id="autotoc_md46"></a>
 音声合成モデル</h3>
-<p>ailia AI Voiceでは、音声合成のアルゴリズムにTacotron2とGPT-SoVITSを使用することができます。</p>
+<p>ailia AI Voiceでは、音声合成のアルゴリズムにTacotron2とGPT-SoVITS（v1/v2/v2-pro/v3）を使用することができます。</p>
 <h3><a class="anchor" id="autotoc_md47"></a>
+GPT-SoVITSモデルの比較</h3>
+<p>GPT-SoVITSには複数のバージョンがあり、用途に応じて選択できます。</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">項目   </th><th class="markdownTableHeadNone">v1   </th><th class="markdownTableHeadNone">v2   </th><th class="markdownTableHeadNone">v3   </th><th class="markdownTableHeadNone">v2-pro    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">特徴   </td><td class="markdownTableBodyNone">初期モデル   </td><td class="markdownTableBodyNone">アクセント対応を追加   </td><td class="markdownTableBodyNone">高精度な音声合成   </td><td class="markdownTableBodyNone">高速性と精度を両立    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">日本語アクセント   </td><td class="markdownTableBodyNone">なし   </td><td class="markdownTableBodyNone">あり   </td><td class="markdownTableBodyNone">あり   </td><td class="markdownTableBodyNone">あり    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">中国語G2P   </td><td class="markdownTableBodyNone">jieba   </td><td class="markdownTableBodyNone">g2pw + jieba   </td><td class="markdownTableBodyNone">g2pw + jieba   </td><td class="markdownTableBodyNone">g2pw + jieba    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">再生速度の変更   </td><td class="markdownTableBodyNone">不可   </td><td class="markdownTableBodyNone">可能   </td><td class="markdownTableBodyNone">可能   </td><td class="markdownTableBodyNone">可能    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">推論速度   </td><td class="markdownTableBodyNone">高速   </td><td class="markdownTableBodyNone">高速   </td><td class="markdownTableBodyNone">低速   </td><td class="markdownTableBodyNone">高速    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">音声合成方式   </td><td class="markdownTableBodyNone">HiFi-GAN   </td><td class="markdownTableBodyNone">HiFi-GAN   </td><td class="markdownTableBodyNone">CFM+DiT+BigVGAN（拡散モデル）   </td><td class="markdownTableBodyNone">HiFi-GAN + 話者ベクトル    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">出力サンプリングレート   </td><td class="markdownTableBodyNone">32kHz   </td><td class="markdownTableBodyNone">32kHz   </td><td class="markdownTableBodyNone">32kHz   </td><td class="markdownTableBodyNone">32kHz   </td></tr>
+</table>
+<ul>
+<li><b>v1/v2</b> : 軽量で高速に動作するため、リアルタイム性が求められる用途に適しています。v2ではv1に比べて日本語のアクセント（高低）の再現性が向上しています。</li>
+<li><b>v3</b> : 拡散モデル（CFM+DiT）とBigVGANを使用した最高精度のモデルです。音質は最も高いですが、推論に時間がかかります。</li>
+<li><b>v2-pro</b> : GPT-SoVITSの最新モデルです。v3と同じテキスト解析（T2S）パイプラインを使用しつつ、v2ベースの高速なボコーダに話者ベクトル（Speaker Verification）を組み合わせることで、高速な推論と高い音質を両立しています。速度と品質のバランスを重視する場合に推奨されます。</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md48"></a>
 日本語の音声合成</h3>
 <p>日本語を音声合成するには、日本語のテキストを音素に変換する必要があり、音素への変換にはOpenJtalkを使用しています。OpenJtalkはailia AI Voiceのライブラリに内蔵しています。</p>
-<h3><a class="anchor" id="autotoc_md48"></a>
+<h3><a class="anchor" id="autotoc_md49"></a>
 任意の声色での音声合成</h3>
 <p>GPT-SoVITSを使用した場合、10秒程度の音声ファイルを与えることで、任意の声色で音声合成を行うことが可能です。</p>
-<h3><a class="anchor" id="autotoc_md49"></a>
+<h3><a class="anchor" id="autotoc_md50"></a>
 ユーザ辞書</h3>
 <p>ユーザ辞書を定義することで日本語の発音を補正することが可能です。GPT-SoVITS v3の標準のユーザ辞書を使用することも可能です。</p>
 <ul>
 <li><a href="https://storage.googleapis.com/ailia-models/gpt-sovits-v3/user.dict">GPT-SoVTS v3の標準のユーザ辞書</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md50"></a>
+<h2><a class="anchor" id="autotoc_md51"></a>
 GPUの使用</h2>
 <p>WindowsとLinux環境ではcuDNNを使用したGPU推論が可能です。 cuDNNを使用するには、NVIDIAのサイトから、CUDA ToolkitとcuDNNをインストールする必要があります。</p>
 <ul>
@@ -94,7 +120,7 @@ GPUの使用</h2>
 <li><a href="https://developer.nvidia.com/cudnn">cuDNN</a></li>
 </ul>
 <p>CUDA Toolkitはインストーラに沿ってインストールしてください。cuDNNはダウンロード後に、環境変数のPATHに通してください。cuDNNのダウンロードにはNVIDIAのデベロッパー登録が必要です。</p>
-<h2><a class="anchor" id="autotoc_md51"></a>
+<h2><a class="anchor" id="autotoc_md52"></a>
 ユーザ辞書の作成</h2>
 <p>ユーザ辞書を作成するには、下記のようなuserdic.csvを準備します。後半の0/5は、音数が5で、アクセントが0番目にあることを示しています。</p>
 <div class="fragment"><div class="line">超電磁砲,,,1,名詞,固有名詞,一般,*,*,*,超電磁砲,レールガン,レールガン,0/5,*</div>

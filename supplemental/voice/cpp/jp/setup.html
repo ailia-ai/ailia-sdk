@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_voice
-   &#160;<span id="projectnumber">1.4.0.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -90,19 +90,30 @@ macOS</h2>
 Linux</h2>
 <p>~/.shalo/にailia.licを配置します。</p>
 <h1><a class="anchor" id="autotoc_md16"></a>
-サンプルのビルド</h1>
-<p>cppフォルダに移動して、プラットフォーム別のビルドコマンドを実行します。</p>
+モデルのダウンロード</h1>
+<p>onnxフォルダに移動して、ダウンロードスクリプトを実行します。</p>
 <h2><a class="anchor" id="autotoc_md17"></a>
 Windows</h2>
-<div class="fragment"><div class="line">cl ailia_voice_sample.cpp wave_writer.cpp wave_reader.cpp ailia_voice.lib ailia.lib ailia_audio.lib</div>
+<div class="fragment"><div class="line">cd onnx</div>
+<div class="line">download_models.bat</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md18"></a>
+macOS / Linux</h2>
+<div class="fragment"><div class="line">cd onnx</div>
+<div class="line">bash download_models.sh</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md19"></a>
+サンプルのビルド</h1>
+<p>cppフォルダに移動して、プラットフォーム別のビルドコマンドを実行します。</p>
+<h2><a class="anchor" id="autotoc_md20"></a>
+Windows</h2>
+<div class="fragment"><div class="line">cl ailia_voice_sample.cpp wave_writer.cpp wave_reader.cpp ailia_voice.lib ailia.lib ailia_audio.lib</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md21"></a>
 macOS</h2>
 <div class="fragment"><div class="line">clang++ -o ailia_voice_sample ailia_voice_sample.cpp wave_writer.cpp wave_reader.cpp libailia_voice.dylib libailia.dylib libailia_audio.dylib -Wl,-rpath,./ -std=c++17</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md22"></a>
 Linux</h2>
 <div class="fragment"><div class="line">export LD_LIBRARY_PATH=./</div>
 <div class="line">g++ -o ailia_voice_sample ailia_voice_sample.cpp wave_writer.cpp wave_reader.cpp libailia_voice.so libailia.so libailia_audio.so</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md20"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md23"></a>
 サンプルの実行</h1>
 <p>下記のコマンドでサンプルを実行します。</p>
 <div class="fragment"><div class="line">./ailia_voice_sample tacotron2</div>
@@ -114,22 +125,22 @@ Linux</h2>
 <div class="line">Wave samples : 121344</div>
 <div class="line">Wave channles : 1</div>
 <div class="line">Wave sampling rate : 22050</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md21"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
 サンプルで指定可能なオプション</h1>
 <p>サンプルでは下記の引数を順に指定可能です。</p>
-<div class="fragment"><div class="line">./ailia_voice_sample [tacotron2/gpt-sovits/gpt-sovits-en] [input_text]</div>
+<div class="fragment"><div class="line">./ailia_voice_sample [tacotron2/gpt-sovits/gpt-sovits-en/gpt-sovits-zh/gpt-sovits-v2/gpt-sovits-v2-en/gpt-sovits-v2-zh/gpt-sovits-v3/gpt-sovits-v3-en/gpt-sovits-v3-zh] [input_text]</div>
 </div><!-- fragment --><p>各引数の詳細は下記となります。</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">内容   </th><th class="markdownTableHeadNone">詳細    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">モデル   </td><td class="markdownTableBodyNone">使用するモデルを指定します。英語向けにはtacotron2もしくはgpt-sovits-en、日本語向けにはgpt-sovitsを指定します。    </td></tr>
+<td class="markdownTableBodyNone">モデル   </td><td class="markdownTableBodyNone">使用するモデルを指定します。日本語向けにはgpt-sovits/gpt-sovits-v2/gpt-sovits-v3、英語向けにはtacotron2/gpt-sovits-en/gpt-sovits-v2-en/gpt-sovits-v3-en、中国語向けにはgpt-sovits-zh/gpt-sovits-v2-zh/gpt-sovits-v3-zhを指定します。    </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">入力テキスト   </td><td class="markdownTableBodyNone">音声合成するテキストを指定します。   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md25"></a>
 プラットフォーム別の注意点</h1>
-<h2><a class="anchor" id="autotoc_md23"></a>
+<h2><a class="anchor" id="autotoc_md26"></a>
 macOSにおけるダウンロード属性の解除</h2>
 <p>macOSにおいてブラウザからダウンロードしたバイナリには、ダウンロード属性が付与され、実行できない場合があります。 その場合、dylibを右クリックから実行して開くことで、ダウンロード属性を解除することが可能です。 また、コマンドラインから下記のコマンドを実行することでも、ダウンロード属性を解除することが可能です。</p>
 <div class="fragment"><div class="line">xattr -d com.apple.quarantine libailia_voice.dylib</div>

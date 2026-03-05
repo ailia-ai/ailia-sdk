@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_voice
-   &#160;<span id="projectnumber">1.4.0.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -66,28 +66,54 @@ $(function() {
 <div class="title">About feature </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md52"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md53"></a>
 Features of ailia AI Voice</h1>
 <p>In this page, we present the features that are provided by both the C and the C# APIs.</p>
-<h2><a class="anchor" id="autotoc_md53"></a>
+<h2><a class="anchor" id="autotoc_md54"></a>
 Text-to-speech conversion</h2>
-<p>With ailia AI Voice, it is possible to use the Tacotron2 and GPT-SoVITS algorithms for speech synthesis.</p>
-<h3><a class="anchor" id="autotoc_md54"></a>
+<p>With ailia AI Voice, it is possible to use the Tacotron2 and GPT-SoVITS (v1/v2/v2-pro/v3) algorithms for speech synthesis.</p>
+<h3><a class="anchor" id="autotoc_md55"></a>
+GPT-SoVITS Model Comparison</h3>
+<p>GPT-SoVITS is available in multiple versions, each suited for different use cases.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Feature   </th><th class="markdownTableHeadNone">v1   </th><th class="markdownTableHeadNone">v2   </th><th class="markdownTableHeadNone">v3   </th><th class="markdownTableHeadNone">v2-pro    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Highlights   </td><td class="markdownTableBodyNone">Initial model   </td><td class="markdownTableBodyNone">Added accent support   </td><td class="markdownTableBodyNone">High-quality synthesis   </td><td class="markdownTableBodyNone">Fast and high-quality    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Japanese accent   </td><td class="markdownTableBodyNone">No   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Chinese G2P   </td><td class="markdownTableBodyNone">jieba   </td><td class="markdownTableBodyNone">g2pw + jieba   </td><td class="markdownTableBodyNone">g2pw + jieba   </td><td class="markdownTableBodyNone">g2pw + jieba    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Playback speed control   </td><td class="markdownTableBodyNone">No   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes   </td><td class="markdownTableBodyNone">Yes    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Inference speed   </td><td class="markdownTableBodyNone">Fast   </td><td class="markdownTableBodyNone">Fast   </td><td class="markdownTableBodyNone">Slow   </td><td class="markdownTableBodyNone">Fast    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Synthesis method   </td><td class="markdownTableBodyNone">HiFi-GAN   </td><td class="markdownTableBodyNone">HiFi-GAN   </td><td class="markdownTableBodyNone">CFM+DiT+BigVGAN (diffusion)   </td><td class="markdownTableBodyNone">HiFi-GAN + speaker vector    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Output sample rate   </td><td class="markdownTableBodyNone">32kHz   </td><td class="markdownTableBodyNone">32kHz   </td><td class="markdownTableBodyNone">32kHz   </td><td class="markdownTableBodyNone">32kHz   </td></tr>
+</table>
+<ul>
+<li><b>v1/v2</b>: Lightweight and fast, ideal for real-time applications. v2 improves Japanese accent (pitch) reproduction compared to v1.</li>
+<li><b>v3</b>: The highest quality model using diffusion (CFM+DiT) and BigVGAN. Produces the best audio quality but requires more inference time.</li>
+<li><b>v2-pro</b>: The latest GPT-SoVITS model. It combines v3's text analysis (T2S) pipeline with v2's fast vocoder, enhanced with Speaker Verification embeddings for better voice cloning. Recommended when you need a balance of speed and quality.</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md56"></a>
 Text-to-speech model</h3>
 <p>To synthesize Japanese speech, it is necessary to convert Japanese text into phonemes, and OpenJtalk is used for the conversion to phonemes. OpenJtalk is integrated into the ailia AI Voice library.</p>
-<h3><a class="anchor" id="autotoc_md55"></a>
+<h3><a class="anchor" id="autotoc_md57"></a>
 Japanese speech synthesis</h3>
 <p>To synthesize Japanese speech, it is necessary to convert Japanese text into phonemes, and OpenJtalk is used for the conversion to phonemes. OpenJtalk is incorporated into the ailia AI Voice library.</p>
-<h3><a class="anchor" id="autotoc_md56"></a>
+<h3><a class="anchor" id="autotoc_md58"></a>
 Voice synthesis in any tone of voice</h3>
 <p>When using GPT-SoVITS, it is possible to synthesize speech in any voice timbre by providing an audio file of about 10 seconds.</p>
-<h3><a class="anchor" id="autotoc_md57"></a>
+<h3><a class="anchor" id="autotoc_md59"></a>
 User Dictionary</h3>
 <p>By defining a user dictionary, it is possible to correct the pronunciation of Japanese. It is also possible to use the standard user dictionary of GPT-SoVITS v3.</p>
 <ul>
 <li><a href="https://storage.googleapis.com/ailia-models/gpt-sovits-v3/user.dict">Standard user dictionary of GPT-SoVITS v3</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md58"></a>
+<h2><a class="anchor" id="autotoc_md60"></a>
 GPU usage</h2>
 <p>On Windows and Linux, it is possible to perform inference on the GPU with cuDNN. In order to use cuDNN, please install the CUDA Toolkit and cuDNN from the NVIDIA website:</p>
 <ul>
@@ -95,7 +121,7 @@ GPU usage</h2>
 <li><a href="https://developer.nvidia.com/cudnn">cuDNN</a></li>
 </ul>
 <p>Please install the CUDA Toolkit by following the installer instructions. For cuDNN, after downloading it (and uncompressing it) please adjust the environment variable PATH to reflect its location. You need to register as NVIDIA developper in order to download these libraries.</p>
-<h2><a class="anchor" id="autotoc_md59"></a>
+<h2><a class="anchor" id="autotoc_md61"></a>
 Creating a user dictionary</h2>
 <p>To create a user dictionary, prepare a userdic.csv like the one below. The 0/5 at the end indicates that there are 5 morae, and the accent is on the 0th position.</p>
 <div class="fragment"><div class="line">超電磁砲,,,1,名詞,固有名詞,一般,*,*,*,超電磁砲,レールガン,レールガン,0/5,*</div>
