@@ -81,7 +81,10 @@
 @param model_type AILIA_VOICE_MODEL_TYPE_*
 @param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
 @return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</p>
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+この関数は非推奨です。代わりにailiaVoiceOpenTacotron2ModelFileW、ailiaVoiceOpenGPTSoVITSV1ModelFileW、
+ailiaVoiceOpenGPTSoVITSV2ModelFileWを使用してください。</p>
 <p>~english
 @brief Set models into a network instance.
 @param net A network instance pointer
@@ -93,7 +96,10 @@
 @param model_type AILIA_VOICE_MODEL_TYPE_*
 @param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
 @return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.</p>
+If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
+@details
+This function is deprecated. Use ailiaVoiceOpenTacotron2ModelFileW, ailiaVoiceOpenGPTSoVITSV1ModelFileW,
+ailiaVoiceOpenGPTSoVITSV2ModelFileW instead.</p>
 </section>
 
 

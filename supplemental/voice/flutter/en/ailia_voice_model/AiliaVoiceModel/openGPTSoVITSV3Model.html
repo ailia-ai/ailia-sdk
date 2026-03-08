@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the openGPTSoVITSV3Model method from the AiliaVoiceModel class, for the Dart programming language.">
+  <title>openGPTSoVITSV3Model method - AiliaVoiceModel class - ailia_voice_model library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">ailia_voice</a></li>
+    <li><a href="../../ailia_voice_model/">ailia_voice_model.dart</a></li>
+    <li><a href="../../ailia_voice_model/AiliaVoiceModel-class.html">AiliaVoiceModel</a></li>
+    <li class="self-crumb">openGPTSoVITSV3Model method</li>
+  </ol>
+  <div class="self-name">openGPTSoVITSV3Model</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="ailia_voice_model&#47;AiliaVoiceModel-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">openGPTSoVITSV3Model</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype">void</span>
+<span class="name ">openGPTSoVITSV3Model</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="openGPTSoVITSV3Model-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">encoder</span>, </span></li>
+<li><span class="parameter" id="openGPTSoVITSV3Model-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">decoder1</span>, </span></li>
+<li><span class="parameter" id="openGPTSoVITSV3Model-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">decoder2</span>, </span></li>
+<li><span class="parameter" id="openGPTSoVITSV3Model-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">ssl</span>, </span></li>
+<li><span class="parameter" id="openGPTSoVITSV3Model-param-vq"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">vq</span>, </span></li>
+<li><span class="parameter" id="openGPTSoVITSV3Model-param-cfm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">cfm</span>, </span></li>
+<li><span class="parameter" id="openGPTSoVITSV3Model-param-bigvgan"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">bigvgan</span>, </span></li>
+<li><span class="parameter" id="openGPTSoVITSV3Model-param-chineseBert"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">chineseBert</span>, </span></li>
+<li><span class="parameter" id="openGPTSoVITSV3Model-param-vocab"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">vocab</span>, </span></li>
+<li><span class="parameter" id="openGPTSoVITSV3Model-param-envId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">envId</span>, </span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Opens a GPT-SoVITS V3 model.</p>
+<p><code>encoder</code> is the path to the t2s_encoder model file.
+<code>decoder1</code> is the path to the t2s_fsdec model file.
+<code>decoder2</code> is the path to the t2s_sdec model file.
+<code>ssl</code> is the path to the CNHuBERT SSL model file.
+<code>vq</code> is the path to the VQ model file.
+<code>cfm</code> is the path to the CFM model file.
+<code>bigvgan</code> is the path to the BigVGAN model file.
+<code>chineseBert</code> is the path to the Chinese BERT model file (optional).
+<code>vocab</code> is the path to the vocabulary file (optional).
+<code>envId</code> is the execution environment ID.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void openGPTSoVITSV3Model(
+  String encoder,
+  String decoder1,
+  String decoder2,
+  String ssl,
+  String vq,
+  String cfm,
+  String bigvgan,
+  String? chineseBert,
+  String? vocab,
+  int envId,
+) {
+  _create(envId);
+
+  int status;
+  if (Platform.isWindows){
+    status = ailiaVoice.ailiaVoiceOpenGPTSoVITSV3ModelFileW(
+      ppAilia!.value,
+      encoder.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
+      decoder1.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
+      decoder2.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
+      ssl.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
+      vq.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
+      cfm.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
+      bigvgan.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
+      (chineseBert != null) ? chineseBert.toNativeUtf16().cast&lt;ffi.WChar&gt;() : ffi.nullptr,
+      (vocab != null) ? vocab.toNativeUtf16().cast&lt;ffi.WChar&gt;() : ffi.nullptr,
+    );
+  }else{
+    status = ailiaVoice.ailiaVoiceOpenGPTSoVITSV3ModelFileA(
+      ppAilia!.value,
+      encoder.toNativeUtf8().cast&lt;ffi.Char&gt;(),
+      decoder1.toNativeUtf8().cast&lt;ffi.Char&gt;(),
+      decoder2.toNativeUtf8().cast&lt;ffi.Char&gt;(),
+      ssl.toNativeUtf8().cast&lt;ffi.Char&gt;(),
+      vq.toNativeUtf8().cast&lt;ffi.Char&gt;(),
+      cfm.toNativeUtf8().cast&lt;ffi.Char&gt;(),
+      bigvgan.toNativeUtf8().cast&lt;ffi.Char&gt;(),
+      (chineseBert != null) ? chineseBert.toNativeUtf8().cast&lt;ffi.Char&gt;() : ffi.nullptr,
+      (vocab != null) ? vocab.toNativeUtf8().cast&lt;ffi.Char&gt;() : ffi.nullptr,
+    );
+  }
+  throwError(&quot;ailiaVoiceOpenGPTSoVITSV3ModelFile&quot;, status);
+
+  _finalizeOpen();
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">ailia_voice</a></li>
+    <li><a href="../../ailia_voice_model/">ailia_voice_model</a></li>
+    <li><a href="../../ailia_voice_model/AiliaVoiceModel-class.html">AiliaVoiceModel</a></li>
+    <li class="self-crumb">openGPTSoVITSV3Model method</li>
+</ol>
+
+    <h5>AiliaVoiceModel class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    ailia_voice
+      1.5.0
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

@@ -53,6 +53,11 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A wrapper class for ailia Voice.</p>
+<p>Provides text-to-speech functionality using the ailia Voice native library.
+Supports Tacotron2, GPT-SoVITS V1/V2/V3/V2Pro models.</p>
+</section>
 
 
 
@@ -81,7 +86,7 @@
 
 </dt>
 <dd>
-  
+  The handle to the ailia library.
   <div class="features"><span class="feature">getter/setter pair</span></div>
 
 </dd>
@@ -93,7 +98,7 @@
 
 </dt>
 <dd>
-  
+  The handle to the ailia Audio library.
   <div class="features"><span class="feature">getter/setter pair</span></div>
 
 </dd>
@@ -105,7 +110,7 @@
 
 </dt>
 <dd>
-  
+  The ailia Voice FFI instance.
   <div class="features"><span class="feature">getter/setter pair</span></div>
 
 </dd>
@@ -117,7 +122,7 @@
 
 </dt>
 <dd>
-  
+  Whether the model is available for inference.
   <div class="features"><span class="feature">getter/setter pair</span></div>
 
 </dd>
@@ -129,7 +134,7 @@
 
 </dt>
 <dd>
-  
+  Whether to enable debug output.
   <div class="features"><span class="feature">getter/setter pair</span></div>
 
 </dd>
@@ -153,7 +158,7 @@
 
 </dt>
 <dd>
-  
+  The native pointer to the ailia Voice instance.
   <div class="features"><span class="feature">getter/setter pair</span></div>
 
 </dd>
@@ -187,7 +192,7 @@
 
 </dt>
 <dd>
-  
+  Closes the model and releases native resources.
   
 
 </dd>
@@ -200,7 +205,7 @@
 
 </dt>
 <dd>
-  
+  Performs grapheme-to-phoneme (G2P) conversion.
   
 
 </dd>
@@ -213,7 +218,7 @@
 
 </dt>
 <dd>
-  
+  Retrieves the native API callback structure.
   
 
 </dd>
@@ -226,7 +231,7 @@
 
 </dt>
 <dd>
-  
+  Runs speech synthesis inference.
   
 
 </dd>
@@ -252,7 +257,7 @@
 
 </dt>
 <dd>
-  
+  Opens a model and dictionary in a single call (for backward compatibility).
   
 
 </dd>
@@ -265,7 +270,59 @@
 
 </dt>
 <dd>
+  Opens a dictionary for G2P processing.
   
+
+</dd>
+
+        <dt id="openGPTSoVITSV1Model" class="callable">
+  <span class="name"><a href="../ailia_voice_model/AiliaVoiceModel/openGPTSoVITSV1Model.html">openGPTSoVITSV1Model</a></span><span class="signature">(<wbr><span class="parameter" id="openGPTSoVITSV1Model-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="openGPTSoVITSV1Model-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="openGPTSoVITSV1Model-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="openGPTSoVITSV1Model-param-wave"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">wave</span>, </span><span class="parameter" id="openGPTSoVITSV1Model-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">ssl</span>, </span><span class="parameter" id="openGPTSoVITSV1Model-param-envId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">envId</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Opens a GPT-SoVITS V1 model.
+  
+
+</dd>
+
+        <dt id="openGPTSoVITSV2Model" class="callable">
+  <span class="name"><a href="../ailia_voice_model/AiliaVoiceModel/openGPTSoVITSV2Model.html">openGPTSoVITSV2Model</a></span><span class="signature">(<wbr><span class="parameter" id="openGPTSoVITSV2Model-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="openGPTSoVITSV2Model-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="openGPTSoVITSV2Model-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="openGPTSoVITSV2Model-param-wave"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">wave</span>, </span><span class="parameter" id="openGPTSoVITSV2Model-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">ssl</span>, </span><span class="parameter" id="openGPTSoVITSV2Model-param-chineseBert"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">chineseBert</span>, </span><span class="parameter" id="openGPTSoVITSV2Model-param-vocab"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">vocab</span>, </span><span class="parameter" id="openGPTSoVITSV2Model-param-envId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">envId</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Opens a GPT-SoVITS V2 model.
+  
+
+</dd>
+
+        <dt id="openGPTSoVITSV2ProModel" class="callable">
+  <span class="name"><a href="../ailia_voice_model/AiliaVoiceModel/openGPTSoVITSV2ProModel.html">openGPTSoVITSV2ProModel</a></span><span class="signature">(<wbr><span class="parameter" id="openGPTSoVITSV2ProModel-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="openGPTSoVITSV2ProModel-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="openGPTSoVITSV2ProModel-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="openGPTSoVITSV2ProModel-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">ssl</span>, </span><span class="parameter" id="openGPTSoVITSV2ProModel-param-vits"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">vits</span>, </span><span class="parameter" id="openGPTSoVITSV2ProModel-param-sv"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">sv</span>, </span><span class="parameter" id="openGPTSoVITSV2ProModel-param-chineseBert"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">chineseBert</span>, </span><span class="parameter" id="openGPTSoVITSV2ProModel-param-vocab"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">vocab</span>, </span><span class="parameter" id="openGPTSoVITSV2ProModel-param-envId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">envId</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Opens a GPT-SoVITS V2Pro model.
+  
+
+</dd>
+
+        <dt id="openGPTSoVITSV3Model" class="callable">
+  <span class="name"><a href="../ailia_voice_model/AiliaVoiceModel/openGPTSoVITSV3Model.html">openGPTSoVITSV3Model</a></span><span class="signature">(<wbr><span class="parameter" id="openGPTSoVITSV3Model-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="openGPTSoVITSV3Model-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="openGPTSoVITSV3Model-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="openGPTSoVITSV3Model-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">ssl</span>, </span><span class="parameter" id="openGPTSoVITSV3Model-param-vq"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">vq</span>, </span><span class="parameter" id="openGPTSoVITSV3Model-param-cfm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">cfm</span>, </span><span class="parameter" id="openGPTSoVITSV3Model-param-bigvgan"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">bigvgan</span>, </span><span class="parameter" id="openGPTSoVITSV3Model-param-chineseBert"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">chineseBert</span>, </span><span class="parameter" id="openGPTSoVITSV3Model-param-vocab"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">vocab</span>, </span><span class="parameter" id="openGPTSoVITSV3Model-param-envId"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">envId</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Opens a GPT-SoVITS V3 model.
   
 
 </dd>
@@ -278,7 +335,20 @@
 
 </dt>
 <dd>
+  Opens a Tacotron2 model.
   
+
+</dd>
+
+        <dt id="setModelType" class="callable">
+  <span class="name"><a href="../ailia_voice_model/AiliaVoiceModel/setModelType.html">setModelType</a></span><span class="signature">(<wbr><span class="parameter" id="setModelType-param-modelType"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">modelType</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Sets the G2P model type.
   
 
 </dd>
@@ -291,7 +361,33 @@
 
 </dt>
 <dd>
+  Sets the reference audio for voice cloning (GPT-SoVITS models).
   
+
+</dd>
+
+        <dt id="setSampleSteps" class="callable">
+  <span class="name"><a href="../ailia_voice_model/AiliaVoiceModel/setSampleSteps.html">setSampleSteps</a></span><span class="signature">(<wbr><span class="parameter" id="setSampleSteps-param-steps"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">steps</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Sets the number of CFM sampling steps for V3 models.
+  
+
+</dd>
+
+        <dt id="setSpeed" class="callable">
+  <span class="name"><a href="../ailia_voice_model/AiliaVoiceModel/setSpeed.html">setSpeed</a></span><span class="signature">(<wbr><span class="parameter" id="setSpeed-param-speed"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">speed</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Sets the speech speed for V2 and V3 models.
   
 
 </dd>
@@ -304,7 +400,7 @@
 
 </dt>
 <dd>
-  
+  Sets a user dictionary file.
   
 
 </dd>
@@ -317,7 +413,7 @@
 
 </dt>
 <dd>
-  
+  Checks the error code and throws an exception if it indicates failure.
   
 
 </dd>

@@ -69,6 +69,17 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Opens a Tacotron2 model.</p>
+<p><code>encoder</code> is the path to the encoder model file.
+<code>decoder1</code> is the path to the decoder model file.
+<code>decoder2</code> is the path to the postnet model file.
+<code>wave</code> is the path to the waveform generation model file.
+<code>ssl</code> is the path to the SSL model file (null for Tacotron2).
+<code>modelType</code> is the model type constant.
+<code>cleanerType</code> is the cleaner type constant.
+<code>envId</code> is the execution environment ID.</p>
+</section>
 
 
     
@@ -84,35 +95,9 @@
   int cleanerType,
   int envId,
 ) {
-  close();
+  _create(envId);
 
-  ailiaVoice = ailia_voice_dart.ailiaVoiceFFI(
-    _ailiaCommonGetLibrary(_ailiaCommonGetVoicePath()),
-  );
-  ailia = _ailiaCommonGetLibrary(_ailiaCommonGetPath());
-  ailiaAudio = _ailiaCommonGetLibrary(_ailiaCommonGetAudioPath());
-
-  ppAilia = malloc&lt;ffi.Pointer&lt;ailia_voice_dart.AILIAVoice&gt;&gt;();
-
-  ffi.Pointer&lt;ailia_voice_dart.AILIAVoiceApiCallback&gt; callback =
-      getCallback();
-
-  int memoryMode = ailia_voice_dart.AILIA_MEMORY_REDUCE_CONSTANT |
-      ailia_voice_dart.AILIA_MEMORY_REDUCE_CONSTANT_WITH_INPUT_INITIALIZER |
-      ailia_voice_dart.AILIA_MEMORY_REUSE_INTERSTAGE;
-  int flag = ailia_voice_dart.AILIA_VOICE_FLAG_NONE;
-
-  int status = ailiaVoice.ailiaVoiceCreate(
-    ppAilia,
-    envId,
-    ailia_voice_dart.AILIA_MULTITHREAD_AUTO,
-    memoryMode,
-    flag,
-    callback.ref,
-    ailia_voice_dart.AILIA_VOICE_API_CALLBACK_VERSION,
-  );
-  throwError(&quot;ailiaVoiceCreate&quot;, status);
-
+  int status;
   if (Platform.isWindows){
     status = ailiaVoice.ailiaVoiceOpenModelFileW(
       ppAilia!.value,
@@ -138,13 +123,7 @@
   }
   throwError(&quot;ailiaVoiceOpenModelFile&quot;, status);
 
-  malloc.free(callback);
-
-  if (debug){
-    print(&quot;ailia Voice initialize success&quot;);
-  }
-
-  available = true;
+  _finalizeOpen();
 }</code></pre>
 </section>
 
