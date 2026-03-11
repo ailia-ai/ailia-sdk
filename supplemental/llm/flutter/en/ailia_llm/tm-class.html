@@ -11,51 +11,43 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
   <link rel="icon" href="../static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="../" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ailia_llm</a></li>
-    <li><a href="../ailia_llm/ailia_llm-library.html">ailia_llm.dart</a></li>
+    <li><a href="../ailia_llm/">ailia_llm.dart</a></li>
     <li class="self-crumb">tm class</li>
   </ol>
   <div class="self-name">tm</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button">
-    <label for="theme">
-      <input type="checkbox" id="theme" value="light-theme">
-      <span id="dark-theme-button" class="material-symbols-outlined">
-        brightness_4
-      </span>
-      <span id="light-theme-button" class="material-symbols-outlined">
-        brightness_5
-      </span>
-    </label>
-  </div>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
 </header>
 <main>
-
-  <div
-      id="dartdoc-main-content"
-      class="main-content"
-      data-above-sidebar="ailia_llm&#47;ailia_llm-library-sidebar.html"
-      data-below-sidebar="ailia_llm&#47;tm-class-sidebar.html">
-      <div>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="ailia_llm&#47;ailia_llm-library-sidebar.html"
+    data-below-sidebar="ailia_llm&#47;tm-class-sidebar.html">
+    <div>
 <h1><span class="kind-class">tm</span> class 
     <a href="https://dart.dev/language/class-modifiers#final" class="feature feature-final" title="This class can neither be extended, implemented, nor mixed in.">final</a>
  
@@ -71,17 +63,26 @@
   <dd>
     <ul class="gt-separated dark clazz-relationships">
       <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
-        <li><a href="https://api.flutter.dev/flutter/dart-ffi/NativeType-class.html">NativeType</a></li>
         <li><a href="https://api.flutter.dev/flutter/dart-ffi/Struct-class.html">Struct</a></li>
       <li>tm</li>
     </ul>
   </dd>
 
         
+  <dt>Implemented types</dt>
+  <dd>
+    <ul class="comma-separated clazz-relationships">
+        <li><a href="https://api.flutter.dev/flutter/dart-ffi/NativeType-class.html">NativeType</a></li>
+    </ul>
+  </dd>
         
 
 
-
+        
+  <dt>Available extensions</dt>
+  <dd><ul class="comma-separated clazz-relationships">
+      <li><a href="https://api.flutter.dev/flutter/dart-ffi/StructAddress.html">StructAddress</a></li>
+  </ul></dd>
         
 
 
@@ -91,24 +92,41 @@
     
   <section class="summary offset-anchor" id="constructors">
     <h2>Constructors</h2>
-
     <dl class="constructor-summary-list">
-        <dt id="tm" class="callable">
-          <span class="name"><a href="../ailia_llm/tm/tm.html">tm</a></span><span class="signature">()</span>
+        <dt id="tm.new" class="callable">
+          <span class="name"><a href="../ailia_llm/tm/tm.html">tm.new</a></span><span class="signature">()</span>
         </dt>
         <dd>
           
         </dd>
     </dl>
   </section>
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="address" class="property">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-ffi/StructAddress/address.html">address</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
+  
 
-    <section class="summary offset-anchor" id="instance-properties">
-      <h2>Properties</h2>
+</dt>
+<dd>
+      <p class="from-extension">
+        <span>Available on T,
+        provided by the <a href="https://api.flutter.dev/flutter/dart-ffi/StructAddress.html">StructAddress</a> extension</span>
+      </p>
+  The memory address of the underlying data.
+  <div class="features"><span class="feature">no setter</span></div>
 
-      <dl class="properties">
+</dd>
+
         <dt id="hashCode" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd class="inherited">
@@ -119,7 +137,8 @@
 
         <dt id="runtimeType" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
 
 </dt>
 <dd class="inherited">
@@ -128,20 +147,10 @@
 
 </dd>
 
-        <dt id="tm_gmtoff" class="property">
-  <span class="name"><a href="../ailia_llm/tm/tm_gmtoff.html">tm_gmtoff</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
-
-</dt>
-<dd>
-  
-  <div class="features"><span class="feature">getter/setter pair</span></div>
-
-</dd>
-
         <dt id="tm_hour" class="property">
   <span class="name"><a href="../ailia_llm/tm/tm_hour.html">tm_hour</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd>
@@ -152,7 +161,8 @@
 
         <dt id="tm_isdst" class="property">
   <span class="name"><a href="../ailia_llm/tm/tm_isdst.html">tm_isdst</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd>
@@ -163,7 +173,8 @@
 
         <dt id="tm_mday" class="property">
   <span class="name"><a href="../ailia_llm/tm/tm_mday.html">tm_mday</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd>
@@ -174,7 +185,8 @@
 
         <dt id="tm_min" class="property">
   <span class="name"><a href="../ailia_llm/tm/tm_min.html">tm_min</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd>
@@ -185,7 +197,8 @@
 
         <dt id="tm_mon" class="property">
   <span class="name"><a href="../ailia_llm/tm/tm_mon.html">tm_mon</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd>
@@ -196,7 +209,8 @@
 
         <dt id="tm_sec" class="property">
   <span class="name"><a href="../ailia_llm/tm/tm_sec.html">tm_sec</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd>
@@ -207,7 +221,8 @@
 
         <dt id="tm_wday" class="property">
   <span class="name"><a href="../ailia_llm/tm/tm_wday.html">tm_wday</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd>
@@ -218,7 +233,8 @@
 
         <dt id="tm_yday" class="property">
   <span class="name"><a href="../ailia_llm/tm/tm_yday.html">tm_yday</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd>
@@ -229,7 +245,8 @@
 
         <dt id="tm_year" class="property">
   <span class="name"><a href="../ailia_llm/tm/tm_year.html">tm_year</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd>
@@ -238,19 +255,8 @@
 
 </dd>
 
-        <dt id="tm_zone" class="property">
-  <span class="name"><a href="../ailia_llm/tm/tm_zone.html">tm_zone</a></span>
-  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> 
-
-</dt>
-<dd>
-  
-  <div class="features"><span class="feature">getter/setter pair</span></div>
-
-</dd>
-
-      </dl>
-    </section>
+    </dl>
+  </section>
 
     
   <section
@@ -311,9 +317,7 @@
     
     
 
-
   </div> <!-- /.main-content -->
-
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -321,40 +325,30 @@
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">ailia_llm</a></li>
-    <li><a href="../ailia_llm/ailia_llm-library.html">ailia_llm</a></li>
+    <li><a href="../ailia_llm/">ailia_llm</a></li>
     <li class="self-crumb">tm class</li>
 </ol>
-
 
     <h5>ailia_llm library</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div>
-
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
-
 </main>
-
 <footer>
   <span class="no-break">
     ailia_llm
-      1.3.0
+      1.4.0
   </span>
-
   
 </footer>
-
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
 <script src="../static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 

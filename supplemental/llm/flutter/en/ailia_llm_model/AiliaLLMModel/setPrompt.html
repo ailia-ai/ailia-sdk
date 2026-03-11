@@ -11,25 +11,21 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_llm</a></li>
-    <li><a href="../../ailia_llm_model/ailia_llm_model-library.html">ailia_llm_model.dart</a></li>
+    <li><a href="../../ailia_llm_model/">ailia_llm_model.dart</a></li>
     <li><a href="../../ailia_llm_model/AiliaLLMModel-class.html">AiliaLLMModel</a></li>
     <li class="self-crumb">setPrompt method</li>
   </ol>
@@ -37,34 +33,29 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button">
-    <label for="theme">
-      <input type="checkbox" id="theme" value="light-theme">
-      <span id="dark-theme-button" class="material-symbols-outlined">
-        brightness_4
-      </span>
-      <span id="light-theme-button" class="material-symbols-outlined">
-        brightness_5
-      </span>
-    </label>
-  </div>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
 </header>
 <main>
-
-  <div
-      id="dartdoc-main-content"
-      class="main-content"
-      data-above-sidebar="ailia_llm_model&#47;AiliaLLMModel-class-sidebar.html"
-      data-below-sidebar="">
-      <div>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="ailia_llm_model&#47;AiliaLLMModel-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
 <h1><span class="kind-method">setPrompt</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
-
 <span class="returntype">void</span>
-<span class="name ">setPrompt</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="setPrompt-param-messages"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">messages</span></span></li>
+<span class="name ">setPrompt</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="setPrompt-param-messages"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">messages</span></span></li>
 </ol>)
 
       
@@ -72,10 +63,29 @@
     </section>
     
 <section class="desc markdown">
-  <p>Set the prompt to be process by the model.
-The prompt will be formatted according to the selected format.
-messages must be an array of object with two string properties
-named 'role' and 'content'.</p>
+  <p>Set the prompt to be processed by the model.
+The prompt will be formatted according to the selected format.</p>
+<p>This unified method automatically detects if any message contains
+'media_data' and routes to the appropriate internal API:</p>
+<ul>
+<li>If media_data is present: uses SetMultimodalPrompt (requires projector to be loaded)</li>
+<li>If no media_data: uses SetPrompt (text-only path)</li>
+</ul>
+<p>messages must be a list of maps with the following properties:</p>
+<ul>
+<li>'role' (String): The role (e.g., "system", "user", "assistant")</li>
+<li>'content' (String): The text content of the message</li>
+<li>'media_data' (List&lt;Map&lt;String, dynamic&gt;&gt;, optional): Media attachments, each containing:
+<ul>
+<li>'media_type' (String): Type of media (e.g., "image")</li>
+<li>'file_path' (String): Path to the media file</li>
+<li>'width' (int, optional): Media width in pixels</li>
+<li>'height' (int, optional): Media height in pixels</li>
+</ul>
+</li>
+</ul>
+<p>Throws an Exception if media_data is provided but multimodal projector
+is not loaded. Call openMultimodalProjectorFile() first in that case.</p>
 </section>
 
 
@@ -87,60 +97,26 @@ named 'role' and 'content'.</p>
     throw Exception(&quot;ailia LLM not initialized.&quot;);
   }
 
-  &#47;&#47; Allocate an array of ailia_llm_chat_message_t and initialize it
-  &#47;&#47; with the messages data.
-  final messagesPtr =
-      calloc&lt;ailia_llm_dart.AILIALLMChatMessage&gt;(messages.length);
+  bool hasMedia = _hasMediaData(messages);
 
-  try {
-    for (var i = 0; i &lt; messages.length; i++) {
-      if (!messages[i].containsKey(&quot;content&quot;)) {
-        throw Exception(&quot;missing &#39;content&#39; property&quot;);
-      }
-      if (!messages[i].containsKey(&quot;role&quot;)) {
-        throw Exception(&quot;missing &#39;role&#39; property&quot;);
-      }
-
-      final content = messages[i][&#39;content&#39;] as String;
-      final role = messages[i][&#39;role&#39;] as String;
-      final p = messagesPtr[i];
-
-      p.content = content.toNativeUtf8().cast&lt;Char&gt;();
-      p.role = role.toNativeUtf8().cast&lt;Char&gt;();
+  &#47;&#47; If media_data exists, check that the multimodal projector is loaded
+  if (hasMedia) {
+    if (!_multimodalProjectorOpened) {
+      throw Exception(
+          &quot;media_data was provided but multimodal projector is not loaded. &quot;
+          &quot;Call openMultimodalProjectorFile() first to enable multimodal generation.&quot;);
     }
-
-    _contextFull = false;
-    _buf = Uint8List(0);
-    _beforeText = &quot;&quot;;
-
-    int status =
-        dllHandle.ailiaLLMSetPrompt(pLLm.value, messagesPtr, messages.length);
-    if (status != ailia_llm_dart.AILIA_LLM_STATUS_SUCCESS) {
-      if (status == ailia_llm_dart.AILIA_LLM_STATUS_CONTEXT_FULL) {
-        _contextFull = true;
-        return;
-      }
-      throw Exception(&quot;ailiaLLMSetPrompt returned an error status $status&quot;);
-    }
-  } finally {
-    &#47;&#47; free string
-    for (var i = 0; i &lt; messages.length; i++) {
-      final p = messagesPtr[i];
-      if (p.content != nullptr) {
-        malloc.free(p.content);
-      }
-      if (p.role != nullptr) {
-        malloc.free(p.role);
-      }
-    }
-    malloc.free(messagesPtr);
+    &#47;&#47; Use multimodal path
+    _setMultimodalPromptInternal(messages);
+  } else {
+    &#47;&#47; Use text-only path
+    _setTextPromptInternal(messages);
   }
 }</code></pre>
 </section>
 
 
   </div> <!-- /.main-content -->
-
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -148,41 +124,31 @@ named 'role' and 'content'.</p>
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_llm</a></li>
-    <li><a href="../../ailia_llm_model/ailia_llm_model-library.html">ailia_llm_model</a></li>
+    <li><a href="../../ailia_llm_model/">ailia_llm_model</a></li>
     <li><a href="../../ailia_llm_model/AiliaLLMModel-class.html">AiliaLLMModel</a></li>
     <li class="self-crumb">setPrompt method</li>
 </ol>
 
-
     <h5>AiliaLLMModel class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
-
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-  </div><!--/.sidebar-offcanvas-->
-
+</div><!--/.sidebar-offcanvas-->
 </main>
-
 <footer>
   <span class="no-break">
     ailia_llm
-      1.3.0
+      1.4.0
   </span>
-
   
 </footer>
-
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.3.3.0</span>
+   &#160;<span id="projectnumber">1.4.0.0</span>
    </div>
   </td>
  </tr>
@@ -115,13 +115,13 @@ Basic usage</h2>
 <div class="ttc" id="aailia__llm_8h_html_a2c2ed9a36373bc85611086e328f95493"><div class="ttname"><a href="ailia__llm_8h.html#a2c2ed9a36373bc85611086e328f95493">ailiaLLMGetDeltaText</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGetDeltaText(struct AILIALLM *llm, char *text, unsigned int buf_size)</div><div class="ttdoc">Gets the decoded text.</div></div>
 <div class="ttc" id="aailia__llm_8h_html_a55660390df9d7937c0d264f1e32e4322"><div class="ttname"><a href="ailia__llm_8h.html#a55660390df9d7937c0d264f1e32e4322">ailiaLLMGetDeltaTextSize</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGetDeltaTextSize(struct AILIALLM *llm, unsigned int *buf_size)</div><div class="ttdoc">Gets the size of text. (Include null)</div></div>
 <div class="ttc" id="aailia__llm_8h_html_a5dd8bd3eb42561a666a6855759d49a87"><div class="ttname"><a href="ailia__llm_8h.html#a5dd8bd3eb42561a666a6855759d49a87">ailiaLLMGenerate</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGenerate(struct AILIALLM *llm, unsigned int *done)</div><div class="ttdoc">Perform generate.</div></div>
-<div class="ttc" id="aailia__llm_8h_html_a72cbafcad4ce0dd29db5174e4348a67e"><div class="ttname"><a href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a></div><div class="ttdeci">#define AILIA_LLM_STATUS_SUCCESS</div><div class="ttdoc">Successful.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:38</div></div>
+<div class="ttc" id="aailia__llm_8h_html_a72cbafcad4ce0dd29db5174e4348a67e"><div class="ttname"><a href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a></div><div class="ttdeci">#define AILIA_LLM_STATUS_SUCCESS</div><div class="ttdoc">Successful.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:40</div></div>
 <div class="ttc" id="aailia__llm_8h_html_a884a746fb28b8f71fdd846ae50150c3d"><div class="ttname"><a href="ailia__llm_8h.html#a884a746fb28b8f71fdd846ae50150c3d">ailiaLLMOpenModelFileA</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMOpenModelFileA(struct AILIALLM *llm, const char *path, unsigned int n_ctx)</div><div class="ttdoc">Open model file.</div></div>
 <div class="ttc" id="aailia__llm_8h_html_a9ddba82a4cda99e783cb59ff4e30ca2b"><div class="ttname"><a href="ailia__llm_8h.html#a9ddba82a4cda99e783cb59ff4e30ca2b">ailiaLLMCreate</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMCreate(struct AILIALLM **llm)</div><div class="ttdoc">Creates a LLM instance.</div></div>
 <div class="ttc" id="aailia__llm_8h_html_aa365516599d78f9dc6b633defe1c5a97"><div class="ttname"><a href="ailia__llm_8h.html#aa365516599d78f9dc6b633defe1c5a97">ailiaLLMDestroy</a></div><div class="ttdeci">AILIA_LLM_API void ailiaLLMDestroy(struct AILIALLM *llm)</div><div class="ttdoc">It destroys the LLM instance.</div></div>
-<div class="ttc" id="astruct__AILIALLMChatMessage_html"><div class="ttname"><a href="struct__AILIALLMChatMessage.html">_AILIALLMChatMessage</a></div><div class="ttdef"><b>Definition:</b> ailia_llm.h:166</div></div>
-<div class="ttc" id="astruct__AILIALLMChatMessage_html_a0ffec73b21e26a677fbb8ae8576f79c9"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a0ffec73b21e26a677fbb8ae8576f79c9">_AILIALLMChatMessage::content</a></div><div class="ttdeci">const char * content</div><div class="ttdoc">Represent the content of the message.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:174</div></div>
-<div class="ttc" id="astruct__AILIALLMChatMessage_html_a657ea086dd1a07ed3ef23b0602b157ff"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff">_AILIALLMChatMessage::role</a></div><div class="ttdeci">const char * role</div><div class="ttdoc">Represent the role. (system, user, assistant)</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:170</div></div>
+<div class="ttc" id="astruct__AILIALLMChatMessage_html"><div class="ttname"><a href="struct__AILIALLMChatMessage.html">_AILIALLMChatMessage</a></div><div class="ttdef"><b>Definition:</b> ailia_llm.h:180</div></div>
+<div class="ttc" id="astruct__AILIALLMChatMessage_html_a0ffec73b21e26a677fbb8ae8576f79c9"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a0ffec73b21e26a677fbb8ae8576f79c9">_AILIALLMChatMessage::content</a></div><div class="ttdeci">const char * content</div><div class="ttdoc">Represent the content of the message.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:188</div></div>
+<div class="ttc" id="astruct__AILIALLMChatMessage_html_a657ea086dd1a07ed3ef23b0602b157ff"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff">_AILIALLMChatMessage::role</a></div><div class="ttdeci">const char * role</div><div class="ttdoc">Represent the role. (system, user, assistant)</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:184</div></div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
