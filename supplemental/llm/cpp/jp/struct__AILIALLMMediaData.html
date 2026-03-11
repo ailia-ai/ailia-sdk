@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ailia_llm: _AILIALLMMediaData 構造体</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">ailia_llm
+   &#160;<span id="projectnumber">1.4.0.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'検索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">公開変数類</a> &#124;
+<a href="struct__AILIALLMMediaData-members.html">全メンバ一覧</a>  </div>
+  <div class="headertitle">
+<div class="title">_AILIALLMMediaData 構造体</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>マルチモーダル用のメディアデータ構造体。オーディオは現在未サポートで、将来的な実装のために予約されています。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エンコード済みバッファの対応フォーマットはJPG、PNG、TGA、BMP、PSD、GIF、HDR、PICです。  
+ <a href="struct__AILIALLMMediaData.html#details">[詳解]</a></p>
+
+<p><code>#include &lt;<a class="el" href="ailia__llm_8h_source.html">ailia_llm.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+公開変数類</h2></td></tr>
+<tr class="memitem:a43e8d23c34220d44836c17655a3072cf"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">media_type</a></td></tr>
+<tr class="memdesc:a43e8d23c34220d44836c17655a3072cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">メディアタイプ（image, audio）。"audio"は将来の実装のために予約されており、現在はサポートされていません。  <a href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">[詳解]</a><br /></td></tr>
+<tr class="separator:a43e8d23c34220d44836c17655a3072cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a3d02da0966de614e862e96a61e73e"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">file_path</a></td></tr>
+<tr class="memdesc:a27a3d02da0966de614e862e96a61e73e"><td class="mdescLeft">&#160;</td><td class="mdescRight">メディアファイルへのパス（UTF-8）。dataが指定されている場合は無視されます。  <a href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">[詳解]</a><br /></td></tr>
+<tr class="separator:a27a3d02da0966de614e862e96a61e73e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1c38eb55c25fd6988c05c55e4198d91"><td class="memItemLeft" align="right" valign="top">const unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#aa1c38eb55c25fd6988c05c55e4198d91">data</a></td></tr>
+<tr class="memdesc:aa1c38eb55c25fd6988c05c55e4198d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプション：バッファからの画像データ（file_pathの代替）。 width/heightが0の場合はエンコード済みファイルバッファ（JPG、PNG等）として扱われます。 width/heightが指定されている場合はRaw RGBデータ（width * height * 3バイト）として扱われます。  <a href="struct__AILIALLMMediaData.html#aa1c38eb55c25fd6988c05c55e4198d91">[詳解]</a><br /></td></tr>
+<tr class="separator:aa1c38eb55c25fd6988c05c55e4198d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a012017da38c61ff839def6195ff07bf3"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#a012017da38c61ff839def6195ff07bf3">data_size</a></td></tr>
+<tr class="memdesc:a012017da38c61ff839def6195ff07bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">バッファのサイズ（dataパラメータと共に使用）  <a href="struct__AILIALLMMediaData.html#a012017da38c61ff839def6195ff07bf3">[詳解]</a><br /></td></tr>
+<tr class="separator:a012017da38c61ff839def6195ff07bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a694ce972c5db3a8429eb340bcd3e50aa"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#a694ce972c5db3a8429eb340bcd3e50aa">width</a></td></tr>
+<tr class="memdesc:a694ce972c5db3a8429eb340bcd3e50aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">画像の幅（ピクセル）。Raw RGBデータの場合のみ指定。エンコード済みバッファの場合は0を指定。  <a href="struct__AILIALLMMediaData.html#a694ce972c5db3a8429eb340bcd3e50aa">[詳解]</a><br /></td></tr>
+<tr class="separator:a694ce972c5db3a8429eb340bcd3e50aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b749d1571956d676066b6ce49c274ec"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#a9b749d1571956d676066b6ce49c274ec">height</a></td></tr>
+<tr class="memdesc:a9b749d1571956d676066b6ce49c274ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">画像の高さ（ピクセル）。Raw RGBデータの場合のみ指定。エンコード済みバッファの場合は0を指定。  <a href="struct__AILIALLMMediaData.html#a9b749d1571956d676066b6ce49c274ec">[詳解]</a><br /></td></tr>
+<tr class="separator:a9b749d1571956d676066b6ce49c274ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>マルチモーダル用のメディアデータ構造体。オーディオは現在未サポートで、将来的な実装のために予約されています。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エンコード済みバッファの対応フォーマットはJPG、PNG、TGA、BMP、PSD、GIF、HDR、PICです。 </p>
+</div><h2 class="groupheader">メンバ詳解</h2>
+<a id="aa1c38eb55c25fd6988c05c55e4198d91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1c38eb55c25fd6988c05c55e4198d91">&#9670;&nbsp;</a></span>data</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned char* _AILIALLMMediaData::data</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>オプション：バッファからの画像データ（file_pathの代替）。 width/heightが0の場合はエンコード済みファイルバッファ（JPG、PNG等）として扱われます。 width/heightが指定されている場合はRaw RGBデータ（width * height * 3バイト）として扱われます。 </p>
+
+</div>
+</div>
+<a id="a012017da38c61ff839def6195ff07bf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a012017da38c61ff839def6195ff07bf3">&#9670;&nbsp;</a></span>data_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int _AILIALLMMediaData::data_size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>バッファのサイズ（dataパラメータと共に使用） </p>
+
+</div>
+</div>
+<a id="a27a3d02da0966de614e862e96a61e73e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27a3d02da0966de614e862e96a61e73e">&#9670;&nbsp;</a></span>file_path</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* _AILIALLMMediaData::file_path</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>メディアファイルへのパス（UTF-8）。dataが指定されている場合は無視されます。 </p>
+
+</div>
+</div>
+<a id="a9b749d1571956d676066b6ce49c274ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b749d1571956d676066b6ce49c274ec">&#9670;&nbsp;</a></span>height</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int _AILIALLMMediaData::height</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>画像の高さ（ピクセル）。Raw RGBデータの場合のみ指定。エンコード済みバッファの場合は0を指定。 </p>
+
+</div>
+</div>
+<a id="a43e8d23c34220d44836c17655a3072cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43e8d23c34220d44836c17655a3072cf">&#9670;&nbsp;</a></span>media_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* _AILIALLMMediaData::media_type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>メディアタイプ（image, audio）。"audio"は将来の実装のために予約されており、現在はサポートされていません。 </p>
+
+</div>
+</div>
+<a id="a694ce972c5db3a8429eb340bcd3e50aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a694ce972c5db3a8429eb340bcd3e50aa">&#9670;&nbsp;</a></span>width</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int _AILIALLMMediaData::width</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>画像の幅（ピクセル）。Raw RGBデータの場合のみ指定。エンコード済みバッファの場合は0を指定。 </p>
+
+</div>
+</div>
+<hr/>この構造体詳解は次のファイルから抽出されました:<ul>
+<li><a class="el" href="ailia__llm_8h_source.html">ailia_llm.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

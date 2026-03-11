@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.3.3.0</span>
+   &#160;<span id="projectnumber">1.4.0.0</span>
    </div>
   </td>
  </tr>
@@ -80,6 +80,12 @@ $(function() {
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIAChatMessage.html">AILIAChatMessage</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMediaData.html">AILIALLMMediaData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Media data structure for multimodal processing.  <a href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMediaData.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMultimodalChatMessage.html">AILIALLMMultimodalChatMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multimodal chat message with media attachments.  <a href="classailiaLLM_1_1AiliaLLM_1_1AILIALLMMultimodalChatMessage.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -113,6 +119,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae14bac2aaf0d16fce47bf57d2f2c1422"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#ae14bac2aaf0d16fce47bf57d2f2c1422">ailiaLLMGetGeneratedTokenCount</a> (IntPtr llm, ref uint cnt)</td></tr>
 <tr class="memdesc:ae14bac2aaf0d16fce47bf57d2f2c1422"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the count of prompt token.  <a href="classailiaLLM_1_1AiliaLLM.html#ae14bac2aaf0d16fce47bf57d2f2c1422">More...</a><br /></td></tr>
 <tr class="separator:ae14bac2aaf0d16fce47bf57d2f2c1422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40c7d5ae8ba03610d1be543f2d9ae38d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a40c7d5ae8ba03610d1be543f2d9ae38d">ailiaLLMGetContextSize</a> (IntPtr llm, ref uint context_size)</td></tr>
+<tr class="memdesc:a40c7d5ae8ba03610d1be543f2d9ae38d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the size of context.  <a href="classailiaLLM_1_1AiliaLLM.html#a40c7d5ae8ba03610d1be543f2d9ae38d">More...</a><br /></td></tr>
+<tr class="separator:a40c7d5ae8ba03610d1be543f2d9ae38d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b15e5f0cf6582a8f8884f297829198"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#ab4b15e5f0cf6582a8f8884f297829198">ailiaLLMOpenMultimodalProjectorFile</a> (IntPtr llm, string mmproj_path)</td></tr>
+<tr class="memdesc:ab4b15e5f0cf6582a8f8884f297829198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load multimodal projector file.  <a href="classailiaLLM_1_1AiliaLLM.html#ab4b15e5f0cf6582a8f8884f297829198">More...</a><br /></td></tr>
+<tr class="separator:ab4b15e5f0cf6582a8f8884f297829198"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe8feee1d4f1ace9dfe2790cfd35959d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#afe8feee1d4f1ace9dfe2790cfd35959d">ailiaLLMGetMultimodalCapabilities</a> (IntPtr llm, ref uint vision_support, ref uint audio_support)</td></tr>
+<tr class="memdesc:afe8feee1d4f1ace9dfe2790cfd35959d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if multimodal features are supported.  <a href="classailiaLLM_1_1AiliaLLM.html#afe8feee1d4f1ace9dfe2790cfd35959d">More...</a><br /></td></tr>
+<tr class="separator:afe8feee1d4f1ace9dfe2790cfd35959d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c4c91514abfd922ee11ffdb67e9be57"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a6c4c91514abfd922ee11ffdb67e9be57">ailiaLLMSetMultimodalPrompt</a> (IntPtr llm, IntPtr messages, uint messages_len)</td></tr>
+<tr class="memdesc:a6c4c91514abfd922ee11ffdb67e9be57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set multimodal prompt.  <a href="classailiaLLM_1_1AiliaLLM.html#a6c4c91514abfd922ee11ffdb67e9be57">More...</a><br /></td></tr>
+<tr class="separator:a6c4c91514abfd922ee11ffdb67e9be57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad792a5d7b5ac83ef1af42a8b8d7ed603"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#ad792a5d7b5ac83ef1af42a8b8d7ed603">ailiaLLMGetBackendCount</a> (ref uint env_count)</td></tr>
+<tr class="memdesc:ad792a5d7b5ac83ef1af42a8b8d7ed603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of available computational environments (CPU, GPU).  <a href="classailiaLLM_1_1AiliaLLM.html#ad792a5d7b5ac83ef1af42a8b8d7ed603">More...</a><br /></td></tr>
+<tr class="separator:ad792a5d7b5ac83ef1af42a8b8d7ed603"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d50c364dbf2df7fe152c3da6af9f857"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a7d50c364dbf2df7fe152c3da6af9f857">ailiaLLMGetBackendName</a> (ref IntPtr env, uint env_idx)</td></tr>
+<tr class="memdesc:a7d50c364dbf2df7fe152c3da6af9f857"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the list of computational environments.  <a href="classailiaLLM_1_1AiliaLLM.html#a7d50c364dbf2df7fe152c3da6af9f857">More...</a><br /></td></tr>
+<tr class="separator:a7d50c364dbf2df7fe152c3da6af9f857"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a7432fef0b41ea6ff5cc889efece1f0f7">ailiaLLMDestroy</a> (IntPtr llm)</td></tr>
 <tr class="memdesc:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">It destroys the LLM instance.  <a href="classailiaLLM_1_1AiliaLLM.html#a7432fef0b41ea6ff5cc889efece1f0f7">More...</a><br /></td></tr>
 <tr class="separator:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,6 +163,8 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:abde85b4f48768ce549b22caa55249ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a724d240075439199bde4c8d3055b8648"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a724d240075439199bde4c8d3055b8648">AILIA_LLM_STATUS_CONTEXT_FULL</a> = (-8)</td></tr>
 <tr class="separator:a724d240075439199bde4c8d3055b8648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7abb46a4ff7a0a8c7e35d438fc08eaf"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#ae7abb46a4ff7a0a8c7e35d438fc08eaf">AILIA_LLM_STATUS_ERROR_BUFFER_API</a> = (-9)</td></tr>
+<tr class="separator:ae7abb46a4ff7a0a8c7e35d438fc08eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06511cd041a06428846d612cd48fd706"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a06511cd041a06428846d612cd48fd706">AILIA_LLM_STATUS_UNIMPLEMENTED</a> = (-15)</td></tr>
 <tr class="separator:a06511cd041a06428846d612cd48fd706"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d58100a7aa2dbd2a15f8a38cf5999fc"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a2d58100a7aa2dbd2a15f8a38cf5999fc">AILIA_LLM_STATUS_OTHER_ERROR</a> = (-128)</td></tr>
@@ -235,6 +261,109 @@ Static Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
 <p>The decoded result is obtained through the ailiaLLMGetDeltaText API. Each call to ailiaLLMGenerate decodes one token at a time. The value of done is 0 or 1. If done is 1, the generation is complete. </p>
+
+</div>
+</div>
+<a id="ad792a5d7b5ac83ef1af42a8b8d7ed603"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad792a5d7b5ac83ef1af42a8b8d7ed603">&#9670;&nbsp;</a></span>ailiaLLMGetBackendCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMGetBackendCount </td>
+          <td>(</td>
+          <td class="paramtype">ref uint&#160;</td>
+          <td class="paramname"><em>env_count</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the number of available computational environments (CPU, GPU). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">env_count</td><td>The storage location of the number of computational environment information </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a7d50c364dbf2df7fe152c3da6af9f857"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d50c364dbf2df7fe152c3da6af9f857">&#9670;&nbsp;</a></span>ailiaLLMGetBackendName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMGetBackendName </td>
+          <td>(</td>
+          <td class="paramtype">ref IntPtr&#160;</td>
+          <td class="paramname"><em>env</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>env_idx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the list of computational environments. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">env</td><td>The storage location of the computational environment information (valid until the AILIANetwork instance is destroyed) </td></tr>
+    <tr><td class="paramname">env_idx</td><td>The index of the computational environment information (0 to <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ad792a5d7b5ac83ef1af42a8b8d7ed603" title="Gets the number of available computational environments (CPU, GPU).">ailiaLLMGetBackendCount()</a> -1) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a40c7d5ae8ba03610d1be543f2d9ae38d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40c7d5ae8ba03610d1be543f2d9ae38d">&#9670;&nbsp;</a></span>ailiaLLMGetContextSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMGetContextSize </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ref uint&#160;</td>
+          <td class="paramname"><em>context_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the size of context. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>A LLM instance pointer </td></tr>
+    <tr><td class="paramname">context_size</td><td>The length of context </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise. </dd></dl>
 
 </div>
 </div>
@@ -358,6 +487,52 @@ Static Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
 <p>It can be called after calling ailiaLLMGenerate. </p>
+
+</div>
+</div>
+<a id="afe8feee1d4f1ace9dfe2790cfd35959d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe8feee1d4f1ace9dfe2790cfd35959d">&#9670;&nbsp;</a></span>ailiaLLMGetMultimodalCapabilities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMGetMultimodalCapabilities </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ref uint&#160;</td>
+          <td class="paramname"><em>vision_support</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ref uint&#160;</td>
+          <td class="paramname"><em>audio_support</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if multimodal features are supported. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>A LLM instance pointer </td></tr>
+    <tr><td class="paramname">vision_support</td><td>Whether image processing is supported </td></tr>
+    <tr><td class="paramname">audio_support</td><td>Whether audio processing is supported </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
+<p>Can be called after ailiaLLMOpenMultimodalProjectorFile. </p>
 
 </div>
 </div>
@@ -488,6 +663,91 @@ Static Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
 <p>Open a model file for GGUF. </p>
+
+</div>
+</div>
+<a id="ab4b15e5f0cf6582a8f8884f297829198"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4b15e5f0cf6582a8f8884f297829198">&#9670;&nbsp;</a></span>ailiaLLMOpenMultimodalProjectorFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMOpenMultimodalProjectorFile </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>mmproj_path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load multimodal projector file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>A LLM instance pointer </td></tr>
+    <tr><td class="paramname">mmproj_path</td><td>Path to the MMPROJ file (GGUF format) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
+<p>To use multimodal features, you must first load the text model with ailiaLLMOpenModelFile, then load the multimodal projector with this function. </p>
+
+</div>
+</div>
+<a id="a6c4c91514abfd922ee11ffdb67e9be57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c4c91514abfd922ee11ffdb67e9be57">&#9670;&nbsp;</a></span>ailiaLLMSetMultimodalPrompt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMSetMultimodalPrompt </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>messages</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>messages_len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set multimodal prompt. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>A LLM instance pointer </td></tr>
+    <tr><td class="paramname">message</td><td>Array of multimodal messages </td></tr>
+    <tr><td class="paramname">message_cnt</td><td>Number of messages </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
+<p>Set multimodal prompt. Include &lt;<b>media</b>&gt; placeholders in message content, and set corresponding media data in media_data. Example: "Describe this image: &lt;__media__&gt;" </p>
 
 </div>
 </div>
@@ -631,6 +891,28 @@ Static Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const int ailiaLLM.AiliaLLM.AILIA_LLM_STATUS_CONTEXT_FULL = (-8)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7abb46a4ff7a0a8c7e35d438fc08eaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7abb46a4ff7a0a8c7e35d438fc08eaf">&#9670;&nbsp;</a></span>AILIA_LLM_STATUS_ERROR_BUFFER_API</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int ailiaLLM.AiliaLLM.AILIA_LLM_STATUS_ERROR_BUFFER_API = (-9)</td>
         </tr>
       </table>
   </td>
