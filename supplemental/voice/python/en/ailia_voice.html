@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ailia_voice package &mdash; ailia Voice Python API 1.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
       <script src="_static/documentation_options.js?v=fc837d61"></script>
@@ -52,6 +52,7 @@
 <li><a class="reference internal" href="#ailia_voice.GPTSoVITS"><code class="docutils literal notranslate"><span class="pre">GPTSoVITS</span></code></a><ul>
 <li><a class="reference internal" href="#ailia_voice.GPTSoVITS.initialize_model"><code class="docutils literal notranslate"><span class="pre">GPTSoVITS.initialize_model()</span></code></a></li>
 <li><a class="reference internal" href="#ailia_voice.GPTSoVITS.set_reference_audio"><code class="docutils literal notranslate"><span class="pre">GPTSoVITS.set_reference_audio()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITS.set_speed"><code class="docutils literal notranslate"><span class="pre">GPTSoVITS.set_speed()</span></code></a></li>
 <li><a class="reference internal" href="#ailia_voice.GPTSoVITS.synthesize_voice"><code class="docutils literal notranslate"><span class="pre">GPTSoVITS.synthesize_voice()</span></code></a></li>
 </ul>
 </li>
@@ -146,13 +147,16 @@ To retrieve memory_mode value, use ailia.get_memory_mode() .</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ailia_voice.G2P.initialize_model">
-<span class="sig-name descname"><span class="pre">initialize_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_dict_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.G2P.initialize_model" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">initialize_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_dict_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chinese</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.G2P.initialize_model" title="Link to this definition">¶</a></dt>
 <dd><p>Initialize and download the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: &quot;./&quot;</em>) – Destination for saving the model file</p></li>
 <li><p><strong>user_dict_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Specify the path of the user dictionary. The user dictionary is in mecab format.</p></li>
+<li><p><strong>chinese</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default: False</em>) – Enable Chinese language support by downloading and loading Chinese G2P dictionary.</p></li>
+<li><p><strong>model_type</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: AILIA_VOICE_MODEL_TYPE_GPT_SOVITS</em>) – Model type for G2P processing. Specify with AILIA_VOICE_MODEL_TYPE_*.
+This determines the G2P behavior (e.g., V1/V2 vs V3 phoneme format).</p></li>
 </ul>
 </dd>
 </dl>
@@ -166,13 +170,14 @@ To retrieve memory_mode value, use ailia.get_memory_mode() .</p></li>
 <dd><p>Bases: <a class="reference internal" href="#ailia_voice.G2P" title="ailia_voice.G2P"><code class="xref py py-class docutils literal notranslate"><span class="pre">G2P</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ailia_voice.GPTSoVITS.initialize_model">
-<span class="sig-name descname"><span class="pre">initialize_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_dict_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITS.initialize_model" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">initialize_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_dict_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chinese</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITS.initialize_model" title="Link to this definition">¶</a></dt>
 <dd><p>Initialize and download the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: &quot;./&quot;</em>) – Destination for saving the model file.</p></li>
 <li><p><strong>user_dict_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Specify the path of the user dictionary. The user dictionary is in mecab format.</p></li>
+<li><p><strong>chinese</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default: False</em>) – Enable Chinese language support by downloading and loading Chinese G2P dictionary.</p></li>
 </ul>
 </dd>
 </dl>
@@ -190,6 +195,18 @@ To retrieve memory_mode value, use ailia.get_memory_mode() .</p></li>
 <li><p><strong>audio_waveform</strong> (<em>np.ndarray</em>) – PCM data, formatted as either <cite>(num_samples)</cite> or <cite>(channels, num_samples)</cite>.</p></li>
 <li><p><strong>sampling_rate</strong> (<em>int</em>) – Sampling rate (Hz).</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITS.set_speed">
+<span class="sig-name descname"><span class="pre">set_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITS.set_speed" title="Link to this definition">¶</a></dt>
+<dd><p>Set the speech speed for synthesis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>speed</strong> (<em>float</em>) – Speed value (default 1.0, must be greater than 0).
+Values &lt; 1.0 produce slower speech, &gt; 1.0 produce faster speech.</p>
 </dd>
 </dl>
 </dd></dl>

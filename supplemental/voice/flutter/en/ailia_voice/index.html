@@ -1,0 +1,2669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="ailia_voice library API docs, for the Dart programming language.">
+  <title>ailia_voice library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ailia_voice</a></li>
+    <li class="self-crumb">ailia_voice.dart</li>
+  </ol>
+  <div class="self-name">ailia_voice</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar=""
+    data-below-sidebar="ailia_voice&#47;ailia_voice-library-sidebar.html">
+  
+    <div>
+      
+
+      <h1>
+        <span class="kind-library">ailia_voice</span>
+        library 
+ 
+
+      </h1>
+    </div>
+
+    
+
+
+    <section class="summary offset-anchor" id="classes">
+      <h2>Classes</h2>
+      <dl>
+          <dt id="AILIANetwork">
+  <span class="name "><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span> 
+
+</dt>
+<dd>
+  ネットワークオブジェクトのインスタンス
+</dd>
+
+          <dt id="AILIAVoice">
+  <span class="name "><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span> 
+
+</dt>
+<dd>
+  ボイスオブジェクトのインスタンス
+</dd>
+
+          <dt id="ailiaVoiceFFI">
+  <span class="name "><a href="../ailia_voice/ailiaVoiceFFI-class.html">ailiaVoiceFFI</a></span> 
+
+</dt>
+<dd>
+  Written for the FFI article
+</dd>
+
+      </dl>
+    </section>
+
+
+
+
+
+    <section class="summary offset-anchor" id="constants">
+      <h2>Constants</h2>
+      <dl class="properties">
+          <dt id="AILIA_AUDIO_FFT_NORMALIZE_LIBROSA_COMPAT" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_FFT_NORMALIZE_LIBROSA_COMPAT-constant.html">AILIA_AUDIO_FFT_NORMALIZE_LIBROSA_COMPAT</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_FFT_NORMALIZE_NONE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_FFT_NORMALIZE_NONE-constant.html">AILIA_AUDIO_FFT_NORMALIZE_NONE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_FFT_NORMALIZE_PYTORCH_COMPAT" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_FFT_NORMALIZE_PYTORCH_COMPAT-constant.html">AILIA_AUDIO_FFT_NORMALIZE_PYTORCH_COMPAT</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_FFT_NORMALIZE_SCIPY_COMPAT" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_FFT_NORMALIZE_SCIPY_COMPAT-constant.html">AILIA_AUDIO_FFT_NORMALIZE_SCIPY_COMPAT</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_FILTFILT_PAD_CONSTANT" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_FILTFILT_PAD_CONSTANT-constant.html">AILIA_AUDIO_FILTFILT_PAD_CONSTANT</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_FILTFILT_PAD_EVEN" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_FILTFILT_PAD_EVEN-constant.html">AILIA_AUDIO_FILTFILT_PAD_EVEN</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_FILTFILT_PAD_NONE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_FILTFILT_PAD_NONE-constant.html">AILIA_AUDIO_FILTFILT_PAD_NONE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_FILTFILT_PAD_ODD" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_FILTFILT_PAD_ODD-constant.html">AILIA_AUDIO_FILTFILT_PAD_ODD</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_MEL_NORMALIZE_ENABLE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_MEL_NORMALIZE_ENABLE-constant.html">AILIA_AUDIO_MEL_NORMALIZE_ENABLE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_MEL_NORMALIZE_NONE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_MEL_NORMALIZE_NONE-constant.html">AILIA_AUDIO_MEL_NORMALIZE_NONE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_MEL_SCALE_FORMULA_HTK" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_MEL_SCALE_FORMULA_HTK-constant.html">AILIA_AUDIO_MEL_SCALE_FORMULA_HTK</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_MEL_SCALE_FORMULA_SLANYE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_MEL_SCALE_FORMULA_SLANYE-constant.html">AILIA_AUDIO_MEL_SCALE_FORMULA_SLANYE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_PHASE_FORM_COMPLEX" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_PHASE_FORM_COMPLEX-constant.html">AILIA_AUDIO_PHASE_FORM_COMPLEX</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_PHASE_FORM_REAL" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_PHASE_FORM_REAL-constant.html">AILIA_AUDIO_PHASE_FORM_REAL</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_STFT_CENTER_ENABLE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_STFT_CENTER_ENABLE-constant.html">AILIA_AUDIO_STFT_CENTER_ENABLE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_STFT_CENTER_NONE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_STFT_CENTER_NONE-constant.html">AILIA_AUDIO_STFT_CENTER_NONE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_STFT_CENTER_SCIPY_DEFAULT" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_STFT_CENTER_SCIPY_DEFAULT-constant.html">AILIA_AUDIO_STFT_CENTER_SCIPY_DEFAULT</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_WIN_TYPE_HAMMING" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_WIN_TYPE_HAMMING-constant.html">AILIA_AUDIO_WIN_TYPE_HAMMING</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_AUDIO_WIN_TYPE_HANN" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_AUDIO_WIN_TYPE_HANN-constant.html">AILIA_AUDIO_WIN_TYPE_HANN</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_BFLOAT16" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_BFLOAT16-constant.html">AILIA_DATATYPE_BFLOAT16</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_BOOL" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_BOOL-constant.html">AILIA_DATATYPE_BOOL</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_DOUBLE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_DOUBLE-constant.html">AILIA_DATATYPE_DOUBLE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_FLOAT" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_FLOAT-constant.html">AILIA_DATATYPE_FLOAT</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_FLOAT16" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_FLOAT16-constant.html">AILIA_DATATYPE_FLOAT16</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_INT16" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_INT16-constant.html">AILIA_DATATYPE_INT16</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_INT32" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_INT32-constant.html">AILIA_DATATYPE_INT32</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_INT64" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_INT64-constant.html">AILIA_DATATYPE_INT64</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_INT8" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_INT8-constant.html">AILIA_DATATYPE_INT8</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_UINT16" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_UINT16-constant.html">AILIA_DATATYPE_UINT16</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_UINT32" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_UINT32-constant.html">AILIA_DATATYPE_UINT32</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_UINT64" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_UINT64-constant.html">AILIA_DATATYPE_UINT64</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_UINT8" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_UINT8-constant.html">AILIA_DATATYPE_UINT8</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_DATATYPE_UNDEFINED" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_DATATYPE_UNDEFINED-constant.html">AILIA_DATATYPE_UNDEFINED</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_BACKEND_CUDA" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_BACKEND_CUDA-constant.html">AILIA_ENVIRONMENT_BACKEND_CUDA</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_BACKEND_MPS" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_BACKEND_MPS-constant.html">AILIA_ENVIRONMENT_BACKEND_MPS</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_BACKEND_NONE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_BACKEND_NONE-constant.html">AILIA_ENVIRONMENT_BACKEND_NONE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_BACKEND_VULKAN" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_BACKEND_VULKAN-constant.html">AILIA_ENVIRONMENT_BACKEND_VULKAN</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_ID_AUTO" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_ID_AUTO-constant.html">AILIA_ENVIRONMENT_ID_AUTO</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_PROPERTY_FP16" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_PROPERTY_FP16-constant.html">AILIA_ENVIRONMENT_PROPERTY_FP16</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_PROPERTY_LOWPOWER" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_PROPERTY_LOWPOWER-constant.html">AILIA_ENVIRONMENT_PROPERTY_LOWPOWER</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_PROPERTY_NORMAL" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_PROPERTY_NORMAL-constant.html">AILIA_ENVIRONMENT_PROPERTY_NORMAL</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_TYPE_BLAS" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_TYPE_BLAS-constant.html">AILIA_ENVIRONMENT_TYPE_BLAS</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_TYPE_CPU" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_TYPE_CPU-constant.html">AILIA_ENVIRONMENT_TYPE_CPU</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_TYPE_GPU" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_TYPE_GPU-constant.html">AILIA_ENVIRONMENT_TYPE_GPU</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_TYPE_REMOTE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_TYPE_REMOTE-constant.html">AILIA_ENVIRONMENT_TYPE_REMOTE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_ENVIRONMENT_VERSION" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_ENVIRONMENT_VERSION-constant.html">AILIA_ENVIRONMENT_VERSION</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_FILE_CALLBACK_VERSION" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_FILE_CALLBACK_VERSION-constant.html">AILIA_FILE_CALLBACK_VERSION</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_MEMORY_NO_OPTIMIZATION" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_MEMORY_NO_OPTIMIZATION-constant.html">AILIA_MEMORY_NO_OPTIMIZATION</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_MEMORY_OPTIMAIZE_DEFAULT" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_MEMORY_OPTIMAIZE_DEFAULT-constant.html">AILIA_MEMORY_OPTIMAIZE_DEFAULT</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_MEMORY_REDUCE_CONSTANT" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_MEMORY_REDUCE_CONSTANT-constant.html">AILIA_MEMORY_REDUCE_CONSTANT</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_MEMORY_REDUCE_CONSTANT_WITH_FILE_MAPPED" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_MEMORY_REDUCE_CONSTANT_WITH_FILE_MAPPED-constant.html">AILIA_MEMORY_REDUCE_CONSTANT_WITH_FILE_MAPPED</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_MEMORY_REDUCE_CONSTANT_WITH_INPUT_INITIALIZER" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_MEMORY_REDUCE_CONSTANT_WITH_INPUT_INITIALIZER-constant.html">AILIA_MEMORY_REDUCE_CONSTANT_WITH_INPUT_INITIALIZER</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_MEMORY_REDUCE_INTERSTAGE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_MEMORY_REDUCE_INTERSTAGE-constant.html">AILIA_MEMORY_REDUCE_INTERSTAGE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_MEMORY_REUSE_INTERSTAGE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_MEMORY_REUSE_INTERSTAGE-constant.html">AILIA_MEMORY_REUSE_INTERSTAGE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_MULTITHREAD_AUTO" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_MULTITHREAD_AUTO-constant.html">AILIA_MULTITHREAD_AUTO</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_PROFILE_AVERAGE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_PROFILE_AVERAGE-constant.html">AILIA_PROFILE_AVERAGE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_PROFILE_DISABLE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_PROFILE_DISABLE-constant.html">AILIA_PROFILE_DISABLE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_SHAPE_VERSION" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_SHAPE_VERSION-constant.html">AILIA_SHAPE_VERSION</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_BROKEN" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_BROKEN-constant.html">AILIA_STATUS_BROKEN</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_DATA_HIDDEN" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_DATA_HIDDEN-constant.html">AILIA_STATUS_DATA_HIDDEN</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_DATA_REMOVED" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_DATA_REMOVED-constant.html">AILIA_STATUS_DATA_REMOVED</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_ERROR_FILE_API" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_ERROR_FILE_API-constant.html">AILIA_STATUS_ERROR_FILE_API</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_EXPIRED" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_EXPIRED-constant.html">AILIA_STATUS_EXPIRED</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_GPU_ERROR" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_GPU_ERROR-constant.html">AILIA_STATUS_GPU_ERROR</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_GPU_UNSUPPORT_LAYER" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_GPU_UNSUPPORT_LAYER-constant.html">AILIA_STATUS_GPU_UNSUPPORT_LAYER</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_INVALID_ARGUMENT" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_INVALID_ARGUMENT-constant.html">AILIA_STATUS_INVALID_ARGUMENT</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_INVALID_LAYER" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_INVALID_LAYER-constant.html">AILIA_STATUS_INVALID_LAYER</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_INVALID_PARAMINFO" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_INVALID_PARAMINFO-constant.html">AILIA_STATUS_INVALID_PARAMINFO</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_INVALID_STATE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_INVALID_STATE-constant.html">AILIA_STATUS_INVALID_STATE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_INVALID_VERSION" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_INVALID_VERSION-constant.html">AILIA_STATUS_INVALID_VERSION</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_LICENSE_BROKEN" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_LICENSE_BROKEN-constant.html">AILIA_STATUS_LICENSE_BROKEN</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_LICENSE_EXPIRED" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_LICENSE_EXPIRED-constant.html">AILIA_STATUS_LICENSE_EXPIRED</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_LICENSE_NOT_FOUND" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_LICENSE_NOT_FOUND-constant.html">AILIA_STATUS_LICENSE_NOT_FOUND</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_MEMORY_INSUFFICIENT" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_MEMORY_INSUFFICIENT-constant.html">AILIA_STATUS_MEMORY_INSUFFICIENT</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_NDIMENSION_SHAPE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_NDIMENSION_SHAPE-constant.html">AILIA_STATUS_NDIMENSION_SHAPE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_NOT_FOUND" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_NOT_FOUND-constant.html">AILIA_STATUS_NOT_FOUND</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_OTHER_ERROR" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_OTHER_ERROR-constant.html">AILIA_STATUS_OTHER_ERROR</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_PERMISSION_DENIED" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_PERMISSION_DENIED-constant.html">AILIA_STATUS_PERMISSION_DENIED</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_SUCCESS" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_THREAD_ERROR" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_THREAD_ERROR-constant.html">AILIA_STATUS_THREAD_ERROR</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_UNIMPLEMENTED" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_UNIMPLEMENTED-constant.html">AILIA_STATUS_UNIMPLEMENTED</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_UNSETTLED_SHAPE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_UNSETTLED_SHAPE-constant.html">AILIA_STATUS_UNSETTLED_SHAPE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_STATUS_UNSUPPORT_NET" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_STATUS_UNSUPPORT_NET-constant.html">AILIA_STATUS_UNSUPPORT_NET</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_USER_API_FAILED" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_USER_API_FAILED-constant.html">AILIA_USER_API_FAILED</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_USER_API_SUCCESS" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_USER_API_SUCCESS-constant.html">AILIA_USER_API_SUCCESS</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_API_CALLBACK_VERSION" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_API_CALLBACK_VERSION-constant.html">AILIA_VOICE_API_CALLBACK_VERSION</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_CLEANER_TYPE_BASIC" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_CLEANER_TYPE_BASIC-constant.html">AILIA_VOICE_CLEANER_TYPE_BASIC</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_CLEANER_TYPE_ENGLISH" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_CLEANER_TYPE_ENGLISH-constant.html">AILIA_VOICE_CLEANER_TYPE_ENGLISH</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_DICTIONARY_TYPE_G2P_CN" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_DICTIONARY_TYPE_G2P_CN-constant.html">AILIA_VOICE_DICTIONARY_TYPE_G2P_CN</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_DICTIONARY_TYPE_G2P_EN" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_DICTIONARY_TYPE_G2P_EN-constant.html">AILIA_VOICE_DICTIONARY_TYPE_G2P_EN</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_DICTIONARY_TYPE_G2PW" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_DICTIONARY_TYPE_G2PW-constant.html">AILIA_VOICE_DICTIONARY_TYPE_G2PW</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_DICTIONARY_TYPE_OPEN_JTALK" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_DICTIONARY_TYPE_OPEN_JTALK-constant.html">AILIA_VOICE_DICTIONARY_TYPE_OPEN_JTALK</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_FLAG_NONE" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_FLAG_NONE-constant.html">AILIA_VOICE_FLAG_NONE</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_G2P_TYPE_GPT_SOVITS_EN" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_G2P_TYPE_GPT_SOVITS_EN-constant.html">AILIA_VOICE_G2P_TYPE_GPT_SOVITS_EN</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA-constant.html">AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_G2P_TYPE_GPT_SOVITS_ZH" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_G2P_TYPE_GPT_SOVITS_ZH-constant.html">AILIA_VOICE_G2P_TYPE_GPT_SOVITS_ZH</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_MODEL_TYPE_GPT_SOVITS" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_MODEL_TYPE_GPT_SOVITS-constant.html">AILIA_VOICE_MODEL_TYPE_GPT_SOVITS</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2-constant.html">AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2_PRO" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2_PRO-constant.html">AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2_PRO</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V3" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V3-constant.html">AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V3</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_MODEL_TYPE_TACOTRON2" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_MODEL_TYPE_TACOTRON2-constant.html">AILIA_VOICE_MODEL_TYPE_TACOTRON2</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="AILIA_VOICE_TEXT_POST_PROCESS_APPEND_PUNCTUATION" class="constant">
+    <span class="name "><a href="../ailia_voice/AILIA_VOICE_TEXT_POST_PROCESS_APPEND_PUNCTUATION-constant.html">AILIA_VOICE_TEXT_POST_PROCESS_APPEND_PUNCTUATION</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="NULL" class="constant">
+    <span class="name "><a href="../ailia_voice/NULL-constant.html">NULL</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="USER_ADDR_NULL" class="constant">
+    <span class="name "><a href="../ailia_voice/USER_ADDR_NULL-constant.html">USER_ADDR_NULL</a></span>
+  <span class="signature">&#8594; const <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+      </dl>
+    </section>
+
+
+
+    <section class="summary offset-anchor" id="typedefs">
+      <h2>Typedefs</h2>
+      <dl>
+          
+  <dt id="AILIA_USER_API_FCLOSE" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_USER_API_FCLOSE.html">AILIA_USER_API_FCLOSE</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_USER_API_FCLOSEFunction.html">AILIA_USER_API_FCLOSEFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief ファイルを閉じます
+@param void *  ユーザ定義ファイルポインタ
+@return
+成功した場合、 \ref AILIA_USER_API_SUCCESS を返す。
+失敗した場合、 \ref AILIA_USER_API_FAILED を返す。
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_USER_API_FCLOSEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_USER_API_FCLOSEFunction.html">AILIA_USER_API_FCLOSEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_USER_API_FOPEN" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_USER_API_FOPEN.html">AILIA_USER_API_FOPEN</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_USER_API_FOPENFunction.html">AILIA_USER_API_FOPENFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief ファイルを開きます
+@param const void *   ailiaOpenStreamEx() もしくは ailiaOpenWeightEx() に与えたfopen_args
+@return
+成功した場合、ユーザ定義ファイルポインタを返す。
+失敗した場合、NULLを返す。
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_USER_API_FOPENFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_USER_API_FOPENFunction.html">AILIA_USER_API_FOPENFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_USER_API_FREAD" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_USER_API_FREAD.html">AILIA_USER_API_FREAD</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_USER_API_FREADFunction.html">AILIA_USER_API_FREADFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief ファイルからデータを読み込みます
+@param void *                     読み込みデータ格納先のポインタ
+@param  \ref AILIA_FSIZE_RETURN_TYPE     読み込みデータのバイト長さ
+@param void *                     ユーザ定義ファイルポインタ
+@return
+成功した場合、 \ref AILIA_USER_API_SUCCESS を返す。
+失敗した場合、 \ref AILIA_USER_API_FAILED を返す。
+標準APIとは異なり、返値はAILIA_USER_API_*になりますのでご注意ください。
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_USER_API_FREADFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_USER_API_FREADFunction.html">AILIA_USER_API_FREADFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/LongLong-class.html">LongLong</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_USER_API_FSEEK" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_USER_API_FSEEK.html">AILIA_USER_API_FSEEK</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_USER_API_FSEEKFunction.html">AILIA_USER_API_FSEEKFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief ファイルをシークします
+@param void *                     ユーザ定義ファイルポインタ
+@param  \ref AILIA_FSIZE_RETURN_TYPE     ファイル先頭からのオフセットバイト
+@return
+成功した場合、 \ref AILIA_USER_API_SUCCESS を返す。
+失敗した場合、 \ref AILIA_USER_API_FAILED を返す。
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_USER_API_FSEEKFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_USER_API_FSEEKFunction.html">AILIA_USER_API_FSEEKFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/LongLong-class.html">LongLong</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_USER_API_FSIZE" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_USER_API_FSIZE.html">AILIA_USER_API_FSIZE</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_USER_API_FSIZEFunction.html">AILIA_USER_API_FSIZEFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief ファイルのサイズを取得します
+@param void * ユーザ定義ファイルポインタ
+@return
+成功した場合、ファイルのサイズをバイト単位で返す。
+失敗した場合、-1を返す。
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_USER_API_FSIZEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_USER_API_FSIZEFunction.html">AILIA_USER_API_FSIZEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/LongLong-class.html">LongLong</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_USER_API_FTELL" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_USER_API_FTELL.html">AILIA_USER_API_FTELL</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_USER_API_FTELLFunction.html">AILIA_USER_API_FTELLFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief ファイルの現在位置を取得します
+@param void * ユーザ定義ファイルポインタ
+@return
+成功した場合、ファイルポインタの位置をバイト単位で返す。
+失敗した場合、-1を返す。
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_USER_API_FTELLFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_USER_API_FTELLFunction.html">AILIA_USER_API_FTELLFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/LongLong-class.html">LongLong</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_AUDIO_GET_FRAME_LEN" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_FRAME_LEN.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_FRAME_LEN</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_FRAME_LENFunction.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_FRAME_LENFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_AUDIO_GET_FRAME_LENFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_FRAME_LENFunction.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_FRAME_LENFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_AUDIO_GET_MEL_SPECTROGRAM" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_MEL_SPECTROGRAM.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_MEL_SPECTROGRAM</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_MEL_SPECTROGRAMFunction.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_MEL_SPECTROGRAMFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_AUDIO_GET_MEL_SPECTROGRAMFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_MEL_SPECTROGRAMFunction.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_MEL_SPECTROGRAMFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Float-class.html">Float</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Float-class.html">Float</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Float-class.html">Float</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_AUDIO_GET_RESAMPLE_LEN" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_RESAMPLE_LEN.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_RESAMPLE_LEN</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_RESAMPLE_LENFunction.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_RESAMPLE_LENFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_AUDIO_GET_RESAMPLE_LENFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_RESAMPLE_LENFunction.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_RESAMPLE_LENFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_AUDIO_GET_SPECTROGRAM" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_SPECTROGRAM.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_SPECTROGRAM</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_SPECTROGRAMFunction.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_SPECTROGRAMFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_AUDIO_GET_SPECTROGRAMFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_GET_SPECTROGRAMFunction.html">AILIA_VOICE_USER_API_AILIA_AUDIO_GET_SPECTROGRAMFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Float-class.html">Float</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_AUDIO_RESAMPLE" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_RESAMPLE.html">AILIA_VOICE_USER_API_AILIA_AUDIO_RESAMPLE</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_RESAMPLEFunction.html">AILIA_VOICE_USER_API_AILIA_AUDIO_RESAMPLEFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_AUDIO_RESAMPLEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_AUDIO_RESAMPLEFunction.html">AILIA_VOICE_USER_API_AILIA_AUDIO_RESAMPLEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_COPY_BLOB_DATA" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_COPY_BLOB_DATA.html">AILIA_VOICE_USER_API_AILIA_COPY_BLOB_DATA</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_COPY_BLOB_DATAFunction.html">AILIA_VOICE_USER_API_AILIA_COPY_BLOB_DATAFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_COPY_BLOB_DATAFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_COPY_BLOB_DATAFunction.html">AILIA_VOICE_USER_API_AILIA_COPY_BLOB_DATAFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-dst_net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">dst_net</span>, </span><span class="parameter" id="param-dst_blob_idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span> <span class="parameter-name">dst_blob_idx</span>, </span><span class="parameter" id="param-src_net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">src_net</span>, </span><span class="parameter" id="param-src_blob_idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span> <span class="parameter-name">src_blob_idx</span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_CREATE" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_CREATE.html">AILIA_VOICE_USER_API_AILIA_CREATE</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_CREATEFunction.html">AILIA_VOICE_USER_API_AILIA_CREATEFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_CREATEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_CREATEFunction.html">AILIA_VOICE_USER_API_AILIA_CREATEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_DESTROY" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_DESTROY.html">AILIA_VOICE_USER_API_AILIA_DESTROY</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_DESTROYFunction.html">AILIA_VOICE_USER_API_AILIA_DESTROYFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_DESTROYFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_DESTROYFunction.html">AILIA_VOICE_USER_API_AILIA_DESTROYFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_BLOB_DATA" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_DATA.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_DATA</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_DATAFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_DATAFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_BLOB_DATAFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_DATAFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_DATAFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEX" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEX.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEX</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEXFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEXFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEXFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEXFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEXFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEX" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEX.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEX</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEXFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEXFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEXFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEXFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEXFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPE" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPE.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPE</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPEFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPEFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPEFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAShape.html">AILIAShape</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_ERROR_DETAIL" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_ERROR_DETAIL.html">AILIA_VOICE_USER_API_AILIA_GET_ERROR_DETAIL</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_ERROR_DETAILFunction.html">AILIA_VOICE_USER_API_AILIA_GET_ERROR_DETAILFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_ERROR_DETAILFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_ERROR_DETAILFunction.html">AILIA_VOICE_USER_API_AILIA_GET_ERROR_DETAILFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNT" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNT.html">AILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNT</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNTFunction.html">AILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNTFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNTFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNTFunction.html">AILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNTFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNT" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNT.html">AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNT</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNTFunction.html">AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNTFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNTFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNTFunction.html">AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNTFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_A" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_A.html">AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_A</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_AFunction.html">AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_AFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_AFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_AFunction.html">AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_AFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_W" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_W.html">AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_W</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_WFunction.html">AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_WFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_WFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_WFunction.html">AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_WFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_MEM" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_MEM.html">AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_MEM</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_MEMFunction.html">AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_MEMFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_MEMFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_MEMFunction.html">AILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_MEMFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATA" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATA.html">AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATA</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATAFunction.html">AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATAFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATAFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATAFunction.html">AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATAFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPE" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPE.html">AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPE</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPEFunction.html">AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPEFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPEFunction.html">AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAShape.html">AILIAShape</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_SET_MEMORY_MODE" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_MEMORY_MODE.html">AILIA_VOICE_USER_API_AILIA_SET_MEMORY_MODE</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_MEMORY_MODEFunction.html">AILIA_VOICE_USER_API_AILIA_SET_MEMORY_MODEFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_SET_MEMORY_MODEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_MEMORY_MODEFunction.html">AILIA_VOICE_USER_API_AILIA_SET_MEMORY_MODEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_UPDATE" class="">
+  <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_UPDATE.html">AILIA_VOICE_USER_API_AILIA_UPDATE</a></span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_UPDATEFunction.html">AILIA_VOICE_USER_API_AILIA_UPDATEFunction</a></span>&gt;</span></span>&gt;</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIA_VOICE_USER_API_AILIA_UPDATEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_UPDATEFunction.html">AILIA_VOICE_USER_API_AILIA_UPDATEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="AILIAEnvironment" class="">
+  <span class="name"><a href="../ailia_voice/AILIAEnvironment.html">AILIAEnvironment</a></span>
+    = _AILIAEnvironment
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="ailiaFileCallback" class="">
+  <span class="name"><a href="../ailia_voice/ailiaFileCallback.html">ailiaFileCallback</a></span>
+    = _ailiaFileCallback
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIAShape" class="">
+  <span class="name"><a href="../ailia_voice/AILIAShape.html">AILIAShape</a></span>
+    = _AILIAShape
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="AILIAVoiceApiCallback" class="">
+  <span class="name"><a href="../ailia_voice/AILIAVoiceApiCallback.html">AILIAVoiceApiCallback</a></span>
+    = _AILIAVoiceApiCallback
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+
+          
+  <dt id="DartAILIA_USER_API_FCLOSEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_USER_API_FCLOSEFunction.html">DartAILIA_USER_API_FCLOSEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_USER_API_FREADFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_USER_API_FREADFunction.html">DartAILIA_USER_API_FREADFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_USER_API_FSEEKFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_USER_API_FSEEKFunction.html">DartAILIA_USER_API_FSEEKFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_USER_API_FSIZEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_USER_API_FSIZEFunction.html">DartAILIA_USER_API_FSIZEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_USER_API_FTELLFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_USER_API_FTELLFunction.html">DartAILIA_USER_API_FTELLFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_FRAME_LENFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_FRAME_LENFunction.html">DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_FRAME_LENFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_MEL_SPECTROGRAMFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_MEL_SPECTROGRAMFunction.html">DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_MEL_SPECTROGRAMFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_RESAMPLE_LENFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_RESAMPLE_LENFunction.html">DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_RESAMPLE_LENFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_SPECTROGRAMFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_SPECTROGRAMFunction.html">DartAILIA_VOICE_USER_API_AILIA_AUDIO_GET_SPECTROGRAMFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_AUDIO_RESAMPLEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_AUDIO_RESAMPLEFunction.html">DartAILIA_VOICE_USER_API_AILIA_AUDIO_RESAMPLEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_COPY_BLOB_DATAFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_COPY_BLOB_DATAFunction.html">DartAILIA_VOICE_USER_API_AILIA_COPY_BLOB_DATAFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-dst_net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">dst_net</span>, </span><span class="parameter" id="param-dst_blob_idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">dst_blob_idx</span>, </span><span class="parameter" id="param-src_net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">src_net</span>, </span><span class="parameter" id="param-src_blob_idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">src_blob_idx</span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_CREATEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_CREATEFunction.html">DartAILIA_VOICE_USER_API_AILIA_CREATEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_DESTROYFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_DESTROYFunction.html">DartAILIA_VOICE_USER_API_AILIA_DESTROYFunction</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_DATAFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_DATAFunction.html">DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_DATAFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEXFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEXFunction.html">DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEXFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEXFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEXFunction.html">DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEXFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPEFunction.html">DartAILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAShape.html">AILIAShape</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNTFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNTFunction.html">DartAILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNTFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNTFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNTFunction.html">DartAILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNTFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_AFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_AFunction.html">DartAILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_AFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_WFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_WFunction.html">DartAILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_FILE_WFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_MEMFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_MEMFunction.html">DartAILIA_VOICE_USER_API_AILIA_OPEN_WEIGHT_MEMFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATAFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATAFunction.html">DartAILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATAFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPEFunction.html">DartAILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAShape.html">AILIAShape</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_SET_MEMORY_MODEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_SET_MEMORY_MODEFunction.html">DartAILIA_VOICE_USER_API_AILIA_SET_MEMORY_MODEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>, </span><span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="DartAILIA_VOICE_USER_API_AILIA_UPDATEFunction" class="callable">
+    <span class="name"><a href="../ailia_voice/DartAILIA_VOICE_USER_API_AILIA_UPDATEFunction.html">DartAILIA_VOICE_USER_API_AILIA_UPDATEFunction</a></span><span class="signature">
+      <span class="returntype parameter">= <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a> Function<span class="signature">(<span class="parameter" id="param-"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+      </dl>
+    </section>
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">ailia_voice</a></li>
+    <li class="self-crumb">ailia_voice.dart</li>
+</ol>
+
+    <h5><span class="package-name">ailia_voice</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="../ailia_voice/">ailia_voice</a></li>
+      <li><a href="../ailia_voice_model/">ailia_voice_model</a></li>
+</ol>
+
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <h5>ailia_voice library</h5>
+  </div><!--/sidebar-offcanvas-right-->
+</main>
+<footer>
+  <span class="no-break">
+    ailia_voice
+      1.5.0
+  </span>
+  
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

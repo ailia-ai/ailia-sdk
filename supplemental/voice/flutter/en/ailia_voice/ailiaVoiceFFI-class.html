@@ -11,51 +11,43 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
   <link rel="icon" href="../static-assets/favicon.png?v1">
-
   
 </head>
 
-
 <body data-base-href="../" data-using-base-href="false" class="light-theme">
-
 <div id="overlay-under-drawer"></div>
-
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ailia_voice</a></li>
-    <li><a href="../ailia_voice/ailia_voice-library.html">ailia_voice.dart</a></li>
+    <li><a href="../ailia_voice/">ailia_voice.dart</a></li>
     <li class="self-crumb">ailiaVoiceFFI class</li>
   </ol>
   <div class="self-name">ailiaVoiceFFI</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button">
-    <label for="theme">
-      <input type="checkbox" id="theme" value="light-theme">
-      <span id="dark-theme-button" class="material-symbols-outlined">
-        brightness_4
-      </span>
-      <span id="light-theme-button" class="material-symbols-outlined">
-        brightness_5
-      </span>
-    </label>
-  </div>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
 </header>
 <main>
-
-  <div
-      id="dartdoc-main-content"
-      class="main-content"
-      data-above-sidebar="ailia_voice&#47;ailia_voice-library-sidebar.html"
-      data-below-sidebar="ailia_voice&#47;ailiaVoiceFFI-class-sidebar.html">
-      <div>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="ailia_voice&#47;ailia_voice-library-sidebar.html"
+    data-below-sidebar="ailia_voice&#47;ailiaVoiceFFI-class-sidebar.html">
+    <div>
 <h1><span class="kind-class">ailiaVoiceFFI</span> class 
  
 </h1></div>
@@ -70,30 +62,31 @@
     
   <section class="summary offset-anchor" id="constructors">
     <h2>Constructors</h2>
-
     <dl class="constructor-summary-list">
-        <dt id="ailiaVoiceFFI" class="callable">
-          <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceFFI.html">ailiaVoiceFFI</a></span><span class="signature">(<span class="parameter" id="-param-dynamicLibrary"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/DynamicLibrary-class.html">DynamicLibrary</a></span> <span class="parameter-name">dynamicLibrary</span></span>)</span>
+        <dt id="ailiaVoiceFFI.new" class="callable">
+          <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceFFI.html">ailiaVoiceFFI.new</a></span><span class="signature">(<span class="parameter" id="-param-dynamicLibrary"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/DynamicLibrary-class.html">DynamicLibrary</a></span> <span class="parameter-name">dynamicLibrary</span></span>)</span>
         </dt>
         <dd>
           The symbols are looked up in <code>dynamicLibrary</code>.
         </dd>
         <dt id="ailiaVoiceFFI.fromLookup" class="callable">
-          <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceFFI.fromLookup.html">ailiaVoiceFFI.fromLookup</a></span><span class="signature">(<span class="parameter" id="fromLookup-param-lookup"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">lookup</span>(<span class="parameter" id="param-symbolName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">symbolName</span></span>)</span>)</span>
+          <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceFFI.fromLookup.html">ailiaVoiceFFI.fromLookup</a></span><span class="signature">(<span class="parameter" id="fromLookup-param-lookup"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">lookup</span>&lt;<wbr><span class="type-parameter">T extends NativeType</span>&gt;(<span class="parameter" id="param-symbolName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">symbolName</span></span>)</span>)</span>
         </dt>
         <dd>
           The symbols are looked up with <code>lookup</code>.
         </dd>
     </dl>
   </section>
-
-    <section class="summary offset-anchor inherited" id="instance-properties">
-      <h2>Properties</h2>
-
-      <dl class="properties">
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
         <dt id="hashCode" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
 
 </dt>
 <dd class="inherited">
@@ -104,7 +97,8 @@
 
         <dt id="runtimeType" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
 
 </dt>
 <dd class="inherited">
@@ -113,8 +107,8 @@
 
 </dd>
 
-      </dl>
-    </section>
+    </dl>
+  </section>
 
     
   <section
@@ -1972,6 +1966,11 @@ ailiaVoiceInference() を一度も実行していない場合は \ref AILIA_STAT
 @param dictionary_type AILIA_VOICE_DICTIONARY_TYPE_*
 @return
 成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+中国語を使用する場合、GPT-SoVITS V1では \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN のみ必要です。
+GPT-SoVITS V2およびV3では \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN と
+\ref AILIA_VOICE_DICTIONARY_TYPE_G2PW の両方が必要です。
+G2PWを使用する場合、先にG2P_CNを読み込んでください。
   
 
 </dd>
@@ -1989,6 +1988,205 @@ ailiaVoiceInference() を一度も実行していない場合は \ref AILIA_STAT
 @param net ネットワークオブジェクトポインタ
 @param dictionary_path 辞書フォルダのパス名(UTF16)
 @param dictionary_type AILIA_VOICE_DICTIONARY_TYPE_*
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+中国語を使用する場合、GPT-SoVITS V1では \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN のみ必要です。
+GPT-SoVITS V2およびV3では \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN と
+\ref AILIA_VOICE_DICTIONARY_TYPE_G2PW の両方が必要です。
+G2PWを使用する場合、先にG2P_CNを読み込んでください。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceOpenGPTSoVITSV1ModelFileA" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceOpenGPTSoVITSV1ModelFileA.html">ailiaVoiceOpenGPTSoVITSV1ModelFileA</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileA-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileA-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileA-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileA-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileA-param-wave"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">wave</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileA-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">ssl</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief GPT-SoVITS V1向けのモデルを指定します。(MBSC)
+@param net ネットワークオブジェクトポインタ
+@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (MBSC)
+@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (MBSC)
+@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (MBSC)
+@param wave onnxファイルのパス名 (vits.onnx) (MBSC)
+@param ssl onnxファイルのパス名 (cnhubert.onnx) (MBSC)
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceOpenGPTSoVITSV1ModelFileW" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceOpenGPTSoVITSV1ModelFileW.html">ailiaVoiceOpenGPTSoVITSV1ModelFileW</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileW-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileW-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileW-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileW-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileW-param-wave"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">wave</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV1ModelFileW-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">ssl</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief GPT-SoVITS V1向けのモデルを指定します。(UTF16)
+@param net ネットワークオブジェクトポインタ
+@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (UTF16)
+@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (UTF16)
+@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (UTF16)
+@param wave onnxファイルのパス名 (vits.onnx) (UTF16)
+@param ssl onnxファイルのパス名 (cnhubert.onnx) (UTF16)
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceOpenGPTSoVITSV2ModelFileA" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceOpenGPTSoVITSV2ModelFileA.html">ailiaVoiceOpenGPTSoVITSV2ModelFileA</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileA-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileA-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileA-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileA-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileA-param-wave"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">wave</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileA-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">ssl</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileA-param-chinese_bert"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">chinese_bert</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileA-param-vocab"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">vocab</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief GPT-SoVITS V2向けのモデルを指定します。(MBSC)
+@param net ネットワークオブジェクトポインタ
+@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (MBSC)
+@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (MBSC)
+@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (MBSC)
+@param wave onnxファイルのパス名 (vits.onnx) (MBSC)
+@param ssl onnxファイルのパス名 (cnhubert.onnx) (MBSC)
+@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (MBSC)（NULLの場合はBERTを使用しない）
+@param vocab vocab.txtのパス名 (MBSC)（NULLの場合はBERTを使用しない）
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceOpenGPTSoVITSV2ModelFileW" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceOpenGPTSoVITSV2ModelFileW.html">ailiaVoiceOpenGPTSoVITSV2ModelFileW</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileW-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileW-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileW-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileW-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileW-param-wave"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">wave</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileW-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">ssl</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileW-param-chinese_bert"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">chinese_bert</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ModelFileW-param-vocab"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">vocab</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief GPT-SoVITS V2向けのモデルを指定します。(UTF16)
+@param net ネットワークオブジェクトポインタ
+@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (UTF16)
+@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (UTF16)
+@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (UTF16)
+@param wave onnxファイルのパス名 (vits.onnx) (UTF16)
+@param ssl onnxファイルのパス名 (cnhubert.onnx) (UTF16)
+@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (UTF16)（NULLの場合はBERTを使用しない）
+@param vocab vocab.txtのパス名 (UTF16)（NULLの場合はBERTを使用しない）
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceOpenGPTSoVITSV2ProModelFileA" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceOpenGPTSoVITSV2ProModelFileA.html">ailiaVoiceOpenGPTSoVITSV2ProModelFileA</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileA-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileA-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileA-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileA-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileA-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">ssl</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileA-param-vits"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">vits</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileA-param-sv"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">sv</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileA-param-chinese_bert"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">chinese_bert</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileA-param-vocab"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">vocab</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief GPT-SoVITS V2-Pro向けのモデルを指定します。(MBSC)
+@param net ネットワークオブジェクトポインタ
+@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (MBSC)
+@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (MBSC)
+@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (MBSC)
+@param ssl onnxファイルのパス名 (cnhubert.onnx) (MBSC)
+@param vits onnxファイルのパス名 (vits.onnx) (MBSC)
+@param sv onnxファイルのパス名 (sv.onnx) (MBSC)
+@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (MBSC)（NULLの場合はBERTを使用しない）
+@param vocab vocab.txtのパス名 (MBSC)（NULLの場合はBERTを使用しない）
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceOpenGPTSoVITSV2ProModelFileW" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceOpenGPTSoVITSV2ProModelFileW.html">ailiaVoiceOpenGPTSoVITSV2ProModelFileW</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileW-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileW-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileW-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileW-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileW-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">ssl</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileW-param-vits"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">vits</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileW-param-sv"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">sv</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileW-param-chinese_bert"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">chinese_bert</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV2ProModelFileW-param-vocab"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">vocab</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief GPT-SoVITS V2-Pro向けのモデルを指定します。(UTF16)
+@param net ネットワークオブジェクトポインタ
+@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (UTF16)
+@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (UTF16)
+@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (UTF16)
+@param ssl onnxファイルのパス名 (cnhubert.onnx) (UTF16)
+@param vits onnxファイルのパス名 (vits.onnx) (UTF16)
+@param sv onnxファイルのパス名 (sv.onnx) (UTF16)
+@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (UTF16)（NULLの場合はBERTを使用しない）
+@param vocab vocab.txtのパス名 (UTF16)（NULLの場合はBERTを使用しない）
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceOpenGPTSoVITSV3ModelFileA" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceOpenGPTSoVITSV3ModelFileA.html">ailiaVoiceOpenGPTSoVITSV3ModelFileA</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileA-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileA-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileA-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileA-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileA-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">ssl</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileA-param-vq"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">vq</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileA-param-cfm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">cfm</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileA-param-bigvgan"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">bigvgan</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileA-param-chinese_bert"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">chinese_bert</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileA-param-vocab"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">vocab</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief GPT-SoVITS V3向けのモデルを指定します。(MBSC)
+@param net ネットワークオブジェクトポインタ
+@param encoder_path onnxファイルのパス名 (t2s_encoder.onnx) (MBSC)
+@param decoder1_path onnxファイルのパス名 (t2s_fsdec.onnx) (MBSC)
+@param decoder2_path onnxファイルのパス名 (t2s_sdec.onnx) (MBSC)
+@param ssl_path onnxファイルのパス名 (cnhubert.onnx) (MBSC)
+@param vq_path onnxファイルのパス名 (vq_model.onnx) (MBSC)
+@param cfm_path onnxファイルのパス名 (vq_cfm.onnx) (MBSC)
+@param bigvgan_path onnxファイルのパス名 (bigvgan_model.onnx) (MBSC)
+@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (MBSC)（NULLの場合はBERTを使用しない）
+@param vocab vocab.txtのパス名 (MBSC)（NULLの場合はBERTを使用しない）
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceOpenGPTSoVITSV3ModelFileW" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceOpenGPTSoVITSV3ModelFileW.html">ailiaVoiceOpenGPTSoVITSV3ModelFileW</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileW-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileW-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileW-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileW-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileW-param-ssl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">ssl</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileW-param-vq"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">vq</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileW-param-cfm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">cfm</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileW-param-bigvgan"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">bigvgan</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileW-param-chinese_bert"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">chinese_bert</span>, </span><span class="parameter" id="ailiaVoiceOpenGPTSoVITSV3ModelFileW-param-vocab"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">vocab</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief GPT-SoVITS V3向けのモデルを指定します。(UTF16)
+@param net ネットワークオブジェクトポインタ
+@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (UTF16)
+@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (UTF16)
+@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (UTF16)
+@param ssl onnxファイルのパス名 (cnhubert.onnx) (UTF16)
+@param vq onnxファイルのパス名 (vq_model.onnx) (UTF16)
+@param cfm onnxファイルのパス名 (vq_cfm.onnx) (UTF16)
+@param bigvgan onnxファイルのパス名 (bigvgan_model.onnx) (UTF16)
+@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (UTF16)（NULLの場合はBERTを使用しない）
+@param vocab vocab.txtのパス名 (UTF16)（NULLの場合はBERTを使用しない）
 @return
 成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
   
@@ -2015,6 +2213,9 @@ ailiaVoiceInference() を一度も実行していない場合は \ref AILIA_STAT
 @param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
 @return
 成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+この関数は非推奨です。代わりにailiaVoiceOpenTacotron2ModelFileA、ailiaVoiceOpenGPTSoVITSV1ModelFileA、
+ailiaVoiceOpenGPTSoVITSV2ModelFileAを使用してください。
   
 
 </dd>
@@ -2039,6 +2240,74 @@ ailiaVoiceInference() を一度も実行していない場合は \ref AILIA_STAT
 @param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
 @return
 成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+この関数は非推奨です。代わりにailiaVoiceOpenTacotron2ModelFileW、ailiaVoiceOpenGPTSoVITSV1ModelFileW、
+ailiaVoiceOpenGPTSoVITSV2ModelFileWを使用してください。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceOpenTacotron2ModelFileA" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceOpenTacotron2ModelFileA.html">ailiaVoiceOpenTacotron2ModelFileA</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileA-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileA-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileA-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileA-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileA-param-wave"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">wave</span>, </span><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileA-param-cleaner_type"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">cleaner_type</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief Tacotron2向けのモデルを指定します。(MBSC)
+@param net ネットワークオブジェクトポインタ
+@param encoder onnxファイルのパス名 (encoder.onnx) (MBSC)
+@param decoder1 onnxファイルのパス名 (decoder_iter.onnx) (MBSC)
+@param decoder2 onnxファイルのパス名 (postnet.onnx) (MBSC)
+@param wave onnxファイルのパス名 (waveglow.onnx) (MBSC)
+@param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceOpenTacotron2ModelFileW" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceOpenTacotron2ModelFileW.html">ailiaVoiceOpenTacotron2ModelFileW</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileW-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileW-param-encoder"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">encoder</span>, </span><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileW-param-decoder1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">decoder1</span>, </span><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileW-param-decoder2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">decoder2</span>, </span><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileW-param-wave"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">wave</span>, </span><span class="parameter" id="ailiaVoiceOpenTacotron2ModelFileW-param-cleaner_type"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">cleaner_type</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief Tacotron2向けのモデルを指定します。(UTF16)
+@param net ネットワークオブジェクトポインタ
+@param encoder onnxファイルのパス名 (encoder.onnx) (UTF16)
+@param decoder1 onnxファイルのパス名 (decoder_iter.onnx) (UTF16)
+@param decoder2 onnxファイルのパス名 (postnet.onnx) (UTF16)
+@param wave onnxファイルのパス名 (waveglow.onnx) (UTF16)
+@param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceSetModelType" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceSetModelType.html">ailiaVoiceSetModelType</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceSetModelType-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceSetModelType-param-model_type"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">model_type</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief G2Pで使用するモデルタイプを設定します。
+@param net ボイスオブジェクトポインタ
+@param model_type モデルタイプ（AILIA_VOICE_MODEL_TYPE_GPT_SOVITS, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V3, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2_PRO）
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+G2Pを単独で使用する際に、モデルファイルを与えずにモデルタイプを設定することに使用します。
+ailiaVoiceOpenModelFileAまたはailiaVoiceOpenGPTSoVITSV3ModelFileAを呼び出した場合は自動的に設定されるため、本APIの呼び出しは不要です。
   
 
 </dd>
@@ -2059,6 +2328,44 @@ ailiaVoiceInference() を一度も実行していない場合は \ref AILIA_STAT
 @param channels チャンネル数
 @param sampling_rate サンプリングレート
 @param features フィーチャー(UTF8)
+  
+
+</dd>
+
+        <dt id="ailiaVoiceSetSampleSteps" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceSetSampleSteps.html">ailiaVoiceSetSampleSteps</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceSetSampleSteps-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceSetSampleSteps-param-steps"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">steps</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief GPT-SoVITS v3のCFMサンプリングステップ数を設定します。
+@param net ボイスオブジェクトポインタ
+@param steps CFMのEuler ODEステップ数(デフォルト4)
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  
+
+</dd>
+
+        <dt id="ailiaVoiceSetSpeed" class="callable">
+  <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceSetSpeed.html">ailiaVoiceSetSpeed</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaVoiceSetSpeed-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIAVoice-class.html">AILIAVoice</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaVoiceSetSpeed-param-speed"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">speed</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief 音声合成の速度を設定します。
+@param net ボイスオブジェクトポインタ
+@param speed 速度(デフォルト1.0、0より大きい値)
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+GPT-SoVITS V2およびV3で使用できます。V1では無効です。
   
 
 </dd>
@@ -2158,9 +2465,7 @@ ailiaVoiceOpenDictionaryFileWの前に呼び出す必要があります。
     
     
 
-
   </div> <!-- /.main-content -->
-
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -2168,40 +2473,30 @@ ailiaVoiceOpenDictionaryFileWの前に呼び出す必要があります。
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
-
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">ailia_voice</a></li>
-    <li><a href="../ailia_voice/ailia_voice-library.html">ailia_voice</a></li>
+    <li><a href="../ailia_voice/">ailia_voice</a></li>
     <li class="self-crumb">ailiaVoiceFFI class</li>
 </ol>
-
 
     <h5>ailia_voice library</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div>
-
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
-
 </main>
-
 <footer>
   <span class="no-break">
     ailia_voice
-      1.3.0
+      1.5.0
   </span>
-
   
 </footer>
-
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
 <script src="../static-assets/docs.dart.js"></script>
 
-
-
 </body>
-
 </html>
 
