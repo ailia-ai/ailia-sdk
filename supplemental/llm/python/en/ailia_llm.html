@@ -46,7 +46,6 @@
 <li><a class="reference internal" href="#ailia_llm.AiliaLLM.__init__"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#ailia_llm.AiliaLLM.context_full"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.context_full()</span></code></a></li>
 <li><a class="reference internal" href="#ailia_llm.AiliaLLM.generate"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.generate()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM.generate_multimodal"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.generate_multimodal()</span></code></a></li>
 <li><a class="reference internal" href="#ailia_llm.AiliaLLM.generated_token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.generated_token_count()</span></code></a></li>
 <li><a class="reference internal" href="#ailia_llm.AiliaLLM.get_multimodal_capabilities"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.get_multimodal_capabilities()</span></code></a></li>
 <li><a class="reference internal" href="#ailia_llm.AiliaLLM.open"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open()</span></code></a></li>
@@ -124,7 +123,7 @@ before generating text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True if the context window was exhausted during the last
-<a class="reference internal" href="#ailia_llm.AiliaLLM.generate" title="ailia_llm.AiliaLLM.generate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate()</span></code></a> or <a class="reference internal" href="#ailia_llm.AiliaLLM.generate_multimodal" title="ailia_llm.AiliaLLM.generate_multimodal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_multimodal()</span></code></a> call.</p>
+<a class="reference internal" href="#ailia_llm.AiliaLLM.generate" title="ailia_llm.AiliaLLM.generate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate()</span></code></a> or <code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_multimodal()</span></code> call.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>bool</p>
@@ -224,82 +223,13 @@ whether the context was exhausted.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.generate_multimodal">
-<span class="sig-name descname"><span class="pre">generate_multimodal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1234</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.generate_multimodal" title="Link to this definition">¶</a></dt>
-<dd><p>Generate text from multimodal prompts (text + images/audio).</p>
-<div class="deprecated">
-<p><span class="versionmodified deprecated">Deprecated since version Use: </span><a class="reference internal" href="#ailia_llm.AiliaLLM.generate" title="ailia_llm.AiliaLLM.generate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate()</span></code></a> instead. This method is deprecated and will
-be removed in a future version. The unified <a class="reference internal" href="#ailia_llm.AiliaLLM.generate" title="ailia_llm.AiliaLLM.generate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate()</span></code></a> method
-automatically detects media_data in prompts and routes accordingly.</p>
-</div>
-<p>This is a generator function that yields text fragments (delta tokens)
-as they are produced by the model. Requires a multimodal projector
-to be loaded via <a class="reference internal" href="#ailia_llm.AiliaLLM.open_multimodal_projector" title="ailia_llm.AiliaLLM.open_multimodal_projector"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_multimodal_projector()</span></code></a> beforehand.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>prompts</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – <dl>
-<dt>A list of message dictionaries, each containing:</dt><dd><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;role&quot;</span></code> (str): The role (e.g., “system”, “user”, “assistant”).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;content&quot;</span></code> (str): The text content of the message.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;media_data&quot;</span></code> (list[dict], optional): A list of media entries,
-each containing:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;media_type&quot;</span></code> (str): Type of media (e.g., “image”).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;file_path&quot;</span></code> (str, optional): Path to the media file.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;data&quot;</span></code> (bytes, optional): Raw media data.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;width&quot;</span></code> (int, optional): Media width in pixels.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;height&quot;</span></code> (int, optional): Media height in pixels.</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-</dd>
-</dl>
-</p></li>
-<li><p><strong>top_k</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=40</em>) – Top-k sampling parameter.</p></li>
-<li><p><strong>top_p</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.9</em>) – Top-p (nucleus) sampling parameter.</p></li>
-<li><p><strong>temp</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.4</em>) – Sampling temperature.</p></li>
-<li><p><strong>dist</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=1234</em>) – Random seed for reproducible generation.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Yields<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>str</em> – Delta text fragments as they are generated by the model.</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>AiliaLLMError</strong> – If prompt setting or generation fails.</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>If the context window becomes full during generation,
-the generator stops early. Use <a class="reference internal" href="#ailia_llm.AiliaLLM.context_full" title="ailia_llm.AiliaLLM.context_full"><code class="xref py py-meth docutils literal notranslate"><span class="pre">context_full()</span></code></a> to check
-whether the context was exhausted.</p>
-<p>This Python wrapper currently supports media inputs only via
-<code class="docutils literal notranslate"><span class="pre">file_path</span></code>. The <code class="docutils literal notranslate"><span class="pre">data</span></code> field for raw bytes is not implemented.</p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ailia_llm</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">llm</span> <span class="o">=</span> <span class="n">ailia_llm</span><span class="o">.</span><span class="n">AiliaLLM</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">llm</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;model.gguf&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">llm</span><span class="o">.</span><span class="n">open_multimodal_projector</span><span class="p">(</span><span class="s2">&quot;mmproj-model.gguf&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
-<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Describe this image.&quot;</span><span class="p">,</span>
-<span class="gp">... </span>     <span class="s2">&quot;media_data&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;media_type&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;file_path&quot;</span><span class="p">:</span> <span class="s2">&quot;photo.jpg&quot;</span><span class="p">}]}</span>
-<span class="gp">... </span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">delta</span> <span class="ow">in</span> <span class="n">llm</span><span class="o">.</span><span class="n">generate_multimodal</span><span class="p">(</span><span class="n">messages</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="ailia_llm.AiliaLLM.generated_token_count">
 <span class="sig-name descname"><span class="pre">generated_token_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.generated_token_count" title="Link to this definition">¶</a></dt>
 <dd><p>Get the token count of the most recently generated output.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Number of tokens generated in the last
-<a class="reference internal" href="#ailia_llm.AiliaLLM.generate" title="ailia_llm.AiliaLLM.generate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate()</span></code></a> or <a class="reference internal" href="#ailia_llm.AiliaLLM.generate_multimodal" title="ailia_llm.AiliaLLM.generate_multimodal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_multimodal()</span></code></a> call.</p>
+<a class="reference internal" href="#ailia_llm.AiliaLLM.generate" title="ailia_llm.AiliaLLM.generate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate()</span></code></a> or <code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_multimodal()</span></code> call.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>int</p>
@@ -406,7 +336,7 @@ such as image or audio understanding.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Number of tokens in the prompt that was last passed to
-<a class="reference internal" href="#ailia_llm.AiliaLLM.generate" title="ailia_llm.AiliaLLM.generate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate()</span></code></a> or <a class="reference internal" href="#ailia_llm.AiliaLLM.generate_multimodal" title="ailia_llm.AiliaLLM.generate_multimodal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_multimodal()</span></code></a>.</p>
+<a class="reference internal" href="#ailia_llm.AiliaLLM.generate" title="ailia_llm.AiliaLLM.generate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate()</span></code></a> or <code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_multimodal()</span></code>.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>int</p>
