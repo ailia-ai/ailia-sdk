@@ -46,6 +46,14 @@
     .card ul li:last-child { border-bottom: none; }
     .card ul li a { font-weight: 500; }
     .card ul li .sub-link { color: var(--accent); font-weight: 400; margin-left: 4px; }
+    .materials-section { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .materials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .material-item { display: flex; align-items: center; gap: 14px; padding: 20px; border-radius: var(--radius); border: 1px solid var(--border); transition: box-shadow 0.2s, transform 0.2s; background: var(--bg); }
+    .material-item:hover { box-shadow: var(--shadow); transform: translateY(-2px); border-color: var(--accent); }
+    .material-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: var(--white); flex-shrink: 0; }
+    .material-icon svg { width: 22px; height: 22px; fill: var(--primary); }
+    .material-text { font-size: 15px; font-weight: 600; color: var(--primary); }
+    .material-text small { display: block; font-size: 12px; color: var(--text-light); font-weight: 400; margin-top: 2px; }
     footer { background: var(--primary); color: rgba(255,255,255,0.7); text-align: center; padding: 40px 24px; }
     footer a { color: rgba(255,255,255,0.9); font-weight: 500; }
     footer a:hover { color: var(--white); }
@@ -56,6 +64,7 @@
       .hero h1 { font-size: 26px; }
       .header-links { display: none; }
       .card-grid { grid-template-columns: 1fr; }
+      .materials-grid { grid-template-columns: 1fr; }
       .section { padding: 40px 16px; }
       .hero { padding: 48px 16px 40px; }
     }
@@ -64,9 +73,9 @@
 <body>
   <header>
     <div class="header-inner">
-      <a href="https://ailia.ai/en/sdk/" class="logo">
+      <a href="https://docs.ailia.ai/" class="logo">
         <img src="../../ailia_logo.png" alt="ailia">
-        ailia SDK
+        ailia SDK Documentation
       </a>
       <div class="header-links">
         <a href="../../">Home</a>
@@ -85,6 +94,14 @@
     <div class="card-grid">
 
       <div class="card">
+        <h3>Python</h3>
+        <ul>
+          <li><a href="python/en/">API (EN)</a></li>
+          <li><a href="https://pypi.org/project/ailia-speech/" target="_blank">PyPI</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
         <h3>C++</h3>
         <ul>
           <li><a href="cpp/en/">API (EN)</a> <a href="cpp/jp/" class="sub-link">(JP)</a></li>
@@ -99,14 +116,6 @@
       </div>
 
       <div class="card">
-        <h3>Python</h3>
-        <ul>
-          <li><a href="python/en/">API (EN)</a></li>
-          <li><a href="https://pypi.org/project/ailia-speech/" target="_blank">PyPI</a></li>
-        </ul>
-      </div>
-
-      <div class="card">
         <h3>Flutter</h3>
         <ul>
           <li><a href="flutter/en/">API (EN)</a></li>
@@ -116,11 +125,42 @@
     </div>
   </section>
 
-  <footer>
-    <div class="footer-logo">
-      <img src="../../ailia_logo.png" alt="ailia">
-      ailia SDK
+  <section class="materials-section">
+    <div class="section">
+      <h2 class="section-title">Materials</h2>
+      <div class="materials-grid">
+        <a href="https://ailia.ai/speech/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div class="material-text">
+            Product Site
+            <small>ailia.ai/speech/</small>
+          </div>
+        </a>
+        <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH?lang=en" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          </div>
+          <div class="material-text">
+            Free Trial
+            <small>Download evaluation version</small>
+          </div>
+        </a>
+        <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div class="material-text">
+            PyPI
+            <small>pip install ailia-speech</small>
+          </div>
+        </a>
+      </div>
     </div>
+  </section>
+
+  <footer>
     <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
