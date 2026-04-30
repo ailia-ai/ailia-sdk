@@ -10,13 +10,13 @@ The ailia SDK is an inference engine that supports cross-platform operation. ONN
 - [ailia Voice](supplemental/voice/) - Text-to-speech synthesis
 - [ailia LLM](supplemental/llm/) - Local LLM inference with GGUF support
 - [ailia Tracker](supplemental/tracker/) - Object movement tracking
+- [ailia TFLite](supplemental/tflite/) - TFLite inference
 
 ## Materials
 
 - [Release note](https://github.com/ailia-ai/ailia-sdk/wiki)
 - [Download a free evaluation version of ailia SDK](https://axip-console.appspot.com/trial/terms/AILIA?lang=en)
 - [YouTube Channel](https://www.youtube.com/channel/UCN-KzWACywDpBNOQ6FkIm0g)
-- [TFLite version](https://github.com/ailia-ai/ailia-tflite-runtime)
 
 ## Contact
 
