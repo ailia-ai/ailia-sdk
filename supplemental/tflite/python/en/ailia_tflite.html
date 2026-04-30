@@ -1,0 +1,590 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ailia_tflite package &mdash; ailia TFLite Python API 1.2.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/documentation_options.js?v=928db92d"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ailia TFLite Python API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">ailia_tflite package</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter"><code class="docutils literal notranslate"><span class="pre">Interpreter</span></code></a><ul>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.__init__"><code class="docutils literal notranslate"><span class="pre">Interpreter.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.allocate_tensors"><code class="docutils literal notranslate"><span class="pre">Interpreter.allocate_tensors()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.get_cpu_features"><code class="docutils literal notranslate"><span class="pre">Interpreter.get_cpu_features()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.get_input_details"><code class="docutils literal notranslate"><span class="pre">Interpreter.get_input_details()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.get_node_infos"><code class="docutils literal notranslate"><span class="pre">Interpreter.get_node_infos()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.get_output_details"><code class="docutils literal notranslate"><span class="pre">Interpreter.get_output_details()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.get_summary"><code class="docutils literal notranslate"><span class="pre">Interpreter.get_summary()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.get_tensor"><code class="docutils literal notranslate"><span class="pre">Interpreter.get_tensor()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.invoke"><code class="docutils literal notranslate"><span class="pre">Interpreter.invoke()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.resize_tensor_input"><code class="docutils literal notranslate"><span class="pre">Interpreter.resize_tensor_input()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.set_cpu_features"><code class="docutils literal notranslate"><span class="pre">Interpreter.set_cpu_features()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.set_profile_mode"><code class="docutils literal notranslate"><span class="pre">Interpreter.set_profile_mode()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tflite.Interpreter.set_tensor"><code class="docutils literal notranslate"><span class="pre">Interpreter.set_tensor()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ailia TFLite Python API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ailia_tflite package</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ailia-tflite-package">
+<h1>ailia_tflite package<a class="headerlink" href="#ailia-tflite-package" title="Link to this heading">¶</a></h1>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_tflite.</span></span><span class="sig-name descname"><span class="pre">Interpreter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_int_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">261948</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_mid_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1816576</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_ext_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">104857600</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<div class="line-block">
+<div class="line">ailia TFLite Runtime inference interface (compatible with tf.lite.interpreter)</div>
+<div class="line">ailia TFLite Runtime 推論用インターフェース(tf.lite.Interpreterと互換)</div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_int_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">261948</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_mid_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1816576</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_ext_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">104857600</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.__init__" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Constructor</div>
+<div class="line">コンストラクタ</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> (<em>str</em>) – <div class="line-block">
+<div class="line">Path to tflite model</div>
+<div class="line">tfliteモデルへのパス</div>
+</div>
+</p></li>
+<li><p><strong>env_id</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">Used when using NNAPI in Android ID in the execution environment</div>
+<div class="line">実行環境のID、AndroidでNNAPIを使用する場合に使用</div>
+</div>
+</p></li>
+<li><p><strong>memory_mode</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">ailia_tflite.AILIA_TFLITE_MEMORY_REDUCE_INTERSTAGE can be used by specifying the memory mode.</div>
+<div class="line">ailia_tflite.AILIA_TFLITE_MEMORY_MODE_REDUCE_INTERSTAGEを指定することで省メモリモードが使用可能</div>
+</div>
+</p></li>
+<li><p><strong>flags</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">You can change the reasoning mode by specifying ailia_tflite.AILIA_TFLITE_FLAG_*</div>
+<div class="line">ailia_tflite.AILIA_TFLITE_FLAG_*を指定することで推論モードを変更可能</div>
+</div>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.allocate_tensors">
+<span class="sig-name descname"><span class="pre">allocate_tensors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.allocate_tensors" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Allocate tensor buffers</div>
+<div class="line">Tensorの割当を行う</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.get_cpu_features">
+<span class="sig-name descname"><span class="pre">get_cpu_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.get_cpu_features" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Get the CPU instrunction to use</div>
+<div class="line">使用するCPU命令を取得する</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><div class="line-block">
+<div class="line">AILIA_TFLITE_CPU_FEATURES_XXX logical sum</div>
+<div class="line">AILIA_TFLITE_CPU_FEATURES_XXXの論理和</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.get_input_details">
+<span class="sig-name descname"><span class="pre">get_input_details</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.get_input_details" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Get information of input tensor</div>
+<div class="line">入力Tensorの情報を取得する</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><div class="line-block">
+<div class="line">Input tensor information array</div>
+<div class="line">入力Tensorの情報の配列。</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[Dict[str, any]]</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl>
+<dt>index</dt><dd><div class="line-block">
+<div class="line">Tensor index</div>
+<div class="line">Tensorのindex</div>
+</div>
+</dd>
+<dt>shape</dt><dd><div class="line-block">
+<div class="line">Tensor shape(numpy array)</div>
+<div class="line">Tensorの形状(numpy array)</div>
+</div>
+</dd>
+<dt>shape_signature</dt><dd><div class="line-block">
+<div class="line">Tensor shape signature(numpy array) Unlike Shape, if the shape is undecided, -1 is stored.</div>
+<div class="line">Tensorの形状(numpy array) shapeと異なり、形状が未定な場合は-1が格納される。</div>
+</div>
+</dd>
+<dt>dtype</dt><dd><div class="line-block">
+<div class="line">Tensor type</div>
+<div class="line">Tensorの型</div>
+</div>
+</dd>
+<dt>name</dt><dd><div class="line-block">
+<div class="line">Tensor name</div>
+<div class="line">Tensor名</div>
+</div>
+</dd>
+<dt>quantization</dt><dd><div class="line-block">
+<div class="line">Quantization information(deprecated)</div>
+<div class="line">量子化情報(deprecated)</div>
+</div>
+</dd>
+<dt>quantization_parameters</dt><dd><div class="line-block">
+<div class="line">Quantization parameters</div>
+<div class="line">量子化情報</div>
+</div>
+</dd>
+<dt>quantization_parameters.scales</dt><dd><div class="line-block">
+<div class="line">Array of scale (1 element when quantizing in tensor units)</div>
+<div class="line">スケールの配列 (Tensor単位で量子化する場合は1要素)</div>
+</div>
+</dd>
+<dt>quantization_parameters.zero_points</dt><dd><div class="line-block">
+<div class="line">Array of zero point (1 element when quantizing in tensor units)</div>
+<div class="line">ゼロポイントの配列 (Tensor単位で量子化する場合は1要素)</div>
+</div>
+</dd>
+<dt>quantization_parameters.quantized_dimension</dt><dd><div class="line-block">
+<div class="line">Axis of quantization (Specify when quantizing in axis units)</div>
+<div class="line">量子化を行う軸 (axis単位で量子化する場合に指定)</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.get_node_infos">
+<span class="sig-name descname"><span class="pre">get_node_infos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.get_node_infos" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Get node information</div>
+<div class="line">Nodeの情報を取得する</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><div class="line-block">
+<div class="line">Node information array</div>
+<div class="line">Nodeの情報の配列</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[Dict[str, any]]</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl>
+<dt>index</dt><dd><div class="line-block">
+<div class="line">Node index</div>
+<div class="line">Nodeのindex</div>
+</div>
+</dd>
+<dt>name</dt><dd><div class="line-block">
+<div class="line">Node name</div>
+<div class="line">Nodeの名前</div>
+</div>
+</dd>
+<dt>operator</dt><dd><div class="line-block">
+<div class="line">Operator enum value</div>
+<div class="line">Operatorのenum値</div>
+</div>
+</dd>
+<dt>operator_name</dt><dd><div class="line-block">
+<div class="line">Operator name</div>
+<div class="line">Operatorの名前</div>
+</div>
+</dd>
+<dt>input_tensor_indices</dt><dd><div class="line-block">
+<div class="line">List of index of input tensor</div>
+<div class="line">入力TensorのindexのList</div>
+</div>
+</dd>
+<dt>input_details</dt><dd><div class="line-block">
+<div class="line">List of information in input tensor</div>
+<div class="line">入力Tensorの情報のList</div>
+</div>
+</dd>
+<dt>output_tensor_index</dt><dd><div class="line-block">
+<div class="line">Index of output tensor</div>
+<div class="line">出力Tensorのindex</div>
+</div>
+</dd>
+<dt>output_detail</dt><dd><div class="line-block">
+<div class="line">Output tensor information</div>
+<div class="line">出力Tensorの情報</div>
+</div>
+</dd>
+<dt>weight</dt><dd><div class="line-block">
+<div class="line">Weight (for Conv2D/DepthwiseConv2D/Fullyconnected)</div>
+<div class="line">Weight (Conv2D/DepthwiseConv2D/FullyConnectedの場合)</div>
+</div>
+</dd>
+<dt>weight_detail</dt><dd><div class="line-block">
+<div class="line">Weight detail (for Conv2D/DepthwiseConv2D/Fullyconnected)</div>
+<div class="line">Weightの情報 (Conv2D/DepthwiseConv2D/FullyConnectedの場合)</div>
+</div>
+</dd>
+<dt>bias</dt><dd><div class="line-block">
+<div class="line">Bias (for Conv2D/DepthwiseConv2D/Fullyconnected)</div>
+<div class="line">Bias (Conv2D/DepthwiseConv2D/FullyConnectedの場合)</div>
+</div>
+</dd>
+<dt>bias_detail</dt><dd><div class="line-block">
+<div class="line">Bias detail(for Conv2D/DepthwiseConv2D/Fullyconnected)</div>
+<div class="line">Biasの情報 (Conv2D/DepthwiseConv2D/FullyConnectedの場合)</div>
+</div>
+</dd>
+<dt>option</dt><dd><div class="line-block">
+<div class="line">Dict of option name and value (for Add/Conv2D/DepthwiseConv2D/FullyConnected/MaxPool2D/Softmax/Mean)</div>
+<div class="line">オプション名と値のDict (Add/Conv2D/DepthwiseConv2D/FullyConnected/MaxPool2D/Softmax/Meanの場合)</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.get_output_details">
+<span class="sig-name descname"><span class="pre">get_output_details</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.get_output_details" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Get information of output tensor</div>
+<div class="line">出力Tensorの情報を取得する</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><div class="line-block">
+<div class="line">Output tensor information array</div>
+<div class="line">出力Tensorの情報の配列</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[Dict[str, any]]</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl>
+<dt>index</dt><dd><div class="line-block">
+<div class="line">Tensor index</div>
+<div class="line">Tensorのindex</div>
+</div>
+</dd>
+<dt>shape</dt><dd><div class="line-block">
+<div class="line">Tensor shape(numpy array)</div>
+<div class="line">Tensorの形状(numpy array)</div>
+</div>
+</dd>
+<dt>shape_signature</dt><dd><div class="line-block">
+<div class="line">Tensor shape signature(numpy array) Unlike Shape, if the shape is undecided, -1 is stored.</div>
+<div class="line">Tensorの形状(numpy array) shapeと異なり、形状が未定な場合は-1が格納される。</div>
+</div>
+</dd>
+<dt>dtype</dt><dd><div class="line-block">
+<div class="line">Tensor type</div>
+<div class="line">Tensorの型</div>
+</div>
+</dd>
+<dt>name</dt><dd><div class="line-block">
+<div class="line">Tensor name</div>
+<div class="line">Tensor名</div>
+</div>
+</dd>
+<dt>quantization</dt><dd><div class="line-block">
+<div class="line">Quantization information(deprecated)</div>
+<div class="line">量子化情報(deprecated)</div>
+</div>
+</dd>
+<dt>quantization_parameters</dt><dd><div class="line-block">
+<div class="line">Quantization parameters</div>
+<div class="line">量子化情報</div>
+</div>
+</dd>
+<dt>quantization_parameters.scales</dt><dd><div class="line-block">
+<div class="line">Array of scale (1 element when quantizing in tensor units)</div>
+<div class="line">スケールの配列 (Tensor単位で量子化する場合は1要素)</div>
+</div>
+</dd>
+<dt>quantization_parameters.zero_points</dt><dd><div class="line-block">
+<div class="line">Array of zero point (1 element when quantizing in tensor units)</div>
+<div class="line">ゼロポイントの配列 (Tensor単位で量子化する場合は1要素)</div>
+</div>
+</dd>
+<dt>quantization_parameters.quantized_dimension</dt><dd><div class="line-block">
+<div class="line">Axis of quantization (Specify when quantizing in axis units)</div>
+<div class="line">量子化を行う軸 (axis単位で量子化する場合に指定)</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.get_summary">
+<span class="sig-name descname"><span class="pre">get_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.get_summary" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Get the summary information</div>
+<div class="line">サマリを取得する</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><div class="line-block">
+<div class="line">Summary information</div>
+<div class="line">サマリ情報</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.get_tensor">
+<span class="sig-name descname"><span class="pre">get_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.get_tensor" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Get the value of the specified tensor</div>
+<div class="line">指定したTensorの値を取得する</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tensor_index</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">Tensor’s index (acquired with get_output_details)</div>
+<div class="line">Tensorのindex(get_output_detailsで取得する)</div>
+</div>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><div class="line-block">
+<div class="line">Tensor value</div>
+<div class="line">Tensorの値</div>
+</div>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.invoke">
+<span class="sig-name descname"><span class="pre">invoke</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.invoke" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Inference</div>
+<div class="line">推論を実行する</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.resize_tensor_input">
+<span class="sig-name descname"><span class="pre">resize_tensor_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.resize_tensor_input" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Change input tensor shape</div>
+<div class="line">入力Tensorの形状を変更する</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor_index</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">Index of Tensor (index returned by Get_input_details)</div>
+<div class="line">Tensorのindex(get_input_detailsが返すindex)</div>
+</div>
+</p></li>
+<li><p><strong>shape</strong> (<em>Union</em><em>[</em><em>Tuple</em><em>, </em><em>nd.array</em><em>, </em><em>List</em><em>]</em>) – <div class="line-block">
+<div class="line">New shape</div>
+<div class="line">新しい形状</div>
+</div>
+</p></li>
+<li><p><strong>strict</strong> (<em>bool</em><em>, </em><em>optional</em>) – <div class="line-block">
+<div class="line">Strict mode. In the case of true, only unknown dimensions (parts that are -1 in Shape_Signature) can be changed. by default False</div>
+<div class="line">厳格モード。Trueの場合不明な次元(shape_signatureで-1となっている部分)のみ変更可能です。デフォルトはFalseです。</div>
+</div>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.set_cpu_features">
+<span class="sig-name descname"><span class="pre">set_cpu_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cpu_features</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.set_cpu_features" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Set the CPU instruction to use</div>
+<div class="line">使用するCPU命令を設定する</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cpu_features</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">AILIA_TFLITE_CPU_FEATURES_XXX logical sum</div>
+<div class="line">AILIA_TFLITE_CPU_FEATURES_XXXの論理和</div>
+</div>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.set_profile_mode">
+<span class="sig-name descname"><span class="pre">set_profile_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile_mode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.set_profile_mode" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Enable profile mode</div>
+<div class="line">プロファイルモードを指定する</div>
+</div>
+<div class="line-block">
+<div class="line">It must be executed immediately after creation of an interpreter. After setting the profile mode, you can get profile information by calling get_summary.</div>
+<div class="line">Interpreterの作成直後に実行する必要がある。プロファイルモードを設定した後にget_summaryを呼び出すことで、プロファイル情報を取得可能。</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>profile_mode</strong> (<em>bool</em><em> or </em><em>int</em>) – <div class="line-block">
+<div class="line">Profile mode (enabled in true)</div>
+<div class="line">プロファイルモード（Trueで有効）</div>
+</div>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tflite.Interpreter.set_tensor">
+<span class="sig-name descname"><span class="pre">set_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.set_tensor" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Set the value in the specified tensor</div>
+<div class="line">指定したTensorに値をセットする</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor_index</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">TENSOR’s index (acquired with get_input_details)</div>
+<div class="line">Tensorのindex(get_input_detailsで取得する)</div>
+</div>
+</p></li>
+<li><p><strong>value</strong> (<em>np.ndarray</em>) – <div class="line-block">
+<div class="line">The value to set</div>
+<div class="line">セットする値</div>
+</div>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022 - 2025, AXELL CORPORATION, ailia Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

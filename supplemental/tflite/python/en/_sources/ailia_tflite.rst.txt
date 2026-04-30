@@ -1,0 +1,11 @@
+ailia_tflite package
+==========================
+
+Classes
+-----------
+
+.. autoclass:: ailia_tflite.Interpreter
+   :special-members: __init__, __name__
+   :members:
+   :undoc-members:
+   :show-inheritance:

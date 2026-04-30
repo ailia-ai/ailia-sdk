@@ -1,0 +1,3345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ailia_tflite: ailia_tflite.h ファイル</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">ailia_tflite
+   &#160;<span id="projectnumber">1.2.4.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'検索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_cb031e414f281a658b23dddb30bb9d2c.html">runtime</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#define-members">マクロ定義</a> &#124;
+<a href="#typedef-members">型定義</a> &#124;
+<a href="#func-members">関数</a>  </div>
+  <div class="headertitle">
+<div class="title">ailia_tflite.h ファイル</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>AILIA TFLITE RUNTIME INTERFACE  
+<a href="#details">[詳解]</a></p>
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;stddef.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+ailia_tflite.h の依存先関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="ailia__tflite_8h__incl.png" border="0" usemap="#aailia__tflite_8h" alt=""/></div>
+<map name="aailia__tflite_8h" id="aailia__tflite_8h">
+<area shape="rect" title="AILIA TFLITE RUNTIME INTERFACE" alt="" coords="39,5,138,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,76,107"/>
+<area shape="rect" title=" " alt="" coords="101,80,175,107"/>
+</map>
+</div>
+</div>
+<p><a href="ailia__tflite_8h_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+マクロ定義</h2></td></tr>
+<tr class="memitem:ad870cf3a690f248a4cd8fdf567db5aff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ad870cf3a690f248a4cd8fdf567db5aff">AILIA_TFLITE_TENSOR_TYPE_FLOAT32</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="memdesc:ad870cf3a690f248a4cd8fdf567db5aff"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLOAT32  <a href="ailia__tflite_8h.html#ad870cf3a690f248a4cd8fdf567db5aff">[詳解]</a><br /></td></tr>
+<tr class="separator:ad870cf3a690f248a4cd8fdf567db5aff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a513cb591edeca644dd24624e2acce014"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a513cb591edeca644dd24624e2acce014">AILIA_TFLITE_TENSOR_TYPE_FLOAT16</a>&#160;&#160;&#160;(1)</td></tr>
+<tr class="memdesc:a513cb591edeca644dd24624e2acce014"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLOAT16  <a href="ailia__tflite_8h.html#a513cb591edeca644dd24624e2acce014">[詳解]</a><br /></td></tr>
+<tr class="separator:a513cb591edeca644dd24624e2acce014"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf94ba1c1b02014b6b0edfe4c4baab49"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#aaf94ba1c1b02014b6b0edfe4c4baab49">AILIA_TFLITE_TENSOR_TYPE_INT32</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="memdesc:aaf94ba1c1b02014b6b0edfe4c4baab49"><td class="mdescLeft">&#160;</td><td class="mdescRight">INT32  <a href="ailia__tflite_8h.html#aaf94ba1c1b02014b6b0edfe4c4baab49">[詳解]</a><br /></td></tr>
+<tr class="separator:aaf94ba1c1b02014b6b0edfe4c4baab49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e43f5026fa1b0580e05ab65d3ef9ab0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a8e43f5026fa1b0580e05ab65d3ef9ab0">AILIA_TFLITE_TENSOR_TYPE_UINT8</a>&#160;&#160;&#160;(3)</td></tr>
+<tr class="memdesc:a8e43f5026fa1b0580e05ab65d3ef9ab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">UINT8  <a href="ailia__tflite_8h.html#a8e43f5026fa1b0580e05ab65d3ef9ab0">[詳解]</a><br /></td></tr>
+<tr class="separator:a8e43f5026fa1b0580e05ab65d3ef9ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae518c4a92ffa28c8b9958d8be064edf4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ae518c4a92ffa28c8b9958d8be064edf4">AILIA_TFLITE_TENSOR_TYPE_INT64</a>&#160;&#160;&#160;(4)</td></tr>
+<tr class="memdesc:ae518c4a92ffa28c8b9958d8be064edf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">INT64  <a href="ailia__tflite_8h.html#ae518c4a92ffa28c8b9958d8be064edf4">[詳解]</a><br /></td></tr>
+<tr class="separator:ae518c4a92ffa28c8b9958d8be064edf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af66fdd69441809c28d4078fd4fff3ced"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#af66fdd69441809c28d4078fd4fff3ced">AILIA_TFLITE_TENSOR_TYPE_STRING</a>&#160;&#160;&#160;(5)</td></tr>
+<tr class="memdesc:af66fdd69441809c28d4078fd4fff3ced"><td class="mdescLeft">&#160;</td><td class="mdescRight">STRING  <a href="ailia__tflite_8h.html#af66fdd69441809c28d4078fd4fff3ced">[詳解]</a><br /></td></tr>
+<tr class="separator:af66fdd69441809c28d4078fd4fff3ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8695624dfcc13a733a0869ce7ec749fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a8695624dfcc13a733a0869ce7ec749fa">AILIA_TFLITE_TENSOR_TYPE_BOOL</a>&#160;&#160;&#160;(6)</td></tr>
+<tr class="memdesc:a8695624dfcc13a733a0869ce7ec749fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">BOOL  <a href="ailia__tflite_8h.html#a8695624dfcc13a733a0869ce7ec749fa">[詳解]</a><br /></td></tr>
+<tr class="separator:a8695624dfcc13a733a0869ce7ec749fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b8c99d25ecf0c3eb9a0fb5105c2ac04"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a7b8c99d25ecf0c3eb9a0fb5105c2ac04">AILIA_TFLITE_TENSOR_TYPE_INT16</a>&#160;&#160;&#160;(7)</td></tr>
+<tr class="memdesc:a7b8c99d25ecf0c3eb9a0fb5105c2ac04"><td class="mdescLeft">&#160;</td><td class="mdescRight">INT16  <a href="ailia__tflite_8h.html#a7b8c99d25ecf0c3eb9a0fb5105c2ac04">[詳解]</a><br /></td></tr>
+<tr class="separator:a7b8c99d25ecf0c3eb9a0fb5105c2ac04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fafb53e13ad5f4d44018a35ba31ea39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a0fafb53e13ad5f4d44018a35ba31ea39">AILIA_TFLITE_TENSOR_TYPE_COMPLEX64</a>&#160;&#160;&#160;(8)</td></tr>
+<tr class="memdesc:a0fafb53e13ad5f4d44018a35ba31ea39"><td class="mdescLeft">&#160;</td><td class="mdescRight">COMPLEX64  <a href="ailia__tflite_8h.html#a0fafb53e13ad5f4d44018a35ba31ea39">[詳解]</a><br /></td></tr>
+<tr class="separator:a0fafb53e13ad5f4d44018a35ba31ea39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eaa7789532ecc04ec3cc1741c092e13"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a3eaa7789532ecc04ec3cc1741c092e13">AILIA_TFLITE_TENSOR_TYPE_INT8</a>&#160;&#160;&#160;(9)</td></tr>
+<tr class="memdesc:a3eaa7789532ecc04ec3cc1741c092e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">INT8  <a href="ailia__tflite_8h.html#a3eaa7789532ecc04ec3cc1741c092e13">[詳解]</a><br /></td></tr>
+<tr class="separator:a3eaa7789532ecc04ec3cc1741c092e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9afb121784e5ae2c153584bfeb242cab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a9afb121784e5ae2c153584bfeb242cab">AILIA_TFLITE_STATUS_SUCCESS</a>&#160;&#160;&#160;(   0)</td></tr>
+<tr class="memdesc:a9afb121784e5ae2c153584bfeb242cab"><td class="mdescLeft">&#160;</td><td class="mdescRight">成功  <a href="ailia__tflite_8h.html#a9afb121784e5ae2c153584bfeb242cab">[詳解]</a><br /></td></tr>
+<tr class="separator:a9afb121784e5ae2c153584bfeb242cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3523087fa3a9521bdfe5f821d290d3fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a3523087fa3a9521bdfe5f821d290d3fa">AILIA_TFLITE_STATUS_INVALID_ARGUMENT</a>&#160;&#160;&#160;(  -1)</td></tr>
+<tr class="memdesc:a3523087fa3a9521bdfe5f821d290d3fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数が不正 このステータスコードが返ってきた場合、呼び出し元のコードや渡している引数がNULLになっていないかなどを見直してください。  <a href="ailia__tflite_8h.html#a3523087fa3a9521bdfe5f821d290d3fa">[詳解]</a><br /></td></tr>
+<tr class="separator:a3523087fa3a9521bdfe5f821d290d3fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab06c2354ede3fd12b9e1b70c17b61f16"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ab06c2354ede3fd12b9e1b70c17b61f16">AILIA_TFLITE_STATUS_OUT_OF_RANGE</a>&#160;&#160;&#160;(  -2)</td></tr>
+<tr class="memdesc:ab06c2354ede3fd12b9e1b70c17b61f16"><td class="mdescLeft">&#160;</td><td class="mdescRight">引数などが範囲外 このステータスコードが返ってきた場合、引数が範囲外になっていないかなどを見直してください。  <a href="ailia__tflite_8h.html#ab06c2354ede3fd12b9e1b70c17b61f16">[詳解]</a><br /></td></tr>
+<tr class="separator:ab06c2354ede3fd12b9e1b70c17b61f16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44902c330bf1a87d15cba12d594002c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a44902c330bf1a87d15cba12d594002c9">AILIA_TFLITE_STATUS_MEMORY_INSUFFICIENT</a>&#160;&#160;&#160;(  -3)</td></tr>
+<tr class="memdesc:a44902c330bf1a87d15cba12d594002c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリが不足している このステータスコードはメモリ確保に失敗した場合などに返ってきます。メモリの空き状況を確認し、ほかのプロセスを終了するなどの対処をしてください。  <a href="ailia__tflite_8h.html#a44902c330bf1a87d15cba12d594002c9">[詳解]</a><br /></td></tr>
+<tr class="separator:a44902c330bf1a87d15cba12d594002c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b7e456b323805fc51d67d839b35b0ec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a1b7e456b323805fc51d67d839b35b0ec">AILIA_TFLITE_STATUS_BROKEN_MODEL</a>&#160;&#160;&#160;(  -4)</td></tr>
+<tr class="memdesc:a1b7e456b323805fc51d67d839b35b0ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">モデルが破損している このステータスコードは与えられたモデルファイルが破損している場合に返ってきます。モデルファイルが正しいかどうかをご確認ください。  <a href="ailia__tflite_8h.html#a1b7e456b323805fc51d67d839b35b0ec">[詳解]</a><br /></td></tr>
+<tr class="separator:a1b7e456b323805fc51d67d839b35b0ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe1a01d29cbb15beaff382daff89dda9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#afe1a01d29cbb15beaff382daff89dda9">AILIA_TFLITE_STATUS_INVALID_PARAMETER</a>&#160;&#160;&#160;(  -5)</td></tr>
+<tr class="memdesc:afe1a01d29cbb15beaff382daff89dda9"><td class="mdescLeft">&#160;</td><td class="mdescRight">モデルのパラメーターが不正 このステータスコードはモデル内に含まれているパラメーターが不正な場合に返ってきます。モデルファイルが正しいかどうかをご確認ください。  <a href="ailia__tflite_8h.html#afe1a01d29cbb15beaff382daff89dda9">[詳解]</a><br /></td></tr>
+<tr class="separator:afe1a01d29cbb15beaff382daff89dda9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6242d86d18b99327c1ecf28650e9e92"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ae6242d86d18b99327c1ecf28650e9e92">AILIA_TFLITE_STATUS_PARAMETER_NOT_FOUND</a>&#160;&#160;&#160;(  -6)</td></tr>
+<tr class="memdesc:ae6242d86d18b99327c1ecf28650e9e92"><td class="mdescLeft">&#160;</td><td class="mdescRight">パラメーターが存在しない このステータスコードはモデル内で指定したパラメーターが存在しない場合に返ってきます。呼び出し元のコードやモデルファイルが正しいかどうかをご確認ください。  <a href="ailia__tflite_8h.html#ae6242d86d18b99327c1ecf28650e9e92">[詳解]</a><br /></td></tr>
+<tr class="separator:ae6242d86d18b99327c1ecf28650e9e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9d765c844c76712f90d8ea676e205f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#af9d765c844c76712f90d8ea676e205f1">AILIA_TFLITE_STATUS_UNSUPPORTED_OPCODE</a>&#160;&#160;&#160;(  -7)</td></tr>
+<tr class="memdesc:af9d765c844c76712f90d8ea676e205f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">非対応のオペレーターを実行しようとした このステータスコードはailia TFLite runtimeでサポートされていないオペレーターが含まれていた場合に返ってきます。ドキュメントに記載されているオペレーター以外がモデルに含まれていないかご確認ください。オペレーターの新規追加に関しましてはドキュメント記載の問い合わせ先までお問い合わせください。  <a href="ailia__tflite_8h.html#af9d765c844c76712f90d8ea676e205f1">[詳解]</a><br /></td></tr>
+<tr class="separator:af9d765c844c76712f90d8ea676e205f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cae55222f1a317dc7b0995216a4205a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a7cae55222f1a317dc7b0995216a4205a">AILIA_TFLITE_STATUS_LICENSE_NOT_FOUND</a>&#160;&#160;&#160;(  -8)</td></tr>
+<tr class="memdesc:a7cae55222f1a317dc7b0995216a4205a"><td class="mdescLeft">&#160;</td><td class="mdescRight">有効なライセンスが見つからない このステータスコードはトライアル版ailia TFLite runtimeを実行している場合で、ライセンスファイルが見つからなかった場合に返ってきます。トライアル版のライセンスに関しましてはドキュメント記載の問い合わせ先までお問い合わせください。  <a href="ailia__tflite_8h.html#a7cae55222f1a317dc7b0995216a4205a">[詳解]</a><br /></td></tr>
+<tr class="separator:a7cae55222f1a317dc7b0995216a4205a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5775f36d3d9b641a7c416479f88e086d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a5775f36d3d9b641a7c416479f88e086d">AILIA_TFLITE_STATUS_LICENSE_BROKEN</a>&#160;&#160;&#160;(  -9)</td></tr>
+<tr class="memdesc:a5775f36d3d9b641a7c416479f88e086d"><td class="mdescLeft">&#160;</td><td class="mdescRight">ライセンスが壊れている このステータスコードはトライアル版ailia TFLite runtimeを実行している場合で、ライセンスファイルが破損している場合に返ってきます。トライアル版のライセンスに関しましてはドキュメント記載の問い合わせ先までお問い合わせください。  <a href="ailia__tflite_8h.html#a5775f36d3d9b641a7c416479f88e086d">[詳解]</a><br /></td></tr>
+<tr class="separator:a5775f36d3d9b641a7c416479f88e086d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a478f1a7e32a649fde27c4d6049ee4d36"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a478f1a7e32a649fde27c4d6049ee4d36">AILIA_TFLITE_STATUS_LICENSE_EXPIRED</a>&#160;&#160;&#160;( -10)</td></tr>
+<tr class="memdesc:a478f1a7e32a649fde27c4d6049ee4d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">ライセンスの有効期限切れ このステータスコードはトライアル版ailia TFLite runtimeを実行している場合で、ライセンスファイルの有効期限が切れている場合に返ってきます。トライアル版のライセンスの更新に関しましてはドキュメント記載の問い合わせ先までお問い合わせください。  <a href="ailia__tflite_8h.html#a478f1a7e32a649fde27c4d6049ee4d36">[詳解]</a><br /></td></tr>
+<tr class="separator:a478f1a7e32a649fde27c4d6049ee4d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a113f47f9552e9bafdbb6dd777cff6b61"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a113f47f9552e9bafdbb6dd777cff6b61">AILIA_TFLITE_STATUS_INVALID_STATE</a>&#160;&#160;&#160;( -11)</td></tr>
+<tr class="memdesc:a113f47f9552e9bafdbb6dd777cff6b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">APIを呼び出せるステートでない このステータスコードが返ってきた場合、APIを呼び出せる状態かどうかなどを見直してください。  <a href="ailia__tflite_8h.html#a113f47f9552e9bafdbb6dd777cff6b61">[詳解]</a><br /></td></tr>
+<tr class="separator:a113f47f9552e9bafdbb6dd777cff6b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe50eaadbb1d6a23b953fb85a87aa9b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#afe50eaadbb1d6a23b953fb85a87aa9b2">AILIA_TFLITE_STATUS_OTHER_ERROR</a>&#160;&#160;&#160;(-128)</td></tr>
+<tr class="memdesc:afe50eaadbb1d6a23b953fb85a87aa9b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">その他のエラー 上記以外のエラーが発生した場合に返ります。ドキュメント記載の問い合わせ先までお問い合わせください。  <a href="ailia__tflite_8h.html#afe50eaadbb1d6a23b953fb85a87aa9b2">[詳解]</a><br /></td></tr>
+<tr class="separator:afe50eaadbb1d6a23b953fb85a87aa9b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7e3b6d361a1efbdc987de2d111f2d36"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#af7e3b6d361a1efbdc987de2d111f2d36">AILIA_TFLITE_ENV_REFERENCE</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="memdesc:af7e3b6d361a1efbdc987de2d111f2d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">リファレンスCPU実装  <a href="ailia__tflite_8h.html#af7e3b6d361a1efbdc987de2d111f2d36">[詳解]</a><br /></td></tr>
+<tr class="separator:af7e3b6d361a1efbdc987de2d111f2d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d9688f63681246f827d2e763ea3c824"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a1d9688f63681246f827d2e763ea3c824">AILIA_TFLITE_ENV_NNAPI</a>&#160;&#160;&#160;(1)</td></tr>
+<tr class="memdesc:a1d9688f63681246f827d2e763ea3c824"><td class="mdescLeft">&#160;</td><td class="mdescRight">NNAPIを使用した実装。Android向け。  <a href="ailia__tflite_8h.html#a1d9688f63681246f827d2e763ea3c824">[詳解]</a><br /></td></tr>
+<tr class="separator:a1d9688f63681246f827d2e763ea3c824"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e32492fb3ee3b9f6a738583bcde0281"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a4e32492fb3ee3b9f6a738583bcde0281">AILIA_TFLITE_ENV_MMALIB</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="memdesc:a4e32492fb3ee3b9f6a738583bcde0281"><td class="mdescLeft">&#160;</td><td class="mdescRight">MMALIBを使用した実装。PCではMMALIBのエミュレータ、デバイスではMMALIBを使用する。  <a href="ailia__tflite_8h.html#a4e32492fb3ee3b9f6a738583bcde0281">[詳解]</a><br /></td></tr>
+<tr class="separator:a4e32492fb3ee3b9f6a738583bcde0281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07e3094b4b13b4d09b0a112a3dcd2841"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a07e3094b4b13b4d09b0a112a3dcd2841">AILIA_TFLITE_ENV_MMALIB_COMPATIBLE</a>&#160;&#160;&#160;(3)</td></tr>
+<tr class="memdesc:a07e3094b4b13b4d09b0a112a3dcd2841"><td class="mdescLeft">&#160;</td><td class="mdescRight">MMALIBの出力互換実装。出力一致のみを行うため高速に動作する。  <a href="ailia__tflite_8h.html#a07e3094b4b13b4d09b0a112a3dcd2841">[詳解]</a><br /></td></tr>
+<tr class="separator:a07e3094b4b13b4d09b0a112a3dcd2841"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af190565ac89b22388f7c260bc1cd7a17"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#af190565ac89b22388f7c260bc1cd7a17">AILIA_TFLITE_ENV_QNN</a>&#160;&#160;&#160;(4)</td></tr>
+<tr class="memdesc:af190565ac89b22388f7c260bc1cd7a17"><td class="mdescLeft">&#160;</td><td class="mdescRight">QNNを使用した実装。  <a href="ailia__tflite_8h.html#af190565ac89b22388f7c260bc1cd7a17">[詳解]</a><br /></td></tr>
+<tr class="separator:af190565ac89b22388f7c260bc1cd7a17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a8d55dee92592d1c76c918d7df506df"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a2a8d55dee92592d1c76c918d7df506df">AILIA_TFLITE_MEMORY_MODE_DEFAULT</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="memdesc:a2a8d55dee92592d1c76c918d7df506df"><td class="mdescLeft">&#160;</td><td class="mdescRight">通常モード  <a href="ailia__tflite_8h.html#a2a8d55dee92592d1c76c918d7df506df">[詳解]</a><br /></td></tr>
+<tr class="separator:a2a8d55dee92592d1c76c918d7df506df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a780c0d61c89ff31f6fe4a49ad66f5af5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a780c0d61c89ff31f6fe4a49ad66f5af5">AILIA_TFLITE_MEMORY_MODE_REDUCE_INTERSTAGE</a>&#160;&#160;&#160;(1)</td></tr>
+<tr class="memdesc:a780c0d61c89ff31f6fe4a49ad66f5af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">省メモリモード  <a href="ailia__tflite_8h.html#a780c0d61c89ff31f6fe4a49ad66f5af5">[詳解]</a><br /></td></tr>
+<tr class="separator:a780c0d61c89ff31f6fe4a49ad66f5af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a219b7975f284249f143f755e092b0f46"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a219b7975f284249f143f755e092b0f46">AILIA_TFLITE_PROFILE_MODE_DISABLE</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="memdesc:a219b7975f284249f143f755e092b0f46"><td class="mdescLeft">&#160;</td><td class="mdescRight">プロファイル無効  <a href="ailia__tflite_8h.html#a219b7975f284249f143f755e092b0f46">[詳解]</a><br /></td></tr>
+<tr class="separator:a219b7975f284249f143f755e092b0f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bad4271bc400e42460de3befd3c4c9c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a9bad4271bc400e42460de3befd3c4c9c">AILIA_TFLITE_PROFILE_MODE_ENABLE</a>&#160;&#160;&#160;(1)</td></tr>
+<tr class="memdesc:a9bad4271bc400e42460de3befd3c4c9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">プロファイル有効  <a href="ailia__tflite_8h.html#a9bad4271bc400e42460de3befd3c4c9c">[詳解]</a><br /></td></tr>
+<tr class="separator:a9bad4271bc400e42460de3befd3c4c9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac545b2fcba61e640aa169435b69b638"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#aac545b2fcba61e640aa169435b69b638">AILIA_TFLITE_PROFILE_MODE_TRACE</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="memdesc:aac545b2fcba61e640aa169435b69b638"><td class="mdescLeft">&#160;</td><td class="mdescRight">トレース有効  <a href="ailia__tflite_8h.html#aac545b2fcba61e640aa169435b69b638">[詳解]</a><br /></td></tr>
+<tr class="separator:aac545b2fcba61e640aa169435b69b638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e1d851feb6ae6ab273fad7e67dc7194"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a4e1d851feb6ae6ab273fad7e67dc7194">AILIA_TFLITE_PROFILE_MODE_MEMORY</a>&#160;&#160;&#160;(4)</td></tr>
+<tr class="memdesc:a4e1d851feb6ae6ab273fad7e67dc7194"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリプロファイル有効  <a href="ailia__tflite_8h.html#a4e1d851feb6ae6ab273fad7e67dc7194">[詳解]</a><br /></td></tr>
+<tr class="separator:a4e1d851feb6ae6ab273fad7e67dc7194"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a714ed1a93d1cba0a9ad2d03253a4ae1b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a714ed1a93d1cba0a9ad2d03253a4ae1b">AILIA_TFLITE_PROFILE_MODE_SUB_CORE</a>&#160;&#160;&#160;(8)</td></tr>
+<tr class="memdesc:a714ed1a93d1cba0a9ad2d03253a4ae1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">サブコアプロファイル有効  <a href="ailia__tflite_8h.html#a714ed1a93d1cba0a9ad2d03253a4ae1b">[詳解]</a><br /></td></tr>
+<tr class="separator:a714ed1a93d1cba0a9ad2d03253a4ae1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5f7ebfc640789fc98e49e646258375d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ab5f7ebfc640789fc98e49e646258375d">AILIA_TFLITE_PROFILE_MODE_ALLOCATION</a>&#160;&#160;&#160;(16)</td></tr>
+<tr class="memdesc:ab5f7ebfc640789fc98e49e646258375d"><td class="mdescLeft">&#160;</td><td class="mdescRight">アロケーションプロファイル有効  <a href="ailia__tflite_8h.html#ab5f7ebfc640789fc98e49e646258375d">[詳解]</a><br /></td></tr>
+<tr class="separator:ab5f7ebfc640789fc98e49e646258375d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab5b820429534167f552e5163be9ed11"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#aab5b820429534167f552e5163be9ed11">AILIA_TFLITE_FLAG_NONE</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="memdesc:aab5b820429534167f552e5163be9ed11"><td class="mdescLeft">&#160;</td><td class="mdescRight">通常モード  <a href="ailia__tflite_8h.html#aab5b820429534167f552e5163be9ed11">[詳解]</a><br /></td></tr>
+<tr class="separator:aab5b820429534167f552e5163be9ed11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae97b13c2d8095832ff0da3ea1970bd7d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ae97b13c2d8095832ff0da3ea1970bd7d">AILIA_TFLITE_FLAG_INPUT_AND_OUTPUT_TENSORS_USE_SCRATCH</a>&#160;&#160;&#160;(1)</td></tr>
+<tr class="separator:ae97b13c2d8095832ff0da3ea1970bd7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a482796582d6a181a8c85404cee86aa91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a482796582d6a181a8c85404cee86aa91">AILIA_TFLITE_CPU_FEATURES_NONE</a>&#160;&#160;&#160;(0x00000000)</td></tr>
+<tr class="memdesc:a482796582d6a181a8c85404cee86aa91"><td class="mdescLeft">&#160;</td><td class="mdescRight">拡張命令無効  <a href="ailia__tflite_8h.html#a482796582d6a181a8c85404cee86aa91">[詳解]</a><br /></td></tr>
+<tr class="separator:a482796582d6a181a8c85404cee86aa91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6bd275d117bc876ec294fe8df2313e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ac6bd275d117bc876ec294fe8df2313e9">AILIA_TFLITE_CPU_FEATURES_NEON</a>&#160;&#160;&#160;(0x00000001)</td></tr>
+<tr class="memdesc:ac6bd275d117bc876ec294fe8df2313e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">NEON  <a href="ailia__tflite_8h.html#ac6bd275d117bc876ec294fe8df2313e9">[詳解]</a><br /></td></tr>
+<tr class="separator:ac6bd275d117bc876ec294fe8df2313e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61acafd3093b58fc20a12dfe14c52c12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a61acafd3093b58fc20a12dfe14c52c12">AILIA_TFLITE_CPU_FEATURES_SSE2</a>&#160;&#160;&#160;(0x00000002)</td></tr>
+<tr class="memdesc:a61acafd3093b58fc20a12dfe14c52c12"><td class="mdescLeft">&#160;</td><td class="mdescRight">SSE2  <a href="ailia__tflite_8h.html#a61acafd3093b58fc20a12dfe14c52c12">[詳解]</a><br /></td></tr>
+<tr class="separator:a61acafd3093b58fc20a12dfe14c52c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8152dfaa8ce9220cb538b427d95cfed0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a8152dfaa8ce9220cb538b427d95cfed0">AILIA_TFLITE_CPU_FEATURES_SSE4_2</a>&#160;&#160;&#160;(0x00000004)</td></tr>
+<tr class="memdesc:a8152dfaa8ce9220cb538b427d95cfed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">SSE4.2  <a href="ailia__tflite_8h.html#a8152dfaa8ce9220cb538b427d95cfed0">[詳解]</a><br /></td></tr>
+<tr class="separator:a8152dfaa8ce9220cb538b427d95cfed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6b46690cebd7ae7bbeceb838e39cef7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ac6b46690cebd7ae7bbeceb838e39cef7">AILIA_TFLITE_CPU_FEATURES_AVX</a>&#160;&#160;&#160;(0x00000008)</td></tr>
+<tr class="memdesc:ac6b46690cebd7ae7bbeceb838e39cef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">AVX  <a href="ailia__tflite_8h.html#ac6b46690cebd7ae7bbeceb838e39cef7">[詳解]</a><br /></td></tr>
+<tr class="separator:ac6b46690cebd7ae7bbeceb838e39cef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c18888533e1caf20bc4932c8ab43d87"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a7c18888533e1caf20bc4932c8ab43d87">AILIA_TFLITE_CPU_FEATURES_AVX2</a>&#160;&#160;&#160;(0x00000010)</td></tr>
+<tr class="memdesc:a7c18888533e1caf20bc4932c8ab43d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">AVX2  <a href="ailia__tflite_8h.html#a7c18888533e1caf20bc4932c8ab43d87">[詳解]</a><br /></td></tr>
+<tr class="separator:a7c18888533e1caf20bc4932c8ab43d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd3b45923806de93984d56e4eee0d8d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#afd3b45923806de93984d56e4eee0d8d5">AILIA_TFLITE_CPU_FEATURES_VNNI</a>&#160;&#160;&#160;(0x00000020)</td></tr>
+<tr class="memdesc:afd3b45923806de93984d56e4eee0d8d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">VNNI  <a href="ailia__tflite_8h.html#afd3b45923806de93984d56e4eee0d8d5">[詳解]</a><br /></td></tr>
+<tr class="separator:afd3b45923806de93984d56e4eee0d8d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0302dce720e9465f53aeb1b798b9b4b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ad0302dce720e9465f53aeb1b798b9b4b">AILIA_TFLITE_CPU_FEATURES_AVX512</a>&#160;&#160;&#160;(0x00000040)</td></tr>
+<tr class="memdesc:ad0302dce720e9465f53aeb1b798b9b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">AVX512  <a href="ailia__tflite_8h.html#ad0302dce720e9465f53aeb1b798b9b4b">[詳解]</a><br /></td></tr>
+<tr class="separator:ad0302dce720e9465f53aeb1b798b9b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03324653e33020846f5697fef8d52fcf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a03324653e33020846f5697fef8d52fcf">AILIA_TFLITE_CPU_FEATURES_I8MM</a>&#160;&#160;&#160;(0x00000080)</td></tr>
+<tr class="memdesc:a03324653e33020846f5697fef8d52fcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">I8MM  <a href="ailia__tflite_8h.html#a03324653e33020846f5697fef8d52fcf">[詳解]</a><br /></td></tr>
+<tr class="separator:a03324653e33020846f5697fef8d52fcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a101eea8befc393c6f9682efba16345e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a101eea8befc393c6f9682efba16345e0">AILIA_TFLITE_SUB_CORE_COUNT_MAX</a>&#160;&#160;&#160;(8)</td></tr>
+<tr class="memdesc:a101eea8befc393c6f9682efba16345e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチコアをサポートする環境で指定できるコア数の最大値  <a href="ailia__tflite_8h.html#a101eea8befc393c6f9682efba16345e0">[詳解]</a><br /></td></tr>
+<tr class="separator:a101eea8befc393c6f9682efba16345e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+型定義</h2></td></tr>
+<tr class="memitem:ad484d38dd88bf46de076f88cc2bff74c"><td class="memItemLeft" align="right" valign="top">typedef int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ad484d38dd88bf46de076f88cc2bff74c">AILIATFLiteTensorType</a></td></tr>
+<tr class="separator:ad484d38dd88bf46de076f88cc2bff74c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afda2f6d89489d73ae1b983b2a8903cf2"><td class="memItemLeft" align="right" valign="top">typedef int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a></td></tr>
+<tr class="separator:afda2f6d89489d73ae1b983b2a8903cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3efb8abac41021597407f121eed535d"><td class="memItemLeft" align="right" valign="top">typedef int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ad3efb8abac41021597407f121eed535d">AILIATFLiteEnvironment</a></td></tr>
+<tr class="separator:ad3efb8abac41021597407f121eed535d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c44ccf3ba49f821be2629bd3dcde53c"><td class="memItemLeft" align="right" valign="top">typedef int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a9c44ccf3ba49f821be2629bd3dcde53c">AILIATFLiteMemoryMode</a></td></tr>
+<tr class="separator:a9c44ccf3ba49f821be2629bd3dcde53c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a102124bd44711479870d1515284d1a19"><td class="memItemLeft" align="right" valign="top">typedef int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a102124bd44711479870d1515284d1a19">AILIATFLiteFlags</a></td></tr>
+<tr class="separator:a102124bd44711479870d1515284d1a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af403c38c72b52dcbceb46e62fc8f4561"><td class="memItemLeft" align="right" valign="top">typedef int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#af403c38c72b52dcbceb46e62fc8f4561">AILIATFLiteCpuFeatures</a></td></tr>
+<tr class="separator:af403c38c72b52dcbceb46e62fc8f4561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+関数</h2></td></tr>
+<tr class="memitem:a11a709b1eb82ab242422fabdfc6bd73a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a11a709b1eb82ab242422fabdfc6bd73a">ailiaTFLiteGetEnvironmentCount</a> (size_t *env_count)</td></tr>
+<tr class="memdesc:a11a709b1eb82ab242422fabdfc6bd73a"><td class="mdescLeft">&#160;</td><td class="mdescRight">利用可能な計算環境の数を取得します  <a href="ailia__tflite_8h.html#a11a709b1eb82ab242422fabdfc6bd73a">[詳解]</a><br /></td></tr>
+<tr class="separator:a11a709b1eb82ab242422fabdfc6bd73a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab507f9923493726ba96534d5419a1839"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ab507f9923493726ba96534d5419a1839">ailiaTFLiteGetEnvironment</a> (<a class="el" href="ailia__tflite_8h.html#ad3efb8abac41021597407f121eed535d">AILIATFLiteEnvironment</a> *env)</td></tr>
+<tr class="memdesc:ab507f9923493726ba96534d5419a1839"><td class="mdescLeft">&#160;</td><td class="mdescRight">計算環境の一覧を取得します  <a href="ailia__tflite_8h.html#ab507f9923493726ba96534d5419a1839">[詳解]</a><br /></td></tr>
+<tr class="separator:ab507f9923493726ba96534d5419a1839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a033451378fff5cbd772c56df5325f382"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a033451378fff5cbd772c56df5325f382">ailiaTFLiteCreate</a> (struct AILIATFLiteInstance **instance, const void *tflite, const size_t tflite_length, void *(*pmalloc)(size_t, const void *, void *), void *(*pmemcpy)(void *, const void *, size_t, void *), void(*pfree)(void *, void *), void *phandle, <a class="el" href="ailia__tflite_8h.html#ad3efb8abac41021597407f121eed535d">AILIATFLiteEnvironment</a> env_id, <a class="el" href="ailia__tflite_8h.html#a9c44ccf3ba49f821be2629bd3dcde53c">AILIATFLiteMemoryMode</a> memory_mode, <a class="el" href="ailia__tflite_8h.html#a102124bd44711479870d1515284d1a19">AILIATFLiteFlags</a> flags)</td></tr>
+<tr class="memdesc:a033451378fff5cbd772c56df5325f382"><td class="mdescLeft">&#160;</td><td class="mdescRight">ailia TFLite runtimeのインスタンスを作成します。  <a href="ailia__tflite_8h.html#a033451378fff5cbd772c56df5325f382">[詳解]</a><br /></td></tr>
+<tr class="separator:a033451378fff5cbd772c56df5325f382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2762d4eab88139b057795b65afa3410f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a2762d4eab88139b057795b65afa3410f">ailiaTFLiteDestroy</a> (struct AILIATFLiteInstance *instance)</td></tr>
+<tr class="memdesc:a2762d4eab88139b057795b65afa3410f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ailia TFLite runtimeのインスタンスを破棄します。  <a href="ailia__tflite_8h.html#a2762d4eab88139b057795b65afa3410f">[詳解]</a><br /></td></tr>
+<tr class="separator:a2762d4eab88139b057795b65afa3410f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac89825fde2cae2116e18d2b057b7e7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#aac89825fde2cae2116e18d2b057b7e7f">ailiaTFLiteGetCpuFeatures</a> (struct AILIATFLiteInstance *instance, int32_t *cpu_features)</td></tr>
+<tr class="memdesc:aac89825fde2cae2116e18d2b057b7e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用するCPU命令を取得します  <a href="ailia__tflite_8h.html#aac89825fde2cae2116e18d2b057b7e7f">[詳解]</a><br /></td></tr>
+<tr class="separator:aac89825fde2cae2116e18d2b057b7e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf01e8e9893a604cabfd70c8df873d54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#abf01e8e9893a604cabfd70c8df873d54">ailiaTFLiteSetCpuFeatures</a> (struct AILIATFLiteInstance *instance, int32_t cpu_features)</td></tr>
+<tr class="memdesc:abf01e8e9893a604cabfd70c8df873d54"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用するCPU命令を設定します  <a href="ailia__tflite_8h.html#abf01e8e9893a604cabfd70c8df873d54">[詳解]</a><br /></td></tr>
+<tr class="separator:abf01e8e9893a604cabfd70c8df873d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc1f845d870f1bbd223d8e58fe31819c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#acc1f845d870f1bbd223d8e58fe31819c">ailiaTFLiteAllocateTensors</a> (struct AILIATFLiteInstance *instance)</td></tr>
+<tr class="memdesc:acc1f845d870f1bbd223d8e58fe31819c"><td class="mdescLeft">&#160;</td><td class="mdescRight">ailia TFLite runtimeの内部バッファーの確保を行います  <a href="ailia__tflite_8h.html#acc1f845d870f1bbd223d8e58fe31819c">[詳解]</a><br /></td></tr>
+<tr class="separator:acc1f845d870f1bbd223d8e58fe31819c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ea3823474e53affb293bf6f27f0d917"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a2ea3823474e53affb293bf6f27f0d917">ailiaTFLiteResizeInputTensor</a> (struct AILIATFLiteInstance *instance, const int32_t input_index, const int32_t *shape, const int32_t dim)</td></tr>
+<tr class="memdesc:a2ea3823474e53affb293bf6f27f0d917"><td class="mdescLeft">&#160;</td><td class="mdescRight">指定した入力indexのTensorの形状を変更します  <a href="ailia__tflite_8h.html#a2ea3823474e53affb293bf6f27f0d917">[詳解]</a><br /></td></tr>
+<tr class="separator:a2ea3823474e53affb293bf6f27f0d917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99e53b6ce5e7b4aeb02796307379d618"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a99e53b6ce5e7b4aeb02796307379d618">ailiaTFLiteGetNumberOfInputs</a> (const struct AILIATFLiteInstance *instance, int32_t *num_of_input_tensor)</td></tr>
+<tr class="memdesc:a99e53b6ce5e7b4aeb02796307379d618"><td class="mdescLeft">&#160;</td><td class="mdescRight">tfliteモデルの入力Tensorの数を取得します。  <a href="ailia__tflite_8h.html#a99e53b6ce5e7b4aeb02796307379d618">[詳解]</a><br /></td></tr>
+<tr class="separator:a99e53b6ce5e7b4aeb02796307379d618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b762bb33f7ce1cd61d321e76ccbbe7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a5b762bb33f7ce1cd61d321e76ccbbe7f">ailiaTFLiteGetInputTensorIndex</a> (const struct AILIATFLiteInstance *instance, int32_t *tensor_index, const int32_t input_index)</td></tr>
+<tr class="memdesc:a5b762bb33f7ce1cd61d321e76ccbbe7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">入力TensorのindexからTensorのindexを取得します。  <a href="ailia__tflite_8h.html#a5b762bb33f7ce1cd61d321e76ccbbe7f">[詳解]</a><br /></td></tr>
+<tr class="separator:a5b762bb33f7ce1cd61d321e76ccbbe7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb5deecc950bcff5fd4eef168e3d801a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#abb5deecc950bcff5fd4eef168e3d801a">ailiaTFLiteGetNumberOfOutputs</a> (const struct AILIATFLiteInstance *instance, int32_t *num_of_output_tensor)</td></tr>
+<tr class="memdesc:abb5deecc950bcff5fd4eef168e3d801a"><td class="mdescLeft">&#160;</td><td class="mdescRight">tfliteモデルの出力Tensorの数を取得します。  <a href="ailia__tflite_8h.html#abb5deecc950bcff5fd4eef168e3d801a">[詳解]</a><br /></td></tr>
+<tr class="separator:abb5deecc950bcff5fd4eef168e3d801a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a848dde61a3b163b4b71381c310439745"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a848dde61a3b163b4b71381c310439745">ailiaTFLiteGetOutputTensorIndex</a> (const struct AILIATFLiteInstance *instance, int32_t *tensor_index, const int32_t output_index)</td></tr>
+<tr class="memdesc:a848dde61a3b163b4b71381c310439745"><td class="mdescLeft">&#160;</td><td class="mdescRight">出力TensorのindexからTensorのindexを取得します。  <a href="ailia__tflite_8h.html#a848dde61a3b163b4b71381c310439745">[詳解]</a><br /></td></tr>
+<tr class="separator:a848dde61a3b163b4b71381c310439745"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a75abd68011db5b3878ecf214a039d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a8a75abd68011db5b3878ecf214a039d2">ailiaTFLiteGetTensorDimension</a> (const struct AILIATFLiteInstance *instance, int32_t *tensor_dim, const int32_t tensor_index)</td></tr>
+<tr class="memdesc:a8a75abd68011db5b3878ecf214a039d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">index番目のTensorの次元を取得します。  <a href="ailia__tflite_8h.html#a8a75abd68011db5b3878ecf214a039d2">[詳解]</a><br /></td></tr>
+<tr class="separator:a8a75abd68011db5b3878ecf214a039d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af662ecba3fc6103a517ecfe8c7605c7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#af662ecba3fc6103a517ecfe8c7605c7f">ailiaTFLiteGetTensorShape</a> (const struct AILIATFLiteInstance *instance, int32_t *shape, const int32_t tensor_index)</td></tr>
+<tr class="memdesc:af662ecba3fc6103a517ecfe8c7605c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">index番目のTensorの形状を取得します。  <a href="ailia__tflite_8h.html#af662ecba3fc6103a517ecfe8c7605c7f">[詳解]</a><br /></td></tr>
+<tr class="separator:af662ecba3fc6103a517ecfe8c7605c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f8405be45e8ff4be81f3917be287314"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a8f8405be45e8ff4be81f3917be287314">ailiaTFLiteGetTensorShapeSignature</a> (const struct AILIATFLiteInstance *instance, int32_t *shape, const int32_t tensor_index)</td></tr>
+<tr class="memdesc:a8f8405be45e8ff4be81f3917be287314"><td class="mdescLeft">&#160;</td><td class="mdescRight">index番目のTensorの未確定な次元情報付き形状を取得します。  <a href="ailia__tflite_8h.html#a8f8405be45e8ff4be81f3917be287314">[詳解]</a><br /></td></tr>
+<tr class="separator:a8f8405be45e8ff4be81f3917be287314"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad4d42e3f4862e4c43ed149394dc0654"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#aad4d42e3f4862e4c43ed149394dc0654">ailiaTFLiteGetTensorType</a> (const struct AILIATFLiteInstance *instance, <a class="el" href="ailia__tflite_8h.html#ad484d38dd88bf46de076f88cc2bff74c">AILIATFLiteTensorType</a> *tensor_type, const int32_t tensor_index)</td></tr>
+<tr class="memdesc:aad4d42e3f4862e4c43ed149394dc0654"><td class="mdescLeft">&#160;</td><td class="mdescRight">index番目のTensorのデータタイプを取得します。  <a href="ailia__tflite_8h.html#aad4d42e3f4862e4c43ed149394dc0654">[詳解]</a><br /></td></tr>
+<tr class="separator:aad4d42e3f4862e4c43ed149394dc0654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3d4e8d61f104aba9fddc94a5d3ffeeb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ae3d4e8d61f104aba9fddc94a5d3ffeeb">ailiaTFLiteGetTensorBuffer</a> (struct AILIATFLiteInstance *instance, void **buffer, const int32_t tensor_index)</td></tr>
+<tr class="memdesc:ae3d4e8d61f104aba9fddc94a5d3ffeeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">index番目のTensorのデータの格納バッファーを取得します。  <a href="ailia__tflite_8h.html#ae3d4e8d61f104aba9fddc94a5d3ffeeb">[詳解]</a><br /></td></tr>
+<tr class="separator:ae3d4e8d61f104aba9fddc94a5d3ffeeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a777423cf731269609aef6fe4c620b542"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a777423cf731269609aef6fe4c620b542">ailiaTFLiteGetTensorName</a> (const struct AILIATFLiteInstance *instance, const char **name, const int32_t tensor_index)</td></tr>
+<tr class="memdesc:a777423cf731269609aef6fe4c620b542"><td class="mdescLeft">&#160;</td><td class="mdescRight">index番目のTensorの名前を取得します。  <a href="ailia__tflite_8h.html#a777423cf731269609aef6fe4c620b542">[詳解]</a><br /></td></tr>
+<tr class="separator:a777423cf731269609aef6fe4c620b542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb222b42c49b9ed81eaab69638c5dda3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#abb222b42c49b9ed81eaab69638c5dda3">ailiaTFLiteGetTensorQuantizationCount</a> (const struct AILIATFLiteInstance *instance, int32_t *count, const int32_t tensor_index)</td></tr>
+<tr class="memdesc:abb222b42c49b9ed81eaab69638c5dda3"><td class="mdescLeft">&#160;</td><td class="mdescRight">index番目のTensorの量子化パラメーターの個数を取得します  <a href="ailia__tflite_8h.html#abb222b42c49b9ed81eaab69638c5dda3">[詳解]</a><br /></td></tr>
+<tr class="separator:abb222b42c49b9ed81eaab69638c5dda3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99de26ece390ea5d144bd5acea07fc11"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a99de26ece390ea5d144bd5acea07fc11">ailiaTFLiteGetTensorQuantizationScale</a> (const struct AILIATFLiteInstance *instance, float *scale, const int32_t tensor_index)</td></tr>
+<tr class="memdesc:a99de26ece390ea5d144bd5acea07fc11"><td class="mdescLeft">&#160;</td><td class="mdescRight">index番目のTensorの量子化パラメーターのスケールを取得します。  <a href="ailia__tflite_8h.html#a99de26ece390ea5d144bd5acea07fc11">[詳解]</a><br /></td></tr>
+<tr class="separator:a99de26ece390ea5d144bd5acea07fc11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63009ac208c3d191b530e0f01258c851"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a63009ac208c3d191b530e0f01258c851">ailiaTFLiteGetTensorQuantizationZeroPoint</a> (const struct AILIATFLiteInstance *instance, int64_t *zero_point, const int32_t tensor_index)</td></tr>
+<tr class="memdesc:a63009ac208c3d191b530e0f01258c851"><td class="mdescLeft">&#160;</td><td class="mdescRight">index番目のTensorの量子化パラメーターのゼロ点を取得します。  <a href="ailia__tflite_8h.html#a63009ac208c3d191b530e0f01258c851">[詳解]</a><br /></td></tr>
+<tr class="separator:a63009ac208c3d191b530e0f01258c851"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e21d85de94ef9221f7d082c7a618ef3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a7e21d85de94ef9221f7d082c7a618ef3">ailiaTFLiteGetTensorQuantizationQuantizedDimension</a> (const struct AILIATFLiteInstance *instance, int32_t *axis, const int32_t tensor_index)</td></tr>
+<tr class="memdesc:a7e21d85de94ef9221f7d082c7a618ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">index番目のTensorの量子化パラメーターの軸を取得します。  <a href="ailia__tflite_8h.html#a7e21d85de94ef9221f7d082c7a618ef3">[詳解]</a><br /></td></tr>
+<tr class="separator:a7e21d85de94ef9221f7d082c7a618ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1820b1dc49127cc614ad509e72e472d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ab1820b1dc49127cc614ad509e72e472d">ailiaTFLitePredict</a> (struct AILIATFLiteInstance *instance)</td></tr>
+<tr class="memdesc:ab1820b1dc49127cc614ad509e72e472d"><td class="mdescLeft">&#160;</td><td class="mdescRight">推論を行います。  <a href="ailia__tflite_8h.html#ab1820b1dc49127cc614ad509e72e472d">[詳解]</a><br /></td></tr>
+<tr class="separator:ab1820b1dc49127cc614ad509e72e472d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a0c3a183c8ed7e94d98f314757a5126"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a4a0c3a183c8ed7e94d98f314757a5126">ailiaTFLiteGetNodeCount</a> (const struct AILIATFLiteInstance *instance, int32_t *count)</td></tr>
+<tr class="memdesc:a4a0c3a183c8ed7e94d98f314757a5126"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nodeの個数を取得します  <a href="ailia__tflite_8h.html#a4a0c3a183c8ed7e94d98f314757a5126">[詳解]</a><br /></td></tr>
+<tr class="separator:a4a0c3a183c8ed7e94d98f314757a5126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a100750ed83c009c4e2a798075ebe3d50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a100750ed83c009c4e2a798075ebe3d50">ailiaTFLiteGetNodeOperator</a> (const struct AILIATFLiteInstance *instance, int32_t *op, const int32_t node_index)</td></tr>
+<tr class="memdesc:a100750ed83c009c4e2a798075ebe3d50"><td class="mdescLeft">&#160;</td><td class="mdescRight">node_index番目のNodeのOperatorを取得します  <a href="ailia__tflite_8h.html#a100750ed83c009c4e2a798075ebe3d50">[詳解]</a><br /></td></tr>
+<tr class="separator:a100750ed83c009c4e2a798075ebe3d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36d8b6ee7b318331bd657d476e89d9b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a36d8b6ee7b318331bd657d476e89d9b1">ailiaTFLiteGetNodeInputCount</a> (const struct AILIATFLiteInstance *instance, int32_t *count, const int32_t node_index)</td></tr>
+<tr class="memdesc:a36d8b6ee7b318331bd657d476e89d9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">node_index番目のNodeの入力の個数を取得します  <a href="ailia__tflite_8h.html#a36d8b6ee7b318331bd657d476e89d9b1">[詳解]</a><br /></td></tr>
+<tr class="separator:a36d8b6ee7b318331bd657d476e89d9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5c33354afdac626be013d76bd638c82"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ad5c33354afdac626be013d76bd638c82">ailiaTFLiteGetNodeInputTensorIndex</a> (const struct AILIATFLiteInstance *instance, int32_t *tensor_index, const int32_t node_index, const int32_t input_index)</td></tr>
+<tr class="memdesc:ad5c33354afdac626be013d76bd638c82"><td class="mdescLeft">&#160;</td><td class="mdescRight">node_index番目のNodeのinput_index番目の入力のTensorのindexを取得します  <a href="ailia__tflite_8h.html#ad5c33354afdac626be013d76bd638c82">[詳解]</a><br /></td></tr>
+<tr class="separator:ad5c33354afdac626be013d76bd638c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa57848491dd1ad11b549c981902d981"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#aaa57848491dd1ad11b549c981902d981">ailiaTFLiteGetNodeOutputCount</a> (const struct AILIATFLiteInstance *instance, int32_t *count, const int32_t node_index)</td></tr>
+<tr class="memdesc:aaa57848491dd1ad11b549c981902d981"><td class="mdescLeft">&#160;</td><td class="mdescRight">node_index番目のNodeの出力の個数を取得します  <a href="ailia__tflite_8h.html#aaa57848491dd1ad11b549c981902d981">[詳解]</a><br /></td></tr>
+<tr class="separator:aaa57848491dd1ad11b549c981902d981"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a540b22c72178236e44e360fa723cb11a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a540b22c72178236e44e360fa723cb11a">ailiaTFLiteGetNodeOutputTensorIndex</a> (const struct AILIATFLiteInstance *instance, int32_t *tensor_index, const int32_t node_index, const int32_t output_index)</td></tr>
+<tr class="memdesc:a540b22c72178236e44e360fa723cb11a"><td class="mdescLeft">&#160;</td><td class="mdescRight">node_index番目のNodeのoutput_index番目の出力のTensorのindexを取得します  <a href="ailia__tflite_8h.html#a540b22c72178236e44e360fa723cb11a">[詳解]</a><br /></td></tr>
+<tr class="separator:a540b22c72178236e44e360fa723cb11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96ebebd2171386c11198ed01a6f35008"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a96ebebd2171386c11198ed01a6f35008">ailiaTFLiteGetNodeOption</a> (const struct AILIATFLiteInstance *instance, void *value, const int32_t node_index, const char *key)</td></tr>
+<tr class="memdesc:a96ebebd2171386c11198ed01a6f35008"><td class="mdescLeft">&#160;</td><td class="mdescRight">node_index番目のNodeのオプションを取得します  <a href="ailia__tflite_8h.html#a96ebebd2171386c11198ed01a6f35008">[詳解]</a><br /></td></tr>
+<tr class="separator:a96ebebd2171386c11198ed01a6f35008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe78851c83ea8b555bca91db03191c13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#abe78851c83ea8b555bca91db03191c13">ailiaTFLiteGetOperatorName</a> (const char **name, const int32_t op)</td></tr>
+<tr class="memdesc:abe78851c83ea8b555bca91db03191c13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operatorの名前を取得します。  <a href="ailia__tflite_8h.html#abe78851c83ea8b555bca91db03191c13">[詳解]</a><br /></td></tr>
+<tr class="separator:abe78851c83ea8b555bca91db03191c13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6644208466e6ff60465b50554b88318"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ae6644208466e6ff60465b50554b88318">ailiaTFLiteSetProfileMode</a> (struct AILIATFLiteInstance *instance, int mode)</td></tr>
+<tr class="memdesc:ae6644208466e6ff60465b50554b88318"><td class="mdescLeft">&#160;</td><td class="mdescRight">プロファイルモードをセットします。  <a href="ailia__tflite_8h.html#ae6644208466e6ff60465b50554b88318">[詳解]</a><br /></td></tr>
+<tr class="separator:ae6644208466e6ff60465b50554b88318"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31b6a4c7ab20bc6285d0f030c49a551f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a31b6a4c7ab20bc6285d0f030c49a551f">ailiaTFLiteGetSummaryLength</a> (struct AILIATFLiteInstance *instance, size_t *buffer_size)</td></tr>
+<tr class="memdesc:a31b6a4c7ab20bc6285d0f030c49a551f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ネットワークSummary用に必要なバッファのサイズを取得します。  <a href="ailia__tflite_8h.html#a31b6a4c7ab20bc6285d0f030c49a551f">[詳解]</a><br /></td></tr>
+<tr class="separator:a31b6a4c7ab20bc6285d0f030c49a551f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa06cfe7964f7e91fcac4dac14c6d5ede"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#aa06cfe7964f7e91fcac4dac14c6d5ede">ailiaTFLiteGetSummary</a> (struct AILIATFLiteInstance *instance, char *buffer, size_t buffer_size)</td></tr>
+<tr class="memdesc:aa06cfe7964f7e91fcac4dac14c6d5ede"><td class="mdescLeft">&#160;</td><td class="mdescRight">各Nodeの名前と形状を表示します。  <a href="ailia__tflite_8h.html#aa06cfe7964f7e91fcac4dac14c6d5ede">[詳解]</a><br /></td></tr>
+<tr class="separator:aa06cfe7964f7e91fcac4dac14c6d5ede"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a618d3addc7d3b9c224757fe77b435343"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a618d3addc7d3b9c224757fe77b435343">ailiaTFLiteGetErrorDetail</a> (struct AILIATFLiteInstance *instance, char **buffer)</td></tr>
+<tr class="memdesc:a618d3addc7d3b9c224757fe77b435343"><td class="mdescLeft">&#160;</td><td class="mdescRight">エラーの詳細を返します  <a href="ailia__tflite_8h.html#a618d3addc7d3b9c224757fe77b435343">[詳解]</a><br /></td></tr>
+<tr class="separator:a618d3addc7d3b9c224757fe77b435343"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b046dbdd3bd072f365523c14373cdd5"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a6b046dbdd3bd072f365523c14373cdd5">ailiaTFLiteGetVersion</a> (void)</td></tr>
+<tr class="memdesc:a6b046dbdd3bd072f365523c14373cdd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">ライブラリバージョンを取得します  <a href="ailia__tflite_8h.html#a6b046dbdd3bd072f365523c14373cdd5">[詳解]</a><br /></td></tr>
+<tr class="separator:a6b046dbdd3bd072f365523c14373cdd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af14ef38d13485d1c6dcd6046c54d880e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#af14ef38d13485d1c6dcd6046c54d880e">ailiaTFLiteSetScratchBuffer</a> (struct AILIATFLiteInstance *instance, void *int_buffer, size_t int_buffer_size, void *mid_buffer, size_t mid_buffer_size, void *ext_buffer, size_t ext_buffer_size)</td></tr>
+<tr class="memdesc:af14ef38d13485d1c6dcd6046c54d880e"><td class="mdescLeft">&#160;</td><td class="mdescRight">スクラッチバッファを設定します  <a href="ailia__tflite_8h.html#af14ef38d13485d1c6dcd6046c54d880e">[詳解]</a><br /></td></tr>
+<tr class="separator:af14ef38d13485d1c6dcd6046c54d880e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a11b9fa1ce2fd811b9804d41bc59900"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a5a11b9fa1ce2fd811b9804d41bc59900">ailiaTFLiteSetScratchBufferEx</a> (struct AILIATFLiteInstance *instance, void *int_buffer, size_t int_buffer_size, void *mid_buffer, size_t mid_buffer_size, void *ext_buffer, size_t ext_buffer_size, void *global_buffer, size_t global_buffer_size)</td></tr>
+<tr class="memdesc:a5a11b9fa1ce2fd811b9804d41bc59900"><td class="mdescLeft">&#160;</td><td class="mdescRight">スクラッチバッファを設定します (グローバルMSMC対応版)  <a href="ailia__tflite_8h.html#a5a11b9fa1ce2fd811b9804d41bc59900">[詳解]</a><br /></td></tr>
+<tr class="separator:a5a11b9fa1ce2fd811b9804d41bc59900"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbab042e7225cd6ae27510d2a701dc27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#abbab042e7225cd6ae27510d2a701dc27">ailiaTFLiteGetScratchBufferUsage</a> (struct AILIATFLiteInstance *instance, size_t *int_buffer_size, size_t *mid_buffer_size, size_t *ext_buffer_size)</td></tr>
+<tr class="memdesc:abbab042e7225cd6ae27510d2a701dc27"><td class="mdescLeft">&#160;</td><td class="mdescRight">スクラッチバッファの最大使用量を取得します。  <a href="ailia__tflite_8h.html#abbab042e7225cd6ae27510d2a701dc27">[詳解]</a><br /></td></tr>
+<tr class="separator:abbab042e7225cd6ae27510d2a701dc27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1a274001c5c986417efa6086d186f62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ae1a274001c5c986417efa6086d186f62">ailiaTFLiteGetScratchBufferUsageEx</a> (struct AILIATFLiteInstance *instance, size_t *int_buffer_size, size_t *mid_buffer_size, size_t *ext_buffer_size, size_t *global_buffer_size)</td></tr>
+<tr class="memdesc:ae1a274001c5c986417efa6086d186f62"><td class="mdescLeft">&#160;</td><td class="mdescRight">スクラッチバッファの最大使用量を取得します。  <a href="ailia__tflite_8h.html#ae1a274001c5c986417efa6086d186f62">[詳解]</a><br /></td></tr>
+<tr class="separator:ae1a274001c5c986417efa6086d186f62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2ca4f49099ba34816b1e2c62b9dc62d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ad2ca4f49099ba34816b1e2c62b9dc62d">ailiaTFLiteMklSetNumThreads</a> (const int32_t num_threads)</td></tr>
+<tr class="memdesc:ad2ca4f49099ba34816b1e2c62b9dc62d"><td class="mdescLeft">&#160;</td><td class="mdescRight">MKLが使用するスレッド数を設定します  <a href="ailia__tflite_8h.html#ad2ca4f49099ba34816b1e2c62b9dc62d">[詳解]</a><br /></td></tr>
+<tr class="separator:ad2ca4f49099ba34816b1e2c62b9dc62d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4a72d893963d90eebc881868d519a56"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#aa4a72d893963d90eebc881868d519a56">ailiaTFLiteMklDisableFastMM</a> (void)</td></tr>
+<tr class="memdesc:aa4a72d893963d90eebc881868d519a56"><td class="mdescLeft">&#160;</td><td class="mdescRight">MKLのFastMMを無効化します  <a href="ailia__tflite_8h.html#aa4a72d893963d90eebc881868d519a56">[詳解]</a><br /></td></tr>
+<tr class="separator:aa4a72d893963d90eebc881868d519a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a643bbb31f1cfa0e5b0b23a654dc7fead"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a643bbb31f1cfa0e5b0b23a654dc7fead">ailiaTFLiteSetSynchronizeFunctions</a> (struct AILIATFLiteInstance *instance, int(*pmain_after_command_store)(void *), int(*pmain_before_state_load)(void *))</td></tr>
+<tr class="memdesc:a643bbb31f1cfa0e5b0b23a654dc7fead"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチコアで使用する場合において、コア間の同期関数を設定します。  <a href="ailia__tflite_8h.html#a643bbb31f1cfa0e5b0b23a654dc7fead">[詳解]</a><br /></td></tr>
+<tr class="separator:a643bbb31f1cfa0e5b0b23a654dc7fead"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74905b627056e6342e090b5f40b46feb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a74905b627056e6342e090b5f40b46feb">alilaTFLiteSetSubCoreControlVariables</a> (struct AILIATFLiteInstance *instance, const struct AILIATFLiteSubCoreControlVariables *control_variables, int32_t sub_core_count)</td></tr>
+<tr class="memdesc:a74905b627056e6342e090b5f40b46feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチコアで使用する場合において、各サブコアとの通信に使用する変数を設定します。  <a href="ailia__tflite_8h.html#a74905b627056e6342e090b5f40b46feb">[詳解]</a><br /></td></tr>
+<tr class="separator:a74905b627056e6342e090b5f40b46feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e49d04c6346c8a2cd65c9058ceea513"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a5e49d04c6346c8a2cd65c9058ceea513">ailiaTFLiteGetContext</a> (struct AILIATFLiteInstance *instance, void *buf, size_t buf_size)</td></tr>
+<tr class="memdesc:a5e49d04c6346c8a2cd65c9058ceea513"><td class="mdescLeft">&#160;</td><td class="mdescRight">DSAの結果を保存します。  <a href="ailia__tflite_8h.html#a5e49d04c6346c8a2cd65c9058ceea513">[詳解]</a><br /></td></tr>
+<tr class="separator:a5e49d04c6346c8a2cd65c9058ceea513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a107162bbeca055f8b3d7e2ce079fe07b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a107162bbeca055f8b3d7e2ce079fe07b">ailiaTFLiteGetContextSize</a> (struct AILIATFLiteInstance *instance, size_t *buf_size)</td></tr>
+<tr class="memdesc:a107162bbeca055f8b3d7e2ce079fe07b"><td class="mdescLeft">&#160;</td><td class="mdescRight">DSAの結果の保存に必要なバッファのサイズ（バイト単位）を取得します。  <a href="ailia__tflite_8h.html#a107162bbeca055f8b3d7e2ce079fe07b">[詳解]</a><br /></td></tr>
+<tr class="separator:a107162bbeca055f8b3d7e2ce079fe07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac072741989b4fbe60bc52c52b88cf6ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ac072741989b4fbe60bc52c52b88cf6ee">ailiaTFLiteRestoreContext</a> (struct AILIATFLiteInstance *instance, const void *buf, size_t buf_size)</td></tr>
+<tr class="memdesc:ac072741989b4fbe60bc52c52b88cf6ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">DSAの結果を復元します。  <a href="ailia__tflite_8h.html#ac072741989b4fbe60bc52c52b88cf6ee">[詳解]</a><br /></td></tr>
+<tr class="separator:ac072741989b4fbe60bc52c52b88cf6ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>AILIA TFLITE RUNTIME INTERFACE </p>
+<dl class="section copyright"><dt>著作権所有</dt><dd>AXELL CORPORATION, ailia Inc. </dd></dl>
+<dl class="section date"><dt>日付</dt><dd>December 10, 2025 </dd></dl>
+</div><h2 class="groupheader">マクロ定義詳解</h2>
+<a id="ac6b46690cebd7ae7bbeceb838e39cef7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6b46690cebd7ae7bbeceb838e39cef7">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_AVX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_CPU_FEATURES_AVX&#160;&#160;&#160;(0x00000008)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>AVX </p>
+
+</div>
+</div>
+<a id="a7c18888533e1caf20bc4932c8ab43d87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c18888533e1caf20bc4932c8ab43d87">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_AVX2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_CPU_FEATURES_AVX2&#160;&#160;&#160;(0x00000010)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>AVX2 </p>
+
+</div>
+</div>
+<a id="ad0302dce720e9465f53aeb1b798b9b4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0302dce720e9465f53aeb1b798b9b4b">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_AVX512</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_CPU_FEATURES_AVX512&#160;&#160;&#160;(0x00000040)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>AVX512 </p>
+
+</div>
+</div>
+<a id="a03324653e33020846f5697fef8d52fcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03324653e33020846f5697fef8d52fcf">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_I8MM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_CPU_FEATURES_I8MM&#160;&#160;&#160;(0x00000080)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>I8MM </p>
+
+</div>
+</div>
+<a id="ac6bd275d117bc876ec294fe8df2313e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6bd275d117bc876ec294fe8df2313e9">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_NEON</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_CPU_FEATURES_NEON&#160;&#160;&#160;(0x00000001)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>NEON </p>
+
+</div>
+</div>
+<a id="a482796582d6a181a8c85404cee86aa91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a482796582d6a181a8c85404cee86aa91">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_NONE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_CPU_FEATURES_NONE&#160;&#160;&#160;(0x00000000)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>拡張命令無効 </p>
+
+</div>
+</div>
+<a id="a61acafd3093b58fc20a12dfe14c52c12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61acafd3093b58fc20a12dfe14c52c12">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_SSE2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_CPU_FEATURES_SSE2&#160;&#160;&#160;(0x00000002)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SSE2 </p>
+
+</div>
+</div>
+<a id="a8152dfaa8ce9220cb538b427d95cfed0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8152dfaa8ce9220cb538b427d95cfed0">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_SSE4_2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_CPU_FEATURES_SSE4_2&#160;&#160;&#160;(0x00000004)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SSE4.2 </p>
+
+</div>
+</div>
+<a id="afd3b45923806de93984d56e4eee0d8d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd3b45923806de93984d56e4eee0d8d5">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_VNNI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_CPU_FEATURES_VNNI&#160;&#160;&#160;(0x00000020)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>VNNI </p>
+
+</div>
+</div>
+<a id="a4e32492fb3ee3b9f6a738583bcde0281"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e32492fb3ee3b9f6a738583bcde0281">&#9670;&nbsp;</a></span>AILIA_TFLITE_ENV_MMALIB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_ENV_MMALIB&#160;&#160;&#160;(2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MMALIBを使用した実装。PCではMMALIBのエミュレータ、デバイスではMMALIBを使用する。 </p>
+
+</div>
+</div>
+<a id="a07e3094b4b13b4d09b0a112a3dcd2841"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07e3094b4b13b4d09b0a112a3dcd2841">&#9670;&nbsp;</a></span>AILIA_TFLITE_ENV_MMALIB_COMPATIBLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_ENV_MMALIB_COMPATIBLE&#160;&#160;&#160;(3)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MMALIBの出力互換実装。出力一致のみを行うため高速に動作する。 </p>
+
+</div>
+</div>
+<a id="a1d9688f63681246f827d2e763ea3c824"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d9688f63681246f827d2e763ea3c824">&#9670;&nbsp;</a></span>AILIA_TFLITE_ENV_NNAPI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_ENV_NNAPI&#160;&#160;&#160;(1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>NNAPIを使用した実装。Android向け。 </p>
+
+</div>
+</div>
+<a id="af190565ac89b22388f7c260bc1cd7a17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af190565ac89b22388f7c260bc1cd7a17">&#9670;&nbsp;</a></span>AILIA_TFLITE_ENV_QNN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_ENV_QNN&#160;&#160;&#160;(4)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>QNNを使用した実装。 </p>
+
+</div>
+</div>
+<a id="af7e3b6d361a1efbdc987de2d111f2d36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7e3b6d361a1efbdc987de2d111f2d36">&#9670;&nbsp;</a></span>AILIA_TFLITE_ENV_REFERENCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_ENV_REFERENCE&#160;&#160;&#160;(0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>リファレンスCPU実装 </p>
+
+</div>
+</div>
+<a id="ae97b13c2d8095832ff0da3ea1970bd7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae97b13c2d8095832ff0da3ea1970bd7d">&#9670;&nbsp;</a></span>AILIA_TFLITE_FLAG_INPUT_AND_OUTPUT_TENSORS_USE_SCRATCH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_FLAG_INPUT_AND_OUTPUT_TENSORS_USE_SCRATCH&#160;&#160;&#160;(1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aab5b820429534167f552e5163be9ed11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab5b820429534167f552e5163be9ed11">&#9670;&nbsp;</a></span>AILIA_TFLITE_FLAG_NONE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_FLAG_NONE&#160;&#160;&#160;(0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>通常モード </p>
+
+</div>
+</div>
+<a id="a2a8d55dee92592d1c76c918d7df506df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a8d55dee92592d1c76c918d7df506df">&#9670;&nbsp;</a></span>AILIA_TFLITE_MEMORY_MODE_DEFAULT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_MEMORY_MODE_DEFAULT&#160;&#160;&#160;(0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>通常モード </p>
+
+</div>
+</div>
+<a id="a780c0d61c89ff31f6fe4a49ad66f5af5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a780c0d61c89ff31f6fe4a49ad66f5af5">&#9670;&nbsp;</a></span>AILIA_TFLITE_MEMORY_MODE_REDUCE_INTERSTAGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_MEMORY_MODE_REDUCE_INTERSTAGE&#160;&#160;&#160;(1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>省メモリモード </p>
+
+</div>
+</div>
+<a id="ab5f7ebfc640789fc98e49e646258375d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5f7ebfc640789fc98e49e646258375d">&#9670;&nbsp;</a></span>AILIA_TFLITE_PROFILE_MODE_ALLOCATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_PROFILE_MODE_ALLOCATION&#160;&#160;&#160;(16)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>アロケーションプロファイル有効 </p>
+
+</div>
+</div>
+<a id="a219b7975f284249f143f755e092b0f46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a219b7975f284249f143f755e092b0f46">&#9670;&nbsp;</a></span>AILIA_TFLITE_PROFILE_MODE_DISABLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_PROFILE_MODE_DISABLE&#160;&#160;&#160;(0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>プロファイル無効 </p>
+
+</div>
+</div>
+<a id="a9bad4271bc400e42460de3befd3c4c9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bad4271bc400e42460de3befd3c4c9c">&#9670;&nbsp;</a></span>AILIA_TFLITE_PROFILE_MODE_ENABLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_PROFILE_MODE_ENABLE&#160;&#160;&#160;(1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>プロファイル有効 </p>
+
+</div>
+</div>
+<a id="a4e1d851feb6ae6ab273fad7e67dc7194"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e1d851feb6ae6ab273fad7e67dc7194">&#9670;&nbsp;</a></span>AILIA_TFLITE_PROFILE_MODE_MEMORY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_PROFILE_MODE_MEMORY&#160;&#160;&#160;(4)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>メモリプロファイル有効 </p>
+
+</div>
+</div>
+<a id="a714ed1a93d1cba0a9ad2d03253a4ae1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a714ed1a93d1cba0a9ad2d03253a4ae1b">&#9670;&nbsp;</a></span>AILIA_TFLITE_PROFILE_MODE_SUB_CORE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_PROFILE_MODE_SUB_CORE&#160;&#160;&#160;(8)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>サブコアプロファイル有効 </p>
+
+</div>
+</div>
+<a id="aac545b2fcba61e640aa169435b69b638"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac545b2fcba61e640aa169435b69b638">&#9670;&nbsp;</a></span>AILIA_TFLITE_PROFILE_MODE_TRACE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_PROFILE_MODE_TRACE&#160;&#160;&#160;(2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>トレース有効 </p>
+
+</div>
+</div>
+<a id="a1b7e456b323805fc51d67d839b35b0ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b7e456b323805fc51d67d839b35b0ec">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_BROKEN_MODEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_BROKEN_MODEL&#160;&#160;&#160;(  -4)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>モデルが破損している このステータスコードは与えられたモデルファイルが破損している場合に返ってきます。モデルファイルが正しいかどうかをご確認ください。 </p>
+
+</div>
+</div>
+<a id="a3523087fa3a9521bdfe5f821d290d3fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3523087fa3a9521bdfe5f821d290d3fa">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_INVALID_ARGUMENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_INVALID_ARGUMENT&#160;&#160;&#160;(  -1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>引数が不正 このステータスコードが返ってきた場合、呼び出し元のコードや渡している引数がNULLになっていないかなどを見直してください。 </p>
+
+</div>
+</div>
+<a id="afe1a01d29cbb15beaff382daff89dda9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe1a01d29cbb15beaff382daff89dda9">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_INVALID_PARAMETER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_INVALID_PARAMETER&#160;&#160;&#160;(  -5)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>モデルのパラメーターが不正 このステータスコードはモデル内に含まれているパラメーターが不正な場合に返ってきます。モデルファイルが正しいかどうかをご確認ください。 </p>
+
+</div>
+</div>
+<a id="a113f47f9552e9bafdbb6dd777cff6b61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a113f47f9552e9bafdbb6dd777cff6b61">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_INVALID_STATE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_INVALID_STATE&#160;&#160;&#160;( -11)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>APIを呼び出せるステートでない このステータスコードが返ってきた場合、APIを呼び出せる状態かどうかなどを見直してください。 </p>
+
+</div>
+</div>
+<a id="a5775f36d3d9b641a7c416479f88e086d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5775f36d3d9b641a7c416479f88e086d">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_LICENSE_BROKEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_LICENSE_BROKEN&#160;&#160;&#160;(  -9)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ライセンスが壊れている このステータスコードはトライアル版ailia TFLite runtimeを実行している場合で、ライセンスファイルが破損している場合に返ってきます。トライアル版のライセンスに関しましてはドキュメント記載の問い合わせ先までお問い合わせください。 </p>
+
+</div>
+</div>
+<a id="a478f1a7e32a649fde27c4d6049ee4d36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a478f1a7e32a649fde27c4d6049ee4d36">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_LICENSE_EXPIRED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_LICENSE_EXPIRED&#160;&#160;&#160;( -10)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ライセンスの有効期限切れ このステータスコードはトライアル版ailia TFLite runtimeを実行している場合で、ライセンスファイルの有効期限が切れている場合に返ってきます。トライアル版のライセンスの更新に関しましてはドキュメント記載の問い合わせ先までお問い合わせください。 </p>
+
+</div>
+</div>
+<a id="a7cae55222f1a317dc7b0995216a4205a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cae55222f1a317dc7b0995216a4205a">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_LICENSE_NOT_FOUND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_LICENSE_NOT_FOUND&#160;&#160;&#160;(  -8)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>有効なライセンスが見つからない このステータスコードはトライアル版ailia TFLite runtimeを実行している場合で、ライセンスファイルが見つからなかった場合に返ってきます。トライアル版のライセンスに関しましてはドキュメント記載の問い合わせ先までお問い合わせください。 </p>
+
+</div>
+</div>
+<a id="a44902c330bf1a87d15cba12d594002c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44902c330bf1a87d15cba12d594002c9">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_MEMORY_INSUFFICIENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_MEMORY_INSUFFICIENT&#160;&#160;&#160;(  -3)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>メモリが不足している このステータスコードはメモリ確保に失敗した場合などに返ってきます。メモリの空き状況を確認し、ほかのプロセスを終了するなどの対処をしてください。 </p>
+
+</div>
+</div>
+<a id="afe50eaadbb1d6a23b953fb85a87aa9b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe50eaadbb1d6a23b953fb85a87aa9b2">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_OTHER_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_OTHER_ERROR&#160;&#160;&#160;(-128)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>その他のエラー 上記以外のエラーが発生した場合に返ります。ドキュメント記載の問い合わせ先までお問い合わせください。 </p>
+
+</div>
+</div>
+<a id="ab06c2354ede3fd12b9e1b70c17b61f16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab06c2354ede3fd12b9e1b70c17b61f16">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_OUT_OF_RANGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_OUT_OF_RANGE&#160;&#160;&#160;(  -2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>引数などが範囲外 このステータスコードが返ってきた場合、引数が範囲外になっていないかなどを見直してください。 </p>
+
+</div>
+</div>
+<a id="ae6242d86d18b99327c1ecf28650e9e92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6242d86d18b99327c1ecf28650e9e92">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_PARAMETER_NOT_FOUND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_PARAMETER_NOT_FOUND&#160;&#160;&#160;(  -6)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>パラメーターが存在しない このステータスコードはモデル内で指定したパラメーターが存在しない場合に返ってきます。呼び出し元のコードやモデルファイルが正しいかどうかをご確認ください。 </p>
+
+</div>
+</div>
+<a id="a9afb121784e5ae2c153584bfeb242cab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9afb121784e5ae2c153584bfeb242cab">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_SUCCESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_SUCCESS&#160;&#160;&#160;(   0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>成功 </p>
+
+</div>
+</div>
+<a id="af9d765c844c76712f90d8ea676e205f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9d765c844c76712f90d8ea676e205f1">&#9670;&nbsp;</a></span>AILIA_TFLITE_STATUS_UNSUPPORTED_OPCODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_STATUS_UNSUPPORTED_OPCODE&#160;&#160;&#160;(  -7)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>非対応のオペレーターを実行しようとした このステータスコードはailia TFLite runtimeでサポートされていないオペレーターが含まれていた場合に返ってきます。ドキュメントに記載されているオペレーター以外がモデルに含まれていないかご確認ください。オペレーターの新規追加に関しましてはドキュメント記載の問い合わせ先までお問い合わせください。 </p>
+
+</div>
+</div>
+<a id="a101eea8befc393c6f9682efba16345e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a101eea8befc393c6f9682efba16345e0">&#9670;&nbsp;</a></span>AILIA_TFLITE_SUB_CORE_COUNT_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_SUB_CORE_COUNT_MAX&#160;&#160;&#160;(8)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>マルチコアをサポートする環境で指定できるコア数の最大値 </p>
+
+</div>
+</div>
+<a id="a8695624dfcc13a733a0869ce7ec749fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8695624dfcc13a733a0869ce7ec749fa">&#9670;&nbsp;</a></span>AILIA_TFLITE_TENSOR_TYPE_BOOL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_TENSOR_TYPE_BOOL&#160;&#160;&#160;(6)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>BOOL </p>
+
+</div>
+</div>
+<a id="a0fafb53e13ad5f4d44018a35ba31ea39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fafb53e13ad5f4d44018a35ba31ea39">&#9670;&nbsp;</a></span>AILIA_TFLITE_TENSOR_TYPE_COMPLEX64</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_TENSOR_TYPE_COMPLEX64&#160;&#160;&#160;(8)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>COMPLEX64 </p>
+
+</div>
+</div>
+<a id="a513cb591edeca644dd24624e2acce014"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a513cb591edeca644dd24624e2acce014">&#9670;&nbsp;</a></span>AILIA_TFLITE_TENSOR_TYPE_FLOAT16</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_TENSOR_TYPE_FLOAT16&#160;&#160;&#160;(1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>FLOAT16 </p>
+
+</div>
+</div>
+<a id="ad870cf3a690f248a4cd8fdf567db5aff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad870cf3a690f248a4cd8fdf567db5aff">&#9670;&nbsp;</a></span>AILIA_TFLITE_TENSOR_TYPE_FLOAT32</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_TENSOR_TYPE_FLOAT32&#160;&#160;&#160;(0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>FLOAT32 </p>
+
+</div>
+</div>
+<a id="a7b8c99d25ecf0c3eb9a0fb5105c2ac04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b8c99d25ecf0c3eb9a0fb5105c2ac04">&#9670;&nbsp;</a></span>AILIA_TFLITE_TENSOR_TYPE_INT16</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_TENSOR_TYPE_INT16&#160;&#160;&#160;(7)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>INT16 </p>
+
+</div>
+</div>
+<a id="aaf94ba1c1b02014b6b0edfe4c4baab49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf94ba1c1b02014b6b0edfe4c4baab49">&#9670;&nbsp;</a></span>AILIA_TFLITE_TENSOR_TYPE_INT32</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_TENSOR_TYPE_INT32&#160;&#160;&#160;(2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>INT32 </p>
+
+</div>
+</div>
+<a id="ae518c4a92ffa28c8b9958d8be064edf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae518c4a92ffa28c8b9958d8be064edf4">&#9670;&nbsp;</a></span>AILIA_TFLITE_TENSOR_TYPE_INT64</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_TENSOR_TYPE_INT64&#160;&#160;&#160;(4)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>INT64 </p>
+
+</div>
+</div>
+<a id="a3eaa7789532ecc04ec3cc1741c092e13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eaa7789532ecc04ec3cc1741c092e13">&#9670;&nbsp;</a></span>AILIA_TFLITE_TENSOR_TYPE_INT8</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_TENSOR_TYPE_INT8&#160;&#160;&#160;(9)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>INT8 </p>
+
+</div>
+</div>
+<a id="af66fdd69441809c28d4078fd4fff3ced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af66fdd69441809c28d4078fd4fff3ced">&#9670;&nbsp;</a></span>AILIA_TFLITE_TENSOR_TYPE_STRING</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_TENSOR_TYPE_STRING&#160;&#160;&#160;(5)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>STRING </p>
+
+</div>
+</div>
+<a id="a8e43f5026fa1b0580e05ab65d3ef9ab0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e43f5026fa1b0580e05ab65d3ef9ab0">&#9670;&nbsp;</a></span>AILIA_TFLITE_TENSOR_TYPE_UINT8</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_TENSOR_TYPE_UINT8&#160;&#160;&#160;(3)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UINT8 </p>
+
+</div>
+</div>
+<h2 class="groupheader">型定義詳解</h2>
+<a id="af403c38c72b52dcbceb46e62fc8f4561"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af403c38c72b52dcbceb46e62fc8f4561">&#9670;&nbsp;</a></span>AILIATFLiteCpuFeatures</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int32_t <a class="el" href="ailia__tflite_8h.html#af403c38c72b52dcbceb46e62fc8f4561">AILIATFLiteCpuFeatures</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad3efb8abac41021597407f121eed535d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3efb8abac41021597407f121eed535d">&#9670;&nbsp;</a></span>AILIATFLiteEnvironment</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int32_t <a class="el" href="ailia__tflite_8h.html#ad3efb8abac41021597407f121eed535d">AILIATFLiteEnvironment</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a102124bd44711479870d1515284d1a19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a102124bd44711479870d1515284d1a19">&#9670;&nbsp;</a></span>AILIATFLiteFlags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int32_t <a class="el" href="ailia__tflite_8h.html#a102124bd44711479870d1515284d1a19">AILIATFLiteFlags</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9c44ccf3ba49f821be2629bd3dcde53c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c44ccf3ba49f821be2629bd3dcde53c">&#9670;&nbsp;</a></span>AILIATFLiteMemoryMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int32_t <a class="el" href="ailia__tflite_8h.html#a9c44ccf3ba49f821be2629bd3dcde53c">AILIATFLiteMemoryMode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afda2f6d89489d73ae1b983b2a8903cf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afda2f6d89489d73ae1b983b2a8903cf2">&#9670;&nbsp;</a></span>AILIATFLiteStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int32_t <a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad484d38dd88bf46de076f88cc2bff74c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad484d38dd88bf46de076f88cc2bff74c">&#9670;&nbsp;</a></span>AILIATFLiteTensorType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int8_t <a class="el" href="ailia__tflite_8h.html#ad484d38dd88bf46de076f88cc2bff74c">AILIATFLiteTensorType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">関数詳解</h2>
+<a id="acc1f845d870f1bbd223d8e58fe31819c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc1f845d870f1bbd223d8e58fe31819c">&#9670;&nbsp;</a></span>ailiaTFLiteAllocateTensors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteAllocateTensors </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ailia TFLite runtimeの内部バッファーの確保を行います </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>内部の形状を更新し、推論に必要なバッファーを確保します。 </p>
+
+</div>
+</div>
+<a id="a033451378fff5cbd772c56df5325f382"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a033451378fff5cbd772c56df5325f382">&#9670;&nbsp;</a></span>ailiaTFLiteCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteCreate </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance **&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>tflite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramname"><em>tflite_length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *(*)(size_t, const void *, void *)&#160;</td>
+          <td class="paramname"><em>pmalloc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *(*)(void *, const void *, size_t, void *)&#160;</td>
+          <td class="paramname"><em>pmemcpy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void(*)(void *, void *)&#160;</td>
+          <td class="paramname"><em>pfree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>phandle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ailia__tflite_8h.html#ad3efb8abac41021597407f121eed535d">AILIATFLiteEnvironment</a>&#160;</td>
+          <td class="paramname"><em>env_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ailia__tflite_8h.html#a9c44ccf3ba49f821be2629bd3dcde53c">AILIATFLiteMemoryMode</a>&#160;</td>
+          <td class="paramname"><em>memory_mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ailia__tflite_8h.html#a102124bd44711479870d1515284d1a19">AILIATFLiteFlags</a>&#160;</td>
+          <td class="paramname"><em>flags</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ailia TFLite runtimeのインスタンスを作成します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインターへのポインター </td></tr>
+    <tr><td class="paramname">tflite</td><td>tfliteモデルへのポインター </td></tr>
+    <tr><td class="paramname">tflite_length</td><td>tfliteの長さ(バイト単位) </td></tr>
+    <tr><td class="paramname">pmalloc</td><td>mallocの関数ポインター(NULLの場合はmallocを利用) </td></tr>
+    <tr><td class="paramname">pmemcpy</td><td>memcpyの関数ポインター(NULLの場合はmemcpyを利用) </td></tr>
+    <tr><td class="paramname">pfree</td><td>freeの関数ポインター(NULLの場合はfreeを利用) </td></tr>
+    <tr><td class="paramname">phandle</td><td>メモリアロケータに渡されるハンドル(標準のアロケータを使用する場合はNULL) </td></tr>
+    <tr><td class="paramname">env_id</td><td>計算に利用する推論実行環境（AILIA_TFLITE_ENV_NNAPI_*） </td></tr>
+    <tr><td class="paramname">memory_mode</td><td>メモリモード（AILIA_TFLITE_MEMORY_MODE_*） </td></tr>
+    <tr><td class="paramname">flags</td><td>フラグ（AILIA_TFLITE_FLAG_*の論理和） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>tfliteモデルを開き、ailia TFLite runtimeインスタンスを作成します。 また、必要な内部バッファーの確保も行います。 インスタンス生成に失敗した場合でinstanceにNULL以外が格納された場合はailiaTFLiteDestroyを呼び出す必要があります。 </p>
+
+</div>
+</div>
+<a id="a2762d4eab88139b057795b65afa3410f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2762d4eab88139b057795b65afa3410f">&#9670;&nbsp;</a></span>ailiaTFLiteDestroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ailiaTFLiteDestroy </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ailia TFLite runtimeのインスタンスを破棄します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5e49d04c6346c8a2cd65c9058ceea513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e49d04c6346c8a2cd65c9058ceea513">&#9670;&nbsp;</a></span>ailiaTFLiteGetContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetContext </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>buf_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DSAの結果を保存します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインタ </td></tr>
+    <tr><td class="paramname">buf</td><td>格納先バッファ </td></tr>
+    <tr><td class="paramname">buf_size</td><td>バッファサイズ（バイト単位） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>ailiaTFLiteAllocateTensorsを呼び出した後に実行する必要があります。 現在のDSAの割り当て状況をバッファに保存し、次回のインスタンス作成時に再利用することで、DSAの割り当て時間を短縮することができます。 ailiaTFLiteRuntimeのバージョンが変わると保存した結果は無効になります。 </p>
+
+</div>
+</div>
+<a id="a107162bbeca055f8b3d7e2ce079fe07b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a107162bbeca055f8b3d7e2ce079fe07b">&#9670;&nbsp;</a></span>ailiaTFLiteGetContextSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetContextSize </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>buf_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DSAの結果の保存に必要なバッファのサイズ（バイト単位）を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">buffer_size</td><td>バッファのサイズの格納先へのポインター </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>ailiaTFLiteAllocateTensorsを呼び出した後に実行する必要があります。 </p>
+
+</div>
+</div>
+<a id="aac89825fde2cae2116e18d2b057b7e7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac89825fde2cae2116e18d2b057b7e7f">&#9670;&nbsp;</a></span>ailiaTFLiteGetCpuFeatures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetCpuFeatures </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>cpu_features</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>使用するCPU命令を取得します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">cpu_features</td><td>AILIA_TFLITE_CPU_FEATURES_XXXの論理和 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>使用するCPU命令を取得します。 デフォルトではCPU情報から取得したCPU命令を返します。 ailiaTFLiteSetCpuFeaturesを呼び出した以降は、設定したCPU命令を返します。 </p>
+
+</div>
+</div>
+<a id="ab507f9923493726ba96534d5419a1839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab507f9923493726ba96534d5419a1839">&#9670;&nbsp;</a></span>ailiaTFLiteGetEnvironment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetEnvironment </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ailia__tflite_8h.html#ad3efb8abac41021597407f121eed535d">AILIATFLiteEnvironment</a> *&#160;</td>
+          <td class="paramname"><em>env</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>計算環境の一覧を取得します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">env</td><td>計算環境情報の格納先の配列 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p><a class="el" href="ailia__tflite_8h.html#a11a709b1eb82ab242422fabdfc6bd73a" title="利用可能な計算環境の数を取得します">ailiaTFLiteGetEnvironmentCount()</a>の返すサイズの配列を入力に渡してください。 </p>
+
+</div>
+</div>
+<a id="a11a709b1eb82ab242422fabdfc6bd73a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11a709b1eb82ab242422fabdfc6bd73a">&#9670;&nbsp;</a></span>ailiaTFLiteGetEnvironmentCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetEnvironmentCount </td>
+          <td>(</td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>env_count</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>利用可能な計算環境の数を取得します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">env_count</td><td>計算環境情報の数の格納先へのポインター </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="a618d3addc7d3b9c224757fe77b435343"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a618d3addc7d3b9c224757fe77b435343">&#9670;&nbsp;</a></span>ailiaTFLiteGetErrorDetail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetErrorDetail </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>エラーの詳細を返します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">buffer</td><td>エラー詳細文字列へのポインタ</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>文字列は解放する必要はありません。 文字列の有効期間は次にailiaのAPIを呼ぶまでとなります。 </p>
+
+</div>
+</div>
+<a id="a5b762bb33f7ce1cd61d321e76ccbbe7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b762bb33f7ce1cd61d321e76ccbbe7f">&#9670;&nbsp;</a></span>ailiaTFLiteGetInputTensorIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetInputTensorIndex </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>tensor_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>input_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>入力TensorのindexからTensorのindexを取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindexの格納先へのポインター </td></tr>
+    <tr><td class="paramname">input_index</td><td>入力Tensorのindex(0~入力Tensorの数-1) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 input_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>入力TensorのindexからTensorのindexに変換します。 indexの上限はailiaTFLiteGetNumberOfInputs()-1です。 </p>
+
+</div>
+</div>
+<a id="a4a0c3a183c8ed7e94d98f314757a5126"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a0c3a183c8ed7e94d98f314757a5126">&#9670;&nbsp;</a></span>ailiaTFLiteGetNodeCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetNodeCount </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Nodeの個数を取得します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">count</td><td>Nodeの個数の格納先へのポインター </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="a36d8b6ee7b318331bd657d476e89d9b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36d8b6ee7b318331bd657d476e89d9b1">&#9670;&nbsp;</a></span>ailiaTFLiteGetNodeInputCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetNodeInputCount </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>node_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>node_index番目のNodeの入力の個数を取得します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">count</td><td>入力の個数の格納先へのポインター </td></tr>
+    <tr><td class="paramname">node_index</td><td>Nodeのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 node_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="ad5c33354afdac626be013d76bd638c82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5c33354afdac626be013d76bd638c82">&#9670;&nbsp;</a></span>ailiaTFLiteGetNodeInputTensorIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetNodeInputTensorIndex </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>tensor_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>node_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>input_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>node_index番目のNodeのinput_index番目の入力のTensorのindexを取得します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindexの格納先へのポインター </td></tr>
+    <tr><td class="paramname">node_index</td><td>Nodeのindex </td></tr>
+    <tr><td class="paramname">input_index</td><td>入力のindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 node_indexおよびinput_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="a100750ed83c009c4e2a798075ebe3d50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a100750ed83c009c4e2a798075ebe3d50">&#9670;&nbsp;</a></span>ailiaTFLiteGetNodeOperator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetNodeOperator </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>op</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>node_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>node_index番目のNodeのOperatorを取得します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">op</td><td>Operatorの格納先へのポインター </td></tr>
+    <tr><td class="paramname">node_index</td><td>Nodeのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 node_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>Operatorのenum値はtfliteファイルの内部の値に準じます。 詳しくはTensorFlowのソースツリーのtensorflow/lite/schema/schema.fbsファイルを参照してください。 </p>
+
+</div>
+</div>
+<a id="a96ebebd2171386c11198ed01a6f35008"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96ebebd2171386c11198ed01a6f35008">&#9670;&nbsp;</a></span>ailiaTFLiteGetNodeOption()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetNodeOption </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>node_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>node_index番目のNodeのオプションを取得します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">value</td><td>出力の格納先へのポインター </td></tr>
+    <tr><td class="paramname">node_index</td><td>Nodeのindex </td></tr>
+    <tr><td class="paramname">key</td><td>オプション名の文字列ポインター </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 node_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="aaa57848491dd1ad11b549c981902d981"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa57848491dd1ad11b549c981902d981">&#9670;&nbsp;</a></span>ailiaTFLiteGetNodeOutputCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetNodeOutputCount </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>node_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>node_index番目のNodeの出力の個数を取得します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">count</td><td>出力の個数の格納先へのポインター </td></tr>
+    <tr><td class="paramname">node_index</td><td>Nodeのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 node_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="a540b22c72178236e44e360fa723cb11a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a540b22c72178236e44e360fa723cb11a">&#9670;&nbsp;</a></span>ailiaTFLiteGetNodeOutputTensorIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetNodeOutputTensorIndex </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>tensor_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>node_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>output_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>node_index番目のNodeのoutput_index番目の出力のTensorのindexを取得します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindexの格納先へのポインター </td></tr>
+    <tr><td class="paramname">node_index</td><td>Nodeのindex </td></tr>
+    <tr><td class="paramname">output_index</td><td>出力のindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 node_indexおよびoutput_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="a99e53b6ce5e7b4aeb02796307379d618"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99e53b6ce5e7b4aeb02796307379d618">&#9670;&nbsp;</a></span>ailiaTFLiteGetNumberOfInputs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetNumberOfInputs </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>num_of_input_tensor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>tfliteモデルの入力Tensorの数を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">num_of_input_tensor</td><td>モデルの入力Tensorの数の格納先へのポインター </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="abb5deecc950bcff5fd4eef168e3d801a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb5deecc950bcff5fd4eef168e3d801a">&#9670;&nbsp;</a></span>ailiaTFLiteGetNumberOfOutputs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetNumberOfOutputs </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>num_of_output_tensor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>tfliteモデルの出力Tensorの数を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">num_of_output_tensor</td><td>モデルの出力Tensorの数の格納先へのポインター </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="abe78851c83ea8b555bca91db03191c13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe78851c83ea8b555bca91db03191c13">&#9670;&nbsp;</a></span>ailiaTFLiteGetOperatorName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetOperatorName </td>
+          <td>(</td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>op</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Operatorの名前を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Operatorの名前の文字列ポインターの格納先へのポインター </td></tr>
+    <tr><td class="paramname">op</td><td>Operator </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>nameで取得できる文字列ポインターの寿命はライブラリのアンロードまで有効です。 なお、呼び出し元で文字列ポインターを開放する必要はありません。 </p>
+
+</div>
+</div>
+<a id="a848dde61a3b163b4b71381c310439745"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a848dde61a3b163b4b71381c310439745">&#9670;&nbsp;</a></span>ailiaTFLiteGetOutputTensorIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetOutputTensorIndex </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>tensor_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>output_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>出力TensorのindexからTensorのindexを取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindexの格納先へのポインター </td></tr>
+    <tr><td class="paramname">output_index</td><td>出力Tensorのindex(0~出力Tensorの数-1) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 output_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>出力TensorのindexからTensorのindexに変換します。 indexの上限はailiaTFLiteGetNumberOfOutputs()-1です。 </p>
+
+</div>
+</div>
+<a id="abbab042e7225cd6ae27510d2a701dc27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbab042e7225cd6ae27510d2a701dc27">&#9670;&nbsp;</a></span>ailiaTFLiteGetScratchBufferUsage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetScratchBufferUsage </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>int_buffer_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>mid_buffer_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>ext_buffer_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>スクラッチバッファの最大使用量を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">int_buffer_size</td><td>スクラッチバッファ（L2）のサイズ </td></tr>
+    <tr><td class="paramname">mid_buffer_size</td><td>スクラッチバッファ（MSMC）のサイズ </td></tr>
+    <tr><td class="paramname">ext_buffer_size</td><td>スクラッチバッファ（DDR）のサイズ</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>初回に大きいスクラッチバッファサイズで推論を行うことで、必要なスクラッチバッファのサイズを取得することができます。 内部で行われるアライメントを考慮した値が返るため、取得した値はアライメントを考慮せずに直接使用可能です。 </p>
+
+</div>
+</div>
+<a id="ae1a274001c5c986417efa6086d186f62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1a274001c5c986417efa6086d186f62">&#9670;&nbsp;</a></span>ailiaTFLiteGetScratchBufferUsageEx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetScratchBufferUsageEx </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>int_buffer_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>mid_buffer_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>ext_buffer_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>global_buffer_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>スクラッチバッファの最大使用量を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">int_buffer_size</td><td>スクラッチバッファ（L2）のサイズ </td></tr>
+    <tr><td class="paramname">mid_buffer_size</td><td>スクラッチバッファ（MSMC）のサイズ </td></tr>
+    <tr><td class="paramname">ext_buffer_size</td><td>スクラッチバッファ（DDR）のサイズ </td></tr>
+    <tr><td class="paramname">global_buffer_size</td><td>スクラッチバッファ（グローバルMSMC）のサイズ</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>初回に大きいスクラッチバッファサイズで推論を行うことで、必要なスクラッチバッファのサイズを取得することができます。 内部で行われるアライメントを考慮した値が返るため、取得した値はアライメントを考慮せずに直接使用可能です。 </p>
+
+</div>
+</div>
+<a id="aa06cfe7964f7e91fcac4dac14c6d5ede"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa06cfe7964f7e91fcac4dac14c6d5ede">&#9670;&nbsp;</a></span>ailiaTFLiteGetSummary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetSummary </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>buffer_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>各Nodeの名前と形状を表示します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">buffer</td><td>Summaryの出力先の文字列ポインター </td></tr>
+    <tr><td class="paramname">buffer_size</td><td>出力バッファのサイズ(終端null文字分を含む)。 <a class="el" href="ailia__tflite_8h.html#a31b6a4c7ab20bc6285d0f030c49a551f" title="ネットワークSummary用に必要なバッファのサイズを取得します。">ailiaTFLiteGetSummaryLength()</a> で取得した値を設定してください。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="a31b6a4c7ab20bc6285d0f030c49a551f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31b6a4c7ab20bc6285d0f030c49a551f">&#9670;&nbsp;</a></span>ailiaTFLiteGetSummaryLength()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetSummaryLength </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>buffer_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ネットワークSummary用に必要なバッファのサイズを取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">buffer_size</td><td>バッファのサイズの格納先へのポインター(終端null文字分を含む) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="ae3d4e8d61f104aba9fddc94a5d3ffeeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3d4e8d61f104aba9fddc94a5d3ffeeb">&#9670;&nbsp;</a></span>ailiaTFLiteGetTensorBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetTensorBuffer </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void **&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>tensor_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>index番目のTensorのデータの格納バッファーを取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">buffer</td><td>データの格納バッファーへのポインターの格納先へのポインター </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 tensor_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>bufferで取得できる格納バッファーの寿命はailiaTFLiteAllocateTensors/ailiaTFLiteResizeInputTensor/ailiaTFLiteDestroyのいずれか呼び出すまで有効です。 また、格納バッファーの値はailiaTFLitePredictを呼び出すと変更されます。 なお、呼び出し元で格納バッファーを開放する必要はありません。 </p>
+
+</div>
+</div>
+<a id="a8a75abd68011db5b3878ecf214a039d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a75abd68011db5b3878ecf214a039d2">&#9670;&nbsp;</a></span>ailiaTFLiteGetTensorDimension()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetTensorDimension </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>tensor_dim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>tensor_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>index番目のTensorの次元を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">tensor_dim</td><td>指定したTensorの次元の格納先へのポインター </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 tensor_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="a777423cf731269609aef6fe4c620b542"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a777423cf731269609aef6fe4c620b542">&#9670;&nbsp;</a></span>ailiaTFLiteGetTensorName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetTensorName </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>tensor_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>index番目のTensorの名前を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">name</td><td>Tensorの名前の文字列ポインターの格納先へのポインター </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 tensor_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>nameで取得できる文字列ポインターの寿命はailiaTFLiteDestroyを呼び出すまで有効です。 なお、呼び出し元で文字列ポインターを開放する必要はありません。 </p>
+
+</div>
+</div>
+<a id="abb222b42c49b9ed81eaab69638c5dda3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb222b42c49b9ed81eaab69638c5dda3">&#9670;&nbsp;</a></span>ailiaTFLiteGetTensorQuantizationCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetTensorQuantizationCount </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>tensor_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>index番目のTensorの量子化パラメーターの個数を取得します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">count</td><td>量子化パラメーターの個数の格納先へのポインター </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 tensor_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>指定したTensorに関連付けられた量子化パラメーターの個数を取得します。 指定したTensorに量子化パラメーターが存在しない場合は0が格納されます。 </p>
+
+</div>
+</div>
+<a id="a7e21d85de94ef9221f7d082c7a618ef3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e21d85de94ef9221f7d082c7a618ef3">&#9670;&nbsp;</a></span>ailiaTFLiteGetTensorQuantizationQuantizedDimension()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetTensorQuantizationQuantizedDimension </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>tensor_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>index番目のTensorの量子化パラメーターの軸を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">axis</td><td>量子化パラメーターの軸の格納先へのポインター </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 tensor_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 指定したTensorに量子化パラメーターが存在しない場合はAILIA_TFLITE_STATUS_PARAMETER_NOT_FOUNDが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="a99de26ece390ea5d144bd5acea07fc11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99de26ece390ea5d144bd5acea07fc11">&#9670;&nbsp;</a></span>ailiaTFLiteGetTensorQuantizationScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetTensorQuantizationScale </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>scale</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>tensor_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>index番目のTensorの量子化パラメーターのスケールを取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">scale</td><td>量子化パラメーターのスケールの格納先へのポインター </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 tensor_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 指定したTensorに量子化パラメーターが存在しない場合はAILIA_TFLITE_STATUS_PARAMETER_NOT_FOUNDが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>Tensorは以下の式で量子化して格納します。 量子化値 = zero_point * round(入力/scale) scale:ailiaTFLiteGetTensorQuantizationScaleで取得 zero_point:ailiaTFLiteGetTensorQuantizationZeroPointで取得 scaleはailiaTFLiteGetTensorQuantizationCountで取得した要素数以上のバッファーを確保してください。 </p>
+
+</div>
+</div>
+<a id="a63009ac208c3d191b530e0f01258c851"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63009ac208c3d191b530e0f01258c851">&#9670;&nbsp;</a></span>ailiaTFLiteGetTensorQuantizationZeroPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetTensorQuantizationZeroPoint </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t *&#160;</td>
+          <td class="paramname"><em>zero_point</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>tensor_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>index番目のTensorの量子化パラメーターのゼロ点を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">zero_point</td><td>量子化パラメーターのゼロ点の格納先へのポインター </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 tensor_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 指定したTensorに量子化パラメーターが存在しない場合はAILIA_TFLITE_STATUS_PARAMETER_NOT_FOUNDが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>量子化の解説はailiaTFLiteGetTensorQuantizationScaleを御覧ください。 zero_pointはailiaTFLiteGetTensorQuantizationCountで取得した要素数以上のバッファーを確保してください。 </p>
+
+</div>
+</div>
+<a id="af662ecba3fc6103a517ecfe8c7605c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af662ecba3fc6103a517ecfe8c7605c7f">&#9670;&nbsp;</a></span>ailiaTFLiteGetTensorShape()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetTensorShape </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>tensor_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>index番目のTensorの形状を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">shape</td><td>Tensorの形状の格納先 </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 tensor_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>指定したTensorの形状をshapeに格納します。 shapeはailiaTFLiteGetTensorDimensionで取得した次元以上のバッファーを確保してください。 </p>
+
+</div>
+</div>
+<a id="a8f8405be45e8ff4be81f3917be287314"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f8405be45e8ff4be81f3917be287314">&#9670;&nbsp;</a></span>ailiaTFLiteGetTensorShapeSignature()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetTensorShapeSignature </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t *&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>tensor_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>index番目のTensorの未確定な次元情報付き形状を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">shape</td><td>Tensorの形状の格納先 </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 tensor_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>指定したTensorの未確定な次元情報付き形状をshapeに格納します。 形状が未確定な次元は-1が格納されます。 指定したTensorに未確定な次元が含まれていない場合はailiaTFLiteGetTensorShapeと同じ結果となります。 shapeはailiaTFLiteGetTensorDimensionで取得した次元以上のバッファーを確保してください。 </p>
+
+</div>
+</div>
+<a id="aad4d42e3f4862e4c43ed149394dc0654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad4d42e3f4862e4c43ed149394dc0654">&#9670;&nbsp;</a></span>ailiaTFLiteGetTensorType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteGetTensorType </td>
+          <td>(</td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ailia__tflite_8h.html#ad484d38dd88bf46de076f88cc2bff74c">AILIATFLiteTensorType</a> *&#160;</td>
+          <td class="paramname"><em>tensor_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>tensor_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>index番目のTensorのデータタイプを取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">tensor_type</td><td>指定したTensorのデータタイプの格納先 </td></tr>
+    <tr><td class="paramname">tensor_index</td><td>Tensorのindex </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 tensor_indexが範囲外の場合はAILIA_TFLITE_STATUS_OUT_OF_RANGEが返ります。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="a6b046dbdd3bd072f365523c14373cdd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b046dbdd3bd072f365523c14373cdd5">&#9670;&nbsp;</a></span>ailiaTFLiteGetVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* ailiaTFLiteGetVersion </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ライブラリバージョンを取得します </p>
+<dl class="section return"><dt>戻り値</dt><dd>バージョン番号</dd></dl>
+<p>返値は解放する必要はありません。 </p>
+
+</div>
+</div>
+<a id="aa4a72d893963d90eebc881868d519a56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a72d893963d90eebc881868d519a56">&#9670;&nbsp;</a></span>ailiaTFLiteMklDisableFastMM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteMklDisableFastMM </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MKLのFastMMを無効化します </p>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>mkl_disable_fast_mmを呼び出すことでFastMMを無効化します。全てのインスタンスに影響します。 MKLはスレッドごとにメモリを確保するため、mkl_free_buffersを呼び出すまでメモリが単調増加します。 このワークメモリは、ailiaTFLiteDestroyでmkl_free_buffersを呼び出すまで保持されます。 FastMMを無効化することで、スレッドごとにメモリを確保しないように指定することができます。 MKLを使用しない環境（macOSなど）ではAILIA_TFLITE_STATUS_INVALID_STATEを返します。 </p>
+
+</div>
+</div>
+<a id="ad2ca4f49099ba34816b1e2c62b9dc62d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ca4f49099ba34816b1e2c62b9dc62d">&#9670;&nbsp;</a></span>ailiaTFLiteMklSetNumThreads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteMklSetNumThreads </td>
+          <td>(</td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>num_threads</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MKLが使用するスレッド数を設定します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num_threads</td><td>スレッド数（1以上） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>mkl_set_num_threadsを呼び出すことでMKLのスレッド数を変更します。全てのインスタンスに影響します。 デフォルトでは自動設定となります。 MKLを使用しない環境（macOSなど）ではAILIA_TFLITE_STATUS_INVALID_STATEを返します。 </p>
+
+</div>
+</div>
+<a id="ab1820b1dc49127cc614ad509e72e472d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1820b1dc49127cc614ad509e72e472d">&#9670;&nbsp;</a></span>ailiaTFLitePredict()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLitePredict </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>推論を行います。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。 </dd></dl>
+
+</div>
+</div>
+<a id="a2ea3823474e53affb293bf6f27f0d917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ea3823474e53affb293bf6f27f0d917">&#9670;&nbsp;</a></span>ailiaTFLiteResizeInputTensor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteResizeInputTensor </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>input_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>dim</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>指定した入力indexのTensorの形状を変更します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">input_index</td><td>0~入力Tensorの数-1 </td></tr>
+    <tr><td class="paramname">shape</td><td>新しい形状 </td></tr>
+    <tr><td class="paramname">dim</td><td>次元 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 指定したTensorに未確定な次元が含まれていない場合AILIA_TFLITE_STATUS_FIXED_TENSORを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>入力Tensorの形状を変更します。 この関数を呼び出すと確保済み内部バッファーを開放するため、 ailiaTFLiteAllocateTensorsを呼び出す必要があります。 また、入力形状に応じて中間Tensorの形状が変わる場合があるため、 この関数を呼出後、ailiaTFLiteAllocateTensorsを呼び出すまでは取得系APIの結果が不正となる場合があります。 indexの上限はailiaTFLiteGetNumberOfInputs()-1です。 なお、指定したTensorに未確定な次元が含まれていない場合(ailiaTFLiteGetTensorShapeSignatureで取得したshapeに-1が含まれていない場合)はエラーとなります。 </p>
+
+</div>
+</div>
+<a id="ac072741989b4fbe60bc52c52b88cf6ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac072741989b4fbe60bc52c52b88cf6ee">&#9670;&nbsp;</a></span>ailiaTFLiteRestoreContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteRestoreContext </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>buf_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>DSAの結果を復元します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインタ </td></tr>
+    <tr><td class="paramname">buf</td><td>バッファ </td></tr>
+    <tr><td class="paramname">buf_size</td><td>バッファサイズ（バイト単位） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>ailiaTFLiteAllocateTensorsを呼び出す前に実行する必要があります。 バッファに保存したDSAの割り当て情報を再利用することで、DSAの割り当て時間を短縮することができます。 ailiaTFLiteRuntimeのバージョンが変わると保存した結果は無効になります。 </p>
+
+</div>
+</div>
+<a id="abf01e8e9893a604cabfd70c8df873d54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf01e8e9893a604cabfd70c8df873d54">&#9670;&nbsp;</a></span>ailiaTFLiteSetCpuFeatures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteSetCpuFeatures </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>cpu_features</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>使用するCPU命令を設定します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">cpu_features</td><td>AILIA_TFLITE_CPU_FEATURES_XXXの論理和 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>使用するCPU命令を設定します。 使用できないCPU命令が設定された場合、AILIA_TFLITE_STATUS_OUT_OF_RANGEを返します。 </p>
+
+</div>
+</div>
+<a id="ae6644208466e6ff60465b50554b88318"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6644208466e6ff60465b50554b88318">&#9670;&nbsp;</a></span>ailiaTFLiteSetProfileMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteSetProfileMode </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>プロファイルモードをセットします。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">mode</td><td>プロファイルモード (AILIA_TFLITE_PROFILE_MODE_*) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 その他のエラーの場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>プロファイルモードを指定します。デフォルトは無効です。 プロファイルモードを有効にした場合、ailiaTFLiteGetSummaryの出力にプロファイル結果が追加されます。 ailiaTFLiteCreateの直後に実行する必要があります。 ailiaTFLiteAllocateTensorsの後に呼び出した場合はAILIA_TFLITE_STATUS_INVALID_STATEが返ります。 </p>
+
+</div>
+</div>
+<a id="af14ef38d13485d1c6dcd6046c54d880e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af14ef38d13485d1c6dcd6046c54d880e">&#9670;&nbsp;</a></span>ailiaTFLiteSetScratchBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteSetScratchBuffer </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>int_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>int_buffer_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>mid_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>mid_buffer_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ext_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>ext_buffer_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>スクラッチバッファを設定します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">int_buffer</td><td>スクラッチバッファ（L2）へのポインタ </td></tr>
+    <tr><td class="paramname">int_buffer_size</td><td>スクラッチバッファ（L2）のサイズ（64byte以上） </td></tr>
+    <tr><td class="paramname">mid_buffer</td><td>スクラッチバッファ（MSMC）へのポインタ </td></tr>
+    <tr><td class="paramname">mid_buffer_size</td><td>スクラッチバッファ（MSMC）のサイズ </td></tr>
+    <tr><td class="paramname">ext_buffer</td><td>スクラッチバッファ（DDR）へのポインタ </td></tr>
+    <tr><td class="paramname">ext_buffer_size</td><td>スクラッチバッファ（DDR）のサイズ</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>中間テンソルやワークメモリとして使用するスクラッチバッファを設定します。 バッファのアライメントは内部で行われるため、アライメントを考慮する必要はありません。 L2以外のバッファサイズに0を指定すると、指定したバッファを無効化することが可能です。 ENV_MMALIBを指定した場合に、この関数を呼び出さずにailiaTFLiteAllocateTensorsを実行すると、AILIA_TFLITE_STATUS_INVALID_STATEを返します。 スクラッチバッファはailiaTFLitePredictを呼び出す度に変更することが可能です。 ただし、スクラッチバッファのサイズはailiaTFLiteAllocateTensorsで使用した値と同じである必要があります。 非永続化データのワーク領域として使用するため、シングルスレッドの場合は複数インスタンスに同じバッファを与えることが可能です。 スクラッチバッファのサイズが変化すると、Attentionのタイルサイズが変化し、処理結果も変化します。 </p>
+
+</div>
+</div>
+<a id="a5a11b9fa1ce2fd811b9804d41bc59900"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a11b9fa1ce2fd811b9804d41bc59900">&#9670;&nbsp;</a></span>ailiaTFLiteSetScratchBufferEx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteSetScratchBufferEx </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>int_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>int_buffer_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>mid_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>mid_buffer_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ext_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>ext_buffer_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>global_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>global_buffer_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>スクラッチバッファを設定します (グローバルMSMC対応版) </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">int_buffer</td><td>スクラッチバッファ（L2）へのポインタ </td></tr>
+    <tr><td class="paramname">int_buffer_size</td><td>スクラッチバッファ（L2）のサイズ（64byte以上） </td></tr>
+    <tr><td class="paramname">mid_buffer</td><td>スクラッチバッファ（MSMC）へのポインタ </td></tr>
+    <tr><td class="paramname">mid_buffer_size</td><td>スクラッチバッファ（MSMC）のサイズ </td></tr>
+    <tr><td class="paramname">ext_buffer</td><td>スクラッチバッファ（DDR）へのポインタ </td></tr>
+    <tr><td class="paramname">ext_buffer_size</td><td>スクラッチバッファ（DDR）のサイズ </td></tr>
+    <tr><td class="paramname">global_buffer</td><td>スクラッチバッファ（グローバルMSMC）へのポインタ </td></tr>
+    <tr><td class="paramname">global_buffer_size</td><td>スクラッチバッファ（グローバルMSMC）のサイズ</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>ailiaTFLiteSetScratchBufferをグローバルMSMCに対応させたバージョンです。 </p>
+
+</div>
+</div>
+<a id="a643bbb31f1cfa0e5b0b23a654dc7fead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a643bbb31f1cfa0e5b0b23a654dc7fead">&#9670;&nbsp;</a></span>ailiaTFLiteSetSynchronizeFunctions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteSetSynchronizeFunctions </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int(*)(void *)&#160;</td>
+          <td class="paramname"><em>pmain_after_command_store</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int(*)(void *)&#160;</td>
+          <td class="paramname"><em>pmain_before_state_load</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>マルチコアで使用する場合において、コア間の同期関数を設定します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインタ </td></tr>
+    <tr><td class="paramname">pmain_after_command_store</td><td>コマンドストア後に呼び出される関数 </td></tr>
+    <tr><td class="paramname">pmain_before_state_load</td><td>サブコア状態のロード前に呼び出される関数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>コア間の同期が必要な処理系では、設定した関数内でシステム的に必要となる同期処理を行ってください。 </p>
+
+</div>
+</div>
+<a id="a74905b627056e6342e090b5f40b46feb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74905b627056e6342e090b5f40b46feb">&#9670;&nbsp;</a></span>alilaTFLiteSetSubCoreControlVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> alilaTFLiteSetSubCoreControlVariables </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct AILIATFLiteSubCoreControlVariables *&#160;</td>
+          <td class="paramname"><em>control_variables</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>sub_core_count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>マルチコアで使用する場合において、各サブコアとの通信に使用する変数を設定します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインタ </td></tr>
+    <tr><td class="paramname">control_variables</td><td>AILIATFLiteSubCoreControlVariables構造体のポインタ </td></tr>
+    <tr><td class="paramname">sub_core_count</td><td>サブコア数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>sub_core_countにサブコア数を指定し、control_variablesには要素数がsub_core_countの構造体配列を指定します。 </p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>
