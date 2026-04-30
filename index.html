@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia SDK Documentation</title>
+  <meta name="description" content="ailia SDK - Cross-platform inference engine with ONNX GPU inference using Metal and Vulkan. 390+ models, Python/C++/C#/Flutter bindings.">
+  <link rel="icon" type="image/png" href="ailia_logo.png">
+  <style>
+    :root {
+      --primary: #1a2744;
+      --primary-light: #2a3f6e;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --bg: #f7f8fc;
+      --white: #ffffff;
+      --text: #333333;
+      --text-light: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 6px 24px rgba(0, 0, 0, 0.13);
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+    }
+
+    /* Header */
+    header {
+      background: var(--primary);
+      color: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .logo img {
+      height: 36px;
+      width: auto;
+      border-radius: 6px;
+    }
+
+    .header-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .header-links a {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .header-links a:hover {
+      color: var(--white);
+    }
+
+    .btn-github {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--white) !important;
+      transition: background 0.2s;
+    }
+
+    .btn-github:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .btn-github svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: var(--white);
+      padding: 80px 24px 72px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 720px;
+      margin: 0 auto 36px;
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.8;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.13);
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(4px);
+    }
+
+    .badge svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .hero-cta {
+      margin-top: 36px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      color: var(--white);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--white);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* Section */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 72px 24px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-light);
+      margin-bottom: 40px;
+    }
+
+    /* Library Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: box-shadow 0.25s, transform 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 22px;
+    }
+
+    .card-icon.sdk       { background: #eef2ff; color: #4f46e5; }
+    .card-icon.tokenizer { background: #fef3c7; color: #d97706; }
+    .card-icon.speech    { background: #ecfdf5; color: #059669; }
+    .card-icon.voice     { background: #fce7f3; color: #db2777; }
+    .card-icon.llm       { background: #f3e8ff; color: #7c3aed; }
+    .card-icon.tracker   { background: #e0f2fe; color: #0284c7; }
+
+    .card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--text-light);
+      flex: 1;
+      margin-bottom: 16px;
+    }
+
+    .card-platforms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .platform-tag {
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: auto;
+    }
+
+    .card-link:hover {
+      gap: 10px;
+    }
+
+    .card-link::after {
+      content: "\2192";
+      transition: margin-left 0.2s;
+    }
+
+    /* Materials */
+    .materials-section {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .material-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s, transform 0.2s;
+      background: var(--bg);
+    }
+
+    .material-item:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .material-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      flex-shrink: 0;
+    }
+
+    .material-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--primary);
+    }
+
+    .material-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .material-text small {
+      display: block;
+      font-size: 12px;
+      color: var(--text-light);
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      color: var(--white);
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .footer-logo img {
+      height: 28px;
+      width: 28px;
+      border-radius: 4px;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 28px; }
+      .hero p { font-size: 16px; }
+      .header-links { display: none; }
+      .card-grid { grid-template-columns: 1fr; }
+      .materials-grid { grid-template-columns: 1fr; }
+      .section { padding: 48px 16px; }
+      .hero { padding: 56px 16px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="./" class="logo">
+        <img src="ailia_logo.png" alt="ailia">
+        ailia SDK
+      </a>
+      <div class="header-links">
+        <a href="api/">API Docs</a>
+        <a href="https://github.com/ailia-ai/ailia-sdk/wiki">Release Notes</a>
+        <a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a>
+        <a href="https://github.com/ailia-ai/ailia-sdk" target="_blank" class="btn-github">
+          <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>ailia SDK Documentation</h1>
+    <p>Cross-platform inference engine supporting GPU inference via Metal and Vulkan. A model library with over 400 types, advanced pre/post-processing, and bindings for Python, C++, C#, and Flutter.</p>
+    <div class="hero-badges">
+      <span class="badge">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        ONNX Inference
+      </span>
+      <span class="badge">
+        <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+        400+ Models
+      </span>
+      <span class="badge">
+        <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Metal &amp; Vulkan
+      </span>
+      <span class="badge">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM9 9h6v6H9z"/></svg>
+        Cross-platform
+      </span>
+    </div>
+    <div class="hero-cta">
+      <a href="https://axip-console.appspot.com/trial/terms/AILIA?lang=en" target="_blank" class="btn btn-primary">
+        Free Trial
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="https://github.com/ailia-ai/ailia-models" target="_blank" class="btn btn-outline">
+        Model Library
+        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Library Documentation -->
+  <section class="section">
+    <h2 class="section-title">Library Documentation</h2>
+    <p class="section-subtitle">Comprehensive API references and guides for each component of the ailia SDK ecosystem.</p>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-icon sdk">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>ailia SDK</h3>
+        <p>ONNX inference API for high-performance AI model execution on any platform.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">Python</span>
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+          <span class="platform-tag">Flutter</span>
+          <span class="platform-tag">JNI</span>
+        </div>
+        <a href="api/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon tokenizer">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+        </div>
+        <h3>ailia Tokenizer</h3>
+        <p>Tokenization library for NLP text encoding and decoding tasks.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">Python</span>
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+          <span class="platform-tag">Flutter</span>
+        </div>
+        <a href="supplemental/tokenizer/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon speech">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
+        </div>
+        <h3>ailia Speech</h3>
+        <p>Speech recognition engine for accurate Speech-to-Text conversion.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">Python</span>
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+          <span class="platform-tag">Flutter</span>
+        </div>
+        <a href="supplemental/speech/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon voice">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <h3>ailia Voice</h3>
+        <p>Text-to-speech synthesis engine for natural voice generation.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">Python</span>
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+          <span class="platform-tag">Flutter</span>
+        </div>
+        <a href="supplemental/voice/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon llm">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3>ailia LLM</h3>
+        <p>Local large language model inference with GGUF format support.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">Python</span>
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+          <span class="platform-tag">Flutter</span>
+        </div>
+        <a href="supplemental/llm/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon tracker">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>ailia Tracker</h3>
+        <p>Object movement tracking for real-time video analysis and surveillance.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+        </div>
+        <a href="supplemental/tracker/" class="card-link">View Documentation</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Materials -->
+  <section class="materials-section">
+    <div class="section">
+      <h2 class="section-title">Materials</h2>
+      <p class="section-subtitle">Resources, downloads, and additional information about the ailia SDK.</p>
+      <div class="materials-grid">
+
+        <a href="https://github.com/ailia-ai/ailia-sdk/wiki" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+          </div>
+          <div class="material-text">
+            Release Notes
+            <small>Changelog and version history</small>
+          </div>
+        </a>
+
+        <a href="https://axip-console.appspot.com/trial/terms/AILIA?lang=en" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          </div>
+          <div class="material-text">
+            Free Trial
+            <small>Download evaluation version</small>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/channel/UCN-KzWACywDpBNOQ6FkIm0g" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </div>
+          <div class="material-text">
+            YouTube Channel
+            <small>Tutorials and demos</small>
+          </div>
+        </a>
+
+        <a href="https://github.com/ailia-ai/ailia-tflite-runtime" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+          </div>
+          <div class="material-text">
+            TFLite Runtime
+            <small>TensorFlow Lite version</small>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">
+      <img src="ailia_logo.png" alt="ailia">
+      ailia SDK
+    </div>
+    <p>
+      <a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a>
+    </p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
