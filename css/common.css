@@ -52,7 +52,7 @@ header {
   gap: 12px;
 }
 
-.logo-icon { display: inline-flex; align-items: center; }
+.logo-icon { display: inline-flex; align-items: center; height: 36px; }
 .logo-icon img {
   height: 36px;
   width: auto;
@@ -60,13 +60,17 @@ header {
   display: block;
 }
 
-.logo-text {
+a.logo-text {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
   font-size: 20px;
   font-weight: 700;
   color: var(--primary);
   letter-spacing: 0.02em;
+  line-height: 1;
 }
-.logo-text:hover { color: var(--accent); }
+a.logo-text:hover { color: var(--accent); }
 
 .header-links {
   display: flex;
