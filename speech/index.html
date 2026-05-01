@@ -114,7 +114,20 @@ clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>The bundled sample scene transcribes microphone or audio-clip input through Whisper. Open the scene, attach an <code>AudioClip</code>, and press Play.</p>
+            <p>Use <code>AiliaSpeechModel</code> to open the encoder/decoder ONNX pair and stream audio through <code>Transcribe()</code>. See <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/SpeechToText/AiliaSpeechToTextSample.cs" target="_blank">AiliaSpeechToTextSample.cs</a> in ailia-models-unity for the full sample.</p>
+            <pre><code>using ailiaSpeech;
+
+var speech = new AiliaSpeechModel();
+speech.Open(
+    encoderPath, decoderPath,
+    envId, memoryMode,
+    AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL,
+    AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+    AiliaSpeech.AILIA_SPEECH_FLAG_NONE,
+    "auto");
+
+speech.Transcribe(waveData, frequency, channels, /*isFinal=*/true);
+foreach (var seg in speech.GetResults()) Debug.Log(seg.text);</code></pre>
           </div>
         </div>
       </div>

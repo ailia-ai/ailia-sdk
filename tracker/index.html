@@ -88,7 +88,23 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Open the bundled tracker sample scene, point it at a video clip or webcam input, and press Play to see bounding boxes with stable IDs overlaid in the Game view.</p>
+            <p>Run YOLOX-S detection per frame, then feed the detections into ByteTrack to get stable IDs across frames. See sample scripts in <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank">ailia-models-unity</a>.</p>
+            <pre><code>using ailiaTracker;
+
+var tracker = new AiliaTrackerModel();
+tracker.Open(AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
+             scoreThreshold: 0.1f, nmsThreshold: 0.7f,
+             trackThreshold: 0.5f, trackBuffer: 30, matchThreshold: 0.8f);
+
+foreach (var d in detections) {
+    tracker.AddTarget(d.category, d.confidence, d.x, d.y, d.w, d.h);
+}
+tracker.Compute();
+
+for (int i = 0; i &lt; tracker.GetObjectCount(); i++) {
+    var obj = tracker.GetObject(i);
+    Debug.Log($"id={obj.id} cat={obj.category} ({obj.x},{obj.y})");
+}</code></pre>
           </div>
         </div>
       </div>
@@ -106,7 +122,27 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Bundle <code>yolox_s.opt.onnx</code> and its prototxt under <code>app/src/main/assets/</code>, then call the tracker APIs from your activity to feed video frames and read back tracked objects.</p>
+            <p>Run YOLOX-S detection per frame, then feed the detections into ByteTrack. See <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaTrackerSample.kt" target="_blank">AiliaTrackerSample.kt</a> in ailia-models-kotlin for the full sample.</p>
+            <pre><code>val settings = AiliaTrackerSettings(
+    score_threshold = 0.1f, nms_threshold = 0.7f,
+    track_threshold = 0.5f, track_buffer = 30,
+    match_threshold = 0.8f,
+)
+val tracker = AiliaTracker(
+    algorithm = AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
+    settings = settings,
+)
+
+for (d in detections) {
+    tracker.addTarget(d.category, d.confidence, d.x, d.y, d.width, d.height)
+}
+tracker.compute()
+
+for (i in 0 until tracker.getObjectCount()) {
+    val o = tracker.getObject(i)
+    Log.d("ailia", "id=${o.id} cat=${o.category}")
+}
+tracker.close()</code></pre>
           </div>
         </div>
       </div>

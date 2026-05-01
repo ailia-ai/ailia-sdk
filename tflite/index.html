@@ -105,7 +105,18 @@ clang -o tflite_sample tflite_sample.c \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Place a <code>.tflite</code> model in <code>StreamingAssets/</code>, open the sample inference scene, and press Play to see classification or detection output in the Inspector.</p>
+            <p>Use <code>AiliaTFLiteModel</code> to load a <code>.tflite</code> file from <code>StreamingAssets/</code> and run inference. See the sample scenes in <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank">ailia-models-unity</a> for ready-to-run examples.</p>
+            <pre><code>using ailiaTFLite;
+
+var interp = new AiliaTFLiteModel();
+interp.OpenFile(Path.Combine(Application.streamingAssetsPath, "model.tflite"));
+interp.AllocateTensors();
+
+var input = new float[1 * 224 * 224 * 3];
+interp.SetInputTensorData(0, input);
+interp.Predict();
+
+var output = interp.GetOutputTensorData&lt;float&gt;(0);</code></pre>
           </div>
         </div>
       </div>
@@ -159,8 +170,16 @@ clang -o tflite_sample tflite_sample.c \
   <section class="getting-started-section">
     <div class="section">
       <h2 class="section-title">Use the API in Your Project</h2>
-      <p class="section-subtitle">A minimal Python example. The API mirrors <code>tflite_runtime.interpreter</code>, so existing TFLite code works with one import change.</p>
-      <pre class="code-block"><code>import ailia_tflite
+      <p class="section-subtitle">Minimal examples for loading a TFLite model and running inference. The Python API mirrors <code>tflite_runtime.interpreter</code>, so existing TFLite code works with one import change.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="c" role="tab">C</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity (C#)</button>
+      </div>
+
+      <div class="platform-panel" data-platform="python">
+        <pre class="code-block"><code>import ailia_tflite
 import numpy as np
 
 interpreter = ailia_tflite.Interpreter(model_path="model.tflite")
@@ -169,13 +188,55 @@ interpreter.allocate_tensors()
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
-# Run inference
 input_data = np.zeros(input_details[0]["shape"], dtype=np.float32)
 interpreter.set_tensor(input_details[0]["index"], input_data)
 interpreter.invoke()
 
 output = interpreter.get_tensor(output_details[0]["index"])
 print(output.shape)</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="c">
+        <pre class="code-block"><code>#include "ailia_tflite.h"
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+// Read model.tflite into a buffer
+FILE *f = fopen("model.tflite", "rb");
+fseek(f, 0, SEEK_END);
+size_t len = ftell(f);
+fseek(f, 0, SEEK_SET);
+void *buf = malloc(len);
+fread(buf, 1, len, f);
+fclose(f);
+
+struct AILIATFLiteInstance *interp = NULL;
+ailiaTFLiteCreate(&amp;interp, buf, len,
+                  NULL, NULL, NULL, NULL,    // default allocators
+                  AILIA_TFLITE_ENV_REFERENCE,
+                  AILIA_TFLITE_MEMORY_MODE_DEFAULT,
+                  AILIA_TFLITE_FLAG_NONE);
+
+ailiaTFLiteAllocateTensors(interp);
+ailiaTFLitePredict(interp);
+ailiaTFLiteDestroy(interp);
+free(buf);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="unity">
+        <pre class="code-block"><code>using ailiaTFLite;
+
+var interpreter = new AiliaTFLiteModel();
+interpreter.OpenFile("model.tflite");
+interpreter.AllocateTensors();
+
+var input = new float[1 * 224 * 224 * 3];
+interpreter.SetInputTensorData(0, input);
+interpreter.Predict();
+
+var output = interpreter.GetOutputTensorData&lt;float&gt;(0);</code></pre>
+      </div>
+
     </div>
   </section>
 

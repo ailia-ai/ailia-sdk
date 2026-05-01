@@ -117,7 +117,24 @@ clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Place a GGUF file in <code>StreamingAssets/</code>, open the sample chat scene, and press Play to stream tokens in the Inspector.</p>
+            <p>Use <code>AiliaLLMModel</code> to open a GGUF file, set a chat prompt, and stream tokens via <code>Generate()</code>. See <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/LargeLanguageModel/AiliaLargeLanguageModelSample.cs" target="_blank">AiliaLargeLanguageModelSample.cs</a> in ailia-models-unity for the full sample.</p>
+            <pre><code>using ailiaLLM;
+
+var llm = new AiliaLLMModel();
+llm.Create();
+llm.Open("gemma-2-2b-it-Q4_K_M.gguf");
+
+var messages = new List&lt;AiliaLLMChatMessage&gt; {
+    new AiliaLLMChatMessage("user", "あなたの名前は何ですか？"),
+};
+llm.SetPrompt(messages);
+
+bool done = false;
+while (!done) {
+    llm.Generate(ref done);
+    Debug.Log(llm.GetDeltaText());
+}
+llm.Close();</code></pre>
           </div>
         </div>
       </div>

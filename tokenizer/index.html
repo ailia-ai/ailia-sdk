@@ -110,7 +110,16 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Place tokenizer files in <code>StreamingAssets/</code>, attach the sample tokenizer component to a GameObject, and run the scene to see token IDs in the Console.</p>
+            <p>Place tokenizer files in <code>StreamingAssets/</code>, then encode and decode text. See sample scripts in <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank">ailia-models-unity</a>.</p>
+            <pre><code>using ailiaTokenizer;
+
+var tokenizer = new AiliaTokenizerModel();
+tokenizer.Create(AiliaTokenizer.AILIA_TOKENIZER_TYPE_BERT, AiliaTokenizer.AILIA_TOKENIZER_FLAG_NONE);
+tokenizer.Open(Path.Combine(Application.streamingAssetsPath, "tokenizer/"));
+
+int[] ids = tokenizer.Encode("Hello, world!");
+string text = tokenizer.Decode(ids);
+Debug.Log(text);</code></pre>
           </div>
         </div>
       </div>
@@ -150,7 +159,13 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Place tokenizer files under <code>app/src/main/assets/</code> and copy them to internal storage at runtime before passing the paths to the JNI tokenizer APIs.</p>
+            <p>Bundle tokenizer files under <code>app/src/main/assets/</code>, copy them to internal storage on first run, then encode and decode text. See <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaMiniLMv2Sample.kt" target="_blank">AiliaMiniLMv2Sample.kt</a> in ailia-models-kotlin for the full sample.</p>
+            <pre><code>val tokenizer = AiliaTokenizer(AiliaTokenizer.AILIA_TOKENIZER_TYPE_BERT)
+tokenizer.loadFiles(modelPath = tokenizerPath)
+
+val ids = tokenizer.encode("Hello, world!")
+val text = tokenizer.decode(ids)
+Log.d("ailia", text)</code></pre>
           </div>
         </div>
       </div>
