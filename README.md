@@ -7,12 +7,12 @@ The ailia SDK is an inference engine that supports cross-platform operation. ONN
 ## Library Documentation
 
 - [ailia SDK](api/) - ONNX inference API (Python, C++, Unity, Flutter, JNI)
-- [ailia Tokenizer](supplemental/tokenizer/) - Tokenization for NLP text encoding and decoding
-- [ailia Speech](supplemental/speech/) - Speech recognition (Speech2Text)
-- [ailia Voice](supplemental/voice/) - Text-to-speech synthesis
-- [ailia LLM](supplemental/llm/) - Local LLM inference with GGUF support
-- [ailia Tracker](supplemental/tracker/) - Object movement tracking
-- [ailia TFLite](supplemental/tflite/) - TFLite inference
+- [ailia Tokenizer](tokenizer/) - Tokenization for NLP text encoding and decoding
+- [ailia Speech](speech/) - Speech recognition (Speech2Text)
+- [ailia Voice](voice/) - Text-to-speech synthesis
+- [ailia LLM](llm/) - Local LLM inference with GGUF support
+- [ailia Tracker](tracker/) - Object movement tracking
+- [ailia TFLite](tflite/) - TFLite inference
 
 ## Materials
 
