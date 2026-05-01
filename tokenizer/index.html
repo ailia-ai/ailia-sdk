@@ -53,7 +53,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <p>Load a tokenizer by passing a local directory containing the tokenizer files (vocab, merges, model, etc.) to <code>from_pretrained()</code>, then encode and decode text.</p>
           <pre><code>import ailia_tokenizer
 
-tok = ailia_tokenizer.BertTokenizer.from_pretrained("./tokenizer")
+tok = ailia_tokenizer.BertTokenizer.from_pretrained("./tokenizer/")
 input_ids = tok.encode("Hello, world!")
 print(input_ids)
 print(tok.decode(input_ids))</code></pre>
@@ -81,7 +81,7 @@ print(tok.decode(input_ids))</code></pre>
         <h3>Languages &amp; Compilers</h3>
         <ul>
           <li>Python 3.6+, Dart / Flutter 3.19+</li>
-          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang)</li>
+          <li>C++11 (VS 2019+ / Xcode 14.2+ / clang)</li>
           <li>C# / Unity 2021.3+</li>
           <li>Kotlin / Java (JNI)</li>
         </ul>
@@ -227,7 +227,7 @@ print(tok.decode(input_ids))</code></pre>
           <strong>BERT (English):</strong> <code>vocab.txt</code> + <code>tokenizer_config.json</code>.<br/>
           <strong>BERT Japanese:</strong> ipadic dictionary + <code>vocab.txt</code> (NFKC normalization is automatic).<br/>
           <strong>RoBERTa:</strong> <code>vocab.json</code> + <code>merges.txt</code>.</p>
-          <p><strong>Python:</strong> place all required files in one directory and pass that directory path to <code>from_pretrained()</code> (e.g. <code>BertTokenizer.from_pretrained("./tokenizer")</code>).<br/>
+          <p><strong>Python:</strong> place all required files in one directory and pass that directory path to <code>from_pretrained()</code> (e.g. <code>BertTokenizer.from_pretrained("./tokenizer/")</code>).<br/>
           <strong>C / C++ / Unity / Flutter / JNI:</strong> open each file individually with the corresponding <code>OpenModelFile</code> / <code>OpenVocabFile</code> / <code>OpenMergeFile</code> / <code>OpenDictionaryFile</code> API.</p>
         </details>
 

@@ -256,6 +256,18 @@ footer a:hover {
 
 /* Getting Started */
 .getting-started-section { background: var(--white); border-bottom: 1px solid var(--border); }
+
+/* Platform tabs */
+.platform-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; border-bottom: 1px solid var(--border); padding-bottom: 0; }
+.platform-tab { background: transparent; border: none; padding: 12px 20px; font-size: 15px; font-weight: 600; color: var(--text-light); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.2s, border-color 0.2s; font-family: inherit; }
+.platform-tab:hover { color: var(--accent); }
+.platform-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.platform-panel { display: block; }
+.platform-panel.hidden { display: none; }
+@media (max-width: 768px) {
+  .platform-tab { padding: 10px 14px; font-size: 14px; }
+}
+
 .section-subtitle { font-size: 16px; color: var(--text-light); margin-top: -20px; margin-bottom: 32px; }
 .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 .step { background: var(--bg); border-radius: var(--radius); padding: 28px; border: 1px solid var(--border); position: relative; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s; }
