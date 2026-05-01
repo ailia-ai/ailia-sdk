@@ -106,18 +106,8 @@ clang -o tflite_sample tflite_sample.c \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Use <code>AiliaTFLiteModel</code> to load a <code>.tflite</code> file from <code>StreamingAssets/</code> and run inference. See the sample scenes in <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank">ailia-models-unity</a> for ready-to-run examples.</p>
-            <pre><code>using ailiaTFLite;
-
-var interp = new AiliaTFLiteModel();
-interp.OpenFile(Path.Combine(Application.streamingAssetsPath, "model.tflite"));
-interp.AllocateTensors();
-
-var input = new float[1 * 224 * 224 * 3];
-interp.SetInputTensorData(0, input);
-interp.Predict();
-
-var output = interp.GetOutputTensorData&lt;float&gt;(0);</code></pre>
+            <p>Place a <code>.tflite</code> model in <code>StreamingAssets/</code>, open one of the sample scenes from <code>ailia-models-unity</code>, and press Play to see classification or detection output in the Inspector.</p>
+            <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">Sample Repository</a>
           </div>
         </div>
       </div>
@@ -138,19 +128,8 @@ git submodule update</code></pre>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Use <code>AiliaTFLite</code> to open a <code>.tflite</code> file (loaded from assets), allocate tensors, and run inference. See <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaTFLiteObjectDetectionSample.kt" target="_blank">AiliaTFLiteObjectDetectionSample.kt</a> for the full sample.</p>
-            <pre><code>val tflite = AiliaTFLite()
-tflite.open(modelData, AiliaTFLite.AILIA_TFLITE_ENV_REFERENCE)
-tflite.allocateTensors()
-
-val inputIdx = tflite.getInputTensorIndex(0)
-val outputIdx = tflite.getOutputTensorIndex(0)
-
-tflite.setTensorData(inputIdx, inputBuffer)
-tflite.predict()
-
-val output = tflite.getTensorData(outputIdx)
-tflite.close()</code></pre>
+            <p>Open <code>ailia-models-kotlin</code> in Android Studio and run the TFLite object-detection sample on a connected device.</p>
+            <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaTFLiteObjectDetectionSample.kt" target="_blank" class="card-link">AiliaTFLiteObjectDetectionSample.kt</a>
           </div>
         </div>
       </div>

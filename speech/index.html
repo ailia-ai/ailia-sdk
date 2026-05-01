@@ -61,18 +61,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Transcribe an audio file using a Whisper model. Weights are downloaded automatically into <code>./models/</code>.</p>
-            <pre><code>import ailia_speech
-import librosa
-
-audio, rate = librosa.load("demo.wav", mono=True)
-speech = ailia_speech.Whisper()
-speech.initialize_model(
-    model_path="./models/",
-    model_type=ailia_speech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO,
-)
-print(speech.transcribe(audio, rate))</code></pre>
-            <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="card-link">More Examples on PyPI</a>
+            <p>The PyPI page documents a complete Whisper transcription sample. Save it as <code>test.py</code>, point it at a WAV file, and run <code>python3 test.py</code>. Whisper weights are downloaded automatically into <code>./models/</code>.</p>
+            <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="card-link">Sample on PyPI</a>
           </div>
         </div>
       </div>
@@ -115,20 +105,8 @@ clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Use <code>AiliaSpeechModel</code> to open the encoder/decoder ONNX pair and stream audio through <code>Transcribe()</code>. See <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/SpeechToText/AiliaSpeechToTextSample.cs" target="_blank">AiliaSpeechToTextSample.cs</a> in ailia-models-unity for the full sample.</p>
-            <pre><code>using ailiaSpeech;
-
-var speech = new AiliaSpeechModel();
-speech.Open(
-    encoderPath, decoderPath,
-    envId, memoryMode,
-    AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL,
-    AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
-    AiliaSpeech.AILIA_SPEECH_FLAG_NONE,
-    "auto");
-
-speech.Transcribe(waveData, frequency, channels, /*isFinal=*/true);
-foreach (var seg in speech.GetResults()) Debug.Log(seg.text);</code></pre>
+            <p>Open the SpeechToText sample scene from <code>ailia-models-unity</code> in the Editor, attach an <code>AudioClip</code> (or use the microphone), and press Play to see Whisper transcripts in the Console.</p>
+            <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/SpeechToText/AiliaSpeechToTextSample.cs" target="_blank" class="card-link">AiliaSpeechToTextSample.cs</a>
           </div>
         </div>
       </div>
@@ -176,22 +154,8 @@ git submodule update</code></pre>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Use <code>AiliaSpeech</code> to open the encoder/decoder ONNX pair, optionally enable Silero VAD, and transcribe audio. See <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaSpeechSample.kt" target="_blank">AiliaSpeechSample.kt</a> for the full sample.</p>
-            <pre><code>val speech = AiliaSpeech(
-    envId = -1,
-    task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
-    flags = AiliaSpeech.AILIA_SPEECH_FLAG_NONE,
-)
-speech.openModel(encoderPath, decoderPath, modelTypeId)
-speech.openVad(vadPath, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO)
-
-speech.pushInputData(audio, channels, samples, sampleRate)
-speech.finalizeInputData()
-speech.transcribe()
-
-for (i in 0 until speech.getTextCount()) {
-    Log.d("ailia", speech.getText(i).text)
-}</code></pre>
+            <p>Open <code>ailia-models-kotlin</code> in Android Studio and run the Speech sample on a connected device — it bundles a microphone capture flow plus optional Silero VAD endpointing.</p>
+            <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaSpeechSample.kt" target="_blank" class="card-link">AiliaSpeechSample.kt</a>
           </div>
         </div>
       </div>

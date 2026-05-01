@@ -61,13 +61,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Place all tokenizer files (vocab, merges, model, etc.) into a directory and pass that path to <code>from_pretrained()</code>.</p>
-            <pre><code>import ailia_tokenizer
-
-tok = ailia_tokenizer.BertTokenizer.from_pretrained("./tokenizer/")
-input_ids = tok.encode("Hello, world!")
-print(input_ids)
-print(tok.decode(input_ids))</code></pre>
+            <p>Drop the tokenizer files (vocab, merges, model, etc.) into a local directory, then pass that directory to <code>from_pretrained()</code> and call <code>encode()</code> / <code>decode()</code>. See the Python API reference for the full flow.</p>
             <a href="python/en/" class="card-link">Python API Reference</a>
           </div>
         </div>
@@ -110,16 +104,8 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Place tokenizer files in <code>StreamingAssets/</code>, then encode and decode text. See sample scripts in <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank">ailia-models-unity</a>.</p>
-            <pre><code>using ailiaTokenizer;
-
-var tokenizer = new AiliaTokenizerModel();
-tokenizer.Create(AiliaTokenizer.AILIA_TOKENIZER_TYPE_BERT, AiliaTokenizer.AILIA_TOKENIZER_FLAG_NONE);
-tokenizer.Open(Path.Combine(Application.streamingAssetsPath, "tokenizer/"));
-
-int[] ids = tokenizer.Encode("Hello, world!");
-string text = tokenizer.Decode(ids);
-Debug.Log(text);</code></pre>
+            <p>Place tokenizer files in <code>StreamingAssets/</code>, attach the sample tokenizer component to a GameObject, and run the scene to see token IDs in the Console. See sample scripts in <code>ailia-models-unity</code>.</p>
+            <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">Sample Repository</a>
           </div>
         </div>
       </div>
@@ -141,21 +127,8 @@ Debug.Log(text);</code></pre>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Bundle tokenizer files under <code>assets/</code>, copy them to a writable path, then open and encode. See <a href="https://github.com/ailia-ai/ailia-tokenizer-flutter/blob/main/example/lib/main.dart" target="_blank">example/lib/main.dart</a> in ailia-tokenizer-flutter for the full sample.</p>
-            <pre><code>import 'package:ailia_tokenizer/ailia_tokenizer.dart' as ailia_tokenizer_dart;
-import 'package:ailia_tokenizer/ailia_tokenizer_model.dart';
-import 'dart:typed_data';
-
-final tokenizer = AiliaTokenizerModel();
-final bpeFile = await copyFileFromAssets('sentencepiece.bpe.model');
-tokenizer.openFile(
-  modelFile: bpeFile.path,
-  ailia_tokenizer_dart.AILIA_TOKENIZER_TYPE_XLM_ROBERTA,
-);
-
-final Int32List tokens = tokenizer.encode('Hello, world!');
-final String text = tokenizer.decode(tokens);
-print(text);</code></pre>
+            <p>Bundle tokenizer files under <code>assets/</code>, copy them to a writable path, then open and encode. The example app in <code>ailia-tokenizer-flutter</code> walks through the full flow.</p>
+            <a href="https://github.com/ailia-ai/ailia-tokenizer-flutter/blob/main/example/lib/main.dart" target="_blank" class="card-link">example/lib/main.dart</a>
           </div>
         </div>
       </div>
@@ -173,13 +146,8 @@ print(text);</code></pre>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Bundle tokenizer files under <code>app/src/main/assets/</code>, copy them to internal storage on first run, then encode and decode text. See <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaMiniLMv2Sample.kt" target="_blank">AiliaMiniLMv2Sample.kt</a> in ailia-models-kotlin for the full sample.</p>
-            <pre><code>val tokenizer = AiliaTokenizer(AiliaTokenizer.AILIA_TOKENIZER_TYPE_BERT)
-tokenizer.loadFiles(modelPath = tokenizerPath)
-
-val ids = tokenizer.encode("Hello, world!")
-val text = tokenizer.decode(ids)
-Log.d("ailia", text)</code></pre>
+            <p>Bundle tokenizer files under <code>app/src/main/assets/</code>, copy them to internal storage on first run, then encode and decode text. <code>ailia-models-kotlin</code> ships an XLM-RoBERTa zero-shot classification sample built on this flow.</p>
+            <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaMiniLMv2Sample.kt" target="_blank" class="card-link">AiliaMiniLMv2Sample.kt</a>
           </div>
         </div>
       </div>

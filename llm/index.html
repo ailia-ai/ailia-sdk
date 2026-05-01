@@ -60,23 +60,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Download a GGUF model file (e.g. Gemma 2B), load it, and stream a chat completion.</p>
-            <pre><code>import ailia_llm, os, urllib.request
-
-model_path = "gemma-2-2b-it-Q4_K_M.gguf"
-if not os.path.exists(model_path):
-    urllib.request.urlretrieve(
-        f"https://storage.googleapis.com/ailia-models/gemma/{model_path}",
-        model_path,
-    )
-
-model = ailia_llm.AiliaLLM()
-model.open(model_path)
-
-messages = [{"role": "user", "content": "あなたの名前は何ですか？"}]
-for delta in model.generate(messages):
-    print(delta, end="")</code></pre>
-            <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">More Examples on PyPI</a>
+            <p>The PyPI page documents a complete sample that downloads a Gemma 2B GGUF file and streams a chat completion. Save it as <code>test.py</code> and run <code>python3 test.py</code>.</p>
+            <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">Sample on PyPI</a>
           </div>
         </div>
       </div>
@@ -117,24 +102,8 @@ clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Use <code>AiliaLLMModel</code> to open a GGUF file, set a chat prompt, and stream tokens via <code>Generate()</code>. See <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/LargeLanguageModel/AiliaLargeLanguageModelSample.cs" target="_blank">AiliaLargeLanguageModelSample.cs</a> in ailia-models-unity for the full sample.</p>
-            <pre><code>using ailiaLLM;
-
-var llm = new AiliaLLMModel();
-llm.Create();
-llm.Open("gemma-2-2b-it-Q4_K_M.gguf");
-
-var messages = new List&lt;AiliaLLMChatMessage&gt; {
-    new AiliaLLMChatMessage("user", "あなたの名前は何ですか？"),
-};
-llm.SetPrompt(messages);
-
-bool done = false;
-while (!done) {
-    llm.Generate(ref done);
-    Debug.Log(llm.GetDeltaText());
-}
-llm.Close();</code></pre>
+            <p>Open the LargeLanguageModel sample scene from <code>ailia-models-unity</code> in the Editor, place a GGUF file under <code>StreamingAssets/</code>, and press Play to stream chat tokens in the Inspector.</p>
+            <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/LargeLanguageModel/AiliaLargeLanguageModelSample.cs" target="_blank" class="card-link">AiliaLargeLanguageModelSample.cs</a>
           </div>
         </div>
       </div>

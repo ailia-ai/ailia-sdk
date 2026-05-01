@@ -60,23 +60,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>GPT-SoVITS clones a target voice from a short reference clip. Set the reference audio, then synthesize. Models are downloaded into <code>./models/</code> automatically.</p>
-            <pre><code>import ailia_voice, librosa, soundfile
-
-ref_text = "水をマレーシアから買わなくてはならない。"
-ref_audio, rate = librosa.load("reference.wav", mono=True)
-
-voice = ailia_voice.GPTSoVITS()
-voice.initialize_model(model_path="./models/")
-voice.set_reference_audio(
-    ref_text, ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA, ref_audio, rate,
-)
-buf, rate = voice.synthesize_voice(
-    "こんにちは。今日はいい天気ですね。",
-    ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA,
-)
-soundfile.write("output.wav", buf, rate)</code></pre>
-            <a href="https://pypi.org/project/ailia-voice/" target="_blank" class="card-link">More Examples on PyPI</a>
+            <p>The PyPI page documents a complete GPT-SoVITS sample — download a reference audio clip, save the snippet as <code>test.py</code>, and run <code>python3 test.py</code> to write <code>output.wav</code>. Models are downloaded into <code>./models/</code> automatically.</p>
+            <a href="https://pypi.org/project/ailia-voice/" target="_blank" class="card-link">Sample on PyPI</a>
           </div>
         </div>
       </div>
@@ -124,21 +109,8 @@ clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Use <code>AiliaVoiceModel</code> to open GPT-SoVITS ONNX files, set a reference clip, and synthesize. See <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/TextToSpeech/AiliaVoiceSample.cs" target="_blank">AiliaVoiceSample.cs</a> in ailia-models-unity for the full sample.</p>
-            <pre><code>using ailiaVoice;
-
-var voice = new AiliaVoiceModel();
-voice.Create(voice.GetEnvironmentId(gpuMode), AiliaVoice.AILIA_VOICE_FLAG_NONE);
-voice.OpenGPTSoVITSV1ModelFile(
-    "t2s_encoder.onnx", "t2s_fsdec.onnx", "t2s_sdec.opt3.onnx",
-    "vits.onnx", "cnhubert.onnx");
-
-string refText = voice.G2P(refLabel, AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
-voice.SetReference(refClip, refText);
-
-string text = voice.G2P("こんにちは。", AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
-voice.Inference(text);
-AudioClip clip = voice.GetAudioClip();</code></pre>
+            <p>Open the TextToSpeech sample scene from <code>ailia-models-unity</code> in the Editor, drop in a reference audio clip, enter the target text in the Inspector, and press Play.</p>
+            <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/TextToSpeech/AiliaVoiceSample.cs" target="_blank" class="card-link">AiliaVoiceSample.cs</a>
           </div>
         </div>
       </div>
