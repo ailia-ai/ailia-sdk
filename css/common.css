@@ -270,6 +270,31 @@ footer a:hover {
 .step .card-link::after { content: "\2192"; transition: margin-left 0.2s; }
 .step .card-link + .card-link { margin-top: 6px; }
 
+/* System Requirements */
+.req-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.req-card { background: var(--white); border-radius: var(--radius); padding: 24px 28px; border: 1px solid var(--border); transition: box-shadow 0.2s; }
+.req-card:hover { box-shadow: var(--shadow); }
+.req-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; color: var(--primary); }
+.req-card ul { list-style: none; padding: 0; margin: 0; }
+.req-card li { font-size: 14px; color: var(--text-light); padding: 4px 0; }
+.req-card li::before { content: "\2022"; color: var(--accent); margin-right: 10px; font-weight: 700; }
+
+/* Code block (standalone) */
+.code-block { background: #1f2937; color: #f3f4f6; padding: 22px 24px; border-radius: var(--radius); font-size: 14px; line-height: 1.7; overflow-x: auto; font-family: "SFMono-Regular", Menlo, Consolas, monospace; }
+.code-block code { background: transparent; color: inherit; font-family: inherit; padding: 0; }
+
+/* FAQ */
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 22px; transition: box-shadow 0.2s; }
+.faq-item:hover { box-shadow: var(--shadow); }
+.faq-item summary { font-weight: 600; cursor: pointer; color: var(--primary); list-style: none; display: flex; align-items: center; gap: 14px; font-size: 15px; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::before { content: "+"; color: var(--accent); font-weight: 700; font-size: 22px; line-height: 1; width: 16px; flex-shrink: 0; }
+.faq-item[open] summary::before { content: "\2212"; }
+.faq-item p { margin-top: 14px; color: var(--text-light); font-size: 14px; line-height: 1.7; }
+.faq-item p + p { margin-top: 10px; }
+.faq-item code { background: var(--bg); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero h1 { font-size: 26px; }
@@ -279,4 +304,5 @@ footer a:hover {
   .section { padding: 40px 16px; }
   .hero { padding: 48px 16px 40px; }
   .steps-grid { grid-template-columns: 1fr; }
+  .req-grid { grid-template-columns: 1fr; }
 }
