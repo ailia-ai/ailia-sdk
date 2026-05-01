@@ -60,8 +60,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>The PyPI page documents a complete GPT-SoVITS sample — download a reference audio clip, save the snippet as <code>test.py</code>, and run <code>python3 test.py</code> to write <code>output.wav</code>. Models are downloaded into <code>./models/</code> automatically.</p>
-            <a href="https://pypi.org/project/ailia-voice/" target="_blank" class="card-link">Sample on PyPI</a>
+            <p>Download <code>example_ailia_voice.py</code> from <code>ailia-models</code> and run it. It clones a target voice from a short reference clip and writes <code>output.wav</code>. Models are downloaded into <code>./models/</code> automatically.</p>
+            <pre><code>wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/gpt-sovits/example_ailia_voice.py
+python3 example_ailia_voice.py</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/gpt-sovits/example_ailia_voice.py" target="_blank" class="card-link">example_ailia_voice.py</a>
           </div>
         </div>
       </div>
