@@ -83,12 +83,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Clone the ailia-models repository, install the dependencies, and launch the GUI to pick and run a model.</p>
+            <p>ailia-models ships 400+ ready-to-run inference scripts. Clone once, install the shared requirements, then <code>cd</code> into any model folder and run — pass <code>-v 0</code> for webcam input, <code>-i image.png</code> for a still, or skip the flag to use the bundled demo input. <code>python3 launcher.py</code> at the repo root opens a GUI that browses every model.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models.git
 cd ailia-models
 pip3 install -r requirements.txt
-python3 launcher.py</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models" target="_blank" class="card-link">Sample Repository</a>
+cd object_detection/yolox
+python3 yolox.py -v 0</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models" target="_blank" class="card-link">Sample Repository (400+ models)</a>
           </div>
         </div>
       </div>
