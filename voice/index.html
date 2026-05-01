@@ -61,8 +61,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">1</div>
             <h3>Install</h3>
-            <p>Install the ailia Voice Python package from PyPI.</p>
-            <pre><code>pip3 install ailia_voice</code></pre>
+            <p>Install the ailia Voice Python package together with the <code>librosa</code> and <code>soundfile</code> helpers used by the sample.</p>
+            <pre><code>pip3 install ailia_voice librosa soundfile</code></pre>
             <a href="https://pypi.org/project/ailia-voice/" target="_blank" class="card-link">View on PyPI</a>
           </div>
           <div class="step">
@@ -112,14 +112,14 @@ clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
           <div class="step">
             <div class="step-number">1</div>
             <h3>Install via UPM</h3>
-            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
             <pre><code>https://github.com/ailia-ai/ailia-voice-unity.git</code></pre>
             <a href="unity/en/" class="card-link">Unity API Reference</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3+), and play the TextToSpeech scene with a reference audio clip plus your target text.</p>
+            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), and play the TextToSpeech scene with a reference audio clip plus your target text.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/TextToSpeech/AiliaVoiceSample.cs" target="_blank" class="card-link">AiliaVoiceSample.cs</a>
           </div>
@@ -132,7 +132,7 @@ clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
           <div class="step">
             <div class="step-number">1</div>
             <h3>Add to pubspec</h3>
-            <p>Add ailia Voice as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required.</p>
+            <p>Add ailia Voice as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
             <pre><code>dependencies:
   ailia_voice:
     git:
@@ -175,7 +175,7 @@ flutter run</code></pre>
         <ul>
           <li>Python 3.6+, Dart / Flutter 3.19+</li>
           <li>C++17 (VS 2019+ / Xcode 14.2+ / clang) + CMake</li>
-          <li>C# / Unity 2021.3+</li>
+          <li>C# / Unity 2021.3.10f1+</li>
         </ul>
       </div>
       <div class="req-card">

@@ -62,15 +62,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">1</div>
             <h3>Install</h3>
-            <p>Install the ailia Speech Python package from PyPI.</p>
-            <pre><code>pip3 install ailia_speech</code></pre>
+            <p>Install the ailia Speech Python package and the <code>librosa</code> audio loader used by the sample.</p>
+            <pre><code>pip3 install ailia_speech librosa</code></pre>
             <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="card-link">View on PyPI</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Download <code>example_ailia_speech.py</code> from <code>ailia-models</code> and run it on a WAV file. Whisper weights are downloaded automatically into <code>./models/</code>.</p>
+            <p>Download <code>example_ailia_speech.py</code> from <code>ailia-models</code> together with a sample WAV file (saved as <code>ax.wav</code> to match what the script expects), then run it. Whisper weights are downloaded automatically into <code>./models/</code>.</p>
             <pre><code>wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/example_ailia_speech.py
+wget -O ax.wav https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/demo.wav
 python3 example_ailia_speech.py</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/whisper/example_ailia_speech.py" target="_blank" class="card-link">example_ailia_speech.py</a>
           </div>
@@ -108,14 +109,14 @@ clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
           <div class="step">
             <div class="step-number">1</div>
             <h3>Install via UPM</h3>
-            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
             <pre><code>https://github.com/ailia-ai/ailia-speech-unity.git</code></pre>
             <a href="unity/en/" class="card-link">Unity API Reference</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3+), and play the SpeechToText scene with a microphone or an AudioClip attached.</p>
+            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), and play the SpeechToText scene with a microphone or an AudioClip attached.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/SpeechToText/AiliaSpeechToTextSample.cs" target="_blank" class="card-link">AiliaSpeechToTextSample.cs</a>
           </div>
@@ -128,7 +129,7 @@ clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
           <div class="step">
             <div class="step-number">1</div>
             <h3>Add to pubspec</h3>
-            <p>Add ailia Speech as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required.</p>
+            <p>Add ailia Speech as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
             <pre><code>dependencies:
   ailia_speech:
     git:
@@ -165,8 +166,7 @@ flutter run</code></pre>
             <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the Speech sample on a connected device — it bundles microphone capture plus optional Silero VAD endpointing.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
-git submodule init
-git submodule update</code></pre>
+git submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaSpeechSample.kt" target="_blank" class="card-link">AiliaSpeechSample.kt</a>
           </div>
         </div>
@@ -194,7 +194,7 @@ git submodule update</code></pre>
         <ul>
           <li>Python 3.6+, Dart / Flutter 3.19+</li>
           <li>C++17 (VS 2019+ / Xcode 14.2+ / clang)</li>
-          <li>C# / Unity 2021.3+</li>
+          <li>C# / Unity 2021.3.10f1+</li>
         </ul>
       </div>
       <div class="req-card">
