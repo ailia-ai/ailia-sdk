@@ -263,7 +263,7 @@ footer a:hover {
 .step-number { position: absolute; top: -14px; left: 24px; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; box-shadow: 0 2px 8px rgba(232, 91, 114, 0.3); }
 .step h3 { font-size: 18px; font-weight: 700; margin: 8px 0 10px; color: var(--primary); }
 .step p { font-size: 14px; color: var(--text-light); margin-bottom: 14px; line-height: 1.7; }
-.step pre { background: #1f2937; color: #f3f4f6; padding: 14px 16px; border-radius: 8px; font-size: 13px; overflow-x: auto; margin-bottom: 14px; line-height: 1.6; font-family: "SFMono-Regular", Menlo, Consolas, monospace; }
+.step pre { background: var(--white); color: var(--text); padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; overflow-x: auto; margin-bottom: 14px; line-height: 1.6; font-family: "SFMono-Regular", Menlo, Consolas, monospace; }
 .step pre code { background: transparent; padding: 0; color: inherit; font-size: inherit; }
 .step .card-link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--accent); margin-top: auto; }
 .step .card-link:hover { gap: 10px; }
@@ -280,7 +280,7 @@ footer a:hover {
 .req-card li::before { content: "\2022"; color: var(--accent); margin-right: 10px; font-weight: 700; }
 
 /* Code block (standalone) */
-.code-block { background: #1f2937; color: #f3f4f6; padding: 22px 24px; border-radius: var(--radius); font-size: 14px; line-height: 1.7; overflow-x: auto; font-family: "SFMono-Regular", Menlo, Consolas, monospace; }
+.code-block { background: var(--white); color: var(--text); padding: 22px 24px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; line-height: 1.7; overflow-x: auto; font-family: "SFMono-Regular", Menlo, Consolas, monospace; }
 .code-block code { background: transparent; color: inherit; font-family: inherit; padding: 0; }
 
 /* FAQ */
