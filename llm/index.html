@@ -50,15 +50,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="step">
           <div class="step-number">2</div>
           <h3>Run a Sample</h3>
-          <p>Load a GGUF model and stream a chat completion. Download a GGUF file (e.g. Gemma) once, then point <code>open()</code> at it.</p>
-          <pre><code>import ailia_llm
+          <p>Download a GGUF model file (e.g. Gemma 2B), load it, and stream a chat completion.</p>
+          <pre><code>import ailia_llm, os, urllib.request
+
+model_path = "gemma-2-2b-it-Q4_K_M.gguf"
+if not os.path.exists(model_path):
+    urllib.request.urlretrieve(
+        f"https://storage.googleapis.com/ailia-models/gemma/{model_path}",
+        model_path,
+    )
 
 model = ailia_llm.AiliaLLM()
-model.open("gemma-2-2b-it-Q4_K_M.gguf")
+model.open(model_path)
 
-messages = [
-    {"role": "user", "content": "あなたの名前は何ですか？"},
-]
+messages = [{"role": "user", "content": "あなたの名前は何ですか？"}]
 for delta in model.generate(messages):
     print(delta, end="")</code></pre>
           <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">More Examples on PyPI</a>

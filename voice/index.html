@@ -50,12 +50,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="step">
           <div class="step-number">2</div>
           <h3>Run a Sample</h3>
-          <p>Synthesize speech from text with GPT-SoVITS and write it to a WAV file. Models are downloaded into <code>./models/</code> automatically.</p>
-          <pre><code>import ailia_voice
-import soundfile
+          <p>GPT-SoVITS clones a target voice from a short reference clip. Set the reference audio, then synthesize. Models are downloaded into <code>./models/</code> automatically on first run.</p>
+          <pre><code>import ailia_voice, librosa, soundfile
+
+ref_text = "水をマレーシアから買わなくてはならない。"
+ref_audio, rate = librosa.load("reference.wav", mono=True)
 
 voice = ailia_voice.GPTSoVITS()
 voice.initialize_model(model_path="./models/")
+voice.set_reference_audio(
+    ref_text, ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA, ref_audio, rate,
+)
 buf, rate = voice.synthesize_voice(
     "こんにちは。今日はいい天気ですね。",
     ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA,
