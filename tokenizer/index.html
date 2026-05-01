@@ -50,10 +50,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="step">
           <div class="step-number">2</div>
           <h3>Run a Sample</h3>
-          <p>Load a tokenizer with a Hugging Face-compatible <code>from_pretrained()</code>, then encode and decode text.</p>
+          <p>Load a tokenizer by passing a local directory containing the tokenizer files (vocab, merges, model, etc.) to <code>from_pretrained()</code>, then encode and decode text.</p>
           <pre><code>import ailia_tokenizer
 
-tok = ailia_tokenizer.BertTokenizer.from_pretrained("bert-base-uncased")
+tok = ailia_tokenizer.BertTokenizer.from_pretrained("./tokenizer")
 input_ids = tok.encode("Hello, world!")
 print(input_ids)
 print(tok.decode(input_ids))</code></pre>
@@ -222,11 +222,13 @@ print(tok.decode(input_ids))</code></pre>
 
         <details class="faq-item">
           <summary>What extra files do I need for each tokenizer?</summary>
-          <p>Whisper / CLIP / GPT-2 are self-contained. Other tokenizers require their model files passed via the corresponding <code>OpenModelFile / OpenVocabFile / OpenMergeFile / OpenDictionaryFile</code> APIs:</p>
+          <p>Whisper / CLIP / GPT-2 are self-contained. Other tokenizers need their model files placed alongside the tokenizer:</p>
           <p><strong>SentencePiece</strong> (T5, XLM-RoBERTa, Marian, Llama, Gemma): <code>spiece.model</code> / <code>tokenizer.model</code> / <code>source.spm</code>.<br/>
           <strong>BERT (English):</strong> <code>vocab.txt</code> + <code>tokenizer_config.json</code>.<br/>
           <strong>BERT Japanese:</strong> ipadic dictionary + <code>vocab.txt</code> (NFKC normalization is automatic).<br/>
           <strong>RoBERTa:</strong> <code>vocab.json</code> + <code>merges.txt</code>.</p>
+          <p><strong>Python:</strong> place all required files in one directory and pass that directory path to <code>from_pretrained()</code> (e.g. <code>BertTokenizer.from_pretrained("./tokenizer")</code>).<br/>
+          <strong>C / C++ / Unity / Flutter / JNI:</strong> open each file individually with the corresponding <code>OpenModelFile</code> / <code>OpenVocabFile</code> / <code>OpenMergeFile</code> / <code>OpenDictionaryFile</code> API.</p>
         </details>
 
         <details class="faq-item">
