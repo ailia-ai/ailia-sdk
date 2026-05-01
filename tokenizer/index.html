@@ -34,6 +34,127 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>A library for encoding NLP text and decoding NLP tokens. Supports tokenization without Python transformers.</p>
   </section>
 
+  <!-- Getting Started -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-subtitle">Tokenize text without depending on the Python <code>transformers</code> package. See the API references below for C++, Unity, Flutter, and JNI.</p>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Install</h3>
+          <p>Install the ailia Tokenizer Python package from PyPI.</p>
+          <pre><code>pip3 install ailia_tokenizer</code></pre>
+          <a href="https://pypi.org/project/ailia-tokenizer/" target="_blank" class="card-link">View on PyPI</a>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Run a Sample</h3>
+          <p>Load a tokenizer with a Hugging Face-compatible <code>from_pretrained()</code>, then encode and decode text.</p>
+          <pre><code>import ailia_tokenizer
+
+tok = ailia_tokenizer.BertTokenizer.from_pretrained("bert-base-uncased")
+input_ids = tok.encode("Hello, world!")
+print(input_ids)
+print(tok.decode(input_ids))</code></pre>
+          <a href="python/en/" class="card-link">Python API Reference</a>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Get a License</h3>
+          <p>An evaluation license is downloaded automatically at runtime, so no manual setup is needed to start developing. For commercial use, request a production license.</p>
+          <a href="https://axip-console.appspot.com/trial/terms/AILIA-TOKENIZER?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia Tokenizer is a cross-platform replacement for the Python <code>transformers</code> tokenizer suite, usable from C++, Unity, and Flutter without a Python runtime.</p>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>Operating Systems</h3>
+        <ul>
+          <li>Windows 10 / 11</li>
+          <li>macOS 11 or later</li>
+          <li>Linux (Ubuntu 20.04+)</li>
+          <li>iOS 13+ / Android 7+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Languages &amp; Compilers</h3>
+        <ul>
+          <li>Python 3.6+, Dart / Flutter 3.19+</li>
+          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang)</li>
+          <li>C# / Unity 2021.3+</li>
+          <li>Kotlin / Java (JNI)</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Built-in Components</h3>
+        <ul>
+          <li>SentencePiece</li>
+          <li>MeCab + ipadic</li>
+          <li>BPE (optimized)</li>
+          <li>NFKC normalization</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Output Formats</h3>
+        <ul>
+          <li>Token IDs (int)</li>
+          <li>Decoded text (str / UTF-8)</li>
+          <li>convert_tokens_to_ids / ids_to_tokens</li>
+          <li>encode_plus with attention masks</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Features</h2>
+      <p class="section-subtitle">Twelve tokenizer types with Hugging Face-compatible APIs.</p>
+      <div class="req-grid">
+        <div class="req-card">
+          <h3>Speech / Vision</h3>
+          <ul>
+            <li>Whisper (multilingual)</li>
+            <li>CLIP (text-image)</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Translation / Summarization</h3>
+          <ul>
+            <li>Marian (FuguMT EN ↔ JA)</li>
+            <li>T5 (sentencepiece)</li>
+            <li>XLM-RoBERTa</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>BERT Family</h3>
+          <ul>
+            <li>BERT (English)</li>
+            <li>BERT Japanese WordPiece</li>
+            <li>BERT Japanese Character</li>
+            <li>RoBERTa</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>LLM Family</h3>
+          <ul>
+            <li>GPT-2</li>
+            <li>Llama</li>
+            <li>Gemma</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <h2 class="section-title">API Reference by Platform</h2>
     <div class="card-grid">
@@ -77,6 +198,58 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </ul>
       </div>
 
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-subtitle">Common questions about ailia Tokenizer.</p>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>Why use ailia Tokenizer instead of Hugging Face <code>transformers</code>?</summary>
+          <p><code>transformers</code> is Python-only. ailia Tokenizer ships the same tokenizers as a native library callable from C++, Unity (C#), Flutter (Dart), JNI, and Python — letting you tokenize on iOS, Android, and embedded targets without bundling a Python runtime.</p>
+          <p>The Python API mirrors <code>transformers</code> (<code>from_pretrained()</code>, <code>encode()</code>, <code>decode()</code>, etc.) so existing code typically requires only an import change.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Which tokenizer types are supported?</summary>
+          <p>Twelve types covering the most common modern model families: Whisper, CLIP, XLM-RoBERTa, Marian, BERT (English), BERT Japanese WordPiece, BERT Japanese Character, T5, RoBERTa, GPT-2, Llama, and Gemma.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How does ailia Tokenizer match transformers' behaviour?</summary>
+          <p><code>encode()</code> matches <code>tokenizer(sents, split_special_tokens=True)</code> (special tokens encoded as text, no padding/truncation).</p>
+          <p><code>encodeWithSpecialTokens()</code> matches <code>tokenizer(sents)</code> (special tokens encoded as IDs).</p>
+          <p><code>decode()</code> matches <code>tokenizer.decode(ids, skip_special_tokens=True)</code>; <code>decodeWithSpecialTokens()</code> keeps the special tokens.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What extra files do I need for each tokenizer?</summary>
+          <p>Whisper / CLIP / GPT-2 are self-contained. Other tokenizers require their model files passed via the corresponding <code>OpenModelFile / OpenVocabFile / OpenMergeFile / OpenDictionaryFile</code> APIs:</p>
+          <p><strong>SentencePiece</strong> (T5, XLM-RoBERTa, Marian, Llama, Gemma): <code>spiece.model</code> / <code>tokenizer.model</code> / <code>source.spm</code>.<br/>
+          <strong>BERT (English):</strong> <code>vocab.txt</code> + <code>tokenizer_config.json</code>.<br/>
+          <strong>BERT Japanese:</strong> ipadic dictionary + <code>vocab.txt</code> (NFKC normalization is automatic).<br/>
+          <strong>RoBERTa:</strong> <code>vocab.json</code> + <code>merges.txt</code>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Where do I place the license file when using C++?</summary>
+          <p>The C++ binding requires <code>ailia.lic</code> next to the runtime libraries:</p>
+          <p><strong>Windows:</strong> same folder as <code>ailia.dll</code> (or in <code>cpp/</code> for the sample).<br/>
+          <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
+          <strong>Linux:</strong> <code>~/.shalo/</code></p>
+          <p>Python, Unity, Flutter, and JNI bindings auto-download the license on first run, so this only applies to the native C++ binding.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How does licensing work?</summary>
+          <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+        </details>
+
+      </div>
     </div>
   </section>
 

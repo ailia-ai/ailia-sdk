@@ -34,6 +34,132 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>A library for tracking the movement of objects based on object detection results.</p>
   </section>
 
+  <!-- Getting Started -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-subtitle">Track objects across video frames with YOLOX-S detection plus ByteTrack association. The C++ flow is shown below — see the API references for Unity and JNI bindings.</p>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Get Evaluation Package</h3>
+          <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding, runtime libraries (<code>ailia</code>, <code>ailia_audio</code>, <code>ailia_tokenizer</code>, <code>ailia_tracker</code>), and the license file.</p>
+          <a href="https://axip-console.appspot.com/trial/terms/AILIA-TRACKER?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Download Models &amp; Build</h3>
+          <p>Download the YOLOX-S detector model and place it next to the binary, then build and run the sample.</p>
+          <pre><code># Download model files into the binary folder
+curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx
+curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx.prototxt
+
+# Build (macOS)
+clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
+  libailia.dylib libailia_audio.dylib \
+  libailia_tokenizer.dylib libailia_tracker.dylib \
+  -Wl,-rpath,./ -std=c++17
+
+./ailia_tracker_sample input.mp4</code></pre>
+          <a href="cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>License File Placement</h3>
+          <p>Place <code>ailia.lic</code> from the evaluation package next to the runtime libraries:</p>
+          <pre><code>Windows: same folder as ailia.dll
+macOS:   ~/Library/SHALO/
+Linux:   ~/.shalo/</code></pre>
+          <p>For Unity (UPM) and JNI, the license is auto-downloaded on first run — no manual placement needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia Tracker runs on desktop and mobile platforms. GPU acceleration is available for the object-detection phase on Windows and Linux.</p>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>Operating Systems</h3>
+        <ul>
+          <li>Windows 10 / 11</li>
+          <li>macOS 11 or later</li>
+          <li>Linux (Ubuntu 20.04+)</li>
+          <li>iOS 13+ / Android 7+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Languages &amp; Compilers</h3>
+        <ul>
+          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang) + CMake</li>
+          <li>C# / Unity 2021.3+</li>
+          <li>Kotlin / Java (JNI)</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Bundled Models</h3>
+        <ul>
+          <li>YOLOX-S (object detection)</li>
+          <li>ByteTrack (object tracking)</li>
+          <li>80 COCO categories</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Input / Output</h3>
+        <ul>
+          <li>Video file or webcam input</li>
+          <li>MP4 output (annotated)</li>
+          <li>Tracking ID, category, confidence</li>
+          <li>Bounding box (x / y / w / h)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Features</h2>
+      <p class="section-subtitle">Object tracking capabilities provided across the C, C#, and JNI APIs.</p>
+      <div class="req-grid">
+        <div class="req-card">
+          <h3>Detection &amp; Association</h3>
+          <ul>
+            <li>YOLOX-S detector (80 COCO classes)</li>
+            <li>ByteTrack ID-association algorithm</li>
+            <li>Per-frame inference with GPU acceleration</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Tracking Output</h3>
+          <ul>
+            <li>Stable tracking ID across frames</li>
+            <li>Object category</li>
+            <li>Detection probability</li>
+            <li>Normalized bounding box (0-1 range)</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Filtering</h3>
+          <ul>
+            <li>Restrict to a target category (e.g. category 0 for humans)</li>
+            <li>Filter by confidence in your application code</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>GPU Acceleration</h3>
+          <ul>
+            <li>cuDNN + CUDA on Windows / Linux (detection phase)</li>
+            <li>Metal on macOS / iOS</li>
+            <li>CPU fallback when no GPU is present</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <h2 class="section-title">API Reference by Platform</h2>
     <div class="card-grid">
@@ -59,6 +185,54 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <li><a href="https://github.com/ailia-ai/ailia-tracker-jni" target="_blank">Binding</a></li>
         </ul>
       </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <h2 class="section-title">FAQ</h2>
+    <p class="section-subtitle">Common questions about ailia Tracker.</p>
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>What models does ailia Tracker use under the hood?</summary>
+        <p>YOLOX-S handles per-frame object detection across the 80 COCO categories, and ByteTrack associates detections into stable tracking IDs across frames. Both run through the ailia SDK inference engine.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Where do I download the model files?</summary>
+        <p>YOLOX-S weights and prototxt:</p>
+        <p><a href="https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx" target="_blank">yolox_s.opt.onnx</a><br/>
+        <a href="https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx.prototxt" target="_blank">yolox_s.opt.onnx.prototxt</a></p>
+        <p>Place both files in the same folder as the sample binary.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I track only one category, e.g. people?</summary>
+        <p>Each <code>AILIATrackerObject</code> has a <code>category</code> attribute (integer matching the COCO label). Filter results in your code — e.g. keep only <code>category == 0</code> to track humans, or build a small lookup map for the labels you care about.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What output information does the tracker produce?</summary>
+        <p>For each tracked object: <code>id</code> (stable across frames), <code>category</code>, detection <code>prob</code>, and a normalized bounding box (<code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>) where 0 maps to the left/top edge and 1 maps to the right/bottom edge.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does it work with a webcam?</summary>
+        <p>Yes. Pass <code>-w &lt;index&gt;</code> to the C++ sample to use a webcam stream instead of a file. The Unity binding exposes the same camera-input mode through its <code>ailia-tracker-unity</code> package.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I enable GPU acceleration?</summary>
+        <p>On macOS / iOS, Metal is used automatically. On Windows / Linux, install <a href="https://developer.nvidia.com/cuda-downloads" target="_blank">CUDA Toolkit</a> and <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN</a>, then add cuDNN to your <code>PATH</code>. Acceleration applies to the object-detection phase; ByteTrack association runs on CPU.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How does licensing work?</summary>
+        <p>The C++ binding requires the <code>ailia.lic</code> file from the evaluation package (placed next to the runtime libraries — see Step 3 above).</p>
+        <p>Unity and JNI bindings auto-download the evaluation license on first run. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+      </details>
 
     </div>
   </section>
