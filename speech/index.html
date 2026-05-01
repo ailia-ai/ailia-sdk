@@ -105,7 +105,8 @@ clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Open the SpeechToText sample scene from <code>ailia-models-unity</code> in the Editor, attach an <code>AudioClip</code> (or use the microphone), and press Play to see Whisper transcripts in the Console.</p>
+            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3+), and play the SpeechToText scene with a microphone or an AudioClip attached.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/SpeechToText/AiliaSpeechToTextSample.cs" target="_blank" class="card-link">AiliaSpeechToTextSample.cs</a>
           </div>
         </div>
@@ -144,17 +145,18 @@ flutter run</code></pre>
           <div class="step">
             <div class="step-number">1</div>
             <h3>Clone Binding</h3>
-            <p>Clone the JNI binding repository and add the <code>ailia_speech</code> module to your Android Studio project.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
-cd ailia-models-kotlin
-git submodule init
-git submodule update</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank" class="card-link">Kotlin Sample Repository</a>
+            <p>For your own project, clone the JNI binding repository and add it to your Android Studio project.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-speech-jni.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-speech-jni" target="_blank" class="card-link">Binding</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Open <code>ailia-models-kotlin</code> in Android Studio and run the Speech sample on a connected device — it bundles a microphone capture flow plus optional Silero VAD endpointing.</p>
+            <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the Speech sample on a connected device — it bundles microphone capture plus optional Silero VAD endpointing.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+cd ailia-models-kotlin
+git submodule init
+git submodule update</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaSpeechSample.kt" target="_blank" class="card-link">AiliaSpeechSample.kt</a>
           </div>
         </div>

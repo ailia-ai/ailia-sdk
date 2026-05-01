@@ -104,7 +104,8 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Place tokenizer files in <code>StreamingAssets/</code>, attach the sample tokenizer component to a GameObject, and run the scene to see token IDs in the Console. See sample scripts in <code>ailia-models-unity</code>.</p>
+            <p>Clone <code>ailia-models-unity</code>, place tokenizer files in <code>StreamingAssets/</code>, and play one of the bundled sample scenes to see token IDs in the Console.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">Sample Repository</a>
           </div>
         </div>
@@ -127,7 +128,11 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Bundle tokenizer files under <code>assets/</code>, copy them to a writable path, then open and encode. The example app in <code>ailia-tokenizer-flutter</code> walks through the full flow.</p>
+            <p>Clone <code>ailia-tokenizer-flutter</code> and run the bundled example app — it copies an XLM-RoBERTa SentencePiece model from <code>assets/</code> and encodes a string of text.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-tokenizer-flutter.git
+cd ailia-tokenizer-flutter/example
+flutter pub get
+flutter run</code></pre>
             <a href="https://github.com/ailia-ai/ailia-tokenizer-flutter/blob/main/example/lib/main.dart" target="_blank" class="card-link">example/lib/main.dart</a>
           </div>
         </div>
@@ -146,7 +151,11 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Bundle tokenizer files under <code>app/src/main/assets/</code>, copy them to internal storage on first run, then encode and decode text. <code>ailia-models-kotlin</code> ships an XLM-RoBERTa zero-shot classification sample built on this flow.</p>
+            <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. The repository ships an XLM-RoBERTa zero-shot classification sample built on the tokenizer flow.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+cd ailia-models-kotlin
+git submodule init
+git submodule update</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaMiniLMv2Sample.kt" target="_blank" class="card-link">AiliaMiniLMv2Sample.kt</a>
           </div>
         </div>

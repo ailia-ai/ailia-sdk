@@ -106,7 +106,8 @@ clang -o tflite_sample tflite_sample.c \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Place a <code>.tflite</code> model in <code>StreamingAssets/</code>, open one of the sample scenes from <code>ailia-models-unity</code>, and press Play to see classification or detection output in the Inspector.</p>
+            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3+), drop a <code>.tflite</code> model under <code>StreamingAssets/</code>, and play one of the TFLite sample scenes.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">Sample Repository</a>
           </div>
         </div>
@@ -118,17 +119,18 @@ clang -o tflite_sample tflite_sample.c \
           <div class="step">
             <div class="step-number">1</div>
             <h3>Clone Binding</h3>
-            <p>Clone the JNI sample repository and add the <code>ailia_tflite</code> module to your Android Studio project.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
-cd ailia-models-kotlin
-git submodule init
-git submodule update</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank" class="card-link">Kotlin Sample Repository</a>
+            <p>For your own project, clone the JNI binding repository and add it to your Android Studio project.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-tflite-jni.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-tflite-jni" target="_blank" class="card-link">Binding</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Open <code>ailia-models-kotlin</code> in Android Studio and run the TFLite object-detection sample on a connected device.</p>
+            <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the TFLite object-detection sample on a connected device.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+cd ailia-models-kotlin
+git submodule init
+git submodule update</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaTFLiteObjectDetectionSample.kt" target="_blank" class="card-link">AiliaTFLiteObjectDetectionSample.kt</a>
           </div>
         </div>

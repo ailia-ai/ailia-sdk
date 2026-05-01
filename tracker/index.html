@@ -88,7 +88,8 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Open the bundled tracker sample scene from <code>ailia-models-unity</code>, point it at a video clip or webcam, and press Play to see bounding boxes with stable IDs overlaid in the Game view.</p>
+            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3+), and play the tracker sample scene with a video clip or webcam input. Bounding boxes with stable IDs are overlaid in the Game view.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">Sample Repository</a>
           </div>
         </div>
@@ -107,7 +108,11 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Open <code>ailia-models-kotlin</code> in Android Studio and run the tracker sample on a connected device — it pairs YOLOX-S detection with ByteTrack association on each video frame.</p>
+            <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the tracker sample on a connected device — it pairs YOLOX-S detection with ByteTrack association on each video frame.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+cd ailia-models-kotlin
+git submodule init
+git submodule update</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaTrackerSample.kt" target="_blank" class="card-link">AiliaTrackerSample.kt</a>
           </div>
         </div>
