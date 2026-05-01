@@ -38,20 +38,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <section class="getting-started-section">
     <div class="section">
       <h2 class="section-title">Getting Started</h2>
-      <p class="section-subtitle">Run your first local chat completion in three steps. See the API references below for C++, Unity, and Flutter.</p>
-      <div class="steps-grid">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Install</h3>
-          <p>Install the ailia LLM Python package from PyPI.</p>
-          <pre><code>pip3 install ailia_llm</code></pre>
-          <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">View on PyPI</a>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Run a Sample</h3>
-          <p>Download a GGUF model file (e.g. Gemma 2B), load it, and stream a chat completion.</p>
-          <pre><code>import ailia_llm, os, urllib.request
+      <p class="section-subtitle">Choose your platform and run your first local chat completion.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter</button>
+      </div>
+
+      <!-- Python -->
+      <div class="platform-panel" data-platform="python">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install</h3>
+            <p>Install the ailia LLM Python package from PyPI.</p>
+            <pre><code>pip3 install ailia_llm</code></pre>
+            <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">View on PyPI</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Download a GGUF model file (e.g. Gemma 2B), load it, and stream a chat completion.</p>
+            <pre><code>import ailia_llm, os, urllib.request
 
 model_path = "gemma-2-2b-it-Q4_K_M.gguf"
 if not os.path.exists(model_path):
@@ -66,9 +76,79 @@ model.open(model_path)
 messages = [{"role": "user", "content": "あなたの名前は何ですか？"}]
 for delta in model.generate(messages):
     print(delta, end="")</code></pre>
-          <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">More Examples on PyPI</a>
+            <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">More Examples on PyPI</a>
+          </div>
         </div>
       </div>
+
+      <!-- C++ -->
+      <div class="platform-panel hidden" data-platform="cpp">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Get Evaluation Package</h3>
+            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding (<code>ailia_llm.h</code>), the runtime library (<code>ailia_llm</code>), and a runnable sample.</p>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Download a Model &amp; Run</h3>
+            <p>Place a GGUF file (e.g. Gemma 2-2B from Hugging Face) under <code>models/</code>, then build and run the sample.</p>
+            <pre><code># macOS
+clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
+  libailia_llm.dylib -Wl,-rpath,./ -std=c++17
+
+./ailia_llm_sample</code></pre>
+            <a href="cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unity -->
+      <div class="platform-panel hidden" data-platform="unity">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install via UPM</h3>
+            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <pre><code>https://github.com/ailia-ai/ailia-llm-unity.git</code></pre>
+            <a href="unity/en/" class="card-link">Unity API Reference</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Place a GGUF file in <code>StreamingAssets/</code>, open the sample chat scene, and press Play to stream tokens in the Inspector.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flutter -->
+      <div class="platform-panel hidden" data-platform="flutter">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Add to pubspec</h3>
+            <p>Add ailia LLM as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required.</p>
+            <pre><code>dependencies:
+  ailia_llm:
+    git:
+      url: https://github.com/ailia-ai/ailia-llm-flutter.git
+      ref: main</code></pre>
+            <a href="flutter/en/" class="card-link">Flutter API Reference</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone the Flutter sample repository for a ready-to-run chat app.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
+cd ailia-models-flutter
+flutter pub get
+flutter run</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">Sample Repository</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -243,5 +323,19 @@ for delta in model.generate(messages):
     <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
+
+  <script>
+    document.querySelectorAll('.platform-tabs').forEach(tabsBar => {
+      const tabs = tabsBar.querySelectorAll('.platform-tab');
+      const panels = tabsBar.parentElement.querySelectorAll(':scope > .platform-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const platform = tab.dataset.platform;
+          tabs.forEach(t => t.classList.toggle('active', t === tab));
+          panels.forEach(p => p.classList.toggle('hidden', p.dataset.platform !== platform));
+        });
+      });
+    });
+  </script>
 </body>
 </html>

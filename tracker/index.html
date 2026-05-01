@@ -38,19 +38,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <section class="getting-started-section">
     <div class="section">
       <h2 class="section-title">Getting Started</h2>
-      <p class="section-subtitle">Track objects across video frames with YOLOX-S detection plus ByteTrack association. The C++ flow is shown below — see the API references for Unity and JNI bindings.</p>
-      <div class="steps-grid">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Get Evaluation Package</h3>
-          <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding, runtime libraries (<code>ailia</code>, <code>ailia_audio</code>, <code>ailia_tokenizer</code>, <code>ailia_tracker</code>), and the license file.</p>
-          <a href="https://axip-console.appspot.com/trial/terms/AILIA-TRACKER?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Download Models &amp; Build</h3>
-          <p>Download the YOLOX-S detector model and place it next to the binary, then build and run the sample.</p>
-          <pre><code># Download model files into the binary folder
+      <p class="section-subtitle">Choose your platform and track objects across video frames with YOLOX-S detection plus ByteTrack association.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <!-- C++ -->
+      <div class="platform-panel" data-platform="cpp">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Get Evaluation Package</h3>
+            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding, runtime libraries (<code>ailia</code>, <code>ailia_audio</code>, <code>ailia_tokenizer</code>, <code>ailia_tracker</code>), and the license file.</p>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TRACKER?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Download Models &amp; Build</h3>
+            <p>Download the YOLOX-S detector model and place it next to the binary, then build and run the sample.</p>
+            <pre><code># Download model files into the binary folder
 curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx
 curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx.prototxt
 
@@ -61,9 +70,47 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
   -Wl,-rpath,./ -std=c++17
 
 ./ailia_tracker_sample input.mp4</code></pre>
-          <a href="cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
+            <a href="cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
+          </div>
         </div>
       </div>
+
+      <!-- Unity -->
+      <div class="platform-panel hidden" data-platform="unity">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install via UPM</h3>
+            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <pre><code>https://github.com/ailia-ai/ailia-tracker-unity.git</code></pre>
+            <a href="unity/en/" class="card-link">Unity API Reference</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Open the bundled tracker sample scene, point it at a video clip or webcam input, and press Play to see bounding boxes with stable IDs overlaid in the Game view.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- JNI -->
+      <div class="platform-panel hidden" data-platform="jni">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Clone Binding</h3>
+            <p>Clone the JNI binding repository and add it to your Android Studio project.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-tracker-jni.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-tracker-jni" target="_blank" class="card-link">Binding</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Bundle <code>yolox_s.opt.onnx</code> and its prototxt under <code>app/src/main/assets/</code>, then call the tracker APIs from your activity to feed video frames and read back tracked objects.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -252,5 +299,19 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
     <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
+
+  <script>
+    document.querySelectorAll('.platform-tabs').forEach(tabsBar => {
+      const tabs = tabsBar.querySelectorAll('.platform-tab');
+      const panels = tabsBar.parentElement.querySelectorAll(':scope > .platform-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const platform = tab.dataset.platform;
+          tabs.forEach(t => t.classList.toggle('active', t === tab));
+          panels.forEach(p => p.classList.toggle('hidden', p.dataset.platform !== platform));
+        });
+      });
+    });
+  </script>
 </body>
 </html>
