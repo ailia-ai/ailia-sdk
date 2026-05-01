@@ -68,8 +68,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>The PyPI page documents a complete sample that downloads a Gemma 2B GGUF file and streams a chat completion. Save it as <code>test.py</code> and run <code>python3 test.py</code>.</p>
-            <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">Sample on PyPI</a>
+            <p>Download <code>example_ailia_llm.py</code> from <code>ailia-models</code> and run it. The script downloads the Gemma 3 4B GGUF file on first run and streams a chat completion. For a multimodal (vision) variant, fetch <code>example_ailia_llm_mtmd.py</code> from the same folder instead.</p>
+            <pre><code>wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/large_language_model/gemma3/example_ailia_llm.py
+python3 example_ailia_llm.py</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma3/example_ailia_llm.py" target="_blank" class="card-link">example_ailia_llm.py</a>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma3/example_ailia_llm_mtmd.py" target="_blank" class="card-link">example_ailia_llm_mtmd.py (multimodal)</a>
           </div>
         </div>
       </div>

@@ -62,15 +62,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">1</div>
             <h3>Install</h3>
-            <p>Install the ailia Speech Python package from PyPI.</p>
-            <pre><code>pip3 install ailia_speech</code></pre>
+            <p>Install the ailia Speech Python package and the <code>librosa</code> audio loader used by the sample.</p>
+            <pre><code>pip3 install ailia_speech librosa</code></pre>
             <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="card-link">View on PyPI</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Download <code>example_ailia_speech.py</code> from <code>ailia-models</code> and run it on a WAV file. Whisper weights are downloaded automatically into <code>./models/</code>.</p>
+            <p>Download <code>example_ailia_speech.py</code> from <code>ailia-models</code> together with a sample WAV file (saved as <code>ax.wav</code> to match what the script expects), then run it. Whisper weights are downloaded automatically into <code>./models/</code>.</p>
             <pre><code>wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/example_ailia_speech.py
+wget -O ax.wav https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/demo.wav
 python3 example_ailia_speech.py</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/whisper/example_ailia_speech.py" target="_blank" class="card-link">example_ailia_speech.py</a>
           </div>

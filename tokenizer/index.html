@@ -69,8 +69,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Drop the tokenizer files (vocab, merges, model, etc.) into a local directory, then pass that directory to <code>from_pretrained()</code> and call <code>encode()</code> / <code>decode()</code>. See the Python API reference for the full flow.</p>
-            <a href="python/en/" class="card-link">Python API Reference</a>
+            <p>Clone <code>ailia-models</code> and run the multilingual-MiniLMv2 zero-shot classification sample. Its <code>tokenizer/</code> directory ships <code>sentencepiece.bpe.model</code> + <code>tokenizer_config.json</code>, the file layout <code>XLMRobertaTokenizer.from_pretrained()</code> expects.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models.git
+cd ailia-models/natural_language_processing/multilingual-minilmv2
+pip3 install -r requirements.txt
+python3 multilingual-minilmv2.py</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models/tree/master/natural_language_processing/multilingual-minilmv2/tokenizer" target="_blank" class="card-link">tokenizer/ file layout</a>
           </div>
         </div>
       </div>

@@ -96,8 +96,13 @@ git submodule update</code></pre>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Build &amp; Run</h3>
-            <p>Install dependencies (CMake and OpenCV), build with CMake, and run a sample. Xcode and Android NDK starter projects are also available.</p>
-            <pre><code># macOS
+            <p>Download a one-month evaluation license, install dependencies (CMake and OpenCV), build with CMake, and run a sample. Xcode and Android NDK starter projects are also available.</p>
+            <pre><code># Fetch a one-month evaluation license
+cd ailia
+python3 download_license.py
+cd ..
+
+# macOS
 brew install cmake opencv
 # Linux: apt install cmake libopencv-dev
 # Windows: install CMake and Visual Studio,
