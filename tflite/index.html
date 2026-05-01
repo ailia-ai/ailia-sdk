@@ -44,6 +44,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
         <button class="platform-tab" data-platform="c" role="tab">C</button>
         <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
       </div>
 
       <!-- Python -->
@@ -121,6 +122,39 @@ var output = interp.GetOutputTensorData&lt;float&gt;(0);</code></pre>
         </div>
       </div>
 
+      <!-- JNI -->
+      <div class="platform-panel hidden" data-platform="jni">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Clone Binding</h3>
+            <p>Clone the JNI sample repository and add the <code>ailia_tflite</code> module to your Android Studio project.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+cd ailia-models-kotlin
+git submodule init
+git submodule update</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank" class="card-link">Kotlin Sample Repository</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Use <code>AiliaTFLite</code> to open a <code>.tflite</code> file (loaded from assets), allocate tensors, and run inference. See <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaTFLiteObjectDetectionSample.kt" target="_blank">AiliaTFLiteObjectDetectionSample.kt</a> for the full sample.</p>
+            <pre><code>val tflite = AiliaTFLite()
+tflite.open(modelData, AiliaTFLite.AILIA_TFLITE_ENV_REFERENCE)
+tflite.allocateTensors()
+
+val inputIdx = tflite.getInputTensorIndex(0)
+val outputIdx = tflite.getOutputTensorIndex(0)
+
+tflite.setTensorData(inputIdx, inputBuffer)
+tflite.predict()
+
+val output = tflite.getTensorData(outputIdx)
+tflite.close()</code></pre>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -145,6 +179,7 @@ var output = interp.GetOutputTensorData&lt;float&gt;(0);</code></pre>
           <li>Python 3.6 or later</li>
           <li>C99 (embedded-friendly)</li>
           <li>C# / Unity 2021.3+</li>
+          <li>Kotlin / Java (JNI)</li>
         </ul>
       </div>
       <div class="req-card">
