@@ -1,4 +1,4 @@
-# ailia SDK Documentation
+# ailia Documentation
 
 The ailia SDK is an inference engine that supports cross-platform operation. ONNX can perform GPU inference using Metal and Vulkan. It offers a model library with over 400 types and supports advanced pre-processing and post-processing. Bindings are provided for Python, C++, C#, and Flutter.
 
