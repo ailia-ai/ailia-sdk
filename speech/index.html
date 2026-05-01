@@ -38,20 +38,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <section class="getting-started-section">
     <div class="section">
       <h2 class="section-title">Getting Started</h2>
-      <p class="section-subtitle">Run your first speech-to-text inference in three steps. See the API references below for C++, Unity, and Flutter.</p>
-      <div class="steps-grid">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Install</h3>
-          <p>Install the ailia Speech Python package from PyPI.</p>
-          <pre><code>pip3 install ailia_speech</code></pre>
-          <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="card-link">View on PyPI</a>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Run a Sample</h3>
-          <p>Transcribe an audio file using a Whisper model. The model files are downloaded automatically into <code>./models/</code>.</p>
-          <pre><code>import ailia_speech
+      <p class="section-subtitle">Choose your platform and run your first speech-to-text inference.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter</button>
+      </div>
+
+      <!-- Python -->
+      <div class="platform-panel" data-platform="python">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install</h3>
+            <p>Install the ailia Speech Python package from PyPI.</p>
+            <pre><code>pip3 install ailia_speech</code></pre>
+            <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="card-link">View on PyPI</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Transcribe an audio file using a Whisper model. Weights are downloaded automatically into <code>./models/</code>.</p>
+            <pre><code>import ailia_speech
 import librosa
 
 audio, rate = librosa.load("demo.wav", mono=True)
@@ -61,9 +71,81 @@ speech.initialize_model(
     model_type=ailia_speech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO,
 )
 print(speech.transcribe(audio, rate))</code></pre>
-          <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="card-link">More Examples on PyPI</a>
+            <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="card-link">More Examples on PyPI</a>
+          </div>
         </div>
       </div>
+
+      <!-- C++ -->
+      <div class="platform-panel hidden" data-platform="cpp">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Get Evaluation Package</h3>
+            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding (<code>ailia_speech.h</code>), runtime libraries, the license file, and a runnable sample.</p>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Build &amp; Run</h3>
+            <p>Build the bundled sample and pass an audio file plus the model size and runtime options. Whisper Small is included; larger models are downloadable.</p>
+            <pre><code># macOS
+clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
+  libailia.dylib libailia_audio.dylib \
+  libailia_tokenizer.dylib libailia_speech.dylib \
+  -Wl,-rpath,./ -std=c++17
+
+./ailia_speech_sample demo.wav small auto transcribe vad_enable none auto</code></pre>
+            <a href="cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unity -->
+      <div class="platform-panel hidden" data-platform="unity">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install via UPM</h3>
+            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <pre><code>https://github.com/ailia-ai/ailia-speech-unity.git</code></pre>
+            <a href="unity/en/" class="card-link">Unity API Reference</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>The bundled sample scene transcribes microphone or audio-clip input through Whisper. Open the scene, attach an <code>AudioClip</code>, and press Play.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flutter -->
+      <div class="platform-panel hidden" data-platform="flutter">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Add to pubspec</h3>
+            <p>Add ailia Speech as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required.</p>
+            <pre><code>dependencies:
+  ailia_speech:
+    git:
+      url: https://github.com/ailia-ai/ailia-speech-flutter.git
+      ref: main</code></pre>
+            <a href="flutter/en/" class="card-link">Flutter API Reference</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone the Flutter sample repository for a ready-to-run app demonstrating Whisper transcription.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
+cd ailia-models-flutter
+flutter pub get
+flutter run</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">Sample Repository</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -300,5 +382,19 @@ print(speech.transcribe(audio, rate))</code></pre>
     <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
+
+  <script>
+    document.querySelectorAll('.platform-tabs').forEach(tabsBar => {
+      const tabs = tabsBar.querySelectorAll('.platform-tab');
+      const panels = tabsBar.parentElement.querySelectorAll(':scope > .platform-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const platform = tab.dataset.platform;
+          tabs.forEach(t => t.classList.toggle('active', t === tab));
+          panels.forEach(p => p.classList.toggle('hidden', p.dataset.platform !== platform));
+        });
+      });
+    });
+  </script>
 </body>
 </html>
