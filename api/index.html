@@ -181,8 +181,7 @@ flutter run</code></pre>
             <p>Clone a sample project, initialize submodules, and open it in Android Studio. Both Kotlin and Java starter projects are available. Android Studio 2025.1.3 or later is required for the Kotlin samples.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
-# Rewrite SSH submodule URLs to HTTPS for users without an SSH key configured
-git -c url.https://github.com/.insteadOf=git@github.com: submodule update --init --recursive</code></pre>
+git submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank" class="card-link">Kotlin Samples</a>
             <a href="https://github.com/ailia-ai/ailia-android-studio" target="_blank" class="card-link">Java Samples</a>
           </div>
