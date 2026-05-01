@@ -67,6 +67,72 @@ python3 launcher.py</code></pre>
     </div>
   </section>
 
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia TFLite Runtime is a TensorFlow Lite-compatible inference engine written in C99 for desktop, mobile, and embedded use.</p>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>Operating Systems</h3>
+        <ul>
+          <li>Windows 10 / 11</li>
+          <li>macOS 11 or later</li>
+          <li>Linux (Ubuntu 20.04+)</li>
+          <li>Android 7+ (NPU via NNAPI)</li>
+          <li>NonOS / RTOS (embedded)</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Languages</h3>
+        <ul>
+          <li>Python 3.6 or later</li>
+          <li>C99 (embedded-friendly)</li>
+          <li>C# / Unity 2021.3+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Acceleration</h3>
+        <ul>
+          <li>Intel MKL (PC)</li>
+          <li>Android NNAPI / NPU</li>
+          <li>Optimized C99 fallback</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Model Formats</h3>
+        <ul>
+          <li>TFLite (<code>.tflite</code>)</li>
+          <li>INT8 quantized models</li>
+          <li>Drop-in replacement for tflite_runtime</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use the API -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">A minimal Python example. The API mirrors <code>tflite_runtime.interpreter</code>, so existing TFLite code works with one import change.</p>
+      <pre class="code-block"><code>import ailia_tflite
+import numpy as np
+
+interpreter = ailia_tflite.Interpreter(model_path="model.tflite")
+interpreter.allocate_tensors()
+
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
+# Run inference
+input_data = np.zeros(input_details[0]["shape"], dtype=np.float32)
+interpreter.set_tensor(input_details[0]["index"], input_data)
+interpreter.invoke()
+
+output = interpreter.get_tensor(output_details[0]["index"])
+print(output.shape)</code></pre>
+    </div>
+  </section>
+
   <section class="section">
     <h2 class="section-title">API Reference by Platform</h2>
     <div class="card-grid">
@@ -103,6 +169,46 @@ python3 launcher.py</code></pre>
           <li><a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank">Android Studio Sample Project (Kotlin)</a></li>
         </ul>
       </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <h2 class="section-title">FAQ</h2>
+    <p class="section-subtitle">Common questions about ailia TFLite Runtime.</p>
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>Is it really a drop-in replacement for TensorFlow Lite?</summary>
+        <p>Yes. The Python <code>ailia_tflite.Interpreter</code> class mirrors <code>tflite_runtime.interpreter.Interpreter</code> — same constructor, same <code>allocate_tensors() / set_tensor() / invoke() / get_tensor()</code> methods. Existing TFLite Python scripts typically need only an import change.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Where does ailia TFLite shine compared to upstream TFLite?</summary>
+        <p>Two main areas: <strong>high-speed PC inference</strong> via Intel MKL, and <strong>embedded deployment</strong> on NonOS / RTOS thanks to a lightweight C99 implementation. On Android it can also drive the on-device NPU through NNAPI.</p>
+        <p>You can compare against upstream behaviour by passing <code>--tflite</code> to the sample scripts in ailia-models-tflite.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does it support quantized models?</summary>
+        <p>Yes. INT8 quantized TFLite models are first-class — quantization is the recommended path for embedded targets and NPUs. The model zoo at <a href="https://github.com/ailia-ai/ailia-models-tflite" target="_blank">ailia-models-tflite</a> is built around quantized variants.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I use it on microcontrollers?</summary>
+        <p>The C99 core is designed for NonOS / RTOS and small footprint deployments. Specific MCU support depends on available memory and toolchain — contact ailia for embedded port details.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I switch back-ends (CPU / NPU / MKL)?</summary>
+        <p>Pass <code>env_id</code> (and optional <code>flags</code> / <code>num_threads</code>) when constructing <code>ailia_tflite.Interpreter</code>. The default chooses the fastest available back-end for your platform.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How does licensing work?</summary>
+        <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment — including embedded redistribution — request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+      </details>
 
     </div>
   </section>

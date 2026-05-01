@@ -78,6 +78,48 @@ soundfile.write("output.wav", buf, rate)</code></pre>
     </div>
   </section>
 
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia Voice runs on desktop and mobile platforms with CPU and GPU acceleration.</p>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>Operating Systems</h3>
+        <ul>
+          <li>Windows 10 / 11</li>
+          <li>macOS 11 or later</li>
+          <li>Linux (Ubuntu 20.04+)</li>
+          <li>iOS 13+ / Android 7+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Languages</h3>
+        <ul>
+          <li>Python 3.6 or later</li>
+          <li>C++17</li>
+          <li>C# / Unity 2021.3+</li>
+          <li>Dart / Flutter 3.19+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Supported Models</h3>
+        <ul>
+          <li>GPT-SoVITS (zero-shot voice cloning)</li>
+          <li>Reference audio + text driven</li>
+          <li>Custom user dictionaries</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Language Coverage</h3>
+        <ul>
+          <li>Japanese (G2P_TYPE_GPT_SOVITS_JA)</li>
+          <li>English (G2P_TYPE_GPT_SOVITS_EN)</li>
+          <li>Chinese (G2P_TYPE_GPT_SOVITS_ZH)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <h2 class="section-title">API Reference by Platform</h2>
     <div class="card-grid">
@@ -121,6 +163,48 @@ soundfile.write("output.wav", buf, rate)</code></pre>
         </ul>
       </div>
 
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-subtitle">Common questions about ailia Voice.</p>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>Which TTS models are supported?</summary>
+          <p>ailia Voice currently bundles <strong>GPT-SoVITS</strong>, a zero-shot voice cloning model that synthesizes speech in the timbre of a short reference clip you provide.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What does "reference audio" mean and why is it required?</summary>
+          <p>GPT-SoVITS clones the voice characteristics of a target speaker from a few seconds of clean reference audio plus the matching transcript. Pass both to <code>set_reference_audio()</code> before calling <code>synthesize_voice()</code>.</p>
+          <p>Without reference audio, synthesis cannot start.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Which languages can I synthesize?</summary>
+          <p>Japanese, English, and Chinese, selected via the <code>AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA</code> / <code>_EN</code> / <code>_ZH</code> constants passed to <code>set_reference_audio()</code> and <code>synthesize_voice()</code>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I use a custom pronunciation dictionary?</summary>
+          <p>Yes. Pass a <code>user_dict_path</code> to <code>initialize_model()</code> pointing at a pyopenjtalk-compatible user dictionary to override default pronunciations for proper nouns or domain-specific terms.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I run it offline?</summary>
+          <p>Yes, after the first run. Model weights are downloaded into the directory passed to <code>initialize_model(model_path=...)</code> on first use, and the evaluation license is fetched automatically. Subsequent runs work without an internet connection.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How does licensing work?</summary>
+          <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+        </details>
+
+      </div>
     </div>
   </section>
 

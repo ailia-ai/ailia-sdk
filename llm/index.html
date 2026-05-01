@@ -78,6 +78,50 @@ for delta in model.generate(messages):
     </div>
   </section>
 
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia LLM runs local language models on desktop and mobile platforms. Memory requirements scale with model size and quantization.</p>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>Operating Systems</h3>
+        <ul>
+          <li>Windows 10 / 11</li>
+          <li>macOS 11 or later</li>
+          <li>Linux (Ubuntu 20.04+)</li>
+          <li>iOS 13+ / Android 7+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Languages</h3>
+        <ul>
+          <li>Python 3.6 or later</li>
+          <li>C++17</li>
+          <li>C# / Unity 2021.3+</li>
+          <li>Dart / Flutter 3.19+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Model Format</h3>
+        <ul>
+          <li>GGUF (llama.cpp compatible)</li>
+          <li>Llama / Gemma / Mistral / Qwen</li>
+          <li>Phi / DeepSeek and more</li>
+          <li>Q4 / Q5 / Q8 quantization</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Memory Guidance</h3>
+        <ul>
+          <li>2B Q4: ~2 GB RAM</li>
+          <li>7B Q4: ~5 GB RAM</li>
+          <li>13B Q4: ~9 GB RAM</li>
+          <li>Streaming token-by-token output</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <h2 class="section-title">API Reference by Platform</h2>
     <div class="card-grid">
@@ -113,6 +157,47 @@ for delta in model.generate(messages):
         </ul>
       </div>
 
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-subtitle">Common questions about ailia LLM.</p>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>What model formats are supported?</summary>
+          <p>ailia LLM loads <strong>GGUF</strong> files, the format used by llama.cpp. You can convert Hugging Face checkpoints to GGUF with the <code>convert_hf_to_gguf.py</code> script bundled with llama.cpp, or download pre-converted GGUF weights from Hugging Face.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Which model architectures are supported?</summary>
+          <p>Llama, Gemma, Mistral, Qwen, Phi, DeepSeek, and other architectures supported by llama.cpp. Compatibility tracks the upstream llama.cpp project.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I stream tokens as they are generated?</summary>
+          <p><code>model.generate(messages)</code> returns an iterator that yields delta strings as the model decodes each token. Iterate over it and append to a buffer (or print directly) for streaming UX.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How much memory do I need?</summary>
+          <p>Memory usage roughly equals the GGUF file size plus a small KV-cache overhead. As a rule of thumb at Q4 quantization: 2B models ≈ 2 GB, 7B ≈ 5 GB, 13B ≈ 9 GB. Use smaller models or higher quantization (Q4 → Q3) on memory-constrained devices.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does it support GPU acceleration?</summary>
+          <p>Yes. Like the rest of the ailia SDK family, ailia LLM uses the available GPU back-end (Metal on macOS, Vulkan / CUDA on Windows / Linux) automatically. Inference falls back to CPU if no GPU is available.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How does licensing work?</summary>
+          <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+        </details>
+
+      </div>
     </div>
   </section>
 
