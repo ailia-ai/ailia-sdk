@@ -53,24 +53,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .card-link:hover { gap: 10px; }
     .card-link::after { content: "\2192"; transition: margin-left 0.2s; }
 
-    /* Getting Started */
-    .getting-started-section { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-    .step { background: var(--bg); border-radius: var(--radius); padding: 28px; border: 1px solid var(--border); position: relative; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s; }
-    .step:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
-    .step-number { position: absolute; top: -14px; left: 24px; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; box-shadow: 0 2px 8px rgba(232, 91, 114, 0.3); }
-    .step h3 { font-size: 18px; font-weight: 700; margin: 8px 0 10px; color: var(--primary); }
-    .step p { font-size: 14px; color: var(--text-light); margin-bottom: 14px; }
-    .step pre { background: #1f2937; color: #f3f4f6; padding: 14px 16px; border-radius: 8px; font-size: 13px; overflow-x: auto; margin-bottom: 14px; line-height: 1.6; font-family: "SFMono-Regular", Menlo, Consolas, monospace; }
-    .step pre code { background: transparent; padding: 0; color: inherit; font-size: inherit; }
-    .step .card-link { margin-top: auto; }
-
     @media (max-width: 768px) {
       .hero h1 { font-size: 28px; }
       .hero p { font-size: 16px; }
       .section { padding: 48px 16px; }
       .hero { padding: 56px 16px 48px; }
-      .steps-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -122,42 +109,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         Model Library
         <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-    </div>
-  </section>
-
-  <!-- Getting Started -->
-  <section class="getting-started-section">
-    <div class="section">
-      <h2 class="section-title">Getting Started</h2>
-      <p class="section-subtitle">Start running AI inference with ailia SDK in three simple steps.</p>
-      <div class="steps-grid">
-
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Get a License</h3>
-          <p>Request a free evaluation license to unlock ailia SDK on your target platform.</p>
-          <a href="https://axip-console.appspot.com/trial/terms/AILIA?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
-        </div>
-
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Install the SDK</h3>
-          <p>Install the Python binding via pip. Native libraries for C++, C#, Unity, and Flutter are also available.</p>
-          <pre><code>pip install ailia</code></pre>
-          <a href="api/" class="card-link">Installation Guide</a>
-        </div>
-
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Run Inference</h3>
-          <p>Load an ONNX model and execute inference with just a few lines of code.</p>
-          <pre><code>import ailia
-net = ailia.Net("model.onnx")
-output = net.run(input_data)</code></pre>
-          <a href="https://github.com/ailia-ai/ailia-models" target="_blank" class="card-link">Browse Model Library</a>
-        </div>
-
-      </div>
     </div>
   </section>
 
