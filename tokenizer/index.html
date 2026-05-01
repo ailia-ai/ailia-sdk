@@ -141,7 +141,21 @@ Debug.Log(text);</code></pre>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Bundle tokenizer files under <code>assets/</code> in your Flutter app and load them via <code>rootBundle</code> before calling encode/decode.</p>
+            <p>Bundle tokenizer files under <code>assets/</code>, copy them to a writable path, then open and encode. See <a href="https://github.com/ailia-ai/ailia-tokenizer-flutter/blob/main/example/lib/main.dart" target="_blank">example/lib/main.dart</a> in ailia-tokenizer-flutter for the full sample.</p>
+            <pre><code>import 'package:ailia_tokenizer/ailia_tokenizer.dart' as ailia_tokenizer_dart;
+import 'package:ailia_tokenizer/ailia_tokenizer_model.dart';
+import 'dart:typed_data';
+
+final tokenizer = AiliaTokenizerModel();
+final bpeFile = await copyFileFromAssets('sentencepiece.bpe.model');
+tokenizer.openFile(
+  modelFile: bpeFile.path,
+  ailia_tokenizer_dart.AILIA_TOKENIZER_TYPE_XLM_ROBERTA,
+);
+
+final Int32List tokens = tokenizer.encode('Hello, world!');
+final String text = tokenizer.decode(tokens);
+print(text);</code></pre>
           </div>
         </div>
       </div>
