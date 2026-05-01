@@ -88,31 +88,75 @@ print(speech.transcribe(audio, rate))</code></pre>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Languages</h3>
+        <h3>Languages &amp; Compilers</h3>
         <ul>
-          <li>Python 3.6 or later</li>
-          <li>C++17</li>
+          <li>Python 3.6+, Dart / Flutter 3.19+</li>
+          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang)</li>
           <li>C# / Unity 2021.3+</li>
-          <li>Dart / Flutter 3.19+</li>
         </ul>
       </div>
       <div class="req-card">
         <h3>Supported Models</h3>
         <ul>
-          <li>Whisper Tiny / Base / Small</li>
-          <li>Whisper Medium / Large</li>
+          <li>Whisper Tiny / Base / Small (bundled)</li>
+          <li>Whisper Medium / Large / Large V3</li>
           <li>Whisper Large V3 Turbo</li>
-          <li>SenseVoice</li>
+          <li>SenseVoice (small)</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Audio Input</h3>
+        <h3>Audio &amp; Languages</h3>
         <ul>
-          <li>Mono float32 PCM</li>
-          <li>Resampled internally</li>
-          <li>Batch and streaming modes</li>
-          <li>100+ languages (Whisper)</li>
+          <li>Mono float32 PCM (auto-resampled)</li>
+          <li>99 languages (Whisper)</li>
+          <li>5 languages (SenseVoice: zh / en / yue / ja / ko)</li>
+          <li>Batch, Live (real-time), and streaming</li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Features</h2>
+      <p class="section-subtitle">Beyond basic transcription — capabilities that ship with ailia Speech.</p>
+      <div class="req-grid">
+        <div class="req-card">
+          <h3>Real-Time &amp; Streaming</h3>
+          <ul>
+            <li>Live mode for instant previews</li>
+            <li>VAD silence detection (Silero AI)</li>
+            <li>Volume-based silent threshold</li>
+            <li>Intermediate callback / interruption</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Translation &amp; Multilingual</h3>
+          <ul>
+            <li>Transcribe and Translate (to English) modes</li>
+            <li>Auto language detection per segment</li>
+            <li>Fixed-language mode via SetLanguage</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Accuracy Boosters</h3>
+          <ul>
+            <li>Prompt context for rare names / terms</li>
+            <li>Character / vocabulary constraints</li>
+            <li>Autocorrection dictionary (CSV)</li>
+            <li>Post-processing (T5 medical, FuguMT)</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Output &amp; Memory</h3>
+          <ul>
+            <li>Confidence score per segment</li>
+            <li>Begin / end timestamps</li>
+            <li>Speaker Diarization (PyannoteAudio)</li>
+            <li>Virtual Memory Mode (~55% RAM saving)</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -168,11 +212,45 @@ print(speech.transcribe(audio, rate))</code></pre>
         <details class="faq-item">
           <summary>Does it support real-time / streaming transcription?</summary>
           <p>Yes. Use <code>transcribe_step()</code> together with <code>set_silent_threshold()</code> to feed audio in chunks and emit partial transcripts as they become available, instead of waiting for the full file with <code>transcribe()</code>.</p>
+          <p>Enable <strong>Live mode</strong> (<code>AILIA_SPEECH_FLAG_LIVE</code>) to also preview tentative results <em>before</em> the next silence boundary is detected — useful for low-latency UX.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How does Translate mode work?</summary>
+          <p>Pass <code>AILIA_SPEECH_TASK_TRANSLATE</code> instead of <code>AILIA_SPEECH_TASK_TRANSCRIBE</code> to transcribe non-English audio and emit the English translation in one pass. Note: Translate mode is not supported on Whisper Large V3 Turbo or SenseVoice.</p>
+          <p>For the reverse direction (English → Japanese), chain Whisper Translate with the FuguMT post-processing model.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I improve accuracy on rare names or domain-specific terms?</summary>
+          <p>Three complementary tools:</p>
+          <p><strong>Prompt</strong> — pass a short list of expected terms (e.g. <code>"hardware software"</code>) to bias decoding.</p>
+          <p><strong>Constraints</strong> — restrict decoding to a character set or vocabulary (e.g. <code>"command1,command2"</code>) for voice-command UIs.</p>
+          <p><strong>Autocorrection dictionary</strong> — load a CSV of <code>phonetic,correct</code> substitutions via the <code>OpenDictionary</code> API.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I enable VAD for accurate silence detection?</summary>
+          <p>Use <code>AILIA_SPEECH_VAD_TYPE_SILERO</code> together with the <code>OpenVadFile</code> API. AI-based VAD avoids the "Thank you for your attention" hallucinations that volume-based detection can trigger on near-silent audio.</p>
         </details>
 
         <details class="faq-item">
           <summary>What input audio format is required?</summary>
           <p>Mono float32 PCM. The library accepts arbitrary sample rates (commonly produced by <code>librosa.load(..., mono=True)</code>) and resamples internally. Stereo and integer-PCM inputs should be converted before being passed in.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Where do I place the license file when using C++?</summary>
+          <p>The C++ binding requires <code>ailia.lic</code> next to the runtime libraries:</p>
+          <p><strong>Windows:</strong> same folder as <code>ailia.dll</code> (or in <code>cpp/</code> for the sample).<br/>
+          <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
+          <strong>Linux:</strong> <code>~/.shalo/</code></p>
+          <p>Python, Unity, Flutter, and JNI bindings auto-download the license on first run, so this only applies to the native C++ binding.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I enable GPU acceleration?</summary>
+          <p>On macOS / iOS, Metal is used automatically. On Windows / Linux, install <a href="https://developer.nvidia.com/cuda-downloads" target="_blank">CUDA Toolkit</a> and <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN</a>, then add cuDNN to your <code>PATH</code>. Pass an environment ID corresponding to the GPU back-end (or use <code>auto</code> in the sample CLI).</p>
         </details>
 
         <details class="faq-item">

@@ -93,12 +93,12 @@ for delta in model.generate(messages):
         </ul>
       </div>
       <div class="req-card">
-        <h3>Languages</h3>
+        <h3>Languages &amp; Compilers</h3>
         <ul>
-          <li>Python 3.6 or later</li>
-          <li>C++17</li>
+          <li>Python 3.6+, Dart / Flutter 3.19+</li>
+          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang)</li>
           <li>C# / Unity 2021.3+</li>
-          <li>Dart / Flutter 3.19+</li>
+          <li>GPU: Metal (iOS / macOS), Vulkan (Windows)</li>
         </ul>
       </div>
       <div class="req-card">
@@ -189,7 +189,16 @@ for delta in model.generate(messages):
 
         <details class="faq-item">
           <summary>Does it support GPU acceleration?</summary>
-          <p>Yes. Like the rest of the ailia SDK family, ailia LLM uses the available GPU back-end (Metal on macOS, Vulkan / CUDA on Windows / Linux) automatically. Inference falls back to CPU if no GPU is available.</p>
+          <p>Yes. ailia LLM uses <strong>Metal</strong> on iOS and macOS, and <strong>Vulkan</strong> on Windows. (Unlike ailia SDK / Speech / Voice, ailia LLM does not require cuDNN.) Inference falls back to CPU when no GPU is available.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Where do I place the license file when using C++?</summary>
+          <p>The C++ binding requires <code>ailia.lic</code> next to the runtime libraries:</p>
+          <p><strong>Windows:</strong> same folder as <code>ailia.dll</code> (or in <code>cpp/</code> for the sample).<br/>
+          <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
+          <strong>Linux:</strong> <code>~/.shalo/</code></p>
+          <p>Python, Unity, Flutter, and JNI bindings auto-download the license on first run, so this only applies to the native C++ binding.</p>
         </details>
 
         <details class="faq-item">
