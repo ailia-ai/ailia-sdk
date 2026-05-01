@@ -14,6 +14,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="description" content="ailia SDK - ONNX inference API documentation for Python, C++, Unity, Flutter, and JNI.">
   <link rel="icon" type="image/png" href="../ailia_logo.png">
   <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 </head>
 <body>
   <header>
@@ -23,7 +24,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         ailia SDK Documentation
       </a>
       <div class="header-links">
-        <a href="../">Home</a>
+        <a href="../">Top</a>
+        <a href="../api/">ONNX</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
         <a href="https://ailia.ai/en/" target="_blank">ailia.ai</a>
       </div>
     </div>
@@ -32,6 +40,261 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <section class="hero">
     <h1>Inference Library Documentation</h1>
     <p>This is the ONNX inference API, which serves as the core of everything.</p>
+  </section>
+
+  <!-- Getting Started -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-subtitle">Choose your platform and follow three steps to run your first inference.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <!-- Python -->
+      <div class="platform-panel" data-platform="python">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install</h3>
+            <p>Install the ailia Python package from PyPI. Python 3.6 or later is required.</p>
+            <pre><code>pip3 install ailia</code></pre>
+            <a href="https://pypi.org/project/ailia/" target="_blank" class="card-link">View on PyPI</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone the ailia-models repository, install the dependencies, and launch the GUI to pick and run a model.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models.git
+cd ailia-models
+pip3 install -r requirements.txt
+python3 launcher.py</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models" target="_blank" class="card-link">Sample Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- C++ -->
+      <div class="platform-panel hidden" data-platform="cpp">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Clone Samples</h3>
+            <p>Clone the C++ sample repository and initialize submodules. The ailia-sdk-cpp binding is included as a submodule.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/ailia-sdk-cpp" target="_blank" class="card-link">Binding</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Build &amp; Run</h3>
+            <p>Install dependencies (CMake and OpenCV), build with CMake, and run a sample. Xcode and Android NDK starter projects are also available.</p>
+            <pre><code># macOS
+brew install cmake opencv
+# Linux: apt install cmake libopencv-dev
+# Windows: install CMake and Visual Studio,
+#   then set OpenCV_DIR to your OpenCV build path
+
+cmake .
+cmake --build .
+cd object_detection/yolox
+./yolox.sh    # use yolox.bat on Windows</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-xcode" target="_blank" class="card-link">Xcode Project</a>
+            <a href="https://github.com/ailia-ai/ailia-android-ndk" target="_blank" class="card-link">Android NDK Project</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unity -->
+      <div class="platform-panel hidden" data-platform="unity">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install via UPM</h3>
+            <p>For your own project, open <em>Window &gt; Package Manager</em> in Unity, click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <pre><code>https://github.com/ailia-ai/ailia-sdk-unity.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-sdk-unity" target="_blank" class="card-link">Binding</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone the Unity sample repository and open it in the Unity Editor (2021.3.10f1 or later). The SDK is downloaded automatically through Package Manager. Open a scene such as <code>AXIP/AILIA-MODELS/FaceDetection/FaceDetectionSample.unity</code> and press Play.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">Sample Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flutter -->
+      <div class="platform-panel hidden" data-platform="flutter">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Add to pubspec</h3>
+            <p>For your own project, add ailia as a git dependency in <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required.</p>
+            <pre><code>dependencies:
+  ailia:
+    git:
+      url: https://github.com/ailia-ai/ailia-sdk-flutter.git
+      ref: main</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-sdk-flutter" target="_blank" class="card-link">Binding</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone the Flutter sample repository, open it in VSCode, and run <code>flutter pub get</code>. The SDK is downloaded automatically via pubspec.yaml. Pick a model and tap the run button.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
+cd ailia-models-flutter
+flutter pub get
+flutter run</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">Sample Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- JNI -->
+      <div class="platform-panel hidden" data-platform="jni">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Clone Binding</h3>
+            <p>For your own project, clone the JNI binding repository and add it to your Android Studio project.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-sdk-jni.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-sdk-jni" target="_blank" class="card-link">Binding</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone a sample project, initialize submodules, and open it in Android Studio. Both Kotlin and Java starter projects are available. Android Studio 2025.1.3 or later is required for the Kotlin samples.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+cd ailia-models-kotlin
+git submodule init
+git submodule update</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank" class="card-link">Kotlin Samples</a>
+            <a href="https://github.com/ailia-ai/ailia-android-studio" target="_blank" class="card-link">Java Samples</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia SDK runs across desktop, mobile, and embedded platforms with a wide range of GPU back-ends.</p>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>Operating Systems</h3>
+        <ul>
+          <li>Windows 10 / 11</li>
+          <li>macOS 11 or later</li>
+          <li>Linux (Ubuntu 20.04+)</li>
+          <li>iOS 13+</li>
+          <li>Android 7+</li>
+          <li>Jetson, Raspberry Pi</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Languages</h3>
+        <ul>
+          <li>Python 3.6 or later</li>
+          <li>C++17</li>
+          <li>C# / Unity 2021.3+</li>
+          <li>Kotlin / Java (JNI)</li>
+          <li>Dart / Flutter 3.19+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>GPU Acceleration</h3>
+        <ul>
+          <li>NVIDIA CUDA</li>
+          <li>Apple Metal</li>
+          <li>Vulkan (cross-platform)</li>
+          <li>Intel MKL</li>
+          <li>NPU via NNAPI (Android)</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Model Formats</h3>
+        <ul>
+          <li>ONNX (primary)</li>
+          <li>TFLite (via ailia TFLite Runtime)</li>
+          <li>GGUF (via ailia LLM)</li>
+          <li>Convert from PyTorch / TensorFlow / Keras</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use the API -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">Minimal examples for loading an ONNX model and running inference. See the C++ Getting Started above and the platform tutorials below for the full C++ flow.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity (C#)</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter (Dart)</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <div class="platform-panel" data-platform="python">
+        <pre class="code-block"><code>import ailia
+import numpy as np
+
+# stream=None lets ailia derive the graph from the .onnx file
+net = ailia.Net(stream=None, weight="model.onnx")
+
+input_tensor = np.zeros((1, 3, 224, 224), dtype=np.float32)
+output = net.run(input_tensor)
+print(output[0].shape)</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="unity">
+        <pre class="code-block"><code>using ailia;
+
+var model = new AiliaModel();
+model.OpenFile(null, "model.onnx");  // null prototxt for ONNX
+
+var input = new float[1 * 3 * 224 * 224];
+var output = new float[1000];        // sized to the model's output
+model.Predict(output, input);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="flutter">
+        <pre class="code-block"><code>import 'package:ailia/ailia.dart';
+import 'dart:typed_data';
+
+final model = AiliaModel();
+await model.openFile(streamPath: null, weightPath: 'model.onnx');
+
+final input = Float32List(1 * 3 * 224 * 224);
+final output = await model.predict(input);
+print(output.length);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="jni">
+        <pre class="code-block"><code>import axip.ailia.AiliaModel
+
+val model = AiliaModel()
+model.openFile(null, "model.onnx")   // null prototxt for ONNX
+
+val input = FloatArray(1 * 3 * 224 * 224)
+val output = model.predict(input)
+println(output.size)</code></pre>
+      </div>
+
+    </div>
   </section>
 
   <section class="section">
@@ -94,6 +357,50 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="section">
+    <h2 class="section-title">FAQ</h2>
+    <p class="section-subtitle">Common questions from first-time ailia SDK users.</p>
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>What is the difference between the evaluation license and a production license?</summary>
+        <p>The evaluation license is downloaded automatically at runtime for Python, Unity, Flutter, and JNI, and is valid for one month for C++. It is intended for development and trial use only.</p>
+        <p>For commercial deployment, redistribution, or longer-term use, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a> for details.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I switch between CPU and GPU?</summary>
+        <p>Pass an <code>env_id</code> to <code>ailia.Net()</code>. List available environments (CPU, CUDA, Metal, Vulkan, MKL, NNAPI) with <code>ailia.get_environment_list()</code>, then select the one you want.</p>
+        <p>By default, ailia chooses the fastest available environment for your platform.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Where are model files stored after I download them?</summary>
+        <p>Sample scripts in <code>ailia-models</code> download <code>.onnx</code> and <code>.onnx.prototxt</code> files into the model's own directory the first time you run them. Subsequent runs reuse the cached files.</p>
+        <p>For ailia Speech and ailia Voice, models are downloaded into <code>./models/</code> by default, configurable via <code>initialize_model(model_path=...)</code>.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I run ailia SDK offline?</summary>
+        <p>Yes, after the first run. The evaluation license and any auto-downloaded model files require an internet connection on first use; once cached, subsequent inference works offline.</p>
+        <p>For C++, the license is fetched once via <code>download_license.py</code> from the binding repository.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I convert a PyTorch or TensorFlow model to ONNX for ailia?</summary>
+        <p>Export your model to ONNX with the framework's standard tooling (<code>torch.onnx.export</code>, <code>tf2onnx</code>, etc.), then generate the matching <code>.onnx.prototxt</code> using the script bundled with ailia SDK.</p>
+        <p>The <a href="https://medium.com/axinc-ai/ailia-sdk-tutorial-model-conversion-to-onnx-ac8bd2c76622" target="_blank">model conversion tutorial</a> walks through the process.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Where can I get help?</summary>
+        <p>For bug reports and questions on the sample repositories, open an issue on the relevant GitHub repo. For SDK licensing and commercial inquiries, contact <a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a> directly.</p>
+      </details>
+
+    </div>
+  </section>
+
   <section class="materials-section">
     <div class="section">
       <h2 class="section-title">Materials</h2>
@@ -133,5 +440,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
+
+  <script>
+    document.querySelectorAll('.platform-tabs').forEach(tabsBar => {
+      const tabs = tabsBar.querySelectorAll('.platform-tab');
+      const panels = tabsBar.parentElement.querySelectorAll(':scope > .platform-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const platform = tab.dataset.platform;
+          tabs.forEach(t => t.classList.toggle('active', t === tab));
+          panels.forEach(p => p.classList.toggle('hidden', p.dataset.platform !== platform));
+        });
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </body>
 </html>

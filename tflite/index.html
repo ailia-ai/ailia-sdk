@@ -14,6 +14,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="description" content="ailia TFLite Runtime - AI inference engine for embedded devices such as NonOS and RTOS.">
   <link rel="icon" type="image/png" href="../ailia_logo.png">
   <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 </head>
 <body>
   <header>
@@ -23,7 +24,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         ailia SDK Documentation
       </a>
       <div class="header-links">
-        <a href="../">Home</a>
+        <a href="../">Top</a>
+        <a href="../api/">ONNX</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
         <a href="https://ailia.ai/en/" target="_blank">ailia.ai</a>
       </div>
     </div>
@@ -32,6 +40,243 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <section class="hero">
     <h1>ailia TFLite Runtime</h1>
     <p>AI inference engine for embedded devices such as NonOS and RTOS. TFLite compatible inference API.</p>
+  </section>
+
+  <!-- Getting Started -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-subtitle">Choose your platform and run your first TFLite inference.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="c" role="tab">C</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <!-- Python -->
+      <div class="platform-panel" data-platform="python">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install</h3>
+            <p>Install the ailia TFLite Python package from PyPI.</p>
+            <pre><code>pip3 install ailia_tflite</code></pre>
+            <a href="https://pypi.org/project/ailia-tflite/" target="_blank" class="card-link">View on PyPI</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone the ailia-models-tflite repository, install the dependencies, and launch the GUI to pick and run a model.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-tflite.git
+cd ailia-models-tflite
+pip3 install -r requirements.txt
+python3 launcher.py</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-tflite" target="_blank" class="card-link">Sample Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- C -->
+      <div class="platform-panel hidden" data-platform="c">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Get Evaluation Package</h3>
+            <p>Apply for the free trial to obtain the evaluation package, which contains the C99 binding (<code>ailia_tflite.h</code>), the runtime library, the license file, and a runnable sample.</p>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TFLITE?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Build &amp; Run</h3>
+            <p>Compile against the runtime library; the API mirrors TensorFlow Lite's C API. Designed for NonOS / RTOS targets, the C99 implementation is dependency-free aside from <code>libailia_tflite</code>.</p>
+            <pre><code># macOS
+clang -o tflite_sample tflite_sample.c \
+  libailia_tflite.dylib -Wl,-rpath,./
+
+./tflite_sample model.tflite</code></pre>
+            <a href="c/en/" class="card-link">C API Reference</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unity -->
+      <div class="platform-panel hidden" data-platform="unity">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install via UPM</h3>
+            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <pre><code>https://github.com/ailia-ai/ailia-tflite-unity.git</code></pre>
+            <a href="unity/en/" class="card-link">Unity API Reference</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3+), drop a <code>.tflite</code> model under <code>StreamingAssets/</code>, and play one of the TFLite sample scenes.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">Sample Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- JNI -->
+      <div class="platform-panel hidden" data-platform="jni">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Clone Binding</h3>
+            <p>For your own project, clone the JNI binding repository and add it to your Android Studio project.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-tflite-jni.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-tflite-jni" target="_blank" class="card-link">Binding</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the TFLite object-detection sample on a connected device.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+cd ailia-models-kotlin
+git submodule init
+git submodule update</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaTFLiteObjectDetectionSample.kt" target="_blank" class="card-link">AiliaTFLiteObjectDetectionSample.kt</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia TFLite Runtime is a TensorFlow Lite-compatible inference engine written in C99 for desktop, mobile, and embedded use.</p>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>Operating Systems</h3>
+        <ul>
+          <li>Windows 10 / 11</li>
+          <li>macOS 11 or later</li>
+          <li>Linux (Ubuntu 20.04+)</li>
+          <li>Android 7+ (NPU via NNAPI)</li>
+          <li>NonOS / RTOS (embedded)</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Languages</h3>
+        <ul>
+          <li>Python 3.6 or later</li>
+          <li>C99 (embedded-friendly)</li>
+          <li>C# / Unity 2021.3+</li>
+          <li>Kotlin / Java (JNI)</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Acceleration</h3>
+        <ul>
+          <li>Intel MKL (PC)</li>
+          <li>Android NNAPI / NPU</li>
+          <li>Optimized C99 fallback</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Model Formats</h3>
+        <ul>
+          <li>TFLite (<code>.tflite</code>)</li>
+          <li>INT8 quantized models</li>
+          <li>Drop-in replacement for tflite_runtime</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use the API -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">Minimal examples for loading a TFLite model and running inference. The Python API mirrors <code>tflite_runtime.interpreter</code>, so existing TFLite code works with one import change.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="c" role="tab">C</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity (C#)</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <div class="platform-panel" data-platform="python">
+        <pre class="code-block"><code>import ailia_tflite
+import numpy as np
+
+interpreter = ailia_tflite.Interpreter(model_path="model.tflite")
+interpreter.allocate_tensors()
+
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
+input_data = np.zeros(input_details[0]["shape"], dtype=np.float32)
+interpreter.set_tensor(input_details[0]["index"], input_data)
+interpreter.invoke()
+
+output = interpreter.get_tensor(output_details[0]["index"])
+print(output.shape)</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="c">
+        <pre class="code-block"><code>#include "ailia_tflite.h"
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+// Read model.tflite into a buffer
+FILE *f = fopen("model.tflite", "rb");
+fseek(f, 0, SEEK_END);
+size_t len = ftell(f);
+fseek(f, 0, SEEK_SET);
+void *buf = malloc(len);
+fread(buf, 1, len, f);
+fclose(f);
+
+struct AILIATFLiteInstance *interp = NULL;
+ailiaTFLiteCreate(&amp;interp, buf, len,
+                  NULL, NULL, NULL, NULL,    // default allocators
+                  AILIA_TFLITE_ENV_REFERENCE,
+                  AILIA_TFLITE_MEMORY_MODE_DEFAULT,
+                  AILIA_TFLITE_FLAG_NONE);
+
+ailiaTFLiteAllocateTensors(interp);
+ailiaTFLitePredict(interp);
+ailiaTFLiteDestroy(interp);
+free(buf);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="unity">
+        <pre class="code-block"><code>using ailiaTFLite;
+
+var interpreter = new AiliaTFLiteModel();
+interpreter.OpenFile("model.tflite");
+interpreter.AllocateTensors();
+
+var input = new float[1 * 224 * 224 * 3];
+interpreter.SetInputTensorData(0, input);
+interpreter.Predict();
+
+var output = interpreter.GetOutputTensorData&lt;float&gt;(0);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="jni">
+        <pre class="code-block"><code>val tflite = AiliaTFLite()
+tflite.open(modelData, AiliaTFLite.AILIA_TFLITE_ENV_REFERENCE)
+tflite.allocateTensors()
+
+val inputIdx = tflite.getInputTensorIndex(0)
+val outputIdx = tflite.getOutputTensorIndex(0)
+tflite.setTensorData(inputIdx, inputBuffer)
+tflite.predict()
+
+val output = tflite.getTensorData(outputIdx)
+tflite.close()</code></pre>
+      </div>
+
+    </div>
   </section>
 
   <section class="section">
@@ -70,6 +315,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <li><a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank">Android Studio Sample Project (Kotlin)</a></li>
         </ul>
       </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <h2 class="section-title">FAQ</h2>
+    <p class="section-subtitle">Common questions about ailia TFLite Runtime.</p>
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>Is it really a drop-in replacement for TensorFlow Lite?</summary>
+        <p>Yes. The Python <code>ailia_tflite.Interpreter</code> class mirrors <code>tflite_runtime.interpreter.Interpreter</code> — same constructor, same <code>allocate_tensors() / set_tensor() / invoke() / get_tensor()</code> methods. Existing TFLite Python scripts typically need only an import change.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Where does ailia TFLite shine compared to upstream TFLite?</summary>
+        <p>Two main areas: <strong>high-speed PC inference</strong> via Intel MKL, and <strong>embedded deployment</strong> on NonOS / RTOS thanks to a lightweight C99 implementation. On Android it can also drive the on-device NPU through NNAPI.</p>
+        <p>You can compare against upstream behaviour by passing <code>--tflite</code> to the sample scripts in ailia-models-tflite.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Does it support quantized models?</summary>
+        <p>Yes. INT8 quantized TFLite models are first-class — quantization is the recommended path for embedded targets and NPUs. The model zoo at <a href="https://github.com/ailia-ai/ailia-models-tflite" target="_blank">ailia-models-tflite</a> is built around quantized variants.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I use it on microcontrollers?</summary>
+        <p>The C99 core is designed for NonOS / RTOS and small footprint deployments. Specific MCU support depends on available memory and toolchain — contact ailia for embedded port details.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I switch back-ends (CPU / NPU / MKL)?</summary>
+        <p>Pass <code>env_id</code> (and optional <code>flags</code> / <code>num_threads</code>) when constructing <code>ailia_tflite.Interpreter</code>. The default chooses the fastest available back-end for your platform.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How does licensing work?</summary>
+        <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment — including embedded redistribution — request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+      </details>
 
     </div>
   </section>
@@ -113,5 +398,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
+
+  <script>
+    document.querySelectorAll('.platform-tabs').forEach(tabsBar => {
+      const tabs = tabsBar.querySelectorAll('.platform-tab');
+      const panels = tabsBar.parentElement.querySelectorAll(':scope > .platform-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const platform = tab.dataset.platform;
+          tabs.forEach(t => t.classList.toggle('active', t === tab));
+          panels.forEach(p => p.classList.toggle('hidden', p.dataset.platform !== platform));
+        });
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </body>
 </html>

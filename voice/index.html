@@ -14,6 +14,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="description" content="ailia Voice - Text-to-speech synthesis library for natural voice generation.">
   <link rel="icon" type="image/png" href="../ailia_logo.png">
   <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 </head>
 <body>
   <header>
@@ -23,7 +24,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         ailia SDK Documentation
       </a>
       <div class="header-links">
-        <a href="../">Home</a>
+        <a href="../">Top</a>
+        <a href="../api/">ONNX</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
         <a href="https://ailia.ai/en/" target="_blank">ailia.ai</a>
       </div>
     </div>
@@ -32,6 +40,284 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <section class="hero">
     <h1>ailia Voice</h1>
     <p>A library for generating speech from text. Easily integrate AI powered text-to-speech into your applications.</p>
+  </section>
+
+  <!-- Getting Started -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-subtitle">Choose your platform and synthesize your first voice clip.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter</button>
+      </div>
+
+      <!-- Python -->
+      <div class="platform-panel" data-platform="python">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install</h3>
+            <p>Install the ailia Voice Python package from PyPI.</p>
+            <pre><code>pip3 install ailia_voice</code></pre>
+            <a href="https://pypi.org/project/ailia-voice/" target="_blank" class="card-link">View on PyPI</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Download <code>example_ailia_voice.py</code> from <code>ailia-models</code> and run it. It clones a target voice from a short reference clip and writes <code>output.wav</code>. Models are downloaded into <code>./models/</code> automatically.</p>
+            <pre><code>wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/gpt-sovits/example_ailia_voice.py
+python3 example_ailia_voice.py</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/gpt-sovits/example_ailia_voice.py" target="_blank" class="card-link">example_ailia_voice.py</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- C++ -->
+      <div class="platform-panel hidden" data-platform="cpp">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Get Evaluation Package</h3>
+            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding (<code>ailia_voice.h</code>), runtime libraries, the license file, and a runnable sample.</p>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-VOICE?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Download Models &amp; Run</h3>
+            <p>Run the bundled model download script, then build and execute the sample.</p>
+            <pre><code># Fetch GPT-SoVITS / Tacotron2 model files
+cd onnx
+bash download_models.sh   # download_models.bat on Windows
+cd ../cpp
+
+# Build (macOS)
+clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
+  wave_writer.cpp wave_reader.cpp \
+  libailia_voice.dylib libailia.dylib libailia_audio.dylib \
+  -Wl,-rpath,./ -std=c++17
+
+./ailia_voice_sample gpt-sovits</code></pre>
+            <a href="cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unity -->
+      <div class="platform-panel hidden" data-platform="unity">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install via UPM</h3>
+            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <pre><code>https://github.com/ailia-ai/ailia-voice-unity.git</code></pre>
+            <a href="unity/en/" class="card-link">Unity API Reference</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3+), and play the TextToSpeech scene with a reference audio clip plus your target text.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/TextToSpeech/AiliaVoiceSample.cs" target="_blank" class="card-link">AiliaVoiceSample.cs</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flutter -->
+      <div class="platform-panel hidden" data-platform="flutter">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Add to pubspec</h3>
+            <p>Add ailia Voice as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required.</p>
+            <pre><code>dependencies:
+  ailia_voice:
+    git:
+      url: https://github.com/ailia-ai/ailia-voice-flutter.git
+      ref: main</code></pre>
+            <a href="flutter/en/" class="card-link">Flutter API Reference</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone the Flutter sample repository for a ready-to-run app demonstrating GPT-SoVITS synthesis.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
+cd ailia-models-flutter
+flutter pub get
+flutter run</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">Sample Repository</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia Voice runs on desktop and mobile platforms with CPU and GPU acceleration.</p>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>Operating Systems</h3>
+        <ul>
+          <li>Windows 10 / 11</li>
+          <li>macOS 11 or later</li>
+          <li>Linux (Ubuntu 20.04+)</li>
+          <li>iOS 13+ / Android 7+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Languages &amp; Compilers</h3>
+        <ul>
+          <li>Python 3.6+, Dart / Flutter 3.19+</li>
+          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang) + CMake</li>
+          <li>C# / Unity 2021.3+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Supported Models</h3>
+        <ul>
+          <li>Tacotron2 (English)</li>
+          <li>GPT-SoVITS v1 / v2 / v2-pro / v3</li>
+          <li>JA / EN / ZH variants per version</li>
+          <li>Output: 32 kHz mono</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Language Coverage</h3>
+        <ul>
+          <li>Japanese (G2P_TYPE_GPT_SOVITS_JA)</li>
+          <li>English (G2P_TYPE_GPT_SOVITS_EN)</li>
+          <li>Chinese (G2P_TYPE_GPT_SOVITS_ZH)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Features</h2>
+      <p class="section-subtitle">Voice synthesis capabilities provided across the C, C#, and Python APIs.</p>
+      <div class="req-grid">
+        <div class="req-card">
+          <h3>TTS Models</h3>
+          <ul>
+            <li>Tacotron2 — fast English baseline</li>
+            <li>GPT-SoVITS v1 / v2 / v2-pro / v3</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Voice Cloning</h3>
+          <ul>
+            <li>Clone any timbre from ~10 s reference audio</li>
+            <li>Reference audio + transcript pairing</li>
+            <li>Speaker Verification embeddings (v2-pro)</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Multi-Language</h3>
+          <ul>
+            <li>Japanese accent support (v2 onward)</li>
+            <li>OpenJtalk built in for JA phonemes</li>
+            <li>g2pw + jieba for Chinese (v2 onward)</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Customization</h3>
+          <ul>
+            <li>User dictionary (pyopenjtalk format)</li>
+            <li>Standard v3 user dictionary downloadable</li>
+            <li>Playback speed control (v2 onward)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use the API -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">Minimal examples for synthesizing speech in your own application.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity (C#)</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter (Dart)</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <div class="platform-panel" data-platform="python">
+        <pre class="code-block"><code>import ailia_voice
+
+voice = ailia_voice.GPTSoVITS()
+voice.initialize_model(model_path="./models/")
+voice.set_reference_audio(
+    ref_text, ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA, ref_audio, rate,
+)
+buf, sr = voice.synthesize_voice("こんにちは。", ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA)</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="cpp">
+        <pre class="code-block"><code>#include "ailia_voice.h"
+
+struct AILIAVoice *voice = nullptr;
+ailiaVoiceCreate(&amp;voice, env_id, AILIA_VOICE_FLAG_NONE);
+ailiaVoiceOpenModelFileGPTSoVITSV1A(voice,
+    t2s_encoder, t2s_fsdec, t2s_sdec, vits, cnhubert);
+
+ailiaVoiceSetReferenceA(voice, ref_pcm, ref_samples, channels, rate,
+                        ref_text, AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+ailiaVoiceInferenceA(voice, "こんにちは。",
+                     AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+
+unsigned int n; ailiaVoiceGetWaveSamples(voice, &amp;n);
+ailiaVoiceDestroy(voice);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="unity">
+        <pre class="code-block"><code>using ailiaVoice;
+
+var voice = new AiliaVoiceModel();
+voice.Create(voice.GetEnvironmentId(gpuMode), AiliaVoice.AILIA_VOICE_FLAG_NONE);
+voice.OpenGPTSoVITSV1ModelFile(t2sEnc, t2sFsdec, t2sSdec, vits, cnhubert);
+
+var refText = voice.G2P(refLabel, AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+voice.SetReference(refClip, refText);
+
+var text = voice.G2P("こんにちは。", AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+voice.Inference(text);
+AudioClip clip = voice.GetAudioClip();</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="flutter">
+        <pre class="code-block"><code>import 'package:ailia_voice/ailia_voice.dart';
+
+final voice = AiliaVoiceModel();
+await voice.create();
+await voice.openGPTSoVITSV1ModelFile(t2sEnc, t2sFsdec, t2sSdec, vits, cnhubert);
+
+await voice.setReference(refClip, refText);
+final pcm = await voice.synthesize('こんにちは。',
+    g2pType: AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="jni">
+        <pre class="code-block"><code>val voice = AiliaVoice(envId = envId)
+voice.openGPTSoVITSV1ModelFile(t2sEnc, t2sFsdec, t2sSdec, vits, cnhubert)
+voice.setReferenceAudio(refAudio, refAudio.size * 4, channels, sampleRate, refG2pText)
+
+val g2p = voice.g2p("こんにちは。", AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA)
+val audio = voice.synthesizeVoice(g2p)</code></pre>
+      </div>
+
+    </div>
   </section>
 
   <section class="section">
@@ -80,6 +366,74 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-subtitle">Common questions about ailia Voice.</p>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>Which TTS models are supported?</summary>
+          <p>Two families: <strong>Tacotron2</strong> (English baseline) and <strong>GPT-SoVITS</strong> (zero-shot voice cloning).</p>
+          <p>GPT-SoVITS comes in four versions — v1, v2, v2-pro, and v3 — each with Japanese, English, and Chinese variants. Pick a sample model with the CLI argument (<code>tacotron2</code>, <code>gpt-sovits</code>, <code>gpt-sovits-v2-en</code>, etc.).</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Which GPT-SoVITS version should I use?</summary>
+          <p><strong>v1</strong>: lightest and fastest, no Japanese accent support.<br/>
+          <strong>v2</strong>: adds Japanese pitch / accent and playback-speed control. Good real-time default.<br/>
+          <strong>v3</strong>: highest audio quality (CFM + DiT + BigVGAN diffusion), but slower.<br/>
+          <strong>v2-pro</strong>: combines v3's text analysis with v2's fast vocoder plus speaker verification embeddings — recommended for the best quality/speed balance.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What does "reference audio" mean and why is it required?</summary>
+          <p>GPT-SoVITS clones the voice characteristics of a target speaker from about 10 seconds of clean reference audio plus the matching transcript. Pass both to <code>set_reference_audio()</code> before calling <code>synthesize_voice()</code>.</p>
+          <p>Tacotron2 does not require reference audio — it speaks in a fixed voice.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I create a custom pronunciation dictionary?</summary>
+          <p>ailia Voice integrates OpenJtalk for Japanese phoneme conversion. To override pronunciations, prepare a <code>userdic.csv</code> in MeCab format (the trailing <code>0/5</code> means 5 morae with accent on position 0) and convert it to a binary <code>.dic</code> with pyopenjtalk:</p>
+          <pre><code>import pyopenjtalk
+pyopenjtalk.mecab_dict_index("userdic.csv", "userdic.dic")</code></pre>
+          <p>Then pass <code>user_dict_path</code> to <code>initialize_model()</code> (Python) or call <code>ailiaVoiceSetUserDictionary</code> (C). A <a href="https://storage.googleapis.com/ailia-models/gpt-sovits-v3/user.dict" target="_blank">standard user dictionary</a> for v3 is also available.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Which languages can I synthesize?</summary>
+          <p>Japanese, English, and Chinese, selected via the <code>AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA</code> / <code>_EN</code> / <code>_ZH</code> constants passed to <code>set_reference_audio()</code> and <code>synthesize_voice()</code>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Where do I place the license file when using C++?</summary>
+          <p>The C++ binding requires <code>ailia.lic</code> next to the runtime libraries:</p>
+          <p><strong>Windows:</strong> same folder as <code>ailia.dll</code> (or in <code>cpp/</code> for the sample).<br/>
+          <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
+          <strong>Linux:</strong> <code>~/.shalo/</code></p>
+          <p>Python, Unity, Flutter, and JNI bindings auto-download the license on first run, so this only applies to the native C++ binding.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I enable GPU acceleration?</summary>
+          <p>On macOS / iOS, Metal is used automatically. On Windows / Linux, install <a href="https://developer.nvidia.com/cuda-downloads" target="_blank">CUDA Toolkit</a> and <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN</a>, then add cuDNN to your <code>PATH</code>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I run it offline?</summary>
+          <p>Yes, after the first run. Model weights are downloaded into the directory passed to <code>initialize_model(model_path=...)</code> on first use, and the evaluation license is fetched automatically. Subsequent runs work without an internet connection.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How does licensing work?</summary>
+          <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
   <section class="materials-section">
     <div class="section">
       <h2 class="section-title">Materials</h2>
@@ -119,5 +473,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
+
+  <script>
+    document.querySelectorAll('.platform-tabs').forEach(tabsBar => {
+      const tabs = tabsBar.querySelectorAll('.platform-tab');
+      const panels = tabsBar.parentElement.querySelectorAll(':scope > .platform-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const platform = tab.dataset.platform;
+          tabs.forEach(t => t.classList.toggle('active', t === tab));
+          panels.forEach(p => p.classList.toggle('hidden', p.dataset.platform !== platform));
+        });
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </body>
 </html>
