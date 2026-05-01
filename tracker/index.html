@@ -63,15 +63,6 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
 ./ailia_tracker_sample input.mp4</code></pre>
           <a href="cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
         </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>License File Placement</h3>
-          <p>Place <code>ailia.lic</code> from the evaluation package next to the runtime libraries:</p>
-          <pre><code>Windows: same folder as ailia.dll
-macOS:   ~/Library/SHALO/
-Linux:   ~/.shalo/</code></pre>
-          <p>For Unity (UPM) and JNI, the license is auto-downloaded on first run — no manual placement needed.</p>
-        </div>
       </div>
     </div>
   </section>
@@ -230,7 +221,10 @@ Linux:   ~/.shalo/</code></pre>
 
       <details class="faq-item">
         <summary>How does licensing work?</summary>
-        <p>The C++ binding requires the <code>ailia.lic</code> file from the evaluation package (placed next to the runtime libraries — see Step 3 above).</p>
+        <p>The C++ binding requires <code>ailia.lic</code> from the evaluation package, placed next to the runtime libraries:</p>
+        <p><strong>Windows:</strong> same folder as <code>ailia.dll</code>.<br/>
+        <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
+        <strong>Linux:</strong> <code>~/.shalo/</code></p>
         <p>Unity and JNI bindings auto-download the evaluation license on first run. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
       </details>
 
