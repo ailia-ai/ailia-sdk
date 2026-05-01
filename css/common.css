@@ -50,17 +50,23 @@ header {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.logo-icon { display: inline-flex; align-items: center; }
+.logo-icon img {
+  height: 36px;
+  width: auto;
+  border-radius: 6px;
+  display: block;
+}
+
+.logo-text {
   font-size: 20px;
   font-weight: 700;
   color: var(--primary);
   letter-spacing: 0.02em;
 }
-
-.logo img {
-  height: 36px;
-  width: auto;
-  border-radius: 6px;
-}
+.logo-text:hover { color: var(--accent); }
 
 .header-links {
   display: flex;
