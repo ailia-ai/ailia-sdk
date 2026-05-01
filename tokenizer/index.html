@@ -116,9 +116,9 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Clone <code>ailia-models-unity</code>, place tokenizer files in <code>StreamingAssets/</code>, and play one of the bundled sample scenes to see token IDs in the Console.</p>
+            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3+), and play <code>NaturalLanguageProcessing/AiliaNaturalLanguageProcessingSample.unity</code> to see token IDs in the Console.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/ailia-models-unity/tree/master/Assets/AXIP/AILIA-MODELS/NaturalLanguageProcessing" target="_blank" class="card-link">Sample Scene</a>
           </div>
         </div>
       </div>
@@ -129,7 +129,7 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
           <div class="step">
             <div class="step-number">1</div>
             <h3>Add to pubspec</h3>
-            <p>Add ailia Tokenizer as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>.</p>
+            <p>Add ailia Tokenizer as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
             <pre><code>dependencies:
   ailia_tokenizer:
     git:

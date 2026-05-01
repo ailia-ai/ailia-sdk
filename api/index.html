@@ -144,7 +144,7 @@ cd object_detection/yolox
           <div class="step">
             <div class="step-number">1</div>
             <h3>Add to pubspec</h3>
-            <p>For your own project, add ailia as a git dependency in <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required.</p>
+            <p>For your own project, add ailia as a git dependency in <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
             <pre><code>dependencies:
   ailia:
     git:
