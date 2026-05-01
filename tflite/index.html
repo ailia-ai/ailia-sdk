@@ -137,8 +137,8 @@ clang -o tflite_sample tflite_sample.c \
             <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the TFLite object-detection sample on a connected device.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
-git submodule init
-git submodule update</code></pre>
+# Rewrite SSH submodule URLs to HTTPS for users without an SSH key configured
+git -c url.https://github.com/.insteadOf=git@github.com: submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaTFLiteObjectDetectionSample.kt" target="_blank" class="card-link">AiliaTFLiteObjectDetectionSample.kt</a>
           </div>
         </div>
