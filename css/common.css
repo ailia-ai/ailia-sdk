@@ -69,6 +69,21 @@ header {
   flex-wrap: wrap;
 }
 
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text);
+  padding: 0;
+}
+.menu-toggle svg { width: 24px; height: 24px; display: block; }
+.menu-toggle:hover { color: var(--accent); }
+
 .header-links a {
   color: var(--text-light);
   font-size: 14px;
@@ -311,7 +326,29 @@ footer a:hover {
 /* Responsive */
 @media (max-width: 768px) {
   .hero h1 { font-size: 26px; }
-  .header-links { display: none; }
+  .menu-toggle { display: flex; }
+  .header-links {
+    display: none;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 24px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    z-index: 99;
+  }
+  .header-links.open { display: flex; }
+  .header-links a {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .header-links a:last-child { border-bottom: none; }
   .card-grid { grid-template-columns: 1fr; }
   .materials-grid { grid-template-columns: 1fr; }
   .section { padding: 40px 16px; }
