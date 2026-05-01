@@ -273,6 +273,77 @@ Log.d("ailia", text)</code></pre>
     </div>
   </section>
 
+  <!-- Use the API -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">Minimal examples for encoding and decoding text in your own application.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity (C#)</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter (Dart)</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <div class="platform-panel" data-platform="python">
+        <pre class="code-block"><code>import ailia_tokenizer
+
+tok = ailia_tokenizer.BertTokenizer.from_pretrained("./tokenizer/")
+ids = tok.encode("Hello, world!")
+text = tok.decode(ids)</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="cpp">
+        <pre class="code-block"><code>#include "ailia_tokenizer.h"
+
+struct AILIATokenizer *tok = nullptr;
+ailiaTokenizerCreate(&amp;tok, AILIA_TOKENIZER_TYPE_BERT, AILIA_TOKENIZER_FLAG_NONE);
+ailiaTokenizerOpenVocabFileA(tok, "vocab.txt");
+
+ailiaTokenizerEncode(tok, "Hello, world!");
+unsigned int n; ailiaTokenizerGetTokenCount(tok, &amp;n);
+
+ailiaTokenizerDestroy(tok);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="unity">
+        <pre class="code-block"><code>using ailiaTokenizer;
+
+var tokenizer = new AiliaTokenizerModel();
+tokenizer.Create(AiliaTokenizer.AILIA_TOKENIZER_TYPE_BERT,
+                 AiliaTokenizer.AILIA_TOKENIZER_FLAG_NONE);
+tokenizer.Open(Path.Combine(Application.streamingAssetsPath, "tokenizer/"));
+
+int[] ids = tokenizer.Encode("Hello, world!");
+string text = tokenizer.Decode(ids);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="flutter">
+        <pre class="code-block"><code>import 'package:ailia_tokenizer/ailia_tokenizer.dart' as ailia_tokenizer_dart;
+import 'package:ailia_tokenizer/ailia_tokenizer_model.dart';
+import 'dart:typed_data';
+
+final tokenizer = AiliaTokenizerModel();
+tokenizer.openFile(modelFile: bpePath,
+                   ailia_tokenizer_dart.AILIA_TOKENIZER_TYPE_XLM_ROBERTA);
+
+final Int32List ids = tokenizer.encode('Hello, world!');
+final String text = tokenizer.decode(ids);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="jni">
+        <pre class="code-block"><code>val tokenizer = AiliaTokenizer(AiliaTokenizer.AILIA_TOKENIZER_TYPE_BERT)
+tokenizer.loadFiles(modelPath = tokenizerPath)
+
+val ids = tokenizer.encode("Hello, world!")
+val text = tokenizer.decode(ids)</code></pre>
+      </div>
+
+    </div>
+  </section>
+
   <section class="section">
     <h2 class="section-title">API Reference by Platform</h2>
     <div class="card-grid">

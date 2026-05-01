@@ -287,6 +287,91 @@ for (i in 0 until speech.getTextCount()) {
     </div>
   </section>
 
+  <!-- Use the API -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">Minimal examples for transcribing audio in your own application.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity (C#)</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter (Dart)</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <div class="platform-panel" data-platform="python">
+        <pre class="code-block"><code>import ailia_speech
+
+speech = ailia_speech.Whisper()
+speech.initialize_model(
+    model_path="./models/",
+    model_type=ailia_speech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO,
+)
+text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="cpp">
+        <pre class="code-block"><code>#include "ailia_speech.h"
+
+struct AILIASpeech *speech = nullptr;
+ailiaSpeechCreate(&amp;speech, env_id, AILIA_SPEECH_TASK_TRANSCRIBE,
+                  AILIA_SPEECH_FLAG_NONE, /*memory_mode=*/0, nullptr);
+ailiaSpeechOpenModelFileA(speech, encoder_path, decoder_path,
+                          AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+
+ailiaSpeechPushInputData(speech, audio, channels, samples, sample_rate);
+ailiaSpeechFinalizeInputData(speech);
+ailiaSpeechTranscribe(speech);
+
+unsigned int n; ailiaSpeechGetTextCount(speech, &amp;n);
+ailiaSpeechDestroy(speech);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="unity">
+        <pre class="code-block"><code>using ailiaSpeech;
+
+var speech = new AiliaSpeechModel();
+speech.Open(encoderPath, decoderPath, envId, memoryMode,
+            AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL,
+            AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+            AiliaSpeech.AILIA_SPEECH_FLAG_NONE, "auto");
+
+speech.Transcribe(waveData, frequency, channels, /*isFinal=*/true);
+foreach (var seg in speech.GetResults()) Debug.Log(seg.text);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="flutter">
+        <pre class="code-block"><code>import 'package:ailia_speech/ailia_speech.dart';
+
+final speech = AiliaSpeechModel();
+await speech.open(
+  encoderFile: encoderPath,
+  decoderFile: decoderPath,
+  modelType: AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL,
+);
+final segments = await speech.transcribe(audio, sampleRate);
+for (final s in segments) print(s.text);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="jni">
+        <pre class="code-block"><code>val speech = AiliaSpeech(
+    envId = -1,
+    task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+    flags = AiliaSpeech.AILIA_SPEECH_FLAG_NONE,
+)
+speech.openModel(encoderPath, decoderPath, modelTypeId)
+speech.pushInputData(audio, channels, samples, sampleRate)
+speech.finalizeInputData()
+speech.transcribe()
+
+for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)</code></pre>
+      </div>
+
+    </div>
+  </section>
+
   <section class="section">
     <h2 class="section-title">API Reference by Platform</h2>
     <div class="card-grid">

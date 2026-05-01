@@ -213,6 +213,102 @@ flutter run</code></pre>
     </div>
   </section>
 
+  <!-- Use the API -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">Minimal examples for streaming a chat completion in your own application.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity (C#)</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter (Dart)</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <div class="platform-panel" data-platform="python">
+        <pre class="code-block"><code>import ailia_llm
+
+model = ailia_llm.AiliaLLM()
+model.open("gemma-2-2b-it-Q4_K_M.gguf")
+
+messages = [{"role": "user", "content": "あなたの名前は何ですか？"}]
+for delta in model.generate(messages):
+    print(delta, end="")</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="cpp">
+        <pre class="code-block"><code>#include "ailia_llm.h"
+
+struct AILIALLM *llm = nullptr;
+ailiaLLMCreate(&amp;llm);
+ailiaLLMOpenModelFileA(llm, "gemma-2-2b-it-Q4_K_M.gguf", /*ctx_size=*/0);
+
+AILIALLMChatMessage messages[] = {
+    {"user", "あなたの名前は何ですか？"},
+};
+ailiaLLMSetPrompt(llm, messages, 1);
+
+unsigned int done = 0;
+while (!done) {
+    ailiaLLMGenerate(llm, &amp;done);
+    /* read delta via ailiaLLMGetDeltaText */
+}
+ailiaLLMDestroy(llm);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="unity">
+        <pre class="code-block"><code>using ailiaLLM;
+
+var llm = new AiliaLLMModel();
+llm.Create();
+llm.Open("gemma-2-2b-it-Q4_K_M.gguf");
+
+var messages = new List&lt;AiliaLLMChatMessage&gt; {
+    new AiliaLLMChatMessage("user", "あなたの名前は何ですか？"),
+};
+llm.SetPrompt(messages);
+
+bool done = false;
+while (!done) {
+    llm.Generate(ref done);
+    Debug.Log(llm.GetDeltaText());
+}
+llm.Close();</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="flutter">
+        <pre class="code-block"><code>import 'package:ailia_llm/ailia_llm.dart';
+
+final llm = AiliaLLMModel();
+await llm.open('gemma-2-2b-it-Q4_K_M.gguf');
+
+final messages = [AiliaLLMChatMessage(role: 'user', content: 'あなたの名前は何ですか？')];
+await for (final delta in llm.generate(messages)) {
+  stdout.write(delta);
+}</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="jni">
+        <pre class="code-block"><code>val llm = AiliaLLM()
+llm.openModelFile(modelPath, contextSize)
+llm.setSamplingParams(40, 0.9f, 0.4f, 1234)
+
+llm.setPrompt(arrayOf(
+    AiliaLLMChatMessage("user", "あなたの名前は何ですか？"),
+))
+
+var done = false
+while (!done) {
+    done = llm.generate()
+    Log.d("ailia", llm.getDeltaText())
+}</code></pre>
+      </div>
+
+    </div>
+  </section>
+
   <section class="section">
     <h2 class="section-title">API Reference by Platform</h2>
     <div class="card-grid">

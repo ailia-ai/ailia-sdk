@@ -211,6 +211,7 @@ tflite.close()</code></pre>
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
         <button class="platform-tab" data-platform="c" role="tab">C</button>
         <button class="platform-tab" data-platform="unity" role="tab">Unity (C#)</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
       </div>
 
       <div class="platform-panel" data-platform="python">
@@ -270,6 +271,20 @@ interpreter.SetInputTensorData(0, input);
 interpreter.Predict();
 
 var output = interpreter.GetOutputTensorData&lt;float&gt;(0);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="jni">
+        <pre class="code-block"><code>val tflite = AiliaTFLite()
+tflite.open(modelData, AiliaTFLite.AILIA_TFLITE_ENV_REFERENCE)
+tflite.allocateTensors()
+
+val inputIdx = tflite.getInputTensorIndex(0)
+val outputIdx = tflite.getOutputTensorIndex(0)
+tflite.setTensorData(inputIdx, inputBuffer)
+tflite.predict()
+
+val output = tflite.getTensorData(outputIdx)
+tflite.close()</code></pre>
       </div>
 
     </div>

@@ -234,6 +234,76 @@ tracker.close()</code></pre>
     </div>
   </section>
 
+  <!-- Use the API -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">Minimal examples for adding ByteTrack association on top of your detector in your own application.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity (C#)</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <div class="platform-panel" data-platform="cpp">
+        <pre class="code-block"><code>#include "ailia_tracker.h"
+
+struct AILIATracker *tracker = nullptr;
+AILIATrackerSettings settings = {0.1f, 0.7f, 0.5f, 30, 0.8f};
+ailiaTrackerCreate(&amp;tracker, AILIA_TRACKER_ALGORITHM_BYTE_TRACK, &amp;settings);
+
+for (auto &amp;d : detections) {
+    ailiaTrackerAddTarget(tracker, d.category, d.prob, d.x, d.y, d.w, d.h);
+}
+ailiaTrackerCompute(tracker);
+
+unsigned int n; ailiaTrackerGetObjectCount(tracker, &amp;n);
+ailiaTrackerDestroy(tracker);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="unity">
+        <pre class="code-block"><code>using ailiaTracker;
+
+var tracker = new AiliaTrackerModel();
+tracker.Open(AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
+             scoreThreshold: 0.1f, nmsThreshold: 0.7f,
+             trackThreshold: 0.5f, trackBuffer: 30, matchThreshold: 0.8f);
+
+foreach (var d in detections) {
+    tracker.AddTarget(d.category, d.confidence, d.x, d.y, d.w, d.h);
+}
+tracker.Compute();
+
+for (int i = 0; i &lt; tracker.GetObjectCount(); i++) {
+    var obj = tracker.GetObject(i);
+}</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="jni">
+        <pre class="code-block"><code>val tracker = AiliaTracker(
+    algorithm = AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
+    settings = AiliaTrackerSettings(
+        score_threshold = 0.1f, nms_threshold = 0.7f,
+        track_threshold = 0.5f, track_buffer = 30,
+        match_threshold = 0.8f,
+    ),
+)
+
+for (d in detections) {
+    tracker.addTarget(d.category, d.confidence, d.x, d.y, d.width, d.height)
+}
+tracker.compute()
+
+for (i in 0 until tracker.getObjectCount()) {
+    val o = tracker.getObject(i)
+}
+tracker.close()</code></pre>
+      </div>
+
+    </div>
+  </section>
+
   <section class="section">
     <h2 class="section-title">API Reference by Platform</h2>
     <div class="card-grid">
