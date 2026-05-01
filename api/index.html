@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ailia SDK - Inference Library Documentation</title>
-  <meta name="description" content="ailia SDK - ONNX inference API documentation for Python, C++, Unity, Flutter, JNI, and JavaScript.">
+  <meta name="description" content="ailia SDK - ONNX inference API documentation for Python, C++, Unity, Flutter, and JNI.">
   <link rel="icon" type="image/png" href="../ailia_logo.png">
   <link rel="stylesheet" href="../css/common.css">
   <style>
@@ -57,7 +57,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
         <button class="platform-tab" data-platform="flutter" role="tab">Flutter</button>
         <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
-        <button class="platform-tab" data-platform="js" role="tab">JavaScript</button>
       </div>
 
       <!-- Python -->
@@ -220,38 +219,6 @@ git submodule update</code></pre>
         </div>
       </div>
 
-      <!-- JavaScript -->
-      <div class="platform-panel hidden" data-platform="js">
-        <div class="steps-grid">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h3>Get the JS Files</h3>
-            <p>ailia.js runs ONNX inference in the browser via WebAssembly. Apply for the free trial to download the SDK package, which includes <code>ailia.js</code>, <code>ailia_s.js</code>, <code>ailia_s.wasm</code>, <code>ailia_simd_s.js</code>, and <code>ailia_simd_s.wasm</code>.</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <h3>Use in Your Page</h3>
-            <p>Place the JS / WASM files alongside your HTML and import the module. SIMD is selected automatically when supported by the browser.</p>
-            <pre><code>&lt;script type="module"&gt;
-  import { Ailia } from './ailia.js';
-
-  const ailia = new Ailia();
-  await ailia.initialize();
-  await ailia.openModel('model.onnx.prototxt', 'model.onnx');
-  const output = ailia.run(inputArray);
-&lt;/script&gt;</code></pre>
-            <a href="js/en/tutorial-get_started.html" class="card-link">Browser Tutorial</a>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <h3>Get a License</h3>
-            <p>An evaluation license is downloaded automatically at runtime, so no manual setup is needed to start developing. For commercial use, request a production license.</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -279,7 +246,6 @@ git submodule update</code></pre>
           <li>C# / Unity 2021.3+</li>
           <li>Kotlin / Java (JNI)</li>
           <li>Dart / Flutter 3.19+</li>
-          <li>JavaScript (browser, WebAssembly)</li>
         </ul>
       </div>
       <div class="req-card">
@@ -308,7 +274,7 @@ git submodule update</code></pre>
   <section class="getting-started-section">
     <div class="section">
       <h2 class="section-title">Use the API in Your Project</h2>
-      <p class="section-subtitle">A minimal Python example: load an ONNX model and run inference. See the platform tutorials below for C++, Unity, Flutter, JNI, and JavaScript equivalents.</p>
+      <p class="section-subtitle">A minimal Python example: load an ONNX model and run inference. See the platform tutorials below for C++, Unity, Flutter, and JNI equivalents.</p>
       <pre class="code-block"><code>import ailia
 import numpy as np
 
@@ -377,15 +343,6 @@ print(output[0].shape)</code></pre>
           <li><a href="https://github.com/ailia-ai/ailia-android-studio" target="_blank">Android Studio Sample Project (Java)</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank">Android Studio Sample Project (Kotlin)</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-sdk-jni" target="_blank">Binding</a></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>JavaScript</h3>
-        <ul>
-          <li><a href="js/en/">API (EN)</a></li>
-          <li><a href="js/en/tutorial-get_started.html">Browser Tutorial</a></li>
-          <li><a href="https://medium.com/axinc/ailia-js-%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E4%B8%8A%E3%81%A7%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92%E5%AE%9F%E8%A1%8C%E5%8F%AF%E8%83%BD%E3%81%AB%E3%81%99%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA-bcddf5aed057" target="_blank">Tutorial (JP)</a></li>
         </ul>
       </div>
 
