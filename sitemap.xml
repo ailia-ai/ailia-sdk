@@ -18,20 +18,20 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/"/>
   </url>
   <url>
-    <loc>https://docs.ailia.ai/api/</loc>
+    <loc>https://docs.ailia.ai/sdk/</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/api/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/api/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/sdk/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/sdk/"/>
   </url>
   <url>
-    <loc>https://docs.ailia.ai/en/api/</loc>
+    <loc>https://docs.ailia.ai/en/sdk/</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/api/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/api/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/sdk/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/sdk/"/>
   </url>
   <url>
     <loc>https://docs.ailia.ai/tflite/</loc>
