@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUDA Toolkit / cuDNN Installation Guide - ailia SDK</title>
+  <meta name="description" content="Step-by-step guide to install CUDA Toolkit and cuDNN on Windows and Linux for GPU-accelerated inference with ailia SDK.">
+  <link rel="canonical" href="https://docs.ailia.ai/setup/cuda/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/setup/cuda/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/ja/setup/cuda/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/setup/cuda/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/setup/cuda/">
+  <meta property="og:title" content="CUDA Toolkit / cuDNN Installation Guide - ailia SDK">
+  <meta property="og:description" content="Step-by-step guide to install CUDA Toolkit and cuDNN on Windows and Linux for GPU-accelerated inference with ailia SDK.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CUDA Toolkit / cuDNN Installation Guide - ailia SDK">
+  <meta name="twitter:description" content="Step-by-step guide to install CUDA Toolkit and cuDNN on Windows and Linux for GPU-accelerated inference with ailia SDK.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../ailia_logo.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../api/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../ja/setup/cuda/" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>CUDA Toolkit / cuDNN Installation Guide</h1>
+    <p>How to install CUDA Toolkit and cuDNN on Windows and Linux to enable GPU-accelerated inference with ailia SDK.</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>Overview</h2>
+    <p>CUDA Toolkit is NVIDIA's platform for general-purpose GPU computing (GPGPU). cuDNN is NVIDIA's library for deep neural networks. By installing these, ailia SDK can perform faster inference using NVIDIA GPUs.</p>
+
+    <h2>Version Compatibility</h2>
+    <p>The cuDNN version requires a specific minimum version of CUDA Toolkit and ailia SDK.</p>
+
+    <table class="version-table">
+      <thead>
+        <tr>
+          <th>cuDNN Version</th>
+          <th>Required CUDA Toolkit</th>
+          <th>Required ailia SDK</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>cuDNN 8.0.2 - 8.2.4</td>
+          <td>CUDA Toolkit 11.0 or later</td>
+          <td>ailia SDK 1.2.4 and later</td>
+        </tr>
+        <tr>
+          <td>cuDNN 8.3.0 - 8.7.0</td>
+          <td>CUDA Toolkit 11.5 or later</td>
+          <td>ailia SDK 1.2.11 and later</td>
+        </tr>
+        <tr>
+          <td>cuDNN 8.8.0 - 8.9.7</td>
+          <td>CUDA Toolkit 12.0 or later</td>
+          <td>ailia SDK 1.2.15 and later</td>
+        </tr>
+        <tr>
+          <td>cuDNN 9.0.0 - 9.x</td>
+          <td>CUDA Toolkit 12.0 or later</td>
+          <td>ailia SDK 1.4.0 and later</td>
+        </tr>
+        <tr>
+          <td>cuDNN 10.0.0 -</td>
+          <td>CUDA Toolkit 12.0 or later</td>
+          <td>ailia SDK 1.7.0 and later (planned)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ==================== Windows ==================== -->
+
+    <h2>Windows</h2>
+
+    <h3>1. Install CUDA Toolkit</h3>
+
+    <p>Go to the <a href="https://developer.nvidia.com/cuda-toolkit" target="_blank">CUDA Toolkit download page</a> and click "Download Now".</p>
+    <p>Select your operating system, architecture, version, and installer type:</p>
+    <ul>
+      <li>Operating System: <strong>Windows</strong></li>
+      <li>Architecture: <strong>x86_64</strong></li>
+      <li>Version: Your Windows version (e.g., 10, 11)</li>
+      <li>Installer Type: <strong>exe (local)</strong></li>
+    </ul>
+    <p>Click the "Download" button under "Base Installer" to download.</p>
+    <img src="images/image_001.png" alt="CUDA Toolkit download page - selecting OS, architecture, version, and installer type">
+
+    <p>Run the downloaded installer. The default extraction directory is fine.</p>
+    <img src="images/image_002.png" alt="CUDA setup package - extraction path dialog">
+
+    <p>Review the NVIDIA Software License Agreement and click "Agree and Continue".</p>
+    <img src="images/image_003.png" alt="NVIDIA installer - license agreement screen">
+
+    <p>Select "Custom (Advanced)".</p>
+    <img src="images/image_004.png" alt="Installation options - select Custom (Advanced)">
+
+    <div class="note">
+      <strong>Note:</strong> Some versions of CUDA Toolkit may fail to install with the "Express" option. In that case, use the Custom install and select only the components listed below. See the <a href="https://forums.developer.nvidia.com/t/nvidia-installer-failed-cuda-12-3-0/270307" target="_blank">NVIDIA forum post</a> for details.
+    </div>
+
+    <p>In the custom installation options, enable the following components:</p>
+    <ul>
+      <li>CUDA &gt; <strong>Runtime</strong></li>
+      <li>CUDA &gt; <strong>Documentation</strong></li>
+      <li>CUDA &gt; <strong>Development</strong></li>
+      <li><strong>Driver components</strong></li>
+    </ul>
+    <img src="images/image_005.png" alt="Custom install options - selecting CUDA components">
+    <img src="images/image_006.png" alt="Custom install options - selecting Driver components">
+
+    <p>When installation finishes, you will see a list of installed components.</p>
+    <img src="images/image_007.png" alt="NVIDIA installer - installation complete screen">
+
+    <h3>2. Install cuDNN</h3>
+
+    <p>Go to the <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN page</a> and click "Download cuDNN Library".</p>
+    <img src="images/image_008.png" alt="NVIDIA cuDNN page - click Download cuDNN Library">
+
+    <p>An NVIDIA Developer account is required to download cuDNN. Sign up if you don't have one.</p>
+    <img src="images/image_009.png" alt="NVIDIA Developer account login / sign-up page">
+
+    <p>After logging in, select "Local Installer for Windows (Zip)" on the download page.</p>
+    <img src="images/image_010.png" alt="cuDNN download page - select Local Installer for Windows (Zip)">
+
+    <p>Extract the downloaded zip file. Move the extracted folder (e.g., <code>cudnn-windows-x86_64-8.9.6.50_cuda12-archive</code>) to a location of your choice (e.g., <code>C:\nvidia\</code>).</p>
+    <img src="images/image_011.png" alt="Extracted cuDNN folder contents - bin, include, lib, LICENSE">
+
+    <h3>3. Set Environment Variables</h3>
+    <p>Add the cuDNN <code>bin</code> folder to your system PATH so that the DLLs can be found at runtime.</p>
+
+    <p>Open Windows "Settings" &rarr; "System" &rarr; "About", then click "Advanced system settings" to open "System Properties". Click the "Environment Variables" button.</p>
+    <img src="images/image_012.png" alt="Windows System Properties - Environment Variables button">
+
+    <p>Select the "Path" variable under "User variables" and click "Edit". Click "New" and add the path to the cuDNN <code>bin</code> folder.</p>
+    <pre><code>C:\nvidia\cudnn-windows-x86_64-8.9.6.50_cuda12-archive\bin</code></pre>
+    <img src="images/image_013.png" alt="Edit environment variable - adding cuDNN bin folder to PATH">
+
+    <h3>4. Install zlib</h3>
+    <p>cuDNN 8.3 and later on Windows requires <code>zlibwapi.dll</code>.</p>
+
+    <p>Download <a href="https://www.winimage.com/zLibDll/zlib123dllx64.zip" target="_blank">zlib123dllx64.zip</a> from the <a href="https://www.winimage.com/zLibDll/index.html" target="_blank">ZLIB DLL home page</a> and extract it.</p>
+    <img src="images/image_014.png" alt="zlib download page">
+
+    <p>Copy <code>zlibwapi.dll</code> from the extracted files to a directory on your PATH. The simplest option is to copy it into the cuDNN <code>bin</code> folder.</p>
+    <pre><code>copy dll_x64\zlibwapi.dll C:\nvidia\cudnn-windows-x86_64-8.9.6.50_cuda12-archive\bin\</code></pre>
+
+    <!-- ==================== Linux ==================== -->
+
+    <h2>Linux (Ubuntu)</h2>
+
+    <h3>1. Add the NVIDIA CUDA Repository</h3>
+
+    <p>First, add the NVIDIA CUDA apt repository. Go to the <a href="https://developer.nvidia.com/cuda-toolkit" target="_blank">CUDA Toolkit download page</a>, select Linux / x86_64 / Ubuntu / your version / deb (network), and follow the displayed commands. The typical steps are:</p>
+    <pre><code class="language-bash">wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
+sudo apt update</code></pre>
+
+    <div class="note">
+      <strong>Note:</strong> The URL for the keyring package changes depending on your Ubuntu version. Always use the exact commands shown on the NVIDIA download page for your environment.
+    </div>
+
+    <h3>2. Install CUDA Toolkit and cuDNN</h3>
+
+    <p>Once the repository is added, install both CUDA Toolkit and cuDNN with apt:</p>
+    <pre><code class="language-bash">sudo apt install cuda-toolkit libcudnn9-cuda-12</code></pre>
+
+    <div class="note">
+      <strong>Note:</strong> The cuDNN package name depends on the version. For cuDNN v8, use <code>libcudnn8</code>. For cuDNN v9 with CUDA 12.x, use <code>libcudnn9-cuda-12</code>. Check available packages with <code>apt search libcudnn</code>.
+    </div>
+
+    <h3>3. Set Environment Variables</h3>
+
+    <p>Add the CUDA paths to your shell profile (<code>~/.bashrc</code> or <code>~/.zshrc</code>):</p>
+    <pre><code class="language-bash">export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</code></pre>
+
+    <p>Reload your shell and verify the installation:</p>
+    <pre><code class="language-bash">source ~/.bashrc
+nvcc --version</code></pre>
+
+    <!-- ==================== Jetson ==================== -->
+
+    <h2>NVIDIA Jetson</h2>
+
+    <p>On NVIDIA Jetson devices (Jetson Orin Nano, Jetson AGX Orin, etc.), CUDA Toolkit and cuDNN are pre-installed as part of <a href="https://developer.nvidia.com/embedded/jetpack" target="_blank">NVIDIA JetPack SDK</a>. No additional installation is required.</p>
+
+    <p>You can verify the pre-installed versions with:</p>
+    <pre><code class="language-bash">nvcc --version
+dpkg -l | grep cudnn</code></pre>
+
+    <div class="note">
+      <strong>Note:</strong> Make sure to use a version of ailia SDK that is compatible with the cuDNN version included in your JetPack release. See the version compatibility table above.
+    </div>
+
+    <!-- ==================== Verify ==================== -->
+
+    <h2>Verify the Installation</h2>
+
+    <h3>Python API</h3>
+    <p>Use an ailia-models sample to verify that CUDA is detected.</p>
+    <pre><code class="language-bash">cd ailia-models/image_classification/resnet50
+python3 resnet50.py --env_list</code></pre>
+
+    <p>If CUDA appears in the environment list, the setup is successful.</p>
+    <pre><code>env[2]=Environment(id=2, type='GPU',
+name='cuDNN-NVIDIA GeForce RTX 3080 (8.6, FP32)',
+backend='CUDA', props=[])</code></pre>
+
+    <h3>Unity Plugin</h3>
+    <p>If "CUDA" appears in the GPU name, the setup is successful.</p>
+
+    <div class="note">
+      <strong>Tip:</strong> By default, ailia SDK automatically selects the fastest available environment on your platform. To use a specific environment, pass the <code>env_id</code> explicitly.
+    </div>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
