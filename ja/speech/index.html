@@ -81,14 +81,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">1</div>
             <h3>インストール</h3>
-            <p>Install the ailia Speech Python package and the <code>librosa</code> audio loader used by the sample.</p>
+            <p>ailia Speech と、サンプルで使う音声読み込みライブラリ <code>librosa</code> をインストールします。</p>
             <pre><code>pip3 install ailia_speech librosa</code></pre>
             <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="card-link">PyPI で見る</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
-            <p>Download <code>example_ailia_speech.py</code> from <code>ailia-models</code> together with a sample WAV file (saved as <code>ax.wav</code> to match what the script expects), then run it. Whisper weights are downloaded automatically into <code>./models/</code>.</p>
+            <p><code>ailia-models</code> から <code>example_ailia_speech.py</code> と、サンプル WAV ファイル (スクリプトが想定する <code>ax.wav</code> として保存) をダウンロードして実行します。Whisper の重みは <code>./models/</code> に自動ダウンロードされます。</p>
             <pre><code>wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/example_ailia_speech.py
 wget -O ax.wav https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/demo.wav
 python3 example_ailia_speech.py</code></pre>
@@ -103,13 +103,13 @@ python3 example_ailia_speech.py</code></pre>
           <div class="step">
             <div class="step-number">1</div>
             <h3>評価版を入手</h3>
-            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding (<code>ailia_speech.h</code>), runtime libraries, the license file, and a runnable sample.</p>
+            <p>無料トライアルに申し込むと、C++ バインディング (<code>ailia_speech.h</code>)、ランタイムライブラリ、ライセンスファイル、実行可能なサンプルを含む評価版パッケージを入手できます。</p>
             <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH?lang=en" target="_blank" class="card-link">無料トライアルを申し込む</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>ビルドして実行</h3>
-            <p>Build the bundled sample and pass an audio file plus the model size and runtime options. Whisper Small is included; larger models are downloadable.</p>
+            <p>同梱サンプルをビルドし、音声ファイル・モデルサイズ・実行時オプションを指定して実行します。Whisper Small は同梱されており、より大きなモデルは別途ダウンロードできます。</p>
             <pre><code># macOS
 clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
   libailia.dylib libailia_audio.dylib \
@@ -128,14 +128,14 @@ clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
           <div class="step">
             <div class="step-number">1</div>
             <h3>UPM でインストール</h3>
-            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
             <pre><code>https://github.com/ailia-ai/ailia-speech-unity.git</code></pre>
             <a href="../../speech/unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
-            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), and play the SpeechToText scene with a microphone or an AudioClip attached.</p>
+            <p><code>ailia-models-unity</code> をクローンして Unity Editor (2021.3.10f1 以降) で開き、SpeechToText シーンにマイクまたは AudioClip を割り当てて Play してください。</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/SpeechToText/AiliaSpeechToTextSample.cs" target="_blank" class="card-link">AiliaSpeechToTextSample.cs</a>
           </div>
@@ -148,7 +148,7 @@ clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
           <div class="step">
             <div class="step-number">1</div>
             <h3>pubspec に追加</h3>
-            <p>Add ailia Speech as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
+            <p>Flutter プロジェクトの <code>pubspec.yaml</code> に ailia Speech を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
             <pre><code>dependencies:
   ailia_speech:
     git:
@@ -159,7 +159,7 @@ clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
-            <p>Clone the Flutter sample repository for a ready-to-run app demonstrating Whisper transcription.</p>
+            <p>Whisper による文字起こしのサンプルアプリは Flutter サンプルリポジトリにあります。クローンしてそのまま実行できます。</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
 cd ailia-models-flutter
 flutter pub get
@@ -175,14 +175,14 @@ flutter run</code></pre>
           <div class="step">
             <div class="step-number">1</div>
             <h3>バインディングをクローン</h3>
-            <p>For your own project, clone the JNI binding repository and add it to your Android Studio project.</p>
+            <p>自分のプロジェクトに組み込む場合は、JNI バインディングリポジトリをクローンして Android Studio プロジェクトに追加します。</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-speech-jni.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-speech-jni" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
-            <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the Speech sample on a connected device — it bundles microphone capture plus optional Silero VAD endpointing.</p>
+            <p><code>ailia-models-kotlin</code> をサブモジュール込みでクローンして Android Studio で開き、接続デバイス上で Speech サンプルを実行します。マイク収録と任意の Silero VAD 端点検出が含まれています。</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
 git submodule update --init --recursive</code></pre>
@@ -203,23 +203,23 @@ git submodule update --init --recursive</code></pre>
         <h3>対応 OS</h3>
         <ul>
           <li>Windows 10 / 11</li>
-          <li>macOS 11 or later</li>
-          <li>Linux (Ubuntu 20.04+)</li>
-          <li>iOS 13+ / Android 7+</li>
+          <li>macOS 11 以降</li>
+          <li>Linux (Ubuntu 20.04 以降)</li>
+          <li>iOS 13 / Android 7 以降</li>
         </ul>
       </div>
       <div class="req-card">
         <h3>言語とコンパイラ</h3>
         <ul>
-          <li>Python 3.6+, Dart / Flutter 3.19+</li>
-          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang)</li>
-          <li>C# / Unity 2021.3.10f1+</li>
+          <li>Python 3.6 以降 / Dart・Flutter 3.19 以降</li>
+          <li>C++17 (VS 2019 以降 / Xcode 14.2 以降 / clang)</li>
+          <li>C# / Unity 2021.3.10f1 以降</li>
         </ul>
       </div>
       <div class="req-card">
         <h3>対応モデル</h3>
         <ul>
-          <li>Whisper Tiny / Base / Small (bundled)</li>
+          <li>Whisper Tiny / Base / Small (同梱)</li>
           <li>Whisper Medium / Large / Large V3</li>
           <li>Whisper Large V3 Turbo</li>
           <li>SenseVoice (small)</li>
@@ -229,8 +229,8 @@ git submodule update --init --recursive</code></pre>
         <h3>音声と言語</h3>
         <ul>
           <li>Mono float32 PCM (auto-resampled)</li>
-          <li>99 languages (Whisper)</li>
-          <li>5 languages (SenseVoice: zh / en / yue / ja / ko)</li>
+          <li>99 言語に対応 (Whisper)</li>
+          <li>5 言語 (SenseVoice: zh / en / yue / ja / ko)</li>
           <li>Batch, Live (real-time), and streaming</li>
         </ul>
       </div>
@@ -244,38 +244,38 @@ git submodule update --init --recursive</code></pre>
       <p class="section-subtitle">基本の文字起こしを超える、ailia Speech が標準で備える機能です。</p>
       <div class="req-grid">
         <div class="req-card">
-          <h3>Real-Time &amp; Streaming</h3>
+          <h3>リアルタイム / ストリーミング</h3>
           <ul>
-            <li>Live mode for instant previews</li>
-            <li>VAD silence detection (Silero AI)</li>
-            <li>Volume-based silent threshold</li>
-            <li>Intermediate callback / interruption</li>
+            <li>即時プレビュー用の Live モード</li>
+            <li>VAD による無音検出 (Silero AI)</li>
+            <li>音量しきい値による無音判定</li>
+            <li>中間コールバック / 割り込み制御</li>
           </ul>
         </div>
         <div class="req-card">
-          <h3>Translation &amp; Multilingual</h3>
+          <h3>翻訳と多言語対応</h3>
           <ul>
-            <li>Transcribe and Translate (to English) modes</li>
-            <li>Auto language detection per segment</li>
-            <li>Fixed-language mode via SetLanguage</li>
+            <li>Transcribe / Translate (英訳) モード</li>
+            <li>セグメント単位の自動言語検出</li>
+            <li>SetLanguage による言語固定モード</li>
           </ul>
         </div>
         <div class="req-card">
-          <h3>Accuracy Boosters</h3>
+          <h3>精度向上機能</h3>
           <ul>
-            <li>Prompt context for rare names / terms</li>
-            <li>Character / vocabulary constraints</li>
-            <li>Autocorrection dictionary (CSV)</li>
-            <li>Post-processing (T5 medical, FuguMT)</li>
+            <li>固有名詞・専門用語のための Prompt コンテキスト</li>
+            <li>文字 / 語彙制約</li>
+            <li>自動補正辞書 (CSV)</li>
+            <li>後処理モデル (T5 medical / FuguMT)</li>
           </ul>
         </div>
         <div class="req-card">
-          <h3>Output &amp; Memory</h3>
+          <h3>出力とメモリ</h3>
           <ul>
-            <li>Confidence score per segment</li>
-            <li>Begin / end timestamps</li>
-            <li>Speaker Diarization (PyannoteAudio)</li>
-            <li>Virtual Memory Mode (~55% RAM saving)</li>
+            <li>セグメントごとの信頼度スコア</li>
+            <li>開始 / 終了タイムスタンプ</li>
+            <li>話者ダイアリゼーション (PyannoteAudio)</li>
+            <li>Virtual Memory モード (RAM 約 55% 削減)</li>
           </ul>
         </div>
       </div>
@@ -382,14 +382,14 @@ for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)<
       <div class="card">
         <h3>C++</h3>
         <ul>
-          <li><a href="../../speech/cpp/en/">API (EN)</a> <a href="../../speech/cpp/jp/" class="sub-link">(JP)</a></li>
+          <li><a href="../../speech/cpp/jp/">API</a></li>
         </ul>
       </div>
 
       <div class="card">
         <h3>Unity</h3>
         <ul>
-          <li><a href="../../speech/unity/en/">API (EN)</a> <a href="../../speech/unity/jp/" class="sub-link">(JP)</a></li>
+          <li><a href="../../speech/unity/jp/">API</a></li>
         </ul>
       </div>
 
@@ -411,62 +411,62 @@ for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)<
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary>Which speech recognition models are supported?</summary>
-          <p>ailia Speech ships with Whisper variants (Tiny, Base, Small, Medium, Large, and Large-V3-Turbo) and SenseVoice. Pick a model with the <code>AILIA_SPEECH_MODEL_TYPE_*</code> constants when calling <code>initialize_model()</code>.</p>
+          <summary>対応している音声認識モデルは?</summary>
+          <p>ailia Speech には Whisper の各サイズ (Tiny / Base / Small / Medium / Large / Large-V3-Turbo) と SenseVoice が同梱されています。<code>initialize_model()</code> を呼び出す際に <code>AILIA_SPEECH_MODEL_TYPE_*</code> 定数で選択してください。</p>
         </details>
 
         <details class="faq-item">
-          <summary>Does it support real-time / streaming transcription?</summary>
-          <p>Yes. Use <code>transcribe_step()</code> together with <code>set_silent_threshold()</code> to feed audio in chunks and emit partial transcripts as they become available, instead of waiting for the full file with <code>transcribe()</code>.</p>
-          <p>Enable <strong>Live mode</strong> (<code>AILIA_SPEECH_FLAG_LIVE</code>) to also preview tentative results <em>before</em> the next silence boundary is detected — useful for low-latency UX.</p>
+          <summary>リアルタイム / ストリーミング文字起こしに対応していますか?</summary>
+          <p>対応しています。<code>transcribe()</code> でファイル全体を待たずに、<code>transcribe_step()</code> と <code>set_silent_threshold()</code> を組み合わせると音声をチャンクで送り、得られた部分文字起こしを順次受け取れます。</p>
+          <p><strong>Live モード</strong> (<code>AILIA_SPEECH_FLAG_LIVE</code>) を有効にすると、次の無音区間が検出される<em>前に</em>暫定結果をプレビューできます。低レイテンシな UX に有効です。</p>
         </details>
 
         <details class="faq-item">
-          <summary>How does Translate mode work?</summary>
-          <p>Pass <code>AILIA_SPEECH_TASK_TRANSLATE</code> instead of <code>AILIA_SPEECH_TASK_TRANSCRIBE</code> to transcribe non-English audio and emit the English translation in one pass. Note: Translate mode is not supported on Whisper Large V3 Turbo or SenseVoice.</p>
-          <p>For the reverse direction (English → Japanese), chain Whisper Translate with the FuguMT post-processing model.</p>
+          <summary>Translate モードはどう動作しますか?</summary>
+          <p><code>AILIA_SPEECH_TASK_TRANSCRIBE</code> の代わりに <code>AILIA_SPEECH_TASK_TRANSLATE</code> を渡すと、英語以外の音声を一度に英訳しながら文字起こしできます。なお、Translate モードは Whisper Large V3 Turbo と SenseVoice では使用できません。</p>
+          <p>逆方向 (英語 → 日本語) は Whisper Translate に FuguMT 後処理モデルをつないでください。</p>
         </details>
 
         <details class="faq-item">
-          <summary>How do I improve accuracy on rare names or domain-specific terms?</summary>
-          <p>Three complementary tools:</p>
-          <p><strong>Prompt</strong> — pass a short list of expected terms (e.g. <code>"hardware software"</code>) to bias decoding.</p>
-          <p><strong>Constraints</strong> — restrict decoding to a character set or vocabulary (e.g. <code>"command1,command2"</code>) for voice-command UIs.</p>
-          <p><strong>Autocorrection dictionary</strong> — load a CSV of <code>phonetic,correct</code> substitutions via the <code>OpenDictionary</code> API.</p>
+          <summary>固有名詞や専門用語の認識精度を上げるには?</summary>
+          <p>3 つの方法を組み合わせられます:</p>
+          <p><strong>Prompt</strong> — 想定される単語の短いリスト (例: <code>"hardware software"</code>) を渡してデコードをバイアスします。</p>
+          <p><strong>Constraints</strong> — 音声コマンド UI 向けに、文字集合や語彙 (例: <code>"command1,command2"</code>) でデコードを制限します。</p>
+          <p><strong>自動補正辞書</strong> — <code>OpenDictionary</code> API で <code>phonetic,correct</code> 置換の CSV を読み込みます。</p>
         </details>
 
         <details class="faq-item">
-          <summary>How do I enable VAD for accurate silence detection?</summary>
-          <p>Use <code>AILIA_SPEECH_VAD_TYPE_SILERO</code> together with the <code>OpenVadFile</code> API. AI-based VAD avoids the "Thank you for your attention" hallucinations that volume-based detection can trigger on near-silent audio.</p>
+          <summary>高精度な無音検出に VAD を使うには?</summary>
+          <p><code>AILIA_SPEECH_VAD_TYPE_SILERO</code> と <code>OpenVadFile</code> API を組み合わせて使います。AI ベースの VAD は、ほぼ無音の音声で音量検出が "Thank you for your attention" のような誤検出を起こす問題を回避できます。</p>
         </details>
 
         <details class="faq-item">
-          <summary>What input audio format is required?</summary>
-          <p>Mono float32 PCM. The library accepts arbitrary sample rates (commonly produced by <code>librosa.load(..., mono=True)</code>) and resamples internally. Stereo and integer-PCM inputs should be converted before being passed in.</p>
+          <summary>入力音声のフォーマットは何ですか?</summary>
+          <p>モノラル float32 PCM です。任意のサンプリングレートに対応しており (<code>librosa.load(..., mono=True)</code> の出力など)、内部でリサンプリングされます。ステレオや整数 PCM は事前に変換してください。</p>
         </details>
 
         <details class="faq-item">
-          <summary>Where do I place the license file when using C++?</summary>
-          <p>The C++ binding requires <code>ailia.lic</code> next to the runtime libraries:</p>
-          <p><strong>Windows:</strong> same folder as <code>ailia.dll</code> (or in <code>cpp/</code> for the sample).<br/>
+          <summary>C++ ではライセンスファイルをどこに置きますか?</summary>
+          <p>C++ バインディングはランタイムライブラリと同じ場所に <code>ailia.lic</code> を配置する必要があります:</p>
+          <p><strong>Windows:</strong> <code>ailia.dll</code> と同じフォルダ (サンプルでは <code>cpp/</code> 配下)。<br/>
           <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
           <strong>Linux:</strong> <code>~/.shalo/</code></p>
-          <p>Python, Unity, Flutter, and JNI bindings auto-download the license on first run, so this only applies to the native C++ binding.</p>
+          <p>Python / Unity / Flutter / JNI バインディングは初回実行時にライセンスを自動ダウンロードするため、この手順は C++ バインディングに限ります。</p>
         </details>
 
         <details class="faq-item">
-          <summary>How do I enable GPU acceleration?</summary>
-          <p>On macOS / iOS, Metal is used automatically. On Windows / Linux, install <a href="https://developer.nvidia.com/cuda-downloads" target="_blank">CUDA Toolkit</a> and <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN</a>, then add cuDNN to your <code>PATH</code>. Pass an environment ID corresponding to the GPU back-end (or use <code>auto</code> in the sample CLI).</p>
+          <summary>GPU 推論を有効にするには?</summary>
+          <p>macOS / iOS では Metal が自動的に使用されます。Windows / Linux では <a href="https://developer.nvidia.com/cuda-downloads" target="_blank">CUDA Toolkit</a> と <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN</a> をインストールし、cuDNN を <code>PATH</code> に追加してください。GPU バックエンドの環境 ID を指定するか、サンプル CLI では <code>auto</code> を使います。</p>
         </details>
 
         <details class="faq-item">
-          <summary>Can I run it offline?</summary>
-          <p>Yes, after the first run. Whisper / SenseVoice weights are downloaded into the directory passed to <code>initialize_model(model_path=...)</code> on first use, and the evaluation license is fetched automatically. Subsequent runs work without an internet connection.</p>
+          <summary>オフラインで動作しますか?</summary>
+          <p>初回実行後はオフラインで動作します。Whisper / SenseVoice の重みは初回に <code>initialize_model(model_path=...)</code> へ指定したディレクトリにダウンロードされ、評価ライセンスも自動取得されます。以降はネット接続不要です。</p>
         </details>
 
         <details class="faq-item">
-          <summary>How does licensing work?</summary>
-          <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+          <summary>ライセンスはどうなっていますか?</summary>
+          <p>評価ライセンスは実行時に自動でダウンロードされ、開発・評価用途に利用できます。商用配布には製品ライセンスを申請してください。詳細は <a href="https://ailia.ai/license/en/" target="_blank">ailia ライセンス規約</a> を参照してください。</p>
         </details>
 
       </div>
@@ -509,7 +509,7 @@ for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)<
   </section>
 
   <footer>
-    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p><a href="https://ailia.ai/" target="_blank">アックス株式会社</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
 

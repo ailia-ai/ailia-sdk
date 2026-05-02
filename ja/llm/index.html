@@ -80,14 +80,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">1</div>
             <h3>インストール</h3>
-            <p>Install the ailia LLM Python package from PyPI.</p>
+            <p>ailia LLM の Python パッケージを PyPI からインストールします。</p>
             <pre><code>pip3 install ailia_llm</code></pre>
             <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">PyPI で見る</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
-            <p>Download <code>example_ailia_llm.py</code> from <code>ailia-models</code> and run it. The script downloads the Gemma 3 4B GGUF file on first run and streams a chat completion. For a multimodal (vision) variant, fetch <code>example_ailia_llm_mtmd.py</code> from the same folder instead.</p>
+            <p><code>ailia-models</code> から <code>example_ailia_llm.py</code> をダウンロードして実行します。初回実行時に Gemma 3 4B の GGUF ファイルをダウンロードし、チャット応答をストリーミング生成します。マルチモーダル (画像対応) 版を試すには同じフォルダの <code>example_ailia_llm_mtmd.py</code> を取得してください。</p>
             <pre><code>wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/large_language_model/gemma3/example_ailia_llm.py
 python3 example_ailia_llm.py</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma3/example_ailia_llm.py" target="_blank" class="card-link">example_ailia_llm.py</a>
@@ -102,13 +102,13 @@ python3 example_ailia_llm.py</code></pre>
           <div class="step">
             <div class="step-number">1</div>
             <h3>評価版を入手</h3>
-            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding (<code>ailia_llm.h</code>), the runtime library (<code>ailia_llm</code>), and a runnable sample.</p>
+            <p>無料トライアルに申し込むと、C++ バインディング (<code>ailia_llm.h</code>)、ランタイムライブラリ (<code>ailia_llm</code>)、実行可能サンプルを含む評価版パッケージを入手できます。</p>
             <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM?lang=en" target="_blank" class="card-link">無料トライアルを申し込む</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>モデルをダウンロードして実行</h3>
-            <p>Place a GGUF file (e.g. Gemma 2-2B from Hugging Face) under <code>models/</code>, then build and run the sample.</p>
+            <p>GGUF ファイル (例: Hugging Face の Gemma 2-2B) を <code>models/</code> に配置し、サンプルをビルドして実行します。</p>
             <pre><code># macOS
 clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
   libailia_llm.dylib -Wl,-rpath,./ -std=c++17
@@ -125,14 +125,14 @@ clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
           <div class="step">
             <div class="step-number">1</div>
             <h3>UPM でインストール</h3>
-            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
             <pre><code>https://github.com/ailia-ai/ailia-llm-unity.git</code></pre>
             <a href="../../llm/unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
-            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), drop a GGUF file under <code>StreamingAssets/</code>, and play the LargeLanguageModel scene to stream chat tokens.</p>
+            <p><code>ailia-models-unity</code> をクローンして Unity Editor (2021.3.10f1 以降) で開き、GGUF ファイルを <code>StreamingAssets/</code> に配置して LargeLanguageModel シーンを Play すると、チャットのトークンがストリーミング表示されます。</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/LargeLanguageModel/AiliaLargeLanguageModelSample.cs" target="_blank" class="card-link">AiliaLargeLanguageModelSample.cs</a>
           </div>
@@ -145,7 +145,7 @@ clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
           <div class="step">
             <div class="step-number">1</div>
             <h3>pubspec に追加</h3>
-            <p>Add ailia LLM as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
+            <p>Flutter プロジェクトの <code>pubspec.yaml</code> に ailia LLM を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
             <pre><code>dependencies:
   ailia_llm:
     git:
@@ -156,7 +156,7 @@ clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
-            <p>Clone the Flutter sample repository for a ready-to-run chat app.</p>
+            <p>そのまま動くチャットアプリは Flutter サンプルリポジトリにあります。クローンしてご利用ください。</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
 cd ailia-models-flutter
 flutter pub get
@@ -178,35 +178,35 @@ flutter run</code></pre>
         <h3>対応 OS</h3>
         <ul>
           <li>Windows 10 / 11</li>
-          <li>macOS 11 or later</li>
-          <li>Linux (Ubuntu 20.04+)</li>
-          <li>iOS 13+ / Android 7+</li>
+          <li>macOS 11 以降</li>
+          <li>Linux (Ubuntu 20.04 以降)</li>
+          <li>iOS 13 / Android 7 以降</li>
         </ul>
       </div>
       <div class="req-card">
         <h3>言語とコンパイラ</h3>
         <ul>
-          <li>Python 3.6+, Dart / Flutter 3.19+</li>
-          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang)</li>
-          <li>C# / Unity 2021.3.10f1+</li>
-          <li>GPU: Metal (iOS / macOS), Vulkan (Windows)</li>
+          <li>Python 3.6 以降 / Dart・Flutter 3.19 以降</li>
+          <li>C++17 (VS 2019 以降 / Xcode 14.2 以降 / clang)</li>
+          <li>C# / Unity 2021.3.10f1 以降</li>
+          <li>GPU: Metal (iOS / macOS) / Vulkan (Windows)</li>
         </ul>
       </div>
       <div class="req-card">
         <h3>モデル形式</h3>
         <ul>
-          <li>GGUF (llama.cpp compatible)</li>
+          <li>GGUF (llama.cpp 互換)</li>
           <li>Llama / Gemma / Mistral / Qwen</li>
-          <li>Phi / DeepSeek and more</li>
-          <li>Q4 / Q5 / Q8 quantization</li>
+          <li>Phi / DeepSeek ほか</li>
+          <li>Q4 / Q5 / Q8 量子化</li>
         </ul>
       </div>
       <div class="req-card">
         <h3>メモリ目安</h3>
         <ul>
-          <li>2B Q4: ~2 GB RAM</li>
-          <li>7B Q4: ~5 GB RAM</li>
-          <li>13B Q4: ~9 GB RAM</li>
+          <li>2B Q4: 約 2 GB RAM</li>
+          <li>7B Q4: 約 5 GB RAM</li>
+          <li>13B Q4: 約 9 GB RAM</li>
           <li>Streaming token-by-token output</li>
         </ul>
       </div>
@@ -324,14 +324,14 @@ while (!done) {
       <div class="card">
         <h3>C++</h3>
         <ul>
-          <li><a href="../../llm/cpp/en/">API (EN)</a> <a href="../../llm/cpp/jp/" class="sub-link">(JP)</a></li>
+          <li><a href="../../llm/cpp/jp/">API</a></li>
         </ul>
       </div>
 
       <div class="card">
         <h3>Unity</h3>
         <ul>
-          <li><a href="../../llm/unity/en/">API (EN)</a> <a href="../../llm/unity/jp/" class="sub-link">(JP)</a></li>
+          <li><a href="../../llm/unity/jp/">API</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-llm-unity" target="_blank">Binding</a></li>
         </ul>
       </div>
@@ -355,42 +355,42 @@ while (!done) {
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary>What model formats are supported?</summary>
-          <p>ailia LLM loads <strong>GGUF</strong> files, the format used by llama.cpp. You can convert Hugging Face checkpoints to GGUF with the <code>convert_hf_to_gguf.py</code> script bundled with llama.cpp, or download pre-converted GGUF weights from Hugging Face.</p>
+          <summary>対応しているモデル形式は?</summary>
+          <p>ailia LLM は llama.cpp と同じ <strong>GGUF</strong> 形式を読み込みます。Hugging Face のチェックポイントは llama.cpp 同梱の <code>convert_hf_to_gguf.py</code> で GGUF に変換するか、Hugging Face で配布されている変換済み GGUF をダウンロードして利用できます。</p>
         </details>
 
         <details class="faq-item">
-          <summary>Which model architectures are supported?</summary>
-          <p>Llama, Gemma, Mistral, Qwen, Phi, DeepSeek, and other architectures supported by llama.cpp. Compatibility tracks the upstream llama.cpp project.</p>
+          <summary>対応しているモデルアーキテクチャは?</summary>
+          <p>Llama / Gemma / Mistral / Qwen / Phi / DeepSeek など、llama.cpp が対応するアーキテクチャに準じます。互換性は llama.cpp の上流に追従します。</p>
         </details>
 
         <details class="faq-item">
-          <summary>How do I stream tokens as they are generated?</summary>
-          <p><code>model.generate(messages)</code> returns an iterator that yields delta strings as the model decodes each token. Iterate over it and append to a buffer (or print directly) for streaming UX.</p>
+          <summary>生成されるトークンをストリーミングで受け取るには?</summary>
+          <p><code>model.generate(messages)</code> はモデルがトークンをデコードするたびに差分文字列を返すイテレータです。これを順に受け取ってバッファに足すか直接表示すれば、ストリーミング UX を実現できます。</p>
         </details>
 
         <details class="faq-item">
-          <summary>How much memory do I need?</summary>
-          <p>Memory usage roughly equals the GGUF file size plus a small KV-cache overhead. As a rule of thumb at Q4 quantization: 2B models ≈ 2 GB, 7B ≈ 5 GB, 13B ≈ 9 GB. Use smaller models or higher quantization (Q4 → Q3) on memory-constrained devices.</p>
+          <summary>必要なメモリ量は?</summary>
+          <p>メモリ使用量はおおむね GGUF ファイルサイズ + わずかな KV キャッシュ分です。目安として Q4 量子化では 2B ≈ 2 GB、7B ≈ 5 GB、13B ≈ 9 GB になります。メモリが限られる端末では、より小さいモデルや高い量子化 (Q4 → Q3) を選んでください。</p>
         </details>
 
         <details class="faq-item">
-          <summary>Does it support GPU acceleration?</summary>
-          <p>Yes. ailia LLM uses <strong>Metal</strong> on iOS and macOS, and <strong>Vulkan</strong> on Windows. (Unlike ailia SDK / Speech / Voice, ailia LLM does not require cuDNN.) Inference falls back to CPU when no GPU is available.</p>
+          <summary>GPU 推論に対応していますか?</summary>
+          <p>はい。ailia LLM は iOS / macOS で <strong>Metal</strong>、Windows で <strong>Vulkan</strong> を使用します (ailia SDK / Speech / Voice と異なり cuDNN は不要です)。GPU が無い環境では CPU フォールバックします。</p>
         </details>
 
         <details class="faq-item">
-          <summary>Where do I place the license file when using C++?</summary>
-          <p>The C++ binding requires <code>ailia.lic</code> next to the runtime libraries:</p>
-          <p><strong>Windows:</strong> same folder as <code>ailia.dll</code> (or in <code>cpp/</code> for the sample).<br/>
+          <summary>C++ で使うとき、ライセンスファイルはどこに置きますか?</summary>
+          <p>C++ バインディングはランタイムライブラリと同じ場所に <code>ailia.lic</code> を配置する必要があります:</p>
+          <p><strong>Windows:</strong> <code>ailia.dll</code> と同じフォルダ (サンプルでは <code>cpp/</code> 配下)。<br/>
           <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
           <strong>Linux:</strong> <code>~/.shalo/</code></p>
-          <p>Python, Unity, Flutter, and JNI bindings auto-download the license on first run, so this only applies to the native C++ binding.</p>
+          <p>Python / Unity / Flutter / JNI バインディングは初回実行時にライセンスを自動ダウンロードするため、この手順は C++ バインディングに限ります。</p>
         </details>
 
         <details class="faq-item">
-          <summary>How does licensing work?</summary>
-          <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+          <summary>ライセンスはどう扱われますか?</summary>
+          <p>評価ライセンスは実行時に自動でダウンロードされ、開発・評価用途に利用できます。商用配布には製品ライセンスを申請してください。詳細は <a href="https://ailia.ai/license/en/" target="_blank">ailia ライセンス規約</a> を参照してください。</p>
         </details>
 
       </div>
@@ -433,7 +433,7 @@ while (!done) {
   </section>
 
   <footer>
-    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p><a href="https://ailia.ai/" target="_blank">アックス株式会社</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
 

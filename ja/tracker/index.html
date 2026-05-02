@@ -79,13 +79,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">1</div>
             <h3>評価版を入手</h3>
-            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding, runtime libraries (<code>ailia</code>, <code>ailia_audio</code>, <code>ailia_tokenizer</code>, <code>ailia_tracker</code>), and the license file.</p>
+            <p>無料トライアルに申し込むと、C++ バインディング、ランタイムライブラリ (<code>ailia</code>, <code>ailia_audio</code>, <code>ailia_tokenizer</code>, <code>ailia_tracker</code>)、ライセンスファイルを含む評価版パッケージを入手できます。</p>
             <a href="https://axip-console.appspot.com/trial/terms/AILIA-TRACKER?lang=en" target="_blank" class="card-link">無料トライアルを申し込む</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>モデルをダウンロードしてビルド</h3>
-            <p>Download the YOLOX-S detector model and place it next to the binary, then build and run the sample.</p>
+            <p>YOLOX-S 検出モデルをダウンロードしてバイナリと同じフォルダに配置し、サンプルをビルドして実行します。</p>
             <pre><code># Download model files into the binary folder
 curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx
 curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx.prototxt
@@ -108,14 +108,14 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
           <div class="step">
             <div class="step-number">1</div>
             <h3>UPM でインストール</h3>
-            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
             <pre><code>https://github.com/ailia-ai/ailia-tracker-unity.git</code></pre>
             <a href="../../tracker/unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
-            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), and play <code>ObjectTracking/ObjectTrackingSample.unity</code> with a video clip or webcam input. Bounding boxes with stable IDs are overlaid in the Game view.</p>
+            <p><code>ailia-models-unity</code> をクローンして Unity Editor (2021.3.10f1 以降) で開き、動画ファイルまたは Web カメラを入力に <code>ObjectTracking/ObjectTrackingSample.unity</code> を Play すると、Game ビューに ID 付きのバウンディングボックスが重ね描画されます。</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/tree/master/Assets/AXIP/AILIA-MODELS/ObjectTracking" target="_blank" class="card-link">サンプルシーン</a>
           </div>
@@ -128,14 +128,14 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
           <div class="step">
             <div class="step-number">1</div>
             <h3>バインディングをクローン</h3>
-            <p>Clone the JNI binding repository and add it to your Android Studio project.</p>
+            <p>JNI バインディングリポジトリをクローンして Android Studio プロジェクトに追加します。</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-tracker-jni.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-tracker-jni" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
-            <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the tracker sample on a connected device — it pairs YOLOX-S detection with ByteTrack association on each video frame.</p>
+            <p><code>ailia-models-kotlin</code> をサブモジュール込みでクローンし Android Studio で開きます。接続デバイス上で Tracker サンプルを実行できます。フレームごとに YOLOX-S 検出と ByteTrack の対応付けを組み合わせます。</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
 git submodule update --init --recursive</code></pre>
@@ -156,34 +156,34 @@ git submodule update --init --recursive</code></pre>
         <h3>対応 OS</h3>
         <ul>
           <li>Windows 10 / 11</li>
-          <li>macOS 11 or later</li>
-          <li>Linux (Ubuntu 20.04+)</li>
-          <li>iOS 13+ / Android 7+</li>
+          <li>macOS 11 以降</li>
+          <li>Linux (Ubuntu 20.04 以降)</li>
+          <li>iOS 13 / Android 7 以降</li>
         </ul>
       </div>
       <div class="req-card">
         <h3>言語とコンパイラ</h3>
         <ul>
-          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang) + CMake</li>
-          <li>C# / Unity 2021.3.10f1+</li>
+          <li>C++17 (VS 2019 以降 / Xcode 14.2 以降 / clang) + CMake</li>
+          <li>C# / Unity 2021.3.10f1 以降</li>
           <li>Kotlin / Java (JNI)</li>
         </ul>
       </div>
       <div class="req-card">
         <h3>同梱モデル</h3>
         <ul>
-          <li>YOLOX-S (object detection)</li>
-          <li>ByteTrack (object tracking)</li>
-          <li>80 COCO categories</li>
+          <li>YOLOX-S (物体検出)</li>
+          <li>ByteTrack (物体追跡)</li>
+          <li>80 COCO カテゴリ</li>
         </ul>
       </div>
       <div class="req-card">
         <h3>入出力</h3>
         <ul>
-          <li>Video file or webcam input</li>
-          <li>MP4 output (annotated)</li>
-          <li>Tracking ID, category, confidence</li>
-          <li>Bounding box (x / y / w / h)</li>
+          <li>動画ファイルまたは Web カメラ入力</li>
+          <li>注釈付き MP4 出力</li>
+          <li>追跡 ID / カテゴリ / 信頼度</li>
+          <li>バウンディングボックス (x / y / w / h)</li>
         </ul>
       </div>
     </div>
@@ -196,35 +196,35 @@ git submodule update --init --recursive</code></pre>
       <p class="section-subtitle">C / C# / JNI API で利用できる物体追跡機能。</p>
       <div class="req-grid">
         <div class="req-card">
-          <h3>Detection &amp; Association</h3>
+          <h3>検出と対応付け</h3>
           <ul>
-            <li>YOLOX-S detector (80 COCO classes)</li>
-            <li>ByteTrack ID-association algorithm</li>
-            <li>Per-frame inference with GPU acceleration</li>
+            <li>YOLOX-S 検出器 (80 COCO クラス)</li>
+            <li>ByteTrack による ID 対応付け</li>
+            <li>GPU 推論によるフレームごとの推論</li>
           </ul>
         </div>
         <div class="req-card">
-          <h3>Tracking Output</h3>
+          <h3>追跡結果</h3>
           <ul>
-            <li>Stable tracking ID across frames</li>
-            <li>Object category</li>
-            <li>Detection probability</li>
-            <li>Normalized bounding box (0-1 range)</li>
+            <li>フレーム間で一貫した追跡 ID</li>
+            <li>物体カテゴリ</li>
+            <li>検出確率</li>
+            <li>正規化バウンディングボックス (0-1 範囲)</li>
           </ul>
         </div>
         <div class="req-card">
-          <h3>Filtering</h3>
+          <h3>フィルタリング</h3>
           <ul>
-            <li>Restrict to a target category (e.g. category 0 for humans)</li>
-            <li>Filter by confidence in your application code</li>
+            <li>カテゴリでフィルタ可能 (例: category 0 で人物のみ)</li>
+            <li>信頼度でのフィルタはアプリ側で実装</li>
           </ul>
         </div>
         <div class="req-card">
           <h3>GPU アクセラレーション</h3>
           <ul>
-            <li>cuDNN + CUDA on Windows / Linux (detection phase)</li>
-            <li>Metal on macOS / iOS</li>
-            <li>CPU fallback when no GPU is present</li>
+            <li>Windows / Linux で cuDNN + CUDA (検出処理)</li>
+            <li>macOS / iOS で Metal</li>
+            <li>GPU がない環境では CPU フォールバック</li>
           </ul>
         </div>
       </div>
@@ -308,14 +308,14 @@ tracker.close()</code></pre>
       <div class="card">
         <h3>C++</h3>
         <ul>
-          <li><a href="../../tracker/cpp/en/">API (EN)</a> <a href="../../tracker/cpp/jp/" class="sub-link">(JP)</a></li>
+          <li><a href="../../tracker/cpp/jp/">API</a></li>
         </ul>
       </div>
 
       <div class="card">
         <h3>Unity</h3>
         <ul>
-          <li><a href="../../tracker/unity/en/">API (EN)</a> <a href="../../tracker/unity/jp/" class="sub-link">(JP)</a></li>
+          <li><a href="../../tracker/unity/jp/">API</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-tracker-unity" target="_blank">Binding</a></li>
         </ul>
       </div>
@@ -337,45 +337,45 @@ tracker.close()</code></pre>
     <div class="faq-list">
 
       <details class="faq-item">
-        <summary>What models does ailia Tracker use under the hood?</summary>
-        <p>YOLOX-S handles per-frame object detection across the 80 COCO categories, and ByteTrack associates detections into stable tracking IDs across frames. Both run through the ailia SDK inference engine.</p>
+        <summary>ailia Tracker は内部でどんなモデルを使っていますか?</summary>
+        <p>フレームごとの物体検出を 80 の COCO カテゴリで行うのが YOLOX-S、フレーム間で検出結果を安定した追跡 ID に対応付けるのが ByteTrack です。どちらも ailia SDK 推論エンジン上で動作します。</p>
       </details>
 
       <details class="faq-item">
-        <summary>Where do I download the model files?</summary>
-        <p>YOLOX-S weights and prototxt:</p>
+        <summary>モデルファイルはどこからダウンロードできますか?</summary>
+        <p>YOLOX-S の重みと prototxt:</p>
         <p><a href="https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx" target="_blank">yolox_s.opt.onnx</a><br/>
         <a href="https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx.prototxt" target="_blank">yolox_s.opt.onnx.prototxt</a></p>
-        <p>Place both files in the same folder as the sample binary.</p>
+        <p>両方のファイルをサンプルバイナリと同じフォルダに配置してください。</p>
       </details>
 
       <details class="faq-item">
-        <summary>How do I track only one category, e.g. people?</summary>
-        <p>Each <code>AILIATrackerObject</code> has a <code>category</code> attribute (integer matching the COCO label). Filter results in your code — e.g. keep only <code>category == 0</code> to track humans, or build a small lookup map for the labels you care about.</p>
+        <summary>人物だけなど特定カテゴリのみ追跡するには?</summary>
+        <p>各 <code>AILIATrackerObject</code> には COCO ラベルに対応する整数の <code>category</code> 属性があります。アプリ側でフィルタしてください — たとえば人物だけ追跡するなら <code>category == 0</code> のみ残す、必要なラベルだけのルックアップを作るなど。</p>
       </details>
 
       <details class="faq-item">
-        <summary>What output information does the tracker produce?</summary>
-        <p>For each tracked object: <code>id</code> (stable across frames), <code>category</code>, detection <code>prob</code>, and a normalized bounding box (<code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>) where 0 maps to the left/top edge and 1 maps to the right/bottom edge.</p>
+        <summary>Tracker からはどんな情報が得られますか?</summary>
+        <p>各追跡オブジェクトに対して、フレーム間で一貫した <code>id</code>、<code>category</code>、検出 <code>prob</code>、および正規化バウンディングボックス (<code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>) が得られます。0 が左 / 上端、1 が右 / 下端です。</p>
       </details>
 
       <details class="faq-item">
-        <summary>Does it work with a webcam?</summary>
-        <p>Yes. Pass <code>-w &lt;index&gt;</code> to the C++ sample to use a webcam stream instead of a file. The Unity binding exposes the same camera-input mode through its <code>ailia-tracker-unity</code> package.</p>
+        <summary>Web カメラでも使えますか?</summary>
+        <p>はい。C++ サンプルでは <code>-w &lt;index&gt;</code> を渡すとファイルの代わりに Web カメラ入力になります。Unity バインディングも <code>ailia-tracker-unity</code> パッケージで同じカメラ入力モードを提供します。</p>
       </details>
 
       <details class="faq-item">
-        <summary>How do I enable GPU acceleration?</summary>
-        <p>On macOS / iOS, Metal is used automatically. On Windows / Linux, install <a href="https://developer.nvidia.com/cuda-downloads" target="_blank">CUDA Toolkit</a> and <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN</a>, then add cuDNN to your <code>PATH</code>. Acceleration applies to the object-detection phase; ByteTrack association runs on CPU.</p>
+        <summary>GPU 推論を有効にするには?</summary>
+        <p>macOS / iOS では Metal が自動的に使用されます。Windows / Linux では <a href="https://developer.nvidia.com/cuda-downloads" target="_blank">CUDA Toolkit</a> と <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN</a> をインストールし、cuDNN を <code>PATH</code> に追加してください。GPU 加速は物体検出処理に適用され、ByteTrack の対応付けは CPU 上で動作します。</p>
       </details>
 
       <details class="faq-item">
-        <summary>How does licensing work?</summary>
-        <p>The C++ binding requires <code>ailia.lic</code> from the evaluation package, placed next to the runtime libraries:</p>
-        <p><strong>Windows:</strong> same folder as <code>ailia.dll</code>.<br/>
+        <summary>ライセンスはどう扱われますか?</summary>
+        <p>C++ バインディングは評価版パッケージの <code>ailia.lic</code> をランタイムライブラリと同じ場所に配置する必要があります:</p>
+        <p><strong>Windows:</strong> <code>ailia.dll</code> と同じフォルダ。<br/>
         <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
         <strong>Linux:</strong> <code>~/.shalo/</code></p>
-        <p>Unity and JNI bindings auto-download the evaluation license on first run. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+        <p>Unity と JNI バインディングは初回実行時に評価ライセンスを自動ダウンロードします。商用配布には製品ライセンスを申請してください。詳細は <a href="https://ailia.ai/license/en/" target="_blank">ailia ライセンス規約</a> を参照してください。</p>
       </details>
 
     </div>
@@ -399,7 +399,7 @@ tracker.close()</code></pre>
   </section>
 
   <footer>
-    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p><a href="https://ailia.ai/" target="_blank">アックス株式会社</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
 
