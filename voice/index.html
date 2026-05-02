@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,22 +10,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ailia Voice - Documentation</title>
+  <title>ailia Voice - ドキュメント</title>
   <meta name="description" content="ailia Voice - Text-to-speech synthesis library for natural voice generation.">
   <link rel="canonical" href="https://docs.ailia.ai/voice/">
-  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/voice/">
-  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/ja/voice/">
-  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/voice/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/voice/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/voice/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/voice/">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/voice/">
-  <meta property="og:title" content="ailia Voice - Documentation">
+  <meta property="og:title" content="ailia Voice - ドキュメント">
   <meta property="og:description" content="ailia Voice - Text-to-speech synthesis library for natural voice generation.">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ailia Voice - Documentation">
+  <meta name="twitter:title" content="ailia Voice - ドキュメント">
   <meta name="twitter:description" content="ailia Voice - Text-to-speech synthesis library for natural voice generation.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../ailia_logo.png">
@@ -39,7 +39,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
         <a href="./" class="logo-text">ailia Voice Docs</a>
       </div>
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
       <div class="header-links">
@@ -51,21 +51,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="../voice/">Voice</a>
         <a href="../tokenizer/">Tokenizer</a>
         <a href="../tracker/">Tracker</a>
-        <a href="../ja/voice/" hreflang="ja" lang="ja">JA</a>
+        <a href="../en/voice/" hreflang="en" lang="en">EN</a>
       </div>
     </div>
   </header>
 
   <section class="hero">
     <h1>ailia Voice</h1>
-    <p>A library for generating speech from text. Easily integrate AI powered text-to-speech into your applications.</p>
+    <p>テキストから音声を生成するライブラリです。AI による音声合成をアプリに簡単に組み込めます。</p>
   </section>
 
   <!-- Getting Started -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">Getting Started</h2>
-      <p class="section-subtitle">Choose your platform and synthesize your first voice clip.</p>
+      <h2 class="section-title">はじめに</h2>
+      <p class="section-subtitle">プラットフォームを選び、最初の音声合成を実行してみましょう。</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -79,15 +79,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Install</h3>
-            <p>Install the ailia Voice Python package together with the <code>librosa</code> and <code>soundfile</code> helpers used by the sample.</p>
+            <h3>インストール</h3>
+            <p>ailia Voice と、サンプルで使う <code>librosa</code> / <code>soundfile</code> をインストールします。</p>
             <pre><code class="language-bash">pip3 install ailia_voice librosa soundfile</code></pre>
-            <a href="https://pypi.org/project/ailia-voice/" target="_blank" class="card-link">View on PyPI</a>
+            <a href="https://pypi.org/project/ailia-voice/" target="_blank" class="card-link">PyPI で見る</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
-            <p>Download <code>example_ailia_voice.py</code> from <code>ailia-models</code> and run it. It clones a target voice from a short reference clip and writes <code>output.wav</code>. Models are downloaded into <code>./models/</code> automatically.</p>
+            <h3>サンプルを実行</h3>
+            <p><code>ailia-models</code> から <code>example_ailia_voice.py</code> をダウンロードして実行します。短いリファレンス音声から声をクローンし、<code>output.wav</code> を書き出します。モデルは <code>./models/</code> に自動ダウンロードされます。</p>
             <pre><code class="language-bash">wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/gpt-sovits/example_ailia_voice.py
 python3 example_ailia_voice.py</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/gpt-sovits/example_ailia_voice.py" target="_blank" class="card-link">example_ailia_voice.py</a>
@@ -100,14 +100,14 @@ python3 example_ailia_voice.py</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Get Evaluation Package</h3>
-            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding (<code>ailia_voice.h</code>), runtime libraries, the license file, and a runnable sample.</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-VOICE?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+            <h3>評価版を入手</h3>
+            <p>無料トライアルに申し込むと、C++ バインディング (<code>ailia_voice.h</code>)、ランタイムライブラリ、ライセンスファイル、実行可能サンプルを含む評価版パッケージを入手できます。</p>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-VOICE" target="_blank" class="card-link">無料トライアルを申し込む</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Download Models &amp; Run</h3>
-            <p>Run the bundled model download script, then build and execute the sample.</p>
+            <h3>モデルをダウンロードして実行</h3>
+            <p>同梱のモデルダウンロードスクリプトを実行し、サンプルをビルドして実行します。</p>
             <pre><code class="language-bash"># Fetch GPT-SoVITS / Tacotron2 model files
 cd onnx
 bash download_models.sh   # download_models.bat on Windows
@@ -120,7 +120,7 @@ clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
   -Wl,-rpath,./ -std=c++17
 
 ./ailia_voice_sample gpt-sovits</code></pre>
-            <a href="cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
+            <a href="../voice/cpp/en/setup.html" class="card-link">C++ セットアップガイド</a>
           </div>
         </div>
       </div>
@@ -130,15 +130,15 @@ clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Install via UPM</h3>
-            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <h3>UPM でインストール</h3>
+            <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
             <pre><code class="language-bash">https://github.com/ailia-ai/ailia-voice-unity.git</code></pre>
-            <a href="unity/en/" class="card-link">Unity API Reference</a>
+            <a href="../voice/unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
-            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), and play the TextToSpeech scene with a reference audio clip plus your target text.</p>
+            <h3>サンプルを実行</h3>
+            <p><code>ailia-models-unity</code> をクローンして Unity Editor (2021.3.10f1 以降) で開き、リファレンス音声と読み上げテキストを設定して TextToSpeech シーンを Play してください。</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/TextToSpeech/AiliaVoiceSample.cs" target="_blank" class="card-link">AiliaVoiceSample.cs</a>
           </div>
@@ -150,24 +150,24 @@ clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Add to pubspec</h3>
-            <p>Add ailia Voice as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
+            <h3>pubspec に追加</h3>
+            <p>Flutter プロジェクトの <code>pubspec.yaml</code> に ailia Voice を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
             <pre><code class="language-yaml">dependencies:
   ailia_voice:
     git:
       url: https://github.com/ailia-ai/ailia-voice-flutter.git
       ref: main</code></pre>
-            <a href="flutter/en/" class="card-link">Flutter API Reference</a>
+            <a href="../voice/flutter/en/" class="card-link">Flutter API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
-            <p>Clone the Flutter sample repository for a ready-to-run app demonstrating GPT-SoVITS synthesis.</p>
+            <h3>サンプルを実行</h3>
+            <p>GPT-SoVITS の合成サンプルアプリは Flutter サンプルリポジトリにあります。クローンしてそのまま実行できます。</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-flutter.git
 cd ailia-models-flutter
 flutter pub get
 flutter run</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">サンプルリポジトリ</a>
           </div>
         </div>
       </div>
@@ -177,37 +177,37 @@ flutter run</code></pre>
 
   <!-- System Requirements -->
   <section class="section">
-    <h2 class="section-title">System Requirements</h2>
-    <p class="section-subtitle">ailia Voice runs on desktop and mobile platforms with CPU and GPU acceleration.</p>
+    <h2 class="section-title">動作環境</h2>
+    <p class="section-subtitle">ailia Voice はデスクトップとモバイルの各プラットフォームで CPU/GPU 推論に対応しています。</p>
     <div class="req-grid">
       <div class="req-card">
-        <h3>Operating Systems</h3>
+        <h3>対応 OS</h3>
         <ul>
           <li>Windows 10 / 11</li>
-          <li>macOS 11 or later</li>
-          <li>Linux (Ubuntu 20.04+)</li>
-          <li>iOS 13+ / Android 7+</li>
+          <li>macOS 11 以降</li>
+          <li>Linux (Ubuntu 20.04 以降)</li>
+          <li>iOS 13 / Android 7 以降</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Languages &amp; Compilers</h3>
+        <h3>言語とコンパイラ</h3>
         <ul>
-          <li>Python 3.6+, Dart / Flutter 3.19+</li>
-          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang) + CMake</li>
-          <li>C# / Unity 2021.3.10f1+</li>
+          <li>Python 3.6 以降 / Dart・Flutter 3.19 以降</li>
+          <li>C++17 (VS 2019 以降 / Xcode 14.2 以降 / clang) + CMake</li>
+          <li>C# / Unity 2021.3.10f1 以降</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Supported Models</h3>
+        <h3>対応モデル</h3>
         <ul>
-          <li>Tacotron2 (English)</li>
+          <li>Tacotron2 (英語)</li>
           <li>GPT-SoVITS v1 / v2 / v2-pro / v3</li>
-          <li>JA / EN / ZH variants per version</li>
-          <li>Output: 32 kHz mono</li>
+          <li>各バージョンに JA / EN / ZH 版あり</li>
+          <li>出力: 32 kHz モノラル</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Language Coverage</h3>
+        <h3>対応言語</h3>
         <ul>
           <li>Japanese (G2P_TYPE_GPT_SOVITS_JA)</li>
           <li>English (G2P_TYPE_GPT_SOVITS_EN)</li>
@@ -220,38 +220,38 @@ flutter run</code></pre>
   <!-- Features -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">Features</h2>
-      <p class="section-subtitle">Voice synthesis capabilities provided across the C, C#, and Python APIs.</p>
+      <h2 class="section-title">機能</h2>
+      <p class="section-subtitle">C / C# / Python API で利用できる音声合成機能。</p>
       <div class="req-grid">
         <div class="req-card">
-          <h3>TTS Models</h3>
+          <h3>TTS モデル</h3>
           <ul>
-            <li>Tacotron2 — fast English baseline</li>
+            <li>Tacotron2 — 高速な英語ベースライン</li>
             <li>GPT-SoVITS v1 / v2 / v2-pro / v3</li>
           </ul>
         </div>
         <div class="req-card">
-          <h3>Voice Cloning</h3>
+          <h3>ボイスクローン</h3>
           <ul>
-            <li>Clone any timbre from ~10 s reference audio</li>
-            <li>Reference audio + transcript pairing</li>
-            <li>Speaker Verification embeddings (v2-pro)</li>
+            <li>10 秒程度のリファレンス音声から任意の声を再現</li>
+            <li>リファレンス音声と書き起こしテキストのペアで指定</li>
+            <li>話者照合の埋め込み (v2-pro)</li>
           </ul>
         </div>
         <div class="req-card">
-          <h3>Multi-Language</h3>
+          <h3>多言語対応</h3>
           <ul>
-            <li>Japanese accent support (v2 onward)</li>
-            <li>OpenJtalk built in for JA phonemes</li>
-            <li>g2pw + jieba for Chinese (v2 onward)</li>
+            <li>日本語アクセント対応 (v2 以降)</li>
+            <li>日本語音素変換に OpenJtalk を内蔵</li>
+            <li>中国語に g2pw + jieba を採用 (v2 以降)</li>
           </ul>
         </div>
         <div class="req-card">
-          <h3>Customization</h3>
+          <h3>カスタマイズ</h3>
           <ul>
-            <li>User dictionary (pyopenjtalk format)</li>
-            <li>Standard v3 user dictionary downloadable</li>
-            <li>Playback speed control (v2 onward)</li>
+            <li>ユーザー辞書 (pyopenjtalk 形式)</li>
+            <li>v3 用標準ユーザー辞書をダウンロード可能</li>
+            <li>再生速度コントロール (v2 以降)</li>
           </ul>
         </div>
       </div>
@@ -261,8 +261,8 @@ flutter run</code></pre>
   <!-- Use the API -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">Use the API in Your Project</h2>
-      <p class="section-subtitle">Minimal examples for synthesizing speech in your own application.</p>
+      <h2 class="section-title">プロジェクトで API を使う</h2>
+      <p class="section-subtitle">自分のアプリケーションで音声を合成する最小サンプル。</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -340,13 +340,13 @@ val audio = voice.synthesizeVoice(g2p)</code></pre>
   </section>
 
   <section class="section">
-    <h2 class="section-title">API Reference by Platform</h2>
+    <h2 class="section-title">プラットフォーム別 API リファレンス</h2>
     <div class="card-grid">
 
       <div class="card">
         <h3>Python</h3>
         <ul>
-          <li><a href="python/en/">API</a></li>
+          <li><a href="../voice/python/en/">API (EN)</a></li>
           <li><a href="https://pypi.org/project/ailia-voice/" target="_blank">PyPI</a></li>
         </ul>
       </div>
@@ -354,7 +354,7 @@ val audio = voice.synthesizeVoice(g2p)</code></pre>
       <div class="card">
         <h3>C++</h3>
         <ul>
-          <li><a href="cpp/en/">API</a></li>
+          <li><a href="../voice/cpp/jp/">API</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-voice-cpp" target="_blank">Binding</a></li>
         </ul>
       </div>
@@ -362,7 +362,7 @@ val audio = voice.synthesizeVoice(g2p)</code></pre>
       <div class="card">
         <h3>Unity</h3>
         <ul>
-          <li><a href="unity/en/">API</a></li>
+          <li><a href="../voice/unity/jp/">API</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-voice-unity" target="_blank">Binding</a></li>
         </ul>
       </div>
@@ -370,7 +370,7 @@ val audio = voice.synthesizeVoice(g2p)</code></pre>
       <div class="card">
         <h3>Flutter</h3>
         <ul>
-          <li><a href="flutter/en/">API</a></li>
+          <li><a href="../voice/flutter/en/">API (EN)</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-voice-flutter" target="_blank">Binding</a></li>
         </ul>
       </div>
@@ -388,65 +388,65 @@ val audio = voice.synthesizeVoice(g2p)</code></pre>
   <!-- FAQ -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">FAQ</h2>
-      <p class="section-subtitle">Common questions about ailia Voice.</p>
+      <h2 class="section-title">よくある質問</h2>
+      <p class="section-subtitle">ailia Voice についてのよくある質問。</p>
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary>Which TTS models are supported?</summary>
-          <p>Two families: <strong>Tacotron2</strong> (English baseline) and <strong>GPT-SoVITS</strong> (zero-shot voice cloning).</p>
-          <p>GPT-SoVITS comes in four versions — v1, v2, v2-pro, and v3 — each with Japanese, English, and Chinese variants. Pick a sample model with the CLI argument (<code>tacotron2</code>, <code>gpt-sovits</code>, <code>gpt-sovits-v2-en</code>, etc.).</p>
+          <summary>対応している TTS モデルは?</summary>
+          <p>2 系統あります: <strong>Tacotron2</strong> (英語のベースライン) と <strong>GPT-SoVITS</strong> (ゼロショット ボイスクローン)。</p>
+          <p>GPT-SoVITS には v1 / v2 / v2-pro / v3 の 4 バージョンがあり、それぞれに日本語・英語・中国語の派生があります。CLI 引数 (<code>tacotron2</code> / <code>gpt-sovits</code> / <code>gpt-sovits-v2-en</code> など) でサンプルを選択します。</p>
         </details>
 
         <details class="faq-item">
-          <summary>Which GPT-SoVITS version should I use?</summary>
-          <p><strong>v1</strong>: lightest and fastest, no Japanese accent support.<br/>
-          <strong>v2</strong>: adds Japanese pitch / accent and playback-speed control. Good real-time default.<br/>
-          <strong>v3</strong>: highest audio quality (CFM + DiT + BigVGAN diffusion), but slower.<br/>
-          <strong>v2-pro</strong>: combines v3's text analysis with v2's fast vocoder plus speaker verification embeddings — recommended for the best quality/speed balance.</p>
+          <summary>GPT-SoVITS のバージョンはどれを使うべきですか?</summary>
+          <p><strong>v1</strong>: 最も軽量・高速。日本語アクセント非対応。<br/>
+          <strong>v2</strong>: 日本語のピッチ・アクセントと再生速度コントロールを追加。リアルタイム用途のデフォルトに適します。<br/>
+          <strong>v3</strong>: CFM + DiT + BigVGAN ディフュージョンによる最高音質。やや低速。<br/>
+          <strong>v2-pro</strong>: v3 のテキスト解析 + v2 の高速ボコーダ + 話者照合埋め込みを組み合わせた構成。品質と速度のバランス重視ならこれが推奨です。</p>
         </details>
 
         <details class="faq-item">
-          <summary>What does "reference audio" mean and why is it required?</summary>
-          <p>GPT-SoVITS clones the voice characteristics of a target speaker from about 10 seconds of clean reference audio plus the matching transcript. Pass both to <code>set_reference_audio()</code> before calling <code>synthesize_voice()</code>.</p>
-          <p>Tacotron2 does not require reference audio — it speaks in a fixed voice.</p>
+          <summary>「リファレンス音声」とは何で、なぜ必要なのですか?</summary>
+          <p>GPT-SoVITS は約 10 秒の高品質なリファレンス音声と、その書き起こしテキストの組から話者の声の特徴を再現します。<code>synthesize_voice()</code> を呼ぶ前に両方を <code>set_reference_audio()</code> へ渡してください。</p>
+          <p>Tacotron2 はリファレンス音声を必要とせず、固定の声で読み上げます。</p>
         </details>
 
         <details class="faq-item">
-          <summary>How do I create a custom pronunciation dictionary?</summary>
-          <p>ailia Voice integrates OpenJtalk for Japanese phoneme conversion. To override pronunciations, prepare a <code>userdic.csv</code> in MeCab format (the trailing <code>0/5</code> means 5 morae with accent on position 0) and convert it to a binary <code>.dic</code> with pyopenjtalk:</p>
+          <summary>独自の発音辞書を作成するには?</summary>
+          <p>ailia Voice は日本語の音素変換に OpenJtalk を内蔵しています。発音を上書きするには、MeCab 形式の <code>userdic.csv</code> を用意し (末尾の <code>0/5</code> は 5 モーラ・アクセント位置 0 を表します)、pyopenjtalk でバイナリ <code>.dic</code> に変換します:</p>
           <pre><code class="language-bash">import pyopenjtalk
 pyopenjtalk.mecab_dict_index("userdic.csv", "userdic.dic")</code></pre>
-          <p>Then pass <code>user_dict_path</code> to <code>initialize_model()</code> (Python) or call <code>ailiaVoiceSetUserDictionary</code> (C). A <a href="https://storage.googleapis.com/ailia-models/gpt-sovits-v3/user.dict" target="_blank">standard user dictionary</a> for v3 is also available.</p>
+          <p>その後、Python では <code>initialize_model()</code> に <code>user_dict_path</code> を渡し、C では <code>ailiaVoiceSetUserDictionary</code> を呼び出します。v3 用の <a href="https://storage.googleapis.com/ailia-models/gpt-sovits-v3/user.dict" target="_blank">標準ユーザー辞書</a> も利用できます。</p>
         </details>
 
         <details class="faq-item">
-          <summary>Which languages can I synthesize?</summary>
-          <p>Japanese, English, and Chinese, selected via the <code>AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA</code> / <code>_EN</code> / <code>_ZH</code> constants passed to <code>set_reference_audio()</code> and <code>synthesize_voice()</code>.</p>
+          <summary>合成できる言語は?</summary>
+          <p>日本語・英語・中国語に対応しており、<code>set_reference_audio()</code> と <code>synthesize_voice()</code> に渡す <code>AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA</code> / <code>_EN</code> / <code>_ZH</code> 定数で切り替えます。</p>
         </details>
 
         <details class="faq-item">
-          <summary>Where do I place the license file when using C++?</summary>
-          <p>The C++ binding requires <code>ailia.lic</code> next to the runtime libraries:</p>
-          <p><strong>Windows:</strong> same folder as <code>ailia.dll</code> (or in <code>cpp/</code> for the sample).<br/>
+          <summary>C++ で使うとき、ライセンスファイルはどこに置きますか?</summary>
+          <p>C++ バインディングはランタイムライブラリと同じ場所に <code>ailia.lic</code> を配置する必要があります:</p>
+          <p><strong>Windows:</strong> <code>ailia.dll</code> と同じフォルダ (サンプルでは <code>cpp/</code> 配下)。<br/>
           <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
           <strong>Linux:</strong> <code>~/.shalo/</code></p>
-          <p>Python, Unity, Flutter, and JNI bindings auto-download the license on first run, so this only applies to the native C++ binding.</p>
+          <p>Python / Unity / Flutter / JNI バインディングは初回実行時にライセンスを自動ダウンロードするため、この手順は C++ バインディングに限ります。</p>
         </details>
 
         <details class="faq-item">
-          <summary>How do I enable GPU acceleration?</summary>
-          <p>On macOS / iOS, Metal is used automatically. On Windows / Linux, install CUDA Toolkit and cuDNN. See the <a href="../setup/cuda/">CUDA Toolkit / cuDNN Installation Guide</a> for detailed instructions.</p>
+          <summary>GPU 推論を有効にするには?</summary>
+          <p>macOS / iOS では Metal が自動的に使用されます。Windows / Linux では CUDA Toolkit と cuDNN のインストールが必要です。詳しい手順は <a href="../setup/cuda/">CUDA Toolkit / cuDNN インストールガイド</a> を参照してください。</p>
         </details>
 
         <details class="faq-item">
-          <summary>Can I run it offline?</summary>
-          <p>Yes, after the first run. Model weights are downloaded into the directory passed to <code>initialize_model(model_path=...)</code> on first use, and the evaluation license is fetched automatically. Subsequent runs work without an internet connection.</p>
+          <summary>オフラインで動作しますか?</summary>
+          <p>初回実行後はオフラインで動作します。モデルの重みは初回に <code>initialize_model(model_path=...)</code> へ指定したディレクトリにダウンロードされ、評価ライセンスも自動取得されます。以降はネット接続不要です。</p>
         </details>
 
         <details class="faq-item">
-          <summary>How does licensing work?</summary>
-          <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+          <summary>ライセンスはどう扱われますか?</summary>
+          <p>評価ライセンスは実行時に自動でダウンロードされ、開発・評価用途に利用できます。商用配布には製品ライセンスを申請してください。詳細は <a href="https://ailia.ai/license/" target="_blank">ailia ライセンス規約</a> を参照してください。</p>
         </details>
 
       </div>
@@ -455,18 +455,18 @@ pyopenjtalk.mecab_dict_index("userdic.csv", "userdic.dic")</code></pre>
 
   <section class="materials-section">
     <div class="section">
-      <h2 class="section-title">Materials</h2>
+      <h2 class="section-title">資料</h2>
       <div class="materials-grid">
-        <a href="https://ailia.ai/en/voice/" target="_blank" class="material-item">
+        <a href="https://ailia.ai/voice/" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           </div>
           <div class="material-text">
             Product Site
-            <small>ailia.ai/en/voice/</small>
+            <small>ailia.ai/voice/</small>
           </div>
         </a>
-        <a href="https://axip-console.appspot.com/trial/terms/AILIA-VOICE?lang=en" target="_blank" class="material-item">
+        <a href="https://axip-console.appspot.com/trial/terms/AILIA-VOICE" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           </div>
@@ -489,7 +489,7 @@ pyopenjtalk.mecab_dict_index("userdic.csv", "userdic.dic")</code></pre>
   </section>
 
   <footer>
-    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,23 +10,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CUDA Toolkit / cuDNN Installation Guide - ailia SDK</title>
-  <meta name="description" content="Step-by-step guide to install CUDA Toolkit and cuDNN on Windows and Linux for GPU-accelerated inference with ailia SDK.">
+  <title>CUDA Toolkit / cuDNN インストールガイド - ailia SDK</title>
+  <meta name="description" content="Windows / Linux に CUDA Toolkit と cuDNN を導入し、ailia SDK で NVIDIA GPU を使った高速推論を行うための手順を解説します。">
   <link rel="canonical" href="https://docs.ailia.ai/setup/cuda/">
-  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/setup/cuda/">
-  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/ja/setup/cuda/">
-  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/setup/cuda/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/cuda/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/cuda/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/setup/cuda/">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/setup/cuda/">
-  <meta property="og:title" content="CUDA Toolkit / cuDNN Installation Guide - ailia SDK">
-  <meta property="og:description" content="Step-by-step guide to install CUDA Toolkit and cuDNN on Windows and Linux for GPU-accelerated inference with ailia SDK.">
+  <meta property="og:title" content="CUDA Toolkit / cuDNN インストールガイド - ailia SDK">
+  <meta property="og:description" content="Windows / Linux に CUDA Toolkit と cuDNN を導入し、ailia SDK で NVIDIA GPU を使った高速推論を行うための手順を解説します。">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="CUDA Toolkit / cuDNN Installation Guide - ailia SDK">
-  <meta name="twitter:description" content="Step-by-step guide to install CUDA Toolkit and cuDNN on Windows and Linux for GPU-accelerated inference with ailia SDK.">
+  <meta name="twitter:title" content="CUDA Toolkit / cuDNN インストールガイド - ailia SDK">
+  <meta name="twitter:description" content="Windows / Linux に CUDA Toolkit と cuDNN を導入し、ailia SDK で NVIDIA GPU を使った高速推論を行うための手順を解説します。">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../../ailia_logo.png">
   <link rel="stylesheet" href="../../css/common.css">
@@ -39,7 +39,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
         <a href="../../" class="logo-text">ailia SDK Docs</a>
       </div>
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
       <div class="header-links">
@@ -51,57 +51,57 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="../../voice/">Voice</a>
         <a href="../../tokenizer/">Tokenizer</a>
         <a href="../../tracker/">Tracker</a>
-        <a href="../../ja/setup/cuda/" hreflang="ja" lang="ja">JA</a>
+        <a href="../../en/setup/cuda/" hreflang="en" lang="en">EN</a>
       </div>
     </div>
   </header>
 
   <section class="hero">
-    <h1>CUDA Toolkit / cuDNN Installation Guide</h1>
-    <p>How to install CUDA Toolkit and cuDNN on Windows and Linux to enable GPU-accelerated inference with ailia SDK.</p>
+    <h1>CUDA Toolkit / cuDNN インストールガイド</h1>
+    <p>Windows / Linux に CUDA Toolkit と cuDNN を導入し、ailia SDK で NVIDIA GPU による高速推論を有効にする手順を説明します。</p>
   </section>
 
   <div class="guide-content">
 
-    <h2>Overview</h2>
-    <p>CUDA Toolkit is NVIDIA's platform for general-purpose GPU computing (GPGPU). cuDNN is NVIDIA's library for deep neural networks. By installing these, ailia SDK can perform faster inference using NVIDIA GPUs.</p>
+    <h2>概要</h2>
+    <p>CUDA Toolkit は NVIDIA が提供する GPGPU のためのプラットフォームです。cuDNN は NVIDIA が提供する DNN (ディープニューラルネットワーク) のためのライブラリです。ailia SDK はこれらを導入することで、NVIDIA GPU を使ったより高速な推論が可能になります。</p>
 
-    <h2>Version Compatibility</h2>
-    <p>The cuDNN version requires a specific minimum version of CUDA Toolkit and ailia SDK.</p>
+    <h2>バージョンの対応関係</h2>
+    <p>cuDNN のバージョンに応じて、必要な CUDA Toolkit と ailia SDK の最低バージョンが異なります。</p>
 
     <table class="version-table">
       <thead>
         <tr>
-          <th>cuDNN Version</th>
-          <th>Required CUDA Toolkit</th>
-          <th>Required ailia SDK</th>
+          <th>cuDNN バージョン</th>
+          <th>必要な CUDA Toolkit</th>
+          <th>必要な ailia SDK</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>cuDNN 8.0.2 - 8.2.4</td>
-          <td>CUDA Toolkit 11.0 or later</td>
-          <td>ailia SDK 1.2.4 and later</td>
+          <td>CUDA Toolkit 11.0 以上</td>
+          <td>ailia SDK 1.2.4 以降</td>
         </tr>
         <tr>
           <td>cuDNN 8.3.0 - 8.7.0</td>
-          <td>CUDA Toolkit 11.5 or later</td>
-          <td>ailia SDK 1.2.11 and later</td>
+          <td>CUDA Toolkit 11.5 以上</td>
+          <td>ailia SDK 1.2.11 以降</td>
         </tr>
         <tr>
           <td>cuDNN 8.8.0 - 8.9.7</td>
-          <td>CUDA Toolkit 12.0 or later</td>
-          <td>ailia SDK 1.2.15 and later</td>
+          <td>CUDA Toolkit 12.0 以上</td>
+          <td>ailia SDK 1.2.15 以降</td>
         </tr>
         <tr>
           <td>cuDNN 9.0.0 - 9.x</td>
-          <td>CUDA Toolkit 12.0 or later</td>
-          <td>ailia SDK 1.4.0 and later</td>
+          <td>CUDA Toolkit 12.0 以上</td>
+          <td>ailia SDK 1.4.0 以降</td>
         </tr>
         <tr>
           <td>cuDNN 10.0.0 -</td>
-          <td>CUDA Toolkit 12.0 or later</td>
-          <td>ailia SDK 1.7.0 and later (planned)</td>
+          <td>CUDA Toolkit 12.0 以上</td>
+          <td>ailia SDK 1.7.0 以降 (予定)</td>
         </tr>
       </tbody>
     </table>
@@ -110,109 +110,109 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>Windows</h2>
 
-    <h3>1. Install CUDA Toolkit</h3>
+    <h3>1. CUDA Toolkit のインストール</h3>
 
-    <p>Go to the <a href="https://developer.nvidia.com/cuda-toolkit" target="_blank">CUDA Toolkit download page</a> and click "Download Now".</p>
-    <p>Select your operating system, architecture, version, and installer type:</p>
+    <p><a href="https://developer.nvidia.com/cuda-toolkit" target="_blank">CUDA Toolkit 公式ページ</a> にアクセスし、「Download Now」をクリックします。</p>
+    <p>OS、アーキテクチャ、バージョン、インストーラタイプを選択します。</p>
     <ul>
       <li>Operating System: <strong>Windows</strong></li>
       <li>Architecture: <strong>x86_64</strong></li>
-      <li>Version: Your Windows version (e.g., 10, 11)</li>
+      <li>Version: お使いの Windows バージョン (例: 10, 11)</li>
       <li>Installer Type: <strong>exe (local)</strong></li>
     </ul>
-    <p>Click the "Download" button under "Base Installer" to download.</p>
-    <img src="images/image_001.png" alt="CUDA Toolkit download page - selecting OS, architecture, version, and installer type">
+    <p>「Base Installer」の「Download」ボタンをクリックしてダウンロードします。</p>
+    <img src="images/image_001.png" alt="CUDA Toolkit ダウンロードページ - OS、アーキテクチャ、バージョン、インストーラタイプを選択">
 
-    <p>Run the downloaded installer. The default extraction directory is fine.</p>
-    <img src="images/image_002.png" alt="CUDA setup package - extraction path dialog">
+    <p>ダウンロードしたインストーラを実行します。展開先のワークディレクトリはデフォルトのままで問題ありません。</p>
+    <img src="images/image_002.png" alt="CUDA セットアップパッケージ - 展開先の指定">
 
-    <p>Review the NVIDIA Software License Agreement and click "Agree and Continue".</p>
-    <img src="images/image_003.png" alt="NVIDIA installer - license agreement screen">
+    <p>NVIDIA ソフトウェア使用許諾契約書を確認し、「同意して続行する」をクリックします。</p>
+    <img src="images/image_003.png" alt="NVIDIA インストーラ - 使用許諾契約書">
 
-    <p>Select "Custom (Advanced)".</p>
-    <img src="images/image_004.png" alt="Installation options - select Custom (Advanced)">
+    <p>「カスタム (詳細)」を選択します。</p>
+    <img src="images/image_004.png" alt="インストールオプション - カスタム (詳細) を選択">
 
     <div class="note">
-      <strong>Note:</strong> Some versions of CUDA Toolkit may fail to install with the "Express" option. In that case, use the Custom install and select only the components listed below. See the <a href="https://forums.developer.nvidia.com/t/nvidia-installer-failed-cuda-12-3-0/270307" target="_blank">NVIDIA forum post</a> for details.
+      <strong>注意:</strong> 一部のバージョンの CUDA Toolkit では、「高速 (推奨)」でインストールすると失敗する場合があります。その場合はカスタムインストールで以下のコンポーネントのみを選択してください。詳細は <a href="https://forums.developer.nvidia.com/t/nvidia-installer-failed-cuda-12-3-0/270307" target="_blank">NVIDIA フォーラム</a> を参照してください。
     </div>
 
-    <p>In the custom installation options, enable the following components:</p>
+    <p>カスタムインストールオプションで、以下のコンポーネントを有効にします。</p>
     <ul>
       <li>CUDA &gt; <strong>Runtime</strong></li>
       <li>CUDA &gt; <strong>Documentation</strong></li>
       <li>CUDA &gt; <strong>Development</strong></li>
       <li><strong>Driver components</strong></li>
     </ul>
-    <img src="images/image_005.png" alt="Custom install options - selecting CUDA components">
-    <img src="images/image_006.png" alt="Custom install options - selecting Driver components">
+    <img src="images/image_005.png" alt="カスタムインストールオプション - CUDA コンポーネントの選択">
+    <img src="images/image_006.png" alt="カスタムインストールオプション - Driver components の選択">
 
-    <p>When installation finishes, you will see a list of installed components.</p>
-    <img src="images/image_007.png" alt="NVIDIA installer - installation complete screen">
+    <p>インストールが完了すると、インストールされたコンポーネントの一覧が表示されます。</p>
+    <img src="images/image_007.png" alt="NVIDIA インストーラ - インストール完了画面">
 
-    <h3>2. Install cuDNN</h3>
+    <h3>2. cuDNN のインストール</h3>
 
-    <p>Go to the <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN page</a> and click "Download cuDNN Library".</p>
-    <img src="images/image_008.png" alt="NVIDIA cuDNN page - click Download cuDNN Library">
+    <p><a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN 公式ページ</a> にアクセスし、「Download cuDNN Library」をクリックします。</p>
+    <img src="images/image_008.png" alt="NVIDIA cuDNN ページ - Download cuDNN Library をクリック">
 
-    <p>An NVIDIA Developer account is required to download cuDNN. Sign up if you don't have one.</p>
-    <img src="images/image_009.png" alt="NVIDIA Developer account login / sign-up page">
+    <p>cuDNN のダウンロードには NVIDIA 開発者アカウントが必要です。アカウントをお持ちでない場合は新規登録してください。</p>
+    <img src="images/image_009.png" alt="NVIDIA 開発者アカウント ログイン / サインアップ画面">
 
-    <p>After logging in, select "Local Installer for Windows (Zip)" on the download page.</p>
-    <img src="images/image_010.png" alt="cuDNN download page - select Local Installer for Windows (Zip)">
+    <p>ログイン後、ダウンロードページで「Local Installer for Windows (Zip)」を選択してダウンロードします。</p>
+    <img src="images/image_010.png" alt="cuDNN ダウンロードページ - Local Installer for Windows (Zip) を選択">
 
-    <p>Extract the downloaded zip file. Move the extracted folder (e.g., <code>cudnn-windows-x86_64-8.9.6.50_cuda12-archive</code>) to a location of your choice (e.g., <code>C:\nvidia\</code>).</p>
-    <img src="images/image_011.png" alt="Extracted cuDNN folder contents - bin, include, lib, LICENSE">
+    <p>ダウンロードした zip ファイルを展開します。展開されたフォルダ (例: <code>cudnn-windows-x86_64-8.9.6.50_cuda12-archive</code>) を任意の場所 (例: <code>C:\nvidia\</code>) に配置します。</p>
+    <img src="images/image_011.png" alt="cuDNN 展開後のフォルダ構成 - bin, include, lib, LICENSE">
 
-    <h3>3. Set Environment Variables</h3>
-    <p>Add the cuDNN <code>bin</code> folder to your system PATH so that the DLLs can be found at runtime.</p>
+    <h3>3. 環境変数の設定</h3>
+    <p>cuDNN の DLL をシステムから参照できるように、環境変数 PATH に cuDNN の <code>bin</code> フォルダを追加します。</p>
 
-    <p>Open Windows "Settings" &rarr; "System" &rarr; "About", then click "Advanced system settings" to open "System Properties". Click the "Environment Variables" button.</p>
-    <img src="images/image_012.png" alt="Windows System Properties - Environment Variables button">
+    <p>Windows の「設定」&rarr;「システム」&rarr;「詳細情報」を開き、「システムの詳細設定」をクリックして「システムのプロパティ」を表示します。「環境変数」ボタンをクリックします。</p>
+    <img src="images/image_012.png" alt="Windows システムのプロパティ - 環境変数ボタン">
 
-    <p>Select the "Path" variable under "User variables" and click "Edit". Click "New" and add the path to the cuDNN <code>bin</code> folder.</p>
+    <p>ユーザー環境変数の「Path」を選択し、「編集」をクリックします。「新規」をクリックして、cuDNN の <code>bin</code> フォルダのパスを追加します。</p>
     <pre><code>C:\nvidia\cudnn-windows-x86_64-8.9.6.50_cuda12-archive\bin</code></pre>
-    <img src="images/image_013.png" alt="Edit environment variable - adding cuDNN bin folder to PATH">
+    <img src="images/image_013.png" alt="環境変数の編集 - cuDNN の bin フォルダを PATH に追加">
 
-    <h3>4. Install zlib</h3>
-    <p>cuDNN 8.3 and later on Windows requires <code>zlibwapi.dll</code>.</p>
+    <h3>4. zlib のインストール</h3>
+    <p>Windows 版の cuDNN 8.3 以上の利用には <code>zlibwapi.dll</code> が必要です。</p>
 
-    <p>Download <a href="https://www.winimage.com/zLibDll/zlib123dllx64.zip" target="_blank">zlib123dllx64.zip</a> from the <a href="https://www.winimage.com/zLibDll/index.html" target="_blank">ZLIB DLL home page</a> and extract it.</p>
-    <img src="images/image_014.png" alt="zlib download page">
+    <p><a href="https://www.winimage.com/zLibDll/index.html" target="_blank">ZLIB DLL ホームページ</a> から <a href="https://www.winimage.com/zLibDll/zlib123dllx64.zip" target="_blank">zlib123dllx64.zip</a> をダウンロードし、展開します。</p>
+    <img src="images/image_014.png" alt="zlib ダウンロードページ">
 
-    <p>Copy <code>zlibwapi.dll</code> from the extracted files to a directory on your PATH. The simplest option is to copy it into the cuDNN <code>bin</code> folder.</p>
+    <p>展開した中にある <code>zlibwapi.dll</code> を、PATH の通った場所にコピーします。cuDNN の <code>bin</code> フォルダにコピーするのが簡単です。</p>
     <pre><code>copy dll_x64\zlibwapi.dll C:\nvidia\cudnn-windows-x86_64-8.9.6.50_cuda12-archive\bin\</code></pre>
 
     <!-- ==================== Linux ==================== -->
 
     <h2>Linux (Ubuntu)</h2>
 
-    <h3>1. Add the NVIDIA CUDA Repository</h3>
+    <h3>1. NVIDIA CUDA リポジトリの追加</h3>
 
-    <p>First, add the NVIDIA CUDA apt repository. Go to the <a href="https://developer.nvidia.com/cuda-toolkit" target="_blank">CUDA Toolkit download page</a>, select Linux / x86_64 / Ubuntu / your version / deb (network), and follow the displayed commands. The typical steps are:</p>
+    <p>まず、NVIDIA CUDA の apt リポジトリを追加します。<a href="https://developer.nvidia.com/cuda-toolkit" target="_blank">CUDA Toolkit 公式ページ</a> で Linux / x86_64 / Ubuntu / バージョン / deb (network) を選択し、表示されるコマンドに従います。一般的な手順は以下の通りです。</p>
     <pre><code class="language-bash">wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
 sudo dpkg -i cuda-keyring_1.1-1_all.deb
 sudo apt update</code></pre>
 
     <div class="note">
-      <strong>Note:</strong> The URL for the keyring package changes depending on your Ubuntu version. Always use the exact commands shown on the NVIDIA download page for your environment.
+      <strong>注意:</strong> keyring パッケージの URL は Ubuntu のバージョンにより異なります。必ず NVIDIA のダウンロードページに表示される最新のコマンドを使用してください。
     </div>
 
-    <h3>2. Install CUDA Toolkit and cuDNN</h3>
+    <h3>2. CUDA Toolkit と cuDNN のインストール</h3>
 
-    <p>Once the repository is added, install both CUDA Toolkit and cuDNN with apt:</p>
+    <p>リポジトリを追加したら、apt で CUDA Toolkit と cuDNN の両方をインストールします。</p>
     <pre><code class="language-bash">sudo apt install cuda-toolkit libcudnn9-cuda-12</code></pre>
 
     <div class="note">
-      <strong>Note:</strong> The cuDNN package name depends on the version. For cuDNN v8, use <code>libcudnn8</code>. For cuDNN v9 with CUDA 12.x, use <code>libcudnn9-cuda-12</code>. Check available packages with <code>apt search libcudnn</code>.
+      <strong>注意:</strong> cuDNN のパッケージ名はバージョンにより異なります。cuDNN v8 の場合は <code>libcudnn8</code>、cuDNN v9 + CUDA 12.x の場合は <code>libcudnn9-cuda-12</code> を使用してください。<code>apt search libcudnn</code> で利用可能なパッケージを確認できます。
     </div>
 
-    <h3>3. Set Environment Variables</h3>
+    <h3>3. 環境変数の設定</h3>
 
-    <p>Add the CUDA paths to your shell profile (<code>~/.bashrc</code> or <code>~/.zshrc</code>):</p>
+    <p>シェルの設定ファイル (<code>~/.bashrc</code> または <code>~/.zshrc</code>) に CUDA のパスを追加します。</p>
     <pre><code class="language-bash">export PATH=/usr/local/cuda/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH</code></pre>
 
-    <p>Reload your shell and verify the installation:</p>
+    <p>シェルをリロードし、インストールを確認します。</p>
     <pre><code class="language-bash">source ~/.bashrc
 nvcc --version</code></pre>
 
@@ -220,41 +220,41 @@ nvcc --version</code></pre>
 
     <h2>NVIDIA Jetson</h2>
 
-    <p>On NVIDIA Jetson devices (Jetson Orin Nano, Jetson AGX Orin, etc.), CUDA Toolkit and cuDNN are pre-installed as part of <a href="https://developer.nvidia.com/embedded/jetpack" target="_blank">NVIDIA JetPack SDK</a>. No additional installation is required.</p>
+    <p>NVIDIA Jetson デバイス (Jetson Orin Nano、Jetson AGX Orin など) では、<a href="https://developer.nvidia.com/embedded/jetpack" target="_blank">NVIDIA JetPack SDK</a> に CUDA Toolkit と cuDNN が最初から含まれています。追加のインストールは不要です。</p>
 
-    <p>You can verify the pre-installed versions with:</p>
+    <p>プリインストールされているバージョンは以下のコマンドで確認できます。</p>
     <pre><code class="language-bash">nvcc --version
 dpkg -l | grep cudnn</code></pre>
 
     <div class="note">
-      <strong>Note:</strong> Make sure to use a version of ailia SDK that is compatible with the cuDNN version included in your JetPack release. See the version compatibility table above.
+      <strong>注意:</strong> JetPack に含まれる cuDNN のバージョンに対応した ailia SDK を使用してください。上記のバージョン対応表を参照してください。
     </div>
 
     <!-- ==================== Verify ==================== -->
 
-    <h2>Verify the Installation</h2>
+    <h2>インストールの確認</h2>
 
-    <h3>Python API</h3>
-    <p>Use an ailia-models sample to verify that CUDA is detected.</p>
+    <h3>Python API の場合</h3>
+    <p>ailia-models のサンプルを使って、CUDA が認識されているかを確認します。</p>
     <pre><code class="language-bash">cd ailia-models/image_classification/resnet50
 python3 resnet50.py --env_list</code></pre>
 
-    <p>If CUDA appears in the environment list, the setup is successful.</p>
+    <p>出力に <code>CUDA</code> を含む環境が表示されれば成功です。</p>
     <pre><code>env[2]=Environment(id=2, type='GPU',
 name='cuDNN-NVIDIA GeForce RTX 3080 (8.6, FP32)',
 backend='CUDA', props=[])</code></pre>
 
-    <h3>Unity Plugin</h3>
-    <p>If "CUDA" appears in the GPU name, the setup is successful.</p>
+    <h3>Unity Plugin の場合</h3>
+    <p>GPU の名称に「CUDA」が表示されていれば成功です。</p>
 
     <div class="note">
-      <strong>Tip:</strong> By default, ailia SDK automatically selects the fastest available environment on your platform. To use a specific environment, pass the <code>env_id</code> explicitly.
+      <strong>ヒント:</strong> デフォルトでは ailia SDK はプラットフォーム上で最速の環境を自動選択します。特定の環境を使用したい場合は <code>env_id</code> を明示的に指定してください。
     </div>
 
   </div>
 
   <footer>
-    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
 
