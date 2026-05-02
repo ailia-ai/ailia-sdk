@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,22 +10,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ailia Tracker - Documentation</title>
+  <title>ailia Tracker - ドキュメント</title>
   <meta name="description" content="ailia Tracker - Object movement tracking for real-time video analysis.">
-  <link rel="canonical" href="https://docs.ailia.ai/tracker/">
+  <link rel="canonical" href="https://docs.ailia.ai/tracker/index_ja.html">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/tracker/">
   <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/tracker/index_ja.html">
   <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/tracker/">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="og:site_name" content="ailia Documentation">
-  <meta property="og:url" content="https://docs.ailia.ai/tracker/">
-  <meta property="og:title" content="ailia Tracker - Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/tracker/index_ja.html">
+  <meta property="og:title" content="ailia Tracker - ドキュメント">
   <meta property="og:description" content="ailia Tracker - Object movement tracking for real-time video analysis.">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ailia Tracker - Documentation">
+  <meta name="twitter:title" content="ailia Tracker - ドキュメント">
   <meta name="twitter:description" content="ailia Tracker - Object movement tracking for real-time video analysis.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../ailia_logo.png">
@@ -39,11 +39,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
         <a href="./" class="logo-text">ailia Tracker Docs</a>
       </div>
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
       <div class="header-links">
-        <a href="../">Top</a>
+        <a href="../">トップ</a>
         <a href="../api/">SDK</a>
         <a href="../tflite/">TFLite</a>
         <a href="../llm/">LLM</a>
@@ -51,22 +51,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="../voice/">Voice</a>
         <a href="../tokenizer/">Tokenizer</a>
         <a href="../tracker/">Tracker</a>
-        <a href="https://ailia.ai/en/" target="_blank">ailia.ai</a>
-        <a href="index_ja.html" hreflang="ja" lang="ja">日本語</a>
+        <a href="https://ailia.ai/" target="_blank">ailia.ai</a>
+        <a href="./" hreflang="en" lang="en">English</a>
       </div>
     </div>
   </header>
 
   <section class="hero">
     <h1>ailia Tracker</h1>
-    <p>A library for tracking the movement of objects based on object detection results.</p>
+    <p>物体検出結果をもとに物体の移動を追跡するライブラリです。</p>
   </section>
 
   <!-- Getting Started -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">Getting Started</h2>
-      <p class="section-subtitle">Choose your platform and track objects across video frames with YOLOX-S detection plus ByteTrack association.</p>
+      <h2 class="section-title">はじめに</h2>
+      <p class="section-subtitle">プラットフォームを選び、YOLOX-S 検出と ByteTrack の組合せで動画中の物体を追跡してみましょう。</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="cpp" role="tab">C++</button>
@@ -79,13 +79,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Get Evaluation Package</h3>
+            <h3>評価版を入手</h3>
             <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding, runtime libraries (<code>ailia</code>, <code>ailia_audio</code>, <code>ailia_tokenizer</code>, <code>ailia_tracker</code>), and the license file.</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TRACKER?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TRACKER?lang=en" target="_blank" class="card-link">無料トライアルを申し込む</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Download Models &amp; Build</h3>
+            <h3>モデルをダウンロードしてビルド</h3>
             <p>Download the YOLOX-S detector model and place it next to the binary, then build and run the sample.</p>
             <pre><code># Download model files into the binary folder
 curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx
@@ -98,7 +98,7 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
   -Wl,-rpath,./ -std=c++17
 
 ./ailia_tracker_sample input.mp4</code></pre>
-            <a href="cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
+            <a href="cpp/en/setup.html" class="card-link">C++ セットアップガイド</a>
           </div>
         </div>
       </div>
@@ -108,17 +108,17 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Install via UPM</h3>
+            <h3>UPM でインストール</h3>
             <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
             <pre><code>https://github.com/ailia-ai/ailia-tracker-unity.git</code></pre>
-            <a href="unity/en/" class="card-link">Unity API Reference</a>
+            <a href="unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
+            <h3>サンプルを実行</h3>
             <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), and play <code>ObjectTracking/ObjectTrackingSample.unity</code> with a video clip or webcam input. Bounding boxes with stable IDs are overlaid in the Game view.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-unity/tree/master/Assets/AXIP/AILIA-MODELS/ObjectTracking" target="_blank" class="card-link">Sample Scene</a>
+            <a href="https://github.com/ailia-ai/ailia-models-unity/tree/master/Assets/AXIP/AILIA-MODELS/ObjectTracking" target="_blank" class="card-link">サンプルシーン</a>
           </div>
         </div>
       </div>
@@ -128,14 +128,14 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Clone Binding</h3>
+            <h3>バインディングをクローン</h3>
             <p>Clone the JNI binding repository and add it to your Android Studio project.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-tracker-jni.git</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-tracker-jni" target="_blank" class="card-link">Binding</a>
+            <a href="https://github.com/ailia-ai/ailia-tracker-jni" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
+            <h3>サンプルを実行</h3>
             <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the tracker sample on a connected device — it pairs YOLOX-S detection with ByteTrack association on each video frame.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
@@ -150,11 +150,11 @@ git submodule update --init --recursive</code></pre>
 
   <!-- System Requirements -->
   <section class="section">
-    <h2 class="section-title">System Requirements</h2>
-    <p class="section-subtitle">ailia Tracker runs on desktop and mobile platforms. GPU acceleration is available for the object-detection phase on Windows and Linux.</p>
+    <h2 class="section-title">動作環境</h2>
+    <p class="section-subtitle">ailia Tracker はデスクトップとモバイルで動作します。物体検出部分は Windows / Linux で GPU 推論に対応しています。</p>
     <div class="req-grid">
       <div class="req-card">
-        <h3>Operating Systems</h3>
+        <h3>対応 OS</h3>
         <ul>
           <li>Windows 10 / 11</li>
           <li>macOS 11 or later</li>
@@ -163,7 +163,7 @@ git submodule update --init --recursive</code></pre>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Languages &amp; Compilers</h3>
+        <h3>言語とコンパイラ</h3>
         <ul>
           <li>C++17 (VS 2019+ / Xcode 14.2+ / clang) + CMake</li>
           <li>C# / Unity 2021.3.10f1+</li>
@@ -171,7 +171,7 @@ git submodule update --init --recursive</code></pre>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Bundled Models</h3>
+        <h3>同梱モデル</h3>
         <ul>
           <li>YOLOX-S (object detection)</li>
           <li>ByteTrack (object tracking)</li>
@@ -179,7 +179,7 @@ git submodule update --init --recursive</code></pre>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Input / Output</h3>
+        <h3>入出力</h3>
         <ul>
           <li>Video file or webcam input</li>
           <li>MP4 output (annotated)</li>
@@ -193,8 +193,8 @@ git submodule update --init --recursive</code></pre>
   <!-- Features -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">Features</h2>
-      <p class="section-subtitle">Object tracking capabilities provided across the C, C#, and JNI APIs.</p>
+      <h2 class="section-title">機能</h2>
+      <p class="section-subtitle">C / C# / JNI API で利用できる物体追跡機能。</p>
       <div class="req-grid">
         <div class="req-card">
           <h3>Detection &amp; Association</h3>
@@ -221,7 +221,7 @@ git submodule update --init --recursive</code></pre>
           </ul>
         </div>
         <div class="req-card">
-          <h3>GPU Acceleration</h3>
+          <h3>GPU アクセラレーション</h3>
           <ul>
             <li>cuDNN + CUDA on Windows / Linux (detection phase)</li>
             <li>Metal on macOS / iOS</li>
@@ -235,8 +235,8 @@ git submodule update --init --recursive</code></pre>
   <!-- Use the API -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">Use the API in Your Project</h2>
-      <p class="section-subtitle">Minimal examples for adding ByteTrack association on top of your detector in your own application.</p>
+      <h2 class="section-title">プロジェクトで API を使う</h2>
+      <p class="section-subtitle">既存の検出器に ByteTrack の追跡処理を組み合わせる最小サンプル。</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="cpp" role="tab">C++</button>
@@ -303,7 +303,7 @@ tracker.close()</code></pre>
   </section>
 
   <section class="section">
-    <h2 class="section-title">API Reference by Platform</h2>
+    <h2 class="section-title">プラットフォーム別 API リファレンス</h2>
     <div class="card-grid">
 
       <div class="card">
@@ -333,8 +333,8 @@ tracker.close()</code></pre>
 
   <!-- FAQ -->
   <section class="section">
-    <h2 class="section-title">FAQ</h2>
-    <p class="section-subtitle">Common questions about ailia Tracker.</p>
+    <h2 class="section-title">よくある質問</h2>
+    <p class="section-subtitle">ailia Tracker についてのよくある質問。</p>
     <div class="faq-list">
 
       <details class="faq-item">
@@ -384,7 +384,7 @@ tracker.close()</code></pre>
 
   <section class="materials-section">
     <div class="section">
-      <h2 class="section-title">Materials</h2>
+      <h2 class="section-title">資料</h2>
       <div class="materials-grid">
         <a href="https://axip-console.appspot.com/trial/terms/AILIA-TRACKER?lang=en" target="_blank" class="material-item">
           <div class="material-icon">

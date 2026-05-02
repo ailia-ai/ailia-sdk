@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,22 +10,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ailia TFLite Runtime - Documentation</title>
+  <title>ailia TFLite Runtime - ドキュメント</title>
   <meta name="description" content="ailia TFLite Runtime - AI inference engine for embedded devices such as NonOS and RTOS.">
-  <link rel="canonical" href="https://docs.ailia.ai/tflite/">
+  <link rel="canonical" href="https://docs.ailia.ai/tflite/index_ja.html">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/tflite/">
   <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/tflite/index_ja.html">
   <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/tflite/">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="og:site_name" content="ailia Documentation">
-  <meta property="og:url" content="https://docs.ailia.ai/tflite/">
-  <meta property="og:title" content="ailia TFLite Runtime - Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/tflite/index_ja.html">
+  <meta property="og:title" content="ailia TFLite Runtime - ドキュメント">
   <meta property="og:description" content="ailia TFLite Runtime - AI inference engine for embedded devices such as NonOS and RTOS.">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ailia TFLite Runtime - Documentation">
+  <meta name="twitter:title" content="ailia TFLite Runtime - ドキュメント">
   <meta name="twitter:description" content="ailia TFLite Runtime - AI inference engine for embedded devices such as NonOS and RTOS.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../ailia_logo.png">
@@ -39,11 +39,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
         <a href="./" class="logo-text">ailia TFLite Docs</a>
       </div>
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
       <div class="header-links">
-        <a href="../">Top</a>
+        <a href="../">トップ</a>
         <a href="../api/">SDK</a>
         <a href="../tflite/">TFLite</a>
         <a href="../llm/">LLM</a>
@@ -51,22 +51,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="../voice/">Voice</a>
         <a href="../tokenizer/">Tokenizer</a>
         <a href="../tracker/">Tracker</a>
-        <a href="https://ailia.ai/en/" target="_blank">ailia.ai</a>
-        <a href="index_ja.html" hreflang="ja" lang="ja">日本語</a>
+        <a href="https://ailia.ai/" target="_blank">ailia.ai</a>
+        <a href="./" hreflang="en" lang="en">English</a>
       </div>
     </div>
   </header>
 
   <section class="hero">
     <h1>ailia TFLite Runtime</h1>
-    <p>AI inference engine for embedded devices such as NonOS and RTOS. TFLite compatible inference API.</p>
+    <p>NonOS / RTOS など組み込み機器向けの AI 推論エンジン。TFLite 互換の推論 API を提供します。</p>
   </section>
 
   <!-- Getting Started -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">Getting Started</h2>
-      <p class="section-subtitle">Choose your platform and run your first TFLite inference.</p>
+      <h2 class="section-title">はじめに</h2>
+      <p class="section-subtitle">プラットフォームを選び、最初の TFLite 推論を動かしてみましょう。</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -80,21 +80,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Install</h3>
+            <h3>インストール</h3>
             <p>Install the ailia TFLite Python package from PyPI.</p>
             <pre><code>pip3 install ailia_tflite</code></pre>
-            <a href="https://pypi.org/project/ailia-tflite/" target="_blank" class="card-link">View on PyPI</a>
+            <a href="https://pypi.org/project/ailia-tflite/" target="_blank" class="card-link">PyPI で見る</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
+            <h3>サンプルを実行</h3>
             <p>ailia-models-tflite bundles per-model inference scripts. Clone once, install the shared requirements, then <code>cd</code> into any model folder and run — pass <code>-v 0</code> for webcam input or <code>-i image.png</code> for a still. <code>python3 launcher.py</code> at the repo root opens a GUI that browses every quantized TFLite model.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-tflite.git
 cd ailia-models-tflite
 pip3 install -r requirements.txt
 cd object_detection/yolox
 python3 yolox.py -v 0</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-tflite" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/ailia-models-tflite" target="_blank" class="card-link">サンプルリポジトリ</a>
           </div>
         </div>
       </div>
@@ -104,20 +104,20 @@ python3 yolox.py -v 0</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Get Evaluation Package</h3>
+            <h3>評価版を入手</h3>
             <p>Apply for the free trial to obtain the evaluation package, which contains the C99 binding (<code>ailia_tflite.h</code>), the runtime library, the license file, and a runnable sample.</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TFLITE?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TFLITE?lang=en" target="_blank" class="card-link">無料トライアルを申し込む</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Build &amp; Run</h3>
+            <h3>ビルドして実行</h3>
             <p>Compile against the runtime library; the API mirrors TensorFlow Lite's C API. Designed for NonOS / RTOS targets, the C99 implementation is dependency-free aside from <code>libailia_tflite</code>.</p>
             <pre><code># macOS
 clang -o tflite_sample tflite_sample.c \
   libailia_tflite.dylib -Wl,-rpath,./
 
 ./tflite_sample model.tflite</code></pre>
-            <a href="c/en/" class="card-link">C API Reference</a>
+            <a href="c/en/" class="card-link">C API リファレンス</a>
           </div>
         </div>
       </div>
@@ -127,14 +127,14 @@ clang -o tflite_sample tflite_sample.c \
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Install via UPM</h3>
+            <h3>UPM でインストール</h3>
             <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
             <pre><code>https://github.com/ailia-ai/ailia-tflite-unity.git</code></pre>
-            <a href="unity/en/" class="card-link">Unity API Reference</a>
+            <a href="unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
+            <h3>サンプルを実行</h3>
             <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), and play <code>ObjectDetection/ObjectDetectionSample.unity</code>. The YOLOX TFLite path delegates to <code>AiliaTFLiteYoloxSample.cs</code> for NNAPI / mobile inference.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/ObjectDetection/AiliaTFLiteYoloxSample.cs" target="_blank" class="card-link">AiliaTFLiteYoloxSample.cs</a>
@@ -147,14 +147,14 @@ clang -o tflite_sample tflite_sample.c \
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Clone Binding</h3>
+            <h3>バインディングをクローン</h3>
             <p>For your own project, clone the JNI binding repository and add it to your Android Studio project.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-tflite-jni.git</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-tflite-jni" target="_blank" class="card-link">Binding</a>
+            <a href="https://github.com/ailia-ai/ailia-tflite-jni" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
+            <h3>サンプルを実行</h3>
             <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the TFLite object-detection sample on a connected device.</p>
             <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
@@ -169,11 +169,11 @@ git submodule update --init --recursive</code></pre>
 
   <!-- System Requirements -->
   <section class="section">
-    <h2 class="section-title">System Requirements</h2>
-    <p class="section-subtitle">ailia TFLite Runtime is a TensorFlow Lite-compatible inference engine written in C99 for desktop, mobile, and embedded use.</p>
+    <h2 class="section-title">動作環境</h2>
+    <p class="section-subtitle">ailia TFLite Runtime はデスクトップ / モバイル / 組み込み向けの C99 製 TensorFlow Lite 互換推論エンジンです。</p>
     <div class="req-grid">
       <div class="req-card">
-        <h3>Operating Systems</h3>
+        <h3>対応 OS</h3>
         <ul>
           <li>Windows 10 / 11</li>
           <li>macOS 11 or later</li>
@@ -183,7 +183,7 @@ git submodule update --init --recursive</code></pre>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Languages</h3>
+        <h3>言語</h3>
         <ul>
           <li>Python 3.6 or later</li>
           <li>C99 (embedded-friendly)</li>
@@ -192,7 +192,7 @@ git submodule update --init --recursive</code></pre>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Acceleration</h3>
+        <h3>アクセラレーション</h3>
         <ul>
           <li>Intel MKL (PC)</li>
           <li>Android NNAPI / NPU</li>
@@ -200,7 +200,7 @@ git submodule update --init --recursive</code></pre>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Model Formats</h3>
+        <h3>モデル形式</h3>
         <ul>
           <li>TFLite (<code>.tflite</code>)</li>
           <li>INT8 quantized models</li>
@@ -213,8 +213,8 @@ git submodule update --init --recursive</code></pre>
   <!-- Use the API -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">Use the API in Your Project</h2>
-      <p class="section-subtitle">Minimal examples for loading a TFLite model and running inference. The Python API mirrors <code>tflite_runtime.interpreter</code>, so existing TFLite code works with one import change.</p>
+      <h2 class="section-title">プロジェクトで API を使う</h2>
+      <p class="section-subtitle">TFLite モデルを読み込み推論を実行する最小サンプル。Python API は <code>tflite_runtime.interpreter</code> と同じ形なので、import を差し替えるだけで既存コードがそのまま動きます。</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -300,7 +300,7 @@ tflite.close()</code></pre>
   </section>
 
   <section class="section">
-    <h2 class="section-title">API Reference by Platform</h2>
+    <h2 class="section-title">プラットフォーム別 API リファレンス</h2>
     <div class="card-grid">
 
       <div class="card">
@@ -341,8 +341,8 @@ tflite.close()</code></pre>
 
   <!-- FAQ -->
   <section class="section">
-    <h2 class="section-title">FAQ</h2>
-    <p class="section-subtitle">Common questions about ailia TFLite Runtime.</p>
+    <h2 class="section-title">よくある質問</h2>
+    <p class="section-subtitle">ailia TFLite Runtime についてのよくある質問。</p>
     <div class="faq-list">
 
       <details class="faq-item">
@@ -381,7 +381,7 @@ tflite.close()</code></pre>
 
   <section class="materials-section">
     <div class="section">
-      <h2 class="section-title">Materials</h2>
+      <h2 class="section-title">資料</h2>
       <div class="materials-grid">
         <a href="https://ailia.ai/en/tflite/" target="_blank" class="material-item">
           <div class="material-icon">
