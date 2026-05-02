@@ -176,6 +176,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aa8736950603715cb8e47792bd05376d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#aa8736950603715cb8e47792bd05376d9">ailiaLLMSetSamplingParams</a> (struct AILIALLM *llm, unsigned int top_k, float top_p, float temp, unsigned int dist)</td></tr>
 <tr class="memdesc:aa8736950603715cb8e47792bd05376d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the sampling parameter.  <a href="ailia__llm_8h.html#aa8736950603715cb8e47792bd05376d9">More...</a><br /></td></tr>
 <tr class="separator:aa8736950603715cb8e47792bd05376d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a7dddc99139c7deef91f985fb123f4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a3a7dddc99139c7deef91f985fb123f4c">ailiaLLMSetThinking</a> (struct AILIALLM *llm, unsigned int enable)</td></tr>
+<tr class="memdesc:a3a7dddc99139c7deef91f985fb123f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable thinking (reasoning output).  <a href="ailia__llm_8h.html#a3a7dddc99139c7deef91f985fb123f4c">More...</a><br /></td></tr>
+<tr class="separator:a3a7dddc99139c7deef91f985fb123f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b39179b9fc2b13f30f9b5ff257aaaab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a0b39179b9fc2b13f30f9b5ff257aaaab">ailiaLLMSetPrompt</a> (struct AILIALLM *llm, const <a class="el" href="ailia__llm_8h.html#a54ac4162a7bbc022ceb36634d2c7e632">AILIALLMChatMessage</a> *message, unsigned int message_cnt)</td></tr>
 <tr class="memdesc:a0b39179b9fc2b13f30f9b5ff257aaaab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the prompt.  <a href="ailia__llm_8h.html#a0b39179b9fc2b13f30f9b5ff257aaaab">More...</a><br /></td></tr>
 <tr class="separator:a0b39179b9fc2b13f30f9b5ff257aaaab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1227,6 +1230,45 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
 <p>Set LLM sampling parameters. Must be run before ailiaLLMSetPrompt. </p>
+
+</div>
+</div>
+<a id="a3a7dddc99139c7deef91f985fb123f4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a7dddc99139c7deef91f985fb123f4c">&#9670;&nbsp;</a></span>ailiaLLMSetThinking()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMSetThinking </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable or disable thinking (reasoning output). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>A pointer to the LLM instance pointer </td></tr>
+    <tr><td class="paramname">enable</td><td>0 to disable, non-zero to enable (default: disabled) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
+<p>Controls whether thinking models (e.g. Gemma4) output their reasoning process. Must be called before ailiaLLMSetPrompt. </p>
 
 </div>
 </div>

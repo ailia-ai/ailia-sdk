@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the wcsstr method from the ailiaLlmFFI class, for the Dart programming language.">
-  <title>wcsstr method - ailiaLlmFFI class - ailia_llm library - Dart API</title>
+  <meta name="description" content="API docs for the ailiaLLMSetThinking method from the ailiaLlmFFI class, for the Dart programming language.">
+  <title>ailiaLLMSetThinking method - ailiaLlmFFI class - ailia_llm library - Dart API</title>
 
 
   
@@ -27,9 +27,9 @@
     <li><a href="../../index.html">ailia_llm</a></li>
     <li><a href="../../ailia_llm/">ailia_llm.dart</a></li>
     <li><a href="../../ailia_llm/ailiaLlmFFI-class.html">ailiaLlmFFI</a></li>
-    <li class="self-crumb">wcsstr method</li>
+    <li class="self-crumb">ailiaLLMSetThinking method</li>
   </ol>
-  <div class="self-name">wcsstr</div>
+  <div class="self-name">ailiaLLMSetThinking</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -49,32 +49,51 @@
     data-above-sidebar="ailia_llm&#47;ailiaLlmFFI-class-sidebar.html"
     data-below-sidebar="">
     <div>
-<h1><span class="kind-method">wcsstr</span> method 
+<h1><span class="kind-method">ailiaLLMSetThinking</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
-<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-<span class="name ">wcsstr</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="wcsstr-param-_Str"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Str</span>, </span></li>
-<li><span class="parameter" id="wcsstr-param-_SubStr"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_SubStr</span></span></li>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+<span class="name ">ailiaLLMSetThinking</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="ailiaLLMSetThinking-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span></li>
+<li><span class="parameter" id="ailiaLLMSetThinking-param-enable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">enable</span></span></li>
 </ol>)
 
       
 
     </section>
     
+<section class="desc markdown">
+  <p>~japanese
+@brief Thinkingモデル（Gemma4等）の推論過程の出力を制御します。
+@param llm LLMオブジェクトポインタへのポインタ
+@param enable 0で無効、0以外で有効（デフォルト: 無効）
+@return
+成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ailiaLLMSetPromptの前に実行する必要があります。</p>
+<p>~english
+@brief Enable or disable thinking (reasoning output).
+@param llm A pointer to the LLM instance pointer
+@param enable 0 to disable, non-zero to enable (default: disabled)
+@return
+If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
+@details
+Controls whether thinking models (e.g. Gemma4) output their reasoning process.
+Must be called before ailiaLLMSetPrompt.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">ffi.Pointer&lt;ffi.WChar&gt; wcsstr(
-  ffi.Pointer&lt;ffi.WChar&gt; _Str,
-  ffi.Pointer&lt;ffi.WChar&gt; _SubStr,
+  <pre class="language-dart"><code class="language-dart">int ailiaLLMSetThinking(
+  ffi.Pointer&lt;AILIALLM&gt; llm,
+  int enable,
 ) {
-  return _wcsstr(
-    _Str,
-    _SubStr,
+  return _ailiaLLMSetThinking(
+    llm,
+    enable,
   );
 }</code></pre>
 </section>
@@ -92,7 +111,7 @@
     <li><a href="../../index.html">ailia_llm</a></li>
     <li><a href="../../ailia_llm/">ailia_llm</a></li>
     <li><a href="../../ailia_llm/ailiaLlmFFI-class.html">ailiaLlmFFI</a></li>
-    <li class="self-crumb">wcsstr method</li>
+    <li class="self-crumb">ailiaLLMSetThinking method</li>
 </ol>
 
     <h5>ailiaLlmFFI class</h5>

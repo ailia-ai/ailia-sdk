@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the st_gid property from the stat class, for the Dart programming language.">
-  <title>st_gid property - stat class - ailia_llm library - Dart API</title>
+  <meta name="description" content="API docs for the setThinking method from the AiliaLLMModel class, for the Dart programming language.">
+  <title>setThinking method - AiliaLLMModel class - ailia_llm_model library - Dart API</title>
 
 
   
@@ -25,11 +25,11 @@
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_llm</a></li>
-    <li><a href="../../ailia_llm/">ailia_llm.dart</a></li>
-    <li><a href="../../ailia_llm/stat-class.html">stat</a></li>
-    <li class="self-crumb">st_gid property</li>
+    <li><a href="../../ailia_llm_model/">ailia_llm_model.dart</a></li>
+    <li><a href="../../ailia_llm_model/AiliaLLMModel-class.html">AiliaLLMModel</a></li>
+    <li class="self-crumb">setThinking method</li>
   </ol>
-  <div class="self-name">st_gid</div>
+  <div class="self-name">setThinking</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -46,39 +46,48 @@
 <div
     id="dartdoc-main-content"
     class="main-content"
-    data-above-sidebar="ailia_llm&#47;stat-class-sidebar.html"
+    data-above-sidebar="ailia_llm_model&#47;AiliaLLMModel-class-sidebar.html"
     data-below-sidebar="">
     <div>
-<h1><span class="kind-property">st_gid</span> property 
+<h1><span class="kind-method">setThinking</span> method 
 </h1></div>
 
+    <section class="multi-line-signature">
+      
+<span class="returntype">void</span>
+<span class="name ">setThinking</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="setThinking-param-enable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">enable</span></span></li>
+</ol>)
+
+      
+
+    </section>
     
-      <section class="multi-line-signature">
-        
-  <div>
-    <ol class="annotation-list">
-        <li>@<a href="https://api.flutter.dev/flutter/dart-ffi/Short-class.html">Short</a>()</li>
-    </ol>
-  </div>
-        <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>
-        <span class="name ">st_gid</span>
-        <div class="features"><span class="feature">getter/setter pair</span></div>
-
-      </section>
-      
-
-      
-<section class="summary source-code" id="source">
-  <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">@ffi.Short()
-external int st_gid;</code></pre>
+<section class="desc markdown">
+  <p>Enable or disable thinking (reasoning output).
+Controls whether thinking models (e.g. Gemma4) output their reasoning process.
+Must be called before setPrompt.</p>
 </section>
 
 
     
-</div> <!-- /.main-content -->
-<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void setThinking(bool enable) {
+  if (pLLm == nullptr) {
+    throw Exception(&quot;ailia LLM not initialized.&quot;);
+  }
+
+  var status = dllHandle.ailiaLLMSetThinking(pLLm.value, enable ? 1 : 0);
+  if (status != ailia_llm_dart.AILIA_LLM_STATUS_SUCCESS) {
+    throw Exception(&quot;ailiaLLMSetThinking returned an error status $status&quot;);
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
@@ -86,15 +95,15 @@ external int st_gid;</code></pre>
 </header>
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_llm</a></li>
-    <li><a href="../../ailia_llm/">ailia_llm</a></li>
-    <li><a href="../../ailia_llm/stat-class.html">stat</a></li>
-    <li class="self-crumb">st_gid property</li>
+    <li><a href="../../ailia_llm_model/">ailia_llm_model</a></li>
+    <li><a href="../../ailia_llm_model/AiliaLLMModel-class.html">AiliaLLMModel</a></li>
+    <li class="self-crumb">setThinking method</li>
 </ol>
 
-  <h5>stat class</h5>
-  <div id="dartdoc-sidebar-left-content"></div>
-</div><!--/.sidebar-offcanvas-->
-<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <h5>AiliaLLMModel class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 </div><!--/.sidebar-offcanvas-->
 </main>
 <footer>

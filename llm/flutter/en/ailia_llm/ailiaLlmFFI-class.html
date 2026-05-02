@@ -482,6 +482,26 @@ LLMのサンプリングの設定を行います。ailiaLLMSetPromptの前に実
 
 </dd>
 
+        <dt id="ailiaLLMSetThinking" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMSetThinking.html">ailiaLLMSetThinking</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMSetThinking-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMSetThinking-param-enable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">enable</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief Thinkingモデル（Gemma4等）の推論過程の出力を制御します。
+@param llm LLMオブジェクトポインタへのポインタ
+@param enable 0で無効、0以外で有効（デフォルト: 無効）
+@return
+成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ailiaLLMSetPromptの前に実行する必要があります。
+  
+
+</dd>
+
         <dt id="btowc" class="callable">
   <span class="name"><a href="../ailia_llm/ailiaLlmFFI/btowc.html">btowc</a></span><span class="signature">(<wbr><span class="parameter" id="btowc-param-_Ch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Ch</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
@@ -1728,7 +1748,7 @@ LLMのサンプリングの設定を行います。ailiaLLMSetPromptの前に実
 <footer>
   <span class="no-break">
     ailia_llm
-      1.4.0
+      1.4.1
   </span>
   
 </footer>

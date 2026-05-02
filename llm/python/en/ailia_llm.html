@@ -51,6 +51,7 @@
 <li><a class="reference internal" href="#ailia_llm.AiliaLLM.open"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open()</span></code></a></li>
 <li><a class="reference internal" href="#ailia_llm.AiliaLLM.open_multimodal_projector"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open_multimodal_projector()</span></code></a></li>
 <li><a class="reference internal" href="#ailia_llm.AiliaLLM.prompt_token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.prompt_token_count()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_llm.AiliaLLM.set_thinking"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_thinking()</span></code></a></li>
 <li><a class="reference internal" href="#ailia_llm.AiliaLLM.token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.token_count()</span></code></a></li>
 </ul>
 </li>
@@ -352,6 +353,20 @@ such as image or audio understanding.</p>
 <span class="go">42</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.set_thinking">
+<span class="sig-name descname"><span class="pre">set_thinking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.set_thinking" title="Link to this definition">¶</a></dt>
+<dd><p>Enable or disable thinking (reasoning output) for thinking models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enable</strong> (<em>bool</em>) – True to enable thinking output, False to disable it.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>AiliaLLMError</strong> – If the operation fails.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
