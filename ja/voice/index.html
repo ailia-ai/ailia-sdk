@@ -81,14 +81,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="step-number">1</div>
             <h3>インストール</h3>
             <p>ailia Voice と、サンプルで使う <code>librosa</code> / <code>soundfile</code> をインストールします。</p>
-            <pre><code>pip3 install ailia_voice librosa soundfile</code></pre>
+            <pre><code class="language-bash">pip3 install ailia_voice librosa soundfile</code></pre>
             <a href="https://pypi.org/project/ailia-voice/" target="_blank" class="card-link">PyPI で見る</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models</code> から <code>example_ailia_voice.py</code> をダウンロードして実行します。短いリファレンス音声から声をクローンし、<code>output.wav</code> を書き出します。モデルは <code>./models/</code> に自動ダウンロードされます。</p>
-            <pre><code>wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/gpt-sovits/example_ailia_voice.py
+            <pre><code class="language-bash">wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/gpt-sovits/example_ailia_voice.py
 python3 example_ailia_voice.py</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/gpt-sovits/example_ailia_voice.py" target="_blank" class="card-link">example_ailia_voice.py</a>
           </div>
@@ -108,7 +108,7 @@ python3 example_ailia_voice.py</code></pre>
             <div class="step-number">2</div>
             <h3>モデルをダウンロードして実行</h3>
             <p>同梱のモデルダウンロードスクリプトを実行し、サンプルをビルドして実行します。</p>
-            <pre><code># Fetch GPT-SoVITS / Tacotron2 model files
+            <pre><code class="language-bash"># Fetch GPT-SoVITS / Tacotron2 model files
 cd onnx
 bash download_models.sh   # download_models.bat on Windows
 cd ../cpp
@@ -132,14 +132,14 @@ clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
             <div class="step-number">1</div>
             <h3>UPM でインストール</h3>
             <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
-            <pre><code>https://github.com/ailia-ai/ailia-voice-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-voice-unity.git</code></pre>
             <a href="../../voice/unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models-unity</code> をクローンして Unity Editor (2021.3.10f1 以降) で開き、リファレンス音声と読み上げテキストを設定して TextToSpeech シーンを Play してください。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/TextToSpeech/AiliaVoiceSample.cs" target="_blank" class="card-link">AiliaVoiceSample.cs</a>
           </div>
         </div>
@@ -152,7 +152,7 @@ clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
             <div class="step-number">1</div>
             <h3>pubspec に追加</h3>
             <p>Flutter プロジェクトの <code>pubspec.yaml</code> に ailia Voice を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
-            <pre><code>dependencies:
+            <pre><code class="language-yaml">dependencies:
   ailia_voice:
     git:
       url: https://github.com/ailia-ai/ailia-voice-flutter.git
@@ -163,7 +163,7 @@ clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p>GPT-SoVITS の合成サンプルアプリは Flutter サンプルリポジトリにあります。クローンしてそのまま実行できます。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-flutter.git
 cd ailia-models-flutter
 flutter pub get
 flutter run</code></pre>
@@ -273,7 +273,7 @@ flutter run</code></pre>
       </div>
 
       <div class="platform-panel" data-platform="python">
-        <pre class="code-block"><code>import ailia_voice
+        <pre class="code-block"><code class="language-python">import ailia_voice
 
 voice = ailia_voice.GPTSoVITS()
 voice.initialize_model(model_path="./models/")
@@ -284,7 +284,7 @@ buf, sr = voice.synthesize_voice("こんにちは。", ailia_voice.AILIA_VOICE_G
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
-        <pre class="code-block"><code>#include "ailia_voice.h"
+        <pre class="code-block"><code class="language-cpp">#include "ailia_voice.h"
 
 struct AILIAVoice *voice = nullptr;
 ailiaVoiceCreate(&amp;voice, env_id, AILIA_VOICE_FLAG_NONE);
@@ -301,7 +301,7 @@ ailiaVoiceDestroy(voice);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
-        <pre class="code-block"><code>using ailiaVoice;
+        <pre class="code-block"><code class="language-csharp">using ailiaVoice;
 
 var voice = new AiliaVoiceModel();
 voice.Create(voice.GetEnvironmentId(gpuMode), AiliaVoice.AILIA_VOICE_FLAG_NONE);
@@ -316,7 +316,7 @@ AudioClip clip = voice.GetAudioClip();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
-        <pre class="code-block"><code>import 'package:ailia_voice/ailia_voice.dart';
+        <pre class="code-block"><code class="language-dart">import 'package:ailia_voice/ailia_voice.dart';
 
 final voice = AiliaVoiceModel();
 await voice.create();
@@ -328,7 +328,7 @@ final pcm = await voice.synthesize('こんにちは。',
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code>val voice = AiliaVoice(envId = envId)
+        <pre class="code-block"><code class="language-kotlin">val voice = AiliaVoice(envId = envId)
 voice.openGPTSoVITSV1ModelFile(t2sEnc, t2sFsdec, t2sSdec, vits, cnhubert)
 voice.setReferenceAudio(refAudio, refAudio.size * 4, channels, sampleRate, refG2pText)
 
@@ -415,7 +415,7 @@ val audio = voice.synthesizeVoice(g2p)</code></pre>
         <details class="faq-item">
           <summary>独自の発音辞書を作成するには?</summary>
           <p>ailia Voice は日本語の音素変換に OpenJtalk を内蔵しています。発音を上書きするには、MeCab 形式の <code>userdic.csv</code> を用意し (末尾の <code>0/5</code> は 5 モーラ・アクセント位置 0 を表します)、pyopenjtalk でバイナリ <code>.dic</code> に変換します:</p>
-          <pre><code>import pyopenjtalk
+          <pre><code class="language-bash">import pyopenjtalk
 pyopenjtalk.mecab_dict_index("userdic.csv", "userdic.dic")</code></pre>
           <p>その後、Python では <code>initialize_model()</code> に <code>user_dict_path</code> を渡し、C では <code>ailiaVoiceSetUserDictionary</code> を呼び出します。v3 用の <a href="https://storage.googleapis.com/ailia-models/gpt-sovits-v3/user.dict" target="_blank">標準ユーザー辞書</a> も利用できます。</p>
         </details>
@@ -508,6 +508,7 @@ pyopenjtalk.mecab_dict_index("userdic.csv", "userdic.dic")</code></pre>
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {

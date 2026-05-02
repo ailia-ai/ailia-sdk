@@ -82,14 +82,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="step-number">1</div>
             <h3>インストール</h3>
             <p>ailia Tokenizer の Python パッケージを PyPI からインストールします。</p>
-            <pre><code>pip3 install ailia_tokenizer</code></pre>
+            <pre><code class="language-bash">pip3 install ailia_tokenizer</code></pre>
             <a href="https://pypi.org/project/ailia-tokenizer/" target="_blank" class="card-link">PyPI で見る</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models</code> をクローンし、multilingual-MiniLMv2 のゼロショット分類サンプルを実行します。<code>tokenizer/</code> ディレクトリには <code>sentencepiece.bpe.model</code> と <code>tokenizer_config.json</code> が同梱されており、これは <code>XLMRobertaTokenizer.from_pretrained()</code> が期待するファイル構成です。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
 cd ailia-models/natural_language_processing/multilingual-minilmv2
 pip3 install -r requirements.txt
 python3 multilingual-minilmv2.py</code></pre>
@@ -105,14 +105,14 @@ python3 multilingual-minilmv2.py</code></pre>
             <div class="step-number">1</div>
             <h3>バインディングをクローン</h3>
             <p>C++ バインディングリポジトリをクローンし、<code>libailia_tokenizer</code> にリンクします。各トークナイザファイルは対応する API (<code>OpenModelFile</code> / <code>OpenVocabFile</code> / <code>OpenMergeFile</code> / <code>OpenDictionaryFile</code>) で開きます。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-tokenizer-cpp.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-tokenizer-cpp.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-tokenizer-cpp" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>ビルドして実行</h3>
             <p>同梱サンプルをビルドし、トークナイザファイルと入力テキストを渡して実行します。</p>
-            <pre><code># macOS
+            <pre><code class="language-bash"># macOS
 clang++ -o tokenizer_sample tokenizer_sample.cpp \
   libailia_tokenizer.dylib -Wl,-rpath,./ -std=c++17
 
@@ -129,14 +129,14 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
             <div class="step-number">1</div>
             <h3>UPM でインストール</h3>
             <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
-            <pre><code>https://github.com/ailia-ai/ailia-tokenizer-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-tokenizer-unity.git</code></pre>
             <a href="../../tokenizer/unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models-unity</code> をクローンして Unity Editor (2021.3.10f1 以降) で開き、<code>NaturalLanguageProcessing/AiliaNaturalLanguageProcessingSample.unity</code> を Play するとコンソールにトークン ID が表示されます。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/tree/master/Assets/AXIP/AILIA-MODELS/NaturalLanguageProcessing" target="_blank" class="card-link">サンプルシーン</a>
           </div>
         </div>
@@ -149,7 +149,7 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
             <div class="step-number">1</div>
             <h3>pubspec に追加</h3>
             <p>Flutter プロジェクトの <code>pubspec.yaml</code> に ailia Tokenizer を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
-            <pre><code>dependencies:
+            <pre><code class="language-yaml">dependencies:
   ailia_tokenizer:
     git:
       url: https://github.com/ailia-ai/ailia-tokenizer-flutter.git
@@ -160,7 +160,7 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-tokenizer-flutter</code> をクローンして同梱サンプルアプリを実行します。<code>assets/</code> から XLM-RoBERTa の SentencePiece モデルをコピーし、文字列をエンコードします。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-tokenizer-flutter.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-tokenizer-flutter.git
 cd ailia-tokenizer-flutter/example
 flutter pub get
 flutter run</code></pre>
@@ -176,14 +176,14 @@ flutter run</code></pre>
             <div class="step-number">1</div>
             <h3>バインディングをクローン</h3>
             <p>JNI バインディングリポジトリをクローンして Android Studio プロジェクトに追加します。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-tokenizer-jni.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-tokenizer-jni.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-tokenizer-jni" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models-kotlin</code> をサブモジュール込みでクローンし Android Studio で開きます。トークナイザを使った XLM-RoBERTa のゼロショット分類サンプルが同梱されています。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
 git submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaMiniLMv2Sample.kt" target="_blank" class="card-link">AiliaMiniLMv2Sample.kt</a>
@@ -295,7 +295,7 @@ git submodule update --init --recursive</code></pre>
       </div>
 
       <div class="platform-panel" data-platform="python">
-        <pre class="code-block"><code>import ailia_tokenizer
+        <pre class="code-block"><code class="language-python">import ailia_tokenizer
 
 tok = ailia_tokenizer.BertTokenizer.from_pretrained("./tokenizer/")
 ids = tok.encode("Hello, world!")
@@ -303,7 +303,7 @@ text = tok.decode(ids)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
-        <pre class="code-block"><code>#include "ailia_tokenizer.h"
+        <pre class="code-block"><code class="language-cpp">#include "ailia_tokenizer.h"
 
 struct AILIATokenizer *tok = nullptr;
 ailiaTokenizerCreate(&amp;tok, AILIA_TOKENIZER_TYPE_BERT, AILIA_TOKENIZER_FLAG_NONE);
@@ -316,7 +316,7 @@ ailiaTokenizerDestroy(tok);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
-        <pre class="code-block"><code>using ailiaTokenizer;
+        <pre class="code-block"><code class="language-csharp">using ailiaTokenizer;
 
 var tokenizer = new AiliaTokenizerModel();
 tokenizer.Create(AiliaTokenizer.AILIA_TOKENIZER_TYPE_BERT,
@@ -328,7 +328,7 @@ string text = tokenizer.Decode(ids);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
-        <pre class="code-block"><code>import 'package:ailia_tokenizer/ailia_tokenizer.dart' as ailia_tokenizer_dart;
+        <pre class="code-block"><code class="language-dart">import 'package:ailia_tokenizer/ailia_tokenizer.dart' as ailia_tokenizer_dart;
 import 'package:ailia_tokenizer/ailia_tokenizer_model.dart';
 import 'dart:typed_data';
 
@@ -341,7 +341,7 @@ final String text = tokenizer.decode(ids);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code>val tokenizer = AiliaTokenizer(AiliaTokenizer.AILIA_TOKENIZER_TYPE_BERT)
+        <pre class="code-block"><code class="language-kotlin">val tokenizer = AiliaTokenizer(AiliaTokenizer.AILIA_TOKENIZER_TYPE_BERT)
 tokenizer.loadFiles(modelPath = tokenizerPath)
 
 val ids = tokenizer.encode("Hello, world!")
@@ -497,6 +497,7 @@ val text = tokenizer.decode(ids)</code></pre>
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {

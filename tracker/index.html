@@ -86,7 +86,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="step-number">2</div>
             <h3>Download Models &amp; Build</h3>
             <p>Download the YOLOX-S detector model and place it next to the binary, then build and run the sample.</p>
-            <pre><code># Download model files into the binary folder
+            <pre><code class="language-bash"># Download model files into the binary folder
 curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx
 curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx.prototxt
 
@@ -109,14 +109,14 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
             <div class="step-number">1</div>
             <h3>Install via UPM</h3>
             <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
-            <pre><code>https://github.com/ailia-ai/ailia-tracker-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-tracker-unity.git</code></pre>
             <a href="unity/en/" class="card-link">Unity API Reference</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
             <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), and play <code>ObjectTracking/ObjectTrackingSample.unity</code> with a video clip or webcam input. Bounding boxes with stable IDs are overlaid in the Game view.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/tree/master/Assets/AXIP/AILIA-MODELS/ObjectTracking" target="_blank" class="card-link">Sample Scene</a>
           </div>
         </div>
@@ -129,14 +129,14 @@ clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
             <div class="step-number">1</div>
             <h3>Clone Binding</h3>
             <p>Clone the JNI binding repository and add it to your Android Studio project.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-tracker-jni.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-tracker-jni.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-tracker-jni" target="_blank" class="card-link">Binding</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
             <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the tracker sample on a connected device — it pairs YOLOX-S detection with ByteTrack association on each video frame.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
 git submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaTrackerSample.kt" target="_blank" class="card-link">AiliaTrackerSample.kt</a>
@@ -244,7 +244,7 @@ git submodule update --init --recursive</code></pre>
       </div>
 
       <div class="platform-panel" data-platform="cpp">
-        <pre class="code-block"><code>#include "ailia_tracker.h"
+        <pre class="code-block"><code class="language-cpp">#include "ailia_tracker.h"
 
 struct AILIATracker *tracker = nullptr;
 AILIATrackerSettings settings = {0.1f, 0.7f, 0.5f, 30, 0.8f};
@@ -260,7 +260,7 @@ ailiaTrackerDestroy(tracker);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
-        <pre class="code-block"><code>using ailiaTracker;
+        <pre class="code-block"><code class="language-csharp">using ailiaTracker;
 
 var tracker = new AiliaTrackerModel();
 tracker.Open(AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
@@ -278,7 +278,7 @@ for (int i = 0; i &lt; tracker.GetObjectCount(); i++) {
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code>val tracker = AiliaTracker(
+        <pre class="code-block"><code class="language-kotlin">val tracker = AiliaTracker(
     algorithm = AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
     settings = AiliaTrackerSettings(
         score_threshold = 0.1f, nms_threshold = 0.7f,
@@ -418,6 +418,7 @@ tracker.close()</code></pre>
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {
