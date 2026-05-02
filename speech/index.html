@@ -456,7 +456,7 @@ for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)<
 
         <details class="faq-item">
           <summary>How do I enable GPU acceleration?</summary>
-          <p>On macOS / iOS, Metal is used automatically. On Windows / Linux, install <a href="https://developer.nvidia.com/cuda-downloads" target="_blank">CUDA Toolkit</a> and <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN</a>, then add cuDNN to your <code>PATH</code>. Pass an environment ID corresponding to the GPU back-end (or use <code>auto</code> in the sample CLI).</p>
+          <p>On macOS / iOS, Metal is used automatically. On Windows / Linux, install CUDA Toolkit and cuDNN, then pass an environment ID corresponding to the GPU back-end (or use <code>auto</code> in the sample CLI). See the <a href="../setup/cuda/">CUDA Toolkit / cuDNN Installation Guide</a> for detailed instructions.</p>
         </details>
 
         <details class="faq-item">

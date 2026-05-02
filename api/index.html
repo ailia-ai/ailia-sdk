@@ -415,7 +415,8 @@ println(output.size)</code></pre>
         <summary>How do I switch between CPU and GPU?</summary>
         <p>Pass an <code>env_id</code> to <code>ailia.Net()</code>. List available environments (CPU, CUDA, Metal, Vulkan, MKL) with <code>ailia.get_environment_list()</code>, then select the one you want.</p>
         <p>By default, ailia chooses the fastest available environment for your platform.</p>
-        <p>To use CUDA, install the <a href="https://developer.nvidia.com/cuda-toolkit" target="_blank">CUDA Toolkit</a> and <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN</a> in order. Download the cuDNN zip, extract it to a directory (e.g. <code>C:\nvidia\</code>), and add the <code>bin</code> folder to your system PATH. For Windows with cuDNN 8.3+, also install <code>zlibwapi.dll</code> from zlib. Ensure the cuDNN version matches your CUDA Toolkit version (e.g. both 12.x). Note that cuDNN v9 requires ailia SDK 1.4.0 or later.</p>
+        <p>To use CUDA, install the CUDA Toolkit and cuDNN. See the <a href="../setup/cuda/">CUDA Toolkit / cuDNN Installation Guide</a> for details.</p>
+        <p>To use Vulkan, see the <a href="../setup/vulkan/">Vulkan Setup Guide</a>.</p>
       </details>
 
       <details class="faq-item">

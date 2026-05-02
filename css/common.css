@@ -337,6 +337,126 @@ code { overflow-wrap: anywhere; }
 .faq-item p + p { margin-top: 10px; }
 .faq-item code { background: var(--bg); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
 
+/* Guide / Article */
+.guide-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+.guide-content h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 48px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+}
+
+.guide-content h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+.guide-content p {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.guide-content ul, .guide-content ol {
+  margin-bottom: 16px;
+  padding-left: 24px;
+}
+
+.guide-content li {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+
+.guide-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  margin: 16px 0;
+  display: block;
+}
+
+.guide-content pre {
+  background: var(--white);
+  color: var(--text);
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+  line-height: 1.6;
+  font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+.guide-content pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.guide-content code {
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.guide-content .note {
+  background: #fff8e1;
+  border-left: 4px solid #ffc107;
+  padding: 14px 18px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.guide-content .note strong {
+  color: #e65100;
+}
+
+.guide-content .version-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.guide-content .version-table th,
+.guide-content .version-table td {
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.guide-content .version-table th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.guide-content .version-table td {
+  background: var(--white);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero h1 { font-size: 26px; }

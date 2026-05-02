@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vulkan セットアップガイド - ailia SDK</title>
+  <meta name="description" content="Windows / Linux で Vulkan を使用して ailia SDK の GPU 推論を有効にする手順を解説します。">
+  <link rel="canonical" href="https://docs.ailia.ai/ja/setup/vulkan/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/setup/vulkan/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/ja/setup/vulkan/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/setup/vulkan/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/ja/setup/vulkan/">
+  <meta property="og:title" content="Vulkan セットアップガイド - ailia SDK">
+  <meta property="og:description" content="Windows / Linux で Vulkan を使用して ailia SDK の GPU 推論を有効にする手順を解説します。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vulkan セットアップガイド - ailia SDK">
+  <meta name="twitter:description" content="Windows / Linux で Vulkan を使用して ailia SDK の GPU 推論を有効にする手順を解説します。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../../ailia_logo.png">
+  <link rel="stylesheet" href="../../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/ja/" class="logo-icon"><img src="../../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../api/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../../setup/vulkan/" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Vulkan セットアップガイド</h1>
+    <p>Windows / Linux で Vulkan を使用して ailia SDK の GPU 推論を有効にする手順を説明します。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>概要</h2>
+    <p>Vulkan は Khronos Group が開発したクロスプラットフォームのグラフィックス / コンピュート API です。ailia SDK と ailia LLM は Vulkan を使用して、NVIDIA および AMD の GPU でアクセラレーションされた推論を行うことができます。CUDA と異なり、Vulkan は NVIDIA 以外のハードウェアでも使用できます。</p>
+
+    <h2>Windows</h2>
+    <p>Windows では、Vulkan ランタイムは NVIDIA、AMD、Intel の GPU ドライバに含まれています。追加のインストールは不要です。</p>
+    <p>最新の GPU ドライバがインストールされていれば、Vulkan はすでに使用可能です。</p>
+
+    <h3>Vulkan が使用可能か確認する</h3>
+    <p>ailia-models のサンプルを使って、環境リストに Vulkan が表示されることを確認します。</p>
+    <pre><code class="language-bash">cd ailia-models/image_classification/resnet50
+python3 resnet50.py --env_list</code></pre>
+
+    <p>Vulkan が使用可能であれば、以下のような環境が表示されます。</p>
+    <pre><code>env[3]=Environment(id=3, type='GPU',
+name='Vulkan-NVIDIA GeForce RTX 3080',
+backend='Vulkan', props=[])</code></pre>
+
+    <div class="note">
+      <strong>ヒント:</strong> Vulkan が表示されない場合は、GPU ドライバを最新バージョンに更新してください。<a href="https://www.nvidia.com/Download/index.aspx" target="_blank">NVIDIA</a>、<a href="https://www.amd.com/en/support" target="_blank">AMD</a>、<a href="https://www.intel.com/content/www/us/en/download-center/home.html" target="_blank">Intel</a> の各サイトからダウンロードできます。
+    </div>
+
+    <h2>Linux (Ubuntu)</h2>
+    <p>Linux では、Vulkan ローダーライブラリを別途インストールする必要があります。以下のコマンドでインストールします。</p>
+    <pre><code class="language-bash">sudo apt install libvulkan1</code></pre>
+
+    <p>これにより Vulkan ICD (Installable Client Driver) ローダーがインストールされます。Vulkan をサポートする GPU ドライバも必要です。</p>
+
+    <h3>NVIDIA GPU の場合</h3>
+    <p>NVIDIA GPU を使用している場合は、プロプライエタリ NVIDIA ドライバをインストールします。</p>
+    <pre><code class="language-bash">sudo apt install nvidia-driver-560</code></pre>
+
+    <div class="note">
+      <strong>注意:</strong> <code>560</code> の部分はお使いの GPU に対応する最新のドライババージョンに置き換えてください。<code>apt search nvidia-driver</code> で利用可能なバージョンを確認できます。
+    </div>
+
+    <h3>AMD GPU の場合</h3>
+    <p>AMD GPU を使用している場合は、Mesa Vulkan ドライバをインストールします。</p>
+    <pre><code class="language-bash">sudo apt install mesa-vulkan-drivers</code></pre>
+
+    <h3>Vulkan が使用可能か確認する</h3>
+    <p><code>vulkaninfo</code> コマンドで Vulkan のインストールを確認できます。</p>
+    <pre><code class="language-bash">sudo apt install vulkan-tools
+vulkaninfo --summary</code></pre>
+
+    <p>ailia SDK でも確認できます。</p>
+    <pre><code class="language-bash">cd ailia-models/image_classification/resnet50
+python3 resnet50.py --env_list</code></pre>
+
+    <p>Vulkan が使用可能であれば、<code>backend='Vulkan'</code> を含む環境が表示されます。</p>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
