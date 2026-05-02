@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,22 +10,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ailia SDK - Documentation</title>
+  <title>ailia SDK - ドキュメント</title>
   <meta name="description" content="ailia SDK - ONNX inference API documentation for Python, C++, Unity, Flutter, and JNI.">
   <link rel="canonical" href="https://docs.ailia.ai/api/">
-  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/api/">
-  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/ja/api/">
-  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/api/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/api/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/api/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/api/">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/api/">
-  <meta property="og:title" content="ailia SDK - Documentation">
+  <meta property="og:title" content="ailia SDK - ドキュメント">
   <meta property="og:description" content="ailia SDK - ONNX inference API documentation for Python, C++, Unity, Flutter, and JNI.">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ailia SDK - Documentation">
+  <meta name="twitter:title" content="ailia SDK - ドキュメント">
   <meta name="twitter:description" content="ailia SDK - ONNX inference API documentation for Python, C++, Unity, Flutter, and JNI.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../ailia_logo.png">
@@ -39,7 +39,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
         <a href="./" class="logo-text">ailia SDK Docs</a>
       </div>
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
       <div class="header-links">
@@ -51,21 +51,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="../voice/">Voice</a>
         <a href="../tokenizer/">Tokenizer</a>
         <a href="../tracker/">Tracker</a>
-        <a href="../ja/api/" hreflang="ja" lang="ja">JA</a>
+        <a href="../en/api/" hreflang="en" lang="en">EN</a>
       </div>
     </div>
   </header>
 
   <section class="hero">
     <h1>ailia SDK</h1>
-    <p>This is the ONNX inference API, which serves as the core of everything.</p>
+    <p>あらゆるバインディングの中核となる ONNX 推論 API です。</p>
   </section>
 
   <!-- Getting Started -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">Getting Started</h2>
-      <p class="section-subtitle">Choose your platform and follow three steps to run your first inference.</p>
+      <h2 class="section-title">はじめに</h2>
+      <p class="section-subtitle">プラットフォームを選び、最初の推論を動かすまでの手順を確認してください。</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -80,21 +80,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Install</h3>
-            <p>Install the ailia Python package from PyPI. Python 3.6 or later is required.</p>
-            <pre><code>pip3 install ailia</code></pre>
-            <a href="https://pypi.org/project/ailia/" target="_blank" class="card-link">View on PyPI</a>
+            <h3>インストール</h3>
+            <p>ailia の Python パッケージを PyPI からインストールします。Python 3.6 以降が必要です。</p>
+            <pre><code class="language-bash">pip3 install ailia</code></pre>
+            <a href="https://pypi.org/project/ailia/" target="_blank" class="card-link">PyPI で見る</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
-            <p>ailia-models ships 400+ ready-to-run inference scripts. Clone once, install the shared requirements, then <code>cd</code> into any model folder and run — pass <code>-v 0</code> for webcam input, <code>-i image.png</code> for a still, or skip the flag to use the bundled demo input. <code>python3 launcher.py</code> at the repo root opens a GUI that browses every model.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models.git
+            <h3>サンプルを実行</h3>
+            <p>ailia-models には 400 種類以上のすぐに実行できる推論スクリプトが含まれています。一度クローンして共通の依存をインストールしたあと、各モデルのフォルダへ <code>cd</code> して実行するだけです。<code>-v 0</code> で Web カメラ入力、<code>-i image.png</code> で静止画、フラグを省略すると同梱のデモ入力が使われます。リポジトリ直下の <code>python3 launcher.py</code> を起動すると、すべてのモデルを GUI で参照できます。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
 cd ailia-models
 pip3 install -r requirements.txt
 cd object_detection/yolox
 python3 yolox.py -v 0</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models" target="_blank" class="card-link">Sample Repository (400+ models)</a>
+            <a href="https://github.com/ailia-ai/ailia-models" target="_blank" class="card-link">サンプルリポジトリ (400+ models)</a>
           </div>
         </div>
       </div>
@@ -104,20 +104,20 @@ python3 yolox.py -v 0</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Clone Samples</h3>
-            <p>Clone the C++ sample repository and initialize submodules. The ailia-sdk-cpp binding is included as a submodule.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-cpp.git
+            <h3>サンプルをクローン</h3>
+            <p>C++ サンプルリポジトリをクローンしてサブモジュールを初期化します。ailia-sdk-cpp バインディングはサブモジュールとして含まれています。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
 cd ailia-models-cpp
 git submodule init
 git submodule update</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">Sample Repository</a>
-            <a href="https://github.com/ailia-ai/ailia-sdk-cpp" target="_blank" class="card-link">Binding</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
+            <a href="https://github.com/ailia-ai/ailia-sdk-cpp" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Build &amp; Run</h3>
-            <p>Download a one-month evaluation license, install dependencies (CMake and OpenCV), build with CMake, and run a sample. Xcode and Android NDK starter projects are also available.</p>
-            <pre><code># Fetch a one-month evaluation license
+            <h3>ビルドして実行</h3>
+            <p>1 か月の評価ライセンスを取得してから依存パッケージ (CMake と OpenCV) をインストールし、CMake でビルドしてサンプルを実行します。Xcode と Android NDK のスターター プロジェクトも別途公開されています。</p>
+            <pre><code class="language-bash"># Fetch a one-month evaluation license
 cd ailia
 python3 download_license.py
 cd ..
@@ -143,17 +143,17 @@ cd object_detection/yolox
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Install via UPM</h3>
-            <p>For your own project, open <em>Window &gt; Package Manager</em> in Unity, click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
-            <pre><code>https://github.com/ailia-ai/ailia-sdk-unity.git</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-sdk-unity" target="_blank" class="card-link">Binding</a>
+            <h3>UPM でインストール</h3>
+            <p>自分のプロジェクトに組み込む場合は、Unity の <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-sdk-unity.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-sdk-unity" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
-            <p>Clone the Unity sample repository and open it in the Unity Editor (2021.3.10f1 or later). The SDK is downloaded automatically through Package Manager. Open a scene such as <code>AXIP/AILIA-MODELS/FaceDetection/FaceDetectionSample.unity</code> and press Play.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">Sample Repository</a>
+            <h3>サンプルを実行</h3>
+            <p>Unity サンプルリポジトリをクローンし、Unity Editor (2021.3.10f1 以降) で開きます。SDK は Package Manager 経由で自動的にダウンロードされます。<code>AXIP/AILIA-MODELS/FaceDetection/FaceDetectionSample.unity</code> などのシーンを開いて Play してください。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">サンプルリポジトリ</a>
           </div>
         </div>
       </div>
@@ -163,24 +163,24 @@ cd object_detection/yolox
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Add to pubspec</h3>
-            <p>For your own project, add ailia as a git dependency in <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
-            <pre><code>dependencies:
+            <h3>pubspec に追加</h3>
+            <p>自分のプロジェクトでは <code>pubspec.yaml</code> に ailia を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
+            <pre><code class="language-yaml">dependencies:
   ailia:
     git:
       url: https://github.com/ailia-ai/ailia-sdk-flutter.git
       ref: main</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-sdk-flutter" target="_blank" class="card-link">Binding</a>
+            <a href="https://github.com/ailia-ai/ailia-sdk-flutter" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
-            <p>Clone the Flutter sample repository, open it in VSCode, and run <code>flutter pub get</code>. The SDK is downloaded automatically via pubspec.yaml. Pick a model and tap the run button.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
+            <h3>サンプルを実行</h3>
+            <p>Flutter サンプルリポジトリをクローンし、VSCode で開いて <code>flutter pub get</code> を実行します。SDK は pubspec.yaml 経由で自動ダウンロードされます。モデルを選んで実行ボタンをタップしてください。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-flutter.git
 cd ailia-models-flutter
 flutter pub get
 flutter run</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">サンプルリポジトリ</a>
           </div>
         </div>
       </div>
@@ -190,16 +190,16 @@ flutter run</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Clone Binding</h3>
-            <p>For your own project, clone the JNI binding repository and add it to your Android Studio project.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-sdk-jni.git</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-sdk-jni" target="_blank" class="card-link">Binding</a>
+            <h3>バインディングをクローン</h3>
+            <p>自分のプロジェクトに組み込む場合は、JNI バインディングリポジトリをクローンして Android Studio プロジェクトに追加します。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-jni.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-sdk-jni" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Run a Sample</h3>
-            <p>Clone a sample project, initialize submodules, and open it in Android Studio. Both Kotlin and Java starter projects are available. Android Studio 2025.1.3 or later is required for the Kotlin samples.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+            <h3>サンプルを実行</h3>
+            <p>サンプルプロジェクトをクローンしてサブモジュールを初期化し、Android Studio で開きます。Kotlin と Java の両方のスターター プロジェクトが用意されています。Kotlin サンプルには Android Studio 2025.1.3 以降が必要です。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
 git submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank" class="card-link">Kotlin Samples</a>
@@ -213,47 +213,47 @@ git submodule update --init --recursive</code></pre>
 
   <!-- System Requirements -->
   <section class="section">
-    <h2 class="section-title">System Requirements</h2>
-    <p class="section-subtitle">ailia SDK runs across desktop, mobile, and embedded platforms with a wide range of GPU back-ends.</p>
+    <h2 class="section-title">動作環境</h2>
+    <p class="section-subtitle">ailia SDK はデスクトップ、モバイル、組み込みなど幅広いプラットフォームと GPU バックエンドで動作します。</p>
     <div class="req-grid">
       <div class="req-card">
-        <h3>Operating Systems</h3>
+        <h3>対応 OS</h3>
         <ul>
           <li>Windows 10 / 11</li>
-          <li>macOS 11 or later</li>
-          <li>Linux (Ubuntu 20.04+)</li>
+          <li>macOS 11 以降</li>
+          <li>Linux (Ubuntu 20.04 以降)</li>
           <li>iOS 13+</li>
           <li>Android 7+</li>
-          <li>Jetson, Raspberry Pi</li>
+          <li>Jetson / Raspberry Pi</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Languages</h3>
+        <h3>言語</h3>
         <ul>
-          <li>Python 3.6 or later</li>
+          <li>Python 3.6 以降</li>
           <li>C++17</li>
-          <li>C# / Unity 2021.3.10f1+</li>
+          <li>C# / Unity 2021.3.10f1 以降</li>
           <li>Kotlin / Java (JNI)</li>
           <li>Dart / Flutter 3.19+</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>GPU Acceleration</h3>
+        <h3>GPU アクセラレーション</h3>
         <ul>
           <li>NVIDIA CUDA</li>
           <li>Apple Metal</li>
-          <li>Vulkan (cross-platform)</li>
+          <li>Vulkan (クロスプラットフォーム)</li>
           <li>Intel MKL</li>
-          <li>NPU via NNAPI (Android)</li>
+          <li>NNAPI 経由の NPU (Android)</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>Model Formats</h3>
+        <h3>モデル形式</h3>
         <ul>
-          <li>ONNX (primary)</li>
-          <li>TFLite (via ailia TFLite Runtime)</li>
-          <li>GGUF (via ailia LLM)</li>
-          <li>Convert from PyTorch / TensorFlow / Keras</li>
+          <li>ONNX (主要形式)</li>
+          <li>TFLite (ailia TFLite Runtime 経由)</li>
+          <li>GGUF (ailia LLM 経由)</li>
+          <li>PyTorch / TensorFlow / Keras から変換</li>
         </ul>
       </div>
     </div>
@@ -262,8 +262,8 @@ git submodule update --init --recursive</code></pre>
   <!-- Use the API -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">Use the API in Your Project</h2>
-      <p class="section-subtitle">Minimal examples for loading an ONNX model and running inference.</p>
+      <h2 class="section-title">プロジェクトで API を使う</h2>
+      <p class="section-subtitle">ONNX モデルを読み込み推論を実行する最小サンプル。</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -274,7 +274,7 @@ git submodule update --init --recursive</code></pre>
       </div>
 
       <div class="platform-panel" data-platform="python">
-        <pre class="code-block"><code>import ailia
+        <pre class="code-block"><code class="language-python">import ailia
 import numpy as np
 
 # stream=None lets ailia derive the graph from the .onnx file
@@ -286,7 +286,7 @@ print(output[0].shape)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
-        <pre class="code-block"><code>#include "ailia.h"
+        <pre class="code-block"><code class="language-cpp">#include "ailia.h"
 #include &lt;vector&gt;
 
 AILIANetwork* net;
@@ -303,7 +303,7 @@ ailiaDestroy(net);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
-        <pre class="code-block"><code>using ailia;
+        <pre class="code-block"><code class="language-csharp">using ailia;
 
 var model = new AiliaModel();
 model.OpenFile(null, "model.onnx");  // null prototxt for ONNX
@@ -314,7 +314,7 @@ model.Predict(output, input);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
-        <pre class="code-block"><code>import 'package:ailia/ailia.dart';
+        <pre class="code-block"><code class="language-dart">import 'package:ailia/ailia.dart';
 import 'dart:typed_data';
 
 final model = AiliaModel();
@@ -326,7 +326,7 @@ print(output.length);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code>import axip.ailia.AiliaModel
+        <pre class="code-block"><code class="language-kotlin">import axip.ailia.AiliaModel
 
 val model = AiliaModel()
 model.openFile(null, "model.onnx")   // null prototxt for ONNX
@@ -340,14 +340,14 @@ println(output.size)</code></pre>
   </section>
 
   <section class="section">
-    <h2 class="section-title">API Reference by Platform</h2>
+    <h2 class="section-title">プラットフォーム別 API リファレンス</h2>
     <div class="card-grid">
 
       <div class="card">
         <h3>Python</h3>
         <ul>
-          <li><a href="python/en/">API</a></li>
-          <li><a href="https://medium.com/ailia-ai/ailia-sdk-tutorial-python-ea29ae990cf6" target="_blank">Tutorial</a></li>
+          <li><a href="../api/python/en/">API (EN)</a></li>
+          <li><a href="https://tech.ailia.ai/ailia-sdk-%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB-python-28379dbc9649" target="_blank">Tutorial</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-models" target="_blank">Models</a></li>
           <li><a href="https://pypi.org/project/ailia/" target="_blank">PyPI</a></li>
         </ul>
@@ -356,8 +356,8 @@ println(output.size)</code></pre>
       <div class="card">
         <h3>C++</h3>
         <ul>
-          <li><a href="cpp/en/">API</a></li>
-          <li><a href="https://medium.com/ailia-ai/ailia-sdk-tutorial-c-75e59bbefffe" target="_blank">Tutorial</a></li>
+          <li><a href="../api/cpp/jp/">API</a></li>
+          <li><a href="https://tech.ailia.ai/ailia-sdk-%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB-c-dc949d9dcd28" target="_blank">Tutorial</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank">Models</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-xcode" target="_blank">Xcode Sample Project</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-android-ndk" target="_blank">Android NDK Sample Project</a></li>
@@ -368,8 +368,8 @@ println(output.size)</code></pre>
       <div class="card">
         <h3>Unity</h3>
         <ul>
-          <li><a href="unity/en/">API</a></li>
-          <li><a href="https://medium.com/ailia-ai/ailia-sdk-tutorial-unity-54f2a8155b8f" target="_blank">Tutorial</a></li>
+          <li><a href="../api/unity/jp/">API</a></li>
+          <li><a href="https://tech.ailia.ai/ailia-sdk-%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB-unity-257fa1e98777" target="_blank">Tutorial</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank">Models</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-sdk-unity" target="_blank">Binding</a></li>
         </ul>
@@ -378,8 +378,8 @@ println(output.size)</code></pre>
       <div class="card">
         <h3>Flutter</h3>
         <ul>
-          <li><a href="flutter/en/">API</a></li>
-          <li><a href="https://medium.com/ailia-ai/ailia-sdk-now-available-through-flutter-pubspec-7e859dad842d" target="_blank">Tutorial</a></li>
+          <li><a href="../api/flutter/en/">API (EN)</a></li>
+          <li><a href="https://tech.ailia.ai/ailia-sdk%E3%81%8Cflutter%E3%81%AEpubspec%E3%81%8B%E3%82%89%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E5%8F%AF%E8%83%BD%E3%81%AB-f008229f7862" target="_blank">Tutorial</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank">Models</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-sdk-flutter" target="_blank">Binding</a></li>
         </ul>
@@ -388,8 +388,8 @@ println(output.size)</code></pre>
       <div class="card">
         <h3>JNI</h3>
         <ul>
-          <li><a href="java/en/">API</a></li>
-          <li><a href="https://medium.com/ailia-ai/ailia-sdk-tutorial-jni-92b797725e08" target="_blank">Tutorial</a></li>
+          <li><a href="../api/java/en/">API (EN)</a></li>
+          <li><a href="https://tech.ailia.ai/ailia-sdk-%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB-jni-7a11c1da08dc" target="_blank">Tutorial</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-android-studio" target="_blank">Android Studio Sample Project (Java)</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank">Android Studio Sample Project (Kotlin)</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-sdk-jni" target="_blank">Binding</a></li>
@@ -401,43 +401,45 @@ println(output.size)</code></pre>
 
   <!-- FAQ -->
   <section class="section">
-    <h2 class="section-title">FAQ</h2>
-    <p class="section-subtitle">Common questions from first-time ailia SDK users.</p>
+    <h2 class="section-title">よくある質問</h2>
+    <p class="section-subtitle">ailia SDK を初めて使う方からよく寄せられる質問です。</p>
     <div class="faq-list">
 
       <details class="faq-item">
-        <summary>What is the difference between the evaluation license and a production license?</summary>
-        <p>The evaluation license is downloaded automatically at runtime for Python, Unity, Flutter, and JNI, and is valid for one month for C++. It is intended for development and trial use only.</p>
-        <p>For commercial deployment, redistribution, or longer-term use, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a> for details.</p>
+        <summary>評価ライセンスと製品ライセンスはどう違いますか?</summary>
+        <p>評価ライセンスは Python / Unity / Flutter / JNI では実行時に自動でダウンロードされ、C++ では 1 か月有効です。開発・評価用に限ります。</p>
+        <p>商用リリース・再配布・長期利用には製品ライセンスを申し込んでください。詳細は <a href="https://ailia.ai/license/" target="_blank">ailia ライセンス規約</a> を参照してください。</p>
       </details>
 
       <details class="faq-item">
-        <summary>How do I switch between CPU and GPU?</summary>
-        <p>Pass an <code>env_id</code> to <code>ailia.Net()</code>. List available environments (CPU, CUDA, Metal, Vulkan, MKL, NNAPI) with <code>ailia.get_environment_list()</code>, then select the one you want.</p>
-        <p>By default, ailia chooses the fastest available environment for your platform.</p>
+        <summary>CPU / GPU はどう切り替えますか?</summary>
+        <p><code>ailia.Net()</code> に <code>env_id</code> を渡します。利用可能な環境 (CPU / CUDA / Metal / Vulkan / MKL) は <code>ailia.get_environment_list()</code> で取得できます。</p>
+        <p>デフォルトでは ailia がプラットフォーム上で最速の環境を自動選択します。</p>
+        <p>CUDA を使用するには CUDA Toolkit と cuDNN のインストールが必要です。詳しい手順は <a href="../setup/cuda/">CUDA Toolkit / cuDNN インストールガイド</a> を参照してください。</p>
+        <p>Vulkan を使用するには <a href="../setup/vulkan/">Vulkan セットアップガイド</a> を参照してください。</p>
       </details>
 
       <details class="faq-item">
-        <summary>Where are model files stored after I download them?</summary>
-        <p>Sample scripts in <code>ailia-models</code> download <code>.onnx</code> and <code>.onnx.prototxt</code> files into the model's own directory the first time you run them. Subsequent runs reuse the cached files.</p>
-        <p>For ailia Speech and ailia Voice, models are downloaded into <code>./models/</code> by default, configurable via <code>initialize_model(model_path=...)</code>.</p>
+        <summary>ダウンロードしたモデルファイルはどこに保存されますか?</summary>
+        <p><code>ailia-models</code> のサンプルスクリプトは初回実行時に <code>.onnx</code> と <code>.onnx.prototxt</code> をモデルディレクトリへダウンロードし、2 回目以降はキャッシュを再利用します。</p>
+        <p>ailia Speech と ailia Voice では <code>./models/</code> にダウンロードされます。<code>initialize_model(model_path=...)</code> で変更できます。</p>
       </details>
 
       <details class="faq-item">
-        <summary>Can I run ailia SDK offline?</summary>
-        <p>Yes, after the first run. The evaluation license and any auto-downloaded model files require an internet connection on first use; once cached, subsequent inference works offline.</p>
-        <p>For C++, the license is fetched once via <code>download_license.py</code> from the binding repository.</p>
+        <summary>ailia SDK はオフラインで動作しますか?</summary>
+        <p>はい、初回実行後はオフラインで動作します。評価ライセンスと自動ダウンロードされるモデルは初回のみインターネット接続が必要で、キャッシュされた後はオフラインで推論できます。</p>
+        <p>C++ ではバインディングリポジトリの <code>download_license.py</code> でライセンスを 1 度だけ取得します。</p>
       </details>
 
       <details class="faq-item">
-        <summary>How do I convert a PyTorch or TensorFlow model to ONNX for ailia?</summary>
-        <p>Export your model to ONNX with the framework's standard tooling (<code>torch.onnx.export</code>, <code>tf2onnx</code>, etc.), then generate the matching <code>.onnx.prototxt</code> using the script bundled with ailia SDK.</p>
-        <p>The <a href="https://medium.com/axinc-ai/ailia-sdk-tutorial-model-conversion-to-onnx-ac8bd2c76622" target="_blank">model conversion tutorial</a> walks through the process.</p>
+        <summary>PyTorch や TensorFlow のモデルを ailia 向け ONNX に変換するには?</summary>
+        <p>各フレームワーク標準のツール (<code>torch.onnx.export</code> や <code>tf2onnx</code> など) で ONNX に書き出し、ailia SDK 同梱のスクリプトで対応する <code>.onnx.prototxt</code> を生成してください。</p>
+        <p>詳しい手順は <a href="https://tech.ailia.ai/%E5%AD%A6%E7%BF%92%E3%81%97%E3%81%9F%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92ailia-sdk%E3%81%A7%E4%BD%BF%E7%94%A8%E3%81%A7%E3%81%8D%E3%82%8B%E5%BD%A2%E3%81%AB%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B-add271b8ebdd/" target="_blank">モデル変換チュートリアル</a> を参照してください。</p>
       </details>
 
       <details class="faq-item">
-        <summary>Where can I get help?</summary>
-        <p>For bug reports and questions on the sample repositories, open an issue on the relevant GitHub repo. For SDK licensing and commercial inquiries, contact <a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a> directly.</p>
+        <summary>サポートはどこで受けられますか?</summary>
+        <p>サンプルリポジトリのバグ報告や質問は該当の GitHub リポジトリで Issue を立ててください。SDK ライセンスや商用に関するお問い合わせは <a href="https://ailia.ai/" target="_blank">ailia Inc.</a> までご連絡ください。</p>
       </details>
 
     </div>
@@ -445,18 +447,18 @@ println(output.size)</code></pre>
 
   <section class="materials-section">
     <div class="section">
-      <h2 class="section-title">Materials</h2>
+      <h2 class="section-title">資料</h2>
       <div class="materials-grid">
-        <a href="https://ailia.ai/en/sdk/" target="_blank" class="material-item">
+        <a href="https://ailia.ai/sdk/" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           </div>
           <div class="material-text">
             Product Site
-            <small>ailia.ai/en/sdk/</small>
+            <small>ailia.ai/sdk/</small>
           </div>
         </a>
-        <a href="https://axip-console.appspot.com/trial/terms/AILIA?lang=en" target="_blank" class="material-item">
+        <a href="https://axip-console.appspot.com/trial/terms/AILIA" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           </div>
@@ -479,7 +481,7 @@ println(output.size)</code></pre>
   </section>
 
   <footer>
-    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
 
@@ -498,6 +500,7 @@ println(output.size)</code></pre>
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {
