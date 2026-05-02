@@ -81,14 +81,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="step-number">1</div>
             <h3>インストール</h3>
             <p>ailia LLM の Python パッケージを PyPI からインストールします。</p>
-            <pre><code>pip3 install ailia_llm</code></pre>
+            <pre><code class="language-bash">pip3 install ailia_llm</code></pre>
             <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">PyPI で見る</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models</code> から <code>example_ailia_llm.py</code> をダウンロードして実行します。初回実行時に Gemma 3 4B の GGUF ファイルをダウンロードし、チャット応答をストリーミング生成します。マルチモーダル (画像対応) 版を試すには同じフォルダの <code>example_ailia_llm_mtmd.py</code> を取得してください。</p>
-            <pre><code>wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/large_language_model/gemma3/example_ailia_llm.py
+            <pre><code class="language-bash">wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/large_language_model/gemma3/example_ailia_llm.py
 python3 example_ailia_llm.py</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma3/example_ailia_llm.py" target="_blank" class="card-link">example_ailia_llm.py</a>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma3/example_ailia_llm_mtmd.py" target="_blank" class="card-link">example_ailia_llm_mtmd.py (multimodal)</a>
@@ -103,13 +103,13 @@ python3 example_ailia_llm.py</code></pre>
             <div class="step-number">1</div>
             <h3>評価版を入手</h3>
             <p>無料トライアルに申し込むと、C++ バインディング (<code>ailia_llm.h</code>)、ランタイムライブラリ (<code>ailia_llm</code>)、実行可能サンプルを含む評価版パッケージを入手できます。</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM?lang=en" target="_blank" class="card-link">無料トライアルを申し込む</a>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM" target="_blank" class="card-link">無料トライアルを申し込む</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>モデルをダウンロードして実行</h3>
             <p>GGUF ファイル (例: Hugging Face の Gemma 2-2B) を <code>models/</code> に配置し、サンプルをビルドして実行します。</p>
-            <pre><code># macOS
+            <pre><code class="language-bash"># macOS
 clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
   libailia_llm.dylib -Wl,-rpath,./ -std=c++17
 
@@ -126,14 +126,14 @@ clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
             <div class="step-number">1</div>
             <h3>UPM でインストール</h3>
             <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
-            <pre><code>https://github.com/ailia-ai/ailia-llm-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-llm-unity.git</code></pre>
             <a href="../../llm/unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models-unity</code> をクローンして Unity Editor (2021.3.10f1 以降) で開き、GGUF ファイルを <code>StreamingAssets/</code> に配置して LargeLanguageModel シーンを Play すると、チャットのトークンがストリーミング表示されます。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/LargeLanguageModel/AiliaLargeLanguageModelSample.cs" target="_blank" class="card-link">AiliaLargeLanguageModelSample.cs</a>
           </div>
         </div>
@@ -146,7 +146,7 @@ clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
             <div class="step-number">1</div>
             <h3>pubspec に追加</h3>
             <p>Flutter プロジェクトの <code>pubspec.yaml</code> に ailia LLM を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
-            <pre><code>dependencies:
+            <pre><code class="language-yaml">dependencies:
   ailia_llm:
     git:
       url: https://github.com/ailia-ai/ailia-llm-flutter.git
@@ -157,7 +157,7 @@ clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p>そのまま動くチャットアプリは Flutter サンプルリポジトリにあります。クローンしてご利用ください。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-flutter.git
 cd ailia-models-flutter
 flutter pub get
 flutter run</code></pre>
@@ -228,7 +228,7 @@ flutter run</code></pre>
       </div>
 
       <div class="platform-panel" data-platform="python">
-        <pre class="code-block"><code>import ailia_llm
+        <pre class="code-block"><code class="language-python">import ailia_llm
 
 model = ailia_llm.AiliaLLM()
 model.open("gemma-2-2b-it-Q4_K_M.gguf")
@@ -239,7 +239,7 @@ for delta in model.generate(messages):
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
-        <pre class="code-block"><code>#include "ailia_llm.h"
+        <pre class="code-block"><code class="language-cpp">#include "ailia_llm.h"
 
 struct AILIALLM *llm = nullptr;
 ailiaLLMCreate(&amp;llm);
@@ -259,7 +259,7 @@ ailiaLLMDestroy(llm);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
-        <pre class="code-block"><code>using ailiaLLM;
+        <pre class="code-block"><code class="language-csharp">using ailiaLLM;
 
 var llm = new AiliaLLMModel();
 llm.Create();
@@ -279,7 +279,7 @@ llm.Close();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
-        <pre class="code-block"><code>import 'package:ailia_llm/ailia_llm.dart';
+        <pre class="code-block"><code class="language-dart">import 'package:ailia_llm/ailia_llm.dart';
 
 final llm = AiliaLLMModel();
 await llm.open('gemma-2-2b-it-Q4_K_M.gguf');
@@ -291,7 +291,7 @@ await for (final delta in llm.generate(messages)) {
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code>val llm = AiliaLLM()
+        <pre class="code-block"><code class="language-kotlin">val llm = AiliaLLM()
 llm.openModelFile(modelPath, contextSize)
 llm.setSamplingParams(40, 0.9f, 0.4f, 1234)
 
@@ -401,16 +401,16 @@ while (!done) {
     <div class="section">
       <h2 class="section-title">資料</h2>
       <div class="materials-grid">
-        <a href="https://ailia.ai/en/llm/" target="_blank" class="material-item">
+        <a href="https://ailia.ai/llm/" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           </div>
           <div class="material-text">
             Product Site
-            <small>ailia.ai/en/llm/</small>
+            <small>ailia.ai/llm/</small>
           </div>
         </a>
-        <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM?lang=en" target="_blank" class="material-item">
+        <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           </div>
@@ -452,6 +452,7 @@ while (!done) {
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {

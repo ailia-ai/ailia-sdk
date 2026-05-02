@@ -82,14 +82,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="step-number">1</div>
             <h3>Install</h3>
             <p>Install the ailia Python package from PyPI. Python 3.6 or later is required.</p>
-            <pre><code>pip3 install ailia</code></pre>
+            <pre><code class="language-bash">pip3 install ailia</code></pre>
             <a href="https://pypi.org/project/ailia/" target="_blank" class="card-link">View on PyPI</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
             <p>ailia-models ships 400+ ready-to-run inference scripts. Clone once, install the shared requirements, then <code>cd</code> into any model folder and run — pass <code>-v 0</code> for webcam input, <code>-i image.png</code> for a still, or skip the flag to use the bundled demo input. <code>python3 launcher.py</code> at the repo root opens a GUI that browses every model.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
 cd ailia-models
 pip3 install -r requirements.txt
 cd object_detection/yolox
@@ -106,7 +106,7 @@ python3 yolox.py -v 0</code></pre>
             <div class="step-number">1</div>
             <h3>Clone Samples</h3>
             <p>Clone the C++ sample repository and initialize submodules. The ailia-sdk-cpp binding is included as a submodule.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-cpp.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
 cd ailia-models-cpp
 git submodule init
 git submodule update</code></pre>
@@ -117,7 +117,7 @@ git submodule update</code></pre>
             <div class="step-number">2</div>
             <h3>Build &amp; Run</h3>
             <p>Download a one-month evaluation license, install dependencies (CMake and OpenCV), build with CMake, and run a sample. Xcode and Android NDK starter projects are also available.</p>
-            <pre><code># Fetch a one-month evaluation license
+            <pre><code class="language-bash"># Fetch a one-month evaluation license
 cd ailia
 python3 download_license.py
 cd ..
@@ -145,14 +145,14 @@ cd object_detection/yolox
             <div class="step-number">1</div>
             <h3>Install via UPM</h3>
             <p>For your own project, open <em>Window &gt; Package Manager</em> in Unity, click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
-            <pre><code>https://github.com/ailia-ai/ailia-sdk-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-sdk-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-sdk-unity" target="_blank" class="card-link">Binding</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
             <p>Clone the Unity sample repository and open it in the Unity Editor (2021.3.10f1 or later). The SDK is downloaded automatically through Package Manager. Open a scene such as <code>AXIP/AILIA-MODELS/FaceDetection/FaceDetectionSample.unity</code> and press Play.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">Sample Repository</a>
           </div>
         </div>
@@ -165,7 +165,7 @@ cd object_detection/yolox
             <div class="step-number">1</div>
             <h3>Add to pubspec</h3>
             <p>For your own project, add ailia as a git dependency in <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
-            <pre><code>dependencies:
+            <pre><code class="language-yaml">dependencies:
   ailia:
     git:
       url: https://github.com/ailia-ai/ailia-sdk-flutter.git
@@ -176,7 +176,7 @@ cd object_detection/yolox
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
             <p>Clone the Flutter sample repository, open it in VSCode, and run <code>flutter pub get</code>. The SDK is downloaded automatically via pubspec.yaml. Pick a model and tap the run button.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-flutter.git
 cd ailia-models-flutter
 flutter pub get
 flutter run</code></pre>
@@ -192,14 +192,14 @@ flutter run</code></pre>
             <div class="step-number">1</div>
             <h3>Clone Binding</h3>
             <p>For your own project, clone the JNI binding repository and add it to your Android Studio project.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-sdk-jni.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-jni.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-sdk-jni" target="_blank" class="card-link">Binding</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
             <p>Clone a sample project, initialize submodules, and open it in Android Studio. Both Kotlin and Java starter projects are available. Android Studio 2025.1.3 or later is required for the Kotlin samples.</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
 git submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank" class="card-link">Kotlin Samples</a>
@@ -274,7 +274,7 @@ git submodule update --init --recursive</code></pre>
       </div>
 
       <div class="platform-panel" data-platform="python">
-        <pre class="code-block"><code>import ailia
+        <pre class="code-block"><code class="language-python">import ailia
 import numpy as np
 
 # stream=None lets ailia derive the graph from the .onnx file
@@ -286,7 +286,7 @@ print(output[0].shape)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
-        <pre class="code-block"><code>#include "ailia.h"
+        <pre class="code-block"><code class="language-cpp">#include "ailia.h"
 #include &lt;vector&gt;
 
 AILIANetwork* net;
@@ -303,7 +303,7 @@ ailiaDestroy(net);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
-        <pre class="code-block"><code>using ailia;
+        <pre class="code-block"><code class="language-csharp">using ailia;
 
 var model = new AiliaModel();
 model.OpenFile(null, "model.onnx");  // null prototxt for ONNX
@@ -314,7 +314,7 @@ model.Predict(output, input);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
-        <pre class="code-block"><code>import 'package:ailia/ailia.dart';
+        <pre class="code-block"><code class="language-dart">import 'package:ailia/ailia.dart';
 import 'dart:typed_data';
 
 final model = AiliaModel();
@@ -326,7 +326,7 @@ print(output.length);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code>import axip.ailia.AiliaModel
+        <pre class="code-block"><code class="language-kotlin">import axip.ailia.AiliaModel
 
 val model = AiliaModel()
 model.openFile(null, "model.onnx")   // null prototxt for ONNX
@@ -498,6 +498,7 @@ println(output.size)</code></pre>
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {

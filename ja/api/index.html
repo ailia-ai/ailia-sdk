@@ -82,14 +82,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="step-number">1</div>
             <h3>インストール</h3>
             <p>ailia の Python パッケージを PyPI からインストールします。Python 3.6 以降が必要です。</p>
-            <pre><code>pip3 install ailia</code></pre>
+            <pre><code class="language-bash">pip3 install ailia</code></pre>
             <a href="https://pypi.org/project/ailia/" target="_blank" class="card-link">PyPI で見る</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p>ailia-models には 400 種類以上のすぐに実行できる推論スクリプトが含まれています。一度クローンして共通の依存をインストールしたあと、各モデルのフォルダへ <code>cd</code> して実行するだけです。<code>-v 0</code> で Web カメラ入力、<code>-i image.png</code> で静止画、フラグを省略すると同梱のデモ入力が使われます。リポジトリ直下の <code>python3 launcher.py</code> を起動すると、すべてのモデルを GUI で参照できます。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
 cd ailia-models
 pip3 install -r requirements.txt
 cd object_detection/yolox
@@ -106,7 +106,7 @@ python3 yolox.py -v 0</code></pre>
             <div class="step-number">1</div>
             <h3>サンプルをクローン</h3>
             <p>C++ サンプルリポジトリをクローンしてサブモジュールを初期化します。ailia-sdk-cpp バインディングはサブモジュールとして含まれています。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-cpp.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
 cd ailia-models-cpp
 git submodule init
 git submodule update</code></pre>
@@ -117,7 +117,7 @@ git submodule update</code></pre>
             <div class="step-number">2</div>
             <h3>ビルドして実行</h3>
             <p>1 か月の評価ライセンスを取得してから依存パッケージ (CMake と OpenCV) をインストールし、CMake でビルドしてサンプルを実行します。Xcode と Android NDK のスターター プロジェクトも別途公開されています。</p>
-            <pre><code># Fetch a one-month evaluation license
+            <pre><code class="language-bash"># Fetch a one-month evaluation license
 cd ailia
 python3 download_license.py
 cd ..
@@ -145,14 +145,14 @@ cd object_detection/yolox
             <div class="step-number">1</div>
             <h3>UPM でインストール</h3>
             <p>自分のプロジェクトに組み込む場合は、Unity の <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
-            <pre><code>https://github.com/ailia-ai/ailia-sdk-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-sdk-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-sdk-unity" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p>Unity サンプルリポジトリをクローンし、Unity Editor (2021.3.10f1 以降) で開きます。SDK は Package Manager 経由で自動的にダウンロードされます。<code>AXIP/AILIA-MODELS/FaceDetection/FaceDetectionSample.unity</code> などのシーンを開いて Play してください。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity" target="_blank" class="card-link">サンプルリポジトリ</a>
           </div>
         </div>
@@ -165,7 +165,7 @@ cd object_detection/yolox
             <div class="step-number">1</div>
             <h3>pubspec に追加</h3>
             <p>自分のプロジェクトでは <code>pubspec.yaml</code> に ailia を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
-            <pre><code>dependencies:
+            <pre><code class="language-yaml">dependencies:
   ailia:
     git:
       url: https://github.com/ailia-ai/ailia-sdk-flutter.git
@@ -176,7 +176,7 @@ cd object_detection/yolox
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p>Flutter サンプルリポジトリをクローンし、VSCode で開いて <code>flutter pub get</code> を実行します。SDK は pubspec.yaml 経由で自動ダウンロードされます。モデルを選んで実行ボタンをタップしてください。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-flutter.git
 cd ailia-models-flutter
 flutter pub get
 flutter run</code></pre>
@@ -192,14 +192,14 @@ flutter run</code></pre>
             <div class="step-number">1</div>
             <h3>バインディングをクローン</h3>
             <p>自分のプロジェクトに組み込む場合は、JNI バインディングリポジトリをクローンして Android Studio プロジェクトに追加します。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-sdk-jni.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-jni.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-sdk-jni" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p>サンプルプロジェクトをクローンしてサブモジュールを初期化し、Android Studio で開きます。Kotlin と Java の両方のスターター プロジェクトが用意されています。Kotlin サンプルには Android Studio 2025.1.3 以降が必要です。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
 git submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank" class="card-link">Kotlin Samples</a>
@@ -274,7 +274,7 @@ git submodule update --init --recursive</code></pre>
       </div>
 
       <div class="platform-panel" data-platform="python">
-        <pre class="code-block"><code>import ailia
+        <pre class="code-block"><code class="language-python">import ailia
 import numpy as np
 
 # stream=None lets ailia derive the graph from the .onnx file
@@ -286,7 +286,7 @@ print(output[0].shape)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
-        <pre class="code-block"><code>#include "ailia.h"
+        <pre class="code-block"><code class="language-cpp">#include "ailia.h"
 #include &lt;vector&gt;
 
 AILIANetwork* net;
@@ -303,7 +303,7 @@ ailiaDestroy(net);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
-        <pre class="code-block"><code>using ailia;
+        <pre class="code-block"><code class="language-csharp">using ailia;
 
 var model = new AiliaModel();
 model.OpenFile(null, "model.onnx");  // null prototxt for ONNX
@@ -314,7 +314,7 @@ model.Predict(output, input);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
-        <pre class="code-block"><code>import 'package:ailia/ailia.dart';
+        <pre class="code-block"><code class="language-dart">import 'package:ailia/ailia.dart';
 import 'dart:typed_data';
 
 final model = AiliaModel();
@@ -326,7 +326,7 @@ print(output.length);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code>import axip.ailia.AiliaModel
+        <pre class="code-block"><code class="language-kotlin">import axip.ailia.AiliaModel
 
 val model = AiliaModel()
 model.openFile(null, "model.onnx")   // null prototxt for ONNX
@@ -437,7 +437,7 @@ println(output.size)</code></pre>
 
       <details class="faq-item">
         <summary>サポートはどこで受けられますか?</summary>
-        <p>サンプルリポジトリのバグ報告や質問は該当の GitHub リポジトリで Issue を立ててください。SDK ライセンスや商用に関するお問い合わせは <a href="https://ailia.ai/en/" target="_blank">アイリア株式会社</a> までご連絡ください。</p>
+        <p>サンプルリポジトリのバグ報告や質問は該当の GitHub リポジトリで Issue を立ててください。SDK ライセンスや商用に関するお問い合わせは <a href="https://ailia.ai/" target="_blank">アイリア株式会社</a> までご連絡ください。</p>
       </details>
 
     </div>
@@ -447,16 +447,16 @@ println(output.size)</code></pre>
     <div class="section">
       <h2 class="section-title">資料</h2>
       <div class="materials-grid">
-        <a href="https://ailia.ai/en/sdk/" target="_blank" class="material-item">
+        <a href="https://ailia.ai/sdk/" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           </div>
           <div class="material-text">
             Product Site
-            <small>ailia.ai/en/sdk/</small>
+            <small>ailia.ai/sdk/</small>
           </div>
         </a>
-        <a href="https://axip-console.appspot.com/trial/terms/AILIA?lang=en" target="_blank" class="material-item">
+        <a href="https://axip-console.appspot.com/trial/terms/AILIA" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           </div>
@@ -498,6 +498,7 @@ println(output.size)</code></pre>
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {

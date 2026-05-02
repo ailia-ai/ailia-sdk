@@ -81,14 +81,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="step-number">1</div>
             <h3>インストール</h3>
             <p>ailia TFLite の Python パッケージを PyPI からインストールします。</p>
-            <pre><code>pip3 install ailia_tflite</code></pre>
+            <pre><code class="language-bash">pip3 install ailia_tflite</code></pre>
             <a href="https://pypi.org/project/ailia-tflite/" target="_blank" class="card-link">PyPI で見る</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p>ailia-models-tflite にはモデルごとの推論スクリプトが同梱されています。一度クローンして共通の依存をインストールしたあと、各モデルのフォルダへ <code>cd</code> して実行するだけです。<code>-v 0</code> で Web カメラ入力、<code>-i image.png</code> で静止画を扱えます。リポジトリ直下の <code>python3 launcher.py</code> を起動すると、量子化 TFLite モデルを GUI で参照できます。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-tflite.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-tflite.git
 cd ailia-models-tflite
 pip3 install -r requirements.txt
 cd object_detection/yolox
@@ -105,13 +105,13 @@ python3 yolox.py -v 0</code></pre>
             <div class="step-number">1</div>
             <h3>評価版を入手</h3>
             <p>無料トライアルに申し込むと、C99 バインディング (<code>ailia_tflite.h</code>)、ランタイムライブラリ、ライセンスファイル、実行可能サンプルを含む評価版パッケージを入手できます。</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TFLITE?lang=en" target="_blank" class="card-link">無料トライアルを申し込む</a>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TFLITE" target="_blank" class="card-link">無料トライアルを申し込む</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>ビルドして実行</h3>
             <p>ランタイムライブラリにリンクしてコンパイルします。API は TensorFlow Lite の C API と同形です。NonOS / RTOS ターゲット向けに設計された C99 実装は <code>libailia_tflite</code> 以外に依存がありません。</p>
-            <pre><code># macOS
+            <pre><code class="language-bash"># macOS
 clang -o tflite_sample tflite_sample.c \
   libailia_tflite.dylib -Wl,-rpath,./
 
@@ -128,14 +128,14 @@ clang -o tflite_sample tflite_sample.c \
             <div class="step-number">1</div>
             <h3>UPM でインストール</h3>
             <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
-            <pre><code>https://github.com/ailia-ai/ailia-tflite-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-tflite-unity.git</code></pre>
             <a href="../../tflite/unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models-unity</code> をクローンして Unity Editor (2021.3.10f1 以降) で開き、<code>ObjectDetection/ObjectDetectionSample.unity</code> を Play してください。YOLOX TFLite ルートは <code>AiliaTFLiteYoloxSample.cs</code> に委譲され、NNAPI / モバイル推論で動作します。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/ObjectDetection/AiliaTFLiteYoloxSample.cs" target="_blank" class="card-link">AiliaTFLiteYoloxSample.cs</a>
           </div>
         </div>
@@ -148,14 +148,14 @@ clang -o tflite_sample tflite_sample.c \
             <div class="step-number">1</div>
             <h3>バインディングをクローン</h3>
             <p>自分のプロジェクトに組み込む場合は、JNI バインディングリポジトリをクローンして Android Studio プロジェクトに追加します。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-tflite-jni.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-tflite-jni.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-tflite-jni" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models-kotlin</code> をサブモジュール込みでクローンし Android Studio で開きます。接続デバイス上で TFLite 物体検出サンプルを実行してください。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
 git submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaTFLiteObjectDetectionSample.kt" target="_blank" class="card-link">AiliaTFLiteObjectDetectionSample.kt</a>
@@ -223,7 +223,7 @@ git submodule update --init --recursive</code></pre>
       </div>
 
       <div class="platform-panel" data-platform="python">
-        <pre class="code-block"><code>import ailia_tflite
+        <pre class="code-block"><code class="language-python">import ailia_tflite
 import numpy as np
 
 interpreter = ailia_tflite.Interpreter(model_path="model.tflite")
@@ -241,7 +241,7 @@ print(output.shape)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="c">
-        <pre class="code-block"><code>#include "ailia_tflite.h"
+        <pre class="code-block"><code class="language-c">#include "ailia_tflite.h"
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
@@ -268,7 +268,7 @@ free(buf);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
-        <pre class="code-block"><code>using ailiaTFLite;
+        <pre class="code-block"><code class="language-csharp">using ailiaTFLite;
 
 var interpreter = new AiliaTFLiteModel();
 interpreter.OpenFile("model.tflite");
@@ -282,7 +282,7 @@ var output = interpreter.GetOutputTensorData&lt;float&gt;(0);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code>val tflite = AiliaTFLite()
+        <pre class="code-block"><code class="language-kotlin">val tflite = AiliaTFLite()
 tflite.open(modelData, AiliaTFLite.AILIA_TFLITE_ENV_REFERENCE)
 tflite.allocateTensors()
 
@@ -382,16 +382,16 @@ tflite.close()</code></pre>
     <div class="section">
       <h2 class="section-title">資料</h2>
       <div class="materials-grid">
-        <a href="https://ailia.ai/en/tflite/" target="_blank" class="material-item">
+        <a href="https://ailia.ai/tflite/" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           </div>
           <div class="material-text">
             Product Site
-            <small>ailia.ai/en/tflite/</small>
+            <small>ailia.ai/tflite/</small>
           </div>
         </a>
-        <a href="https://axip-console.appspot.com/trial/terms/AILIA-TFLITE?lang=en" target="_blank" class="material-item">
+        <a href="https://axip-console.appspot.com/trial/terms/AILIA-TFLITE" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           </div>
@@ -433,6 +433,7 @@ tflite.close()</code></pre>
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {

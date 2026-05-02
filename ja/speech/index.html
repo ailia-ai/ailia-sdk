@@ -82,14 +82,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="step-number">1</div>
             <h3>インストール</h3>
             <p>ailia Speech と、サンプルで使う音声読み込みライブラリ <code>librosa</code> をインストールします。</p>
-            <pre><code>pip3 install ailia_speech librosa</code></pre>
+            <pre><code class="language-bash">pip3 install ailia_speech librosa</code></pre>
             <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="card-link">PyPI で見る</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models</code> から <code>example_ailia_speech.py</code> と、サンプル WAV ファイル (スクリプトが想定する <code>ax.wav</code> として保存) をダウンロードして実行します。Whisper の重みは <code>./models/</code> に自動ダウンロードされます。</p>
-            <pre><code>wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/example_ailia_speech.py
+            <pre><code class="language-bash">wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/example_ailia_speech.py
 wget -O ax.wav https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/demo.wav
 python3 example_ailia_speech.py</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/whisper/example_ailia_speech.py" target="_blank" class="card-link">example_ailia_speech.py</a>
@@ -104,13 +104,13 @@ python3 example_ailia_speech.py</code></pre>
             <div class="step-number">1</div>
             <h3>評価版を入手</h3>
             <p>無料トライアルに申し込むと、C++ バインディング (<code>ailia_speech.h</code>)、ランタイムライブラリ、ライセンスファイル、実行可能なサンプルを含む評価版パッケージを入手できます。</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH?lang=en" target="_blank" class="card-link">無料トライアルを申し込む</a>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH" target="_blank" class="card-link">無料トライアルを申し込む</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>ビルドして実行</h3>
             <p>同梱サンプルをビルドし、音声ファイル・モデルサイズ・実行時オプションを指定して実行します。Whisper Small は同梱されており、より大きなモデルは別途ダウンロードできます。</p>
-            <pre><code># macOS
+            <pre><code class="language-bash"># macOS
 clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
   libailia.dylib libailia_audio.dylib \
   libailia_tokenizer.dylib libailia_speech.dylib \
@@ -129,14 +129,14 @@ clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
             <div class="step-number">1</div>
             <h3>UPM でインストール</h3>
             <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
-            <pre><code>https://github.com/ailia-ai/ailia-speech-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-speech-unity.git</code></pre>
             <a href="../../speech/unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models-unity</code> をクローンして Unity Editor (2021.3.10f1 以降) で開き、SpeechToText シーンにマイクまたは AudioClip を割り当てて Play してください。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/SpeechToText/AiliaSpeechToTextSample.cs" target="_blank" class="card-link">AiliaSpeechToTextSample.cs</a>
           </div>
         </div>
@@ -149,7 +149,7 @@ clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
             <div class="step-number">1</div>
             <h3>pubspec に追加</h3>
             <p>Flutter プロジェクトの <code>pubspec.yaml</code> に ailia Speech を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
-            <pre><code>dependencies:
+            <pre><code class="language-yaml">dependencies:
   ailia_speech:
     git:
       url: https://github.com/ailia-ai/ailia-speech-flutter.git
@@ -160,7 +160,7 @@ clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p>Whisper による文字起こしのサンプルアプリは Flutter サンプルリポジトリにあります。クローンしてそのまま実行できます。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-flutter.git
 cd ailia-models-flutter
 flutter pub get
 flutter run</code></pre>
@@ -176,14 +176,14 @@ flutter run</code></pre>
             <div class="step-number">1</div>
             <h3>バインディングをクローン</h3>
             <p>自分のプロジェクトに組み込む場合は、JNI バインディングリポジトリをクローンして Android Studio プロジェクトに追加します。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-speech-jni.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-speech-jni.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-speech-jni" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
             <p><code>ailia-models-kotlin</code> をサブモジュール込みでクローンして Android Studio で開き、接続デバイス上で Speech サンプルを実行します。マイク収録と任意の Silero VAD 端点検出が含まれています。</p>
-            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
 git submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaSpeechSample.kt" target="_blank" class="card-link">AiliaSpeechSample.kt</a>
@@ -297,7 +297,7 @@ git submodule update --init --recursive</code></pre>
       </div>
 
       <div class="platform-panel" data-platform="python">
-        <pre class="code-block"><code>import ailia_speech
+        <pre class="code-block"><code class="language-python">import ailia_speech
 
 speech = ailia_speech.Whisper()
 speech.initialize_model(
@@ -308,7 +308,7 @@ text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
-        <pre class="code-block"><code>#include "ailia_speech.h"
+        <pre class="code-block"><code class="language-cpp">#include "ailia_speech.h"
 
 struct AILIASpeech *speech = nullptr;
 ailiaSpeechCreate(&amp;speech, env_id, AILIA_SPEECH_TASK_TRANSCRIBE,
@@ -325,7 +325,7 @@ ailiaSpeechDestroy(speech);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
-        <pre class="code-block"><code>using ailiaSpeech;
+        <pre class="code-block"><code class="language-csharp">using ailiaSpeech;
 
 var speech = new AiliaSpeechModel();
 speech.Open(encoderPath, decoderPath, envId, memoryMode,
@@ -338,7 +338,7 @@ foreach (var seg in speech.GetResults()) Debug.Log(seg.text);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
-        <pre class="code-block"><code>import 'package:ailia_speech/ailia_speech.dart';
+        <pre class="code-block"><code class="language-dart">import 'package:ailia_speech/ailia_speech.dart';
 
 final speech = AiliaSpeechModel();
 await speech.open(
@@ -351,7 +351,7 @@ for (final s in segments) print(s.text);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code>val speech = AiliaSpeech(
+        <pre class="code-block"><code class="language-kotlin">val speech = AiliaSpeech(
     envId = -1,
     task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
     flags = AiliaSpeech.AILIA_SPEECH_FLAG_NONE,
@@ -477,16 +477,16 @@ for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)<
     <div class="section">
       <h2 class="section-title">資料</h2>
       <div class="materials-grid">
-        <a href="https://ailia.ai/en/speech/" target="_blank" class="material-item">
+        <a href="https://ailia.ai/speech/" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           </div>
           <div class="material-text">
             Product Site
-            <small>ailia.ai/en/speech/</small>
+            <small>ailia.ai/speech/</small>
           </div>
         </a>
-        <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH?lang=en" target="_blank" class="material-item">
+        <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           </div>
@@ -528,6 +528,7 @@ for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)<
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {
