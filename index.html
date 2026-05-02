@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia Documentation</title>
+  <meta name="description" content="ailia SDK - Cross-platform inference engine with ONNX GPU inference using Metal and Vulkan. 400+ models, Python/C++/C#/Flutter bindings.">
+  <link rel="canonical" href="https://docs.ailia.ai/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/">
+  <meta property="og:title" content="ailia Documentation">
+  <meta property="og:description" content="ailia SDK - Cross-platform inference engine with ONNX GPU inference using Metal and Vulkan. 400+ models, Python/C++/C#/Flutter bindings.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia Documentation">
+  <meta name="twitter:description" content="ailia SDK - Cross-platform inference engine with ONNX GPU inference using Metal and Vulkan. 400+ models, Python/C++/C#/Flutter bindings.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="ailia_logo.png">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    /* Top page overrides */
+    .hero { padding: 80px 24px 72px; }
+    .hero h1 { font-size: 40px; letter-spacing: -0.01em; margin-bottom: 20px; }
+    .hero p { font-size: 18px; margin-bottom: 36px; }
+
+    .section { padding: 72px 24px; }
+    .section-title { font-size: 28px; margin-bottom: 12px; }
+    .section-subtitle { font-size: 16px; color: var(--text-light); margin-bottom: 40px; }
+
+    .hero-badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; background: var(--bg); padding: 8px 18px; border-radius: 24px; font-size: 14px; font-weight: 500; color: var(--text); border: 1px solid var(--border); }
+    .badge svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+    .card { display: flex; flex-direction: column; }
+    .card-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 22px; }
+    .card-icon.sdk       { background: #eef2ff; color: #4f46e5; }
+    .card-icon.tokenizer { background: #fef3c7; color: #d97706; }
+    .card-icon.speech    { background: #ecfdf5; color: #059669; }
+    .card-icon.voice     { background: #fce7f3; color: #db2777; }
+    .card-icon.llm       { background: #f3e8ff; color: #7c3aed; }
+    .card-icon.tracker   { background: #e0f2fe; color: #0284c7; }
+    .card-icon.tflite    { background: #fff7ed; color: #ea580c; }
+    .card h3 { margin-bottom: 8px; }
+    .card p { font-size: 14px; color: var(--text-light); flex: 1; margin-bottom: 16px; }
+    .card-platforms { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .platform-tag { font-size: 12px; padding: 3px 10px; border-radius: 6px; background: var(--bg); color: var(--text-light); font-weight: 500; }
+    .card-link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--accent); margin-top: auto; }
+    .card-link:hover { gap: 10px; }
+    .card-link::after { content: "\2192"; transition: margin-left 0.2s; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 28px; }
+      .hero p { font-size: 16px; }
+      .section { padding: 48px 16px; }
+      .hero { padding: 56px 16px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="api/">SDK</a>
+        <a href="tflite/">TFLite</a>
+        <a href="llm/">LLM</a>
+        <a href="speech/">Speech</a>
+        <a href="voice/">Voice</a>
+        <a href="tokenizer/">Tokenizer</a>
+        <a href="tracker/">Tracker</a>
+        <a href="https://ailia.ai/en/" target="_blank">ailia.ai</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>ailia Documentation</h1>
+    <p>Cross-platform inference engine supporting GPU inference via Metal and Vulkan. A model library with over 400 types, advanced pre/post-processing, and bindings for Python, C++, C#, and Flutter.</p>
+    <div class="hero-badges">
+      <span class="badge">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        ONNX &amp; TFLite
+      </span>
+      <span class="badge">
+        <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+        400+ Models
+      </span>
+      <span class="badge">
+        <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Metal &amp; Vulkan
+      </span>
+      <span class="badge">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM9 9h6v6H9z"/></svg>
+        Cross-platform
+      </span>
+    </div>
+  </section>
+
+  <!-- Library Documentation -->
+  <section class="section">
+    <h2 class="section-title">Library Documentation</h2>
+    <p class="section-subtitle">Comprehensive API references and guides for each component of the ailia SDK ecosystem.</p>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-icon sdk">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>ailia SDK</h3>
+        <p>ONNX inference API for high-performance AI model execution on any platform.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">Python</span>
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+          <span class="platform-tag">Flutter</span>
+          <span class="platform-tag">JNI</span>
+        </div>
+        <a href="api/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon tflite">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+        </div>
+        <h3>ailia TFLite Runtime</h3>
+        <p>TensorFlow Lite compatible runtime for lightweight model inference.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">Python</span>
+          <span class="platform-tag">C</span>
+          <span class="platform-tag">Unity</span>
+        </div>
+        <a href="tflite/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon llm">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3>ailia LLM</h3>
+        <p>Local large language model inference with GGUF format support.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">Python</span>
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+          <span class="platform-tag">Flutter</span>
+        </div>
+        <a href="llm/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon speech">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
+        </div>
+        <h3>ailia Speech</h3>
+        <p>Speech recognition engine for accurate Speech-to-Text conversion.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">Python</span>
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+          <span class="platform-tag">Flutter</span>
+        </div>
+        <a href="speech/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon voice">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <h3>ailia Voice</h3>
+        <p>Text-to-speech synthesis engine for natural voice generation.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">Python</span>
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+          <span class="platform-tag">Flutter</span>
+        </div>
+        <a href="voice/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon tracker">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>ailia Tracker</h3>
+        <p>Object movement tracking for real-time video analysis and surveillance.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+        </div>
+        <a href="tracker/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon tokenizer">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+        </div>
+        <h3>ailia Tokenizer</h3>
+        <p>Tokenization library for NLP text encoding and decoding tasks.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">Python</span>
+          <span class="platform-tag">C++</span>
+          <span class="platform-tag">Unity</span>
+          <span class="platform-tag">Flutter</span>
+        </div>
+        <a href="tokenizer/" class="card-link">View Documentation</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Materials -->
+  <section class="materials-section">
+    <div class="section">
+      <h2 class="section-title">Materials</h2>
+      <p class="section-subtitle">Resources, downloads, and additional information about the ailia SDK.</p>
+      <div class="materials-grid">
+
+        <a href="https://github.com/ailia-ai/ailia-sdk/wiki" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+          </div>
+          <div class="material-text">
+            Release Notes
+            <small>Changelog and version history</small>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/channel/UCN-KzWACywDpBNOQ6FkIm0g" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </div>
+          <div class="material-text">
+            YouTube Channel
+            <small>Tutorials and demos</small>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      <a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a>
+    </p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

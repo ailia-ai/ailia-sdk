@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia Speech - Documentation</title>
+  <meta name="description" content="ailia Speech - Speech recognition library for Speech-to-Text conversion.">
+  <link rel="canonical" href="https://docs.ailia.ai/speech/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/speech/">
+  <meta property="og:title" content="ailia Speech - Documentation">
+  <meta property="og:description" content="ailia Speech - Speech recognition library for Speech-to-Text conversion.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia Speech - Documentation">
+  <meta name="twitter:description" content="ailia Speech - Speech recognition library for Speech-to-Text conversion.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../ailia_logo.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia Speech Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../api/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="https://ailia.ai/en/" target="_blank">ailia.ai</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia Speech</h1>
+    <p>A library for speech recognition. It uses ailia SDK and ailia.audio for doing Speech-to-Text.</p>
+  </section>
+
+  <!-- Getting Started -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-subtitle">Choose your platform and run your first speech-to-text inference.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <!-- Python -->
+      <div class="platform-panel" data-platform="python">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install</h3>
+            <p>Install the ailia Speech Python package and the <code>librosa</code> audio loader used by the sample.</p>
+            <pre><code>pip3 install ailia_speech librosa</code></pre>
+            <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="card-link">View on PyPI</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Download <code>example_ailia_speech.py</code> from <code>ailia-models</code> together with a sample WAV file (saved as <code>ax.wav</code> to match what the script expects), then run it. Whisper weights are downloaded automatically into <code>./models/</code>.</p>
+            <pre><code>wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/example_ailia_speech.py
+wget -O ax.wav https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/demo.wav
+python3 example_ailia_speech.py</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/whisper/example_ailia_speech.py" target="_blank" class="card-link">example_ailia_speech.py</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- C++ -->
+      <div class="platform-panel hidden" data-platform="cpp">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Get Evaluation Package</h3>
+            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding (<code>ailia_speech.h</code>), runtime libraries, the license file, and a runnable sample.</p>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Build &amp; Run</h3>
+            <p>Build the bundled sample and pass an audio file plus the model size and runtime options. Whisper Small is included; larger models are downloadable.</p>
+            <pre><code># macOS
+clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
+  libailia.dylib libailia_audio.dylib \
+  libailia_tokenizer.dylib libailia_speech.dylib \
+  -Wl,-rpath,./ -std=c++17
+
+./ailia_speech_sample demo.wav small auto transcribe vad_enable none auto</code></pre>
+            <a href="cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unity -->
+      <div class="platform-panel hidden" data-platform="unity">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install via UPM</h3>
+            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
+            <pre><code>https://github.com/ailia-ai/ailia-speech-unity.git</code></pre>
+            <a href="unity/en/" class="card-link">Unity API Reference</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), and play the SpeechToText scene with a microphone or an AudioClip attached.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/SpeechToText/AiliaSpeechToTextSample.cs" target="_blank" class="card-link">AiliaSpeechToTextSample.cs</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flutter -->
+      <div class="platform-panel hidden" data-platform="flutter">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Add to pubspec</h3>
+            <p>Add ailia Speech as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
+            <pre><code>dependencies:
+  ailia_speech:
+    git:
+      url: https://github.com/ailia-ai/ailia-speech-flutter.git
+      ref: main</code></pre>
+            <a href="flutter/en/" class="card-link">Flutter API Reference</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone the Flutter sample repository for a ready-to-run app demonstrating Whisper transcription.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-flutter.git
+cd ailia-models-flutter
+flutter pub get
+flutter run</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">Sample Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- JNI -->
+      <div class="platform-panel hidden" data-platform="jni">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Clone Binding</h3>
+            <p>For your own project, clone the JNI binding repository and add it to your Android Studio project.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-speech-jni.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-speech-jni" target="_blank" class="card-link">Binding</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the Speech sample on a connected device — it bundles microphone capture plus optional Silero VAD endpointing.</p>
+            <pre><code>git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+cd ailia-models-kotlin
+git submodule update --init --recursive</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaSpeechSample.kt" target="_blank" class="card-link">AiliaSpeechSample.kt</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia Speech runs on desktop and mobile platforms with CPU and GPU acceleration.</p>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>Operating Systems</h3>
+        <ul>
+          <li>Windows 10 / 11</li>
+          <li>macOS 11 or later</li>
+          <li>Linux (Ubuntu 20.04+)</li>
+          <li>iOS 13+ / Android 7+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Languages &amp; Compilers</h3>
+        <ul>
+          <li>Python 3.6+, Dart / Flutter 3.19+</li>
+          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang)</li>
+          <li>C# / Unity 2021.3.10f1+</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Supported Models</h3>
+        <ul>
+          <li>Whisper Tiny / Base / Small (bundled)</li>
+          <li>Whisper Medium / Large / Large V3</li>
+          <li>Whisper Large V3 Turbo</li>
+          <li>SenseVoice (small)</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Audio &amp; Languages</h3>
+        <ul>
+          <li>Mono float32 PCM (auto-resampled)</li>
+          <li>99 languages (Whisper)</li>
+          <li>5 languages (SenseVoice: zh / en / yue / ja / ko)</li>
+          <li>Batch, Live (real-time), and streaming</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Features</h2>
+      <p class="section-subtitle">Beyond basic transcription — capabilities that ship with ailia Speech.</p>
+      <div class="req-grid">
+        <div class="req-card">
+          <h3>Real-Time &amp; Streaming</h3>
+          <ul>
+            <li>Live mode for instant previews</li>
+            <li>VAD silence detection (Silero AI)</li>
+            <li>Volume-based silent threshold</li>
+            <li>Intermediate callback / interruption</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Translation &amp; Multilingual</h3>
+          <ul>
+            <li>Transcribe and Translate (to English) modes</li>
+            <li>Auto language detection per segment</li>
+            <li>Fixed-language mode via SetLanguage</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Accuracy Boosters</h3>
+          <ul>
+            <li>Prompt context for rare names / terms</li>
+            <li>Character / vocabulary constraints</li>
+            <li>Autocorrection dictionary (CSV)</li>
+            <li>Post-processing (T5 medical, FuguMT)</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Output &amp; Memory</h3>
+          <ul>
+            <li>Confidence score per segment</li>
+            <li>Begin / end timestamps</li>
+            <li>Speaker Diarization (PyannoteAudio)</li>
+            <li>Virtual Memory Mode (~55% RAM saving)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use the API -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">Minimal examples for transcribing audio in your own application.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity (C#)</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter (Dart)</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
+      </div>
+
+      <div class="platform-panel" data-platform="python">
+        <pre class="code-block"><code>import ailia_speech
+
+speech = ailia_speech.Whisper()
+speech.initialize_model(
+    model_path="./models/",
+    model_type=ailia_speech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO,
+)
+text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="cpp">
+        <pre class="code-block"><code>#include "ailia_speech.h"
+
+struct AILIASpeech *speech = nullptr;
+ailiaSpeechCreate(&amp;speech, env_id, AILIA_SPEECH_TASK_TRANSCRIBE,
+                  AILIA_SPEECH_FLAG_NONE, /*memory_mode=*/0, nullptr);
+ailiaSpeechOpenModelFileA(speech, encoder_path, decoder_path,
+                          AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+
+ailiaSpeechPushInputData(speech, audio, channels, samples, sample_rate);
+ailiaSpeechFinalizeInputData(speech);
+ailiaSpeechTranscribe(speech);
+
+unsigned int n; ailiaSpeechGetTextCount(speech, &amp;n);
+ailiaSpeechDestroy(speech);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="unity">
+        <pre class="code-block"><code>using ailiaSpeech;
+
+var speech = new AiliaSpeechModel();
+speech.Open(encoderPath, decoderPath, envId, memoryMode,
+            AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL,
+            AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+            AiliaSpeech.AILIA_SPEECH_FLAG_NONE, "auto");
+
+speech.Transcribe(waveData, frequency, channels, /*isFinal=*/true);
+foreach (var seg in speech.GetResults()) Debug.Log(seg.text);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="flutter">
+        <pre class="code-block"><code>import 'package:ailia_speech/ailia_speech.dart';
+
+final speech = AiliaSpeechModel();
+await speech.open(
+  encoderFile: encoderPath,
+  decoderFile: decoderPath,
+  modelType: AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL,
+);
+final segments = await speech.transcribe(audio, sampleRate);
+for (final s in segments) print(s.text);</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="jni">
+        <pre class="code-block"><code>val speech = AiliaSpeech(
+    envId = -1,
+    task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+    flags = AiliaSpeech.AILIA_SPEECH_FLAG_NONE,
+)
+speech.openModel(encoderPath, decoderPath, modelTypeId)
+speech.pushInputData(audio, channels, samples, sampleRate)
+speech.finalizeInputData()
+speech.transcribe()
+
+for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)</code></pre>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">API Reference by Platform</h2>
+    <div class="card-grid">
+
+      <div class="card">
+        <h3>Python</h3>
+        <ul>
+          <li><a href="python/en/">API (EN)</a></li>
+          <li><a href="https://pypi.org/project/ailia-speech/" target="_blank">PyPI</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>C++</h3>
+        <ul>
+          <li><a href="cpp/en/">API (EN)</a> <a href="cpp/jp/" class="sub-link">(JP)</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Unity</h3>
+        <ul>
+          <li><a href="unity/en/">API (EN)</a> <a href="unity/jp/" class="sub-link">(JP)</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Flutter</h3>
+        <ul>
+          <li><a href="flutter/en/">API (EN)</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-subtitle">Common questions about ailia Speech.</p>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>Which speech recognition models are supported?</summary>
+          <p>ailia Speech ships with Whisper variants (Tiny, Base, Small, Medium, Large, and Large-V3-Turbo) and SenseVoice. Pick a model with the <code>AILIA_SPEECH_MODEL_TYPE_*</code> constants when calling <code>initialize_model()</code>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does it support real-time / streaming transcription?</summary>
+          <p>Yes. Use <code>transcribe_step()</code> together with <code>set_silent_threshold()</code> to feed audio in chunks and emit partial transcripts as they become available, instead of waiting for the full file with <code>transcribe()</code>.</p>
+          <p>Enable <strong>Live mode</strong> (<code>AILIA_SPEECH_FLAG_LIVE</code>) to also preview tentative results <em>before</em> the next silence boundary is detected — useful for low-latency UX.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How does Translate mode work?</summary>
+          <p>Pass <code>AILIA_SPEECH_TASK_TRANSLATE</code> instead of <code>AILIA_SPEECH_TASK_TRANSCRIBE</code> to transcribe non-English audio and emit the English translation in one pass. Note: Translate mode is not supported on Whisper Large V3 Turbo or SenseVoice.</p>
+          <p>For the reverse direction (English → Japanese), chain Whisper Translate with the FuguMT post-processing model.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I improve accuracy on rare names or domain-specific terms?</summary>
+          <p>Three complementary tools:</p>
+          <p><strong>Prompt</strong> — pass a short list of expected terms (e.g. <code>"hardware software"</code>) to bias decoding.</p>
+          <p><strong>Constraints</strong> — restrict decoding to a character set or vocabulary (e.g. <code>"command1,command2"</code>) for voice-command UIs.</p>
+          <p><strong>Autocorrection dictionary</strong> — load a CSV of <code>phonetic,correct</code> substitutions via the <code>OpenDictionary</code> API.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I enable VAD for accurate silence detection?</summary>
+          <p>Use <code>AILIA_SPEECH_VAD_TYPE_SILERO</code> together with the <code>OpenVadFile</code> API. AI-based VAD avoids the "Thank you for your attention" hallucinations that volume-based detection can trigger on near-silent audio.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What input audio format is required?</summary>
+          <p>Mono float32 PCM. The library accepts arbitrary sample rates (commonly produced by <code>librosa.load(..., mono=True)</code>) and resamples internally. Stereo and integer-PCM inputs should be converted before being passed in.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Where do I place the license file when using C++?</summary>
+          <p>The C++ binding requires <code>ailia.lic</code> next to the runtime libraries:</p>
+          <p><strong>Windows:</strong> same folder as <code>ailia.dll</code> (or in <code>cpp/</code> for the sample).<br/>
+          <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
+          <strong>Linux:</strong> <code>~/.shalo/</code></p>
+          <p>Python, Unity, Flutter, and JNI bindings auto-download the license on first run, so this only applies to the native C++ binding.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I enable GPU acceleration?</summary>
+          <p>On macOS / iOS, Metal is used automatically. On Windows / Linux, install <a href="https://developer.nvidia.com/cuda-downloads" target="_blank">CUDA Toolkit</a> and <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN</a>, then add cuDNN to your <code>PATH</code>. Pass an environment ID corresponding to the GPU back-end (or use <code>auto</code> in the sample CLI).</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I run it offline?</summary>
+          <p>Yes, after the first run. Whisper / SenseVoice weights are downloaded into the directory passed to <code>initialize_model(model_path=...)</code> on first use, and the evaluation license is fetched automatically. Subsequent runs work without an internet connection.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How does licensing work?</summary>
+          <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="materials-section">
+    <div class="section">
+      <h2 class="section-title">Materials</h2>
+      <div class="materials-grid">
+        <a href="https://ailia.ai/en/speech/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div class="material-text">
+            Product Site
+            <small>ailia.ai/en/speech/</small>
+          </div>
+        </a>
+        <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH?lang=en" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          </div>
+          <div class="material-text">
+            Free Trial
+            <small>Download evaluation version</small>
+          </div>
+        </a>
+        <a href="https://pypi.org/project/ailia-speech/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div class="material-text">
+            PyPI
+            <small>pip install ailia-speech</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.platform-tabs').forEach(tabsBar => {
+      const tabs = tabsBar.querySelectorAll('.platform-tab');
+      const panels = tabsBar.parentElement.querySelectorAll(':scope > .platform-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const platform = tab.dataset.platform;
+          tabs.forEach(t => t.classList.toggle('active', t === tab));
+          panels.forEach(p => p.classList.toggle('hidden', p.dataset.platform !== platform));
+        });
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

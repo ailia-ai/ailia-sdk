@@ -1,0 +1,22 @@
+.. ailia documentation master file, created by
+   sphinx-quickstart on Tue Nov 30 14:55:08 2021.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+ailia Python API document
+=================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+Packages
+==================
+
+* :doc:`ailia_tflite`
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`search`
