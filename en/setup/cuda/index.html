@@ -121,16 +121,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>Installer Type: <strong>exe (local)</strong></li>
     </ul>
     <p>Click the "Download" button under "Base Installer" to download.</p>
-    <img src="images/image_001.png" alt="CUDA Toolkit download page - selecting OS, architecture, version, and installer type">
+    <img src="../../../setup/cuda/images/image_001.png" alt="CUDA Toolkit download page - selecting OS, architecture, version, and installer type">
 
     <p>Run the downloaded installer. The default extraction directory is fine.</p>
-    <img src="images/image_002.png" alt="CUDA setup package - extraction path dialog">
+    <img src="../../../setup/cuda/images/image_002.png" alt="CUDA setup package - extraction path dialog">
 
     <p>Review the NVIDIA Software License Agreement and click "Agree and Continue".</p>
-    <img src="images/image_003.png" alt="NVIDIA installer - license agreement screen">
+    <img src="../../../setup/cuda/images/image_003.png" alt="NVIDIA installer - license agreement screen">
 
     <p>Select "Custom (Advanced)".</p>
-    <img src="images/image_004.png" alt="Installation options - select Custom (Advanced)">
+    <img src="../../../setup/cuda/images/image_004.png" alt="Installation options - select Custom (Advanced)">
 
     <div class="note">
       <strong>Note:</strong> Some versions of CUDA Toolkit may fail to install with the "Express" option. In that case, use the Custom install and select only the components listed below. See the <a href="https://forums.developer.nvidia.com/t/nvidia-installer-failed-cuda-12-3-0/270307" target="_blank">NVIDIA forum post</a> for details.
@@ -143,41 +143,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>CUDA &gt; <strong>Development</strong></li>
       <li><strong>Driver components</strong></li>
     </ul>
-    <img src="images/image_005.png" alt="Custom install options - selecting CUDA components">
-    <img src="images/image_006.png" alt="Custom install options - selecting Driver components">
+    <img src="../../../setup/cuda/images/image_005.png" alt="Custom install options - selecting CUDA components">
+    <img src="../../../setup/cuda/images/image_006.png" alt="Custom install options - selecting Driver components">
 
     <p>When installation finishes, you will see a list of installed components.</p>
-    <img src="images/image_007.png" alt="NVIDIA installer - installation complete screen">
+    <img src="../../../setup/cuda/images/image_007.png" alt="NVIDIA installer - installation complete screen">
 
     <h3>2. Install cuDNN</h3>
 
     <p>Go to the <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN page</a> and click "Download cuDNN Library".</p>
-    <img src="images/image_008.png" alt="NVIDIA cuDNN page - click Download cuDNN Library">
+    <img src="../../../setup/cuda/images/image_008.png" alt="NVIDIA cuDNN page - click Download cuDNN Library">
 
     <p>An NVIDIA Developer account is required to download cuDNN. Sign up if you don't have one.</p>
-    <img src="images/image_009.png" alt="NVIDIA Developer account login / sign-up page">
+    <img src="../../../setup/cuda/images/image_009.png" alt="NVIDIA Developer account login / sign-up page">
 
     <p>After logging in, select "Local Installer for Windows (Zip)" on the download page.</p>
-    <img src="images/image_010.png" alt="cuDNN download page - select Local Installer for Windows (Zip)">
+    <img src="../../../setup/cuda/images/image_010.png" alt="cuDNN download page - select Local Installer for Windows (Zip)">
 
     <p>Extract the downloaded zip file. Move the extracted folder (e.g., <code>cudnn-windows-x86_64-8.9.6.50_cuda12-archive</code>) to a location of your choice (e.g., <code>C:\nvidia\</code>).</p>
-    <img src="images/image_011.png" alt="Extracted cuDNN folder contents - bin, include, lib, LICENSE">
+    <img src="../../../setup/cuda/images/image_011.png" alt="Extracted cuDNN folder contents - bin, include, lib, LICENSE">
 
     <h3>3. Set Environment Variables</h3>
     <p>Add the cuDNN <code>bin</code> folder to your system PATH so that the DLLs can be found at runtime.</p>
 
     <p>Open Windows "Settings" &rarr; "System" &rarr; "About", then click "Advanced system settings" to open "System Properties". Click the "Environment Variables" button.</p>
-    <img src="images/image_012.png" alt="Windows System Properties - Environment Variables button">
+    <img src="../../../setup/cuda/images/image_012.png" alt="Windows System Properties - Environment Variables button">
 
     <p>Select the "Path" variable under "User variables" and click "Edit". Click "New" and add the path to the cuDNN <code>bin</code> folder.</p>
     <pre><code>C:\nvidia\cudnn-windows-x86_64-8.9.6.50_cuda12-archive\bin</code></pre>
-    <img src="images/image_013.png" alt="Edit environment variable - adding cuDNN bin folder to PATH">
+    <img src="../../../setup/cuda/images/image_013.png" alt="Edit environment variable - adding cuDNN bin folder to PATH">
 
     <h3>4. Install zlib</h3>
     <p>cuDNN 8.3 and later on Windows requires <code>zlibwapi.dll</code>.</p>
 
     <p>Download <a href="https://www.winimage.com/zLibDll/zlib123dllx64.zip" target="_blank">zlib123dllx64.zip</a> from the <a href="https://www.winimage.com/zLibDll/index.html" target="_blank">ZLIB DLL home page</a> and extract it.</p>
-    <img src="images/image_014.png" alt="zlib download page">
+    <img src="../../../setup/cuda/images/image_014.png" alt="zlib download page">
 
     <p>Copy <code>zlibwapi.dll</code> from the extracted files to a directory on your PATH. The simplest option is to copy it into the cuDNN <code>bin</code> folder.</p>
     <pre><code>copy dll_x64\zlibwapi.dll C:\nvidia\cudnn-windows-x86_64-8.9.6.50_cuda12-archive\bin\</code></pre>
