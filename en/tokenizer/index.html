@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,22 +10,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ailia Tokenizer - ドキュメント</title>
+  <title>ailia Tokenizer - Documentation</title>
   <meta name="description" content="ailia Tokenizer - Tokenization library for NLP text encoding and decoding.">
-  <link rel="canonical" href="https://docs.ailia.ai/ja/tokenizer/">
-  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/tokenizer/">
-  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/ja/tokenizer/">
-  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/tokenizer/">
+  <link rel="canonical" href="https://docs.ailia.ai/en/tokenizer/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/tokenizer/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/tokenizer/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/tokenizer/">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="ja_JP">
-  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
   <meta property="og:site_name" content="ailia Documentation">
-  <meta property="og:url" content="https://docs.ailia.ai/ja/tokenizer/">
-  <meta property="og:title" content="ailia Tokenizer - ドキュメント">
+  <meta property="og:url" content="https://docs.ailia.ai/en/tokenizer/">
+  <meta property="og:title" content="ailia Tokenizer - Documentation">
   <meta property="og:description" content="ailia Tokenizer - Tokenization library for NLP text encoding and decoding.">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ailia Tokenizer - ドキュメント">
+  <meta name="twitter:title" content="ailia Tokenizer - Documentation">
   <meta name="twitter:description" content="ailia Tokenizer - Tokenization library for NLP text encoding and decoding.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../../ailia_logo.png">
@@ -36,15 +36,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <header>
     <div class="header-inner">
       <div class="logo">
-        <a href="https://docs.ailia.ai/ja/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
         <a href="./" class="logo-text">ailia Tokenizer Docs</a>
       </div>
-      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
       <div class="header-links">
         <a href="../">Top</a>
-        <a href="../api/">SDK</a>
+        <a href="../sdk/">SDK</a>
         <a href="../tflite/">TFLite</a>
         <a href="../llm/">LLM</a>
         <a href="../speech/">Speech</a>
@@ -52,21 +52,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="../tokenizer/">Tokenizer</a>
         <a href="../tracker/">Tracker</a>
         <a href="https://tech.ailia.ai/" target="_blank" rel="noopener">Tech Blog</a>
-        <a href="../../tokenizer/" hreflang="en" lang="en">EN</a>
+        <a href="../../tokenizer/" hreflang="ja" lang="ja">JA</a>
       </div>
     </div>
   </header>
 
   <section class="hero">
     <h1>ailia Tokenizer</h1>
-    <p>NLP テキストのエンコードとトークンのデコードを行うライブラリ。Python の transformers なしでトークナイズできます。</p>
+    <p>A library for encoding NLP text and decoding NLP tokens. Supports tokenization without Python transformers.</p>
   </section>
 
   <!-- Getting Started -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">はじめに</h2>
-      <p class="section-subtitle">プラットフォームを選び、Python <code>transformers</code> に依存せずにトークナイズしてみましょう。</p>
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-subtitle">Choose your platform and tokenize without depending on Python <code>transformers</code>.</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -81,15 +81,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>インストール</h3>
-            <p>ailia Tokenizer の Python パッケージを PyPI からインストールします。</p>
+            <h3>Install</h3>
+            <p>Install the ailia Tokenizer Python package from PyPI.</p>
             <pre><code class="language-bash">pip3 install ailia_tokenizer</code></pre>
-            <a href="https://pypi.org/project/ailia-tokenizer/" target="_blank" class="card-link">PyPI で見る</a>
+            <a href="https://pypi.org/project/ailia-tokenizer/" target="_blank" class="card-link">View on PyPI</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>サンプルを実行</h3>
-            <p><code>ailia-models</code> をクローンし、multilingual-MiniLMv2 のゼロショット分類サンプルを実行します。<code>tokenizer/</code> ディレクトリには <code>sentencepiece.bpe.model</code> と <code>tokenizer_config.json</code> が同梱されており、これは <code>XLMRobertaTokenizer.from_pretrained()</code> が期待するファイル構成です。</p>
+            <h3>Run a Sample</h3>
+            <p>Clone <code>ailia-models</code> and run the multilingual-MiniLMv2 zero-shot classification sample. Its <code>tokenizer/</code> directory ships <code>sentencepiece.bpe.model</code> + <code>tokenizer_config.json</code>, the file layout <code>XLMRobertaTokenizer.from_pretrained()</code> expects.</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
 cd ailia-models/natural_language_processing/multilingual-minilmv2
 pip3 install -r requirements.txt
@@ -104,21 +104,21 @@ python3 multilingual-minilmv2.py</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>バインディングをクローン</h3>
-            <p>C++ バインディングリポジトリをクローンし、<code>libailia_tokenizer</code> にリンクします。各トークナイザファイルは対応する API (<code>OpenModelFile</code> / <code>OpenVocabFile</code> / <code>OpenMergeFile</code> / <code>OpenDictionaryFile</code>) で開きます。</p>
+            <h3>Clone Binding</h3>
+            <p>Clone the C++ binding repository and link against <code>libailia_tokenizer</code>. Open each tokenizer file via the corresponding API (<code>OpenModelFile</code>, <code>OpenVocabFile</code>, <code>OpenMergeFile</code>, <code>OpenDictionaryFile</code>).</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-tokenizer-cpp.git</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-tokenizer-cpp" target="_blank" class="card-link">バインディング</a>
+            <a href="https://github.com/ailia-ai/ailia-tokenizer-cpp" target="_blank" class="card-link">Binding</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>ビルドして実行</h3>
-            <p>同梱サンプルをビルドし、トークナイザファイルと入力テキストを渡して実行します。</p>
+            <h3>Build &amp; Run</h3>
+            <p>Build the bundled sample and pass it tokenizer files plus input text.</p>
             <pre><code class="language-bash"># macOS
 clang++ -o tokenizer_sample tokenizer_sample.cpp \
   libailia_tokenizer.dylib -Wl,-rpath,./ -std=c++17
 
 ./tokenizer_sample bert vocab.txt</code></pre>
-            <a href="../../tokenizer/cpp/en/setup.html" class="card-link">C++ セットアップガイド</a>
+            <a href="../../tokenizer/cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
           </div>
         </div>
       </div>
@@ -128,17 +128,17 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>UPM でインストール</h3>
-            <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
+            <h3>Install via UPM</h3>
+            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
             <pre><code class="language-bash">https://github.com/ailia-ai/ailia-tokenizer-unity.git</code></pre>
-            <a href="../../tokenizer/unity/en/" class="card-link">Unity API リファレンス</a>
+            <a href="../../tokenizer/unity/en/" class="card-link">Unity API Reference</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>サンプルを実行</h3>
-            <p><code>ailia-models-unity</code> をクローンして Unity Editor (2021.3.10f1 以降) で開き、<code>NaturalLanguageProcessing/AiliaNaturalLanguageProcessingSample.unity</code> を Play するとコンソールにトークン ID が表示されます。</p>
+            <h3>Run a Sample</h3>
+            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), and play <code>NaturalLanguageProcessing/AiliaNaturalLanguageProcessingSample.unity</code> to see token IDs in the Console.</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-unity/tree/master/Assets/AXIP/AILIA-MODELS/NaturalLanguageProcessing" target="_blank" class="card-link">サンプルシーン</a>
+            <a href="https://github.com/ailia-ai/ailia-models-unity/tree/master/Assets/AXIP/AILIA-MODELS/NaturalLanguageProcessing" target="_blank" class="card-link">Sample Scene</a>
           </div>
         </div>
       </div>
@@ -148,19 +148,19 @@ clang++ -o tokenizer_sample tokenizer_sample.cpp \
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>pubspec に追加</h3>
-            <p>Flutter プロジェクトの <code>pubspec.yaml</code> に ailia Tokenizer を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
+            <h3>Add to pubspec</h3>
+            <p>Add ailia Tokenizer as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
             <pre><code class="language-yaml">dependencies:
   ailia_tokenizer:
     git:
       url: https://github.com/ailia-ai/ailia-tokenizer-flutter.git
       ref: main</code></pre>
-            <a href="../../tokenizer/flutter/en/" class="card-link">Flutter API リファレンス</a>
+            <a href="../../tokenizer/flutter/en/" class="card-link">Flutter API Reference</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>サンプルを実行</h3>
-            <p><code>ailia-tokenizer-flutter</code> をクローンして同梱サンプルアプリを実行します。<code>assets/</code> から XLM-RoBERTa の SentencePiece モデルをコピーし、文字列をエンコードします。</p>
+            <h3>Run a Sample</h3>
+            <p>Clone <code>ailia-tokenizer-flutter</code> and run the bundled example app — it copies an XLM-RoBERTa SentencePiece model from <code>assets/</code> and encodes a string of text.</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-tokenizer-flutter.git
 cd ailia-tokenizer-flutter/example
 flutter pub get
@@ -175,15 +175,15 @@ flutter run</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>バインディングをクローン</h3>
-            <p>JNI バインディングリポジトリをクローンして Android Studio プロジェクトに追加します。</p>
+            <h3>Clone Binding</h3>
+            <p>Clone the JNI binding repository and add it to your Android Studio project.</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-tokenizer-jni.git</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-tokenizer-jni" target="_blank" class="card-link">バインディング</a>
+            <a href="https://github.com/ailia-ai/ailia-tokenizer-jni" target="_blank" class="card-link">Binding</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>サンプルを実行</h3>
-            <p><code>ailia-models-kotlin</code> をサブモジュール込みでクローンし Android Studio で開きます。トークナイザを使った XLM-RoBERTa のゼロショット分類サンプルが同梱されています。</p>
+            <h3>Run a Sample</h3>
+            <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. The repository ships an XLM-RoBERTa zero-shot classification sample built on the tokenizer flow.</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-kotlin.git
 cd ailia-models-kotlin
 git submodule update --init --recursive</code></pre>
@@ -197,43 +197,43 @@ git submodule update --init --recursive</code></pre>
 
   <!-- System Requirements -->
   <section class="section">
-    <h2 class="section-title">動作環境</h2>
-    <p class="section-subtitle">ailia Tokenizer は Python <code>transformers</code> のトークナイザを置き換えるクロスプラットフォームライブラリで、C++ / Unity / Flutter からも Python ランタイムなしで利用できます。</p>
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia Tokenizer is a cross-platform replacement for the Python <code>transformers</code> tokenizer suite, usable from C++, Unity, and Flutter without a Python runtime.</p>
     <div class="req-grid">
       <div class="req-card">
-        <h3>対応 OS</h3>
+        <h3>Operating Systems</h3>
         <ul>
           <li>Windows 10 / 11</li>
-          <li>macOS 11 以降</li>
-          <li>Linux (Ubuntu 20.04 以降)</li>
-          <li>iOS 13 / Android 7 以降</li>
+          <li>macOS 11 or later</li>
+          <li>Linux (Ubuntu 20.04+)</li>
+          <li>iOS 13+ / Android 7+</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>言語とコンパイラ</h3>
+        <h3>Languages &amp; Compilers</h3>
         <ul>
-          <li>Python 3.6 以降 / Dart・Flutter 3.19 以降</li>
-          <li>C++17 (VS 2019 以降 / Xcode 14.2 以降 / clang)</li>
-          <li>C# / Unity 2021.3.10f1 以降</li>
+          <li>Python 3.6+, Dart / Flutter 3.19+</li>
+          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang)</li>
+          <li>C# / Unity 2021.3.10f1+</li>
           <li>Kotlin / Java (JNI)</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>組み込みコンポーネント</h3>
+        <h3>Built-in Components</h3>
         <ul>
           <li>SentencePiece</li>
           <li>MeCab + ipadic</li>
-          <li>BPE (最適化済)</li>
-          <li>NFKC 正規化</li>
+          <li>BPE (optimized)</li>
+          <li>NFKC normalization</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>出力形式</h3>
+        <h3>Output Formats</h3>
         <ul>
-          <li>トークン ID (int)</li>
-          <li>デコードされたテキスト (str / UTF-8)</li>
+          <li>Token IDs (int)</li>
+          <li>Decoded text (str / UTF-8)</li>
           <li>convert_tokens_to_ids / ids_to_tokens</li>
-          <li>attention mask 付き encode_plus</li>
+          <li>encode_plus with attention masks</li>
         </ul>
       </div>
     </div>
@@ -242,35 +242,35 @@ git submodule update --init --recursive</code></pre>
   <!-- Features -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">機能</h2>
-      <p class="section-subtitle">Hugging Face 互換 API を備えた 12 種類のトークナイザ。</p>
+      <h2 class="section-title">Features</h2>
+      <p class="section-subtitle">Twelve tokenizer types with Hugging Face-compatible APIs.</p>
       <div class="req-grid">
         <div class="req-card">
-          <h3>音声 / 視覚</h3>
+          <h3>Speech / Vision</h3>
           <ul>
-            <li>Whisper (多言語)</li>
-            <li>CLIP (テキスト・画像)</li>
+            <li>Whisper (multilingual)</li>
+            <li>CLIP (text-image)</li>
           </ul>
         </div>
         <div class="req-card">
-          <h3>翻訳 / 要約</h3>
+          <h3>Translation / Summarization</h3>
           <ul>
-            <li>Marian (FuguMT 英 ↔ 日)</li>
+            <li>Marian (FuguMT EN ↔ JA)</li>
             <li>T5 (sentencepiece)</li>
             <li>XLM-RoBERTa</li>
           </ul>
         </div>
         <div class="req-card">
-          <h3>BERT 系</h3>
+          <h3>BERT Family</h3>
           <ul>
-            <li>BERT (英語)</li>
-            <li>BERT 日本語 WordPiece</li>
-            <li>BERT 日本語 Character</li>
+            <li>BERT (English)</li>
+            <li>BERT Japanese WordPiece</li>
+            <li>BERT Japanese Character</li>
             <li>RoBERTa</li>
           </ul>
         </div>
         <div class="req-card">
-          <h3>LLM 系</h3>
+          <h3>LLM Family</h3>
           <ul>
             <li>GPT-2</li>
             <li>Llama</li>
@@ -284,8 +284,8 @@ git submodule update --init --recursive</code></pre>
   <!-- Use the API -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">プロジェクトで API を使う</h2>
-      <p class="section-subtitle">自分のアプリケーションでテキストをエンコード・デコードする最小サンプル。</p>
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">Minimal examples for encoding and decoding text in your own application.</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -353,13 +353,13 @@ val text = tokenizer.decode(ids)</code></pre>
   </section>
 
   <section class="section">
-    <h2 class="section-title">プラットフォーム別 API リファレンス</h2>
+    <h2 class="section-title">API Reference by Platform</h2>
     <div class="card-grid">
 
       <div class="card">
         <h3>Python</h3>
         <ul>
-          <li><a href="../../tokenizer/python/en/">API (EN)</a></li>
+          <li><a href="../../tokenizer/python/en/">API</a></li>
           <li><a href="https://pypi.org/project/ailia-tokenizer/" target="_blank">PyPI</a></li>
         </ul>
       </div>
@@ -367,7 +367,7 @@ val text = tokenizer.decode(ids)</code></pre>
       <div class="card">
         <h3>C++</h3>
         <ul>
-          <li><a href="../../tokenizer/cpp/jp/">API</a></li>
+          <li><a href="../../tokenizer/cpp/en/">API</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-tokenizer-cpp" target="_blank">Binding</a></li>
         </ul>
       </div>
@@ -375,7 +375,7 @@ val text = tokenizer.decode(ids)</code></pre>
       <div class="card">
         <h3>Unity</h3>
         <ul>
-          <li><a href="../../tokenizer/unity/jp/">API</a></li>
+          <li><a href="../../tokenizer/unity/en/">API</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-tokenizer-unity" target="_blank">Binding</a></li>
         </ul>
       </div>
@@ -383,7 +383,7 @@ val text = tokenizer.decode(ids)</code></pre>
       <div class="card">
         <h3>Flutter</h3>
         <ul>
-          <li><a href="../../tokenizer/flutter/en/">API (EN)</a></li>
+          <li><a href="../../tokenizer/flutter/en/">API</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-tokenizer-flutter" target="_blank">Binding</a></li>
         </ul>
       </div>
@@ -401,51 +401,51 @@ val text = tokenizer.decode(ids)</code></pre>
   <!-- FAQ -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">よくある質問</h2>
-      <p class="section-subtitle">ailia Tokenizer についてのよくある質問。</p>
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-subtitle">Common questions about ailia Tokenizer.</p>
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary>Hugging Face <code>transformers</code> ではなく ailia Tokenizer を使う理由は?</summary>
-          <p><code>transformers</code> は Python 専用です。ailia Tokenizer は同じトークナイザを C++ / Unity (C#) / Flutter (Dart) / JNI / Python から呼び出せるネイティブライブラリとして提供しているため、Python ランタイムを同梱せずに iOS / Android / 組み込み環境でもトークナイズできます。</p>
-          <p>Python API は <code>transformers</code> と同じインターフェース (<code>from_pretrained()</code> / <code>encode()</code> / <code>decode()</code> など) を提供するため、既存コードは通常 import の差し替えだけで動きます。</p>
+          <summary>Why use ailia Tokenizer instead of Hugging Face <code>transformers</code>?</summary>
+          <p><code>transformers</code> is Python-only. ailia Tokenizer ships the same tokenizers as a native library callable from C++, Unity (C#), Flutter (Dart), JNI, and Python — letting you tokenize on iOS, Android, and embedded targets without bundling a Python runtime.</p>
+          <p>The Python API mirrors <code>transformers</code> (<code>from_pretrained()</code>, <code>encode()</code>, <code>decode()</code>, etc.) so existing code typically requires only an import change.</p>
         </details>
 
         <details class="faq-item">
-          <summary>対応しているトークナイザの種類は?</summary>
-          <p>主要なモデルファミリをカバーする 12 種類: Whisper / CLIP / XLM-RoBERTa / Marian / BERT (英語) / BERT 日本語 WordPiece / BERT 日本語 Character / T5 / RoBERTa / GPT-2 / Llama / Gemma。</p>
+          <summary>Which tokenizer types are supported?</summary>
+          <p>Twelve types covering the most common modern model families: Whisper, CLIP, XLM-RoBERTa, Marian, BERT (English), BERT Japanese WordPiece, BERT Japanese Character, T5, RoBERTa, GPT-2, Llama, and Gemma.</p>
         </details>
 
         <details class="faq-item">
-          <summary>ailia Tokenizer は transformers の挙動とどう一致しますか?</summary>
-          <p><code>encode()</code> は <code>tokenizer(sents, split_special_tokens=True)</code> と一致します (特殊トークンはテキストとしてエンコード、padding / truncation なし)。</p>
-          <p><code>encodeWithSpecialTokens()</code> は <code>tokenizer(sents)</code> と一致します (特殊トークンを ID としてエンコード)。</p>
-          <p><code>decode()</code> は <code>tokenizer.decode(ids, skip_special_tokens=True)</code> と一致します。<code>decodeWithSpecialTokens()</code> は特殊トークンを保持します。</p>
+          <summary>How does ailia Tokenizer match transformers' behaviour?</summary>
+          <p><code>encode()</code> matches <code>tokenizer(sents, split_special_tokens=True)</code> (special tokens encoded as text, no padding/truncation).</p>
+          <p><code>encodeWithSpecialTokens()</code> matches <code>tokenizer(sents)</code> (special tokens encoded as IDs).</p>
+          <p><code>decode()</code> matches <code>tokenizer.decode(ids, skip_special_tokens=True)</code>; <code>decodeWithSpecialTokens()</code> keeps the special tokens.</p>
         </details>
 
         <details class="faq-item">
-          <summary>各トークナイザに必要な追加ファイルは?</summary>
-          <p>Whisper / CLIP / GPT-2 は単体で完結します。それ以外のトークナイザは関連ファイルを同じ場所に配置する必要があります:</p>
-          <p><strong>SentencePiece</strong> (T5 / XLM-RoBERTa / Marian / Llama / Gemma): <code>spiece.model</code> / <code>tokenizer.model</code> / <code>source.spm</code>。<br/>
-          <strong>BERT (英語):</strong> <code>vocab.txt</code> + <code>tokenizer_config.json</code>。<br/>
-          <strong>BERT 日本語:</strong> ipadic 辞書 + <code>vocab.txt</code> (NFKC 正規化は自動)。<br/>
-          <strong>RoBERTa:</strong> <code>vocab.json</code> + <code>merges.txt</code>。</p>
-          <p><strong>Python:</strong> 必要なファイルをひとつのディレクトリに置き、そのパスを <code>from_pretrained()</code> に渡します (例: <code>BertTokenizer.from_pretrained("./tokenizer/")</code>)。<br/>
-          <strong>C / C++ / Unity / Flutter / JNI:</strong> 対応する <code>OpenModelFile</code> / <code>OpenVocabFile</code> / <code>OpenMergeFile</code> / <code>OpenDictionaryFile</code> API で個別に開きます。</p>
+          <summary>What extra files do I need for each tokenizer?</summary>
+          <p>Whisper / CLIP / GPT-2 are self-contained. Other tokenizers need their model files placed alongside the tokenizer:</p>
+          <p><strong>SentencePiece</strong> (T5, XLM-RoBERTa, Marian, Llama, Gemma): <code>spiece.model</code> / <code>tokenizer.model</code> / <code>source.spm</code>.<br/>
+          <strong>BERT (English):</strong> <code>vocab.txt</code> + <code>tokenizer_config.json</code>.<br/>
+          <strong>BERT Japanese:</strong> ipadic dictionary + <code>vocab.txt</code> (NFKC normalization is automatic).<br/>
+          <strong>RoBERTa:</strong> <code>vocab.json</code> + <code>merges.txt</code>.</p>
+          <p><strong>Python:</strong> place all required files in one directory and pass that directory path to <code>from_pretrained()</code> (e.g. <code>BertTokenizer.from_pretrained("./tokenizer/")</code>).<br/>
+          <strong>C / C++ / Unity / Flutter / JNI:</strong> open each file individually with the corresponding <code>OpenModelFile</code> / <code>OpenVocabFile</code> / <code>OpenMergeFile</code> / <code>OpenDictionaryFile</code> API.</p>
         </details>
 
         <details class="faq-item">
-          <summary>C++ で使うとき、ライセンスファイルはどこに置きますか?</summary>
-          <p>C++ バインディングはランタイムライブラリと同じ場所に <code>ailia.lic</code> を配置する必要があります:</p>
-          <p><strong>Windows:</strong> <code>ailia.dll</code> と同じフォルダ (サンプルでは <code>cpp/</code> 配下)。<br/>
+          <summary>Where do I place the license file when using C++?</summary>
+          <p>The C++ binding requires <code>ailia.lic</code> next to the runtime libraries:</p>
+          <p><strong>Windows:</strong> same folder as <code>ailia.dll</code> (or in <code>cpp/</code> for the sample).<br/>
           <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
           <strong>Linux:</strong> <code>~/.shalo/</code></p>
-          <p>Python / Unity / Flutter / JNI バインディングは初回実行時にライセンスを自動ダウンロードするため、この手順は C++ バインディングに限ります。</p>
+          <p>Python, Unity, Flutter, and JNI bindings auto-download the license on first run, so this only applies to the native C++ binding.</p>
         </details>
 
         <details class="faq-item">
-          <summary>ライセンスはどう扱われますか?</summary>
-          <p>評価ライセンスは実行時に自動でダウンロードされ、開発・評価用途に利用できます。商用配布には製品ライセンスを申請してください。詳細は <a href="https://ailia.ai/license/" target="_blank">ailia ライセンス規約</a> を参照してください。</p>
+          <summary>How does licensing work?</summary>
+          <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
         </details>
 
       </div>
@@ -454,9 +454,9 @@ val text = tokenizer.decode(ids)</code></pre>
 
   <section class="materials-section">
     <div class="section">
-      <h2 class="section-title">資料</h2>
+      <h2 class="section-title">Materials</h2>
       <div class="materials-grid">
-        <a href="https://axip-console.appspot.com/trial/terms/AILIA-TOKENIZER" target="_blank" class="material-item">
+        <a href="https://axip-console.appspot.com/trial/terms/AILIA-TOKENIZER?lang=en" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           </div>
@@ -479,7 +479,7 @@ val text = tokenizer.decode(ids)</code></pre>
   </section>
 
   <footer>
-    <p><a href="https://ailia.ai/" target="_blank">アイリア株式会社</a></p>
+    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vulkan Setup Guide - ailia SDK</title>
+  <meta name="description" content="How to set up Vulkan for GPU-accelerated inference with ailia SDK on Windows and Linux.">
+  <link rel="canonical" href="https://docs.ailia.ai/en/setup/vulkan/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/vulkan/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/vulkan/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/setup/vulkan/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/setup/vulkan/">
+  <meta property="og:title" content="Vulkan Setup Guide - ailia SDK">
+  <meta property="og:description" content="How to set up Vulkan for GPU-accelerated inference with ailia SDK on Windows and Linux.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vulkan Setup Guide - ailia SDK">
+  <meta name="twitter:description" content="How to set up Vulkan for GPU-accelerated inference with ailia SDK on Windows and Linux.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../../ailia_logo.png">
+  <link rel="stylesheet" href="../../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../sdk/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../../setup/vulkan/" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Vulkan Setup Guide</h1>
+    <p>How to set up Vulkan for GPU-accelerated inference with ailia SDK on Windows and Linux.</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>Overview</h2>
+    <p>Vulkan is a cross-platform graphics and compute API developed by the Khronos Group. ailia SDK and ailia LLM can use Vulkan for GPU-accelerated inference on both NVIDIA and AMD GPUs. Unlike CUDA, Vulkan is not limited to NVIDIA hardware.</p>
+
+    <h2>Windows</h2>
+    <p>On Windows, the Vulkan runtime is included with GPU drivers from NVIDIA, AMD, and Intel. No additional installation is required.</p>
+    <p>If you have an up-to-date GPU driver installed, Vulkan is already available on your system.</p>
+
+    <h3>Verify Vulkan is Available</h3>
+    <p>Use an ailia-models sample to check that Vulkan appears in the environment list:</p>
+    <pre><code class="language-bash">cd ailia-models/image_classification/resnet50
+python3 resnet50.py --env_list</code></pre>
+
+    <p>If Vulkan is available, you will see an environment entry like:</p>
+    <pre><code>env[3]=Environment(id=3, type='GPU',
+name='Vulkan-NVIDIA GeForce RTX 3080',
+backend='Vulkan', props=[])</code></pre>
+
+    <div class="note">
+      <strong>Tip:</strong> If Vulkan does not appear, update your GPU driver to the latest version from <a href="https://www.nvidia.com/Download/index.aspx" target="_blank">NVIDIA</a>, <a href="https://www.amd.com/en/support" target="_blank">AMD</a>, or <a href="https://www.intel.com/content/www/us/en/download-center/home.html" target="_blank">Intel</a>.
+    </div>
+
+    <h2>Linux (Ubuntu)</h2>
+    <p>On Linux, the Vulkan loader library needs to be installed separately. Install it with:</p>
+    <pre><code class="language-bash">sudo apt install libvulkan1</code></pre>
+
+    <p>This installs the Vulkan ICD (Installable Client Driver) loader. You also need a GPU driver that includes Vulkan support.</p>
+
+    <h3>NVIDIA GPU</h3>
+    <p>If you are using an NVIDIA GPU, install the proprietary NVIDIA driver:</p>
+    <pre><code class="language-bash">sudo apt install nvidia-driver-560</code></pre>
+
+    <div class="note">
+      <strong>Note:</strong> Replace <code>560</code> with the latest available driver version for your GPU. You can check available versions with <code>apt search nvidia-driver</code>.
+    </div>
+
+    <h3>AMD GPU</h3>
+    <p>If you are using an AMD GPU, install the Mesa Vulkan driver:</p>
+    <pre><code class="language-bash">sudo apt install mesa-vulkan-drivers</code></pre>
+
+    <h3>Verify Vulkan is Available</h3>
+    <p>You can verify the Vulkan installation using <code>vulkaninfo</code>:</p>
+    <pre><code class="language-bash">sudo apt install vulkan-tools
+vulkaninfo --summary</code></pre>
+
+    <p>You can also verify with ailia SDK:</p>
+    <pre><code class="language-bash">cd ailia-models/image_classification/resnet50
+python3 resnet50.py --env_list</code></pre>
+
+    <p>If Vulkan is available, you will see an environment entry with <code>backend='Vulkan'</code>.</p>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

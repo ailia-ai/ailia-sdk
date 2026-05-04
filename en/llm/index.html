@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,22 +10,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ailia LLM - ドキュメント</title>
+  <title>ailia LLM - Documentation</title>
   <meta name="description" content="ailia LLM - Library for running local LLMs with GGUF support.">
-  <link rel="canonical" href="https://docs.ailia.ai/ja/llm/">
-  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/llm/">
-  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/ja/llm/">
-  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/llm/">
+  <link rel="canonical" href="https://docs.ailia.ai/en/llm/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/llm/">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="ja_JP">
-  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
   <meta property="og:site_name" content="ailia Documentation">
-  <meta property="og:url" content="https://docs.ailia.ai/ja/llm/">
-  <meta property="og:title" content="ailia LLM - ドキュメント">
+  <meta property="og:url" content="https://docs.ailia.ai/en/llm/">
+  <meta property="og:title" content="ailia LLM - Documentation">
   <meta property="og:description" content="ailia LLM - Library for running local LLMs with GGUF support.">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ailia LLM - ドキュメント">
+  <meta name="twitter:title" content="ailia LLM - Documentation">
   <meta name="twitter:description" content="ailia LLM - Library for running local LLMs with GGUF support.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../../ailia_logo.png">
@@ -36,15 +36,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <header>
     <div class="header-inner">
       <div class="logo">
-        <a href="https://docs.ailia.ai/ja/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
         <a href="./" class="logo-text">ailia LLM Docs</a>
       </div>
-      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
       <div class="header-links">
         <a href="../">Top</a>
-        <a href="../api/">SDK</a>
+        <a href="../sdk/">SDK</a>
         <a href="../tflite/">TFLite</a>
         <a href="../llm/">LLM</a>
         <a href="../speech/">Speech</a>
@@ -52,21 +52,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <a href="../tokenizer/">Tokenizer</a>
         <a href="../tracker/">Tracker</a>
         <a href="https://tech.ailia.ai/" target="_blank" rel="noopener">Tech Blog</a>
-        <a href="../../llm/" hreflang="en" lang="en">EN</a>
+        <a href="../../llm/" hreflang="ja" lang="ja">JA</a>
       </div>
     </div>
   </header>
 
   <section class="hero">
     <h1>ailia LLM</h1>
-    <p>ローカル LLM を実行するためのライブラリです。GGUF を読み込み、チャット機能を簡単に実装できます。</p>
+    <p>A library for running local LLMs. It can load GGUF and easily implement chat functionality.</p>
   </section>
 
   <!-- Getting Started -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">はじめに</h2>
-      <p class="section-subtitle">プラットフォームを選び、最初のローカルチャットを動かしてみましょう。</p>
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-subtitle">Choose your platform and run your first local chat completion.</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -80,15 +80,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>インストール</h3>
-            <p>ailia LLM の Python パッケージを PyPI からインストールします。</p>
+            <h3>Install</h3>
+            <p>Install the ailia LLM Python package from PyPI.</p>
             <pre><code class="language-bash">pip3 install ailia_llm</code></pre>
-            <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">PyPI で見る</a>
+            <a href="https://pypi.org/project/ailia-llm/" target="_blank" class="card-link">View on PyPI</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>サンプルを実行</h3>
-            <p><code>ailia-models</code> から <code>example_ailia_llm.py</code> をダウンロードして実行します。初回実行時に Gemma 3 4B の GGUF ファイルをダウンロードし、チャット応答をストリーミング生成します。マルチモーダル (画像対応) 版を試すには同じフォルダの <code>example_ailia_llm_mtmd.py</code> を取得してください。</p>
+            <h3>Run a Sample</h3>
+            <p>Download <code>example_ailia_llm.py</code> from <code>ailia-models</code> and run it. The script downloads the Gemma 3 4B GGUF file on first run and streams a chat completion. For a multimodal (vision) variant, fetch <code>example_ailia_llm_mtmd.py</code> from the same folder instead.</p>
             <pre><code class="language-bash">wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/large_language_model/gemma3/example_ailia_llm.py
 python3 example_ailia_llm.py</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma3/example_ailia_llm.py" target="_blank" class="card-link">example_ailia_llm.py</a>
@@ -102,20 +102,20 @@ python3 example_ailia_llm.py</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>評価版を入手</h3>
-            <p>無料トライアルに申し込むと、C++ バインディング (<code>ailia_llm.h</code>)、ランタイムライブラリ (<code>ailia_llm</code>)、実行可能サンプルを含む評価版パッケージを入手できます。</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM" target="_blank" class="card-link">無料トライアルを申し込む</a>
+            <h3>Get Evaluation Package</h3>
+            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding (<code>ailia_llm.h</code>), the runtime library (<code>ailia_llm</code>), and a runnable sample.</p>
+            <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>モデルをダウンロードして実行</h3>
-            <p>GGUF ファイル (例: Hugging Face の Gemma 2-2B) を <code>models/</code> に配置し、サンプルをビルドして実行します。</p>
+            <h3>Download a Model &amp; Run</h3>
+            <p>Place a GGUF file (e.g. Gemma 2-2B from Hugging Face) under <code>models/</code>, then build and run the sample.</p>
             <pre><code class="language-bash"># macOS
 clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
   libailia_llm.dylib -Wl,-rpath,./ -std=c++17
 
 ./ailia_llm_sample</code></pre>
-            <a href="../../llm/cpp/en/setup.html" class="card-link">C++ セットアップガイド</a>
+            <a href="../../llm/cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
           </div>
         </div>
       </div>
@@ -125,15 +125,15 @@ clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>UPM でインストール</h3>
-            <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
+            <h3>Install via UPM</h3>
+            <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
             <pre><code class="language-bash">https://github.com/ailia-ai/ailia-llm-unity.git</code></pre>
-            <a href="../../llm/unity/en/" class="card-link">Unity API リファレンス</a>
+            <a href="../../llm/unity/en/" class="card-link">Unity API Reference</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>サンプルを実行</h3>
-            <p><code>ailia-models-unity</code> をクローンして Unity Editor (2021.3.10f1 以降) で開き、GGUF ファイルを <code>StreamingAssets/</code> に配置して LargeLanguageModel シーンを Play すると、チャットのトークンがストリーミング表示されます。</p>
+            <h3>Run a Sample</h3>
+            <p>Clone <code>ailia-models-unity</code>, open it in the Unity Editor (2021.3.10f1+), drop a GGUF file under <code>StreamingAssets/</code>, and play the LargeLanguageModel scene to stream chat tokens.</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-unity/blob/master/Assets/AXIP/AILIA-MODELS/LargeLanguageModel/AiliaLargeLanguageModelSample.cs" target="_blank" class="card-link">AiliaLargeLanguageModelSample.cs</a>
           </div>
@@ -145,24 +145,24 @@ clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>pubspec に追加</h3>
-            <p>Flutter プロジェクトの <code>pubspec.yaml</code> に ailia LLM を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
+            <h3>Add to pubspec</h3>
+            <p>Add ailia LLM as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
             <pre><code class="language-yaml">dependencies:
   ailia_llm:
     git:
       url: https://github.com/ailia-ai/ailia-llm-flutter.git
       ref: main</code></pre>
-            <a href="../../llm/flutter/en/" class="card-link">Flutter API リファレンス</a>
+            <a href="../../llm/flutter/en/" class="card-link">Flutter API Reference</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>サンプルを実行</h3>
-            <p>そのまま動くチャットアプリは Flutter サンプルリポジトリにあります。クローンしてご利用ください。</p>
+            <h3>Run a Sample</h3>
+            <p>Clone the Flutter sample repository for a ready-to-run chat app.</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-flutter.git
 cd ailia-models-flutter
 flutter pub get
 flutter run</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">サンプルリポジトリ</a>
+            <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">Sample Repository</a>
           </div>
         </div>
       </div>
@@ -172,42 +172,42 @@ flutter run</code></pre>
 
   <!-- System Requirements -->
   <section class="section">
-    <h2 class="section-title">動作環境</h2>
-    <p class="section-subtitle">ailia LLM はデスクトップとモバイル上でローカル LLM を動かします。必要メモリはモデルサイズと量子化で変動します。</p>
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia LLM runs local language models on desktop and mobile platforms. Memory requirements scale with model size and quantization.</p>
     <div class="req-grid">
       <div class="req-card">
-        <h3>対応 OS</h3>
+        <h3>Operating Systems</h3>
         <ul>
           <li>Windows 10 / 11</li>
-          <li>macOS 11 以降</li>
-          <li>Linux (Ubuntu 20.04 以降)</li>
-          <li>iOS 13 / Android 7 以降</li>
+          <li>macOS 11 or later</li>
+          <li>Linux (Ubuntu 20.04+)</li>
+          <li>iOS 13+ / Android 7+</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>言語とコンパイラ</h3>
+        <h3>Languages &amp; Compilers</h3>
         <ul>
-          <li>Python 3.6 以降 / Dart・Flutter 3.19 以降</li>
-          <li>C++17 (VS 2019 以降 / Xcode 14.2 以降 / clang)</li>
-          <li>C# / Unity 2021.3.10f1 以降</li>
-          <li>GPU: Metal (iOS / macOS) / Vulkan (Windows)</li>
+          <li>Python 3.6+, Dart / Flutter 3.19+</li>
+          <li>C++17 (VS 2019+ / Xcode 14.2+ / clang)</li>
+          <li>C# / Unity 2021.3.10f1+</li>
+          <li>GPU: Metal (iOS / macOS), Vulkan (Windows)</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>モデル形式</h3>
+        <h3>Model Format</h3>
         <ul>
-          <li>GGUF (llama.cpp 互換)</li>
+          <li>GGUF (llama.cpp compatible)</li>
           <li>Llama / Gemma / Mistral / Qwen</li>
-          <li>Phi / DeepSeek ほか</li>
-          <li>Q4 / Q5 / Q8 量子化</li>
+          <li>Phi / DeepSeek and more</li>
+          <li>Q4 / Q5 / Q8 quantization</li>
         </ul>
       </div>
       <div class="req-card">
-        <h3>メモリ目安</h3>
+        <h3>Memory Guidance</h3>
         <ul>
-          <li>2B Q4: 約 2 GB RAM</li>
-          <li>7B Q4: 約 5 GB RAM</li>
-          <li>13B Q4: 約 9 GB RAM</li>
+          <li>2B Q4: ~2 GB RAM</li>
+          <li>7B Q4: ~5 GB RAM</li>
+          <li>13B Q4: ~9 GB RAM</li>
           <li>Streaming token-by-token output</li>
         </ul>
       </div>
@@ -217,8 +217,8 @@ flutter run</code></pre>
   <!-- Use the API -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">プロジェクトで API を使う</h2>
-      <p class="section-subtitle">自分のアプリケーションでチャットをストリーム生成する最小サンプル。</p>
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">Minimal examples for streaming a chat completion in your own application.</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -311,13 +311,13 @@ while (!done) {
   </section>
 
   <section class="section">
-    <h2 class="section-title">プラットフォーム別 API リファレンス</h2>
+    <h2 class="section-title">API Reference by Platform</h2>
     <div class="card-grid">
 
       <div class="card">
         <h3>Python</h3>
         <ul>
-          <li><a href="../../llm/python/en/">API (EN)</a></li>
+          <li><a href="../../llm/python/en/">API</a></li>
           <li><a href="https://pypi.org/project/ailia-llm/" target="_blank">PyPI</a></li>
         </ul>
       </div>
@@ -325,14 +325,14 @@ while (!done) {
       <div class="card">
         <h3>C++</h3>
         <ul>
-          <li><a href="../../llm/cpp/jp/">API</a></li>
+          <li><a href="../../llm/cpp/en/">API</a></li>
         </ul>
       </div>
 
       <div class="card">
         <h3>Unity</h3>
         <ul>
-          <li><a href="../../llm/unity/jp/">API</a></li>
+          <li><a href="../../llm/unity/en/">API</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-llm-unity" target="_blank">Binding</a></li>
         </ul>
       </div>
@@ -340,7 +340,7 @@ while (!done) {
       <div class="card">
         <h3>Flutter</h3>
         <ul>
-          <li><a href="../../llm/flutter/en/">API (EN)</a></li>
+          <li><a href="../../llm/flutter/en/">API</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-llm-flutter" target="_blank">Binding</a></li>
         </ul>
       </div>
@@ -351,47 +351,47 @@ while (!done) {
   <!-- FAQ -->
   <section class="getting-started-section">
     <div class="section">
-      <h2 class="section-title">よくある質問</h2>
-      <p class="section-subtitle">ailia LLM についてのよくある質問。</p>
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-subtitle">Common questions about ailia LLM.</p>
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary>対応しているモデル形式は?</summary>
-          <p>ailia LLM は llama.cpp と同じ <strong>GGUF</strong> 形式を読み込みます。Hugging Face のチェックポイントは llama.cpp 同梱の <code>convert_hf_to_gguf.py</code> で GGUF に変換するか、Hugging Face で配布されている変換済み GGUF をダウンロードして利用できます。</p>
+          <summary>What model formats are supported?</summary>
+          <p>ailia LLM loads <strong>GGUF</strong> files, the format used by llama.cpp. You can convert Hugging Face checkpoints to GGUF with the <code>convert_hf_to_gguf.py</code> script bundled with llama.cpp, or download pre-converted GGUF weights from Hugging Face.</p>
         </details>
 
         <details class="faq-item">
-          <summary>対応しているモデルアーキテクチャは?</summary>
-          <p>Llama / Gemma / Mistral / Qwen / Phi / DeepSeek など、llama.cpp が対応するアーキテクチャに準じます。互換性は llama.cpp の上流に追従します。</p>
+          <summary>Which model architectures are supported?</summary>
+          <p>Llama, Gemma, Mistral, Qwen, Phi, DeepSeek, and other architectures supported by llama.cpp. Compatibility tracks the upstream llama.cpp project.</p>
         </details>
 
         <details class="faq-item">
-          <summary>生成されるトークンをストリーミングで受け取るには?</summary>
-          <p><code>model.generate(messages)</code> はモデルがトークンをデコードするたびに差分文字列を返すイテレータです。これを順に受け取ってバッファに足すか直接表示すれば、ストリーミング UX を実現できます。</p>
+          <summary>How do I stream tokens as they are generated?</summary>
+          <p><code>model.generate(messages)</code> returns an iterator that yields delta strings as the model decodes each token. Iterate over it and append to a buffer (or print directly) for streaming UX.</p>
         </details>
 
         <details class="faq-item">
-          <summary>必要なメモリ量は?</summary>
-          <p>メモリ使用量はおおむね GGUF ファイルサイズ +  KV キャッシュ＋中間テンソル分です。目安として Q4 量子化では 2B ≈ 2 GB、7B ≈ 5 GB、13B ≈ 9 GB になります。メモリが限られる端末では、より小さいモデルや高い量子化 (Q4 → Q3) を選んでください。</p>
+          <summary>How much memory do I need?</summary>
+          <p>Memory usage roughly equals the GGUF file size plus the KV cache and intermediate tensors. As a rule of thumb at Q4 quantization: 2B models ≈ 2 GB, 7B ≈ 5 GB, 13B ≈ 9 GB. Use smaller models or higher quantization (Q4 → Q3) on memory-constrained devices.</p>
         </details>
 
         <details class="faq-item">
-          <summary>GPU 推論に対応していますか?</summary>
-          <p>はい。ailia LLM は iOS / macOS で <strong>Metal</strong>、Windows で <strong>Vulkan</strong> を使用します (ailia SDK / Speech / Voice と異なり cuDNN は不要です)。GPU が無い環境では CPU フォールバックします。</p>
+          <summary>Does it support GPU acceleration?</summary>
+          <p>Yes. ailia LLM uses <strong>Metal</strong> on iOS and macOS, and <strong>Vulkan</strong> on Windows. (Unlike ailia SDK / Speech / Voice, ailia LLM does not require cuDNN.) Inference falls back to CPU when no GPU is available. See the <a href="../setup/vulkan/">Vulkan Setup Guide</a> for details.</p>
         </details>
 
         <details class="faq-item">
-          <summary>C++ で使うとき、ライセンスファイルはどこに置きますか?</summary>
-          <p>C++ バインディングはランタイムライブラリと同じ場所に <code>ailia.lic</code> を配置する必要があります:</p>
-          <p><strong>Windows:</strong> <code>ailia.dll</code> と同じフォルダ (サンプルでは <code>cpp/</code> 配下)。<br/>
+          <summary>Where do I place the license file when using C++?</summary>
+          <p>The C++ binding requires <code>ailia.lic</code> next to the runtime libraries:</p>
+          <p><strong>Windows:</strong> same folder as <code>ailia.dll</code> (or in <code>cpp/</code> for the sample).<br/>
           <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
           <strong>Linux:</strong> <code>~/.shalo/</code></p>
-          <p>Python / Unity / Flutter / JNI バインディングは初回実行時にライセンスを自動ダウンロードするため、この手順は C++ バインディングに限ります。</p>
+          <p>Python, Unity, Flutter, and JNI bindings auto-download the license on first run, so this only applies to the native C++ binding.</p>
         </details>
 
         <details class="faq-item">
-          <summary>ライセンスはどう扱われますか?</summary>
-          <p>評価ライセンスは実行時に自動でダウンロードされ、開発・評価用途に利用できます。商用配布には製品ライセンスを申請してください。詳細は <a href="https://ailia.ai/license/" target="_blank">ailia ライセンス規約</a> を参照してください。</p>
+          <summary>How does licensing work?</summary>
+          <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
         </details>
 
       </div>
@@ -400,18 +400,18 @@ while (!done) {
 
   <section class="materials-section">
     <div class="section">
-      <h2 class="section-title">資料</h2>
+      <h2 class="section-title">Materials</h2>
       <div class="materials-grid">
-        <a href="https://ailia.ai/llm/" target="_blank" class="material-item">
+        <a href="https://ailia.ai/en/llm/" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           </div>
           <div class="material-text">
             Product Site
-            <small>ailia.ai/llm/</small>
+            <small>ailia.ai/en/llm/</small>
           </div>
         </a>
-        <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM" target="_blank" class="material-item">
+        <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM?lang=en" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           </div>
@@ -434,7 +434,7 @@ while (!done) {
   </section>
 
   <footer>
-    <p><a href="https://ailia.ai/" target="_blank">アイリア株式会社</a></p>
+    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
     <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
   </footer>
 
