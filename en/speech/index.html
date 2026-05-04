@@ -287,7 +287,19 @@ git submodule update --init --recursive</code></pre>
     <div class="section">
       <h2 class="section-title">Use the API in Your Project</h2>
       <p class="section-subtitle">Minimal examples for transcribing audio in your own application.</p>
-      <p class="section-subtitle">The API is designed around streaming microphone input, so audio is fed in via <code>pushInputData</code> and <code>transcribe</code> is called chunk by chunk. Even when processing a whole file at once, you push the data, call <code>finalizeInputData</code>, and loop until <code>complete</code> is signalled.</p>
+      <p class="section-subtitle">The API is designed around streaming microphone input. Internally it tracks three states:</p>
+      <pre class="code-block">WAITING_INPUT  ─[pushInputData / finalizeInputData]─►  BUFFERED
+
+BUFFERED       ─[transcribe]─►  BUFFERED       (more chunks queued)
+                                WAITING_INPUT  (buffer drained, waiting for more audio)
+                                COMPLETE       (all chunks transcribed after finalize)
+
+COMPLETE       ─[resetTranscribeState]─►  WAITING_INPUT
+
+
+Currently BUFFERED? : ailiaSpeechBuffered()
+Currently COMPLETE? : ailiaSpeechComplete()</pre>
+      <p class="section-subtitle">For mic input, push audio in a loop while polling <code>buffered</code>; when VAD detects the end of an utterance (<code>buffered == 1</code>), call <code>finalizeInputData</code> so <code>complete</code> drives loop exit. For one-shot file transcription, push the whole file plus <code>finalizeInputData</code> up front, then loop until <code>complete</code>.</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
