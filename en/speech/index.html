@@ -102,21 +102,34 @@ python3 example_ailia_speech.py</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Get Evaluation Package</h3>
-            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding (<code>ailia_speech.h</code>), runtime libraries, the license file, and a runnable sample.</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+            <h3>Clone Samples</h3>
+            <p>Clone the C++ sample repository and initialize submodules. The ailia-sdk-cpp binding is included as a submodule.</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/blob/master/audio_processing/whisper/whisper.cpp" target="_blank" class="card-link">whisper.cpp sample</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Build &amp; Run</h3>
-            <p>Build the bundled sample and pass an audio file plus the model size and runtime options. Whisper Small is included; larger models are downloadable.</p>
-            <pre><code class="language-bash"># macOS
-clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
-  libailia.dylib libailia_audio.dylib \
-  libailia_tokenizer.dylib libailia_speech.dylib \
-  -Wl,-rpath,./ -std=c++17
+            <p>Fetch the one-month evaluation license, install CMake and OpenCV, build, and run the Whisper sample. <code>whisper.sh</code> downloads the ONNX models on first run, then runs inference.</p>
+            <pre><code class="language-bash"># Fetch a one-month evaluation license
+cd ailia
+python3 download_license.py
+cd ..
 
-./ailia_speech_sample demo.wav small auto transcribe vad_enable none auto</code></pre>
+# macOS
+brew install cmake opencv
+# Linux: apt install cmake libopencv-dev
+# Windows: install CMake and Visual Studio,
+#   then set OpenCV_DIR to your OpenCV build path
+
+cmake .
+cmake --build .
+cd audio_processing/whisper
+./whisper.sh    # use whisper.bat on Windows</code></pre>
             <a href="../../speech/cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
           </div>
         </div>

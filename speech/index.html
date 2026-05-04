@@ -102,21 +102,34 @@ python3 example_ailia_speech.py</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>評価版を入手</h3>
-            <p>無料トライアルに申し込むと、C++ バインディング (<code>ailia_speech.h</code>)、ランタイムライブラリ、ライセンスファイル、実行可能なサンプルを含む評価版パッケージを入手できます。</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH" target="_blank" class="card-link">無料トライアルを申し込む</a>
+            <h3>サンプルをクローン</h3>
+            <p>C++ サンプルリポジトリをクローンしてサブモジュールを初期化します。ailia-sdk-cpp バインディングはサブモジュールとして含まれています。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/blob/master/audio_processing/whisper/whisper.cpp" target="_blank" class="card-link">whisper.cpp サンプル</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>ビルドして実行</h3>
-            <p>同梱サンプルをビルドし、音声ファイル・モデルサイズ・実行時オプションを指定して実行します。Whisper Small は同梱されており、より大きなモデルは別途ダウンロードできます。</p>
-            <pre><code class="language-bash"># macOS
-clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
-  libailia.dylib libailia_audio.dylib \
-  libailia_tokenizer.dylib libailia_speech.dylib \
-  -Wl,-rpath,./ -std=c++17
+            <p>1 か月の評価ライセンスを取得し、CMake と OpenCV をインストールしてビルド、Whisper サンプルを実行します。<code>whisper.sh</code> がモデルの ONNX を自動でダウンロードしてから推論を行います。</p>
+            <pre><code class="language-bash"># 評価ライセンスを取得
+cd ailia
+python3 download_license.py
+cd ..
 
-./ailia_speech_sample demo.wav small auto transcribe vad_enable none auto</code></pre>
+# macOS
+brew install cmake opencv
+# Linux: apt install cmake libopencv-dev
+# Windows: install CMake and Visual Studio,
+#   then set OpenCV_DIR to your OpenCV build path
+
+cmake .
+cmake --build .
+cd audio_processing/whisper
+./whisper.sh    # use whisper.bat on Windows</code></pre>
             <a href="cpp/jp/setup.html" class="card-link">C++ セットアップガイド</a>
           </div>
         </div>
