@@ -257,6 +257,47 @@ a.logo-text:hover { color: var(--accent); }
   margin-top: 2px;
 }
 
+/* Related Articles */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.article-card {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+  text-decoration: none;
+  color: inherit;
+  min-height: 92px;
+}
+
+.article-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.article-card .article-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.article-card .article-source {
+  margin-top: auto;
+  font-size: 12px;
+  color: var(--text-light);
+  font-weight: 400;
+}
+
 /* Footer */
 footer {
   background: var(--white);
