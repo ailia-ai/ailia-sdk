@@ -298,6 +298,33 @@ a.logo-text:hover { color: var(--accent); }
   font-weight: 400;
 }
 
+.release-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.release-list li a {
+  display: block;
+  padding: 8px 14px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 500;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.release-list li a:hover {
+  border-color: var(--accent);
+  background: rgba(45, 160, 216, 0.06);
+}
+
 /* Footer */
 footer {
   background: var(--white);
