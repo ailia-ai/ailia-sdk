@@ -309,18 +309,35 @@ text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
 
       <div class="platform-panel hidden" data-platform="cpp">
         <pre class="code-block"><code class="language-cpp">#include "ailia_speech.h"
+#include "ailia_speech_util.h"
 
 struct AILIASpeech *speech = nullptr;
-ailiaSpeechCreate(&amp;speech, env_id, AILIA_SPEECH_TASK_TRANSCRIBE,
-                  AILIA_SPEECH_FLAG_NONE, /*memory_mode=*/0, nullptr);
+ailiaSpeechCreate(&amp;speech, env_id, AILIA_MULTITHREAD_AUTO, memory_mode,
+                  AILIA_SPEECH_TASK_TRANSCRIBE, AILIA_SPEECH_FLAG_NONE,
+                  ailiaSpeechUtilGetCallback(), AILIA_SPEECH_API_CALLBACK_VERSION);
 ailiaSpeechOpenModelFileA(speech, encoder_path, decoder_path,
                           AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
 
 ailiaSpeechPushInputData(speech, audio, channels, samples, sample_rate);
 ailiaSpeechFinalizeInputData(speech);
-ailiaSpeechTranscribe(speech);
 
-unsigned int n; ailiaSpeechGetTextCount(speech, &amp;n);
+// Drain buffered audio — transcribe processes one chunk at a time
+while (true) {
+    unsigned int buffered = 0;
+    ailiaSpeechBuffered(speech, &amp;buffered);
+    if (buffered == 0) break;
+    ailiaSpeechTranscribe(speech);
+
+    unsigned int n;
+    ailiaSpeechGetTextCount(speech, &amp;n);
+    for (unsigned int i = 0; i &lt; n; i++) {
+        AILIASpeechText text;
+        ailiaSpeechGetText(speech, &amp;text, AILIA_SPEECH_TEXT_VERSION, i);
+        printf("%s\n", text.text);
+    }
+}
+
+ailiaSpeechResetTranscribeState(speech);
 ailiaSpeechDestroy(speech);</code></pre>
       </div>
 
@@ -333,8 +350,16 @@ speech.Open(encoderPath, decoderPath, envId, memoryMode,
             AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
             AiliaSpeech.AILIA_SPEECH_FLAG_NONE, "auto");
 
+// Transcribe runs asynchronously. Pass isFinal=true on the last chunk.
 speech.Transcribe(waveData, frequency, channels, /*isFinal=*/true);
-foreach (var seg in speech.GetResults()) Debug.Log(seg.text);</code></pre>
+
+// Poll until processing finishes — typically from Update() or a coroutine
+while (!speech.IsCompleted()) { /* yield */ }
+
+foreach (var text in speech.GetResults()) Debug.Log(text);
+
+speech.ResetTranscribeState();
+speech.Close();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
@@ -359,9 +384,17 @@ for (final s in segments) print(s.text);</code></pre>
 speech.openModel(encoderPath, decoderPath, modelTypeId)
 speech.pushInputData(audio, channels, samples, sampleRate)
 speech.finalizeInputData()
-speech.transcribe()
 
-for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)</code></pre>
+// Drain buffered audio — transcribe processes one chunk at a time
+while (speech.getBuffered() &gt; 0) {
+    speech.transcribe()
+    for (i in 0 until speech.getTextCount()) {
+        Log.d("ailia", speech.getText(i).text)
+    }
+}
+
+speech.resetTranscribeState()
+speech.close()</code></pre>
       </div>
 
     </div>
