@@ -285,16 +285,29 @@ buf, sr = voice.synthesize_voice("こんにちは。", ailia_voice.AILIA_VOICE_G
 
       <div class="platform-panel hidden" data-platform="cpp">
         <pre class="code-block"><code class="language-cpp">#include "ailia_voice.h"
+#include &lt;vector&gt;
 
 struct AILIAVoice *voice = nullptr;
 ailiaVoiceCreate(&amp;voice, env_id, AILIA_VOICE_FLAG_NONE);
 ailiaVoiceOpenModelFileGPTSoVITSV1A(voice,
     t2s_encoder, t2s_fsdec, t2s_sdec, vits, cnhubert);
 
-ailiaVoiceSetReferenceA(voice, ref_pcm, ref_samples, channels, rate,
-                        ref_text, AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
-ailiaVoiceInferenceA(voice, "こんにちは。",
-                     AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+// Reference audio: G2P → fetch phoneme features → SetReference
+ailiaVoiceGraphemeToPhoneme(voice, ref_text, AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+unsigned int ref_len = 0;
+ailiaVoiceGetFeatureLength(voice, &amp;ref_len);
+std::vector&lt;char&gt; ref_features(ref_len);
+ailiaVoiceGetFeatures(voice, ref_features.data(), ref_len);
+ailiaVoiceSetReference(voice, ref_pcm, ref_pcm_bytes, channels, rate,
+                       ref_features.data());
+
+// Input text: G2P → fetch phoneme features → Inference
+ailiaVoiceGraphemeToPhoneme(voice, "こんにちは。", AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+unsigned int len = 0;
+ailiaVoiceGetFeatureLength(voice, &amp;len);
+std::vector&lt;char&gt; features(len);
+ailiaVoiceGetFeatures(voice, features.data(), len);
+ailiaVoiceInference(voice, features.data());
 
 unsigned int n; ailiaVoiceGetWaveSamples(voice, &amp;n);
 ailiaVoiceDestroy(voice);</code></pre>
