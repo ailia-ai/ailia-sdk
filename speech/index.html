@@ -461,6 +461,13 @@ speech.close()</code></pre>
         </details>
 
         <details class="faq-item">
+          <summary>AI エージェントでマイク入力を待ち、発話が終わったタイミングで終了したい</summary>
+          <p>内部的には、(1) 30 秒分の音声が蓄積された、または (2) VAD で発話の区切りを検出したいずれかのタイミングで <code>buffered</code> が立ちます。</p>
+          <p>マイクから入力を受け取りながら 1 発話単位で文字起こしを終えたい場合は、<code>pushInputData</code> を繰り返し呼びつつ <code>ailiaSpeechBuffered</code> を監視し、最初に <code>buffered == 1</code> になったタイミング (VAD が発話終了を検出した瞬間) で <code>ailiaSpeechFinalizeInputData</code> を呼んでマイク入力を終了させてください。これで <code>ailiaSpeechComplete</code> が <code>1</code> になり、転写ループを抜けられます。</p>
+          <p>VAD は <code>ailiaSpeechOpenVadFile</code> で <code>AILIA_SPEECH_VAD_TYPE_SILERO</code> を有効にしてください。</p>
+        </details>
+
+        <details class="faq-item">
           <summary>Translate モードはどう動作しますか?</summary>
           <p><code>AILIA_SPEECH_TASK_TRANSCRIBE</code> の代わりに <code>AILIA_SPEECH_TASK_TRANSLATE</code> を渡すと、英語以外の音声を一度に英訳しながら文字起こしできます。なお、Translate モードは Whisper Large V3 Turbo と SenseVoice では使用できません。</p>
           <p>逆方向 (英語 → 日本語) は Whisper Translate に FuguMT 後処理モデルをつないでください。</p>

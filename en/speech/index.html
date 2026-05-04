@@ -461,6 +461,13 @@ speech.close()</code></pre>
         </details>
 
         <details class="faq-item">
+          <summary>How can an AI agent wait for mic input and stop once the user finishes speaking?</summary>
+          <p>Internally, <code>buffered</code> is set whenever either (1) 30 seconds of audio have accumulated, or (2) VAD detects a speech boundary.</p>
+          <p>For an AI-agent flow that streams from a microphone and ends after one utterance, keep calling <code>pushInputData</code> in a loop while polling <code>ailiaSpeechBuffered</code>. The first time <code>buffered == 1</code> (VAD detected the end of the utterance), call <code>ailiaSpeechFinalizeInputData</code> to close mic input — this drives <code>ailiaSpeechComplete</code> to <code>1</code> and exits the transcribe loop.</p>
+          <p>Enable VAD via <code>ailiaSpeechOpenVadFile</code> with <code>AILIA_SPEECH_VAD_TYPE_SILERO</code>.</p>
+        </details>
+
+        <details class="faq-item">
           <summary>How does Translate mode work?</summary>
           <p>Pass <code>AILIA_SPEECH_TASK_TRANSLATE</code> instead of <code>AILIA_SPEECH_TASK_TRANSCRIBE</code> to transcribe non-English audio and emit the English translation in one pass. Note: Translate mode is not supported on Whisper Large V3 Turbo or SenseVoice.</p>
           <p>For the reverse direction (English → Japanese), chain Whisper Translate with the FuguMT post-processing model.</p>
