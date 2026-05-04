@@ -287,6 +287,7 @@ git submodule update --init --recursive</code></pre>
     <div class="section">
       <h2 class="section-title">プロジェクトで API を使う</h2>
       <p class="section-subtitle">自分のアプリケーションで音声を文字起こしする最小サンプル。</p>
+      <p class="section-subtitle">マイクからのストリーミング入力を前提とした設計のため、音声を <code>pushInputData</code> で投入し、<code>transcribe</code> をチャンク単位で繰り返し呼び出します。ファイル全体を一度に処理する場合も、最後のデータ投入後に <code>finalizeInputData</code> を呼んで、<code>complete</code> が立つまでループを回す形になります。</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
