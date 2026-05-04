@@ -321,11 +321,15 @@ ailiaSpeechOpenModelFileA(speech, encoder_path, decoder_path,
 ailiaSpeechPushInputData(speech, audio, channels, samples, sample_rate);
 ailiaSpeechFinalizeInputData(speech);
 
-// Drain buffered audio — transcribe processes one chunk at a time
-while (true) {
+// Drive transcribe in chunks until ailiaSpeechComplete signals done
+unsigned int complete = 0;
+while (complete == 0) {
     unsigned int buffered = 0;
     ailiaSpeechBuffered(speech, &amp;buffered);
-    if (buffered == 0) break;
+    if (buffered == 0) {
+        ailiaSpeechComplete(speech, &amp;complete);
+        continue;
+    }
     ailiaSpeechTranscribe(speech);
 
     unsigned int n;
@@ -385,8 +389,9 @@ speech.openModel(encoderPath, decoderPath, modelTypeId)
 speech.pushInputData(audio, channels, samples, sampleRate)
 speech.finalizeInputData()
 
-// Drain buffered audio — transcribe processes one chunk at a time
-while (speech.getBuffered() &gt; 0) {
+// Drive transcribe in chunks until getComplete() signals done
+while (speech.getComplete() == 0) {
+    if (speech.getBuffered() == 0) continue
     speech.transcribe()
     for (i in 0 until speech.getTextCount()) {
         Log.d("ailia", speech.getText(i).text)
