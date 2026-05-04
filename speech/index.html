@@ -286,20 +286,7 @@ git submodule update --init --recursive</code></pre>
   <section class="getting-started-section">
     <div class="section">
       <h2 class="section-title">プロジェクトで API を使う</h2>
-      <p class="section-subtitle">自分のアプリケーションで音声を文字起こしする最小サンプル。</p>
-      <p class="section-subtitle">マイクからのストリーミング入力を前提とした設計で、内部状態は次の 3 ステートで管理されています:</p>
-      <pre class="code-block">WAITING_INPUT  ─[pushInputData / finalizeInputData]─►  BUFFERED
-
-BUFFERED       ─[transcribe]─►  BUFFERED       (まだチャンクが残っている)
-                                WAITING_INPUT  (バッファを使い切った。次の入力を待つ)
-                                COMPLETE       (finalize 済みで全チャンク転写完了)
-
-COMPLETE       ─[resetTranscribeState]─►  WAITING_INPUT
-
-
-現在 BUFFERED か : ailiaSpeechBuffered()
-現在 COMPLETE か : ailiaSpeechComplete()</pre>
-      <p class="section-subtitle">マイク用途では <code>pushInputData</code> を繰り返し呼びつつ <code>buffered</code> を監視し、VAD が発話終了を検出 (<code>buffered == 1</code>) した瞬間に <code>finalizeInputData</code> を呼ぶと、<code>complete</code> が立ってループを抜けられます。ファイル一括処理では先に全データを <code>pushInputData</code> + <code>finalizeInputData</code> し、<code>complete</code> までループを回します。</p>
+      <p class="section-subtitle">自分のアプリケーションで音声を文字起こしする最小サンプル。マイクからのストリーミング入力を前提とした設計ですが、ラッパーの抽象度は言語ごとに異なるため、API モデルは各タブで解説します。</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -310,6 +297,7 @@ COMPLETE       ─[resetTranscribeState]─►  WAITING_INPUT
       </div>
 
       <div class="platform-panel" data-platform="python">
+        <p class="section-subtitle">Python ラッパーが内部状態を隠蔽しています。<code>transcribe()</code> に音声バッファを渡すだけで、push / finalize / drain が内部で処理されます。</p>
         <pre class="code-block"><code class="language-python">import ailia_speech
 
 speech = ailia_speech.Whisper()
@@ -321,6 +309,18 @@ text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
+        <p class="section-subtitle">C API は次の 3 ステートを直接駆動します:</p>
+        <pre class="code-block">WAITING_INPUT  ─[pushInputData / finalizeInputData]─►  BUFFERED
+
+BUFFERED       ─[transcribe]─►  BUFFERED       (まだチャンクが残っている)
+                                WAITING_INPUT  (バッファを使い切った。次の入力を待つ)
+                                COMPLETE       (finalize 済みで全チャンク転写完了)
+
+COMPLETE       ─[resetTranscribeState]─►  WAITING_INPUT
+
+
+現在 BUFFERED か : ailiaSpeechBuffered()
+現在 COMPLETE か : ailiaSpeechComplete()</pre>
         <pre class="code-block"><code class="language-cpp">#include "ailia_speech.h"
 #include "ailia_speech_util.h"
 
@@ -359,6 +359,16 @@ ailiaSpeechDestroy(speech);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
+        <p class="section-subtitle">C# ラッパーの <code>Transcribe</code> は非同期に動作します。最後のチャンクを <code>isFinal=true</code> で渡したあと、<code>IsCompleted()</code> で完了をポーリングします:</p>
+        <pre class="code-block">READY        ─[Transcribe(isFinal=false)]─►  READY        (チャンク投入を続ける)
+READY        ─[Transcribe(isFinal=true)]──►  PROCESSING   (最後のチャンク。非同期処理開始)
+PROCESSING   ─(内部処理が完了)─────────────►  COMPLETED
+COMPLETED    ─[ResetTranscribeState()]────►  READY
+
+
+現在 PROCESSING か : speech.IsProcessing()
+現在 COMPLETED か  : speech.IsCompleted()
+途中結果取得      : speech.GetResults() / speech.GetIntermediateText()</pre>
         <pre class="code-block"><code class="language-csharp">using ailiaSpeech;
 
 var speech = new AiliaSpeechModel();
@@ -380,6 +390,7 @@ speech.Close();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
+        <p class="section-subtitle">Flutter ラッパーが内部状態を隠蔽しています。<code>transcribe()</code> に音声を渡すと、push / finalize / drain は内部で処理され、結果がまとめて返ります。</p>
         <pre class="code-block"><code class="language-dart">import 'package:ailia_speech/ailia_speech.dart';
 
 final speech = AiliaSpeechModel();
@@ -393,6 +404,18 @@ for (final s in segments) print(s.text);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
+        <p class="section-subtitle">JNI ラッパーは C API と同じ 3 ステートを公開します:</p>
+        <pre class="code-block">WAITING_INPUT  ─[pushInputData / finalizeInputData]─►  BUFFERED
+
+BUFFERED       ─[transcribe]─►  BUFFERED       (まだチャンクが残っている)
+                                WAITING_INPUT  (バッファを使い切った。次の入力を待つ)
+                                COMPLETE       (finalize 済みで全チャンク転写完了)
+
+COMPLETE       ─[resetTranscribeState]─►  WAITING_INPUT
+
+
+現在 BUFFERED か : speech.getBuffered()
+現在 COMPLETE か : speech.getComplete()</pre>
         <pre class="code-block"><code class="language-kotlin">val speech = AiliaSpeech(
     envId = -1,
     task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,

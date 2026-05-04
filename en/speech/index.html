@@ -286,20 +286,7 @@ git submodule update --init --recursive</code></pre>
   <section class="getting-started-section">
     <div class="section">
       <h2 class="section-title">Use the API in Your Project</h2>
-      <p class="section-subtitle">Minimal examples for transcribing audio in your own application.</p>
-      <p class="section-subtitle">The API is designed around streaming microphone input. Internally it tracks three states:</p>
-      <pre class="code-block">WAITING_INPUT  ─[pushInputData / finalizeInputData]─►  BUFFERED
-
-BUFFERED       ─[transcribe]─►  BUFFERED       (more chunks queued)
-                                WAITING_INPUT  (buffer drained, waiting for more audio)
-                                COMPLETE       (all chunks transcribed after finalize)
-
-COMPLETE       ─[resetTranscribeState]─►  WAITING_INPUT
-
-
-Currently BUFFERED? : ailiaSpeechBuffered()
-Currently COMPLETE? : ailiaSpeechComplete()</pre>
-      <p class="section-subtitle">For mic input, push audio in a loop while polling <code>buffered</code>; when VAD detects the end of an utterance (<code>buffered == 1</code>), call <code>finalizeInputData</code> so <code>complete</code> drives loop exit. For one-shot file transcription, push the whole file plus <code>finalizeInputData</code> up front, then loop until <code>complete</code>.</p>
+      <p class="section-subtitle">Minimal examples for transcribing audio in your own application. The API is designed around streaming microphone input, but wrapper abstractions differ by language, so the API model is described per platform tab below.</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -310,6 +297,7 @@ Currently COMPLETE? : ailiaSpeechComplete()</pre>
       </div>
 
       <div class="platform-panel" data-platform="python">
+        <p class="section-subtitle">The Python wrapper hides the internal state machine. Just hand the full audio buffer to <code>transcribe()</code> — push / finalize / drain are handled internally.</p>
         <pre class="code-block"><code class="language-python">import ailia_speech
 
 speech = ailia_speech.Whisper()
@@ -321,6 +309,18 @@ text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
+        <p class="section-subtitle">The C API drives the following 3-state machine directly:</p>
+        <pre class="code-block">WAITING_INPUT  ─[pushInputData / finalizeInputData]─►  BUFFERED
+
+BUFFERED       ─[transcribe]─►  BUFFERED       (more chunks queued)
+                                WAITING_INPUT  (buffer drained, waiting for more audio)
+                                COMPLETE       (all chunks transcribed after finalize)
+
+COMPLETE       ─[resetTranscribeState]─►  WAITING_INPUT
+
+
+Currently BUFFERED? : ailiaSpeechBuffered()
+Currently COMPLETE? : ailiaSpeechComplete()</pre>
         <pre class="code-block"><code class="language-cpp">#include "ailia_speech.h"
 #include "ailia_speech_util.h"
 
@@ -359,6 +359,16 @@ ailiaSpeechDestroy(speech);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
+        <p class="section-subtitle">The C# wrapper's <code>Transcribe</code> runs asynchronously. After the final chunk (<code>isFinal=true</code>), poll <code>IsCompleted()</code> for completion:</p>
+        <pre class="code-block">READY        ─[Transcribe(isFinal=false)]─►  READY        (keep feeding chunks)
+READY        ─[Transcribe(isFinal=true)]──►  PROCESSING   (final chunk; async work begins)
+PROCESSING   ─(internal: drain complete)──►  COMPLETED
+COMPLETED    ─[ResetTranscribeState()]────►  READY
+
+
+Currently PROCESSING? : speech.IsProcessing()
+Currently COMPLETED?  : speech.IsCompleted()
+Read partial results  : speech.GetResults() / speech.GetIntermediateText()</pre>
         <pre class="code-block"><code class="language-csharp">using ailiaSpeech;
 
 var speech = new AiliaSpeechModel();
@@ -380,6 +390,7 @@ speech.Close();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
+        <p class="section-subtitle">The Flutter wrapper hides the internal state machine. Pass audio to <code>transcribe()</code> and the wrapper handles push / finalize / drain, returning the full result.</p>
         <pre class="code-block"><code class="language-dart">import 'package:ailia_speech/ailia_speech.dart';
 
 final speech = AiliaSpeechModel();
@@ -393,6 +404,18 @@ for (final s in segments) print(s.text);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
+        <p class="section-subtitle">The JNI wrapper exposes the same 3-state machine as the C API:</p>
+        <pre class="code-block">WAITING_INPUT  ─[pushInputData / finalizeInputData]─►  BUFFERED
+
+BUFFERED       ─[transcribe]─►  BUFFERED       (more chunks queued)
+                                WAITING_INPUT  (buffer drained, waiting for more audio)
+                                COMPLETE       (all chunks transcribed after finalize)
+
+COMPLETE       ─[resetTranscribeState]─►  WAITING_INPUT
+
+
+Currently BUFFERED? : speech.getBuffered()
+Currently COMPLETE? : speech.getComplete()</pre>
         <pre class="code-block"><code class="language-kotlin">val speech = AiliaSpeech(
     envId = -1,
     task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
