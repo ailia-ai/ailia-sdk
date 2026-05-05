@@ -322,7 +322,7 @@ text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
-        <p class="section-subtitle">The C API drives the following 3-state machine directly:</p>
+        <p class="section-subtitle">The C API drives the following 3-state machine directly.</p>
         <pre class="mermaid">
 stateDiagram-v2
     direction LR
@@ -332,6 +332,7 @@ stateDiagram-v2
     BUFFERED --> COMPLETE: transcribe — all done after finalize
     COMPLETE --> WAITING_INPUT: resetTranscribeState
         </pre>
+        <br>
         <p class="section-subtitle">Currently BUFFERED? <code>ailiaSpeechBuffered()</code> / Currently COMPLETE? <code>ailiaSpeechComplete()</code></p>
         <pre class="code-block"><code class="language-cpp">#include "ailia_speech.h"
 #include "ailia_speech_util.h"
@@ -416,7 +417,7 @@ for (final s in segments) print(s.text);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <p class="section-subtitle">The JNI wrapper exposes the same 3-state machine as the C API:</p>
+        <p class="section-subtitle">The JNI wrapper exposes the same 3-state machine as the C API.</p>
         <pre class="mermaid">
 stateDiagram-v2
     direction LR
@@ -426,6 +427,7 @@ stateDiagram-v2
     BUFFERED --> COMPLETE: transcribe — all done after finalize
     COMPLETE --> WAITING_INPUT: resetTranscribeState
         </pre>
+        <br>
         <p class="section-subtitle">Currently BUFFERED? <code>speech.getBuffered()</code> / Currently COMPLETE? <code>speech.getComplete()</code></p>
         <pre class="code-block"><code class="language-kotlin">val speech = AiliaSpeech(
     envId = -1,

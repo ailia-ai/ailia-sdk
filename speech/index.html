@@ -322,7 +322,7 @@ text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
-        <p class="section-subtitle">C API は次の 3 ステートを直接駆動します:</p>
+        <p class="section-subtitle">C API は次の 3 ステートを直接駆動します。</p>
         <pre class="mermaid">
 stateDiagram-v2
     direction LR
@@ -332,6 +332,7 @@ stateDiagram-v2
     BUFFERED --> COMPLETE: transcribe — finalize 後に全チャンク転写完了
     COMPLETE --> WAITING_INPUT: resetTranscribeState
         </pre>
+        <br>
         <p class="section-subtitle">現在 BUFFERED か: <code>ailiaSpeechBuffered()</code> / 現在 COMPLETE か: <code>ailiaSpeechComplete()</code></p>
         <pre class="code-block"><code class="language-cpp">#include "ailia_speech.h"
 #include "ailia_speech_util.h"
@@ -416,7 +417,7 @@ for (final s in segments) print(s.text);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <p class="section-subtitle">JNI ラッパーは C API と同じ 3 ステートを公開します:</p>
+        <p class="section-subtitle">JNI ラッパーは C API と同じ 3 ステートを公開します。</p>
         <pre class="mermaid">
 stateDiagram-v2
     direction LR
@@ -426,6 +427,7 @@ stateDiagram-v2
     BUFFERED --> COMPLETE: transcribe — finalize 後に全チャンク転写完了
     COMPLETE --> WAITING_INPUT: resetTranscribeState
         </pre>
+        <br>
         <p class="section-subtitle">現在 BUFFERED か: <code>speech.getBuffered()</code> / 現在 COMPLETE か: <code>speech.getComplete()</code></p>
         <pre class="code-block"><code class="language-kotlin">val speech = AiliaSpeech(
     envId = -1,
@@ -509,7 +511,7 @@ speech.close()</code></pre>
         <details class="faq-item">
           <summary>AI エージェントでマイク入力を待ち、発話が終わったタイミングで終了したい</summary>
           <p>内部的には、(1) 30 秒分の音声が蓄積された、または (2) VAD で発話の区切りを検出したいずれかのタイミングで <code>buffered</code> が立ちます。</p>
-          <p>マイクから入力を受け取りながら 1 発話単位で文字起こしを終えたい場合は、<code>pushInputData</code> を繰り返し呼びつつ <code>ailiaSpeechBuffered</code> を監視し、最初に <code>buffered == 1</code> になったタイミング (VAD が発話終了を検出した瞬間) で <code>ailiaSpeechFinalizeInputData</code> を呼んでマイク入力を終了させてください。これで <code>ailiaSpeechComplete</code> が <code>1</code> になり、転写ループを抜けられます。</p>
+          <p>マイクから入力を受け取りながら 1 発話単位で文字起こしを終えたい場合は、<code>pushInputData</code> を繰り返し呼びつつ <code>ailiaSpeechBuffered</code> を監視し、最初に <code>buffered == 1</code> になったタイミング (VAD が発話終了を検出した瞬間) で <code>ailiaSpeechFinalizeInputData</code> を呼んでマイク入力を終了させてください。これで <code>ailiaSpeechComplete</code> が <code>1</code> になり、音声認識ループを抜けられます。</p>
           <p>VAD は <code>ailiaSpeechOpenVadFile</code> で <code>AILIA_SPEECH_VAD_TYPE_SILERO</code> を有効にしてください。</p>
         </details>
 
