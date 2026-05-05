@@ -253,7 +253,13 @@ ailiaLLMSetPrompt(llm, messages, 1);
 unsigned int done = 0;
 while (!done) {
     ailiaLLMGenerate(llm, &amp;done);
-    /* read delta via ailiaLLMGetDeltaText */
+    if (done) break;   // when done is set, GetDeltaText returns the previous token
+
+    unsigned int size = 0;
+    ailiaLLMGetDeltaTextSize(llm, &amp;size);
+    std::vector&lt;char&gt; buf(size);
+    ailiaLLMGetDeltaText(llm, buf.data(), size);
+    printf("%s", buf.data());
 }
 ailiaLLMDestroy(llm);</code></pre>
       </div>
@@ -273,7 +279,7 @@ llm.SetPrompt(messages);
 bool done = false;
 while (!done) {
     llm.Generate(ref done);
-    Debug.Log(llm.GetDeltaText());
+    if (!done) Debug.Log(llm.GetDeltaText());   // when done, GetDeltaText returns the previous token
 }
 llm.Close();</code></pre>
       </div>
@@ -302,7 +308,7 @@ llm.setPrompt(arrayOf(
 var done = false
 while (!done) {
     done = llm.generate()
-    Log.d("ailia", llm.getDeltaText())
+    if (!done) Log.d("ailia", llm.getDeltaText())   // when done, getDeltaText returns the previous token
 }</code></pre>
       </div>
 

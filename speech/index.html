@@ -102,22 +102,37 @@ python3 example_ailia_speech.py</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>評価版を入手</h3>
-            <p>無料トライアルに申し込むと、C++ バインディング (<code>ailia_speech.h</code>)、ランタイムライブラリ、ライセンスファイル、実行可能なサンプルを含む評価版パッケージを入手できます。</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH" target="_blank" class="card-link">無料トライアルを申し込む</a>
+            <h3>サンプルをクローン</h3>
+            <p>C++ サンプルリポジトリをクローンしてサブモジュールを初期化します。ailia-sdk-cpp バインディングはサブモジュールとして含まれています。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update
+
+# macOS: dylib の quarantine 属性を解除
+./xattr.sh</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/blob/master/audio_processing/whisper/whisper.cpp" target="_blank" class="card-link">whisper.cpp サンプル</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>ビルドして実行</h3>
-            <p>同梱サンプルをビルドし、音声ファイル・モデルサイズ・実行時オプションを指定して実行します。Whisper Small は同梱されており、より大きなモデルは別途ダウンロードできます。</p>
-            <pre><code class="language-bash"># macOS
-clang++ -o ailia_speech_sample ailia_speech_sample.cpp wave_reader.cpp \
-  libailia.dylib libailia_audio.dylib \
-  libailia_tokenizer.dylib libailia_speech.dylib \
-  -Wl,-rpath,./ -std=c++17
+            <p>1 か月の評価ライセンスを取得し、CMake と OpenCV をインストールしてビルド、Whisper サンプルを実行します。<code>whisper.sh</code> がモデルの ONNX を自動でダウンロードしてから推論を行います。</p>
+            <pre><code class="language-bash"># 評価ライセンスを取得
+cd ailia
+python3 download_license.py
+cd ..
 
-./ailia_speech_sample demo.wav small auto transcribe vad_enable none auto</code></pre>
-            <a href="../speech/cpp/en/setup.html" class="card-link">C++ セットアップガイド</a>
+# macOS
+brew install cmake
+# Linux: apt install cmake
+# Windows: install CMake and Visual Studio
+
+cmake -DWITH_OPENCV=OFF .
+cmake --build .
+cd audio_processing/whisper
+./whisper.sh    # use whisper.bat on Windows</code></pre>
+            <a href="cpp/jp/setup.html" class="card-link">C++ セットアップガイド</a>
           </div>
         </div>
       </div>
@@ -286,7 +301,7 @@ git submodule update --init --recursive</code></pre>
   <section class="getting-started-section">
     <div class="section">
       <h2 class="section-title">プロジェクトで API を使う</h2>
-      <p class="section-subtitle">自分のアプリケーションで音声を文字起こしする最小サンプル。</p>
+      <p class="section-subtitle">自分のアプリケーションで音声を文字起こしする最小サンプル。マイクからのストリーミング入力を前提とした設計ですが、ラッパーの抽象度は言語ごとに異なるため、API モデルは各タブで解説します。</p>
 
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="python" role="tab">Python</button>
@@ -297,6 +312,7 @@ git submodule update --init --recursive</code></pre>
       </div>
 
       <div class="platform-panel" data-platform="python">
+        <p class="section-subtitle">Python ラッパーが内部状態を隠蔽しています。<code>transcribe()</code> に音声バッファを渡すだけで、push / finalize / drain が内部で処理されます。</p>
         <pre class="code-block"><code class="language-python">import ailia_speech
 
 speech = ailia_speech.Whisper()
@@ -308,23 +324,67 @@ text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
+        <p class="section-subtitle">C API は次の 3 ステートを直接駆動します。</p>
+        <pre class="mermaid">
+stateDiagram-v2
+    direction LR
+    WAITING_INPUT --> BUFFERED: pushInputData / finalizeInputData
+    BUFFERED --> BUFFERED: transcribe — まだチャンクが残っている
+    BUFFERED --> WAITING_INPUT: transcribe — バッファを使い切った
+    BUFFERED --> COMPLETE: transcribe — finalize 後に全チャンク転写完了
+    COMPLETE --> WAITING_INPUT: resetTranscribeState
+        </pre>
+        <br>
+        <p class="section-subtitle">現在 BUFFERED か: <code>ailiaSpeechBuffered()</code> / 現在 COMPLETE か: <code>ailiaSpeechComplete()</code></p>
         <pre class="code-block"><code class="language-cpp">#include "ailia_speech.h"
+#include "ailia_speech_util.h"
 
 struct AILIASpeech *speech = nullptr;
-ailiaSpeechCreate(&amp;speech, env_id, AILIA_SPEECH_TASK_TRANSCRIBE,
-                  AILIA_SPEECH_FLAG_NONE, /*memory_mode=*/0, nullptr);
+ailiaSpeechCreate(&amp;speech, env_id, AILIA_MULTITHREAD_AUTO, memory_mode,
+                  AILIA_SPEECH_TASK_TRANSCRIBE, AILIA_SPEECH_FLAG_NONE,
+                  ailiaSpeechUtilGetCallback(), AILIA_SPEECH_API_CALLBACK_VERSION);
 ailiaSpeechOpenModelFileA(speech, encoder_path, decoder_path,
                           AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
 
 ailiaSpeechPushInputData(speech, audio, channels, samples, sample_rate);
 ailiaSpeechFinalizeInputData(speech);
-ailiaSpeechTranscribe(speech);
 
-unsigned int n; ailiaSpeechGetTextCount(speech, &amp;n);
+// Drive transcribe in chunks until ailiaSpeechComplete signals done
+unsigned int complete = 0;
+while (complete == 0) {
+    unsigned int buffered = 0;
+    ailiaSpeechBuffered(speech, &amp;buffered);
+    if (buffered == 0) {
+        ailiaSpeechComplete(speech, &amp;complete);
+        continue;
+    }
+    ailiaSpeechTranscribe(speech);
+
+    unsigned int n;
+    ailiaSpeechGetTextCount(speech, &amp;n);
+    for (unsigned int i = 0; i &lt; n; i++) {
+        AILIASpeechText text;
+        ailiaSpeechGetText(speech, &amp;text, AILIA_SPEECH_TEXT_VERSION, i);
+        printf("%s\n", text.text);
+    }
+}
+
+ailiaSpeechResetTranscribeState(speech);
 ailiaSpeechDestroy(speech);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
+        <p class="section-subtitle">C# ラッパーの <code>Transcribe</code> は非同期に動作します。最後のチャンクを <code>isFinal=true</code> で渡したあと、<code>IsCompleted()</code> で完了をポーリングします。</p>
+        <pre class="mermaid">
+stateDiagram-v2
+    direction LR
+    READY --> PROCESSING: Transcribe (非同期処理開始)
+    PROCESSING --> READY: 内部処理完了 (isFinal=false)
+    PROCESSING --> COMPLETED: 内部処理完了 (isFinal=true)
+    COMPLETED --> READY: ResetTranscribeState()
+        </pre>
+        <br>
+        <p class="section-subtitle">現在 PROCESSING か: <code>speech.IsProcessing()</code> / 現在 COMPLETED か: <code>speech.IsCompleted()</code> / 結果取得: <code>speech.GetResults()</code> · <code>speech.GetIntermediateText()</code></p>
         <pre class="code-block"><code class="language-csharp">using ailiaSpeech;
 
 var speech = new AiliaSpeechModel();
@@ -333,11 +393,20 @@ speech.Open(encoderPath, decoderPath, envId, memoryMode,
             AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
             AiliaSpeech.AILIA_SPEECH_FLAG_NONE, "auto");
 
+// Transcribe runs asynchronously. Pass isFinal=true on the last chunk.
 speech.Transcribe(waveData, frequency, channels, /*isFinal=*/true);
-foreach (var seg in speech.GetResults()) Debug.Log(seg.text);</code></pre>
+
+// Poll until processing finishes — typically from Update() or a coroutine
+while (!speech.IsCompleted()) { /* yield */ }
+
+foreach (var text in speech.GetResults()) Debug.Log(text);
+
+speech.ResetTranscribeState();
+speech.Close();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
+        <p class="section-subtitle">Flutter ラッパーが内部状態を隠蔽しています。<code>transcribe()</code> に音声を渡すと、push / finalize / drain は内部で処理され、結果がまとめて返ります。</p>
         <pre class="code-block"><code class="language-dart">import 'package:ailia_speech/ailia_speech.dart';
 
 final speech = AiliaSpeechModel();
@@ -351,17 +420,39 @@ for (final s in segments) print(s.text);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
+        <p class="section-subtitle">JNI ラッパーは C API と同じ 3 ステートを公開します。</p>
+        <pre class="mermaid">
+stateDiagram-v2
+    direction LR
+    WAITING_INPUT --> BUFFERED: pushInputData / finalizeInputData
+    BUFFERED --> BUFFERED: transcribe — まだチャンクが残っている
+    BUFFERED --> WAITING_INPUT: transcribe — バッファを使い切った
+    BUFFERED --> COMPLETE: transcribe — finalize 後に全チャンク転写完了
+    COMPLETE --> WAITING_INPUT: resetTranscribeState
+        </pre>
+        <br>
+        <p class="section-subtitle">現在 BUFFERED か: <code>speech.getBuffered()</code> / 現在 COMPLETE か: <code>speech.getComplete()</code></p>
         <pre class="code-block"><code class="language-kotlin">val speech = AiliaSpeech(
     envId = -1,
     task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
     flags = AiliaSpeech.AILIA_SPEECH_FLAG_NONE,
 )
-speech.openModel(encoderPath, decoderPath, modelTypeId)
+speech.openModel(encoderPath, decoderPath,
+    AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL)
 speech.pushInputData(audio, channels, samples, sampleRate)
 speech.finalizeInputData()
-speech.transcribe()
 
-for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)</code></pre>
+// Drive transcribe in chunks until getComplete() signals done
+while (speech.getComplete() == 0) {
+    if (speech.getBuffered() == 0) continue
+    speech.transcribe()
+    for (i in 0 until speech.getTextCount()) {
+        Log.d("ailia", speech.getText(i).text)
+    }
+}
+
+speech.resetTranscribeState()
+speech.close()</code></pre>
       </div>
 
     </div>
@@ -419,6 +510,13 @@ for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)<
           <summary>リアルタイム / ストリーミング文字起こしに対応していますか?</summary>
           <p>対応しています。<code>transcribe()</code> でファイル全体を待たずに、<code>transcribe_step()</code> と <code>set_silent_threshold()</code> を組み合わせると音声をチャンクで送り、得られた部分文字起こしを順次受け取れます。</p>
           <p><strong>Live モード</strong> (<code>AILIA_SPEECH_FLAG_LIVE</code>) を有効にすると、次の無音区間が検出される<em>前に</em>暫定結果をプレビューできます。低レイテンシな UX に有効です。</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>AI エージェントでマイク入力を待ち、発話が終わったタイミングで終了したい</summary>
+          <p>内部的には、(1) 30 秒分の音声が蓄積された、または (2) VAD で発話の区切りを検出したいずれかのタイミングで <code>buffered</code> が立ちます。</p>
+          <p>マイクから入力を受け取りながら 1 発話単位で文字起こしを終えたい場合は、<code>pushInputData</code> を繰り返し呼びつつ <code>ailiaSpeechBuffered</code> を監視し、最初に <code>buffered == 1</code> になったタイミング (VAD が発話終了を検出した瞬間) で <code>ailiaSpeechFinalizeInputData</code> を呼んでマイク入力を終了させてください。これで <code>ailiaSpeechComplete</code> が <code>1</code> になり、音声認識ループを抜けられます。</p>
+          <p>VAD は <code>ailiaSpeechOpenVadFile</code> で <code>AILIA_SPEECH_VAD_TYPE_SILERO</code> を有効にしてください。</p>
         </details>
 
         <details class="faq-item">
@@ -563,6 +661,31 @@ for (i in 0 until speech.getTextCount()) Log.d("ailia", speech.getText(i).text)<
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+
+    async function renderVisibleIn(root) {
+      const nodes = root.querySelectorAll('pre.mermaid:not([data-processed])');
+      const visible = [...nodes].filter(n => n.offsetParent !== null);
+      if (visible.length === 0) return;
+      try { await mermaid.run({ nodes: visible }); }
+      catch (e) { console.error(e); }
+    }
+
+    await renderVisibleIn(document);
+
+    // Re-render when a previously hidden panel becomes visible.
+    document.querySelectorAll('.platform-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        requestAnimationFrame(() => {
+          const tabsBar = btn.closest('.platform-tabs');
+          const panels = tabsBar?.parentElement.querySelectorAll(':scope > .platform-panel:not(.hidden)');
+          panels?.forEach(renderVisibleIn);
+        });
+      });
+    });
+  </script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {
       btn.addEventListener('click', () => {
