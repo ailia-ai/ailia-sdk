@@ -107,10 +107,9 @@ python3 example_ailia_speech.py</code></pre>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
 cd ailia-models-cpp
 git submodule init
-git submodule update
-
-# macOS: clear the quarantine attribute on bundled dylibs
-./xattr.sh</code></pre>
+git submodule update</code></pre>
+            <p>On macOS only, clear the quarantine attribute on the bundled dylibs:</p>
+            <pre><code class="language-bash">./xattr.sh</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">Sample Repository</a>
             <a href="https://github.com/ailia-ai/ailia-models-cpp/blob/master/audio_processing/whisper/whisper.cpp" target="_blank" class="card-link">whisper.cpp sample</a>
           </div>
