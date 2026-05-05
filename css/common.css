@@ -403,6 +403,8 @@ code { overflow-wrap: anywhere; }
 .faq-item[open] summary::before { content: "\2212"; }
 .faq-item p { margin-top: 14px; color: var(--text-light); font-size: 14px; line-height: 1.7; }
 .faq-item p + p { margin-top: 10px; }
+.faq-item ul { margin: 10px 0 0; padding-left: 22px; color: var(--text-light); font-size: 14px; line-height: 1.7; }
+.faq-item ul li { margin-bottom: 4px; }
 .faq-item code { background: var(--bg); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
 
 /* Guide / Article */

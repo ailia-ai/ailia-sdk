@@ -477,7 +477,7 @@ println(output.size)</code></pre>
       </details>
 
       <details class="faq-item">
-        <summary>What do <code>AILIAShape</code>'s x / y / z / w correspond to?</summary>
+        <summary>What do AILIAShape's x / y / z / w correspond to?</summary>
         <p><code>AILIAShape</code> represents up to 4 dimensions through <code>x</code> / <code>y</code> / <code>z</code> / <code>w</code> + <code>dim</code>. <strong><code>x</code> is the innermost (memory-contiguous) axis and <code>w</code> is the outermost.</strong> For a numpy-style <code>(batch, channel, height, width)</code> 4-D tensor, that maps to <code>w = batch</code>, <code>z = channel</code>, <code>y = height</code>, <code>x = width</code>.</p>
         <p>The <code>dim</code> field tells you how many of those axes are valid:</p>
         <ul>
@@ -491,7 +491,7 @@ println(output.size)</code></pre>
       </details>
 
       <details class="faq-item">
-        <summary>I'm hitting <code>AILIA_STATUS_UNSETTLED_SHAPE</code></summary>
+        <summary>I'm hitting AILIA_STATUS_UNSETTLED_SHAPE</summary>
         <p>When the ONNX was exported with dynamic shape, the engine can't resolve the shape until you tell it the actual input dimensions. Calling inference or <code>ailiaGetOutputShape</code> before <code>ailiaSetInputShape</code> (or <code>ailiaSetInputShapeND</code> for rank ≥ 5) returns <code>AILIA_STATUS_UNSETTLED_SHAPE</code> (-18).</p>
         <p><strong>Python:</strong> <code>net.run()</code> inspects the input array's shape and calls <code>ailiaSetInputShape</code> for you, so no extra step is needed.</p>
         <p><strong>C / C# (Unity) / Kotlin (JNI) / Dart (Flutter):</strong> set the input shape explicitly via the equivalent <code>ailiaSetInputShape</code> call before running inference.</p>

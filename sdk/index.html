@@ -477,7 +477,7 @@ println(output.size)</code></pre>
       </details>
 
       <details class="faq-item">
-        <summary><code>AILIAShape</code> の x / y / z / w は何に対応しますか?</summary>
+        <summary>AILIAShape の x / y / z / w は何に対応しますか?</summary>
         <p><code>AILIAShape</code> は最大 4 次元までを <code>x</code> / <code>y</code> / <code>z</code> / <code>w</code> + <code>dim</code> で表します。<strong><code>x</code> が最も内側 (innermost、メモリ連続側) の軸、<code>w</code> が最も外側 (outermost) の軸</strong>です。たとえば numpy で <code>(batch, channel, height, width)</code> の 4 次元テンソルなら <code>w = batch</code>、<code>z = channel</code>、<code>y = height</code>、<code>x = width</code> が対応します。</p>
         <p>有効な軸数は <code>dim</code> フィールドが示します:</p>
         <ul>
@@ -491,7 +491,7 @@ println(output.size)</code></pre>
       </details>
 
       <details class="faq-item">
-        <summary><code>AILIA_STATUS_UNSETTLED_SHAPE</code> が発生します</summary>
+        <summary>AILIA_STATUS_UNSETTLED_SHAPE が発生します</summary>
         <p>dynamic shape (動的形状) でエクスポートされた ONNX モデルでは、入力形状を確定するまでエンジンは shape を解決できません。<code>ailiaSetInputShape</code> (5 次元以上は <code>ailiaSetInputShapeND</code>) を呼び出さずに推論や <code>ailiaGetOutputShape</code> を実行すると <code>AILIA_STATUS_UNSETTLED_SHAPE</code> (-18) が返ります。</p>
         <p><strong>Python:</strong> <code>net.run()</code> 内部で入力配列の shape から自動的に <code>ailiaSetInputShape</code> を呼び出すため、利用者の追加対応は不要です。</p>
         <p><strong>C / C# (Unity) / Kotlin (JNI) / Dart (Flutter):</strong> 推論前に明示的に <code>ailiaSetInputShape</code> (相当の API) を呼び出して形状を確定させてください。</p>
