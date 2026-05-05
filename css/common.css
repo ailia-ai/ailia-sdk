@@ -389,6 +389,11 @@ footer a:hover {
 .code-block { background: var(--white); color: var(--text); padding: 22px 24px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; line-height: 1.7; overflow-x: auto; font-family: "SFMono-Regular", Menlo, Consolas, monospace; }
 .code-block code { background: transparent; color: inherit; font-family: inherit; padding: 0; }
 
+pre.has-copy-btn { position: relative; }
+.code-copy-btn { position: absolute; top: 8px; right: 8px; padding: 4px 10px; font-size: 12px; font-family: inherit; background: var(--white); color: var(--text-light); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; z-index: 2; }
+.code-copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+.code-copy-btn.copied { color: #16a34a; border-color: #16a34a; }
+
 /* Inline <code> in prose can wrap on long unbreakable strings (e.g. paths).
    <pre><code> blocks are unaffected because <pre> sets white-space: pre. */
 code { overflow-wrap: anywhere; }
