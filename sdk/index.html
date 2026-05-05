@@ -417,6 +417,12 @@ println(output.size)</code></pre>
     <div class="faq-list">
 
       <details class="faq-item">
+        <summary>ailia SDK に含まれる API はどの範囲ですか?</summary>
+        <p><strong>ailia SDK に同梱:</strong> ONNX 推論 API (<code>ailia</code>) を中核に、画像分類向けの <code>Classification</code>、物体検出向けの <code>Detector</code>、骨格検出向けの <code>PoseEstimation</code> といった高レベルラッパー、および音声処理ユーティリティの <code>ailia Audio</code> が含まれます。</p>
+        <p><strong>サプリメンタルライブラリ (別パッケージ):</strong> <a href="../tokenizer/">ailia Tokenizer</a>、<a href="../speech/">ailia Speech</a>、<a href="../voice/">ailia Voice</a>、<a href="../tracker/">ailia Tracker</a> はサプリメンタルライブラリとして個別に提供しています。</p>
+      </details>
+
+      <details class="faq-item">
         <summary>評価ライセンスと製品ライセンスはどう違いますか?</summary>
         <p>評価ライセンスは Python / Unity / Flutter / JNI では実行時に自動でダウンロードされ、C++ では 1 か月有効です。開発・評価用に限ります。</p>
         <p>商用リリース・再配布・長期利用には製品ライセンスを申し込んでください。詳細は <a href="https://ailia.ai/license/" target="_blank">ailia ライセンス規約</a> を参照してください。</p>
