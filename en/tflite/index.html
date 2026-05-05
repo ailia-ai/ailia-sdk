@@ -361,6 +361,15 @@ tflite.close()</code></pre>
       </details>
 
       <details class="faq-item">
+        <summary>How do I quantize a float tensor to Int8?</summary>
+        <p>Read the per-tensor quantization parameters via <code>ailiaTFLiteGetTensorQuantizationScale</code> and <code>ailiaTFLiteGetTensorQuantizationZeroPoint</code>.</p>
+        <p><strong>Float → Int8:</strong> <code>q = round(f / scale) + zero_point</code></p>
+        <p><strong>Int8 → Float:</strong> <code>f = (q − zero_point) × scale</code></p>
+        <p>Each TFLite tensor has a single scale and a single zero_point. Weights (e.g. Conv kernels) use per-channel scales (per-axis quantization) and the zero_point is fixed at 0. Inspect the per-channel layout with <code>ailiaTFLiteGetTensorQuantizationCount</code> and <code>ailiaTFLiteGetTensorQuantizationQuantizedDimension</code>.</p>
+        <p>For the full specification see the <a href="https://www.tensorflow.org/lite/performance/quantization_spec" target="_blank">TensorFlow Lite 8-bit quantization spec</a>.</p>
+      </details>
+
+      <details class="faq-item">
         <summary>Can I use it on microcontrollers?</summary>
         <p>The C99 core is designed for NonOS / RTOS and small footprint deployments. Specific MCU support depends on available memory and toolchain — contact ailia for embedded port details.</p>
       </details>
