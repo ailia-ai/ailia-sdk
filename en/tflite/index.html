@@ -260,29 +260,56 @@ print(output.shape)</code></pre>
 
       <div class="platform-panel hidden" data-platform="c">
         <pre class="code-block"><code class="language-c">#include "ailia_tflite.h"
+#include &lt;math.h&gt;
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
-// Read model.tflite into a buffer
+// Load model.tflite into a buffer
 FILE *f = fopen("model.tflite", "rb");
 fseek(f, 0, SEEK_END);
 size_t len = ftell(f);
 fseek(f, 0, SEEK_SET);
-void *buf = malloc(len);
-fread(buf, 1, len, f);
+void *model = malloc(len);
+fread(model, 1, len, f);
 fclose(f);
 
 struct AILIATFLiteInstance *interp = NULL;
-ailiaTFLiteCreate(&amp;interp, buf, len,
+ailiaTFLiteCreate(&amp;interp, model, len,
                   NULL, NULL, NULL, NULL,    // default allocators
                   AILIA_TFLITE_ENV_REFERENCE,
                   AILIA_TFLITE_MEMORY_MODE_DEFAULT,
                   AILIA_TFLITE_FLAG_NONE);
-
 ailiaTFLiteAllocateTensors(interp);
+
+// Quantize float → int8 and write into the first input tensor
+int32_t in_idx;
+ailiaTFLiteGetInputTensorIndex(interp, &amp;in_idx, 0);
+float in_scale; int64_t in_zp;
+ailiaTFLiteGetTensorQuantizationScale(interp, &amp;in_scale, in_idx);
+ailiaTFLiteGetTensorQuantizationZeroPoint(interp, &amp;in_zp, in_idx);
+int8_t *in_buf = NULL;
+ailiaTFLiteGetTensorBuffer(interp, (void**)&amp;in_buf, in_idx);
+for (size_t i = 0; i &lt; in_count; i++) {
+    int32_t q = (int32_t)lroundf(input_float[i] / in_scale) + (int32_t)in_zp;
+    in_buf[i] = (int8_t)(q &lt; -128 ? -128 : q &gt; 127 ? 127 : q);
+}
+
 ailiaTFLitePredict(interp);
+
+// Dequantize int8 → float from the first output tensor
+int32_t out_idx;
+ailiaTFLiteGetOutputTensorIndex(interp, &amp;out_idx, 0);
+float out_scale; int64_t out_zp;
+ailiaTFLiteGetTensorQuantizationScale(interp, &amp;out_scale, out_idx);
+ailiaTFLiteGetTensorQuantizationZeroPoint(interp, &amp;out_zp, out_idx);
+const int8_t *out_buf = NULL;
+ailiaTFLiteGetTensorBuffer(interp, (void**)&amp;out_buf, out_idx);
+for (size_t i = 0; i &lt; out_count; i++) {
+    output_float[i] = (out_buf[i] - (int32_t)out_zp) * out_scale;
+}
+
 ailiaTFLiteDestroy(interp);
-free(buf);</code></pre>
+free(model);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
