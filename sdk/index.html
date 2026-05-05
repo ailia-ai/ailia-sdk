@@ -491,6 +491,13 @@ println(output.size)</code></pre>
       </details>
 
       <details class="faq-item">
+        <summary><code>AILIA_STATUS_UNSETTLED_SHAPE</code> が発生します</summary>
+        <p>dynamic shape (動的形状) でエクスポートされた ONNX モデルでは、入力形状を確定するまでエンジンは shape を解決できません。<code>ailiaSetInputShape</code> (5 次元以上は <code>ailiaSetInputShapeND</code>) を呼び出さずに推論や <code>ailiaGetOutputShape</code> を実行すると <code>AILIA_STATUS_UNSETTLED_SHAPE</code> (-18) が返ります。</p>
+        <p><strong>Python:</strong> <code>net.run()</code> 内部で入力配列の shape から自動的に <code>ailiaSetInputShape</code> を呼び出すため、利用者の追加対応は不要です。</p>
+        <p><strong>C / C# (Unity) / Kotlin (JNI) / Dart (Flutter):</strong> 推論前に明示的に <code>ailiaSetInputShape</code> (相当の API) を呼び出して形状を確定させてください。</p>
+      </details>
+
+      <details class="faq-item">
         <summary>パフォーマンスを分析するには?</summary>
         <p>レイヤーごとの処理時間を見られるプロファイラを内蔵しています。</p>
         <p><strong>Python:</strong> <code>net.set_profile_mode(True)</code> でプロファイルを有効化してから推論し、<code>net.get_summary()</code> でレイヤー単位の処理時間サマリを取得します。</p>

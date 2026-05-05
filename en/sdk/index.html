@@ -491,6 +491,13 @@ println(output.size)</code></pre>
       </details>
 
       <details class="faq-item">
+        <summary>I'm hitting <code>AILIA_STATUS_UNSETTLED_SHAPE</code></summary>
+        <p>When the ONNX was exported with dynamic shape, the engine can't resolve the shape until you tell it the actual input dimensions. Calling inference or <code>ailiaGetOutputShape</code> before <code>ailiaSetInputShape</code> (or <code>ailiaSetInputShapeND</code> for rank ≥ 5) returns <code>AILIA_STATUS_UNSETTLED_SHAPE</code> (-18).</p>
+        <p><strong>Python:</strong> <code>net.run()</code> inspects the input array's shape and calls <code>ailiaSetInputShape</code> for you, so no extra step is needed.</p>
+        <p><strong>C / C# (Unity) / Kotlin (JNI) / Dart (Flutter):</strong> set the input shape explicitly via the equivalent <code>ailiaSetInputShape</code> call before running inference.</p>
+      </details>
+
+      <details class="faq-item">
         <summary>How do I profile inference performance?</summary>
         <p>A built-in profiler reports per-layer timing.</p>
         <p><strong>Python:</strong> call <code>net.set_profile_mode(True)</code>, run inference, and read the per-layer summary with <code>net.get_summary()</code>.</p>
