@@ -89,7 +89,6 @@ git submodule update
 ./xattr.sh</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">Sample Repository</a>
             <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/object_tracking/bytetrack" target="_blank" class="card-link">bytetrack sample</a>
-            <a href="https://github.com/ailia-ai/ailia-tracker-cpp" target="_blank" class="card-link">Binding</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
@@ -343,6 +342,7 @@ tracker.close()</code></pre>
         <h3>C++</h3>
         <ul>
           <li><a href="../../tracker/cpp/en/">API</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-tracker-cpp" target="_blank">Binding</a></li>
         </ul>
       </div>
 
@@ -391,6 +391,11 @@ tracker.close()</code></pre>
       <details class="faq-item">
         <summary>What output information does the tracker produce?</summary>
         <p>For each tracked object: <code>id</code> (stable across frames), <code>category</code>, detection <code>prob</code>, and a normalized bounding box (<code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>) where 0 maps to the left/top edge and 1 maps to the right/bottom edge.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I tune the tracker parameters (score_threshold / track_threshold / track_buffer, etc.)?</summary>
+        <p>Detection score threshold, tracking buffer length, IoU match threshold and the rest are configured via the <code>AILIATrackerSettings</code> struct. For the meaning of each field, recommended values, and a brief overview of ByteTrack's behavior, see the <a href="../../tracker/cpp/en/api.html#autotoc_md6" target="_blank">ailia Tracker Parameters</a> section of the API docs.</p>
       </details>
 
       <details class="faq-item">

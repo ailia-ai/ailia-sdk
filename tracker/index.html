@@ -89,7 +89,6 @@ git submodule update
 ./xattr.sh</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
             <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/object_tracking/bytetrack" target="_blank" class="card-link">bytetrack サンプル</a>
-            <a href="https://github.com/ailia-ai/ailia-tracker-cpp" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
@@ -343,6 +342,7 @@ tracker.close()</code></pre>
         <h3>C++</h3>
         <ul>
           <li><a href="../tracker/cpp/jp/">API</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-tracker-cpp" target="_blank">Binding</a></li>
         </ul>
       </div>
 
@@ -391,6 +391,11 @@ tracker.close()</code></pre>
       <details class="faq-item">
         <summary>Tracker からはどんな情報が得られますか?</summary>
         <p>各追跡オブジェクトに対して、フレーム間で一貫した <code>id</code>、<code>category</code>、検出 <code>prob</code>、および正規化バウンディングボックス (<code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>) が得られます。0 が左 / 上端、1 が右 / 下端です。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>パラメータ (score_threshold / track_threshold / track_buffer など) はどう調整しますか?</summary>
+        <p>検出スコア閾値、トラッキングバッファ長、IoU マッチング閾値などは <code>AILIATrackerSettings</code> 構造体で設定します。各フィールドの意味と推奨値、ByteTrack の挙動については API ドキュメントの <a href="cpp/jp/api.html#autotoc_md2" target="_blank">ailia Tracker のパラメータ</a> セクションを参照してください。</p>
       </details>
 
       <details class="faq-item">
