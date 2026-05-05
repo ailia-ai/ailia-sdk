@@ -438,7 +438,8 @@ stateDiagram-v2
     task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
     flags = AiliaSpeech.AILIA_SPEECH_FLAG_NONE,
 )
-speech.openModel(encoderPath, decoderPath, modelTypeId)
+speech.openModel(encoderPath, decoderPath,
+    AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL)
 speech.pushInputData(audio, channels, samples, sampleRate)
 speech.finalizeInputData()
 
