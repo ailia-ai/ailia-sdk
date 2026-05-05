@@ -100,27 +100,38 @@ python3 example_ailia_voice.py</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>評価版を入手</h3>
-            <p>無料トライアルに申し込むと、C++ バインディング (<code>ailia_voice.h</code>)、ランタイムライブラリ、ライセンスファイル、実行可能サンプルを含む評価版パッケージを入手できます。</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-VOICE" target="_blank" class="card-link">無料トライアルを申し込む</a>
+            <h3>サンプルをクローン</h3>
+            <p>C++ サンプルリポジトリをクローンしてサブモジュールを初期化します。ailia-sdk-cpp バインディングはサブモジュールとして含まれています。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update
+
+# macOS: dylib の quarantine 属性を解除
+./xattr.sh</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/audio_processing/gpt-sovits-v2-pro" target="_blank" class="card-link">gpt-sovits-v2-pro サンプル</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>モデルをダウンロードして実行</h3>
-            <p>同梱のモデルダウンロードスクリプトを実行し、サンプルをビルドして実行します。</p>
-            <pre><code class="language-bash"># Fetch GPT-SoVITS / Tacotron2 model files
-cd onnx
-bash download_models.sh   # download_models.bat on Windows
-cd ../cpp
+            <h3>ビルドして実行</h3>
+            <p>1 か月の評価ライセンスを取得し、CMake と OpenCV をインストールしてビルド、GPT-SoVITS v2 Pro サンプルを実行します。<code>gpt-sovits-v2-pro.sh</code> がモデル ONNX と辞書ファイルを自動でダウンロードしてから推論を行います。</p>
+            <pre><code class="language-bash"># 評価ライセンスを取得
+cd ailia
+python3 download_license.py
+cd ..
 
-# Build (macOS)
-clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
-  wave_writer.cpp wave_reader.cpp \
-  libailia_voice.dylib libailia.dylib libailia_audio.dylib \
-  -Wl,-rpath,./ -std=c++17
+# macOS
+brew install cmake opencv
+# Linux: apt install cmake libopencv-dev
+# Windows: install CMake and Visual Studio,
+#   then set OpenCV_DIR to your OpenCV build path
 
-./ailia_voice_sample gpt-sovits</code></pre>
-            <a href="../voice/cpp/en/setup.html" class="card-link">C++ セットアップガイド</a>
+cmake .
+cmake --build .
+cd audio_processing/gpt-sovits-v2-pro
+./gpt-sovits-v2-pro.sh    # use gpt-sovits-v2-pro.bat on Windows</code></pre>
+            <a href="cpp/jp/setup.html" class="card-link">C++ セットアップガイド</a>
           </div>
         </div>
       </div>

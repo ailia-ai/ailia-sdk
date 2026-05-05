@@ -107,7 +107,10 @@ python3 example_ailia_speech.py</code></pre>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
 cd ailia-models-cpp
 git submodule init
-git submodule update</code></pre>
+git submodule update
+
+# macOS: dylib の quarantine 属性を解除
+./xattr.sh</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
             <a href="https://github.com/ailia-ai/ailia-models-cpp/blob/master/audio_processing/whisper/whisper.cpp" target="_blank" class="card-link">whisper.cpp サンプル</a>
           </div>
@@ -372,7 +375,7 @@ ailiaSpeechDestroy(speech);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
-        <p class="section-subtitle">C# ラッパーの <code>Transcribe</code> は非同期に動作します。最後のチャンクを <code>isFinal=true</code> で渡したあと、<code>IsCompleted()</code> で完了をポーリングします:</p>
+        <p class="section-subtitle">C# ラッパーの <code>Transcribe</code> は非同期に動作します。最後のチャンクを <code>isFinal=true</code> で渡したあと、<code>IsCompleted()</code> で完了をポーリングします。</p>
         <pre class="mermaid">
 stateDiagram-v2
     direction LR
@@ -381,6 +384,7 @@ stateDiagram-v2
     PROCESSING --> COMPLETED: 内部処理完了
     COMPLETED --> READY: ResetTranscribeState()
         </pre>
+        <br>
         <p class="section-subtitle">現在 PROCESSING か: <code>speech.IsProcessing()</code> / 現在 COMPLETED か: <code>speech.IsCompleted()</code> / 結果取得: <code>speech.GetResults()</code> · <code>speech.GetIntermediateText()</code></p>
         <pre class="code-block"><code class="language-csharp">using ailiaSpeech;
 

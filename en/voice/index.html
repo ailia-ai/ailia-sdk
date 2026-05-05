@@ -100,26 +100,37 @@ python3 example_ailia_voice.py</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Get Evaluation Package</h3>
-            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding (<code>ailia_voice.h</code>), runtime libraries, the license file, and a runnable sample.</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-VOICE?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+            <h3>Clone Samples</h3>
+            <p>Clone the C++ sample repository and initialize submodules. The ailia-sdk-cpp binding is included as a submodule.</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update
+
+# macOS: clear the quarantine attribute on bundled dylibs
+./xattr.sh</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/audio_processing/gpt-sovits-v2-pro" target="_blank" class="card-link">gpt-sovits-v2-pro sample</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Download Models &amp; Run</h3>
-            <p>Run the bundled model download script, then build and execute the sample.</p>
-            <pre><code class="language-bash"># Fetch GPT-SoVITS / Tacotron2 model files
-cd onnx
-bash download_models.sh   # download_models.bat on Windows
-cd ../cpp
+            <h3>Build &amp; Run</h3>
+            <p>Fetch the one-month evaluation license, install CMake and OpenCV, build, and run the GPT-SoVITS v2 Pro sample. <code>gpt-sovits-v2-pro.sh</code> downloads the ONNX models and dictionary files on first run, then runs inference.</p>
+            <pre><code class="language-bash"># Fetch a one-month evaluation license
+cd ailia
+python3 download_license.py
+cd ..
 
-# Build (macOS)
-clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
-  wave_writer.cpp wave_reader.cpp \
-  libailia_voice.dylib libailia.dylib libailia_audio.dylib \
-  -Wl,-rpath,./ -std=c++17
+# macOS
+brew install cmake opencv
+# Linux: apt install cmake libopencv-dev
+# Windows: install CMake and Visual Studio,
+#   then set OpenCV_DIR to your OpenCV build path
 
-./ailia_voice_sample gpt-sovits</code></pre>
+cmake .
+cmake --build .
+cd audio_processing/gpt-sovits-v2-pro
+./gpt-sovits-v2-pro.sh    # use gpt-sovits-v2-pro.bat on Windows</code></pre>
             <a href="../../voice/cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
           </div>
         </div>
