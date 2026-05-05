@@ -72,6 +72,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
         <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
         <button class="platform-tab" data-platform="flutter" role="tab">Flutter</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
       </div>
 
       <!-- Python -->
@@ -189,6 +190,30 @@ flutter pub get
 flutter run</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">Sample Repository</a>
             <a href="https://github.com/ailia-ai/ailia-models-flutter/blob/main/lib/text_to_speech/text_to_speech.dart" target="_blank" class="card-link">text_to_speech.dart</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- JNI -->
+      <div class="platform-panel hidden" data-platform="jni">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Clone Binding</h3>
+            <p>Clone the JNI binding repositories and add them to your Android Studio project.</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-jni.git
+git clone https://github.com/ailia-ai/ailia-audio-jni.git
+git clone https://github.com/ailia-ai/ailia-voice-jni.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-voice-jni" target="_blank" class="card-link">Binding</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run a Sample</h3>
+            <p>Clone <code>ailia-models-kotlin</code> with submodules and open it in Android Studio. Run the Voice sample on a connected device — it covers GPT-SoVITS synthesis and playback.</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+cd ailia-models-kotlin
+git submodule update --init --recursive</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaVoiceSample.kt" target="_blank" class="card-link">AiliaVoiceSample.kt</a>
           </div>
         </div>
       </div>
