@@ -110,7 +110,7 @@ python3 yolox.py -v 0</code></pre>
 cd ailia-models-cpp
 git submodule init
 git submodule update</code></pre>
-            <p>macOS の場合のみ、dylib の quarantine 属性を解除します:</p>
+            <p>macOS の場合のみ、dylib の quarantine 属性を解除します。</p>
             <pre><code class="language-bash">./xattr.sh</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
             <a href="https://github.com/ailia-ai/ailia-sdk-cpp" target="_blank" class="card-link">バインディング</a>
@@ -478,7 +478,7 @@ println(output.size)</code></pre>
       <details class="faq-item">
         <summary>AILIAShape の x / y / z / w は何に対応しますか?</summary>
         <p><code>AILIAShape</code> は最大 4 次元までを <code>x</code> / <code>y</code> / <code>z</code> / <code>w</code> + <code>dim</code> で表します。<strong><code>x</code> が最も内側 (innermost、メモリ連続側) の軸、<code>w</code> が最も外側 (outermost) の軸</strong>です。たとえば numpy で <code>(batch, channel, height, width)</code> の 4 次元テンソルなら <code>w = batch</code>、<code>z = channel</code>、<code>y = height</code>、<code>x = width</code> が対応します。</p>
-        <p>有効な軸数は <code>dim</code> フィールドが示します:</p>
+        <p>有効な軸数は <code>dim</code> フィールドが示します。</p>
         <ul>
           <li><code>dim = 0</code>: スカラー (ONNX の rank-0 テンソル)</li>
           <li><code>dim = 1</code>: <code>x</code> のみ</li>
@@ -506,7 +506,7 @@ println(output.size)</code></pre>
       <details class="faq-item">
         <summary>メモリ消費量を抑えるには?</summary>
         <p>デフォルトは速度優先モードで、中間テンソルをすべてメモリに保持します。中間テンソルの再利用や定数の縮約を有効にすると、ピークメモリを削減できます。</p>
-        <p><strong>Python:</strong> <code>set_memory_mode</code> にビットフラグを渡します:</p>
+        <p><strong>Python:</strong> <code>set_memory_mode</code> にビットフラグを渡します。</p>
         <pre class="code-block"><code class="language-python">memory_mode = ailia.get_memory_mode(
     reduce_constant=True,
     ignore_input_with_initializer=True,
