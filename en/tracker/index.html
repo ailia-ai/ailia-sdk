@@ -284,40 +284,51 @@ ailiaTrackerDestroy(tracker);</code></pre>
 
       <div class="platform-panel hidden" data-platform="unity">
         <pre class="code-block"><code class="language-csharp">using ailiaTracker;
+using ailiaDetector;
 
 var tracker = new AiliaTrackerModel();
-tracker.Open(AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
-             scoreThreshold: 0.1f, nmsThreshold: 0.7f,
-             trackThreshold: 0.5f, trackBuffer: 30, matchThreshold: 0.8f);
+var settings = new AiliaTracker.AILIATrackerSettings();
+settings.score_threshold = 0.1f;
+settings.nms_threshold = 0.7f;
+settings.track_threshold = 0.5f;
+settings.track_buffer = 30;
+settings.match_threshold = 0.8f;
+tracker.Create(AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK, settings);
 
-foreach (var d in detections) {
-    tracker.AddTarget(d.category, d.confidence, d.x, d.y, d.w, d.h);
+// Per frame: feed the detector output list, get back tracked objects
+List&lt;AiliaTracker.AILIATrackerObject&gt; tracked = tracker.Compute(detectorObjects);
+foreach (var obj in tracked) {
+    Debug.Log($"ID {obj.id}  bbox {obj.x} {obj.y} {obj.w} {obj.h}");
 }
-tracker.Compute();
 
-for (int i = 0; i &lt; tracker.GetObjectCount(); i++) {
-    var obj = tracker.GetObject(i);
-}</code></pre>
+tracker.Close();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code class="language-kotlin">val tracker = AiliaTracker(
+        <pre class="code-block"><code class="language-kotlin">val settings = AiliaTrackerSettings(
+    score_threshold = 0.1f, nms_threshold = 0.7f,
+    track_threshold = 0.5f, track_buffer = 30,
+    match_threshold = 0.8f,
+)
+val tracker = AiliaTracker(
     algorithm = AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
-    settings = AiliaTrackerSettings(
-        score_threshold = 0.1f, nms_threshold = 0.7f,
-        track_threshold = 0.5f, track_buffer = 30,
-        match_threshold = 0.8f,
-    ),
+    settings = settings,
 )
 
+// Per frame: feed each detector output, compute, then read tracked objects
 for (d in detections) {
-    tracker.addTarget(d.category, d.confidence, d.x, d.y, d.width, d.height)
+    tracker.addTarget(
+        category = d.category, prob = d.confidence,
+        x = d.x, y = d.y, w = d.width, h = d.height,
+    )
 }
 tracker.compute()
 
 for (i in 0 until tracker.getObjectCount()) {
-    val o = tracker.getObject(i)
+    val o = tracker.getObject(i) ?: continue
+    Log.d("ailia", "ID ${o.id}  bbox ${o.x} ${o.y} ${o.w} ${o.h}")
 }
+
 tracker.close()</code></pre>
       </div>
 
