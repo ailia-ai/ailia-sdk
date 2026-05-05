@@ -142,7 +142,9 @@ cd audio_processing/gpt-sovits-v2-pro
             <div class="step-number">1</div>
             <h3>Install via UPM</h3>
             <p>Open <em>Window &gt; Package Manager</em> in Unity (2021.3.10f1+), click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
-            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-voice-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-sdk-unity.git
+https://github.com/ailia-ai/ailia-audio-unity.git
+https://github.com/ailia-ai/ailia-voice-unity.git</code></pre>
             <a href="../../voice/unity/en/" class="card-link">Unity API Reference</a>
           </div>
           <div class="step">
@@ -163,6 +165,14 @@ cd audio_processing/gpt-sovits-v2-pro
             <h3>Add to pubspec</h3>
             <p>Add ailia Voice as a git dependency in your Flutter project's <code>pubspec.yaml</code>, then run <code>flutter pub get</code>. Flutter 3.19.6 or later is required. On macOS, set <code>com.apple.security.app-sandbox</code> to <code>false</code> in <code>macos/Runner/Release.entitlements</code> and <code>Debug.entitlements</code>.</p>
             <pre><code class="language-yaml">dependencies:
+  ailia_sdk:
+    git:
+      url: https://github.com/ailia-ai/ailia-sdk-flutter.git
+      ref: main
+  ailia_audio:
+    git:
+      url: https://github.com/ailia-ai/ailia-audio-flutter.git
+      ref: main
   ailia_voice:
     git:
       url: https://github.com/ailia-ai/ailia-voice-flutter.git
