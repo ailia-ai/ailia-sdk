@@ -103,19 +103,37 @@ python3 yolox.py -v 0</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Get Evaluation Package</h3>
-            <p>Apply for the free trial to obtain the evaluation package, which contains the C99 binding (<code>ailia_tflite.h</code>), the runtime library, the license file, and a runnable sample.</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TFLITE?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+            <h3>Clone Samples</h3>
+            <p>Clone the C++ sample repository and initialize submodules. The ailia-tflite-cpp binding is included as a submodule.</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update
+
+# macOS: clear the quarantine attribute on bundled dylibs
+./xattr.sh</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/object_detection/yolox_tflite" target="_blank" class="card-link">yolox_tflite sample</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Build &amp; Run</h3>
-            <p>Compile against the runtime library; the API mirrors TensorFlow Lite's C API. Designed for NonOS / RTOS targets, the C99 implementation is dependency-free aside from <code>libailia_tflite</code>.</p>
-            <pre><code class="language-bash"># macOS
-clang -o tflite_sample tflite_sample.c \
-  libailia_tflite.dylib -Wl,-rpath,./
+            <p>Fetch the one-month evaluation license, install CMake and OpenCV, build, and run the YOLOX TFLite sample. <code>yolox_tflite.sh</code> downloads the TFLite model on first run, then runs inference.</p>
+            <pre><code class="language-bash"># Fetch a one-month evaluation license
+cd ailia_tflite
+python3 download_license.py
+cd ..
 
-./tflite_sample model.tflite</code></pre>
+# macOS
+brew install cmake opencv
+# Linux: apt install cmake libopencv-dev
+# Windows: install CMake and Visual Studio,
+#   then set OpenCV_DIR to your OpenCV build path
+
+cmake .
+cmake --build .
+cd object_detection/yolox_tflite
+./yolox_tflite.sh    # use yolox_tflite.bat on Windows</code></pre>
             <a href="../../tflite/c/en/" class="card-link">C API Reference</a>
           </div>
         </div>
@@ -315,6 +333,7 @@ tflite.close()</code></pre>
         <h3>C99</h3>
         <ul>
           <li><a href="../../tflite/c/en/">API</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-tflite-cpp" target="_blank">Binding</a></li>
         </ul>
       </div>
 
@@ -358,6 +377,15 @@ tflite.close()</code></pre>
       <details class="faq-item">
         <summary>Does it support quantized models?</summary>
         <p>Yes. INT8 quantized TFLite models are first-class — quantization is the recommended path for embedded targets and NPUs. The model zoo at <a href="https://github.com/ailia-ai/ailia-models-tflite" target="_blank">ailia-models-tflite</a> is built around quantized variants.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I quantize a float tensor to Int8?</summary>
+        <p>Read the per-tensor quantization parameters via <code>ailiaTFLiteGetTensorQuantizationScale</code> and <code>ailiaTFLiteGetTensorQuantizationZeroPoint</code>.</p>
+        <p><strong>Float → Int8:</strong> <code>q = round(f / scale) + zero_point</code></p>
+        <p><strong>Int8 → Float:</strong> <code>f = (q − zero_point) × scale</code></p>
+        <p>Each TFLite tensor has a single scale and a single zero_point. Weights (e.g. Conv kernels) use per-channel scales (per-axis quantization) and the zero_point is fixed at 0. Inspect the per-channel layout with <code>ailiaTFLiteGetTensorQuantizationCount</code> and <code>ailiaTFLiteGetTensorQuantizationQuantizedDimension</code>.</p>
+        <p>For the full specification see the <a href="https://www.tensorflow.org/lite/performance/quantization_spec" target="_blank">TensorFlow Lite 8-bit quantization spec</a>.</p>
       </details>
 
       <details class="faq-item">

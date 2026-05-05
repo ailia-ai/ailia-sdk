@@ -148,7 +148,8 @@ cd object_detection/yolox
             <div class="step-number">1</div>
             <h3>Install via UPM</h3>
             <p>For your own project, open <em>Window &gt; Package Manager</em> in Unity, click <em>+ &gt; Add package from git URL</em>, and enter the binding URL below.</p>
-            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-sdk-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-sdk-unity.git
+https://github.com/ailia-ai/ailia-audio-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-sdk-unity" target="_blank" class="card-link">Binding</a>
           </div>
           <div class="step">
@@ -172,6 +173,10 @@ cd object_detection/yolox
   ailia:
     git:
       url: https://github.com/ailia-ai/ailia-sdk-flutter.git
+      ref: main
+  ailia_audio:
+    git:
+      url: https://github.com/ailia-ai/ailia-audio-flutter.git
       ref: main</code></pre>
             <a href="https://github.com/ailia-ai/ailia-sdk-flutter" target="_blank" class="card-link">Binding</a>
           </div>
@@ -195,7 +200,8 @@ flutter run</code></pre>
             <div class="step-number">1</div>
             <h3>Clone Binding</h3>
             <p>For your own project, clone the JNI binding repository and add it to your Android Studio project.</p>
-            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-jni.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-jni.git
+git clone https://github.com/ailia-ai/ailia-audio-jni.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-sdk-jni" target="_blank" class="card-link">Binding</a>
           </div>
           <div class="step">
@@ -417,6 +423,12 @@ println(output.size)</code></pre>
     <div class="faq-list">
 
       <details class="faq-item">
+        <summary>What is included in ailia SDK?</summary>
+        <p><strong>Bundled with ailia SDK:</strong> the ONNX inference API (<code>ailia</code>) plus high-level helpers for common tasks — <code>Classification</code> for image classification, <code>Detector</code> for object detection, <code>PoseEstimation</code> for skeletal pose, and <code>ailia Audio</code> for audio pre/post-processing.</p>
+        <p><strong>Supplemental libraries (separate packages):</strong> <a href="../tokenizer/">ailia Tokenizer</a>, <a href="../speech/">ailia Speech</a>, <a href="../voice/">ailia Voice</a>, and <a href="../tracker/">ailia Tracker</a> ship as separate libraries on top of the SDK.</p>
+      </details>
+
+      <details class="faq-item">
         <summary>What is the difference between the evaluation license and a production license?</summary>
         <p>The evaluation license is downloaded automatically at runtime for Python, Unity, Flutter, and JNI, and is valid for one month for C++. It is intended for development and trial use only.</p>
         <p>For commercial deployment, redistribution, or longer-term use, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a> for details.</p>
@@ -446,6 +458,43 @@ println(output.size)</code></pre>
         <summary>How do I convert a PyTorch or TensorFlow model to ONNX for ailia?</summary>
         <p>Export your model to ONNX with the framework's standard tooling (<code>torch.onnx.export</code>, <code>tf2onnx</code>, etc.), then generate the matching <code>.onnx.prototxt</code> using the script bundled with ailia SDK.</p>
         <p>The <a href="https://tech.ailia.ai/en/ailia-sdk-tutorial-model-conversion-to-onnx-ac8bd2c76622" target="_blank">model conversion tutorial</a> walks through the process.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is a prototxt file required?</summary>
+        <p>No, prototxt is optional when loading an ONNX model directly (e.g. <code>ailia.Net(stream=None, weight="model.onnx")</code>). The <a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> repo ships prototxt files alongside ONNX so that <a href="https://netron.app/" target="_blank">Netron</a> can visualize them quickly, but your own models work without one.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I handle multiple input / output tensors?</summary>
+        <p>The Python API accepts a name-to-array <code>dict</code> as the argument to <code>net.run()</code>, so multi-input models work out of the box and multi-output results come back as a list.</p>
+        <p>The C API's <code>ailiaPredict</code> only supports one input and one output. For multi-IO models, write each input via <code>ailiaSetInputBlobData</code>, run inference with <code>ailiaUpdate</code>, then read each output via <code>ailiaGetBlobData</code>. Use <code>ailiaFindBlobIndexByName</code> to look up blob indices by name.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How are tensor data types handled?</summary>
+        <p>Input and output tensor buffers are always passed as float (FP32) regardless of the underlying ONNX datatype. Internally ailia executes the model using whatever datatype the ONNX defines (FP16, INT8 quantization, etc.). You can query the actual datatype of any blob with <code>ailiaGetBlobDataType</code>.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I profile inference performance?</summary>
+        <p>A built-in profiler reports per-layer timing.</p>
+        <p><strong>Python:</strong> call <code>net.set_profile_mode(True)</code>, run inference, and read the per-layer summary with <code>net.get_summary()</code>.</p>
+        <p><strong>C:</strong> enable profiling with <code>ailiaSetProfileMode</code>, run inference, then call <code>ailiaGetSummaryLength</code> to get the buffer size and <code>ailiaSummary</code> to fill it with the summary string.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I reduce memory usage?</summary>
+        <p>The default mode is speed-first and keeps every intermediate tensor in memory. Enabling intermediate reuse and constant reduction lowers peak memory.</p>
+        <p><strong>Python:</strong> pass a bit-flag to <code>set_memory_mode</code>:</p>
+        <pre class="code-block"><code class="language-python">memory_mode = ailia.get_memory_mode(
+    reduce_constant=True,
+    ignore_input_with_initializer=True,
+    reduce_interstage=False,
+    reuse_interstage=True,
+)
+net.set_memory_mode(memory_mode)</code></pre>
+        <p><strong>C:</strong> the equivalent control is <code>ailiaSetMemoryMode</code>. OR together flags such as <code>AILIA_MEMORY_REDUCE_CONSTANT</code> and <code>AILIA_MEMORY_REUSE_INTERSTAGE</code>.</p>
       </details>
 
       <details class="faq-item">
