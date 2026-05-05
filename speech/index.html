@@ -124,12 +124,11 @@ python3 download_license.py
 cd ..
 
 # macOS
-brew install cmake opencv
-# Linux: apt install cmake libopencv-dev
-# Windows: install CMake and Visual Studio,
-#   then set OpenCV_DIR to your OpenCV build path
+brew install cmake
+# Linux: apt install cmake
+# Windows: install CMake and Visual Studio
 
-cmake .
+cmake -DWITH_OPENCV=OFF .
 cmake --build .
 cd audio_processing/whisper
 ./whisper.sh    # use whisper.bat on Windows</code></pre>
