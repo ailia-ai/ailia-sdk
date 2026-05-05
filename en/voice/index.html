@@ -178,6 +178,7 @@ cd ailia-models-flutter
 flutter pub get
 flutter run</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/ailia-models-flutter/blob/main/lib/text_to_speech/text_to_speech.dart" target="_blank" class="card-link">text_to_speech.dart</a>
           </div>
         </div>
       </div>
@@ -284,7 +285,18 @@ flutter run</code></pre>
 
       <div class="platform-panel" data-platform="python">
         <pre class="code-block"><code class="language-python">import ailia_voice
+import librosa
+import urllib.request
 
+# Load reference audio
+ref_text = "水をマレーシアから買わなくてはならない。"
+urllib.request.urlretrieve(
+    "https://github.com/ailia-ai/ailia-models/raw/master/audio_processing/gpt-sovits/reference_audio_captured_by_ax.wav",
+    "reference_audio_girl.wav",
+)
+ref_audio, rate = librosa.load("reference_audio_girl.wav", mono=True)
+
+# Synthesize
 voice = ailia_voice.GPTSoVITS()
 voice.initialize_model(model_path="./models/")
 voice.set_reference_audio(
@@ -303,7 +315,9 @@ ailiaVoiceOpenModelFileGPTSoVITSV1A(voice,
     t2s_encoder, t2s_fsdec, t2s_sdec, vits, cnhubert);
 
 // Reference audio: G2P → fetch phoneme features → SetReference
-ailiaVoiceGraphemeToPhoneme(voice, ref_text, AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+ailiaVoiceGraphemeToPhoneme(voice,
+    "水をマレーシアから買わなくてはならない。",
+    AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
 unsigned int ref_len = 0;
 ailiaVoiceGetFeatureLength(voice, &amp;ref_len);
 std::vector&lt;char&gt; ref_features(ref_len);
@@ -339,24 +353,53 @@ AudioClip clip = voice.GetAudioClip();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
-        <pre class="code-block"><code class="language-dart">import 'package:ailia_voice/ailia_voice.dart';
+        <pre class="code-block"><code class="language-dart">import 'package:ailia_voice/ailia_voice.dart' as ailia_voice;
+import 'package:ailia_voice/ailia_voice_model.dart';
 
 final voice = AiliaVoiceModel();
-await voice.create();
-await voice.openGPTSoVITSV1ModelFile(t2sEnc, t2sFsdec, t2sSdec, vits, cnhubert);
+voice.openModel(
+    encoderFile, decoderFile, postnetFile, waveglowFile, sslFile,
+    ailia_voice.AILIA_VOICE_MODEL_TYPE_GPT_SOVITS,
+    ailia_voice.AILIA_VOICE_CLEANER_TYPE_BASIC,
+    ailia_voice.AILIA_ENVIRONMENT_ID_AUTO);
+voice.openDictionary(openJtalkDicFolder,
+    ailia_voice.AILIA_VOICE_DICTIONARY_TYPE_OPEN_JTALK);
 
-await voice.setReference(refClip, refText);
-final pcm = await voice.synthesize('こんにちは。',
-    g2pType: AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);</code></pre>
+// Reference audio: G2P → setReference
+final refFeature = voice.g2p(
+    "水をマレーシアから買わなくてはならない。",
+    ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+voice.setReference(refPcm, refSampleRate, refChannels, refFeature);
+
+// Input text: G2P → inference
+final feature = voice.g2p("こんにちは。",
+    ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+final audio = voice.inference(feature);
+
+voice.close();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code class="language-kotlin">val voice = AiliaVoice(envId = envId)
-voice.openGPTSoVITSV1ModelFile(t2sEnc, t2sFsdec, t2sSdec, vits, cnhubert)
-voice.setReferenceAudio(refAudio, refAudio.size * 4, channels, sampleRate, refG2pText)
+        <pre class="code-block"><code class="language-kotlin">val voice = AiliaVoice(envId = -1)
+voice.openDictionaryFile(dicDir, AiliaVoice.AILIA_VOICE_DICTIONARY_TYPE_OPEN_JTALK)
+voice.openGPTSoVITSV1ModelFile(
+    encoder = t2sEnc,
+    decoder1 = t2sFsdec,
+    decoder2 = t2sSdec,
+    wave = vits,
+    ssl = cnhubert,
+)
 
-val g2p = voice.g2p("こんにちは。", AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA)
-val audio = voice.synthesizeVoice(g2p)</code></pre>
+// Reference audio: G2P → setReferenceAudio
+val refFeature = voice.g2p(
+    "水をマレーシアから買わなくてはならない。",
+    AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA,
+)
+voice.setReferenceAudio(refAudio, refAudio.size * 4, channels, sampleRate, refFeature)
+
+// Synthesize
+val feature = voice.g2p("こんにちは。", AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA)
+val result = voice.synthesizeVoice(feature)</code></pre>
       </div>
 
     </div>
