@@ -477,6 +477,20 @@ println(output.size)</code></pre>
       </details>
 
       <details class="faq-item">
+        <summary><code>AILIAShape</code> の x / y / z / w は何に対応しますか?</summary>
+        <p><code>AILIAShape</code> は最大 4 次元までを <code>x</code> / <code>y</code> / <code>z</code> / <code>w</code> + <code>dim</code> で表します。<strong><code>x</code> が最も内側 (innermost、メモリ連続側) の軸、<code>w</code> が最も外側 (outermost) の軸</strong>です。たとえば numpy で <code>(batch, channel, height, width)</code> の 4 次元テンソルなら <code>w = batch</code>、<code>z = channel</code>、<code>y = height</code>、<code>x = width</code> が対応します。</p>
+        <p>有効な軸数は <code>dim</code> フィールドが示します:</p>
+        <ul>
+          <li><code>dim = 0</code>: スカラー (ONNX の rank-0 テンソル)</li>
+          <li><code>dim = 1</code>: <code>x</code> のみ</li>
+          <li><code>dim = 2</code>: <code>x</code> と <code>y</code></li>
+          <li><code>dim = 3</code>: <code>x</code> / <code>y</code> / <code>z</code></li>
+          <li><code>dim = 4</code>: <code>x</code> / <code>y</code> / <code>z</code> / <code>w</code></li>
+        </ul>
+        <p>5 次元以上のテンソルは <code>AILIAShape</code> では表現できないため、<code>ailiaSetInputShapeND</code> / <code>ailiaGetOutputShapeND</code> (および <code>ailiaGetInputDim</code> / <code>ailiaGetOutputDim</code>) で <code>unsigned int*</code> 配列として直接形状を扱ってください。</p>
+      </details>
+
+      <details class="faq-item">
         <summary>パフォーマンスを分析するには?</summary>
         <p>レイヤーごとの処理時間を見られるプロファイラを内蔵しています。</p>
         <p><strong>Python:</strong> <code>net.set_profile_mode(True)</code> でプロファイルを有効化してから推論し、<code>net.get_summary()</code> でレイヤー単位の処理時間サマリを取得します。</p>

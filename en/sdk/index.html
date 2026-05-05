@@ -477,6 +477,20 @@ println(output.size)</code></pre>
       </details>
 
       <details class="faq-item">
+        <summary>What do <code>AILIAShape</code>'s x / y / z / w correspond to?</summary>
+        <p><code>AILIAShape</code> represents up to 4 dimensions through <code>x</code> / <code>y</code> / <code>z</code> / <code>w</code> + <code>dim</code>. <strong><code>x</code> is the innermost (memory-contiguous) axis and <code>w</code> is the outermost.</strong> For a numpy-style <code>(batch, channel, height, width)</code> 4-D tensor, that maps to <code>w = batch</code>, <code>z = channel</code>, <code>y = height</code>, <code>x = width</code>.</p>
+        <p>The <code>dim</code> field tells you how many of those axes are valid:</p>
+        <ul>
+          <li><code>dim = 0</code>: scalar (ONNX rank-0 tensor)</li>
+          <li><code>dim = 1</code>: <code>x</code> only</li>
+          <li><code>dim = 2</code>: <code>x</code> and <code>y</code></li>
+          <li><code>dim = 3</code>: <code>x</code> / <code>y</code> / <code>z</code></li>
+          <li><code>dim = 4</code>: <code>x</code> / <code>y</code> / <code>z</code> / <code>w</code></li>
+        </ul>
+        <p>Tensors with rank ≥ 5 cannot be expressed in <code>AILIAShape</code>. Use the ND variants instead — <code>ailiaSetInputShapeND</code> / <code>ailiaGetOutputShapeND</code> (with <code>ailiaGetInputDim</code> / <code>ailiaGetOutputDim</code>) — which take a flat <code>unsigned int*</code> shape array.</p>
+      </details>
+
+      <details class="faq-item">
         <summary>How do I profile inference performance?</summary>
         <p>A built-in profiler reports per-layer timing.</p>
         <p><strong>Python:</strong> call <code>net.set_profile_mode(True)</code>, run inference, and read the per-layer summary with <code>net.get_summary()</code>.</p>
