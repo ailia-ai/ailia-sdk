@@ -72,6 +72,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
         <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
         <button class="platform-tab" data-platform="flutter" role="tab">Flutter</button>
+        <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
       </div>
 
       <!-- Python -->
@@ -100,27 +101,37 @@ python3 example_ailia_voice.py</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>評価版を入手</h3>
-            <p>無料トライアルに申し込むと、C++ バインディング (<code>ailia_voice.h</code>)、ランタイムライブラリ、ライセンスファイル、実行可能サンプルを含む評価版パッケージを入手できます。</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-VOICE" target="_blank" class="card-link">無料トライアルを申し込む</a>
+            <h3>サンプルをクローン</h3>
+            <p>C++ サンプルリポジトリをクローンしてサブモジュールを初期化します。ailia-sdk-cpp バインディングはサブモジュールとして含まれています。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update
+
+# macOS: dylib の quarantine 属性を解除
+./xattr.sh</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/audio_processing/gpt-sovits-v2-pro" target="_blank" class="card-link">gpt-sovits-v2-pro サンプル</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>モデルをダウンロードして実行</h3>
-            <p>同梱のモデルダウンロードスクリプトを実行し、サンプルをビルドして実行します。</p>
-            <pre><code class="language-bash"># Fetch GPT-SoVITS / Tacotron2 model files
-cd onnx
-bash download_models.sh   # download_models.bat on Windows
-cd ../cpp
+            <h3>ビルドして実行</h3>
+            <p>1 か月の評価ライセンスを取得し、CMake と OpenCV をインストールしてビルド、GPT-SoVITS v2 Pro サンプルを実行します。<code>gpt-sovits-v2-pro.sh</code> がモデル ONNX と辞書ファイルを自動でダウンロードしてから推論を行います。</p>
+            <pre><code class="language-bash"># 評価ライセンスを取得
+cd ailia
+python3 download_license.py
+cd ..
 
-# Build (macOS)
-clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
-  wave_writer.cpp wave_reader.cpp \
-  libailia_voice.dylib libailia.dylib libailia_audio.dylib \
-  -Wl,-rpath,./ -std=c++17
+# macOS
+brew install cmake
+# Linux: apt install cmake
+# Windows: install CMake and Visual Studio
 
-./ailia_voice_sample gpt-sovits</code></pre>
-            <a href="../voice/cpp/en/setup.html" class="card-link">C++ セットアップガイド</a>
+cmake -DWITH_OPENCV=OFF .
+cmake --build .
+cd audio_processing/gpt-sovits-v2-pro
+./gpt-sovits-v2-pro.sh    # use gpt-sovits-v2-pro.bat on Windows</code></pre>
+            <a href="cpp/jp/setup.html" class="card-link">C++ セットアップガイド</a>
           </div>
         </div>
       </div>
@@ -132,7 +143,9 @@ clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
             <div class="step-number">1</div>
             <h3>UPM でインストール</h3>
             <p>Unity (2021.3.10f1 以降) で <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
-            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-voice-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-sdk-unity.git
+https://github.com/ailia-ai/ailia-audio-unity.git
+https://github.com/ailia-ai/ailia-voice-unity.git</code></pre>
             <a href="../voice/unity/en/" class="card-link">Unity API リファレンス</a>
           </div>
           <div class="step">
@@ -153,6 +166,14 @@ clang++ -o ailia_voice_sample ailia_voice_sample.cpp \
             <h3>pubspec に追加</h3>
             <p>Flutter プロジェクトの <code>pubspec.yaml</code> に ailia Voice を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.19.6 以降が必要です。macOS では <code>macos/Runner/Release.entitlements</code> と <code>Debug.entitlements</code> の <code>com.apple.security.app-sandbox</code> を <code>false</code> に設定してください。</p>
             <pre><code class="language-yaml">dependencies:
+  ailia_sdk:
+    git:
+      url: https://github.com/ailia-ai/ailia-sdk-flutter.git
+      ref: main
+  ailia_audio:
+    git:
+      url: https://github.com/ailia-ai/ailia-audio-flutter.git
+      ref: main
   ailia_voice:
     git:
       url: https://github.com/ailia-ai/ailia-voice-flutter.git
@@ -168,6 +189,31 @@ cd ailia-models-flutter
 flutter pub get
 flutter run</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-flutter" target="_blank" class="card-link">サンプルリポジトリ</a>
+            <a href="https://github.com/ailia-ai/ailia-models-flutter/blob/main/lib/text_to_speech/text_to_speech.dart" target="_blank" class="card-link">text_to_speech.dart</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- JNI -->
+      <div class="platform-panel hidden" data-platform="jni">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>バインディングをクローン</h3>
+            <p>自分のプロジェクトに組み込む場合は、JNI バインディングリポジトリをクローンして Android Studio プロジェクトに追加します。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-jni.git
+git clone https://github.com/ailia-ai/ailia-audio-jni.git
+git clone https://github.com/ailia-ai/ailia-voice-jni.git</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-voice-jni" target="_blank" class="card-link">バインディング</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>サンプルを実行</h3>
+            <p><code>ailia-models-kotlin</code> をサブモジュール込みでクローンして Android Studio で開き、接続デバイス上で Voice サンプルを実行します。GPT-SoVITS の合成と再生が含まれています。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-kotlin.git
+cd ailia-models-kotlin
+git submodule update --init --recursive</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-kotlin/blob/main/app/src/main/java/jp/axinc/ailia_kotlin/AiliaVoiceSample.kt" target="_blank" class="card-link">AiliaVoiceSample.kt</a>
           </div>
         </div>
       </div>
@@ -274,7 +320,18 @@ flutter run</code></pre>
 
       <div class="platform-panel" data-platform="python">
         <pre class="code-block"><code class="language-python">import ailia_voice
+import librosa
+import urllib.request
 
+# リファレンス音声をロード
+ref_text = "水をマレーシアから買わなくてはならない。"
+urllib.request.urlretrieve(
+    "https://github.com/ailia-ai/ailia-models/raw/master/audio_processing/gpt-sovits/reference_audio_captured_by_ax.wav",
+    "reference_audio_girl.wav",
+)
+ref_audio, rate = librosa.load("reference_audio_girl.wav", mono=True)
+
+# 推論
 voice = ailia_voice.GPTSoVITS()
 voice.initialize_model(model_path="./models/")
 voice.set_reference_audio(
@@ -285,16 +342,31 @@ buf, sr = voice.synthesize_voice("こんにちは。", ailia_voice.AILIA_VOICE_G
 
       <div class="platform-panel hidden" data-platform="cpp">
         <pre class="code-block"><code class="language-cpp">#include "ailia_voice.h"
+#include &lt;vector&gt;
 
 struct AILIAVoice *voice = nullptr;
 ailiaVoiceCreate(&amp;voice, env_id, AILIA_VOICE_FLAG_NONE);
 ailiaVoiceOpenModelFileGPTSoVITSV1A(voice,
     t2s_encoder, t2s_fsdec, t2s_sdec, vits, cnhubert);
 
-ailiaVoiceSetReferenceA(voice, ref_pcm, ref_samples, channels, rate,
-                        ref_text, AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
-ailiaVoiceInferenceA(voice, "こんにちは。",
-                     AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+// Reference audio: G2P → fetch phoneme features → SetReference
+ailiaVoiceGraphemeToPhoneme(voice,
+    "水をマレーシアから買わなくてはならない。",
+    AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+unsigned int ref_len = 0;
+ailiaVoiceGetFeatureLength(voice, &amp;ref_len);
+std::vector&lt;char&gt; ref_features(ref_len);
+ailiaVoiceGetFeatures(voice, ref_features.data(), ref_len);
+ailiaVoiceSetReference(voice, ref_pcm, ref_pcm_bytes, channels, rate,
+                       ref_features.data());
+
+// Input text: G2P → fetch phoneme features → Inference
+ailiaVoiceGraphemeToPhoneme(voice, "こんにちは。", AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+unsigned int len = 0;
+ailiaVoiceGetFeatureLength(voice, &amp;len);
+std::vector&lt;char&gt; features(len);
+ailiaVoiceGetFeatures(voice, features.data(), len);
+ailiaVoiceInference(voice, features.data());
 
 unsigned int n; ailiaVoiceGetWaveSamples(voice, &amp;n);
 ailiaVoiceDestroy(voice);</code></pre>
@@ -307,7 +379,9 @@ var voice = new AiliaVoiceModel();
 voice.Create(voice.GetEnvironmentId(gpuMode), AiliaVoice.AILIA_VOICE_FLAG_NONE);
 voice.OpenGPTSoVITSV1ModelFile(t2sEnc, t2sFsdec, t2sSdec, vits, cnhubert);
 
-var refText = voice.G2P(refLabel, AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+var refText = voice.G2P(
+    "水をマレーシアから買わなくてはならない。",
+    AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
 voice.SetReference(refClip, refText);
 
 var text = voice.G2P("こんにちは。", AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
@@ -316,24 +390,53 @@ AudioClip clip = voice.GetAudioClip();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="flutter">
-        <pre class="code-block"><code class="language-dart">import 'package:ailia_voice/ailia_voice.dart';
+        <pre class="code-block"><code class="language-dart">import 'package:ailia_voice/ailia_voice.dart' as ailia_voice;
+import 'package:ailia_voice/ailia_voice_model.dart';
 
 final voice = AiliaVoiceModel();
-await voice.create();
-await voice.openGPTSoVITSV1ModelFile(t2sEnc, t2sFsdec, t2sSdec, vits, cnhubert);
+voice.openModel(
+    encoderFile, decoderFile, postnetFile, waveglowFile, sslFile,
+    ailia_voice.AILIA_VOICE_MODEL_TYPE_GPT_SOVITS,
+    ailia_voice.AILIA_VOICE_CLEANER_TYPE_BASIC,
+    ailia_voice.AILIA_ENVIRONMENT_ID_AUTO);
+voice.openDictionary(openJtalkDicFolder,
+    ailia_voice.AILIA_VOICE_DICTIONARY_TYPE_OPEN_JTALK);
 
-await voice.setReference(refClip, refText);
-final pcm = await voice.synthesize('こんにちは。',
-    g2pType: AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);</code></pre>
+// Reference audio: G2P → setReference
+final refFeature = voice.g2p(
+    "水をマレーシアから買わなくてはならない。",
+    ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+voice.setReference(refPcm, refSampleRate, refChannels, refFeature);
+
+// Input text: G2P → inference
+final feature = voice.g2p("こんにちは。",
+    ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA);
+final audio = voice.inference(feature);
+
+voice.close();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code class="language-kotlin">val voice = AiliaVoice(envId = envId)
-voice.openGPTSoVITSV1ModelFile(t2sEnc, t2sFsdec, t2sSdec, vits, cnhubert)
-voice.setReferenceAudio(refAudio, refAudio.size * 4, channels, sampleRate, refG2pText)
+        <pre class="code-block"><code class="language-kotlin">val voice = AiliaVoice(envId = -1)
+voice.openDictionaryFile(dicDir, AiliaVoice.AILIA_VOICE_DICTIONARY_TYPE_OPEN_JTALK)
+voice.openGPTSoVITSV1ModelFile(
+    encoder = t2sEnc,
+    decoder1 = t2sFsdec,
+    decoder2 = t2sSdec,
+    wave = vits,
+    ssl = cnhubert,
+)
 
-val g2p = voice.g2p("こんにちは。", AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA)
-val audio = voice.synthesizeVoice(g2p)</code></pre>
+// Reference audio: G2P → setReferenceAudio
+val refFeature = voice.g2p(
+    "水をマレーシアから買わなくてはならない。",
+    AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA,
+)
+voice.setReferenceAudio(refAudio, refAudio.size * 4, channels, sampleRate, refFeature)
+
+// Synthesize
+val feature = voice.g2p("こんにちは。", AiliaVoice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA)
+val result = voice.synthesizeVoice(feature)</code></pre>
       </div>
 
     </div>
