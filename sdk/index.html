@@ -449,6 +449,43 @@ println(output.size)</code></pre>
       </details>
 
       <details class="faq-item">
+        <summary>prototxt は必要ですか?</summary>
+        <p>ONNX モデルを直接読み込む場合 (たとえば <code>ailia.Net(stream=None, weight="model.onnx")</code>) は prototxt は不要です。<a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> では <a href="https://netron.app/" target="_blank">Netron</a> での可視化を高速化するために prototxt を同梱していますが、お客様自身のモデルを使う場合は prototxt なしで動作します。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>複数の入出力テンソルはどのように扱いますか?</summary>
+        <p>Python API では <code>net.run()</code> の引数に名前→numpy 配列の dict を渡すと複数入力を扱えます。同様に複数出力もリストで返ります。</p>
+        <p>C API の <code>ailiaPredict</code> は 1 入力 1 出力です。複数の入出力テンソルを扱う場合は、<code>ailiaSetInputBlobData</code> で各入力 blob にデータを書き込み、<code>ailiaUpdate</code> で推論を実行し、<code>ailiaGetBlobData</code> で各出力 blob の結果を取り出します。各 blob インデックスは <code>ailiaFindBlobIndexByName</code> で取得できます。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>データ型 (datatype) はどう扱いますか?</summary>
+        <p>入出力テンソルのバッファは ONNX の datatype に関わらず常に float (FP32) で受け渡しします。内部では ONNX が定義する datatype に応じた処理 (FP16 / INT8 量子化など) が実行されます。各 blob 自身の datatype は <code>ailiaGetBlobDataType</code> で取得できます。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>パフォーマンスを分析するには?</summary>
+        <p>レイヤーごとの処理時間を見られるプロファイラを内蔵しています。</p>
+        <p><strong>Python:</strong> <code>net.set_profile_mode(True)</code> でプロファイルを有効化してから推論し、<code>net.get_summary()</code> でレイヤー単位の処理時間サマリを取得します。</p>
+        <p><strong>C:</strong> <code>ailiaSetProfileMode</code> でプロファイルを有効化してから推論し、<code>ailiaGetSummaryLength</code> でバッファサイズを問い合わせ、<code>ailiaSummary</code> でサマリ文字列を取り出します。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>メモリ消費量を抑えるには?</summary>
+        <p>デフォルトは速度優先モードで、中間テンソルをすべてメモリに保持します。中間テンソルの再利用や定数の縮約を有効にすると、ピークメモリを削減できます。</p>
+        <p><strong>Python:</strong> <code>set_memory_mode</code> にビットフラグを渡します:</p>
+        <pre class="code-block"><code class="language-python">memory_mode = ailia.get_memory_mode(
+    reduce_constant=True,
+    ignore_input_with_initializer=True,
+    reduce_interstage=False,
+    reuse_interstage=True,
+)
+net.set_memory_mode(memory_mode)</code></pre>
+        <p><strong>C:</strong> 同等の制御は <code>ailiaSetMemoryMode</code> で行えます。<code>AILIA_MEMORY_REDUCE_CONSTANT</code> / <code>AILIA_MEMORY_REUSE_INTERSTAGE</code> などのフラグを OR 結合して渡してください。</p>
+      </details>
+
+      <details class="faq-item">
         <summary>サポートはどこで受けられますか?</summary>
         <p>サンプルリポジトリのバグ報告や質問は該当の GitHub リポジトリで Issue を立ててください。SDK ライセンスや商用に関するお問い合わせは <a href="https://ailia.ai/" target="_blank">ailia Inc.</a> までご連絡ください。</p>
       </details>

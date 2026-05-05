@@ -449,6 +449,43 @@ println(output.size)</code></pre>
       </details>
 
       <details class="faq-item">
+        <summary>Is a prototxt file required?</summary>
+        <p>No, prototxt is optional when loading an ONNX model directly (e.g. <code>ailia.Net(stream=None, weight="model.onnx")</code>). The <a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> repo ships prototxt files alongside ONNX so that <a href="https://netron.app/" target="_blank">Netron</a> can visualize them quickly, but your own models work without one.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I handle multiple input / output tensors?</summary>
+        <p>The Python API accepts a name-to-array <code>dict</code> as the argument to <code>net.run()</code>, so multi-input models work out of the box and multi-output results come back as a list.</p>
+        <p>The C API's <code>ailiaPredict</code> only supports one input and one output. For multi-IO models, write each input via <code>ailiaSetInputBlobData</code>, run inference with <code>ailiaUpdate</code>, then read each output via <code>ailiaGetBlobData</code>. Use <code>ailiaFindBlobIndexByName</code> to look up blob indices by name.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How are tensor data types handled?</summary>
+        <p>Input and output tensor buffers are always passed as float (FP32) regardless of the underlying ONNX datatype. Internally ailia executes the model using whatever datatype the ONNX defines (FP16, INT8 quantization, etc.). You can query the actual datatype of any blob with <code>ailiaGetBlobDataType</code>.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I profile inference performance?</summary>
+        <p>A built-in profiler reports per-layer timing.</p>
+        <p><strong>Python:</strong> call <code>net.set_profile_mode(True)</code>, run inference, and read the per-layer summary with <code>net.get_summary()</code>.</p>
+        <p><strong>C:</strong> enable profiling with <code>ailiaSetProfileMode</code>, run inference, then call <code>ailiaGetSummaryLength</code> to get the buffer size and <code>ailiaSummary</code> to fill it with the summary string.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I reduce memory usage?</summary>
+        <p>The default mode is speed-first and keeps every intermediate tensor in memory. Enabling intermediate reuse and constant reduction lowers peak memory.</p>
+        <p><strong>Python:</strong> pass a bit-flag to <code>set_memory_mode</code>:</p>
+        <pre class="code-block"><code class="language-python">memory_mode = ailia.get_memory_mode(
+    reduce_constant=True,
+    ignore_input_with_initializer=True,
+    reduce_interstage=False,
+    reuse_interstage=True,
+)
+net.set_memory_mode(memory_mode)</code></pre>
+        <p><strong>C:</strong> the equivalent control is <code>ailiaSetMemoryMode</code>. OR together flags such as <code>AILIA_MEMORY_REDUCE_CONSTANT</code> and <code>AILIA_MEMORY_REUSE_INTERSTAGE</code>.</p>
+      </details>
+
+      <details class="faq-item">
         <summary>Where can I get help?</summary>
         <p>For bug reports and questions on the sample repositories, open an issue on the relevant GitHub repo. For SDK licensing and commercial inquiries, contact <a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a> directly.</p>
       </details>
