@@ -78,26 +78,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>評価版を入手</h3>
-            <p>無料トライアルに申し込むと、C++ バインディング、ランタイムライブラリ、ライセンスファイルを含む評価版パッケージを入手できます。</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TRACKER" target="_blank" class="card-link">無料トライアルを申し込む</a>
+            <h3>サンプルをクローン</h3>
+            <p>C++ サンプルリポジトリをクローンしてサブモジュールを初期化します。ailia-tracker-cpp バインディングはサブモジュールとして含まれています。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update
+
+# macOS: dylib の quarantine 属性を解除
+./xattr.sh</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/object_tracking/bytetrack" target="_blank" class="card-link">bytetrack サンプル</a>
+            <a href="https://github.com/ailia-ai/ailia-tracker-cpp" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>モデルをダウンロードしてビルド</h3>
-            <p>YOLOX-S 検出モデルをダウンロードしてバイナリと同じフォルダに配置し、サンプルをビルドして実行します。</p>
-            <pre><code class="language-bash"># Download model files into the binary folder
-curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx
-curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx.prototxt
+            <h3>ビルドして実行</h3>
+            <p>1 か月の評価ライセンスを取得し、CMake と OpenCV をインストールしてビルド、ByteTrack サンプルを実行します。<code>bytetrack.sh</code> が YOLOX-S 検出モデルを自動でダウンロードしてから動画を解析します。</p>
+            <pre><code class="language-bash"># 評価ライセンスを取得
+cd ailia
+python3 download_license.py
+cd ..
 
-# Build (macOS)
-clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
-  libailia.dylib libailia_audio.dylib \
-  libailia_tokenizer.dylib libailia_tracker.dylib \
-  -Wl,-rpath,./ -std=c++17
+# macOS
+brew install cmake opencv
+# Linux: apt install cmake libopencv-dev
+# Windows: install CMake and Visual Studio,
+#   then set OpenCV_DIR to your OpenCV build path
 
-./ailia_tracker_sample input.mp4</code></pre>
-            <a href="../tracker/cpp/en/setup.html" class="card-link">C++ セットアップガイド</a>
+cmake .
+cmake --build .
+cd object_tracking/bytetrack
+./bytetrack.sh    # use bytetrack.bat on Windows</code></pre>
+            <a href="cpp/jp/setup.html" class="card-link">C++ セットアップガイド</a>
           </div>
         </div>
       </div>
@@ -245,56 +258,77 @@ git submodule update --init --recursive</code></pre>
 
       <div class="platform-panel" data-platform="cpp">
         <pre class="code-block"><code class="language-cpp">#include "ailia_tracker.h"
+#include "ailia_detector.h"
 
 struct AILIATracker *tracker = nullptr;
 AILIATrackerSettings settings = {0.1f, 0.7f, 0.5f, 30, 0.8f};
-ailiaTrackerCreate(&amp;tracker, AILIA_TRACKER_ALGORITHM_BYTE_TRACK, &amp;settings);
+ailiaTrackerCreate(&amp;tracker, AILIA_TRACKER_ALGORITHM_BYTE_TRACK, &amp;settings,
+                   AILIA_TRACKER_SETTINGS_VERSION, AILIA_TRACKER_FLAG_NONE);
 
-for (auto &amp;d : detections) {
-    ailiaTrackerAddTarget(tracker, d.category, d.prob, d.x, d.y, d.w, d.h);
+// Per frame: feed detector outputs, compute, read tracked objects
+for (auto &amp;d : detectorObjects) {  // d is AILIADetectorObject
+    ailiaTrackerAddTarget(tracker, &amp;d, AILIA_DETECTOR_OBJECT_VERSION);
 }
 ailiaTrackerCompute(tracker);
 
-unsigned int n; ailiaTrackerGetObjectCount(tracker, &amp;n);
+unsigned int n;
+ailiaTrackerGetObjectCount(tracker, &amp;n);
+for (unsigned int i = 0; i &lt; n; i++) {
+    AILIATrackerObject obj;
+    ailiaTrackerGetObject(tracker, &amp;obj, i, AILIA_TRACKER_OBJECT_VERSION);
+    printf("ID %u  bbox %.2f %.2f %.2f %.2f\n", obj.id, obj.x, obj.y, obj.w, obj.h);
+}
+
 ailiaTrackerDestroy(tracker);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
         <pre class="code-block"><code class="language-csharp">using ailiaTracker;
+using ailiaDetector;
 
 var tracker = new AiliaTrackerModel();
-tracker.Open(AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
-             scoreThreshold: 0.1f, nmsThreshold: 0.7f,
-             trackThreshold: 0.5f, trackBuffer: 30, matchThreshold: 0.8f);
+var settings = new AiliaTracker.AILIATrackerSettings();
+settings.score_threshold = 0.1f;
+settings.nms_threshold = 0.7f;
+settings.track_threshold = 0.5f;
+settings.track_buffer = 30;
+settings.match_threshold = 0.8f;
+tracker.Create(AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK, settings);
 
-foreach (var d in detections) {
-    tracker.AddTarget(d.category, d.confidence, d.x, d.y, d.w, d.h);
+// Per frame: feed the detector output list, get back tracked objects
+List&lt;AiliaTracker.AILIATrackerObject&gt; tracked = tracker.Compute(detectorObjects);
+foreach (var obj in tracked) {
+    Debug.Log($"ID {obj.id}  bbox {obj.x} {obj.y} {obj.w} {obj.h}");
 }
-tracker.Compute();
 
-for (int i = 0; i &lt; tracker.GetObjectCount(); i++) {
-    var obj = tracker.GetObject(i);
-}</code></pre>
+tracker.Close();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code class="language-kotlin">val tracker = AiliaTracker(
+        <pre class="code-block"><code class="language-kotlin">val settings = AiliaTrackerSettings(
+    score_threshold = 0.1f, nms_threshold = 0.7f,
+    track_threshold = 0.5f, track_buffer = 30,
+    match_threshold = 0.8f,
+)
+val tracker = AiliaTracker(
     algorithm = AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
-    settings = AiliaTrackerSettings(
-        score_threshold = 0.1f, nms_threshold = 0.7f,
-        track_threshold = 0.5f, track_buffer = 30,
-        match_threshold = 0.8f,
-    ),
+    settings = settings,
 )
 
+// Per frame: feed each detector output, compute, then read tracked objects
 for (d in detections) {
-    tracker.addTarget(d.category, d.confidence, d.x, d.y, d.width, d.height)
+    tracker.addTarget(
+        category = d.category, prob = d.confidence,
+        x = d.x, y = d.y, w = d.width, h = d.height,
+    )
 }
 tracker.compute()
 
 for (i in 0 until tracker.getObjectCount()) {
-    val o = tracker.getObject(i)
+    val o = tracker.getObject(i) ?: continue
+    Log.d("ailia", "ID ${o.id}  bbox ${o.x} ${o.y} ${o.w} ${o.h}")
 }
+
 tracker.close()</code></pre>
       </div>
 
