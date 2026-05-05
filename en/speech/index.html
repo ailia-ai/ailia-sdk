@@ -323,17 +323,16 @@ text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
 
       <div class="platform-panel hidden" data-platform="cpp">
         <p class="section-subtitle">The C API drives the following 3-state machine directly:</p>
-        <pre class="code-block">WAITING_INPUT  ─[pushInputData / finalizeInputData]─►  BUFFERED
-
-BUFFERED       ─[transcribe]─►  BUFFERED       (more chunks queued)
-                                WAITING_INPUT  (buffer drained, waiting for more audio)
-                                COMPLETE       (all chunks transcribed after finalize)
-
-COMPLETE       ─[resetTranscribeState]─►  WAITING_INPUT
-
-
-Currently BUFFERED? : ailiaSpeechBuffered()
-Currently COMPLETE? : ailiaSpeechComplete()</pre>
+        <pre class="mermaid">
+stateDiagram-v2
+    direction LR
+    WAITING_INPUT --> BUFFERED: pushInputData / finalizeInputData
+    BUFFERED --> BUFFERED: transcribe — more chunks queued
+    BUFFERED --> WAITING_INPUT: transcribe — buffer drained
+    BUFFERED --> COMPLETE: transcribe — all done after finalize
+    COMPLETE --> WAITING_INPUT: resetTranscribeState
+        </pre>
+        <p class="section-subtitle">Currently BUFFERED? <code>ailiaSpeechBuffered()</code> / Currently COMPLETE? <code>ailiaSpeechComplete()</code></p>
         <pre class="code-block"><code class="language-cpp">#include "ailia_speech.h"
 #include "ailia_speech_util.h"
 
@@ -373,15 +372,15 @@ ailiaSpeechDestroy(speech);</code></pre>
 
       <div class="platform-panel hidden" data-platform="unity">
         <p class="section-subtitle">The C# wrapper's <code>Transcribe</code> runs asynchronously. After the final chunk (<code>isFinal=true</code>), poll <code>IsCompleted()</code> for completion:</p>
-        <pre class="code-block">READY        ─[Transcribe(isFinal=false)]─►  READY        (keep feeding chunks)
-READY        ─[Transcribe(isFinal=true)]──►  PROCESSING   (final chunk; async work begins)
-PROCESSING   ─(internal: drain complete)──►  COMPLETED
-COMPLETED    ─[ResetTranscribeState()]────►  READY
-
-
-Currently PROCESSING? : speech.IsProcessing()
-Currently COMPLETED?  : speech.IsCompleted()
-Read partial results  : speech.GetResults() / speech.GetIntermediateText()</pre>
+        <pre class="mermaid">
+stateDiagram-v2
+    direction LR
+    READY --> READY: Transcribe(isFinal=false)
+    READY --> PROCESSING: Transcribe(isFinal=true)
+    PROCESSING --> COMPLETED: drain complete
+    COMPLETED --> READY: ResetTranscribeState()
+        </pre>
+        <p class="section-subtitle">Currently PROCESSING? <code>speech.IsProcessing()</code> / Currently COMPLETED? <code>speech.IsCompleted()</code> / Read results: <code>speech.GetResults()</code> · <code>speech.GetIntermediateText()</code></p>
         <pre class="code-block"><code class="language-csharp">using ailiaSpeech;
 
 var speech = new AiliaSpeechModel();
@@ -418,17 +417,16 @@ for (final s in segments) print(s.text);</code></pre>
 
       <div class="platform-panel hidden" data-platform="jni">
         <p class="section-subtitle">The JNI wrapper exposes the same 3-state machine as the C API:</p>
-        <pre class="code-block">WAITING_INPUT  ─[pushInputData / finalizeInputData]─►  BUFFERED
-
-BUFFERED       ─[transcribe]─►  BUFFERED       (more chunks queued)
-                                WAITING_INPUT  (buffer drained, waiting for more audio)
-                                COMPLETE       (all chunks transcribed after finalize)
-
-COMPLETE       ─[resetTranscribeState]─►  WAITING_INPUT
-
-
-Currently BUFFERED? : speech.getBuffered()
-Currently COMPLETE? : speech.getComplete()</pre>
+        <pre class="mermaid">
+stateDiagram-v2
+    direction LR
+    WAITING_INPUT --> BUFFERED: pushInputData / finalizeInputData
+    BUFFERED --> BUFFERED: transcribe — more chunks queued
+    BUFFERED --> WAITING_INPUT: transcribe — buffer drained
+    BUFFERED --> COMPLETE: transcribe — all done after finalize
+    COMPLETE --> WAITING_INPUT: resetTranscribeState
+        </pre>
+        <p class="section-subtitle">Currently BUFFERED? <code>speech.getBuffered()</code> / Currently COMPLETE? <code>speech.getComplete()</code></p>
         <pre class="code-block"><code class="language-kotlin">val speech = AiliaSpeech(
     envId = -1,
     task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
@@ -657,6 +655,31 @@ speech.close()</code></pre>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+
+    async function renderVisibleIn(root) {
+      const nodes = root.querySelectorAll('pre.mermaid:not([data-processed])');
+      const visible = [...nodes].filter(n => n.offsetParent !== null);
+      if (visible.length === 0) return;
+      try { await mermaid.run({ nodes: visible }); }
+      catch (e) { console.error(e); }
+    }
+
+    await renderVisibleIn(document);
+
+    // Re-render when a previously hidden panel becomes visible.
+    document.querySelectorAll('.platform-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        requestAnimationFrame(() => {
+          const tabsBar = btn.closest('.platform-tabs');
+          const panels = tabsBar?.parentElement.querySelectorAll(':scope > .platform-panel:not(.hidden)');
+          panels?.forEach(renderVisibleIn);
+        });
+      });
+    });
+  </script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {
       btn.addEventListener('click', () => {
