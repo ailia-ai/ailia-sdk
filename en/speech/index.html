@@ -378,9 +378,9 @@ ailiaSpeechDestroy(speech);</code></pre>
         <pre class="mermaid">
 stateDiagram-v2
     direction LR
-    READY --> READY: Transcribe(isFinal=false)
-    READY --> PROCESSING: Transcribe(isFinal=true)
-    PROCESSING --> COMPLETED: drain complete
+    READY --> PROCESSING: Transcribe (async work begins)
+    PROCESSING --> READY: drain complete (isFinal=false)
+    PROCESSING --> COMPLETED: drain complete (isFinal=true)
     COMPLETED --> READY: ResetTranscribeState()
         </pre>
         <br>
