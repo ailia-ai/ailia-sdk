@@ -107,10 +107,9 @@ python3 example_ailia_speech.py</code></pre>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
 cd ailia-models-cpp
 git submodule init
-git submodule update
-
-# macOS: dylib の quarantine 属性を解除
-./xattr.sh</code></pre>
+git submodule update</code></pre>
+            <p>macOS の場合のみ、dylib の quarantine 属性を解除します。</p>
+            <pre><code class="language-bash">./xattr.sh</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
             <a href="https://github.com/ailia-ai/ailia-models-cpp/blob/master/audio_processing/whisper/whisper.cpp" target="_blank" class="card-link">whisper.cpp サンプル</a>
           </div>
@@ -552,7 +551,7 @@ speech.close()</code></pre>
 
         <details class="faq-item">
           <summary>固有名詞や専門用語の認識精度を上げるには?</summary>
-          <p>3 つの方法を組み合わせられます:</p>
+          <p>3 つの方法を組み合わせられます。</p>
           <p><strong>Prompt</strong> — 想定される単語の短いリスト (例: <code>"hardware software"</code>) を渡してデコードをバイアスします。</p>
           <p><strong>Constraints</strong> — 音声コマンド UI 向けに、文字集合や語彙 (例: <code>"command1,command2"</code>) でデコードを制限します。</p>
           <p><strong>自動補正辞書</strong> — <code>OpenDictionary</code> API で <code>phonetic,correct</code> 置換の CSV を読み込みます。</p>
@@ -570,7 +569,7 @@ speech.close()</code></pre>
 
         <details class="faq-item">
           <summary>C++ ではライセンスファイルをどこに置きますか?</summary>
-          <p>C++ バインディングはランタイムライブラリと同じ場所に <code>ailia.lic</code> を配置する必要があります:</p>
+          <p>C++ バインディングはランタイムライブラリと同じ場所に <code>ailia.lic</code> を配置する必要があります。</p>
           <p><strong>Windows:</strong> <code>ailia.dll</code> と同じフォルダ (サンプルでは <code>cpp/</code> 配下)。<br/>
           <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
           <strong>Linux:</strong> <code>~/.shalo/</code></p>
@@ -720,5 +719,6 @@ speech.close()</code></pre>
       });
     });
   </script>
+  <script src="../js/copy.js" defer></script>
 </body>
 </html>

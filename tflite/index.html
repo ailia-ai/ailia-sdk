@@ -108,10 +108,9 @@ python3 yolox.py -v 0</code></pre>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
 cd ailia-models-cpp
 git submodule init
-git submodule update
-
-# macOS: dylib の quarantine 属性を解除
-./xattr.sh</code></pre>
+git submodule update</code></pre>
+            <p>macOS の場合のみ、dylib の quarantine 属性を解除します。</p>
+            <pre><code class="language-bash">./xattr.sh</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
             <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/object_detection/yolox_tflite" target="_blank" class="card-link">yolox_tflite サンプル</a>
           </div>
@@ -528,5 +527,6 @@ tflite.close()</code></pre>
       });
     });
   </script>
+  <script src="../js/copy.js" defer></script>
 </body>
 </html>

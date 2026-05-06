@@ -83,10 +83,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
 cd ailia-models-cpp
 git submodule init
-git submodule update
-
-# macOS: dylib の quarantine 属性を解除
-./xattr.sh</code></pre>
+git submodule update</code></pre>
+            <p>macOS の場合のみ、dylib の quarantine 属性を解除します。</p>
+            <pre><code class="language-bash">./xattr.sh</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
             <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/object_tracking/bytetrack" target="_blank" class="card-link">bytetrack サンプル</a>
           </div>
@@ -377,7 +376,7 @@ tracker.close()</code></pre>
 
       <details class="faq-item">
         <summary>モデルファイルはどこからダウンロードできますか?</summary>
-        <p>YOLOX-S の重みと prototxt:</p>
+        <p>YOLOX-S の重みと prototxt。</p>
         <p><a href="https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx" target="_blank">yolox_s.opt.onnx</a><br/>
         <a href="https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx.prototxt" target="_blank">yolox_s.opt.onnx.prototxt</a></p>
         <p>両方のファイルをサンプルバイナリと同じフォルダに配置してください。</p>
@@ -410,7 +409,7 @@ tracker.close()</code></pre>
 
       <details class="faq-item">
         <summary>ライセンスはどう扱われますか?</summary>
-        <p>C++ バインディングは評価版パッケージの <code>ailia.lic</code> をランタイムライブラリと同じ場所に配置する必要があります:</p>
+        <p>C++ バインディングは評価版パッケージの <code>ailia.lic</code> をランタイムライブラリと同じ場所に配置する必要があります。</p>
         <p><strong>Windows:</strong> <code>ailia.dll</code> と同じフォルダ。<br/>
         <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
         <strong>Linux:</strong> <code>~/.shalo/</code></p>
@@ -489,5 +488,6 @@ tracker.close()</code></pre>
       });
     });
   </script>
+  <script src="../js/copy.js" defer></script>
 </body>
 </html>

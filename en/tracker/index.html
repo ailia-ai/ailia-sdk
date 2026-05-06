@@ -83,10 +83,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
 cd ailia-models-cpp
 git submodule init
-git submodule update
-
-# macOS: clear the quarantine attribute on bundled dylibs
-./xattr.sh</code></pre>
+git submodule update</code></pre>
+            <p>On macOS only, clear the quarantine attribute on the bundled dylibs:</p>
+            <pre><code class="language-bash">./xattr.sh</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">Sample Repository</a>
             <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/object_tracking/bytetrack" target="_blank" class="card-link">bytetrack sample</a>
           </div>
@@ -485,5 +484,6 @@ tracker.close()</code></pre>
       });
     });
   </script>
+  <script src="../../js/copy.js" defer></script>
 </body>
 </html>

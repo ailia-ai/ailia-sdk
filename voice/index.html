@@ -106,10 +106,9 @@ python3 example_ailia_voice.py</code></pre>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
 cd ailia-models-cpp
 git submodule init
-git submodule update
-
-# macOS: dylib の quarantine 属性を解除
-./xattr.sh</code></pre>
+git submodule update</code></pre>
+            <p>macOS の場合のみ、dylib の quarantine 属性を解除します。</p>
+            <pre><code class="language-bash">./xattr.sh</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
             <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/audio_processing/gpt-sovits-v2-pro" target="_blank" class="card-link">gpt-sovits-v2-pro サンプル</a>
           </div>
@@ -517,7 +516,7 @@ val result = voice.synthesizeVoice(feature)</code></pre>
 
         <details class="faq-item">
           <summary>独自の発音辞書を作成するには?</summary>
-          <p>ailia Voice は日本語の音素変換に OpenJtalk を内蔵しています。発音を上書きするには、MeCab 形式の <code>userdic.csv</code> を用意し (末尾の <code>0/5</code> は 5 モーラ・アクセント位置 0 を表します)、pyopenjtalk でバイナリ <code>.dic</code> に変換します:</p>
+          <p>ailia Voice は日本語の音素変換に OpenJtalk を内蔵しています。発音を上書きするには、MeCab 形式の <code>userdic.csv</code> を用意し (末尾の <code>0/5</code> は 5 モーラ・アクセント位置 0 を表します)、pyopenjtalk でバイナリ <code>.dic</code> に変換します。</p>
           <pre><code class="language-bash">import pyopenjtalk
 pyopenjtalk.mecab_dict_index("userdic.csv", "userdic.dic")</code></pre>
           <p>その後、Python では <code>initialize_model()</code> に <code>user_dict_path</code> を渡し、C では <code>ailiaVoiceSetUserDictionary</code> を呼び出します。v3 用の <a href="https://storage.googleapis.com/ailia-models/gpt-sovits-v3/user.dict" target="_blank">標準ユーザー辞書</a> も利用できます。</p>
@@ -530,7 +529,7 @@ pyopenjtalk.mecab_dict_index("userdic.csv", "userdic.dic")</code></pre>
 
         <details class="faq-item">
           <summary>C++ で使うとき、ライセンスファイルはどこに置きますか?</summary>
-          <p>C++ バインディングはランタイムライブラリと同じ場所に <code>ailia.lic</code> を配置する必要があります:</p>
+          <p>C++ バインディングはランタイムライブラリと同じ場所に <code>ailia.lic</code> を配置する必要があります。</p>
           <p><strong>Windows:</strong> <code>ailia.dll</code> と同じフォルダ (サンプルでは <code>cpp/</code> 配下)。<br/>
           <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
           <strong>Linux:</strong> <code>~/.shalo/</code></p>
@@ -651,5 +650,6 @@ pyopenjtalk.mecab_dict_index("userdic.csv", "userdic.dic")</code></pre>
       });
     });
   </script>
+  <script src="../js/copy.js" defer></script>
 </body>
 </html>
