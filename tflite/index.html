@@ -421,7 +421,7 @@ tflite.close()</code></pre>
 
       <details class="faq-item">
         <summary>バックエンド (CPU / NPU / MKL) を切り替えるには?</summary>
-        <p><code>ailia_tflite.Interpreter</code> 構築時に <code>env_id</code> (および任意で <code>flags</code> / <code>num_threads</code>) を指定します。デフォルトはプラットフォーム上で最速のバックエンドを自動選択します。</p>
+        <p><code>ailia_tflite.Interpreter</code> 構築時に <code>env_id</code> (および任意で <code>flags</code> / <code>num_threads</code>) を指定します。デフォルトは CPU で MKL が使用されます。Android で NPU を使用するには <code>ENV_NNAPI</code> を指定する必要があります。</p>
       </details>
 
       <details class="faq-item">
