@@ -421,7 +421,7 @@ tflite.close()</code></pre>
 
       <details class="faq-item">
         <summary>How do I switch back-ends (CPU / NPU / MKL)?</summary>
-        <p>Pass <code>env_id</code> (and optional <code>flags</code> / <code>num_threads</code>) when constructing <code>ailia_tflite.Interpreter</code>. The default chooses the fastest available back-end for your platform.</p>
+        <p>Pass <code>env_id</code> (and optional <code>flags</code> / <code>num_threads</code>) when constructing <code>ailia_tflite.Interpreter</code>. The default uses the CPU back-end with MKL; to run on the Android NPU you must specify <code>AILIA_TFLITE_ENV_NNAPI</code> (=1).</p>
       </details>
 
       <details class="faq-item">
