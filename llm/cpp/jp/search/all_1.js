@@ -40,7 +40,8 @@ var searchData=
   ['ailiallmsetmultimodalprompt_40',['ailiaLLMSetMultimodalPrompt',['../ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162',1,'ailia_llm.h']]],
   ['ailiallmsetprompt_41',['ailiaLLMSetPrompt',['../ailia__llm_8h.html#a0b39179b9fc2b13f30f9b5ff257aaaab',1,'ailia_llm.h']]],
   ['ailiallmsetsamplingparams_42',['ailiaLLMSetSamplingParams',['../ailia__llm_8h.html#aa8736950603715cb8e47792bd05376d9',1,'ailia_llm.h']]],
-  ['api_43',['api',['../md_md_c_api.html',1,'']]],
-  ['api_2emd_44',['api.md',['../api_8md.html',1,'']]],
-  ['apiの使用方法_45',['APIの使用方法',['../api.html',1,'']]]
+  ['ailiallmsetthinking_43',['ailiaLLMSetThinking',['../ailia__llm_8h.html#a3a7dddc99139c7deef91f985fb123f4c',1,'ailia_llm.h']]],
+  ['api_44',['api',['../md_md_c_api.html',1,'']]],
+  ['api_2emd_45',['api.md',['../api_8md.html',1,'']]],
+  ['apiの使用方法_46',['APIの使用方法',['../api.html',1,'']]]
 ];

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.0.0</span>
+   &#160;<span id="projectnumber">1.4.1.0</span>
    </div>
   </td>
  </tr>
@@ -98,6 +98,9 @@ $(function() {
 <tr class="memitem:a1e035d98b06ee69b970aa8a629ff2239"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a1e035d98b06ee69b970aa8a629ff2239">ailiaLLMSetSamplingParams</a> (IntPtr llm, uint top_k, float top_p, float temp, uint dist)</td></tr>
 <tr class="memdesc:a1e035d98b06ee69b970aa8a629ff2239"><td class="mdescLeft">&#160;</td><td class="mdescRight">サンプリングのパラメータを設定します。  <a href="classailiaLLM_1_1AiliaLLM.html#a1e035d98b06ee69b970aa8a629ff2239">[詳解]</a><br /></td></tr>
 <tr class="separator:a1e035d98b06ee69b970aa8a629ff2239"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72ccd909b7bc45a3938bc26a1ab1a5b5"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a72ccd909b7bc45a3938bc26a1ab1a5b5">ailiaLLMSetThinking</a> (IntPtr llm, uint enable)</td></tr>
+<tr class="memdesc:a72ccd909b7bc45a3938bc26a1ab1a5b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thinking（推論過程の出力）を有効または無効にします。  <a href="classailiaLLM_1_1AiliaLLM.html#a72ccd909b7bc45a3938bc26a1ab1a5b5">[詳解]</a><br /></td></tr>
+<tr class="separator:a72ccd909b7bc45a3938bc26a1ab1a5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dd8f7bcc0377f9a50fa22e19927faaa"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a1dd8f7bcc0377f9a50fa22e19927faaa">ailiaLLMSetPrompt</a> (IntPtr llm, IntPtr messages, uint messages_len)</td></tr>
 <tr class="memdesc:a1dd8f7bcc0377f9a50fa22e19927faaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">プロンプトを設定します。  <a href="classailiaLLM_1_1AiliaLLM.html#a1dd8f7bcc0377f9a50fa22e19927faaa">[詳解]</a><br /></td></tr>
 <tr class="separator:a1dd8f7bcc0377f9a50fa22e19927faaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -854,6 +857,45 @@ $(function() {
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
 <p>LLMのサンプリングの設定を行います。ailiaLLMSetPromptの前に実行する必要があります。 </p>
+
+</div>
+</div>
+<a id="a72ccd909b7bc45a3938bc26a1ab1a5b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72ccd909b7bc45a3938bc26a1ab1a5b5">&#9670;&nbsp;</a></span>ailiaLLMSetThinking()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMSetThinking </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Thinking（推論過程の出力）を有効または無効にします。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLMオブジェクトポインタへのポインタ </td></tr>
+    <tr><td class="paramname">enable</td><td>0で無効、0以外で有効（デフォルト：無効） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
+<p>Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ailiaLLMSetPromptの前に実行する必要があります。 </p>
 
 </div>
 </div>
