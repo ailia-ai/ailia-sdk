@@ -28,7 +28,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="twitter:title" content="ailia Tracker - Documentation">
   <meta name="twitter:description" content="ailia Tracker - Object movement tracking for real-time video analysis.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
-  <link rel="icon" type="image/png" href="../../ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
   <link rel="stylesheet" href="../../css/common.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 </head>
@@ -78,25 +78,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Get Evaluation Package</h3>
-            <p>Apply for the free trial to obtain the evaluation package, which contains the C++ binding, runtime libraries, and the license file.</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TRACKER?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+            <h3>Clone Samples</h3>
+            <p>Clone the C++ sample repository and initialize submodules. The ailia-tracker-cpp binding is included as a submodule.</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update</code></pre>
+            <p>On macOS only, clear the quarantine attribute on the bundled dylibs:</p>
+            <pre><code class="language-bash">./xattr.sh</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/object_tracking/bytetrack" target="_blank" class="card-link">bytetrack sample</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Download Models &amp; Build</h3>
-            <p>Download the YOLOX-S detector model and place it next to the binary, then build and run the sample.</p>
-            <pre><code class="language-bash"># Download model files into the binary folder
-curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx
-curl -O https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx.prototxt
+            <h3>Build &amp; Run</h3>
+            <p>Fetch the one-month evaluation license, install CMake and OpenCV, build, and run the ByteTrack sample. <code>bytetrack.sh</code> downloads the YOLOX-S detector ONNX on first run, then processes the video.</p>
+            <pre><code class="language-bash"># Fetch a one-month evaluation license
+cd ailia
+python3 download_license.py
+cd ..
 
-# Build (macOS)
-clang++ -o ailia_tracker_sample ailia_tracker_sample.cpp \
-  libailia.dylib libailia_audio.dylib \
-  libailia_tokenizer.dylib libailia_tracker.dylib \
-  -Wl,-rpath,./ -std=c++17
+# macOS
+brew install cmake opencv
+# Linux: apt install cmake libopencv-dev
+# Windows: install CMake and Visual Studio,
+#   then set OpenCV_DIR to your OpenCV build path
 
-./ailia_tracker_sample input.mp4</code></pre>
+cmake .
+cmake --build .
+cd object_tracking/bytetrack
+./bytetrack.sh    # use bytetrack.bat on Windows</code></pre>
             <a href="../../tracker/cpp/en/setup.html" class="card-link">Full C++ Setup Guide</a>
           </div>
         </div>
@@ -245,56 +256,77 @@ git submodule update --init --recursive</code></pre>
 
       <div class="platform-panel" data-platform="cpp">
         <pre class="code-block"><code class="language-cpp">#include "ailia_tracker.h"
+#include "ailia_detector.h"
 
 struct AILIATracker *tracker = nullptr;
 AILIATrackerSettings settings = {0.1f, 0.7f, 0.5f, 30, 0.8f};
-ailiaTrackerCreate(&amp;tracker, AILIA_TRACKER_ALGORITHM_BYTE_TRACK, &amp;settings);
+ailiaTrackerCreate(&amp;tracker, AILIA_TRACKER_ALGORITHM_BYTE_TRACK, &amp;settings,
+                   AILIA_TRACKER_SETTINGS_VERSION, AILIA_TRACKER_FLAG_NONE);
 
-for (auto &amp;d : detections) {
-    ailiaTrackerAddTarget(tracker, d.category, d.prob, d.x, d.y, d.w, d.h);
+// Per frame: feed detector outputs, compute, read tracked objects
+for (auto &amp;d : detectorObjects) {  // d is AILIADetectorObject
+    ailiaTrackerAddTarget(tracker, &amp;d, AILIA_DETECTOR_OBJECT_VERSION);
 }
 ailiaTrackerCompute(tracker);
 
-unsigned int n; ailiaTrackerGetObjectCount(tracker, &amp;n);
+unsigned int n;
+ailiaTrackerGetObjectCount(tracker, &amp;n);
+for (unsigned int i = 0; i &lt; n; i++) {
+    AILIATrackerObject obj;
+    ailiaTrackerGetObject(tracker, &amp;obj, i, AILIA_TRACKER_OBJECT_VERSION);
+    printf("ID %u  bbox %.2f %.2f %.2f %.2f\n", obj.id, obj.x, obj.y, obj.w, obj.h);
+}
+
 ailiaTrackerDestroy(tracker);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
         <pre class="code-block"><code class="language-csharp">using ailiaTracker;
+using ailiaDetector;
 
 var tracker = new AiliaTrackerModel();
-tracker.Open(AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
-             scoreThreshold: 0.1f, nmsThreshold: 0.7f,
-             trackThreshold: 0.5f, trackBuffer: 30, matchThreshold: 0.8f);
+var settings = new AiliaTracker.AILIATrackerSettings();
+settings.score_threshold = 0.1f;
+settings.nms_threshold = 0.7f;
+settings.track_threshold = 0.5f;
+settings.track_buffer = 30;
+settings.match_threshold = 0.8f;
+tracker.Create(AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK, settings);
 
-foreach (var d in detections) {
-    tracker.AddTarget(d.category, d.confidence, d.x, d.y, d.w, d.h);
+// Per frame: feed the detector output list, get back tracked objects
+List&lt;AiliaTracker.AILIATrackerObject&gt; tracked = tracker.Compute(detectorObjects);
+foreach (var obj in tracked) {
+    Debug.Log($"ID {obj.id}  bbox {obj.x} {obj.y} {obj.w} {obj.h}");
 }
-tracker.Compute();
 
-for (int i = 0; i &lt; tracker.GetObjectCount(); i++) {
-    var obj = tracker.GetObject(i);
-}</code></pre>
+tracker.Close();</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="jni">
-        <pre class="code-block"><code class="language-kotlin">val tracker = AiliaTracker(
+        <pre class="code-block"><code class="language-kotlin">val settings = AiliaTrackerSettings(
+    score_threshold = 0.1f, nms_threshold = 0.7f,
+    track_threshold = 0.5f, track_buffer = 30,
+    match_threshold = 0.8f,
+)
+val tracker = AiliaTracker(
     algorithm = AiliaTracker.AILIA_TRACKER_ALGORITHM_BYTE_TRACK,
-    settings = AiliaTrackerSettings(
-        score_threshold = 0.1f, nms_threshold = 0.7f,
-        track_threshold = 0.5f, track_buffer = 30,
-        match_threshold = 0.8f,
-    ),
+    settings = settings,
 )
 
+// Per frame: feed each detector output, compute, then read tracked objects
 for (d in detections) {
-    tracker.addTarget(d.category, d.confidence, d.x, d.y, d.width, d.height)
+    tracker.addTarget(
+        category = d.category, prob = d.confidence,
+        x = d.x, y = d.y, w = d.width, h = d.height,
+    )
 }
 tracker.compute()
 
 for (i in 0 until tracker.getObjectCount()) {
-    val o = tracker.getObject(i)
+    val o = tracker.getObject(i) ?: continue
+    Log.d("ailia", "ID ${o.id}  bbox ${o.x} ${o.y} ${o.w} ${o.h}")
 }
+
 tracker.close()</code></pre>
       </div>
 
@@ -309,6 +341,7 @@ tracker.close()</code></pre>
         <h3>C++</h3>
         <ul>
           <li><a href="../../tracker/cpp/en/">API</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-tracker-cpp" target="_blank">Binding</a></li>
         </ul>
       </div>
 
@@ -357,6 +390,11 @@ tracker.close()</code></pre>
       <details class="faq-item">
         <summary>What output information does the tracker produce?</summary>
         <p>For each tracked object: <code>id</code> (stable across frames), <code>category</code>, detection <code>prob</code>, and a normalized bounding box (<code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>) where 0 maps to the left/top edge and 1 maps to the right/bottom edge.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I tune the tracker parameters (score_threshold / track_threshold / track_buffer, etc.)?</summary>
+        <p>Detection score threshold, tracking buffer length, IoU match threshold and the rest are configured via the <code>AILIATrackerSettings</code> struct. For the meaning of each field, recommended values, and a brief overview of ByteTrack's behavior, see the <a href="../../tracker/cpp/en/api.html#autotoc_md6" target="_blank">ailia Tracker Parameters</a> section of the API docs.</p>
       </details>
 
       <details class="faq-item">
@@ -446,5 +484,6 @@ tracker.close()</code></pre>
       });
     });
   </script>
+  <script src="../../js/copy.js" defer></script>
 </body>
 </html>

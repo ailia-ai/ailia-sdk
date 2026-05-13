@@ -28,7 +28,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="twitter:title" content="ailia TFLite Runtime - Documentation">
   <meta name="twitter:description" content="ailia TFLite Runtime - AI inference engine for embedded devices such as NonOS and RTOS.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
-  <link rel="icon" type="image/png" href="../../ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
   <link rel="stylesheet" href="../../css/common.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 </head>
@@ -103,19 +103,36 @@ python3 yolox.py -v 0</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Get Evaluation Package</h3>
-            <p>Apply for the free trial to obtain the evaluation package, which contains the C99 binding (<code>ailia_tflite.h</code>), the runtime library, the license file, and a runnable sample.</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-TFLITE?lang=en" target="_blank" class="card-link">Apply for Free Trial</a>
+            <h3>Clone Samples</h3>
+            <p>Clone the C++ sample repository and initialize submodules. The ailia-tflite-cpp binding is included as a submodule.</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update</code></pre>
+            <p>On macOS only, clear the quarantine attribute on the bundled dylibs:</p>
+            <pre><code class="language-bash">./xattr.sh</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/object_detection/yolox_tflite" target="_blank" class="card-link">yolox_tflite sample</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Build &amp; Run</h3>
-            <p>Compile against the runtime library; the API mirrors TensorFlow Lite's C API. Designed for NonOS / RTOS targets, the C99 implementation is dependency-free aside from <code>libailia_tflite</code>.</p>
-            <pre><code class="language-bash"># macOS
-clang -o tflite_sample tflite_sample.c \
-  libailia_tflite.dylib -Wl,-rpath,./
+            <p>Fetch the one-month evaluation license, install CMake and OpenCV, build, and run the YOLOX TFLite sample. <code>yolox_tflite.sh</code> downloads the TFLite model on first run, then runs inference.</p>
+            <pre><code class="language-bash"># Fetch a one-month evaluation license
+cd ailia_tflite
+python3 download_license.py
+cd ..
 
-./tflite_sample model.tflite</code></pre>
+# macOS
+brew install cmake opencv
+# Linux: apt install cmake libopencv-dev
+# Windows: install CMake and Visual Studio,
+#   then set OpenCV_DIR to your OpenCV build path
+
+cmake .
+cmake --build .
+cd object_detection/yolox_tflite
+./yolox_tflite.sh    # use yolox_tflite.bat on Windows</code></pre>
             <a href="../../tflite/c/en/" class="card-link">C API Reference</a>
           </div>
         </div>
@@ -242,29 +259,56 @@ print(output.shape)</code></pre>
 
       <div class="platform-panel hidden" data-platform="c">
         <pre class="code-block"><code class="language-c">#include "ailia_tflite.h"
+#include &lt;math.h&gt;
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
-// Read model.tflite into a buffer
+// Load model.tflite into a buffer
 FILE *f = fopen("model.tflite", "rb");
 fseek(f, 0, SEEK_END);
 size_t len = ftell(f);
 fseek(f, 0, SEEK_SET);
-void *buf = malloc(len);
-fread(buf, 1, len, f);
+void *model = malloc(len);
+fread(model, 1, len, f);
 fclose(f);
 
 struct AILIATFLiteInstance *interp = NULL;
-ailiaTFLiteCreate(&amp;interp, buf, len,
+ailiaTFLiteCreate(&amp;interp, model, len,
                   NULL, NULL, NULL, NULL,    // default allocators
                   AILIA_TFLITE_ENV_REFERENCE,
                   AILIA_TFLITE_MEMORY_MODE_DEFAULT,
                   AILIA_TFLITE_FLAG_NONE);
-
 ailiaTFLiteAllocateTensors(interp);
+
+// Quantize float → int8 and write into the first input tensor
+int32_t in_idx;
+ailiaTFLiteGetInputTensorIndex(interp, &amp;in_idx, 0);
+float in_scale; int64_t in_zp;
+ailiaTFLiteGetTensorQuantizationScale(interp, &amp;in_scale, in_idx);
+ailiaTFLiteGetTensorQuantizationZeroPoint(interp, &amp;in_zp, in_idx);
+int8_t *in_buf = NULL;
+ailiaTFLiteGetTensorBuffer(interp, (void**)&amp;in_buf, in_idx);
+for (size_t i = 0; i &lt; in_count; i++) {
+    int32_t q = (int32_t)lroundf(input_float[i] / in_scale) + (int32_t)in_zp;
+    in_buf[i] = (int8_t)(q &lt; -128 ? -128 : q &gt; 127 ? 127 : q);
+}
+
 ailiaTFLitePredict(interp);
+
+// Dequantize int8 → float from the first output tensor
+int32_t out_idx;
+ailiaTFLiteGetOutputTensorIndex(interp, &amp;out_idx, 0);
+float out_scale; int64_t out_zp;
+ailiaTFLiteGetTensorQuantizationScale(interp, &amp;out_scale, out_idx);
+ailiaTFLiteGetTensorQuantizationZeroPoint(interp, &amp;out_zp, out_idx);
+const int8_t *out_buf = NULL;
+ailiaTFLiteGetTensorBuffer(interp, (void**)&amp;out_buf, out_idx);
+for (size_t i = 0; i &lt; out_count; i++) {
+    output_float[i] = (out_buf[i] - (int32_t)out_zp) * out_scale;
+}
+
 ailiaTFLiteDestroy(interp);
-free(buf);</code></pre>
+free(model);</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="unity">
@@ -315,6 +359,7 @@ tflite.close()</code></pre>
         <h3>C99</h3>
         <ul>
           <li><a href="../../tflite/c/en/">API</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-tflite-cpp" target="_blank">Binding</a></li>
         </ul>
       </div>
 
@@ -361,13 +406,22 @@ tflite.close()</code></pre>
       </details>
 
       <details class="faq-item">
+        <summary>How do I quantize a float tensor to Int8?</summary>
+        <p>Read the per-tensor quantization parameters via <code>ailiaTFLiteGetTensorQuantizationScale</code> and <code>ailiaTFLiteGetTensorQuantizationZeroPoint</code>.</p>
+        <p><strong>Float → Int8:</strong> <code>q = round(f / scale) + zero_point</code></p>
+        <p><strong>Int8 → Float:</strong> <code>f = (q − zero_point) × scale</code></p>
+        <p>Each TFLite tensor has a single scale and a single zero_point. Weights (e.g. Conv kernels) use per-channel scales (per-axis quantization) and the zero_point is fixed at 0. Inspect the per-channel layout with <code>ailiaTFLiteGetTensorQuantizationCount</code> and <code>ailiaTFLiteGetTensorQuantizationQuantizedDimension</code>.</p>
+        <p>For the full specification see the <a href="https://www.tensorflow.org/lite/performance/quantization_spec" target="_blank">TensorFlow Lite 8-bit quantization spec</a>.</p>
+      </details>
+
+      <details class="faq-item">
         <summary>Can I use it on microcontrollers?</summary>
         <p>The C99 core is designed for NonOS / RTOS and small footprint deployments. Specific MCU support depends on available memory and toolchain — contact ailia for embedded port details.</p>
       </details>
 
       <details class="faq-item">
         <summary>How do I switch back-ends (CPU / NPU / MKL)?</summary>
-        <p>Pass <code>env_id</code> (and optional <code>flags</code> / <code>num_threads</code>) when constructing <code>ailia_tflite.Interpreter</code>. The default chooses the fastest available back-end for your platform.</p>
+        <p>Pass <code>env_id</code> (and optional <code>flags</code> / <code>num_threads</code>) when constructing <code>ailia_tflite.Interpreter</code>. The default uses the CPU back-end with MKL; to run on the Android NPU you must specify <code>AILIA_TFLITE_ENV_NNAPI</code> (=1).</p>
       </details>
 
       <details class="faq-item">
@@ -469,5 +523,6 @@ tflite.close()</code></pre>
       });
     });
   </script>
+  <script src="../../js/copy.js" defer></script>
 </body>
 </html>

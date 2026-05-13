@@ -28,7 +28,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="twitter:title" content="ailia Tokenizer - ドキュメント">
   <meta name="twitter:description" content="ailia Tokenizer - Tokenization library for NLP text encoding and decoding.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
-  <link rel="icon" type="image/png" href="../ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 </head>
@@ -424,7 +424,7 @@ val text = tokenizer.decode(ids)</code></pre>
 
         <details class="faq-item">
           <summary>各トークナイザに必要な追加ファイルは?</summary>
-          <p>Whisper / CLIP / GPT-2 は単体で完結します。それ以外のトークナイザは関連ファイルを同じ場所に配置する必要があります:</p>
+          <p>Whisper / CLIP / GPT-2 は単体で完結します。それ以外のトークナイザは関連ファイルを同じ場所に配置する必要があります。</p>
           <p><strong>SentencePiece</strong> (T5 / XLM-RoBERTa / Marian / Llama / Gemma): <code>spiece.model</code> / <code>tokenizer.model</code> / <code>source.spm</code>。<br/>
           <strong>BERT (英語):</strong> <code>vocab.txt</code> + <code>tokenizer_config.json</code>。<br/>
           <strong>BERT 日本語:</strong> ipadic 辞書 + <code>vocab.txt</code> (NFKC 正規化は自動)。<br/>
@@ -435,7 +435,7 @@ val text = tokenizer.decode(ids)</code></pre>
 
         <details class="faq-item">
           <summary>C++ で使うとき、ライセンスファイルはどこに置きますか?</summary>
-          <p>C++ バインディングはランタイムライブラリと同じ場所に <code>ailia.lic</code> を配置する必要があります:</p>
+          <p>C++ バインディングはランタイムライブラリと同じ場所に <code>ailia.lic</code> を配置する必要があります。</p>
           <p><strong>Windows:</strong> <code>ailia.dll</code> と同じフォルダ (サンプルでは <code>cpp/</code> 配下)。<br/>
           <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
           <strong>Linux:</strong> <code>~/.shalo/</code></p>
@@ -537,5 +537,6 @@ val text = tokenizer.decode(ids)</code></pre>
       });
     });
   </script>
+  <script src="../js/copy.js" defer></script>
 </body>
 </html>

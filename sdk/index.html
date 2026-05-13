@@ -28,7 +28,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="twitter:title" content="ailia SDK - ドキュメント">
   <meta name="twitter:description" content="ailia SDK - ONNX inference API documentation for Python, C++, Unity, Flutter, and JNI.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
-  <link rel="icon" type="image/png" href="../ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 </head>
@@ -109,10 +109,9 @@ python3 yolox.py -v 0</code></pre>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
 cd ailia-models-cpp
 git submodule init
-git submodule update
-
-# macOS: clear the quarantine attribute on bundled dylibs
-./xattr.sh</code></pre>
+git submodule update</code></pre>
+            <p>macOS の場合のみ、dylib の quarantine 属性を解除します。</p>
+            <pre><code class="language-bash">./xattr.sh</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
             <a href="https://github.com/ailia-ai/ailia-sdk-cpp" target="_blank" class="card-link">バインディング</a>
           </div>
@@ -148,7 +147,8 @@ cd object_detection/yolox
             <div class="step-number">1</div>
             <h3>UPM でインストール</h3>
             <p>自分のプロジェクトに組み込む場合は、Unity の <em>Window &gt; Package Manager</em> を開き、<em>+ &gt; Add package from git URL</em> をクリックして下記のバインディング URL を入力します。</p>
-            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-sdk-unity.git</code></pre>
+            <pre><code class="language-bash">https://github.com/ailia-ai/ailia-sdk-unity.git
+https://github.com/ailia-ai/ailia-audio-unity.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-sdk-unity" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
@@ -172,6 +172,10 @@ cd object_detection/yolox
   ailia:
     git:
       url: https://github.com/ailia-ai/ailia-sdk-flutter.git
+      ref: main
+  ailia_audio:
+    git:
+      url: https://github.com/ailia-ai/ailia-audio-flutter.git
       ref: main</code></pre>
             <a href="https://github.com/ailia-ai/ailia-sdk-flutter" target="_blank" class="card-link">バインディング</a>
           </div>
@@ -195,7 +199,8 @@ flutter run</code></pre>
             <div class="step-number">1</div>
             <h3>バインディングをクローン</h3>
             <p>自分のプロジェクトに組み込む場合は、JNI バインディングリポジトリをクローンして Android Studio プロジェクトに追加します。</p>
-            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-jni.git</code></pre>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-jni.git
+git clone https://github.com/ailia-ai/ailia-audio-jni.git</code></pre>
             <a href="https://github.com/ailia-ai/ailia-sdk-jni" target="_blank" class="card-link">バインディング</a>
           </div>
           <div class="step">
@@ -417,6 +422,12 @@ println(output.size)</code></pre>
     <div class="faq-list">
 
       <details class="faq-item">
+        <summary>ailia SDK に含まれる API はどの範囲ですか?</summary>
+        <p><strong>ailia SDK に同梱:</strong> ONNX 推論 API (<code>ailia</code>) を中核に、画像分類向けの <code>Classification</code>、物体検出向けの <code>Detector</code>、骨格検出向けの <code>PoseEstimation</code> といった高レベルラッパー、および音声処理ユーティリティの <code>ailia Audio</code> が含まれます。</p>
+        <p><strong>サプリメンタルライブラリ (別パッケージ):</strong> <a href="../tokenizer/">ailia Tokenizer</a>、<a href="../speech/">ailia Speech</a>、<a href="../voice/">ailia Voice</a>、<a href="../tracker/">ailia Tracker</a> はサプリメンタルライブラリとして個別に提供しています。</p>
+      </details>
+
+      <details class="faq-item">
         <summary>評価ライセンスと製品ライセンスはどう違いますか?</summary>
         <p>評価ライセンスは Python / Unity / Flutter / JNI では実行時に自動でダウンロードされ、C++ では 1 か月有効です。開発・評価用に限ります。</p>
         <p>商用リリース・再配布・長期利用には製品ライセンスを申し込んでください。詳細は <a href="https://ailia.ai/license/" target="_blank">ailia ライセンス規約</a> を参照してください。</p>
@@ -446,6 +457,64 @@ println(output.size)</code></pre>
         <summary>PyTorch や TensorFlow のモデルを ailia 向け ONNX に変換するには?</summary>
         <p>各フレームワーク標準のツール (<code>torch.onnx.export</code> や <code>tf2onnx</code> など) で ONNX に書き出し、ailia SDK 同梱のスクリプトで対応する <code>.onnx.prototxt</code> を生成してください。</p>
         <p>詳しい手順は <a href="https://tech.ailia.ai/%E5%AD%A6%E7%BF%92%E3%81%97%E3%81%9F%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92ailia-sdk%E3%81%A7%E4%BD%BF%E7%94%A8%E3%81%A7%E3%81%8D%E3%82%8B%E5%BD%A2%E3%81%AB%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B-add271b8ebdd/" target="_blank">モデル変換チュートリアル</a> を参照してください。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>prototxt は必要ですか?</summary>
+        <p>ONNX モデルを直接読み込む場合 (たとえば <code>ailia.Net(stream=None, weight="model.onnx")</code>) は prototxt は不要です。<a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> では <a href="https://netron.app/" target="_blank">Netron</a> での可視化を高速化するために prototxt を同梱していますが、お客様自身のモデルを使う場合は prototxt なしで動作します。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>複数の入出力テンソルはどのように扱いますか?</summary>
+        <p>Python API では <code>net.run()</code> の引数に名前→numpy 配列の dict を渡すと複数入力を扱えます。同様に複数出力もリストで返ります。</p>
+        <p>C API の <code>ailiaPredict</code> は 1 入力 1 出力です。複数の入出力テンソルを扱う場合は、<code>ailiaSetInputBlobData</code> で各入力 blob にデータを書き込み、<code>ailiaUpdate</code> で推論を実行し、<code>ailiaGetBlobData</code> で各出力 blob の結果を取り出します。各 blob インデックスは <code>ailiaFindBlobIndexByName</code> で取得できます。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>データ型 (datatype) はどう扱いますか?</summary>
+        <p>入出力テンソルのバッファは ONNX の datatype に関わらず常に float (FP32) で受け渡しします。内部では ONNX が定義する datatype に応じた処理 (FP16 / INT8 量子化など) が実行されます。各 blob 自身の datatype は <code>ailiaGetBlobDataType</code> で取得できます。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>AILIAShape の x / y / z / w は何に対応しますか?</summary>
+        <p><code>AILIAShape</code> は最大 4 次元までを <code>x</code> / <code>y</code> / <code>z</code> / <code>w</code> + <code>dim</code> で表します。<strong><code>x</code> が最も内側 (innermost、メモリ連続側) の軸、<code>w</code> が最も外側 (outermost) の軸</strong>です。たとえば numpy で <code>(batch, channel, height, width)</code> の 4 次元テンソルなら <code>w = batch</code>、<code>z = channel</code>、<code>y = height</code>、<code>x = width</code> が対応します。</p>
+        <p>有効な軸数は <code>dim</code> フィールドが示します。</p>
+        <ul>
+          <li><code>dim = 0</code>: スカラー (ONNX の rank-0 テンソル)</li>
+          <li><code>dim = 1</code>: <code>x</code> のみ</li>
+          <li><code>dim = 2</code>: <code>x</code> と <code>y</code></li>
+          <li><code>dim = 3</code>: <code>x</code> / <code>y</code> / <code>z</code></li>
+          <li><code>dim = 4</code>: <code>x</code> / <code>y</code> / <code>z</code> / <code>w</code></li>
+        </ul>
+        <p>5 次元以上のテンソルは <code>AILIAShape</code> では表現できないため、<code>ailiaSetInputShapeND</code> / <code>ailiaGetOutputShapeND</code> (および <code>ailiaGetInputDim</code> / <code>ailiaGetOutputDim</code>) で <code>unsigned int*</code> 配列として直接形状を扱ってください。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>AILIA_STATUS_UNSETTLED_SHAPE が発生します</summary>
+        <p>dynamic shape (動的形状) でエクスポートされた ONNX モデルでは、入力形状を確定するまでエンジンは shape を解決できません。<code>ailiaSetInputShape</code> (5 次元以上は <code>ailiaSetInputShapeND</code>) を呼び出さずに推論や <code>ailiaGetOutputShape</code> を実行すると <code>AILIA_STATUS_UNSETTLED_SHAPE</code> (-18) が返ります。</p>
+        <p><strong>Python:</strong> <code>net.run()</code> 内部で入力配列の shape から自動的に <code>ailiaSetInputShape</code> を呼び出すため、利用者の追加対応は不要です。</p>
+        <p><strong>C / C# (Unity) / Kotlin (JNI) / Dart (Flutter):</strong> 推論前に明示的に <code>ailiaSetInputShape</code> (相当の API) を呼び出して形状を確定させてください。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>パフォーマンスを分析するには?</summary>
+        <p>レイヤーごとの処理時間を見られるプロファイラを内蔵しています。</p>
+        <p><strong>Python:</strong> <code>net.set_profile_mode(True)</code> でプロファイルを有効化してから推論し、<code>net.get_summary()</code> でレイヤー単位の処理時間サマリを取得します。</p>
+        <p><strong>C:</strong> <code>ailiaSetProfileMode</code> でプロファイルを有効化してから推論し、<code>ailiaGetSummaryLength</code> でバッファサイズを問い合わせ、<code>ailiaSummary</code> でサマリ文字列を取り出します。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>メモリ消費量を抑えるには?</summary>
+        <p>デフォルトは速度優先モードで、中間テンソルをすべてメモリに保持します。中間テンソルの再利用や定数の縮約を有効にすると、ピークメモリを削減できます。</p>
+        <p><strong>Python:</strong> <code>set_memory_mode</code> にビットフラグを渡します。</p>
+        <pre class="code-block"><code class="language-python">memory_mode = ailia.get_memory_mode(
+    reduce_constant=True,
+    ignore_input_with_initializer=True,
+    reduce_interstage=False,
+    reuse_interstage=True,
+)
+net.set_memory_mode(memory_mode)</code></pre>
+        <p><strong>C:</strong> 同等の制御は <code>ailiaSetMemoryMode</code> で行えます。<code>AILIA_MEMORY_REDUCE_CONSTANT</code> / <code>AILIA_MEMORY_REUSE_INTERSTAGE</code> などのフラグを OR 結合して渡してください。</p>
       </details>
 
       <details class="faq-item">
@@ -579,5 +648,6 @@ println(output.size)</code></pre>
       });
     });
   </script>
+  <script src="../js/copy.js" defer></script>
 </body>
 </html>
