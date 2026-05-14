@@ -88,22 +88,24 @@ Building the sample</h1>
 <p>Move to the <code>cpp</code> folder, then run the command corresponding to your OS as described below.</p>
 <h2><a class="anchor" id="autotoc_md21"></a>
 Windows</h2>
-<div class="fragment"><div class="line">cl ailia_llm_sample.cpp ailia_llm.lib</div>
+<div class="fragment"><div class="line">cl gemma4.cpp ailia_llm.lib</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md22"></a>
 macOS</h2>
-<div class="fragment"><div class="line">clang++ -o ailia_llm_sample ailia_llm_sample.cpp libailia_llm.dylib -Wl,-rpath,./ -std=c++17</div>
+<div class="fragment"><div class="line">clang++ -o gemma4 gemma4.cpp libailia_llm.dylib -Wl,-rpath,./ -std=c++17</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md23"></a>
 Linux</h2>
 <div class="fragment"><div class="line">export LD_LIBRARY_PATH=./</div>
-<div class="line">g++ -o ailia_llm_sample ailia_llm_sample.cpp libailia_llm.so</div>
+<div class="line">g++ -o gemma4 gemma4.cpp libailia_llm.so</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
 Model file download</h1>
-<p>Download the specified model file and place it in the models folder.</p>
-<p><a href="https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf?download=true">https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf?download=true</a></p>
+<p>Download the specified model file and place it in the same folder as the executable.</p>
+<p><a href="https://storage.googleapis.com/ailia-models/gemma/gemma-4-E2B-it-Q4_K_M.gguf">https://storage.googleapis.com/ailia-models/gemma/gemma-4-E2B-it-Q4_K_M.gguf</a></p>
 <h1><a class="anchor" id="autotoc_md25"></a>
 Running the sample</h1>
 <p>Run the sample by executing the command below.</p>
-<div class="fragment"><div class="line">./ailia_llm_sample</div>
+<div class="fragment"><div class="line">./gemma4 -m gemma-4-E2B-it-Q4_K_M.gguf</div>
+</div><!-- fragment --><p>You can also use the provided launcher script (<code>gemma4.sh</code> on macOS/Linux or <code>gemma4.bat</code> on Windows), which automatically downloads the model file if it does not yet exist and then runs the executable.</p>
+<div class="fragment"><div class="line">./gemma4.sh</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md26"></a>
 Platform-specific remarks</h1>
 <h2><a class="anchor" id="autotoc_md27"></a>

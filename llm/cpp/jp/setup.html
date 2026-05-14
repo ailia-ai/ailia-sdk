@@ -82,22 +82,24 @@ Linux</h2>
 <p>cppフォルダに移動して、プラットフォーム別のビルドコマンドを実行します。</p>
 <h2><a class="anchor" id="autotoc_md9"></a>
 Windows</h2>
-<div class="fragment"><div class="line">cl ailia_llm_sample.cpp ailia_llm.lib</div>
+<div class="fragment"><div class="line">cl gemma4.cpp ailia_llm.lib</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md10"></a>
 macOS</h2>
-<div class="fragment"><div class="line">clang++ -o ailia_llm_sample ailia_llm_sample.cpp libailia_llm.dylib -Wl,-rpath,./ -std=c++17</div>
+<div class="fragment"><div class="line">clang++ -o gemma4 gemma4.cpp libailia_llm.dylib -Wl,-rpath,./ -std=c++17</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md11"></a>
 Linux</h2>
 <div class="fragment"><div class="line">export LD_LIBRARY_PATH=./</div>
-<div class="line">g++ -o ailia_llm_sample ailia_llm_sample.cpp libailia_llm.so</div>
+<div class="line">g++ -o gemma4 gemma4.cpp libailia_llm.so</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
 モデルファイルのダウンロード</h1>
-<p>下記のモデルファイルをダウンロードして、modelsフォルダに配置します。</p>
-<p><a href="https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf?download=true">https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf?download=true</a></p>
+<p>下記のモデルファイルをダウンロードして、実行ファイルと同じフォルダに配置します。</p>
+<p><a href="https://storage.googleapis.com/ailia-models/gemma/gemma-4-E2B-it-Q4_K_M.gguf">https://storage.googleapis.com/ailia-models/gemma/gemma-4-E2B-it-Q4_K_M.gguf</a></p>
 <h1><a class="anchor" id="autotoc_md13"></a>
 サンプルの実行</h1>
 <p>下記のコマンドでサンプルを実行します。</p>
-<div class="fragment"><div class="line">./ailia_llm_sample</div>
+<div class="fragment"><div class="line">./gemma4 -m gemma-4-E2B-it-Q4_K_M.gguf</div>
+</div><!-- fragment --><p>付属の起動スクリプト(macOS/Linuxでは<code>gemma4.sh</code>、Windowsでは<code>gemma4.bat</code>)を利用することもできます。スクリプトはモデルファイルが存在しない場合は自動でダウンロードし、その後実行ファイルを起動します。</p>
+<div class="fragment"><div class="line">./gemma4.sh</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md14"></a>
 プラットフォーム別の注意点</h1>
 <h2><a class="anchor" id="autotoc_md15"></a>
