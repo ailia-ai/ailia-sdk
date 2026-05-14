@@ -72,30 +72,25 @@ Compiler setup</h1>
 Windows</h2>
 <p>Requirements:</p><ul>
 <li>VisualStudio 2019 and higher</li>
+<li>CMake</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md18"></a>
 macOS</h2>
 <p>Requirements:</p><ul>
 <li>Xcode 14.2 and higher</li>
+<li>CMake</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md19"></a>
 Linux</h2>
 <p>Requirements:</p><ul>
 <li>clang</li>
+<li>CMake</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md20"></a>
 Building the sample</h1>
-<p>Move to the <code>cpp</code> folder, then run the command corresponding to your OS as described below.</p>
-<h2><a class="anchor" id="autotoc_md21"></a>
-Windows</h2>
-<div class="fragment"><div class="line">cl gemma4.cpp ailia_llm.lib</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md22"></a>
-macOS</h2>
-<div class="fragment"><div class="line">clang++ -o gemma4 gemma4.cpp libailia_llm.dylib -Wl,-rpath,./ -std=c++17</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md23"></a>
-Linux</h2>
-<div class="fragment"><div class="line">export LD_LIBRARY_PATH=./</div>
-<div class="line">g++ -o gemma4 gemma4.cpp libailia_llm.so</div>
+<p>Move to the sample folder (for example <code>large_language_model/gemma4</code>) and build with CMake.</p>
+<div class="fragment"><div class="line">cmake .</div>
+<div class="line">cmake --build .</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
 Running the sample</h1>
 <p>Use the launcher script (<code>gemma4.sh</code> on macOS/Linux or <code>gemma4.bat</code> on Windows). The script automatically downloads the model file if it does not yet exist, and then runs the executable.</p>
