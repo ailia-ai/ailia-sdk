@@ -97,15 +97,16 @@ Linux</h2>
 <div class="fragment"><div class="line">export LD_LIBRARY_PATH=./</div>
 <div class="line">g++ -o gemma4 gemma4.cpp libailia_llm.so</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
-Model file download</h1>
-<p>Download the specified model file and place it in the same folder as the executable.</p>
-<p><a href="https://storage.googleapis.com/ailia-models/gemma/gemma-4-E2B-it-Q4_K_M.gguf">https://storage.googleapis.com/ailia-models/gemma/gemma-4-E2B-it-Q4_K_M.gguf</a></p>
-<h1><a class="anchor" id="autotoc_md25"></a>
 Running the sample</h1>
-<p>Run the sample by executing the command below.</p>
-<div class="fragment"><div class="line">./gemma4 -m gemma-4-E2B-it-Q4_K_M.gguf</div>
-</div><!-- fragment --><p>You can also use the provided launcher script (<code>gemma4.sh</code> on macOS/Linux or <code>gemma4.bat</code> on Windows), which automatically downloads the model file if it does not yet exist and then runs the executable.</p>
+<p>Use the launcher script (<code>gemma4.sh</code> on macOS/Linux or <code>gemma4.bat</code> on Windows). The script automatically downloads the model file if it does not yet exist, and then runs the executable.</p>
+<h2>macOS / Linux</h2>
 <div class="fragment"><div class="line">./gemma4.sh</div>
+</div><!-- fragment --><h2>Windows</h2>
+<div class="fragment"><div class="line">gemma4.bat</div>
+</div><!-- fragment --><p>If you want to download the model file manually, you can obtain it from the URL below and place it in the same folder as the executable.</p>
+<p><a href="https://storage.googleapis.com/ailia-models/gemma/gemma-4-E2B-it-Q4_K_M.gguf">https://storage.googleapis.com/ailia-models/gemma/gemma-4-E2B-it-Q4_K_M.gguf</a></p>
+<p>Then run the executable directly:</p>
+<div class="fragment"><div class="line">./gemma4 -m gemma-4-E2B-it-Q4_K_M.gguf</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md26"></a>
 Platform-specific remarks</h1>
 <h2><a class="anchor" id="autotoc_md27"></a>
