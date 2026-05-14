@@ -107,14 +107,14 @@ python3 example_ailia_llm.py</code></pre>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>モデルをダウンロードして実行</h3>
-            <p>GGUF ファイル (例: Hugging Face の Gemma 2-2B) を <code>models/</code> に配置し、サンプルをビルドして実行します。</p>
-            <pre><code class="language-bash"># macOS
-clang++ -o ailia_llm_sample ailia_llm_sample.cpp \
-  libailia_llm.dylib -Wl,-rpath,./ -std=c++17
-
-./ailia_llm_sample</code></pre>
-            <a href="../llm/cpp/en/setup.html" class="card-link">C++ セットアップガイド</a>
+            <h3>サンプルを実行</h3>
+            <p><code>ailia-models-cpp</code> をクローンし、<code>large_language_model/gemma4</code> サンプルを CMake でビルドします。付属の起動スクリプト (<code>gemma4.sh</code> / <code>gemma4.bat</code>) を実行すると、初回は Gemma 3 4B の GGUF ファイルを自動でダウンロードし、チャット応答をストリーミング生成します。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp/large_language_model/gemma4
+cmake .
+cmake --build .
+./gemma4.sh</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/large_language_model/gemma4" target="_blank" class="card-link">gemma4 サンプル</a>
           </div>
         </div>
       </div>
