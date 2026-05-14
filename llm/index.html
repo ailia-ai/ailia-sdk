@@ -101,20 +101,36 @@ python3 example_ailia_llm.py</code></pre>
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>評価版を入手</h3>
-            <p>無料トライアルに申し込むと、C++ バインディング (<code>ailia_llm.h</code>)、ランタイムライブラリ (<code>ailia_llm</code>)、実行可能サンプルを含む評価版パッケージを入手できます。</p>
-            <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM" target="_blank" class="card-link">無料トライアルを申し込む</a>
+            <h3>サンプルをクローン</h3>
+            <p>C++ サンプルリポジトリをクローンしてサブモジュールを初期化します。ailia-llm-cpp バインディングはサブモジュールとして含まれています。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
+cd ailia-models-cpp
+git submodule init
+git submodule update</code></pre>
+            <p>macOS の場合のみ、dylib の quarantine 属性を解除します。</p>
+            <pre><code class="language-bash">./xattr.sh</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp" target="_blank" class="card-link">サンプルリポジトリ</a>
+            <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/large_language_model/gemma4" target="_blank" class="card-link">gemma4 サンプル</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>サンプルを実行</h3>
-            <p><code>ailia-models-cpp</code> をクローンし、<code>large_language_model/gemma4</code> サンプルを CMake でビルドします。付属の起動スクリプト (<code>gemma4.sh</code> / <code>gemma4.bat</code>) を実行すると、初回は Gemma 3 4B の GGUF ファイルを自動でダウンロードし、チャット応答をストリーミング生成します。</p>
-            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-cpp.git
-cd ailia-models-cpp/large_language_model/gemma4
-cmake .
+            <h3>ビルドして実行</h3>
+            <p>1 か月の評価ライセンスを取得し、CMake をインストールしてビルド、gemma4 サンプルを実行します。<code>gemma4.sh</code> がモデル GGUF ファイルを自動でダウンロードしてからチャット応答をストリーミング生成します。</p>
+            <pre><code class="language-bash"># 評価ライセンスを取得
+cd ailia
+python3 download_license.py
+cd ..
+
+# macOS
+brew install cmake
+# Linux: apt install cmake
+# Windows: install CMake and Visual Studio
+
+cmake -DWITH_OPENCV=OFF .
 cmake --build .
-./gemma4.sh</code></pre>
-            <a href="https://github.com/ailia-ai/ailia-models-cpp/tree/master/large_language_model/gemma4" target="_blank" class="card-link">gemma4 サンプル</a>
+cd large_language_model/gemma4
+./gemma4.sh    # use gemma4.bat on Windows</code></pre>
+            <a href="cpp/jp/setup.html" class="card-link">C++ セットアップガイド</a>
           </div>
         </div>
       </div>
