@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows on Arm Setup Guide - ailia SDK</title>
+  <meta name="description" content="How to set up Python, OpenCV, numpy, and ailia SDK on Windows on Arm (WoA).">
+  <link rel="canonical" href="https://docs.ailia.ai/en/setup/woa/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/woa/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/woa/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/setup/woa/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/setup/woa/">
+  <meta property="og:title" content="Windows on Arm Setup Guide - ailia SDK">
+  <meta property="og:description" content="How to set up Python, OpenCV, numpy, and ailia SDK on Windows on Arm (WoA).">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Windows on Arm Setup Guide - ailia SDK">
+  <meta name="twitter:description" content="How to set up Python, OpenCV, numpy, and ailia SDK on Windows on Arm (WoA).">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../../ailia_logo.png">
+  <link rel="stylesheet" href="../../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../sdk/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../../setup/woa/" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Windows on Arm Setup Guide</h1>
+    <p>How to set up Python, OpenCV, numpy, and ailia SDK on Windows on Arm (WoA).</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>Overview</h2>
+    <p>Windows on Arm (WoA) is a Windows environment that runs on Arm processors. This guide explains how to set up ailia SDK on PCs equipped with Arm-based processors such as Snapdragon X Elite.</p>
+
+    <h2>Installing Python</h2>
+    <p>On Windows on Arm, you need to install the Arm native version of Python. Follow the official Arm guide below:</p>
+    <p><a href="https://learn.arm.com/install-guides/py-woa/" target="_blank">https://learn.arm.com/install-guides/py-woa/</a></p>
+
+    <div class="note">
+      <strong>Note:</strong> Make sure to install the Arm native version of Python, not the x86 version. Using the Arm native version provides optimal performance.
+    </div>
+
+    <h2>Installing numpy</h2>
+    <p>numpy can be installed via pip:</p>
+    <pre><code class="language-bash">pip3 install numpy</code></pre>
+    <p>This will install numpy 2.4.6.</p>
+
+    <h2>Installing OpenCV</h2>
+    <p>On Windows on Arm, install OpenCV Headless with the following command:</p>
+    <pre><code class="language-bash">python -m pip install opencv_python_headless-4.10.0.84-cp313-cp313-win_arm64.whl</code></pre>
+
+    <div class="note">
+      <strong>Note:</strong> OpenCV Headless does not include GUI functionality. Functions such as <code>cv2.imshow()</code> are not available. If you need to display images, save them to a file using <code>cv2.imwrite()</code> or use another library.
+    </div>
+
+    <h2>Installing ailia SDK</h2>
+    <p>From ailia SDK 1.7 onwards, you can install it via pip:</p>
+    <pre><code class="language-bash">pip3 install ailia</code></pre>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
