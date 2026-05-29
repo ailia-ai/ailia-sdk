@@ -161,4 +161,20 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/vulkan/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/vulkan/"/>
   </url>
+  <url>
+    <loc>https://docs.ailia.ai/setup/woa/</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/woa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/woa/"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/setup/woa/</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/woa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/woa/"/>
+  </url>
 </urlset>
