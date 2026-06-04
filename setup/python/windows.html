@@ -80,12 +80,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2>1. Python のインストール</h2>
     <p>Python 公式サイトからインストーラをダウンロードします。ailia SDK は Python 3.6 以降に対応しています（特に理由がなければ最新の安定版で問題ありません）。</p>
     <ol>
-      <li>ブラウザで <a href="https://www.python.org/downloads/windows/" target="_blank">Python 公式ダウンロードページ</a> を開きます。</li>
-      <li>「Download Python 3.x.x」ボタンをクリックして、Windows 用インストーラ（<code>.exe</code>）をダウンロードします。</li>
+      <li>ブラウザで <a href="https://www.python.org/downloads/" target="_blank">Python 公式ダウンロードページ</a> を開きます。</li>
+      <li>ページ上部にある大きな黄色い <strong>「Download Python 3.x.x」</strong> ボタンをクリックします。これで 64bit 版の Windows インストーラ（<code>python-3.x.x-amd64.exe</code>）がダウンロードされます。</li>
       <li>ダウンロードした <code>.exe</code> をダブルクリックして実行します。</li>
       <li>インストーラの最初の画面で、一番下にある <strong>「Add python.exe to PATH」</strong>（または「Add Python to PATH」）に<strong>必ずチェックを入れます</strong>。</li>
       <li>「Install Now」をクリックしてインストールを完了します。</li>
     </ol>
+
+    <div class="note">
+      <strong>どれをダウンロードすればいい？</strong> ダウンロードページに複数の選択肢が並んでいて迷う場合は、次を目印にしてください。
+      <ul>
+        <li><strong>使うもの:</strong>「Stable Releases」の最新の <strong>Python 3.x.x</strong> にある <strong>「Windows installer (64-bit)」</strong>（ファイル名が <code>-amd64.exe</code> で終わる <code>.exe</code>）。通常の Intel / AMD の PC はこれです。</li>
+        <li><strong>使わないもの:</strong>「Python install manager」の <strong>MSIX / MSI</strong> は新しい管理ツール用で、初心者は使う必要はありません。「embeddable package」も組み込み用途なので不要です。</li>
+        <li><strong>ARM64</strong> 版は Snapdragon などの Arm プロセッサ搭載 PC 専用です。その場合は <a href="../woa/">Windows on Arm セットアップガイド</a> を参照してください。</li>
+      </ul>
+    </div>
 
     <div class="note">
       <strong>重要:</strong> 「Add python.exe to PATH」のチェックを忘れると、コマンドプロンプトで <code>python</code> や <code>pip</code> が「見つかりません」となります。チェックを入れ忘れた場合は、もう一度インストーラを実行して「Modify」から PATH を追加するか、アンインストール後にチェックを入れて再インストールしてください。
