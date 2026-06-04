@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows で Python・pip・git をインストールする - ailia SDK</title>
+  <meta name="description" content="プログラミング初心者向けに、Windows で Python、pip、git、Visual C++ 再頒布可能パッケージをインストールして ailia SDK を使い始めるまでの手順を丁寧に解説します。">
+  <link rel="canonical" href="https://docs.ailia.ai/setup/windows/python.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/windows/python.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/windows/python.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/setup/windows/python.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/setup/windows/python.html">
+  <meta property="og:title" content="Windows で Python・pip・git をインストールする - ailia SDK">
+  <meta property="og:description" content="プログラミング初心者向けに、Windows で Python、pip、git、Visual C++ 再頒布可能パッケージをインストールして ailia SDK を使い始めるまでの手順を丁寧に解説します。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Windows で Python・pip・git をインストールする - ailia SDK">
+  <meta name="twitter:description" content="プログラミング初心者向けに、Windows で Python、pip、git、Visual C++ 再頒布可能パッケージをインストールして ailia SDK を使い始めるまでの手順を丁寧に解説します。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../sdk/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../en/setup/windows/python.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Windows で Python・pip・git をインストールする</h1>
+    <p>プログラミングがはじめての方向けに、ailia SDK を使い始めるための開発環境を Windows 上に整える手順を丁寧に解説します。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>このガイドについて</h2>
+    <p>ailia SDK を Python から使うには、<strong>Python</strong>・<strong>pip</strong>・<strong>git</strong> の 3 つが必要です。このガイドでは、それぞれが何をするものなのかと、Windows 10 / 11 へのインストール手順を順番に説明します。すべて完了すると <code>pip3 install ailia</code> でサンプルを動かせるようになります。</p>
+    <ul>
+      <li><strong>Python</strong> &mdash; プログラムを書いて実行するための言語と実行環境です。ailia SDK のサンプルは Python で書かれています。</li>
+      <li><strong>pip</strong> &mdash; Python のパッケージ（ライブラリ）をインターネットからインストールするツールです。Python に同梱されています。</li>
+      <li><strong>git</strong> &mdash; プログラムを GitHub などからダウンロード（クローン）するためのツールです。サンプル集 <code>ailia-models</code> の取得に使います。</li>
+    </ul>
+
+    <div class="note">
+      <strong>所要時間の目安:</strong> 3 つあわせて 15〜20 分ほどです。インストール中にダウンロードが発生するため、インターネットに接続した状態で進めてください。
+    </div>
+
+    <h2>1. Python のインストール</h2>
+    <p>Python 公式サイトからインストーラをダウンロードします。ailia SDK は Python 3.6 以降に対応しています（特に理由がなければ最新の安定版で問題ありません）。</p>
+    <ol>
+      <li>ブラウザで <a href="https://www.python.org/downloads/windows/" target="_blank">Python 公式ダウンロードページ</a> を開きます。</li>
+      <li>「Download Python 3.x.x」ボタンをクリックして、Windows 用インストーラ（<code>.exe</code>）をダウンロードします。</li>
+      <li>ダウンロードした <code>.exe</code> をダブルクリックして実行します。</li>
+      <li>インストーラの最初の画面で、一番下にある <strong>「Add python.exe to PATH」</strong>（または「Add Python to PATH」）に<strong>必ずチェックを入れます</strong>。</li>
+      <li>「Install Now」をクリックしてインストールを完了します。</li>
+    </ol>
+
+    <div class="note">
+      <strong>重要:</strong> 「Add python.exe to PATH」のチェックを忘れると、コマンドプロンプトで <code>python</code> や <code>pip</code> が「見つかりません」となります。チェックを入れ忘れた場合は、もう一度インストーラを実行して「Modify」から PATH を追加するか、アンインストール後にチェックを入れて再インストールしてください。
+    </div>
+
+    <h3>インストールの確認</h3>
+    <p>スタートメニューから「コマンド プロンプト」を開き、次のコマンドを入力して Enter キーを押します。</p>
+    <pre><code class="language-bash">python --version</code></pre>
+    <p>次のようにバージョンが表示されればインストール成功です（数字は環境によって異なります）。</p>
+    <pre><code class="language-text">Python 3.13.1</code></pre>
+
+    <div class="note">
+      <strong>補足:</strong> Windows では <code>python</code> と入力すると Microsoft Store のページが開いてしまうことがあります。その場合は、上記の手順で python.org からインストールし直すか、<code>py --version</code> を試してください。
+    </div>
+
+    <h2>2. pip の確認とアップデート</h2>
+    <p>pip は Python に同梱されているため、Python をインストールすれば別途インストールする必要はありません。まず使えることを確認します。</p>
+    <pre><code class="language-bash">pip3 --version</code></pre>
+    <p>バージョンが表示されれば利用可能です。古いままだとインストールに失敗することがあるため、最新版に更新しておくことをおすすめします。</p>
+    <pre><code class="language-bash">python -m pip install --upgrade pip</code></pre>
+
+    <div class="note">
+      <strong>補足:</strong> 環境によって <code>pip3</code> ではなく <code>pip</code> がコマンド名になっている場合があります。<code>pip3</code> で動かないときは <code>pip</code> を試してください。
+    </div>
+
+    <h2>3. git のインストール</h2>
+    <p>サンプル集（<code>ailia-models</code>）を GitHub から取得するために git をインストールします。</p>
+    <ol>
+      <li>ブラウザで <a href="https://git-scm.com/download/win" target="_blank">Git for Windows ダウンロードページ</a> を開きます。</li>
+      <li>「64-bit Git for Windows Setup」をクリックしてインストーラをダウンロードします。</li>
+      <li>ダウンロードした <code>.exe</code> を実行します。</li>
+      <li>インストール中はオプションが多数表示されますが、<strong>すべて初期設定（デフォルト）のまま「Next」を押し続けて問題ありません</strong>。最後に「Install」をクリックします。</li>
+    </ol>
+
+    <h3>インストールの確認</h3>
+    <p>インストール後、<strong>新しく</strong>コマンドプロンプトを開き直してから次のコマンドを実行します。</p>
+    <pre><code class="language-bash">git --version</code></pre>
+    <p>次のようにバージョンが表示されれば成功です。</p>
+    <pre><code class="language-text">git version 2.47.1.windows.1</code></pre>
+
+    <div class="note">
+      <strong>補足:</strong> インストール直後に開いていたコマンドプロンプトでは <code>git</code> が認識されないことがあります。一度ウィンドウを閉じて開き直すと反映されます。
+    </div>
+
+    <h2>4. Visual C++ 再頒布可能パッケージのインストール</h2>
+    <p>ailia SDK の本体は C/C++ で書かれたネイティブライブラリです。これを Windows 上で動かすには、Microsoft の <strong>Visual C++ 再頒布可能パッケージ（VC++ Redistributable）</strong>が必要です。インストールされていないと、<code>import ailia</code> の際に DLL の読み込みエラーが発生することがあります。</p>
+    <ol>
+      <li>次のリンクから 64bit 版インストーラ（<code>vc_redist.x64.exe</code>）をダウンロードします。<br><a href="https://aka.ms/vc14/vc_redist.x64.exe" target="_blank">https://aka.ms/vc14/vc_redist.x64.exe</a></li>
+      <li>ダウンロードした <code>vc_redist.x64.exe</code> を実行し、画面の指示に従ってインストールします。</li>
+      <li>インストール後、PC の再起動を求められた場合は再起動してください。</li>
+    </ol>
+    <p>最新の対応バージョンや、他のアーキテクチャ（x86 / Arm64）向けのインストーラは、Microsoft の公式ページで確認できます。</p>
+    <p><a href="https://learn.microsoft.com/ja-jp/cpp/windows/latest-supported-vc-redist?view=msvc-170" target="_blank">サポートされている最新の Visual C++ 再頒布可能パッケージのダウンロード（Microsoft Learn）</a></p>
+
+    <div class="note">
+      <strong>補足:</strong> 他のアプリケーションを通じて既に VC++ 再頒布可能パッケージがインストールされている場合は、インストーラが「既にインストールされています」と表示します。その場合はそのまま閉じて問題ありません。
+    </div>
+
+    <h2>5. ailia SDK をインストールして動かす</h2>
+    <p>Python・pip・git が揃ったら、いよいよ ailia SDK をインストールします。コマンドプロンプトで次を実行します。</p>
+    <pre><code class="language-bash">pip3 install ailia</code></pre>
+    <p>続いて、サンプル集をクローンして実行してみましょう。</p>
+    <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
+cd ailia-models
+pip3 install -r requirements.txt
+cd object_detection/yolox
+python3 yolox.py -v 0</code></pre>
+    <p>Web カメラの映像に物体検出の結果が重ねて表示されれば成功です。詳しい使い方は <a href="../../sdk/">ailia SDK のはじめに</a> を参照してください。</p>
+
+    <div class="note">
+      <strong>次のステップ:</strong> GPU で高速に動かしたい場合は、NVIDIA GPU 向けの <a href="../cuda/">CUDA Toolkit / cuDNN インストールガイド</a> や、クロスプラットフォームの <a href="../vulkan/">Vulkan セットアップガイド</a> もあわせて参照してください。
+    </div>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

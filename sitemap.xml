@@ -177,4 +177,20 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/woa/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/woa/"/>
   </url>
+  <url>
+    <loc>https://docs.ailia.ai/setup/windows/python.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/windows/python.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/windows/python.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/setup/windows/python.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/windows/python.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/windows/python.html"/>
+  </url>
 </urlset>
