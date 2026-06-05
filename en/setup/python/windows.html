@@ -66,7 +66,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p class="os-nav"><strong>Choose your OS:</strong> Windows &middot; <a href="mac.html">Mac</a> &middot; <a href="linux.html">Linux</a></p>
 
     <h2>About this guide</h2>
-    <p>To use ailia SDK from Python, you need three things: <strong>Python</strong>, <strong>pip</strong>, and <strong>git</strong>. This guide explains what each of them does and walks you through installing them on Windows 10 / 11. Once everything is in place, you will be able to run the samples with <code>pip3 install ailia</code>.</p>
+    <p>To use ailia SDK from Python, you need three things: <strong>Python</strong>, <strong>pip</strong>, and <strong>git</strong>. This guide explains what each of them does and walks you through installing them on Windows 10 / 11. Once everything is in place, you will be able to run the samples with <code>python -m pip install ailia</code>.</p>
     <ul>
       <li><strong>Python</strong> &mdash; the language and runtime for writing and running programs. The ailia SDK samples are written in Python.</li>
       <li><strong>pip</strong> &mdash; the tool for installing Python packages (libraries) from the internet. It comes bundled with Python.</li>
@@ -101,7 +101,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h3>Verifying the installation</h3>
-    <p>Open "Command Prompt" from the Start menu, type the following command, and press Enter.</p>
+    <p>Open "Command Prompt" from the Windows Start menu, type the following command, and press Enter.</p>
     <pre><code class="language-bash">python --version</code></pre>
     <p>If the version is displayed as below, the installation succeeded (the numbers vary by environment).</p>
     <pre><code class="language-text">Python 3.13.1</code></pre>
@@ -112,12 +112,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>2. Checking and updating pip</h2>
     <p>pip comes bundled with Python, so there is no need to install it separately once Python is installed. First, confirm that it is available.</p>
-    <pre><code class="language-bash">pip3 --version</code></pre>
+    <pre><code class="language-bash">python -m pip --version</code></pre>
     <p>If a version is displayed, it is ready to use. An outdated pip can cause installation failures, so we recommend updating it to the latest version.</p>
     <pre><code class="language-bash">python -m pip install --upgrade pip</code></pre>
 
     <div class="note">
-      <strong>Tip:</strong> Depending on your environment, the command may be <code>pip</code> rather than <code>pip3</code>. If <code>pip3</code> does not work, try <code>pip</code>.
+      <strong>Tip:</strong> On Windows, the standalone <code>pip3</code> or <code>pip</code> commands may not work depending on your PATH setup. Running pip <strong>as <code>python -m pip ...</code></strong> reliably targets the same Python as your <code>python</code> command, so this guide uses that form throughout.
     </div>
 
     <h2>3. Installing git</h2>
@@ -155,13 +155,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>5. Installing and running ailia SDK</h2>
     <p>Once Python, pip, and git are in place, you can finally install ailia SDK. Run the following in the Command Prompt.</p>
-    <pre><code class="language-bash">pip3 install ailia</code></pre>
+    <pre><code class="language-bash">python -m pip install ailia</code></pre>
     <p>Next, let's clone the sample collection and run it.</p>
     <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
 cd ailia-models
-pip3 install -r requirements.txt
+python -m pip install -r requirements.txt
 cd object_detection/yolox
-python3 yolox.py -v 0</code></pre>
+python yolox.py -v 0</code></pre>
     <p>If object detection results are overlaid on your webcam feed, it worked. For more details on how to use it, see the <a href="../../sdk/">ailia SDK getting started page</a>.</p>
 
     <div class="note">
