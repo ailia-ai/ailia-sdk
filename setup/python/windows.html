@@ -66,7 +66,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p class="os-nav"><strong>OS を選択:</strong> Windows ・ <a href="mac.html">Mac</a> ・ <a href="linux.html">Linux</a></p>
 
     <h2>このガイドについて</h2>
-    <p>ailia SDK を Python から使うには、<strong>Python</strong>・<strong>pip</strong>・<strong>git</strong> の 3 つが必要です。このガイドでは、それぞれが何をするものなのかと、Windows 10 / 11 へのインストール手順を順番に説明します。すべて完了すると <code>python -m pip install ailia</code> でサンプルを動かせるようになります。</p>
+    <p>ailia SDK を Python から使うには、<strong>Python</strong>・<strong>pip</strong>・<strong>git</strong> の 3 つが必要です。このガイドでは、それぞれが何をするものなのかと、Windows 10 / 11 へのインストール手順を順番に説明します。すべて完了すると <code>pip install ailia</code> でサンプルを動かせるようになります。</p>
     <ul>
       <li><strong>Python</strong> &mdash; プログラムを書いて実行するための言語と実行環境です。ailia SDK のサンプルは Python で書かれています。</li>
       <li><strong>pip</strong> &mdash; Python のパッケージ（ライブラリ）をインターネットからインストールするツールです。Python に同梱されています。</li>
@@ -112,19 +112,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>2. pip の確認とアップデート</h2>
     <p>pip は Python に同梱されているため、Python をインストールすれば別途インストールする必要はありません。まず使えることを確認します。</p>
-    <pre><code class="language-bash">python -m pip --version</code></pre>
+    <pre><code class="language-bash">pip --version</code></pre>
     <p>バージョンが表示されれば利用可能です。古いままだとインストールに失敗することがあるため、最新版に更新しておくことをおすすめします。</p>
-    <pre><code class="language-bash">python -m pip install --upgrade pip</code></pre>
+    <pre><code class="language-bash">pip install --upgrade pip</code></pre>
 
     <div class="note">
-      <strong>補足:</strong> Windows では <code>pip3</code> や <code>pip</code> 単体のコマンドが PATH の状態によって使えないことがあります。<strong><code>python -m pip ...</code> の形で実行する</strong>と、<code>python</code> コマンドと同じ Python に対して確実に pip を実行できるため、このガイドではこの形に統一しています。
+      <strong>補足:</strong> <code>pip</code> コマンドが「見つかりません」と表示される場合は、<code>pip</code> の代わりに <strong><code>python -m pip</code></strong> に置き換えて実行してください（例: <code>python -m pip --version</code>）。こちらは <code>python</code> コマンドと同じ Python に対して確実に pip を実行できます。
     </div>
 
     <h2>3. git のインストール</h2>
     <p>サンプル集（<code>ailia-models</code>）を GitHub から取得するために git をインストールします。</p>
     <ol>
       <li>ブラウザで <a href="https://git-scm.com/download/win" target="_blank">Git for Windows ダウンロードページ</a> を開きます。</li>
-      <li>「64-bit Git for Windows Setup」をクリックしてインストーラをダウンロードします。</li>
+      <li>「Git for Windows/x64 Setup」をクリックしてインストーラをダウンロードします。</li>
       <li>ダウンロードした <code>.exe</code> を実行します。</li>
       <li>インストール中はオプションが多数表示されますが、<strong>すべて初期設定（デフォルト）のまま「Next」を押し続けて問題ありません</strong>。最後に「Install」をクリックします。</li>
     </ol>
@@ -155,11 +155,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>5. ailia SDK をインストールして動かす</h2>
     <p>Python・pip・git が揃ったら、いよいよ ailia SDK をインストールします。コマンドプロンプトで次を実行します。</p>
-    <pre><code class="language-bash">python -m pip install ailia</code></pre>
+    <pre><code class="language-bash">pip install ailia</code></pre>
     <p>続いて、サンプル集をクローンして実行してみましょう。</p>
     <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
 cd ailia-models
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 cd object_detection/yolox
 python yolox.py -v 0</code></pre>
     <p>Web カメラの映像に物体検出の結果が重ねて表示されれば成功です。詳しい使い方は <a href="../../sdk/">ailia SDK のはじめに</a> を参照してください。</p>
