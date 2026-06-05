@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux で Python・pip・git をインストールする - ailia SDK</title>
+  <meta name="description" content="プログラミング初心者向けに、Linux (Ubuntu) で Python、pip、git を準備して ailia SDK を使い始めるまでの手順を丁寧に解説します。">
+  <link rel="canonical" href="https://docs.ailia.ai/setup/python/linux.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/python/linux.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/python/linux.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/setup/python/linux.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/setup/python/linux.html">
+  <meta property="og:title" content="Linux で Python・pip・git をインストールする - ailia SDK">
+  <meta property="og:description" content="プログラミング初心者向けに、Linux (Ubuntu) で Python、pip、git を準備して ailia SDK を使い始めるまでの手順を丁寧に解説します。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Linux で Python・pip・git をインストールする - ailia SDK">
+  <meta name="twitter:description" content="プログラミング初心者向けに、Linux (Ubuntu) で Python、pip、git を準備して ailia SDK を使い始めるまでの手順を丁寧に解説します。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../sdk/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../en/setup/python/linux.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Linux で Python・pip・git をインストールする</h1>
+    <p>プログラミングがはじめての方向けに、ailia SDK を使い始めるための開発環境を Linux 上に整える手順を丁寧に解説します。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <p class="os-nav"><strong>OS を選択:</strong> <a href="windows.html">Windows</a> ・ <a href="mac.html">Mac</a> ・ Linux</p>
+
+    <h2>このガイドについて</h2>
+    <p>ailia SDK を Python から使うには、<strong>Python</strong>・<strong>pip</strong>・<strong>git</strong> の 3 つが必要です。多くの Linux ディストリビューションには <strong>Python 3 が標準で用意されている</strong>ため、不足しているものだけをパッケージマネージャでインストールします。このガイドでは Ubuntu / Debian 系を例に説明します。</p>
+    <ul>
+      <li><strong>Python</strong> &mdash; プログラムを書いて実行するための言語と実行環境です。多くの環境に同梱されています。</li>
+      <li><strong>pip</strong> &mdash; Python のパッケージ（ライブラリ）をインターネットからインストールするツールです。</li>
+      <li><strong>git</strong> &mdash; プログラムを GitHub などからダウンロード（クローン）するためのツールです。サンプル集 <code>ailia-models</code> の取得に使います。</li>
+    </ul>
+
+    <div class="note">
+      <strong>補足:</strong> ここでは Ubuntu / Debian 系の <code>apt</code> を使います。Fedora / RHEL 系は <code>sudo dnf install</code>、Arch 系は <code>sudo pacman -S</code> に読み替えてください。
+    </div>
+
+    <h2>1. Python の確認とインストール</h2>
+    <p>まず Python 3 が入っているか確認します。</p>
+    <pre><code class="language-bash">python3 --version</code></pre>
+    <p>バージョンが表示されれば利用できます。入っていない場合は次のコマンドでインストールします。</p>
+    <pre><code class="language-bash">sudo apt update
+sudo apt install python3</code></pre>
+
+    <h2>2. pip のインストール</h2>
+    <p>Linux では pip が別パッケージになっていることが多いため、次のコマンドでインストールします。</p>
+    <pre><code class="language-bash">sudo apt install python3-pip</code></pre>
+    <p>インストールできたら確認します。</p>
+    <pre><code class="language-bash">pip3 --version</code></pre>
+
+    <h2>3. git のインストール</h2>
+    <p>サンプル集（<code>ailia-models</code>）を GitHub から取得するために git をインストールします。</p>
+    <pre><code class="language-bash">sudo apt install git</code></pre>
+    <p>インストールできたら確認します。</p>
+    <pre><code class="language-bash">git --version</code></pre>
+
+    <h2>4. ailia SDK をインストールして動かす</h2>
+    <p>Python・pip・git が揃ったら、いよいよ ailia SDK をインストールします。次を実行します。</p>
+    <pre><code class="language-bash">pip3 install ailia</code></pre>
+    <p>続いて、サンプル集をクローンして実行してみましょう。</p>
+    <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
+cd ailia-models
+pip3 install -r requirements.txt
+cd object_detection/yolox
+python3 yolox.py -v 0</code></pre>
+    <p>Web カメラの映像に物体検出の結果が重ねて表示されれば成功です。詳しい使い方は <a href="../../sdk/">ailia SDK のはじめに</a> を参照してください。</p>
+
+    <div class="note">
+      <strong>次のステップ:</strong> NVIDIA GPU で高速に動かしたい場合は <a href="../cuda/">CUDA Toolkit / cuDNN インストールガイド</a>、クロスプラットフォームの GPU バックエンドを使いたい場合は <a href="../vulkan/">Vulkan セットアップガイド</a> も参照してください。
+    </div>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

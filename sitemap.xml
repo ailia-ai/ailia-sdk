@@ -177,4 +177,68 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/woa/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/woa/"/>
   </url>
+  <url>
+    <loc>https://docs.ailia.ai/setup/python/</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/python/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/python/"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/setup/python/</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/python/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/python/"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/setup/python/windows.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/python/windows.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/python/windows.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/setup/python/windows.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/python/windows.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/python/windows.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/setup/python/mac.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/python/mac.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/python/mac.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/setup/python/mac.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/python/mac.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/python/mac.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/setup/python/linux.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/python/linux.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/python/linux.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/setup/python/linux.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/python/linux.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/python/linux.html"/>
+  </url>
 </urlset>
