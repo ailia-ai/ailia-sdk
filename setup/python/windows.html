@@ -78,10 +78,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h2>1. Python のインストール</h2>
-    <p>Python 公式サイトからインストーラをダウンロードします。ailia SDK は Python 3.6 以降に対応しています（特に理由がなければ最新の安定版で問題ありません）。</p>
+    <p>Python 公式サイトからインストーラをダウンロードします。ailia SDK は Python 3.6 以降に対応していますが、<strong>Python 3.12 以下</strong>を選んでインストールしてください。</p>
+
+    <div class="note">
+      <strong>重要:</strong> Python 3.13 以降では、一部のサンプルが依存する <code>numpy</code> 1.x のインストールに失敗することがあります。トラブルを避けるため、<strong>Python 3.12 系</strong>（例: 3.12.x）の利用をおすすめします。
+    </div>
+
     <ol>
-      <li>ブラウザで <a href="https://www.python.org/downloads/" target="_blank">Python 公式ダウンロードページ</a> を開きます。</li>
-      <li>ページ上部にある大きな黄色い <strong>「Download Python 3.x.x」</strong> ボタンをクリックします。これで 64bit 版の Windows インストーラ（<code>python-3.x.x-amd64.exe</code>）がダウンロードされます。</li>
+      <li>ブラウザで <a href="https://www.python.org/downloads/windows/" target="_blank">Python 公式ダウンロードページ（Windows）</a> を開きます。</li>
+      <li>「Stable Releases」から <strong>Python 3.12 系</strong>（例: Python 3.12.x）を探し、その下にある <strong>「Download Windows installer (64-bit)」</strong> をクリックして、64bit 版インストーラ（<code>python-3.12.x-amd64.exe</code>）をダウンロードします。</li>
       <li>ダウンロードした <code>.exe</code> をダブルクリックして実行します。</li>
       <li>インストーラの最初の画面で、一番下にある <strong>「Add python.exe to PATH」</strong>（または「Add Python to PATH」）に<strong>必ずチェックを入れます</strong>。</li>
       <li>「Install Now」をクリックしてインストールを完了します。</li>
@@ -90,8 +95,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="note">
       <strong>どれをダウンロードすればいい？</strong> ダウンロードページに複数の選択肢が並んでいて迷う場合は、次を目印にしてください。
       <ul>
-        <li><strong>使うもの:</strong>「Stable Releases」の最新の <strong>Python 3.x.x</strong> にある <strong>「Windows installer (64-bit)」</strong>（ファイル名が <code>-amd64.exe</code> で終わる <code>.exe</code>）。通常の Intel / AMD の PC はこれを使用します。</li>
-        <li><strong>使わないもの:</strong>「Python install manager」の <strong>MSIX / MSI</strong> は新しい管理ツール用で、ここでは使う必要はありません。「embeddable package」も組み込み用途なので不要です。</li>
+        <li><strong>使うもの:</strong> <strong>Python 3.12 系</strong>の <strong>「Windows installer (64-bit)」</strong>（ファイル名が <code>-amd64.exe</code> で終わる <code>.exe</code>）。通常の Intel / AMD の PC はこれを使用します。</li>
+        <li><strong>使わないもの:</strong>「Python install manager」の <strong>MSIX / MSI</strong> は新しい管理ツール用で、ここでは使う必要はありません。「embeddable package」も組み込み用途なので不要です。Python 3.13 以降も今回は選ばないでください。</li>
         <li><strong>ARM64</strong> 版は Snapdragon などの Arm プロセッサ搭載 PC 専用です。その場合は <a href="../woa/">Windows on Arm セットアップガイド</a> を参照してください。</li>
       </ul>
     </div>
@@ -104,7 +109,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Windows のスタートメニューから「コマンド プロンプト」を開き、次のコマンドを入力して Enter キーを押します。</p>
     <pre><code class="language-bash">python --version</code></pre>
     <p>次のようにバージョンが表示されればインストール成功です（数字は環境によって異なります）。</p>
-    <pre><code class="language-text">Python 3.13.1</code></pre>
+    <pre><code class="language-text">Python 3.12.7</code></pre>
 
     <div class="note">
       <strong>補足:</strong> Windows では <code>python</code> と入力すると Microsoft Store のページが開いてしまうことがあります。その場合は、上記の手順で python.org からインストールし直すか、<code>py --version</code> を試してください。

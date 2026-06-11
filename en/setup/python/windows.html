@@ -78,10 +78,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h2>1. Installing Python</h2>
-    <p>Download the installer from the official Python website. ailia SDK supports Python 3.6 and later (the latest stable release is fine unless you have a specific reason otherwise).</p>
+    <p>Download the installer from the official Python website. ailia SDK supports Python 3.6 and later, but please install <strong>Python 3.12 or earlier</strong>.</p>
+
+    <div class="note">
+      <strong>Important:</strong> On Python 3.13 and later, installing <code>numpy</code> 1.x (which some samples depend on) can fail. To avoid trouble, we recommend using <strong>Python 3.12.x</strong>.
+    </div>
+
     <ol>
-      <li>Open the <a href="https://www.python.org/downloads/" target="_blank">official Python download page</a> in your browser.</li>
-      <li>Click the large yellow <strong>"Download Python 3.x.x"</strong> button at the top of the page. This downloads the 64-bit Windows installer (<code>python-3.x.x-amd64.exe</code>).</li>
+      <li>Open the <a href="https://www.python.org/downloads/windows/" target="_blank">official Python download page for Windows</a> in your browser.</li>
+      <li>Under "Stable Releases", find a <strong>Python 3.12.x</strong> release and click <strong>"Download Windows installer (64-bit)"</strong> beneath it to download the 64-bit installer (<code>python-3.12.x-amd64.exe</code>).</li>
       <li>Double-click the downloaded <code>.exe</code> to run it.</li>
       <li>On the first screen of the installer, <strong>be sure to check</strong> <strong>"Add python.exe to PATH"</strong> (or "Add Python to PATH") at the bottom.</li>
       <li>Click "Install Now" to complete the installation.</li>
@@ -90,8 +95,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="note">
       <strong>Which file should I download?</strong> If the download page shows several options and you are unsure, use these as a guide:
       <ul>
-        <li><strong>Use this:</strong> the <strong>"Windows installer (64-bit)"</strong> under the latest <strong>Python 3.x.x</strong> in "Stable Releases" (a <code>.exe</code> whose name ends in <code>-amd64.exe</code>). This is the right choice for a typical Intel / AMD PC.</li>
-        <li><strong>Skip these:</strong> the <strong>MSIX / MSI</strong> under "Python install manager" are for the newer management tool and are not needed here. The "embeddable package" is for embedding scenarios and is also not needed.</li>
+        <li><strong>Use this:</strong> the <strong>"Windows installer (64-bit)"</strong> for a <strong>Python 3.12.x</strong> release (a <code>.exe</code> whose name ends in <code>-amd64.exe</code>). This is the right choice for a typical Intel / AMD PC.</li>
+        <li><strong>Skip these:</strong> the <strong>MSIX / MSI</strong> under "Python install manager" are for the newer management tool and are not needed here. The "embeddable package" is for embedding scenarios and is also not needed. Also avoid Python 3.13 or later for now.</li>
         <li>The <strong>ARM64</strong> build is only for PCs with Arm processors such as Snapdragon. In that case, see the <a href="../woa/">Windows on Arm setup guide</a>.</li>
       </ul>
     </div>
@@ -104,7 +109,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Open "Command Prompt" from the Windows Start menu, type the following command, and press Enter.</p>
     <pre><code class="language-bash">python --version</code></pre>
     <p>If the version is displayed as below, the installation succeeded (the numbers vary by environment).</p>
-    <pre><code class="language-text">Python 3.13.1</code></pre>
+    <pre><code class="language-text">Python 3.12.7</code></pre>
 
     <div class="note">
       <strong>Tip:</strong> On Windows, typing <code>python</code> may open a Microsoft Store page. If that happens, reinstall from python.org using the steps above, or try <code>py --version</code>.
