@@ -249,7 +249,7 @@ flutter run</code></pre>
         <pre class="code-block"><code class="language-python">import ailia_llm
 
 model = ailia_llm.AiliaLLM()
-model.open("gemma-2-2b-it-Q4_K_M.gguf")
+model.open("gemma-4-E2B-it-Q4_K_M.gguf")
 
 messages = [{"role": "user", "content": "あなたの名前は何ですか？"}]
 for delta in model.generate(messages):
@@ -261,7 +261,7 @@ for delta in model.generate(messages):
 
 struct AILIALLM *llm = nullptr;
 ailiaLLMCreate(&amp;llm);
-ailiaLLMOpenModelFileA(llm, "gemma-2-2b-it-Q4_K_M.gguf", /*ctx_size=*/0);
+ailiaLLMOpenModelFileA(llm, "gemma-4-E2B-it-Q4_K_M.gguf", /*ctx_size=*/0);
 
 AILIALLMChatMessage messages[] = {
     {"user", "あなたの名前は何ですか？"},
@@ -287,7 +287,7 @@ ailiaLLMDestroy(llm);</code></pre>
 
 var llm = new AiliaLLMModel();
 llm.Create();
-llm.Open("gemma-2-2b-it-Q4_K_M.gguf");
+llm.Open("gemma-4-E2B-it-Q4_K_M.gguf");
 
 var messages = new List&lt;AiliaLLMChatMessage&gt; {
     new AiliaLLMChatMessage("user", "あなたの名前は何ですか？"),
@@ -306,7 +306,7 @@ llm.Close();</code></pre>
         <pre class="code-block"><code class="language-dart">import 'package:ailia_llm/ailia_llm.dart';
 
 final llm = AiliaLLMModel();
-await llm.open('gemma-2-2b-it-Q4_K_M.gguf');
+await llm.open('gemma-4-E2B-it-Q4_K_M.gguf');
 
 final messages = [AiliaLLMChatMessage(role: 'user', content: 'あなたの名前は何ですか？')];
 await for (final delta in llm.generate(messages)) {
