@@ -20,3 +20,21 @@ Classes
    :members:
    :undoc-members:
    :show-inheritance:
+
+.. autoclass:: ailia_voice.GPTSoVITSV2
+   :special-members: __init__, __name__
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: ailia_voice.GPTSoVITSV3
+   :special-members: __init__, __name__
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: ailia_voice.GPTSoVITSV2Pro
+   :special-members: __init__, __name__
+   :members:
+   :undoc-members:
+   :show-inheritance:
