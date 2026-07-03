@@ -56,6 +56,24 @@
 <li><a class="reference internal" href="#ailia_voice.GPTSoVITS.synthesize_voice"><code class="docutils literal notranslate"><span class="pre">GPTSoVITS.synthesize_voice()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV2"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV2</span></code></a><ul>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV2.initialize_model"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV2.initialize_model()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV3"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV3</span></code></a><ul>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV3.initialize_model"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV3.initialize_model()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV3.set_reference_audio"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV3.set_reference_audio()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV3.set_sample_steps"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV3.set_sample_steps()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV3.set_speed"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV3.set_speed()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV3.synthesize_voice"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV3.synthesize_voice()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV2Pro"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV2Pro</span></code></a><ul>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV2Pro.initialize_model"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV2Pro.initialize_model()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV2Pro.set_reference_audio"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV2Pro.set_reference_audio()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_voice.GPTSoVITSV2Pro.synthesize_voice"><code class="docutils literal notranslate"><span class="pre">GPTSoVITSV2Pro.synthesize_voice()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -214,6 +232,166 @@ Values &lt; 1.0 produce slower speech, &gt; 1.0 produce faster speech.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ailia_voice.GPTSoVITS.synthesize_voice">
 <span class="sig-name descname"><span class="pre">synthesize_voice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2p_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITS.synthesize_voice" title="Link to this definition">¶</a></dt>
+<dd><p>Synthesizes voice from input text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>string</em>) – Input text.</p></li>
+<li><p><strong>g2p_type</strong> (<em>int</em>) – Format of G2P. Specify with AILIA_VOICE_G2P_TYPE_GPT_SOVITS_*.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>buf</strong> (<em>np.ndarray</em>) – PCM data, formatted as either <cite>(num_samples)</cite>.</p></li>
+<li><p><strong>sampling_rate</strong> (<em>int</em>) – Sampling rate (Hz).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_voice.</span></span><span class="sig-name descname"><span class="pre">GPTSoVITSV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_thread</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV2" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailia_voice.GPTSoVITS" title="ailia_voice.GPTSoVITS"><code class="xref py py-class docutils literal notranslate"><span class="pre">GPTSoVITS</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV2.initialize_model">
+<span class="sig-name descname"><span class="pre">initialize_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_dict_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chinese</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV2.initialize_model" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize and download the GPT-SoVITS V2 model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: &quot;./&quot;</em>) – Destination for saving the model file.</p></li>
+<li><p><strong>user_dict_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Specify the path of the user dictionary. The user dictionary is in mecab format.</p></li>
+<li><p><strong>chinese</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default: False</em>) – Enable Chinese language support by downloading and loading Chinese G2P dictionary.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV3">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_voice.</span></span><span class="sig-name descname"><span class="pre">GPTSoVITSV3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_thread</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV3" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailia_voice.G2P" title="ailia_voice.G2P"><code class="xref py py-class docutils literal notranslate"><span class="pre">G2P</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV3.initialize_model">
+<span class="sig-name descname"><span class="pre">initialize_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_dict_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV3.initialize_model" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize and download the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: &quot;./&quot;</em>) – Destination for saving the model file.</p></li>
+<li><p><strong>user_dict_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Specify the path of the user dictionary. The user dictionary is in mecab format.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV3.set_reference_audio">
+<span class="sig-name descname"><span class="pre">set_reference_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref_text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2p_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_waveform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV3.set_reference_audio" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the voice that will serve as the timbre for speech synthesis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ref_text</strong> (<em>string</em><em>,</em>) – Text of the speech content in the audio PCM.</p></li>
+<li><p><strong>g2p_type</strong> (<em>int</em>) – Format of G2P. Specify with AILIA_VOICE_G2P_TYPE_GPT_SOVITS_*.</p></li>
+<li><p><strong>audio_waveform</strong> (<em>np.ndarray</em>) – PCM data, formatted as either <cite>(num_samples)</cite> or <cite>(channels, num_samples)</cite>.</p></li>
+<li><p><strong>sampling_rate</strong> (<em>int</em>) – Sampling rate (Hz).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV3.set_sample_steps">
+<span class="sig-name descname"><span class="pre">set_sample_steps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">steps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV3.set_sample_steps" title="Link to this definition">¶</a></dt>
+<dd><p>Set the number of CFM sampling steps for V3.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>steps</strong> (<em>int</em>) – Number of sampling steps (default 4).
+Smaller values are faster but may reduce quality.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV3.set_speed">
+<span class="sig-name descname"><span class="pre">set_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV3.set_speed" title="Link to this definition">¶</a></dt>
+<dd><p>Set the speech speed for synthesis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>speed</strong> (<em>float</em>) – Speed value (default 1.0, must be greater than 0).
+Values &lt; 1.0 produce slower speech, &gt; 1.0 produce faster speech.
+Supported by GPT-SoVITS V2 and V3. Not effective for V1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV3.synthesize_voice">
+<span class="sig-name descname"><span class="pre">synthesize_voice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2p_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV3.synthesize_voice" title="Link to this definition">¶</a></dt>
+<dd><p>Synthesizes voice from input text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>string</em>) – Input text.</p></li>
+<li><p><strong>g2p_type</strong> (<em>int</em>) – Format of G2P. Specify with AILIA_VOICE_G2P_TYPE_GPT_SOVITS_*.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>buf</strong> (<em>np.ndarray</em>) – PCM data, formatted as either <cite>(num_samples)</cite>.</p></li>
+<li><p><strong>sampling_rate</strong> (<em>int</em>) – Sampling rate (Hz).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV2Pro">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_voice.</span></span><span class="sig-name descname"><span class="pre">GPTSoVITSV2Pro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_thread</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV2Pro" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailia_voice.G2P" title="ailia_voice.G2P"><code class="xref py py-class docutils literal notranslate"><span class="pre">G2P</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV2Pro.initialize_model">
+<span class="sig-name descname"><span class="pre">initialize_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_dict_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV2Pro.initialize_model" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize and download the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: &quot;./&quot;</em>) – Destination for saving the model file.</p></li>
+<li><p><strong>user_dict_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Specify the path of the user dictionary. The user dictionary is in mecab format.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV2Pro.set_reference_audio">
+<span class="sig-name descname"><span class="pre">set_reference_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref_text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2p_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audio_waveform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV2Pro.set_reference_audio" title="Link to this definition">¶</a></dt>
+<dd><p>Specify the voice that will serve as the timbre for speech synthesis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ref_text</strong> (<em>string</em><em>,</em>) – Text of the speech content in the audio PCM.</p></li>
+<li><p><strong>g2p_type</strong> (<em>int</em>) – Format of G2P. Specify with AILIA_VOICE_G2P_TYPE_GPT_SOVITS_*.</p></li>
+<li><p><strong>audio_waveform</strong> (<em>np.ndarray</em>) – PCM data, formatted as either <cite>(num_samples)</cite> or <cite>(channels, num_samples)</cite>.</p></li>
+<li><p><strong>sampling_rate</strong> (<em>int</em>) – Sampling rate (Hz).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV2Pro.synthesize_voice">
+<span class="sig-name descname"><span class="pre">synthesize_voice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2p_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV2Pro.synthesize_voice" title="Link to this definition">¶</a></dt>
 <dd><p>Synthesizes voice from input text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
