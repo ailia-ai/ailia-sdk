@@ -99,16 +99,37 @@ High Level APIの概要</h2>
 <div class="line">  ailia_speech.Close();</div>
 <div class="line">}</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
+High Level APIの呼び出しフロー</h2>
+<p>各APIの関係図は下記となります。</p>
+<p> 
+<div class="mermaid">
+flowchart
+subgraph SINK[Sink : PCMの供給]
+A(Microphone or File)-->B
+B["Transcribe API<br/>(PCMの終端はcomplete引数で通知)"]
+B-->|繰り返し呼ぶ|A
+end
+subgraph DRAIN[Drain : テキストの取得]
+C[GetResults API]-->K
+K[IsCompleted API]-->|繰り返し呼ぶ|C
+K-->|完了後|R
+R[ResetTranscribeState API]
+end
+SINK-->DRAIN
+R-->|再度Sinkが可能|SINK
+</div>
+</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
 ライブ変換</h2>
 <p>ライブ変換を有効にするには、Open APIの引数にAILIA_SPEECH_FLAG_LIVEを与えます。</p>
 <div class="fragment"><div class="line">flag = AiliaSpeech.AILIA_SPEECH_FLAG_LIVE;</div>
 </div><!-- fragment --><p>プレビューは、IntermediateCallbackに通知されます。</p>
 <div class="fragment"><div class="line">string text = GetIntermediateText();</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md3"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md4"></a>
 VAD</h2>
 <p>無音検知を使用する場合、Open APIの後にOpenVAD APIを呼び出します。</p>
 <div class="fragment"><div class="line">ailia_speech.OpenVad(asset_path + <span class="stringliteral">&quot;/&quot;</span> + <span class="stringliteral">&quot;silero_vad.onnx&quot;</span>, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md4"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
 ポストプロセス</h2>
 <p>音声認識結果に対して、音声認識誤り訂正や、翻訳などの後処理を適用する場合、Open APIの後にOpenPostProcess APIを呼び出します。</p>
 <p>音声認識誤り訂正を使用する場合</p>
@@ -118,11 +139,11 @@ VAD</h2>
 <div class="fragment"><div class="line">ailia_speech.OpenPostProcess(asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_en_ja_seq2seq-lm-with-past.onnx&quot;</span>, <span class="keyword">null</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_en_ja_source.spm&quot;</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_en_ja_target.spm&quot;</span>, <span class="keyword">null</span>, AiliaSpeech.AILIA_SPEECH_POST_PROCESS_TYPE_FUGUMT_EN_JA);</div>
 </div><!-- fragment --><p>日本語から英語</p>
 <div class="fragment"><div class="line">ailia_speech.OpenPostProcess(asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_ja_en_encoder_model.onnx&quot;</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_ja_en_decoder_model.onnx&quot;</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_ja_en_source.spm&quot;</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_ja_en_target.spm&quot;</span>, <span class="keyword">null</span>, AiliaSpeech.AILIA_SPEECH_POST_PROCESS_TYPE_FUGUMT_JA_EN);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
 話者分離</h2>
 <p>音声認識結果に対して、話者分離を行うことが可能です。話者分離を使用する場合、Open APIの後にOpenDiarization APIを呼び出します。</p>
 <div class="fragment"><div class="line">ailia_speech.OpenDiarization(asset_path + <span class="stringliteral">&quot;/&quot;</span> + <span class="stringliteral">&quot;segmentation.onnx&quot;</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> + <span class="stringliteral">&quot;speaker-embedding.onnx&quot;</span>, AiliaSpeech.AILIA_SPEECH_DIARIZATION_TYPE_PYANNOTE_AUDIO);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md7"></a>
 翻訳</h2>
 <p>AiliaSpeechTranslateModelを使用することで、翻訳のみを実行することが可能です。</p>
 <div class="fragment"><div class="line">void OnEnable(){</div>
@@ -140,9 +161,9 @@ VAD</h2>
 <div class="line">  // インスタンス解放</div>
 <div class="line">  ailia_speech_translate.Close();</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
 Low Level API</h1>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h2><a class="anchor" id="autotoc_md9"></a>
 Low Level APIの概要</h2>
 <p>C::のLow Level APIでは、AiliaSpeech名前空間にC APIをそのままマッピングしています。</p>
 <p>ailia Speechでは、ailiaSpeechCreateでインスタンスを作成、ailiaSpeechOpenModelFileでモデルを開き、ailiaSpeechPushInputDataでPCMを入力、ailiaSpeechBufferedで十分なPCMが入力されたか確認、ailiaSpeechTranscribeでテキスト化、ailiaSpeechGetTextで認識結果を取得可能です。</p>
@@ -160,6 +181,9 @@ Low Level APIの概要</h2>
 <div class="line"> </div>
 <div class="line">// PCMをまとめて供給</div>
 <div class="line">AiliaSpeech.ailiaSpeechPushInputData(net, samples_buf, threadChannels, (uint)samples_buf.Length / threadChannels, threadFrequency);</div>
+<div class="line"> </div>
+<div class="line">// PCMの供給の終了を通知</div>
+<div class="line">AiliaSpeech.ailiaSpeechFinalizeInputData(net);</div>
 <div class="line"> </div>
 <div class="line">// テキスト化するための十分なPCMがあるか</div>
 <div class="line">while (true){</div>
@@ -195,7 +219,7 @@ Low Level APIの概要</h2>
 <div class="line"> </div>
 <div class="line">// インスタンス解放</div>
 <div class="line">AiliaSpeech.ailiaSpeechDestroy(net);</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md9"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
 GPUの使用</h1>
 <p>GPUを使用するには、AiliaSpeech.Openのenv_id引数にGPUのenv_idを指定します。 AILIA_ENVIRONMENT_ID_AUTOを指定した場合は、CPUで推論が行われます。 GPUのenv_idを取得する方法は、AiliaSpeechSample.csのGetEnvId()を参照してください。 下記の例では、ailiaのAPIを使用して環境を列挙し、env_typeが1の場合にGPUのenv_idを取得しています。</p>
 <div class="fragment"><div class="line">private int GetEnvId(int env_type){</div>
@@ -218,17 +242,21 @@ GPUの使用</h1>
 <div class="line">    }</div>
 <div class="line">    return env_id;</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md10"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md11"></a>
 プラットフォームごとの注意点</h1>
-<h2><a class="anchor" id="autotoc_md11"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 Windows</h2>
 <p>Unity Pluginのサンプルでは、ファイルダイアログにStandaloneFileBrowserアセットを使用しています。StandaloneFileBrowserの制約で、Windows環境でil2cppでビルドするとエラーが発生するため、monoでビルドしてください。これはailia Speechの制約ではないため、ファイルダイアログを使用しない場合はil2cppを使用可能です。</p>
-<h2><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 iOS</h2>
 <p>iOSで動作させる場合は、CapabilityにIncreased Memory Limitを指定してください。Smallモデルで1.82GB程度のメモリが必要なためです。</p>
-<h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Android</h2>
-<p>AndroidではStreamingAssetsのファイルへの直接アクセスが行えないため、起動時にTemporaryCachePathにモデルファイルを転送します。 </p>
+<p>AndroidではStreamingAssetsのファイルへの直接アクセスが行えないため、起動時にTemporaryCachePathにモデルファイルを転送します。</p>
+<p> 
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+ </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
