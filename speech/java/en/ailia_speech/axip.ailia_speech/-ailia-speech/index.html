@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>AiliaSpeech - ailia Speech Java API Document</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            ailia_speech
+                    </a>
+            </div>
+            <div class="library-version">
+1.5.2.0            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="ailia_speech/main">JVM</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="ailia_speech::axip.ailia_speech/AiliaSpeech///PointingToDeclaration//-335995283">
+  <div class="breadcrumbs"><a href="../../../index.html">ailia_speech</a><span class="delimiter">/</span><a href="../index.html">axip.ailia_speech</a><span class="delimiter">/</span><span class="current">AiliaSpeech</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Ailia</span><wbr></wbr><span><span>Speech</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">AiliaSpeech</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">envId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>-1<span class="token punctuation">, </span></span><span class="parameter ">numThread<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">memoryMode<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">11</span><span class="token punctuation">, </span></span><span class="parameter ">task<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>AILIA_SPEECH_TASK_TRANSCRIBE<span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>AILIA_SPEECH_FLAG_NONE</span></span><span class="token punctuation">)</span></div><p class="paragraph">Speech recognition for audio waveforms.</p><p class="paragraph">This class provides speech to text conversion (Whisper and SenseVoice), voice activity detection, speaker diarization and post processing such as translation via the ailia Speech native library.</p><p class="paragraph">Feed the audio waveform with <a href="push-input-data.html">pushInputData</a>, notify the end of the input with <a href="finalize-input-data.html">finalizeInputData</a>, then call <a href="transcribe.html">transcribe</a> while <a href="get-buffered.html">getBuffered</a> returns 1 and get the results with <a href="get-text.html">getText</a>. <a href="get-complete.html">getComplete</a> returns 1 when all of the input has been processed.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>env</span><wbr></wbr><span><span>Id</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Environment id of the ailia execution. -1 (ENVIRONMENT_ID_AUTO) selects the environment automatically.</p></div></div></div></div><div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>num</span><wbr></wbr><span><span>Thread</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Number of threads. 0 (MULTITHREAD_AUTO) means the system's logical processor count.</p></div></div></div></div><div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>memory</span><wbr></wbr><span><span>Mode</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Memory management mode of the ailia execution. The default value 11 reduces the memory consumption.</p></div></div></div></div><div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>task</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Task of the recognition, one of the AILIA_SPEECH_TASK_* constants.</p></div></div></div></div><div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>flags</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Flags of the recognition, one of the AILIA_SPEECH_FLAG_* constants.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="2099066024%2FConstructors%2F-335995283" anchor-label="AiliaSpeech" id="2099066024%2FConstructors%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-ailia-speech.html"><span>Ailia</span><wbr></wbr><span><span>Speech</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2099066024%2FConstructors%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">envId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>-1<span class="token punctuation">, </span></span><span class="parameter ">numThread<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">memoryMode<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">11</span><span class="token punctuation">, </span></span><span class="parameter ">task<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>AILIA_SPEECH_TASK_TRANSCRIBE<span class="token punctuation">, </span></span><span class="parameter ">flags<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>AILIA_SPEECH_FLAG_NONE</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates an ailia Speech instance.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1352847183%2FClasslikes%2F-335995283" anchor-label="Companion" id="1352847183%2FClasslikes%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1352847183%2FClasslikes%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div><div class="brief "><p class="paragraph">Constants of ailia Speech.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1649269616%2FFunctions%2F-335995283" anchor-label="close" id="-1649269616%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="close.html"><span><span>close</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1649269616%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="close.html"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Destroys the ailia Speech instance.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1087134642%2FFunctions%2F-335995283" anchor-label="finalizeInputData" id="1087134642%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="finalize-input-data.html"><span>finalize</span><wbr></wbr><span>Input</span><wbr></wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1087134642%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="finalize-input-data.html"><span class="token function">finalizeInputData</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Notifies the end of the audio input.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1576852845%2FFunctions%2F-335995283" anchor-label="getBuffered" id="-1576852845%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-buffered.html"><span>get</span><wbr></wbr><span><span>Buffered</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1576852845%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-buffered.html"><span class="token function">getBuffered</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Determines if enough audio data has been fed to perform the transcription.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-872367239%2FFunctions%2F-335995283" anchor-label="getComplete" id="-872367239%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-complete.html"><span>get</span><wbr></wbr><span><span>Complete</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-872367239%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-complete.html"><span class="token function">getComplete</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Determines if all of the audio data has been processed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1602540945%2FFunctions%2F-335995283" anchor-label="getErrorDetail" id="-1602540945%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-error-detail.html"><span>get</span><wbr></wbr><span>Error</span><wbr></wbr><span><span>Detail</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1602540945%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-error-detail.html"><span class="token function">getErrorDetail</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns the details of the last error.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1845152739%2FFunctions%2F-335995283" anchor-label="getText" id="1845152739%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-text.html"><span>get</span><wbr></wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1845152739%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-text.html"><span class="token function">getText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">idx<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-ailia-speech-text/index.html">AiliaSpeechText</a></div><div class="brief "><p class="paragraph">Returns the recognized text fragment.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-607008282%2FFunctions%2F-335995283" anchor-label="getTextCount" id="-607008282%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-text-count.html"><span>get</span><wbr></wbr><span>Text</span><wbr></wbr><span><span>Count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-607008282%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-text-count.html"><span class="token function">getTextCount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Returns the number of the recognized text fragments.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-203009384%2FFunctions%2F-335995283" anchor-label="openDiarization" id="-203009384%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="open-diarization.html"><span>open</span><wbr></wbr><span><span>Diarization</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-203009384%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="open-diarization.html"><span class="token function">openDiarization</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">segmentationPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">embeddingPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">diarizationType<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Opens the speaker diarization model files.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-283943509%2FFunctions%2F-335995283" anchor-label="openDictionary" id="-283943509%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="open-dictionary.html"><span>open</span><wbr></wbr><span><span>Dictionary</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-283943509%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="open-dictionary.html"><span class="token function">openDictionary</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dictionaryPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">dictionaryType<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Opens a dictionary file for correcting the recognition results.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1429805053%2FFunctions%2F-335995283" anchor-label="openModel" id="1429805053%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="open-model.html"><span>open</span><wbr></wbr><span><span>Model</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1429805053%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="open-model.html"><span class="token function">openModel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">encoderPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">decoderPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">modelType<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Opens the speech recognition model files.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-749501272%2FFunctions%2F-335995283" anchor-label="openPostProcess" id="-749501272%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="open-post-process.html"><span>open</span><wbr></wbr><span>Post</span><wbr></wbr><span><span>Process</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-749501272%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="open-post-process.html"><span class="token function">openPostProcess</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">encoderPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">decoderPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">sourcePath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">targetPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">prefix<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">postProcessType<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Opens the post process model files for error correction or translation of the recognition results.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1807468014%2FFunctions%2F-335995283" anchor-label="openVad" id="-1807468014%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="open-vad.html"><span>open</span><wbr></wbr><span><span>Vad</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1807468014%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="open-vad.html"><span class="token function">openVad</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">vadPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">vadType<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Opens the voice activity detection (VAD) model file.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="380002425%2FFunctions%2F-335995283" anchor-label="postProcess" id="380002425%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="post-process.html"><span>post</span><wbr></wbr><span><span>Process</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="380002425%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="post-process.html"><span class="token function">postProcess</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Performs the post process (error correction or translation) of the recognition results.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-782059021%2FFunctions%2F-335995283" anchor-label="pushInputData" id="-782059021%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="push-input-data.html"><span>push</span><wbr></wbr><span>Input</span><wbr></wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-782059021%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="push-input-data.html"><span class="token function">pushInputData</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">src<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-float-array/index.html">FloatArray</a><span class="token punctuation">, </span></span><span class="parameter ">channels<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">samples<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">samplingRate<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Pushes the audio waveform to the queue.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="980155109%2FFunctions%2F-335995283" anchor-label="resetTranscribeState" id="980155109%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reset-transcribe-state.html"><span>reset</span><wbr></wbr><span>Transcribe</span><wbr></wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="980155109%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="reset-transcribe-state.html"><span class="token function">resetTranscribeState</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Resets the transcribe state to process a new audio input.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1234584674%2FFunctions%2F-335995283" anchor-label="setConstraint" id="1234584674%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-constraint.html"><span>set</span><wbr></wbr><span><span>Constraint</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1234584674%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-constraint.html"><span class="token function">setConstraint</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">constraint<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Sets the constraint of the recognition output.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-738999183%2FFunctions%2F-335995283" anchor-label="setIntermediateCallback" id="-738999183%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-intermediate-callback.html"><span>set</span><wbr></wbr><span>Intermediate</span><wbr></wbr><span><span>Callback</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-738999183%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-intermediate-callback.html"><span class="token function">setIntermediateCallback</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">callback<span class="token operator">: </span><a href="../-intermediate-callback/index.html">IntermediateCallback</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Sets the callback for receiving intermediate recognition results.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1899793686%2FFunctions%2F-335995283" anchor-label="setLanguage" id="1899793686%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-language.html"><span>set</span><wbr></wbr><span><span>Language</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1899793686%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-language.html"><span class="token function">setLanguage</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">language<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Sets the language of the speech recognition.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1519735778%2FFunctions%2F-335995283" anchor-label="setPrompt" id="1519735778%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-prompt.html"><span>set</span><wbr></wbr><span><span>Prompt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1519735778%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-prompt.html"><span class="token function">setPrompt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">prompt<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Sets the prompt text given to the model.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1442869071%2FFunctions%2F-335995283" anchor-label="setSilentThreshold" id="1442869071%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-silent-threshold.html"><span>set</span><wbr></wbr><span>Silent</span><wbr></wbr><span><span>Threshold</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1442869071%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-silent-threshold.html"><span class="token function">setSilentThreshold</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">silentThreshold<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">speechSec<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">noSpeechSec<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Sets the silent threshold of the voice activity detection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1234750077%2FFunctions%2F-335995283" anchor-label="transcribe" id="1234750077%2FFunctions%2F-335995283" data-filterable-set="ailia_speech/main"></a>
+          <div class="table-row" data-filterable-current="ailia_speech/main" data-filterable-set="ailia_speech/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transcribe.html"><span><span>transcribe</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1234750077%2FFunctions%2F-335995283"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_speech/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="transcribe.html"><span class="token function">transcribe</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Performs the speech recognition of the buffered audio data.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2026 Copyright ailia Inc.</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
