@@ -7,4 +7,5 @@ ailia Speech is a library for speech recognition. It uses ailia SDK and ailia.au
 - [Python API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/speech/python/en/)
 - [Python Example (EN) (PyPI)](https://pypi.org/project/ailia-speech/)
 - [Flutter API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/speech/flutter/en/)
-- [Binding (CPP)](https://github.com/ailia-ai/ailia-tokenizer-cpp) [(Unity)](https://github.com/ailia-ai/ailia-tokenizer-unity) [(Flutter)](https://github.com/ailia-ai/ailia-tokenizer-flutter) [(JNI)](https://github.com/ailia-ai/ailia-tokenizer-jni)
+- [JNI API (EN)](https://ailia-ai.github.io/ailia-sdk/supplemental/speech/java/en/)
+- [Binding (CPP)](https://github.com/ailia-ai/ailia-speech-cpp) [(Unity)](https://github.com/ailia-ai/ailia-speech-unity) [(Flutter)](https://github.com/ailia-ai/ailia-speech-flutter) [(JNI)](https://github.com/ailia-ai/ailia-speech-jni)
