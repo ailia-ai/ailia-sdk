@@ -93,6 +93,9 @@ Basic usage</h2>
 <div class="line"> <span class="comment">// Gather and feed the input PCM</span></div>
 <div class="line"> <a class="code" href="ailia__speech_8h.html#a453c7c1308539e9bc89239bfd9d0e831">ailiaSpeechPushInputData</a>(net, pPcm, nChannels, nSamples, sampleRate);</div>
 <div class="line"> </div>
+<div class="line"> <span class="comment">// Finalize push pcm data</span></div>
+<div class="line"> <a class="code" href="ailia__speech_8h.html#ac42a27beee2a99af9d82b2d0e096147c">ailiaSpeechFinalizeInputData</a>(net);</div>
+<div class="line"> </div>
 <div class="line"> <span class="comment">// Transcribe</span></div>
 <div class="line"> <span class="keywordflow">while</span>(<span class="keyword">true</span>){</div>
 <div class="line">  <span class="comment">// Check that enough PCM has been fed to perform the transcription</span></div>
@@ -142,6 +145,7 @@ Basic usage</h2>
 <div class="ttc" id="aailia__speech_8h_html_a811a53f90bad34ceb1cd1cdf275c2687"><div class="ttname"><a href="ailia__speech_8h.html#a811a53f90bad34ceb1cd1cdf275c2687">AILIA_SPEECH_FLAG_NONE</a></div><div class="ttdeci">#define AILIA_SPEECH_FLAG_NONE</div><div class="ttdoc">Default flag.</div><div class="ttdef"><b>Definition:</b> ailia_speech.h:176</div></div>
 <div class="ttc" id="aailia__speech_8h_html_a848b4bd906ed522b28e99b4be4696e74"><div class="ttname"><a href="ailia__speech_8h.html#a848b4bd906ed522b28e99b4be4696e74">ailiaSpeechGetTextCount</a></div><div class="ttdeci">int AILIA_API ailiaSpeechGetTextCount(struct AILIASpeech *net, unsigned int *count)</div><div class="ttdoc">Get recognized text count.</div></div>
 <div class="ttc" id="aailia__speech_8h_html_aa610ce4758daf48552da5f172fc0d972"><div class="ttname"><a href="ailia__speech_8h.html#aa610ce4758daf48552da5f172fc0d972">ailiaSpeechComplete</a></div><div class="ttdeci">int AILIA_API ailiaSpeechComplete(struct AILIASpeech *net, unsigned int *complete)</div><div class="ttdoc">Determines whether all data has been processed.</div></div>
+<div class="ttc" id="aailia__speech_8h_html_ac42a27beee2a99af9d82b2d0e096147c"><div class="ttname"><a href="ailia__speech_8h.html#ac42a27beee2a99af9d82b2d0e096147c">ailiaSpeechFinalizeInputData</a></div><div class="ttdeci">int AILIA_API ailiaSpeechFinalizeInputData(struct AILIASpeech *net)</div><div class="ttdoc">Finalize input PCM data to queue.</div></div>
 <div class="ttc" id="aailia__speech_8h_html_acffff23d4e9290777720557cdc30f9fc"><div class="ttname"><a href="ailia__speech_8h.html#acffff23d4e9290777720557cdc30f9fc">ailiaSpeechCreate</a></div><div class="ttdeci">int AILIA_API ailiaSpeechCreate(struct AILIASpeech **net, int env_id, int num_thread, int memory_mode, int task, int flags, AILIASpeechApiCallback callback, int version)</div><div class="ttdoc">Creates a network instance.</div></div>
 <div class="ttc" id="aailia__speech_8h_html_ad0c10a4d128016e1aab69aa593774875"><div class="ttname"><a href="ailia__speech_8h.html#ad0c10a4d128016e1aab69aa593774875">AILIA_SPEECH_TEXT_VERSION</a></div><div class="ttdeci">#define AILIA_SPEECH_TEXT_VERSION</div><div class="ttdoc">Struct version.</div><div class="ttdef"><b>Definition:</b> ailia_speech.h:412</div></div>
 <div class="ttc" id="aailia__speech_8h_html_adb4f738437f4663bf6cc12bb088cecfc"><div class="ttname"><a href="ailia__speech_8h.html#adb4f738437f4663bf6cc12bb088cecfc">ailiaSpeechTranscribe</a></div><div class="ttdeci">int AILIA_API ailiaSpeechTranscribe(struct AILIASpeech *net)</div><div class="ttdoc">Perform speech recognition.</div></div>
@@ -204,14 +208,24 @@ Speech recognition</h3>
 <p> 
 <div class="mermaid">
 flowchart
+subgraph SINK[Sink : feed the PCM]
 A(Microphone or File)-->B
-B[ailiaSpeechPushInputData API]-->C
+B[ailiaSpeechPushInputData API]
+B-->|call repeatedly|A
+B-->|at the end of the PCM|L
+L[ailiaSpeechFinalizeInputData API]
+end
+subgraph DRAIN[Drain : get the text]
 C[ailiaSpeechBuffered API]-->D
-C-->B
 D[ailiaSpeechTranscribe API]-->E
 E[ailiaSpeechGetTextCount API]-->F
 F[ailiaSpeechGetText API]-->K
-K[ailiaSpeechComplete API] --> B
+K[ailiaSpeechComplete API]-->C
+K-->|after completion|R
+R[ailiaSpeechResetTranscribeState API]
+end
+SINK-->DRAIN
+R-->|can sink again|SINK
 </div>
 </p>
 <h3><a class="anchor" id="autotoc_md20"></a>
@@ -219,18 +233,25 @@ Speech recognition (with post-processing)</h3>
 <p> 
 <div class="mermaid">
 flowchart
+subgraph SINK[Sink : feed the PCM]
 A(Microphone or File)-->B
-B[ailiaSpeechPushInputData API]-->C
+B[ailiaSpeechPushInputData API]
+B-->|call repeatedly|A
+B-->|at the end of the PCM|L
+L[ailiaSpeechFinalizeInputData API]
+end
+subgraph DRAIN[Drain : get the text]
 C[ailiaSpeechBuffered API]-->D
-C-->B
-D[ailiaSpeechTranscribe API]-->E
+D[ailiaSpeechTranscribe API]-->G
+G[ailiaSpeechPostProcess API]-->E
 E[ailiaSpeechGetTextCount API]-->F
 F[ailiaSpeechGetText API]-->K
-F-->G
-G[ailiaSpeechPostProcess API]-->H
-H[ailiaSpeechGetTextCount API]-->I
-I[ailiaSpeechGetText API]-->K
-K[ailiaSpeechComplete API] --> B
+K[ailiaSpeechComplete API]-->C
+K-->|after completion|R
+R[ailiaSpeechResetTranscribeState API]
+end
+SINK-->DRAIN
+R-->|can sink again|SINK
 </div>
 </p>
 <h3><a class="anchor" id="autotoc_md21"></a>

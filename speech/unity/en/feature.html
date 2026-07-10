@@ -66,36 +66,36 @@ $(function() {
 <div class="title">Features </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md83"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md85"></a>
 Features of ailia Speech</h1>
 <p>In this page, we present the features that are provided by both the C and the C# APIs.</p>
-<h2><a class="anchor" id="autotoc_md84"></a>
+<h2><a class="anchor" id="autotoc_md86"></a>
 Basic usage</h2>
-<h3><a class="anchor" id="autotoc_md85"></a>
+<h3><a class="anchor" id="autotoc_md87"></a>
 Text transcription and translation</h3>
 <p>You can transcribe a text from an audio input by passing AILIA_SPEECH_TASK_TRANSCRIBE as an argument. Passing AILIA_SPEECH_TASK_TRANSLATE in argument allows to transcribe and then translate into English.</p>
-<h3><a class="anchor" id="autotoc_md86"></a>
+<h3><a class="anchor" id="autotoc_md88"></a>
 Available AI models</h3>
 <p>As AI models, Whisper and SenseVoice are available.</p>
 <p>For Whisper, base, tiny, small, medium, largev3, and largev3-turbo are available. The latter models are more accurate. To achieve practical accuracy, models of small or higher are recommended. Medium is more accurate than small but has a higher processing load.</p>
 <p>For SenseVoice, the small model is available. It operates at the same speed as Whisper Tiny and achieves the same accuracy as Whisper Medium.</p>
 <p>Note that AILIA_SPEECH_TASK_TRANSLATE cannot be used with Whisper LargeV3 Turbo or SenseVoice.</p>
-<h3><a class="anchor" id="autotoc_md87"></a>
+<h3><a class="anchor" id="autotoc_md89"></a>
 Set the language</h3>
 <p>By default, the language is deduced for each audio segment. When using the API method <code>SetLanguage</code>, the language is fixed. As for short audio input the language deduction can be erroneous, please call the SetLanguage API in case the language is clearly known by other means.</p>
 <p>The language codes that can be specified in Whisper are as follows.</p>
 <div class="fragment"><div class="line">&quot;en&quot;, &quot;zh&quot;, &quot;de&quot;, &quot;es&quot;, &quot;ru&quot;, &quot;ko&quot;, &quot;fr&quot;, &quot;ja&quot;, &quot;pt&quot;, &quot;tr&quot;, &quot;pl&quot;, &quot;ca&quot;, &quot;nl&quot;, &quot;ar&quot;, &quot;sv&quot;, &quot;it&quot;, &quot;id&quot;, &quot;hi&quot;, &quot;fi&quot;, &quot;vi&quot;, &quot;iw&quot;, &quot;uk&quot;, &quot;el&quot;, &quot;ms&quot;, &quot;cs&quot;, &quot;ro&quot;, &quot;da&quot;, &quot;hu&quot;, &quot;ta&quot;, &quot;no&quot;, &quot;th&quot;, &quot;ur&quot;, &quot;hr&quot;, &quot;bg&quot;, &quot;lt&quot;, &quot;la&quot;, &quot;mi&quot;, &quot;ml&quot;, &quot;cy&quot;, &quot;sk&quot;, &quot;te&quot;, &quot;fa&quot;, &quot;lv&quot;, &quot;bn&quot;, &quot;sr&quot;, &quot;az&quot;, &quot;sl&quot;, &quot;kn&quot;, &quot;et&quot;, &quot;mk&quot;, &quot;br&quot;, &quot;eu&quot;, &quot;is&quot;, &quot;hy&quot;, &quot;ne&quot;, &quot;mn&quot;, &quot;bs&quot;, &quot;kk&quot;, &quot;sq&quot;, &quot;sw&quot;, &quot;gl&quot;, &quot;mr&quot;, &quot;pa&quot;, &quot;si&quot;, &quot;km&quot;, &quot;sn&quot;, &quot;yo&quot;, &quot;so&quot;, &quot;af&quot;, &quot;oc&quot;, &quot;ka&quot;, &quot;be&quot;, &quot;tg&quot;, &quot;sd&quot;, &quot;gu&quot;, &quot;am&quot;, &quot;yi&quot;, &quot;lo&quot;, &quot;uz&quot;, &quot;fo&quot;, &quot;ht&quot;, &quot;ps&quot;, &quot;tk&quot;, &quot;nn&quot;, &quot;mt&quot;, &quot;sa&quot;, &quot;lb&quot;, &quot;my&quot;, &quot;bo&quot;, &quot;tl&quot;, &quot;mg&quot;, &quot;as&quot;, &quot;tt&quot;, &quot;haw&quot;, &quot;ln&quot;, &quot;ha&quot;, &quot;ba&quot;, &quot;jw&quot;, &quot;su&quot;</div>
 </div><!-- fragment --><p>The language codes that can be specified in SenseVoice are as follows.</p>
 <div class="fragment"><div class="line">&quot;zh&quot;, &quot;en&quot;, &quot;yue&quot;, &quot;ja&quot;, &quot;ko&quot;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md88"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md90"></a>
 Enable live processing</h3>
 <p>When live processing is enabled, it is possible to run and preview a tentative inference on the current buffer content, without even waiting for 30 seconds of audio data to arrive. In normal speech recognition, inference does not happen until the next voice input border is detected, e.g. a silence detected using VAD. By contrast, with ailia Speech, when enabling live processing, it is possible to perform inference even before detecting an audio border. To enable live conversion, use the flag AILIA_SPEECH_FLAG_LIVE. The inference preview is notified to IntermediateCallback. Inference is more accurate when the live setting is not enabled, because it can refer to past audio data. For this reason, in case of processing an audio file, it is recommended to not use the live mode, and enable it only if some audio input has to be processed realtime.</p>
-<h3><a class="anchor" id="autotoc_md89"></a>
+<h3><a class="anchor" id="autotoc_md91"></a>
 Virtual Memory Mode</h3>
 <p>Using virtual memory mode allows you to reduce memory consumption. Specifically, when running Whisper Medium on CPU inference, the default settings require 5.66GB of memory, but using virtual memory mode, inference can be done with just 2.59GB of memory. However, inference time is reduced by about 16%. To enable virtual memory mode, specify a directory to save temporary files using ailiaSetTemporaryCachePath before calling ailiaSpeechCreate, then pass AILIA_MEMORY_REDUCE_CONSTANT | AILIA_MEMORY_REDUCE_CONSTANT_WITH_INPUT_INITIALIZER | AILIA_MEMORY_REUSE_INTERSTAGE | AILIA_MEMORY_REDUCE_CONSTANT_WITH_FILE_MAPPED to the memory_mode argument of ailiaSpeechCreate.</p>
-<h2><a class="anchor" id="autotoc_md90"></a>
+<h2><a class="anchor" id="autotoc_md92"></a>
 Interface</h2>
-<h3><a class="anchor" id="autotoc_md91"></a>
+<h3><a class="anchor" id="autotoc_md93"></a>
 Text</h3>
 <p>You can access to these different kind of results after the speech recognition:</p>
 <table class="markdownTable">
@@ -114,45 +114,45 @@ Text</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">confidence   </td><td class="markdownTableBodyNone">Confidence score of the transcription. Close to 0.0 when the confidence is low, close to 1.0 when the confidence is high.   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md92"></a>
+<h3><a class="anchor" id="autotoc_md94"></a>
 Notifications and interruption</h3>
 <p>Using IntermediateCallback, it is possible to get the partial results of the inference currently being processed. Interrupting the speech recognition is possible by making IntermediateCallback return 1.</p>
-<h2><a class="anchor" id="autotoc_md93"></a>
+<h2><a class="anchor" id="autotoc_md95"></a>
 Silence detection feature</h2>
-<h3><a class="anchor" id="autotoc_md94"></a>
+<h3><a class="anchor" id="autotoc_md96"></a>
 How to setup silence detection</h3>
 <p>By default, speech recognition is triggered every 30 seconds of audio data input. By using the <code>SetSilentThreshold</code> API, it is possible to trigger transcription each time there is silence for a certain period of time. The first argument is the sound level below which it is considered silence, the second argument is how many seconds of speech (i.e. non-silence) are required to trigger the inference, the third argument is how many seconds of continuous silence are required to trigger the inference. If VAD is not used, silence is determined based on the volume, and, if VAD is used, an AI model actually determines if there is silence. Whitout VAD, the threshold can be defined between 0.0 and 1.0 of the volume, and, with VAD, it can be defined as between 0.0 and 1.0 of confidence. For example without VAD the threshold can be set at 0.01, and with VAD it could be set at 0.5.</p>
-<h3><a class="anchor" id="autotoc_md95"></a>
+<h3><a class="anchor" id="autotoc_md97"></a>
 VAD (Voice Activity Detection)</h3>
 <p>It is possible to detect silence with AI by using AILIA_SPEECH_VAD_TYPE_SILERO and the OpenVadFile API method. Compared to silence detection using the volume, this allows to achieve silence detection with a very high accuracy. When silent audio data is fed into AI, it can happen that it outputs something like "Thank you for your attention", so it is recommended to use VAD silence detection in order to skip speech recognition on these parts.</p>
-<h3><a class="anchor" id="autotoc_md96"></a>
+<h3><a class="anchor" id="autotoc_md98"></a>
 Speaker Diarization</h3>
 <p>By using speaker diarization, it is possible to assign a speaker_id. It is compatible with PyannoteAudio as a speaker separation algorithm.</p>
-<h2><a class="anchor" id="autotoc_md97"></a>
+<h2><a class="anchor" id="autotoc_md99"></a>
 Specialized features</h2>
-<h3><a class="anchor" id="autotoc_md98"></a>
+<h3><a class="anchor" id="autotoc_md100"></a>
 Restriction of the character set</h3>
 <p>It is possible to restrict the set of characters used for the transcription by using AILIA_SPEECH_CONSTRAINT_CHARACTERS and the SetConstraint API method. For example, by passing the constraint below, only expressions denoting numbers will be allowed.</p>
 <div class="fragment"><div class="line">u8&quot;1234567890,.&quot;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md99"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md101"></a>
 Restriction of the vocabulary</h3>
 <p>It is possible to restrict the vocabulary used for the transcription by using AILIA_SPEECH_CONSTRAINT_WORDS and the SetConstraint API method. In the context of vocal commands for example, this can be used to determined which of the available commands have been pronounced. For example, by passing the constraint below, it is possible to get the likelihood of either of "command1" or "command2".</p>
 <div class="fragment"><div class="line">u8&quot;command1,command2&quot;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md100"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md102"></a>
 Prompt</h3>
 <p>It is possible to increase the accuracy of the recognition of person names or specialized vocabulary by passing them as "prompt". Example of prompt:</p>
 <div class="fragment"><div class="line">u8&quot;hardware software&quot;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md101"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md103"></a>
 Dictionary for autocorrection</h3>
 <p>By using a dictionary for autocorrection, it is possible to apply substitutions on the character strings resulting from the speech recognition, so that you can correct mistakes made during by the inference. Only simple substitutions are supported.</p>
 <p>To use the autocorrection dictionary feature, pass a UTF8 CSV file to the OpenDictionary API method. See the example below <code>dict.csv</code>: in this dictionary, the kind of error that is being corrected is when some words have been transcribed phonetically, so in the dictionary file each line presents first the phonetic transcription, followed by the correct word to substitute.</p>
 <div class="fragment"><div class="line">inaf,enough</div>
 <div class="line">colam,column</div>
 <div class="line">eiai,AI</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md102"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md104"></a>
 Post-processing</h3>
 <p>By using post-processing, it is possible to perform speech recognition error correction using T5 and translation using FuguMT after speech recognition. For speech recognition error correction using T5, a correction model for medical terms can be used. For translation using FuguMT, after performing speech recognition in multiple languages using Translate mode in Whisper, translation from English to Japanese can be used.</p>
-<h2><a class="anchor" id="autotoc_md103"></a>
+<h2><a class="anchor" id="autotoc_md105"></a>
 GPU usage</h2>
 <p>On Windows and Linux, it is possible to perform inference on the GPU with cuDNN. In order to use cuDNN, please install the CUDA Toolkit and cuDNN from the NVIDIA website:</p>
 <ul>

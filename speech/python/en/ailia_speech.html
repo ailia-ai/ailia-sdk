@@ -16,7 +16,8 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ailia Speech Python API document" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,32 +39,32 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">ailia_speech package</a><ul>
-<li><a class="reference internal" href="#classes">Classes</a><ul>
-<li><a class="reference internal" href="#ailia_speech.AiliaSpeechModel"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel</span></code></a><ul>
-<li><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.set_silent_threshold"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.set_silent_threshold()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.transcribe"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.transcribe()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.transcribe_step"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.transcribe_step()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ailia_speech package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailia_speech.AiliaSpeechModel"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.set_silent_threshold"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.set_silent_threshold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.transcribe"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.transcribe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.transcribe_step"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.transcribe_step()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ailia_speech.Whisper"><code class="docutils literal notranslate"><span class="pre">Whisper</span></code></a><ul>
-<li><a class="reference internal" href="#ailia_speech.Whisper.__init__"><code class="docutils literal notranslate"><span class="pre">Whisper.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_speech.Whisper.initialize_model"><code class="docutils literal notranslate"><span class="pre">Whisper.initialize_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailia_speech.Whisper"><code class="docutils literal notranslate"><span class="pre">Whisper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_speech.Whisper.__init__"><code class="docutils literal notranslate"><span class="pre">Whisper.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_speech.Whisper.initialize_model"><code class="docutils literal notranslate"><span class="pre">Whisper.initialize_model()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ailia_speech.SenseVoice"><code class="docutils literal notranslate"><span class="pre">SenseVoice</span></code></a><ul>
-<li><a class="reference internal" href="#ailia_speech.SenseVoice.__init__"><code class="docutils literal notranslate"><span class="pre">SenseVoice.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_speech.SenseVoice.initialize_model"><code class="docutils literal notranslate"><span class="pre">SenseVoice.initialize_model()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailia_speech.SenseVoice"><code class="docutils literal notranslate"><span class="pre">SenseVoice</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_speech.SenseVoice.__init__"><code class="docutils literal notranslate"><span class="pre">SenseVoice.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_speech.SenseVoice.initialize_model"><code class="docutils literal notranslate"><span class="pre">SenseVoice.initialize_model()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-</div>
+</li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -189,23 +190,13 @@ transcribe_step executes a step each time there is microphone input, and by sett
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>env_id</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: ENVIRONMENT_AUTO</em><em>(</em><em>-1</em><em>)</em>) – <p>environment id of ailia execution.
-To retrieve env_id value, use</p>
-<blockquote>
-<div><p>ailia.get_environment_count() / ailia.get_environment() pair</p>
-</div></blockquote>
-<dl class="simple">
-<dt>or</dt><dd><p>ailia.get_gpu_environment_id() .</p>
-</dd>
-</dl>
-</p></li>
-<li><p><strong>num_thread</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: MULTITHREAD_AUTO</em><em>(</em><em>0</em><em>)</em>) – <p>number of threads.
-valid values:</p>
-<blockquote>
-<div><p>MULTITHREAD_AUTO=0 [means systems’s logical processor count],
-1 to 32.</p>
-</div></blockquote>
-</p></li>
+<li><p><strong>env_id</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: ENVIRONMENT_AUTO</em><em>(</em><em>-1</em><em>)</em>) – environment id of ailia execution.
+To retrieve env_id value, use
+ailia.get_environment_count() / ailia.get_environment() pair
+or ailia.get_gpu_environment_id() .</p></li>
+<li><p><strong>num_thread</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: MULTITHREAD_AUTO</em><em>(</em><em>0</em><em>)</em>) – number of threads.
+valid values: MULTITHREAD_AUTO=0 [means systems’s logical
+processor count], 1 to 32.</p></li>
 <li><p><strong>memory_mode</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: 11</em><em> (</em><em>reuse interstage</em><em>)</em>) – memory management mode of ailia execution.
 To retrieve memory_mode value, use ailia.get_memory_mode() .</p></li>
 <li><p><strong>task</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: AILIA_SPEECH_TASK_TRANSCRIBE</em>) – AILIA_SPEECH_TASK_TRANSCRIBE or AILIA_SPEECH_TASK_TRANSLATE</p></li>
@@ -254,23 +245,13 @@ By specifying AILIA_SPEECH_DIARIZATION_TYPE_PYANNOTE_AUDIO, speaker diarization 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>env_id</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: ENVIRONMENT_AUTO</em><em>(</em><em>-1</em><em>)</em>) – <p>environment id of ailia execution.
-To retrieve env_id value, use</p>
-<blockquote>
-<div><p>ailia.get_environment_count() / ailia.get_environment() pair</p>
-</div></blockquote>
-<dl class="simple">
-<dt>or</dt><dd><p>ailia.get_gpu_environment_id() .</p>
-</dd>
-</dl>
-</p></li>
-<li><p><strong>num_thread</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: MULTITHREAD_AUTO</em><em>(</em><em>0</em><em>)</em>) – <p>number of threads.
-valid values:</p>
-<blockquote>
-<div><p>MULTITHREAD_AUTO=0 [means systems’s logical processor count],
-1 to 32.</p>
-</div></blockquote>
-</p></li>
+<li><p><strong>env_id</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: ENVIRONMENT_AUTO</em><em>(</em><em>-1</em><em>)</em>) – environment id of ailia execution.
+To retrieve env_id value, use
+ailia.get_environment_count() / ailia.get_environment() pair
+or ailia.get_gpu_environment_id() .</p></li>
+<li><p><strong>num_thread</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: MULTITHREAD_AUTO</em><em>(</em><em>0</em><em>)</em>) – number of threads.
+valid values: MULTITHREAD_AUTO=0 [means systems’s logical
+processor count], 1 to 32.</p></li>
 <li><p><strong>memory_mode</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: 11</em><em> (</em><em>reuse interstage</em><em>)</em>) – memory management mode of ailia execution.
 To retrieve memory_mode value, use ailia.get_memory_mode() .</p></li>
 <li><p><strong>task</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: AILIA_SPEECH_TASK_TRANSCRIBE</em>) – AILIA_SPEECH_TASK_TRANSCRIBE or AILIA_SPEECH_TASK_TRANSLATE</p></li>
@@ -314,7 +295,9 @@ By specifying AILIA_SPEECH_DIARIZATION_TYPE_PYANNOTE_AUDIO, speaker diarization 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="ailia Speech Python API document" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 

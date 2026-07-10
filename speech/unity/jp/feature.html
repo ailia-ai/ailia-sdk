@@ -66,39 +66,39 @@ $(function() {
 <div class="title">機能 </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md62"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md64"></a>
 ailia Speechの機能</h1>
 <p>本ページでは、CとC#で共通に使用できる機能を解説します。</p>
-<h2><a class="anchor" id="autotoc_md63"></a>
+<h2><a class="anchor" id="autotoc_md65"></a>
 基本タスク</h2>
-<h3><a class="anchor" id="autotoc_md64"></a>
+<h3><a class="anchor" id="autotoc_md66"></a>
 テキスト化と翻訳</h3>
 <p>AILIA_SPEECH_TASK_TRANSCRIBEを指定することで、音声のテキスト化が可能です。 AILIA_SPEECH_TASK_TRANSLATEを指定することで、音声のテキスト化と英語への翻訳が可能です。</p>
-<h3><a class="anchor" id="autotoc_md65"></a>
+<h3><a class="anchor" id="autotoc_md67"></a>
 使用可能なAIモデル</h3>
 <p>AIモデルとして、WhisperとSenseVoiceが使用可能です。</p>
 <p>Whisperではbase、tiny、small、medium、largev3、largev3-turboが使用可能です。後者になるほど、高精度なモデルとなります。実用的な精度を出そうとすると、small以上のモデルを推奨しています。mediumはsmallよりも精度が高くなりますが、処理負荷が大きくなります。</p>
 <p>SenseVoiceではsmallが使用可能です。Whisper Tinyと同等速度で、Whisper Mediumと同等精度になります。</p>
 <p>なお、Whisper LargeV3 TurboとSenseVoiceではAILIA_SPEECH_TASK_TRANSLATEは使用できません。</p>
-<h3><a class="anchor" id="autotoc_md66"></a>
+<h3><a class="anchor" id="autotoc_md68"></a>
 言語指定</h3>
 <p>デフォルトでは、音声セグメントごとに言語判定が呼び出されます。SetLanguage APIを呼び出した場合、指定した言語で処理を固定します。言語判定は短い音声では間違う可能性もあるため、言語が明確な場合はSetLanguage APIを呼び出してください。</p>
 <p>Whisperで指定可能な言語コードは下記です。</p>
 <div class="fragment"><div class="line">&quot;en&quot;, &quot;zh&quot;, &quot;de&quot;, &quot;es&quot;, &quot;ru&quot;, &quot;ko&quot;, &quot;fr&quot;, &quot;ja&quot;, &quot;pt&quot;, &quot;tr&quot;, &quot;pl&quot;, &quot;ca&quot;, &quot;nl&quot;, &quot;ar&quot;, &quot;sv&quot;, &quot;it&quot;, &quot;id&quot;, &quot;hi&quot;, &quot;fi&quot;, &quot;vi&quot;, &quot;iw&quot;, &quot;uk&quot;, &quot;el&quot;, &quot;ms&quot;, &quot;cs&quot;, &quot;ro&quot;, &quot;da&quot;, &quot;hu&quot;, &quot;ta&quot;, &quot;no&quot;, &quot;th&quot;, &quot;ur&quot;, &quot;hr&quot;, &quot;bg&quot;, &quot;lt&quot;, &quot;la&quot;, &quot;mi&quot;, &quot;ml&quot;, &quot;cy&quot;, &quot;sk&quot;, &quot;te&quot;, &quot;fa&quot;, &quot;lv&quot;, &quot;bn&quot;, &quot;sr&quot;, &quot;az&quot;, &quot;sl&quot;, &quot;kn&quot;, &quot;et&quot;, &quot;mk&quot;, &quot;br&quot;, &quot;eu&quot;, &quot;is&quot;, &quot;hy&quot;, &quot;ne&quot;, &quot;mn&quot;, &quot;bs&quot;, &quot;kk&quot;, &quot;sq&quot;, &quot;sw&quot;, &quot;gl&quot;, &quot;mr&quot;, &quot;pa&quot;, &quot;si&quot;, &quot;km&quot;, &quot;sn&quot;, &quot;yo&quot;, &quot;so&quot;, &quot;af&quot;, &quot;oc&quot;, &quot;ka&quot;, &quot;be&quot;, &quot;tg&quot;, &quot;sd&quot;, &quot;gu&quot;, &quot;am&quot;, &quot;yi&quot;, &quot;lo&quot;, &quot;uz&quot;, &quot;fo&quot;, &quot;ht&quot;, &quot;ps&quot;, &quot;tk&quot;, &quot;nn&quot;, &quot;mt&quot;, &quot;sa&quot;, &quot;lb&quot;, &quot;my&quot;, &quot;bo&quot;, &quot;tl&quot;, &quot;mg&quot;, &quot;as&quot;, &quot;tt&quot;, &quot;haw&quot;, &quot;ln&quot;, &quot;ha&quot;, &quot;ba&quot;, &quot;jw&quot;, &quot;su&quot;</div>
 </div><!-- fragment --><p>SenseVoiceで指定可能な言語コードは下記です。</p>
 <div class="fragment"><div class="line">&quot;zh&quot;, &quot;en&quot;, &quot;yue&quot;, &quot;ja&quot;, &quot;ko&quot;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md67"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md69"></a>
 ライブ変換</h3>
 <p>ライブ変換を有効にすると、30秒の音声の到着を待たずに、現在のバッファの内容で投機的に推論を行い、プレビューを行うことが可能です。 通常の音声認識では、VADなどで音声区切りを検出するまで音声認識を行いません。ライブ変換を有効にすると、音声区切りを検出する前の段階で音声認識を行うことが可能です。 ライブ変換を有効にするには、AILIA_SPEECH_FLAG_LIVEを使用します。プレビューは、IntermediateCallbackに通知されます。 ライブ変換を使用しない方が時間軸的に後ろの音声も参照できるため、精度は高くなります。 そのため、音声ファイルに対して適用するようなケースではライブ変換は使用せず、マイク入力に対してリアルタム性が必要な場合にライブ変換を使用してください。</p>
-<h3><a class="anchor" id="autotoc_md68"></a>
+<h3><a class="anchor" id="autotoc_md70"></a>
 仮想メモリモード</h3>
 <p>仮想メモリモードを使用することでメモリ消費量を抑制することが可能です。具体的に、Whisper MediumをCPU推論した場合、デフォルト設定では5.66GBのメモリが必要ですが、仮想メモリモードを使用することで、2.59GBのメモリで推論が可能です。但し、推論時間は16程度低下します。仮想メモリモードを有効にする場合、ailiaSpeechCreateを呼び出す前にailiaSetTemporaryCachePathで一時ファイルを保存するディレクトリを指定した後、ailiaSpeechCreateのmemory_mode引数にAILIA_MEMORY_REDUCE_CONSTANT | AILIA_MEMORY_REDUCE_CONSTANT_WITH_INPUT_INITIALIZER | AILIA_MEMORY_REUSE_INTERSTAGE | AILIA_MEMORY_REDUCE_CONSTANT_WITH_FILE_MAPPEDを指定してください。</p>
-<h3><a class="anchor" id="autotoc_md69"></a>
+<h3><a class="anchor" id="autotoc_md71"></a>
 話者分離</h3>
 <p>話者分離を使用することで、speaker_idを付与することが可能です。話者分離のアルゴリズムとしてはPyannoteAudioに対応しています。</p>
-<h2><a class="anchor" id="autotoc_md70"></a>
+<h2><a class="anchor" id="autotoc_md72"></a>
 インタフェース</h2>
-<h3><a class="anchor" id="autotoc_md71"></a>
+<h3><a class="anchor" id="autotoc_md73"></a>
 テキスト</h3>
 <p>音声認識結果として、下記の内容が取得可能です。</p>
 <table class="markdownTable">
@@ -117,32 +117,32 @@ ailia Speechの機能</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">confidence   </td><td class="markdownTableBodyNone">テキストの確信度。0.0に近いほど確信度が低く、1.0が最も確信度が高い。   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md72"></a>
+<h3><a class="anchor" id="autotoc_md74"></a>
 通知と中断</h3>
 <p>IntermediateCallbackを使用することで、音声認識の途中のデータを取得することが可能です。 IntermediateCallbackの返り値に1を与えることで、音声認識を中断することが可能です。</p>
-<h2><a class="anchor" id="autotoc_md73"></a>
+<h2><a class="anchor" id="autotoc_md75"></a>
 無音判定機能</h2>
-<h3><a class="anchor" id="autotoc_md74"></a>
+<h3><a class="anchor" id="autotoc_md76"></a>
 無音判定の設定</h3>
 <p>デフォルトで30秒分のデータが蓄積された後に音声認識が実行されます。 SetSilentThreshold APIを使用することで、一定時間、無音が続いた段階でテキスト化を実行することが可能です。 第一引数に無音判定するしきい値、第二引数に有音時間、第三引数に無音時間を指定します。 VADを使用しない場合はボリュームによる無音判定、VADを使用する場合はAIモデルによる無音判定を行います。 しきい値には、VADが無効な場合は0.0〜1.0のボリューム、VADが有効な場合は0.0〜1.0のコンフィデンス値を指定します。 VADが無効な場合は0.01など、VADが有効な場合は0.5などを指定します。</p>
-<h3><a class="anchor" id="autotoc_md75"></a>
+<h3><a class="anchor" id="autotoc_md77"></a>
 VAD (Voice Activity Detection)</h3>
 <p>AILIA_SPEECH_VAD_TYPE_SILEROとOpenVadFile APIを使用することで、AIによる無音判定を使用することが可能です。ボリュームによる無音判定に比べて、高精度な無音判定が実行可能です。AI音声認識は無音を与えると、「ご清聴ありがとうございました。」などと出力する場合があるため、VADはデフォルトで有効にすることを推奨しています。</p>
-<h2><a class="anchor" id="autotoc_md76"></a>
+<h2><a class="anchor" id="autotoc_md78"></a>
 用途特化型の機能</h2>
-<h3><a class="anchor" id="autotoc_md77"></a>
+<h3><a class="anchor" id="autotoc_md79"></a>
 文字による制約</h3>
 <p>AILIA_SPEECH_CONSTRAINT_CHARACTERSとSetConstraint APIを使用することで、認識可能な文字を制約することが可能です。下記のような制約を与えると、数値のみを認識可能にすることが可能です。</p>
 <div class="fragment"><div class="line">u8&quot;1234567890,.億千万百&quot;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md78"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md80"></a>
 単語による制約</h3>
 <p>AILIA_SPEECH_CONSTRAINT_WORDSとSetConstraint APIを使用することで、認識可能な単語を制約することが可能です。音声コマンドなどで、どの単語が発話されたかどうかを判定するために使用することが可能です。下記のような制約を与えると、コマンド1とコマンド2の確率を取得可能です。</p>
 <div class="fragment"><div class="line">u8&quot;コマンド1,コマンド2&quot;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md79"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md81"></a>
 Prompt</h3>
 <p>人名や専門用語をPromptとして与えることで、人名や専門用語の認識精度を向上させることが可能です。</p>
 <div class="fragment"><div class="line">u8&quot;ハードウェア ソフトウェア&quot;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md80"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md82"></a>
 誤り訂正辞書</h3>
 <p>誤り訂正辞書を使用することで、音声認識の後段に文字列置換を行うことで、音声認識誤り訂正を行うことが可能です。誤り訂正辞書では、シンプルな文字列置換を行います。</p>
 <p>誤り訂正辞書はOpenDictionary APIを使用して、UTF8のCSVで与えます。サンプルのdict.csvは下記のようになっています。この辞書は、実際に音声認識した場合の誤り方を定義しており、最初に誤った文字列、次に置換先の文字列を記載します。 </p><div class="fragment"><div class="line">アイリア,ailia</div>
@@ -150,10 +150,10 @@ Prompt</h3>
 <div class="line">小和技術,コア技術</div>
 <div class="line">アードウェア,ハードウェア</div>
 <div class="line">両速技術,要素技術</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md81"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md83"></a>
 ポストプロセス</h3>
 <p>ポストプロセスを使用することで、音声認識の後に、T5による音声認識誤り訂正や、FuguMTによる翻訳を行うことが可能です。T5による音声認識誤り訂正では、医療用語に対する補正モデルを使用可能です。FuguMTによる翻訳では、WhisperのTranslateモードで多言語を英語で音声認識した後、英語から日本語への翻訳を使用可能です。</p>
-<h2><a class="anchor" id="autotoc_md82"></a>
+<h2><a class="anchor" id="autotoc_md84"></a>
 GPUの使用</h2>
 <p>WindowsとLinux環境ではcuDNNを使用したGPU推論が可能です。 cuDNNを使用するには、NVIDIAのサイトから、CUDA ToolkitとcuDNNをインストールする必要があります。</p>
 <ul>

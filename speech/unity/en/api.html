@@ -66,9 +66,9 @@ $(function() {
 <div class="title">API Usage </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md14"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md15"></a>
 High Level API</h1>
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Presentation of the High Level API</h2>
 <p>The C# High Level API is using AiliaSpeechModel which is an abstraction of the AiliaSpeech Low Level API. AiliaSpeechModel is designed to perform multithread text transcription. The model file can be loaded with <code>Open</code>, then the audio waveform can be passed to <code>Transcribe</code>, and, after the inference is completed, the results can be obtained with <code>GetResults</code>.</p>
 <div class="fragment"><div class="line">void OnEnable(){</div>
@@ -98,17 +98,38 @@ Presentation of the High Level API</h2>
 <div class="line">  // Destroy the instance</div>
 <div class="line">  ailia_speech.Close();</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md16"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md17"></a>
+High Level API call flow</h2>
+<p>The relationship diagram for each API is as follows.</p>
+<p> 
+<div class="mermaid">
+flowchart
+subgraph SINK[Sink : feed the PCM]
+A(Microphone or File)-->B
+B["Transcribe API<br/>(the end of the PCM is notified by the complete argument)"]
+B-->|call repeatedly|A
+end
+subgraph DRAIN[Drain : get the text]
+C[GetResults API]-->K
+K[IsCompleted API]-->|call repeatedly|C
+K-->|after completion|R
+R[ResetTranscribeState API]
+end
+SINK-->DRAIN
+R-->|can sink again|SINK
+</div>
+</p>
+<h2><a class="anchor" id="autotoc_md18"></a>
 How to modify the example for live transcription</h2>
 <p>To enable live transcription, pass the flag AILIA_SPEECH_FLAG_LIVE to the <code>Open</code> API method.</p>
 <div class="fragment"><div class="line">flag = AiliaSpeech.AILIA_SPEECH_FLAG_LIVE;</div>
 </div><!-- fragment --><p>The preview of the inference is notified to IntermediateCallback.</p>
 <div class="fragment"><div class="line">string text = GetIntermediateText();</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md17"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
 VAD</h2>
 <p>When using voice activity detection (VAD), call the OpenVad API after the Open API.</p>
 <div class="fragment"><div class="line">ailia_speech.OpenVad(asset_path + <span class="stringliteral">&quot;/&quot;</span> + <span class="stringliteral">&quot;silero_vad.onnx&quot;</span>, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md18"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md20"></a>
 Post-process</h2>
 <p>If you want to apply post-processing such as speech recognition error correction or translation to the speech recognition result, call the OpenPostProcess API after the Open API.</p>
 <p>If using speech recognition error correction:</p>
@@ -118,11 +139,11 @@ Post-process</h2>
 <div class="fragment"><div class="line">ailia_speech.OpenPostProcess(asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_en_ja_seq2seq-lm-with-past.onnx&quot;</span>, <span class="keyword">null</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_en_ja_source.spm&quot;</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_en_ja_target.spm&quot;</span>, <span class="keyword">null</span>, AiliaSpeech.AILIA_SPEECH_POST_PROCESS_TYPE_FUGUMT_EN_JA);</div>
 </div><!-- fragment --><p>Japanese to English:</p>
 <div class="fragment"><div class="line">ailia_speech.OpenPostProcess(asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_ja_en_encoder_model.onnx&quot;</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_ja_en_decoder_model.onnx&quot;</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_ja_en_source.spm&quot;</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> +<span class="stringliteral">&quot;fugumt_ja_en_target.spm&quot;</span>, <span class="keyword">null</span>, AiliaSpeech.AILIA_SPEECH_POST_PROCESS_TYPE_FUGUMT_JA_EN);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md21"></a>
 Speaker Diarization</h2>
 <p>It is possible to perform speaker diarization on the speech recognition results. When using speaker diarization, call the OpenDiarization API after the Open API.</p>
 <div class="fragment"><div class="line">ailia_speech.OpenDiarization(asset_path + <span class="stringliteral">&quot;/&quot;</span> + <span class="stringliteral">&quot;segmentation.onnx&quot;</span>, asset_path + <span class="stringliteral">&quot;/&quot;</span> + <span class="stringliteral">&quot;speaker-embedding.onnx&quot;</span>, AiliaSpeech.AILIA_SPEECH_DIARIZATION_TYPE_PYANNOTE_AUDIO);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md20"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md22"></a>
 Translate</h2>
 <p>By using the AiliaSpeechTranslateModel, it is possible to perform translation only.</p>
 <div class="fragment"><div class="line">void OnEnable(){</div>
@@ -140,9 +161,9 @@ Translate</h2>
 <div class="line">  // Destroy Instance</div>
 <div class="line">  ailia_speech_translate.Close();</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md21"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md23"></a>
 Low Level API</h1>
-<h2><a class="anchor" id="autotoc_md22"></a>
+<h2><a class="anchor" id="autotoc_md24"></a>
 Overview of the Low Level API</h2>
 <p>Create the ailia Speech instance with ailiaSpeechCreate, open the model with ailiaSpeechOpenModelFile, feed some audio data with ailiaSpeechPushInputData, check if enough audio waveform has been fed with ailiaSpeechBuffered, transcribe with ailiaSpeechTranscribe, then get the inference results with ailiaSpeechGetText.</p>
 <p>With <code>ailiaSpeechPushInputData</code> it is not necessary to input the whole audio data at once, it is possible to feed it little by little, so that it can be used in real-time with the input from a microphone.</p>
@@ -159,6 +180,9 @@ Overview of the Low Level API</h2>
 <div class="line"> </div>
 <div class="line">// Gather and feed the audio waveform</div>
 <div class="line">AiliaSpeech.ailiaSpeechPushInputData(net, samples_buf, threadChannels, (uint)samples_buf.Length / threadChannels, threadFrequency);</div>
+<div class="line"> </div>
+<div class="line">// Finalize push pcm data</div>
+<div class="line">AiliaSpeech.ailiaSpeechFinalizeInputData(net);</div>
 <div class="line"> </div>
 <div class="line">// Check if thre is enough audio data to perform the transcription</div>
 <div class="line">while (true){</div>
@@ -194,7 +218,7 @@ Overview of the Low Level API</h2>
 <div class="line"> </div>
 <div class="line">// Destroy the instance</div>
 <div class="line">AiliaSpeech.ailiaSpeechDestroy(net);</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md23"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md25"></a>
 GPU usage</h1>
 <p>In order to use the GPU, pass the env_id corresponding to the GPU as the <code>env_id</code> argument of <code>AiliaSpeech.Open</code>. By default, the value AILIA_ENVIRONMENT_ID_AUTO is used, which indicates to perform the inference on the CPU. See the <code>GetEnvId()</code> function of <code>AiliaSpeechSample.cs</code> as an of how to determine the GPU env_id to be passed as the <code>env_id</code> argument. In the example below, the ailia API is used to enumerate the environments, and then, if env_type value is 1, we get the env_id corresponding to the GPU.</p>
 <div class="fragment"><div class="line">private int GetEnvId(int env_type){</div>
@@ -217,17 +241,21 @@ GPU usage</h1>
 <div class="line">    }</div>
 <div class="line">    return env_id;</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md26"></a>
 Platform-specific remarks</h1>
-<h2><a class="anchor" id="autotoc_md25"></a>
+<h2><a class="anchor" id="autotoc_md27"></a>
 Windows</h2>
 <p>For the Unity Plugin sample, the StandaloneFileBrowser asset is used as the file dialog. As a limitation of StandaloneFileBrowser, building on Windows with <code>il2cpp</code> produces an error, so in this case please use <code>mono</code> to build instead. This is not a limitation of ailia Speech, so if the file dialog is never used you can build with <code>il2cpp</code>.</p>
-<h2><a class="anchor" id="autotoc_md26"></a>
+<h2><a class="anchor" id="autotoc_md28"></a>
 iOS</h2>
 <p>When running on iOS, please set the "Increased Memory Limit" capability. 1.82GB of memory are required for the "small" model.</p>
-<h2><a class="anchor" id="autotoc_md27"></a>
+<h2><a class="anchor" id="autotoc_md29"></a>
 Android</h2>
-<p>On Android, it is not possible to access the StreamingAssets files directly, so, at runtime, the model file is transfered to TemporaryCachePath. </p>
+<p>On Android, it is not possible to access the StreamingAssets files directly, so, at runtime, the model file is transfered to TemporaryCachePath.</p>
+<p> 
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+ </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
