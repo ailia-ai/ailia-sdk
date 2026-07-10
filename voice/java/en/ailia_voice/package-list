@@ -1,0 +1,46 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:axip.ailia_voice////PointingToDeclaration/ailia_voice/axip.ailia_voice/index.html
+$dokka.location:axip.ailia_voice/AiliaVoice.AiliaVoiceException///PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-ailia-voice-exception/index.html
+$dokka.location:axip.ailia_voice/AiliaVoice.AiliaVoiceException/AiliaVoiceException/#kotlin.String/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-ailia-voice-exception/-ailia-voice-exception.html
+$dokka.location:axip.ailia_voice/AiliaVoice.AudioData///PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-audio-data/index.html
+$dokka.location:axip.ailia_voice/AiliaVoice.AudioData/AudioData/#kotlin.Int#kotlin.Int#kotlin.FloatArray/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-audio-data/-audio-data.html
+$dokka.location:axip.ailia_voice/AiliaVoice.AudioData/channels/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-audio-data/channels.html
+$dokka.location:axip.ailia_voice/AiliaVoice.AudioData/data/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-audio-data/data.html
+$dokka.location:axip.ailia_voice/AiliaVoice.AudioData/samplingRate/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-audio-data/sampling-rate.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion///PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/index.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_STATUS_SUCCESS/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-s-t-a-t-u-s_-s-u-c-c-e-s-s.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_CLEANER_TYPE_BASIC/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-c-l-e-a-n-e-r_-t-y-p-e_-b-a-s-i-c.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_CLEANER_TYPE_ENGLISH/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-c-l-e-a-n-e-r_-t-y-p-e_-e-n-g-l-i-s-h.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_DICTIONARY_TYPE_G2PW/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-d-i-c-t-i-o-n-a-r-y_-t-y-p-e_-g2-p-w.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_DICTIONARY_TYPE_G2P_CN/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-d-i-c-t-i-o-n-a-r-y_-t-y-p-e_-g2-p_-c-n.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_DICTIONARY_TYPE_G2P_EN/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-d-i-c-t-i-o-n-a-r-y_-t-y-p-e_-g2-p_-e-n.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_DICTIONARY_TYPE_OPEN_JTALK/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-d-i-c-t-i-o-n-a-r-y_-t-y-p-e_-o-p-e-n_-j-t-a-l-k.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_FLAG_NONE/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-f-l-a-g_-n-o-n-e.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_G2P_TYPE_GPT_SOVITS_EN/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-g2-p_-t-y-p-e_-g-p-t_-s-o-v-i-t-s_-e-n.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-g2-p_-t-y-p-e_-g-p-t_-s-o-v-i-t-s_-j-a.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_G2P_TYPE_GPT_SOVITS_ZH/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-g2-p_-t-y-p-e_-g-p-t_-s-o-v-i-t-s_-z-h.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_MODEL_TYPE_GPT_SOVITS/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-m-o-d-e-l_-t-y-p-e_-g-p-t_-s-o-v-i-t-s.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-m-o-d-e-l_-t-y-p-e_-g-p-t_-s-o-v-i-t-s_-v2.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2_PRO/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-m-o-d-e-l_-t-y-p-e_-g-p-t_-s-o-v-i-t-s_-v2_-p-r-o.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V3/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-m-o-d-e-l_-t-y-p-e_-g-p-t_-s-o-v-i-t-s_-v3.html
+$dokka.location:axip.ailia_voice/AiliaVoice.Companion/AILIA_VOICE_MODEL_TYPE_TACOTRON2/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-companion/-a-i-l-i-a_-v-o-i-c-e_-m-o-d-e-l_-t-y-p-e_-t-a-c-o-t-r-o-n2.html
+$dokka.location:axip.ailia_voice/AiliaVoice///PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/index.html
+$dokka.location:axip.ailia_voice/AiliaVoice/AiliaVoice/#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/-ailia-voice.html
+$dokka.location:axip.ailia_voice/AiliaVoice/close/#/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/close.html
+$dokka.location:axip.ailia_voice/AiliaVoice/g2p/#kotlin.String#kotlin.Int/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/g2p.html
+$dokka.location:axip.ailia_voice/AiliaVoice/openDictionaryFile/#kotlin.String#kotlin.Int/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/open-dictionary-file.html
+$dokka.location:axip.ailia_voice/AiliaVoice/openGPTSoVITSV1ModelFile/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/open-g-p-t-so-v-i-t-s-v1-model-file.html
+$dokka.location:axip.ailia_voice/AiliaVoice/openGPTSoVITSV2ModelFile/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String?#kotlin.String?/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/open-g-p-t-so-v-i-t-s-v2-model-file.html
+$dokka.location:axip.ailia_voice/AiliaVoice/openGPTSoVITSV2ProModelFile/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String?#kotlin.String?/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/open-g-p-t-so-v-i-t-s-v2-pro-model-file.html
+$dokka.location:axip.ailia_voice/AiliaVoice/openGPTSoVITSV3ModelFile/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String?#kotlin.String?/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/open-g-p-t-so-v-i-t-s-v3-model-file.html
+$dokka.location:axip.ailia_voice/AiliaVoice/openModelFile/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.Int#kotlin.Int/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/open-model-file.html
+$dokka.location:axip.ailia_voice/AiliaVoice/openTacotron2ModelFile/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.Int/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/open-tacotron2-model-file.html
+$dokka.location:axip.ailia_voice/AiliaVoice/setModelType/#kotlin.Int/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/set-model-type.html
+$dokka.location:axip.ailia_voice/AiliaVoice/setReferenceAudio/#kotlin.FloatArray#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.String/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/set-reference-audio.html
+$dokka.location:axip.ailia_voice/AiliaVoice/setSampleSteps/#kotlin.Int/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/set-sample-steps.html
+$dokka.location:axip.ailia_voice/AiliaVoice/setSpeed/#kotlin.Float/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/set-speed.html
+$dokka.location:axip.ailia_voice/AiliaVoice/setUserDictionaryFile/#kotlin.String#kotlin.Int/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/set-user-dictionary-file.html
+$dokka.location:axip.ailia_voice/AiliaVoice/synthesizeVoice/#kotlin.String/PointingToDeclaration/ailia_voice/axip.ailia_voice/-ailia-voice/synthesize-voice.html
+axip.ailia_voice
+
