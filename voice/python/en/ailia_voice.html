@@ -361,13 +361,14 @@ Supported by GPT-SoVITS V2 and V3. Not effective for V1.</p>
 <dd><p>Bases: <a class="reference internal" href="#ailia_voice.G2P" title="ailia_voice.G2P"><code class="xref py py-class docutils literal notranslate"><span class="pre">G2P</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ailia_voice.GPTSoVITSV2Pro.initialize_model">
-<span class="sig-name descname"><span class="pre">initialize_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_dict_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV2Pro.initialize_model" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">initialize_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_dict_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_voice.GPTSoVITSV2Pro.initialize_model" title="Link to this definition">¶</a></dt>
 <dd><p>Initialize and download the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: &quot;./&quot;</em>) – Destination for saving the model file.</p></li>
 <li><p><strong>user_dict_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Specify the path of the user dictionary. The user dictionary is in mecab format.</p></li>
+<li><p><strong>distill</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Specify “small” to use the distill model. None to use the default model.</p></li>
 </ul>
 </dd>
 </dl>
