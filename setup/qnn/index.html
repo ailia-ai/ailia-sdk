@@ -119,6 +119,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2>パフォーマンス</h2>
     <p>CPU 推論に比べて NPU は 10 倍程度高速です。ailia は QNN の非対応オペレータについて自動的に CPU オフロードを行います。</p>
 
+    <h2>制約</h2>
+    <p>QNN は Static Graph のみ対応しています。ailia SDK では、Dynamic Graph が入力された場合、CPU 推論を行います。</p>
+
   </div>
 
   <footer>

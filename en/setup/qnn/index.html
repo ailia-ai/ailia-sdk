@@ -119,6 +119,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2>Performance</h2>
     <p>The NPU is approximately 10x faster than CPU inference. ailia automatically offloads operators not supported by QNN to the CPU.</p>
 
+    <h2>Limitations</h2>
+    <p>QNN only supports static graphs. In ailia SDK, if a dynamic graph is provided as input, inference is performed on the CPU.</p>
+
   </div>
 
   <footer>
