@@ -95,7 +95,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>A sample is available in <a href="https://github.com/ailia-ai/ailia-models-kotlin/pull/33" target="_blank">ailia-models-kotlin</a>.</p>
 
     <h3>Using on Windows</h3>
-    <p>After running <code>pip3 install ailia</code>, download QNN and copy <code>/lib/aarch64-windows-msvc/*.dll</code> to <code>site-packages/ailia/windows/arm64</code>, based on the path shown by <code>pip3 show ailia</code>.</p>
+    <p>After running <code>pip3 install ailia</code>, download QNN and copy the following files from the zip to <code>site-packages/ailia/windows/arm64</code>, based on the path shown by <code>pip3 show ailia</code>.</p>
+    <ul>
+      <li>The DLLs in <code>qairt\2.47.0.260601\lib\aarch64-windows-msvc</code> (QnnHtp.dll, etc.)</li>
+      <li>The so files in <code>qairt\2.47.0.260601\lib\hexagon-v73\unsigned</code> (libQnnHtpV73.so, etc.)</li>
+    </ul>
     <p><a href="https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk" target="_blank">https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk</a></p>
     <div class="note">
       <strong>Note:</strong> QNN has version dependencies, so please use the following:<br>
