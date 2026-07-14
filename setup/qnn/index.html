@@ -37,6 +37,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .arch-box .arch-name { font-weight: 600; color: var(--primary); }
     .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
     .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .arch-split { display: flex; justify-content: center; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+    .arch-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .arch-col .arch-box { min-width: 220px; max-width: 320px; }
   </style>
 </head>
 <body>
@@ -100,19 +103,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h2>アーキテクチャ</h2>
-    <p>ailia SDK は ONNX を入力し、グラフをパースし、レイヤーをインスタンス化、各レイヤーで QNN を使用した推論を行います。QNN（Qualcomm AI Engine Direct）は libcdsprpc.so（FastRPC）を経由して Hexagon NPU に処理をオフロードし、NPU 内の HVX（ベクトル演算ユニット）と HMX（行列演算ユニット）で演算が実行されます。</p>
+    <p>ailia SDK は ONNX を入力し、グラフをパースし、レイヤーをインスタンス化、各レイヤーで QNN を使用した推論を行います。QNN（Qualcomm AI Engine Direct）は libcdsprpc.so（FastRPC）を経由して Hexagon NPU に処理をオフロードし、NPU 内の HVX（ベクトル演算ユニット）と HMX（行列演算ユニット）で演算が実行されます。QNN 非対応のオペレータは ailia の CPU レイヤー処理で実行され、NPU と CPU が並列に動作します。</p>
     <div class="arch-diagram">
       <div class="arch-box"><div class="arch-name">ONNX</div><div class="arch-desc">モデルファイル</div></div>
       <div class="arch-arrow">↓</div>
       <div class="arch-box"><div class="arch-name">ailia</div><div class="arch-desc">グラフ管理</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">ailia_qnn</div><div class="arch-desc">レイヤー管理</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">QNN</div><div class="arch-desc">推論ランタイム（Qualcomm AI Engine Direct / HTP バックエンド）</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">libcdsprpc.so</div><div class="arch-desc">FastRPC（CPU と NPU 間の RPC インタフェース）</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">Hexagon NPU</div><div class="arch-desc">HVX（ベクトル演算ユニット）/ HMX（行列演算ユニット）</div></div>
+      <div class="arch-arrow">↙ ↘</div>
+      <div class="arch-split">
+        <div class="arch-col">
+          <div class="arch-box"><div class="arch-name">ailia_qnn</div><div class="arch-desc">レイヤー管理</div></div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box"><div class="arch-name">QNN</div><div class="arch-desc">推論ランタイム（Qualcomm AI Engine Direct / HTP バックエンド）</div></div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box"><div class="arch-name">libcdsprpc.so</div><div class="arch-desc">FastRPC（CPU と NPU 間の RPC インタフェース）</div></div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box"><div class="arch-name">Hexagon NPU</div><div class="arch-desc">HVX（ベクトル演算ユニット）/ HMX（行列演算ユニット）</div></div>
+        </div>
+        <div class="arch-col">
+          <div class="arch-box"><div class="arch-name">ailia CPU レイヤー処理</div><div class="arch-desc">QNN 非対応オペレータの CPU オフロード</div></div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box"><div class="arch-name">CPU</div><div class="arch-desc">Arm CPU</div></div>
+        </div>
+      </div>
     </div>
     <p>演算は FP16 で行います。Snapdragon 8 以降が必要です。</p>
 

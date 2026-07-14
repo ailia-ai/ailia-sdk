@@ -37,6 +37,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .arch-box .arch-name { font-weight: 600; color: var(--primary); }
     .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
     .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .arch-split { display: flex; justify-content: center; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+    .arch-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .arch-col .arch-box { min-width: 220px; max-width: 320px; }
   </style>
 </head>
 <body>
@@ -100,19 +103,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h2>Architecture</h2>
-    <p>ailia SDK takes ONNX as input, parses the graph, instantiates the layers, and performs inference using QNN in each layer. QNN (Qualcomm AI Engine Direct) offloads processing to the Hexagon NPU via libcdsprpc.so (FastRPC), and computation is executed on the HVX (vector unit) and HMX (matrix unit) inside the NPU.</p>
+    <p>ailia SDK takes ONNX as input, parses the graph, instantiates the layers, and performs inference using QNN in each layer. QNN (Qualcomm AI Engine Direct) offloads processing to the Hexagon NPU via libcdsprpc.so (FastRPC), and computation is executed on the HVX (vector unit) and HMX (matrix unit) inside the NPU. Operators not supported by QNN are executed by ailia's CPU layer processing, so the NPU and CPU operate in parallel.</p>
     <div class="arch-diagram">
       <div class="arch-box"><div class="arch-name">ONNX</div><div class="arch-desc">Model file</div></div>
       <div class="arch-arrow">↓</div>
       <div class="arch-box"><div class="arch-name">ailia</div><div class="arch-desc">Graph management</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">ailia_qnn</div><div class="arch-desc">Layer management</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">QNN</div><div class="arch-desc">Inference runtime (Qualcomm AI Engine Direct / HTP backend)</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">libcdsprpc.so</div><div class="arch-desc">FastRPC (RPC interface between CPU and NPU)</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">Hexagon NPU</div><div class="arch-desc">HVX (vector unit) / HMX (matrix unit)</div></div>
+      <div class="arch-arrow">↙ ↘</div>
+      <div class="arch-split">
+        <div class="arch-col">
+          <div class="arch-box"><div class="arch-name">ailia_qnn</div><div class="arch-desc">Layer management</div></div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box"><div class="arch-name">QNN</div><div class="arch-desc">Inference runtime (Qualcomm AI Engine Direct / HTP backend)</div></div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box"><div class="arch-name">libcdsprpc.so</div><div class="arch-desc">FastRPC (RPC interface between CPU and NPU)</div></div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box"><div class="arch-name">Hexagon NPU</div><div class="arch-desc">HVX (vector unit) / HMX (matrix unit)</div></div>
+        </div>
+        <div class="arch-col">
+          <div class="arch-box"><div class="arch-name">ailia CPU layer processing</div><div class="arch-desc">CPU offload for operators not supported by QNN</div></div>
+          <div class="arch-arrow">↓</div>
+          <div class="arch-box"><div class="arch-name">CPU</div><div class="arch-desc">Arm CPU</div></div>
+        </div>
+      </div>
     </div>
     <p>Computation is performed in FP16. Snapdragon 8 or later is required.</p>
 
