@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QNN Backend Guide - ailia SDK</title>
+  <meta name="description" content="How to run fast inference on the NPU of Qualcomm SoCs using the QNN backend of ailia SDK.">
+  <link rel="canonical" href="https://docs.ailia.ai/en/setup/qnn/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/qnn/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/qnn/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/setup/qnn/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/setup/qnn/">
+  <meta property="og:title" content="QNN Backend Guide - ailia SDK">
+  <meta property="og:description" content="How to run fast inference on the NPU of Qualcomm SoCs using the QNN backend of ailia SDK.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="QNN Backend Guide - ailia SDK">
+  <meta name="twitter:description" content="How to run fast inference on the NPU of Qualcomm SoCs using the QNN backend of ailia SDK.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../../ailia_logo.png">
+  <link rel="stylesheet" href="../../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
+    .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; }
+    .arch-box .arch-name { font-weight: 600; color: var(--primary); }
+    .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
+    .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../sdk/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../../setup/qnn/" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>QNN Backend Guide</h1>
+    <p>How to run fast inference on the NPU of Qualcomm SoCs using the QNN backend of ailia SDK.</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>Overview</h2>
+    <p>QNN is a backend API provided by Qualcomm, equivalent to NVIDIA's cuDNN. By using the QNN backend of ailia, you can use the NPU on Qualcomm SoCs.</p>
+
+    <h2>Supported Platforms</h2>
+    <ul>
+      <li>Windows on Arm</li>
+      <li>Android</li>
+    </ul>
+
+    <h2>Usage</h2>
+    <p>QNN is planned to become available experimentally from ailia SDK 1.7 onwards.</p>
+
+    <h3>Using on Android</h3>
+    <p>In addition to libailia.so, bundle libailia_qnn.so with your application.</p>
+    <p>You need to declare the execution permission for libcdsprpc.so in AndroidManifest.xml:</p>
+    <pre><code class="language-xml">&lt;uses-native-library android:name="libcdsprpc.so" android:required="false"/&gt;</code></pre>
+    <p>You also need to add the following to build.gradle:</p>
+    <pre><code class="language-groovy">implementation 'com.qualcomm.qti:qnn-runtime:2.47.0'</code></pre>
+    <p>Once added to build.gradle, QNN is automatically bundled into the apk.</p>
+    <p>A sample is available in <a href="https://github.com/ailia-ai/ailia-models-kotlin" target="_blank">ailia-models-kotlin</a>.</p>
+
+    <h3>Using on Windows</h3>
+    <p>After running <code>pip3 install ailia</code>, download QNN and copy <code>/lib/x86_64-windows-msvc/*.dll</code> to <code>site_packages/ailia/windows/arm64</code>.</p>
+    <p><a href="https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk" target="_blank">https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk</a></p>
+    <div class="note">
+      <strong>Note:</strong> QNN has version dependencies, so please use the following:<br>
+      <a href="https://apigwx-aws.qualcomm.com/qsc/public/v1/api/download/software/sdks/Qualcomm_AI_Runtime_Community/All/2.47.0.260601/v2.47.0.260601.zip" target="_blank">v2.47.0.260601.zip</a>
+    </div>
+
+    <h2>Architecture</h2>
+    <p>ailia SDK takes ONNX as input, parses the graph, instantiates the layers, and performs inference using QNN in each layer.</p>
+    <div class="arch-diagram">
+      <div class="arch-box"><div class="arch-name">ONNX</div><div class="arch-desc">Model file</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">ailia</div><div class="arch-desc">Graph management</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">ailia_qnn</div><div class="arch-desc">Layer management</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">QNN</div><div class="arch-desc">NPU driver</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">libcdsprpc.so</div><div class="arch-desc">RPC interface</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">HVX / HMX</div><div class="arch-desc">NPU</div></div>
+    </div>
+    <p>Computation is performed in FP16. Snapdragon 8 or later is required.</p>
+
+    <h2>Performance</h2>
+    <p>The NPU is approximately 10x faster than CPU inference. ailia automatically offloads operators not supported by QNN to the CPU.</p>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
