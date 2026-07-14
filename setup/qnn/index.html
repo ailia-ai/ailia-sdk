@@ -100,13 +100,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li><code>qairt\2.47.0.260601\lib\aarch64-windows-msvc</code> にある DLL（QnnHtp.dll など）</li>
       <li><code>qairt\2.47.0.260601\lib\hexagon-v73\unsigned</code> にある so（libQnnHtpV73.so など）</li>
     </ul>
-    <div class="note">
-      <strong>補足:</strong> so ファイルは Windows 用のライブラリではなく、NPU（Hexagon）上で実行されるバイナリです。DLL は Windows 上で動作し、FastRPC 経由で NPU に処理を依頼します。libQnnHtpV73.so は FastRPC 経由で NPU に転送され、Hexagon プロセッサ上にロードされて実際の演算を実行します。Hexagon 向けのバイナリは ELF 形式（.so）のため、ホスト OS が Windows でも拡張子は .so になります。
-    </div>
     <p><a href="https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk" target="_blank">https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk</a></p>
     <div class="note">
       <strong>注意:</strong> QNN はバージョン依存があるため、下記をご利用ください。<br>
       <a href="https://apigwx-aws.qualcomm.com/qsc/public/v1/api/download/software/sdks/Qualcomm_AI_Runtime_Community/All/2.47.0.260601/v2.47.0.260601.zip" target="_blank">v2.47.0.260601.zip</a>
+    </div>
+    <div class="note">
+      <strong>補足:</strong> so ファイルは Windows 用のライブラリではなく、NPU（Hexagon）上で実行されるバイナリです。DLL は Windows 上で動作し、FastRPC 経由で NPU に処理を依頼します。libQnnHtpV73.so は FastRPC 経由で NPU に転送され、Hexagon プロセッサ上にロードされて実際の演算を実行します。Hexagon 向けのバイナリは ELF 形式（.so）のため、ホスト OS が Windows でも拡張子は .so になります。
     </div>
 
     <h2>アーキテクチャ</h2>
