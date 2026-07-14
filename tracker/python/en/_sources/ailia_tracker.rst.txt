@@ -1,0 +1,31 @@
+ailia_tracker package
+==========================
+
+Classes
+-----------
+
+.. autoclass:: ailia_tracker.AiliaTracker
+   :special-members: __init__, __name__
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: ailia_tracker.TrackerSettings
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: ailia_tracker.TrackerObject
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: ailia_tracker.DetectorObject
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: ailia_tracker.AiliaTrackerError
+   :members:
+   :undoc-members:
+   :show-inheritance:
