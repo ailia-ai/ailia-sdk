@@ -178,22 +178,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/woa/"/>
   </url>
   <url>
-    <loc>https://docs.ailia.ai/setup/qnn/</loc>
-    <lastmod>2026-07-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/qnn/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/qnn/"/>
-  </url>
-  <url>
-    <loc>https://docs.ailia.ai/en/setup/qnn/</loc>
-    <lastmod>2026-07-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/qnn/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/qnn/"/>
-  </url>
-  <url>
     <loc>https://docs.ailia.ai/setup/python/</loc>
     <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
