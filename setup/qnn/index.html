@@ -100,6 +100,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li><code>qairt\2.47.0.260601\lib\aarch64-windows-msvc</code> にある DLL（QnnHtp.dll など）</li>
       <li><code>qairt\2.47.0.260601\lib\hexagon-v73\unsigned</code> にある so（libQnnHtpV73.so など）</li>
     </ul>
+    <div class="note">
+      <strong>補足:</strong> so ファイルは Windows 用のライブラリではなく、NPU（Hexagon）上で実行されるバイナリです。DLL は Windows 上で動作し、FastRPC 経由で NPU に処理を依頼します。libQnnHtpV73.so は FastRPC 経由で NPU に転送され、Hexagon プロセッサ上にロードされて実際の演算を実行します。Hexagon 向けのバイナリは ELF 形式（.so）のため、ホスト OS が Windows でも拡張子は .so になります。
+    </div>
     <p><a href="https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk" target="_blank">https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk</a></p>
     <div class="note">
       <strong>注意:</strong> QNN はバージョン依存があるため、下記をご利用ください。<br>
@@ -107,7 +110,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h2>アーキテクチャ</h2>
-    <p>ailia SDK は ONNX を入力し、グラフをパースし、レイヤーをインスタンス化、各レイヤーで QNN を使用した推論を行います。QNN（Qualcomm AI Engine Direct）は libcdsprpc.so（FastRPC）を経由して Hexagon NPU に処理をオフロードし、NPU 内の HVX（ベクトル演算ユニット）と HMX（行列演算ユニット）で演算が実行されます。QNN 非対応のオペレータは ailia_cpu で実行され、NPU と CPU が並列に動作します。</p>
+    <p>ailia SDK は ONNX を入力し、グラフをパースし、レイヤーをインスタンス化、各レイヤーで QNN を使用した推論を行います。QNN（Qualcomm AI Engine Direct）は libcdsprpc.so（FastRPC）を経由して Hexagon NPU に処理をオフロードし、NPU 内の HVX（ベクトル演算ユニット）と HMX（行列演算ユニット）で演算が実行されます。QNN 非対応のオペレータは ailia_cpu で実行され、NPU と CPU が並列に動作します。演算は FP16 で行います。</p>
     <div class="arch-diagram">
       <div class="arch-box"><div class="arch-name">ONNX</div><div class="arch-desc">モデルファイル</div></div>
       <div class="arch-arrow">↓</div>
@@ -130,7 +133,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
       </div>
     </div>
-    <p>演算は FP16 で行います。</p>
 
     <h2>パフォーマンス</h2>
     <p>CPU 推論に比べて NPU は 10 倍程度高速です。ailia は QNN の非対応オペレータについて自動的に CPU オフロードを行います。</p>
