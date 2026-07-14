@@ -107,7 +107,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h2>アーキテクチャ</h2>
-    <p>ailia SDK は ONNX を入力し、グラフをパースし、レイヤーをインスタンス化、各レイヤーで QNN を使用した推論を行います。QNN（Qualcomm AI Engine Direct）は libcdsprpc.so（FastRPC）を経由して Hexagon NPU に処理をオフロードし、NPU 内の HVX（ベクトル演算ユニット）と HMX（行列演算ユニット）で演算が実行されます。QNN 非対応のオペレータは ailia の CPU レイヤー処理で実行され、NPU と CPU が並列に動作します。</p>
+    <p>ailia SDK は ONNX を入力し、グラフをパースし、レイヤーをインスタンス化、各レイヤーで QNN を使用した推論を行います。QNN（Qualcomm AI Engine Direct）は libcdsprpc.so（FastRPC）を経由して Hexagon NPU に処理をオフロードし、NPU 内の HVX（ベクトル演算ユニット）と HMX（行列演算ユニット）で演算が実行されます。QNN 非対応のオペレータは ailia_cpu で実行され、NPU と CPU が並列に動作します。</p>
     <div class="arch-diagram">
       <div class="arch-box"><div class="arch-name">ONNX</div><div class="arch-desc">モデルファイル</div></div>
       <div class="arch-arrow">↓</div>
@@ -124,7 +124,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="arch-box"><div class="arch-name">Hexagon NPU</div><div class="arch-desc">HVX（ベクトル演算ユニット）/ HMX（行列演算ユニット）</div></div>
         </div>
         <div class="arch-col">
-          <div class="arch-box"><div class="arch-name">ailia CPU レイヤー処理</div><div class="arch-desc">QNN 非対応オペレータの CPU オフロード</div></div>
+          <div class="arch-box"><div class="arch-name">ailia_cpu</div><div class="arch-desc">CPU レイヤー処理（QNN 非対応オペレータのオフロード）</div></div>
           <div class="arch-arrow">↓</div>
           <div class="arch-box"><div class="arch-name">CPU</div><div class="arch-desc">Arm CPU</div></div>
         </div>

@@ -107,7 +107,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h2>Architecture</h2>
-    <p>ailia SDK takes ONNX as input, parses the graph, instantiates the layers, and performs inference using QNN in each layer. QNN (Qualcomm AI Engine Direct) offloads processing to the Hexagon NPU via libcdsprpc.so (FastRPC), and computation is executed on the HVX (vector unit) and HMX (matrix unit) inside the NPU. Operators not supported by QNN are executed by ailia's CPU layer processing, so the NPU and CPU operate in parallel.</p>
+    <p>ailia SDK takes ONNX as input, parses the graph, instantiates the layers, and performs inference using QNN in each layer. QNN (Qualcomm AI Engine Direct) offloads processing to the Hexagon NPU via libcdsprpc.so (FastRPC), and computation is executed on the HVX (vector unit) and HMX (matrix unit) inside the NPU. Operators not supported by QNN are executed by ailia_cpu, so the NPU and CPU operate in parallel.</p>
     <div class="arch-diagram">
       <div class="arch-box"><div class="arch-name">ONNX</div><div class="arch-desc">Model file</div></div>
       <div class="arch-arrow">↓</div>
@@ -124,7 +124,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="arch-box"><div class="arch-name">Hexagon NPU</div><div class="arch-desc">HVX (vector unit) / HMX (matrix unit)</div></div>
         </div>
         <div class="arch-col">
-          <div class="arch-box"><div class="arch-name">ailia CPU layer processing</div><div class="arch-desc">CPU offload for operators not supported by QNN</div></div>
+          <div class="arch-box"><div class="arch-name">ailia_cpu</div><div class="arch-desc">CPU layer processing (offload for operators not supported by QNN)</div></div>
           <div class="arch-arrow">↓</div>
           <div class="arch-box"><div class="arch-name">CPU</div><div class="arch-desc">Arm CPU</div></div>
         </div>
