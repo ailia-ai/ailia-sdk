@@ -1,0 +1,17 @@
+ailia Tracker Python API document
+=================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+Packages
+==================
+
+* :doc:`ailia_tracker`
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`search`

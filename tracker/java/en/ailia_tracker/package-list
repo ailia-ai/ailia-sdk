@@ -1,0 +1,33 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:axip.ailia_tracker////PointingToDeclaration/ailia_tracker/axip.ailia_tracker/index.html
+$dokka.location:axip.ailia_tracker/AiliaTracker.Companion///PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/-companion/index.html
+$dokka.location:axip.ailia_tracker/AiliaTracker.Companion/AILIA_TRACKER_ALGORITHM_BYTE_TRACK/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/-companion/-a-i-l-i-a_-t-r-a-c-k-e-r_-a-l-g-o-r-i-t-h-m_-b-y-t-e_-t-r-a-c-k.html
+$dokka.location:axip.ailia_tracker/AiliaTracker.Companion/AILIA_TRACKER_FLAG_ALLOW_WIDE_ASPECT_RATIO/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/-companion/-a-i-l-i-a_-t-r-a-c-k-e-r_-f-l-a-g_-a-l-l-o-w_-w-i-d-e_-a-s-p-e-c-t_-r-a-t-i-o.html
+$dokka.location:axip.ailia_tracker/AiliaTracker.Companion/AILIA_TRACKER_FLAG_NONE/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/-companion/-a-i-l-i-a_-t-r-a-c-k-e-r_-f-l-a-g_-n-o-n-e.html
+$dokka.location:axip.ailia_tracker/AiliaTracker///PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/index.html
+$dokka.location:axip.ailia_tracker/AiliaTracker/AiliaTracker/#kotlin.Int#axip.ailia_tracker.AiliaTrackerSettings#kotlin.Int/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/-ailia-tracker.html
+$dokka.location:axip.ailia_tracker/AiliaTracker/addTarget/#kotlin.Int#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/add-target.html
+$dokka.location:axip.ailia_tracker/AiliaTracker/close/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/close.html
+$dokka.location:axip.ailia_tracker/AiliaTracker/compute/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/compute.html
+$dokka.location:axip.ailia_tracker/AiliaTracker/getErrorDetail/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/get-error-detail.html
+$dokka.location:axip.ailia_tracker/AiliaTracker/getObject/#kotlin.Int/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/get-object.html
+$dokka.location:axip.ailia_tracker/AiliaTracker/getObjectCount/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker/get-object-count.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerObject///PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-object/index.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerObject/AiliaTrackerObject/#kotlin.Int#kotlin.Int#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-object/-ailia-tracker-object.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerObject/category/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-object/category.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerObject/h/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-object/h.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerObject/id/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-object/id.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerObject/prob/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-object/prob.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerObject/w/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-object/w.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerObject/x/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-object/x.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerObject/y/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-object/y.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerSettings///PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-settings/index.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerSettings/AiliaTrackerSettings/#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Int#kotlin.Float/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-settings/-ailia-tracker-settings.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerSettings/match_threshold/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-settings/match_threshold.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerSettings/nms_threshold/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-settings/nms_threshold.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerSettings/score_threshold/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-settings/score_threshold.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerSettings/track_buffer/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-settings/track_buffer.html
+$dokka.location:axip.ailia_tracker/AiliaTrackerSettings/track_threshold/#/PointingToDeclaration/ailia_tracker/axip.ailia_tracker/-ailia-tracker-settings/track_threshold.html
+axip.ailia_tracker
+

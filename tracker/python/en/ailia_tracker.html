@@ -1,0 +1,634 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ailia_tracker package &mdash; ailia Tracker Python API 1.1.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/documentation_options.js?v=58fbf978"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ailia Tracker Python API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">ailia_tracker package</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#ailia_tracker.AiliaTracker"><code class="docutils literal notranslate"><span class="pre">AiliaTracker</span></code></a><ul>
+<li><a class="reference internal" href="#ailia_tracker.AiliaTracker.__init__"><code class="docutils literal notranslate"><span class="pre">AiliaTracker.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.AiliaTracker.add_target"><code class="docutils literal notranslate"><span class="pre">AiliaTracker.add_target()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.AiliaTracker.compute"><code class="docutils literal notranslate"><span class="pre">AiliaTracker.compute()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.AiliaTracker.get_object"><code class="docutils literal notranslate"><span class="pre">AiliaTracker.get_object()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.AiliaTracker.get_object_count"><code class="docutils literal notranslate"><span class="pre">AiliaTracker.get_object_count()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.AiliaTracker.get_objects"><code class="docutils literal notranslate"><span class="pre">AiliaTracker.get_objects()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.AiliaTracker.release"><code class="docutils literal notranslate"><span class="pre">AiliaTracker.release()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerSettings"><code class="docutils literal notranslate"><span class="pre">TrackerSettings</span></code></a><ul>
+<li><a class="reference internal" href="#ailia_tracker.TrackerSettings.score_threshold"><code class="docutils literal notranslate"><span class="pre">TrackerSettings.score_threshold</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerSettings.nms_threshold"><code class="docutils literal notranslate"><span class="pre">TrackerSettings.nms_threshold</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerSettings.track_threshold"><code class="docutils literal notranslate"><span class="pre">TrackerSettings.track_threshold</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerSettings.track_buffer"><code class="docutils literal notranslate"><span class="pre">TrackerSettings.track_buffer</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerSettings.match_threshold"><code class="docutils literal notranslate"><span class="pre">TrackerSettings.match_threshold</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerSettings.VERSION"><code class="docutils literal notranslate"><span class="pre">TrackerSettings.VERSION</span></code></a></li>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">TrackerSettings.match_threshold</span></code></a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">TrackerSettings.nms_threshold</span></code></a></li>
+<li><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">TrackerSettings.score_threshold</span></code></a></li>
+<li><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">TrackerSettings.track_buffer</span></code></a></li>
+<li><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">TrackerSettings.track_threshold</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerObject"><code class="docutils literal notranslate"><span class="pre">TrackerObject</span></code></a><ul>
+<li><a class="reference internal" href="#ailia_tracker.TrackerObject.id"><code class="docutils literal notranslate"><span class="pre">TrackerObject.id</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerObject.category"><code class="docutils literal notranslate"><span class="pre">TrackerObject.category</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerObject.prob"><code class="docutils literal notranslate"><span class="pre">TrackerObject.prob</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerObject.x"><code class="docutils literal notranslate"><span class="pre">TrackerObject.x</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerObject.y"><code class="docutils literal notranslate"><span class="pre">TrackerObject.y</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerObject.w"><code class="docutils literal notranslate"><span class="pre">TrackerObject.w</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerObject.h"><code class="docutils literal notranslate"><span class="pre">TrackerObject.h</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.TrackerObject.VERSION"><code class="docutils literal notranslate"><span class="pre">TrackerObject.VERSION</span></code></a></li>
+<li><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">TrackerObject.category</span></code></a></li>
+<li><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">TrackerObject.h</span></code></a></li>
+<li><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">TrackerObject.id</span></code></a></li>
+<li><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">TrackerObject.prob</span></code></a></li>
+<li><a class="reference internal" href="#id9"><code class="docutils literal notranslate"><span class="pre">TrackerObject.w</span></code></a></li>
+<li><a class="reference internal" href="#id10"><code class="docutils literal notranslate"><span class="pre">TrackerObject.x</span></code></a></li>
+<li><a class="reference internal" href="#id11"><code class="docutils literal notranslate"><span class="pre">TrackerObject.y</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ailia_tracker.DetectorObject"><code class="docutils literal notranslate"><span class="pre">DetectorObject</span></code></a><ul>
+<li><a class="reference internal" href="#ailia_tracker.DetectorObject.category"><code class="docutils literal notranslate"><span class="pre">DetectorObject.category</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.DetectorObject.prob"><code class="docutils literal notranslate"><span class="pre">DetectorObject.prob</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.DetectorObject.x"><code class="docutils literal notranslate"><span class="pre">DetectorObject.x</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.DetectorObject.y"><code class="docutils literal notranslate"><span class="pre">DetectorObject.y</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.DetectorObject.w"><code class="docutils literal notranslate"><span class="pre">DetectorObject.w</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.DetectorObject.h"><code class="docutils literal notranslate"><span class="pre">DetectorObject.h</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tracker.DetectorObject.VERSION"><code class="docutils literal notranslate"><span class="pre">DetectorObject.VERSION</span></code></a></li>
+<li><a class="reference internal" href="#id12"><code class="docutils literal notranslate"><span class="pre">DetectorObject.category</span></code></a></li>
+<li><a class="reference internal" href="#id13"><code class="docutils literal notranslate"><span class="pre">DetectorObject.h</span></code></a></li>
+<li><a class="reference internal" href="#id14"><code class="docutils literal notranslate"><span class="pre">DetectorObject.prob</span></code></a></li>
+<li><a class="reference internal" href="#id15"><code class="docutils literal notranslate"><span class="pre">DetectorObject.w</span></code></a></li>
+<li><a class="reference internal" href="#id16"><code class="docutils literal notranslate"><span class="pre">DetectorObject.x</span></code></a></li>
+<li><a class="reference internal" href="#id17"><code class="docutils literal notranslate"><span class="pre">DetectorObject.y</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ailia_tracker.AiliaTrackerError"><code class="docutils literal notranslate"><span class="pre">AiliaTrackerError</span></code></a><ul>
+<li><a class="reference internal" href="#ailia_tracker.AiliaTrackerError.code"><code class="docutils literal notranslate"><span class="pre">AiliaTrackerError.code</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ailia Tracker Python API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ailia_tracker package</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ailia-tracker-package">
+<h1>ailia_tracker package<a class="headerlink" href="#ailia-tracker-package" title="Link to this heading">¶</a></h1>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ailia_tracker.AiliaTracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_tracker.</span></span><span class="sig-name descname"><span class="pre">AiliaTracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nms_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_buffer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tracker.AiliaTracker" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>wrapper class for ailia tracker instance</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tracker.AiliaTracker.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nms_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_buffer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tracker.AiliaTracker.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>constructor of ailia tracker instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>algorithm</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: AILIA_TRACKER_ALGORITHM_BYTE_TRACK</em><em>(</em><em>0</em><em>)</em>) – tracking algorithm.</p></li>
+<li><p><strong>score_threshold</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default: 0.1</em>) – minimum confidence score to accept a detection result.</p></li>
+<li><p><strong>nms_threshold</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default: 0.7</em>) – Non-Maximum Suppression (NMS) threshold used to remove duplicate detections.</p></li>
+<li><p><strong>track_threshold</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default: 0.5</em>) – confidence threshold for updating active tracks.</p></li>
+<li><p><strong>track_buffer</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: 30</em>) – maximum number of frames to keep lost tracks in memory.</p></li>
+<li><p><strong>match_threshold</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default: 0.8</em>) – IoU threshold used for matching objects between frames.</p></li>
+<li><p><strong>flags</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: AILIA_TRACKER_FLAG_NONE</em><em>(</em><em>0</em><em>)</em>) – logical OR of AILIA_TRACKER_FLAG_*.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tracker.AiliaTracker.add_target">
+<span class="sig-name descname"><span class="pre">add_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tracker.AiliaTracker.add_target" title="Link to this definition">¶</a></dt>
+<dd><p>set a tracking target detected in the current frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>category</strong> (<em>int</em>) – object category number.</p></li>
+<li><p><strong>prob</strong> (<em>float</em>) – estimated probability (0 to 1).</p></li>
+<li><p><strong>x</strong> (<em>float</em>) – x position at the top left (1 for the image width).</p></li>
+<li><p><strong>y</strong> (<em>float</em>) – y position at the top left (1 for the image height).</p></li>
+<li><p><strong>w</strong> (<em>float</em>) – width (1 for the width of the image).</p></li>
+<li><p><strong>h</strong> (<em>float</em>) – height (1 for the height of the image).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tracker.AiliaTracker.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tracker.AiliaTracker.compute" title="Link to this definition">¶</a></dt>
+<dd><p>run tracking with the targets given by add_target().</p>
+<p>Get the tracking result with get_objects() or get_object().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tracker.AiliaTracker.get_object">
+<span class="sig-name descname"><span class="pre">get_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tracker.AiliaTracker.get_object" title="Link to this definition">¶</a></dt>
+<dd><p>get a tracked object specified by index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – object index.
+valid values : range(0, get_object_count())</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tracking result.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#ailia_tracker.TrackerObject" title="ailia_tracker.TrackerObject">TrackerObject</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tracker.AiliaTracker.get_object_count">
+<span class="sig-name descname"><span class="pre">get_object_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tracker.AiliaTracker.get_object_count" title="Link to this definition">¶</a></dt>
+<dd><p>get the number of tracked objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>number of tracked objects.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tracker.AiliaTracker.get_objects">
+<span class="sig-name descname"><span class="pre">get_objects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tracker.AiliaTracker.get_objects" title="Link to this definition">¶</a></dt>
+<dd><p>get all tracked objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tracking results.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="#ailia_tracker.TrackerObject" title="ailia_tracker.TrackerObject">TrackerObject</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tracker.AiliaTracker.release">
+<span class="sig-name descname"><span class="pre">release</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tracker.AiliaTracker.release" title="Link to this definition">¶</a></dt>
+<dd><p>destroy the ailia tracker instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerSettings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_tracker.</span></span><span class="sig-name descname"><span class="pre">TrackerSettings</span></span><a class="headerlink" href="#ailia_tracker.TrackerSettings" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Structure</span></code></p>
+<p>settings of the tracker (AILIATrackerSettings)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerSettings.score_threshold">
+<span class="sig-name descname"><span class="pre">score_threshold</span></span><a class="headerlink" href="#ailia_tracker.TrackerSettings.score_threshold" title="Link to this definition">¶</a></dt>
+<dd><p>Minimum confidence score to accept a detection result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerSettings.nms_threshold">
+<span class="sig-name descname"><span class="pre">nms_threshold</span></span><a class="headerlink" href="#ailia_tracker.TrackerSettings.nms_threshold" title="Link to this definition">¶</a></dt>
+<dd><p>Non-Maximum Suppression (NMS) threshold used to remove duplicate detections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerSettings.track_threshold">
+<span class="sig-name descname"><span class="pre">track_threshold</span></span><a class="headerlink" href="#ailia_tracker.TrackerSettings.track_threshold" title="Link to this definition">¶</a></dt>
+<dd><p>Confidence threshold for updating active tracks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerSettings.track_buffer">
+<span class="sig-name descname"><span class="pre">track_buffer</span></span><a class="headerlink" href="#ailia_tracker.TrackerSettings.track_buffer" title="Link to this definition">¶</a></dt>
+<dd><p>Maximum number of frames to keep lost tracks in memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerSettings.match_threshold">
+<span class="sig-name descname"><span class="pre">match_threshold</span></span><a class="headerlink" href="#ailia_tracker.TrackerSettings.match_threshold" title="Link to this definition">¶</a></dt>
+<dd><p>IoU threshold used for matching objects between frames.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerSettings.VERSION">
+<span class="sig-name descname"><span class="pre">VERSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">c_int(1)</span></em><a class="headerlink" href="#ailia_tracker.TrackerSettings.VERSION" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">match_threshold</span></span><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">nms_threshold</span></span><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">score_threshold</span></span><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">track_buffer</span></span><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">track_threshold</span></span><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_tracker.</span></span><span class="sig-name descname"><span class="pre">TrackerObject</span></span><a class="headerlink" href="#ailia_tracker.TrackerObject" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Structure</span></code></p>
+<p>tracking result (AILIATrackerObject)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerObject.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#ailia_tracker.TrackerObject.id" title="Link to this definition">¶</a></dt>
+<dd><p>Object tracking id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerObject.category">
+<span class="sig-name descname"><span class="pre">category</span></span><a class="headerlink" href="#ailia_tracker.TrackerObject.category" title="Link to this definition">¶</a></dt>
+<dd><p>Object category number (0 to category_count-1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerObject.prob">
+<span class="sig-name descname"><span class="pre">prob</span></span><a class="headerlink" href="#ailia_tracker.TrackerObject.prob" title="Link to this definition">¶</a></dt>
+<dd><p>Estimated probability (0 to 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerObject.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#ailia_tracker.TrackerObject.x" title="Link to this definition">¶</a></dt>
+<dd><p>X position at the top left (1 for the image width).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerObject.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#ailia_tracker.TrackerObject.y" title="Link to this definition">¶</a></dt>
+<dd><p>Y position at the top left (1 for the image height).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerObject.w">
+<span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#ailia_tracker.TrackerObject.w" title="Link to this definition">¶</a></dt>
+<dd><p>Width (1 for the width of the image, negative numbers not allowed).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerObject.h">
+<span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#ailia_tracker.TrackerObject.h" title="Link to this definition">¶</a></dt>
+<dd><p>Height (1 for the height of the image, negative numbers not allowed).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.TrackerObject.VERSION">
+<span class="sig-name descname"><span class="pre">VERSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">c_uint(1)</span></em><a class="headerlink" href="#ailia_tracker.TrackerObject.VERSION" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">category</span></span><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#id7" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">prob</span></span><a class="headerlink" href="#id8" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#id9" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#id10" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#id11" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailia_tracker.DetectorObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_tracker.</span></span><span class="sig-name descname"><span class="pre">DetectorObject</span></span><a class="headerlink" href="#ailia_tracker.DetectorObject" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Structure</span></code></p>
+<p>tracking target (AILIADetectorObject)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.DetectorObject.category">
+<span class="sig-name descname"><span class="pre">category</span></span><a class="headerlink" href="#ailia_tracker.DetectorObject.category" title="Link to this definition">¶</a></dt>
+<dd><p>Object category number (0 to category_count-1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.DetectorObject.prob">
+<span class="sig-name descname"><span class="pre">prob</span></span><a class="headerlink" href="#ailia_tracker.DetectorObject.prob" title="Link to this definition">¶</a></dt>
+<dd><p>Estimated probability (0 to 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.DetectorObject.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#ailia_tracker.DetectorObject.x" title="Link to this definition">¶</a></dt>
+<dd><p>X position at the top left (1 for the image width).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.DetectorObject.y">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#ailia_tracker.DetectorObject.y" title="Link to this definition">¶</a></dt>
+<dd><p>Y position at the top left (1 for the image height).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.DetectorObject.w">
+<span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#ailia_tracker.DetectorObject.w" title="Link to this definition">¶</a></dt>
+<dd><p>Width (1 for the width of the image, negative numbers not allowed).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.DetectorObject.h">
+<span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#ailia_tracker.DetectorObject.h" title="Link to this definition">¶</a></dt>
+<dd><p>Height (1 for the height of the image, negative numbers not allowed).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.DetectorObject.VERSION">
+<span class="sig-name descname"><span class="pre">VERSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">c_int(1)</span></em><a class="headerlink" href="#ailia_tracker.DetectorObject.VERSION" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">category</span></span><a class="headerlink" href="#id12" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#id13" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id14">
+<span class="sig-name descname"><span class="pre">prob</span></span><a class="headerlink" href="#id14" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id15">
+<span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#id15" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id16">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#id16" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id17">
+<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#id17" title="Link to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailia_tracker.AiliaTrackerError">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_tracker.</span></span><span class="sig-name descname"><span class="pre">AiliaTrackerError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tracker.AiliaTrackerError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+<p>exception raised when an ailia tracker API call fails</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailia_tracker.AiliaTrackerError.code">
+<span class="sig-name descname"><span class="pre">code</span></span><a class="headerlink" href="#ailia_tracker.AiliaTrackerError.code" title="Link to this definition">¶</a></dt>
+<dd><p>Error code (AILIA_STATUS_*) returned from the ailia tracker API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023 - 2026, AXELL CORPORATION, ailia Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

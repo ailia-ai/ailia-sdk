@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the ailiaTrackerGetObject method from the ailiaTrackerFFI class, for the Dart programming language.">
+  <title>ailiaTrackerGetObject method - ailiaTrackerFFI class - ailia_tracker library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">ailia_tracker</a></li>
+    <li><a href="../../ailia_tracker/">ailia_tracker.dart</a></li>
+    <li><a href="../../ailia_tracker/ailiaTrackerFFI-class.html">ailiaTrackerFFI</a></li>
+    <li class="self-crumb">ailiaTrackerGetObject method</li>
+  </ol>
+  <div class="self-name">ailiaTrackerGetObject</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="ailia_tracker&#47;ailiaTrackerFFI-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">ailiaTrackerGetObject</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+<span class="name ">ailiaTrackerGetObject</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="ailiaTrackerGetObject-param-tracker"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_tracker/AILIATracker-class.html">AILIATracker</a></span>&gt;</span></span> <span class="parameter-name">tracker</span>, </span></li>
+<li><span class="parameter" id="ailiaTrackerGetObject-param-obj"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_tracker/AILIATrackerObject.html">AILIATrackerObject</a></span>&gt;</span></span> <span class="parameter-name">obj</span>, </span></li>
+<li><span class="parameter" id="ailiaTrackerGetObject-param-index"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">index</span>, </span></li>
+<li><span class="parameter" id="ailiaTrackerGetObject-param-version"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">version</span>, </span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>~japanese
+@brief 検出結果を取得します。
+@param tracker   トラッカーオブジェクトポインタ
+@param obj        オブジェクト情報
+@param index      取得するオブジェクトのインデックス
+@param version    AILIA_TRACKER_OBJECT_VERSION
+@return
+成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+ailiaTrackerCompute() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。
+検出結果は推定確率順でソートされます。</p>
+<p>~english
+@brief Gets the detection results.
+@param tracker   A AILIATracker instance pointer
+@param obj        Object information
+@param index      Object index
+@param version    AILIA_TRACKER_OBJECT_VERSION
+@return
+If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
+@details
+If  ailiaTrackerCompute()  is not run at all, the function returns  \ref AILIA_STATUS_INVALID_STATE .
+The detection results are sorted in the order of estimated probability.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">int ailiaTrackerGetObject(
+  ffi.Pointer&lt;AILIATracker&gt; tracker,
+  ffi.Pointer&lt;AILIATrackerObject&gt; obj,
+  int index,
+  int version,
+) {
+  return _ailiaTrackerGetObject(
+    tracker,
+    obj,
+    index,
+    version,
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">ailia_tracker</a></li>
+    <li><a href="../../ailia_tracker/">ailia_tracker</a></li>
+    <li><a href="../../ailia_tracker/ailiaTrackerFFI-class.html">ailiaTrackerFFI</a></li>
+    <li class="self-crumb">ailiaTrackerGetObject method</li>
+</ol>
+
+    <h5>ailiaTrackerFFI class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    ailia_tracker
+      1.10.0
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+
