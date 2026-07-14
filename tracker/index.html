@@ -68,13 +68,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <p class="section-subtitle">プラットフォームを選び、YOLOX-S 検出と ByteTrack の組合せで動画中の物体を追跡してみましょう。</p>
 
       <div class="platform-tabs" role="tablist">
-        <button class="platform-tab active" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
         <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter</button>
         <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
       </div>
 
+      <!-- Python -->
+      <div class="platform-panel" data-platform="python">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>インストール</h3>
+            <p>ailia Tracker と、検出に使う ailia SDK、サンプルで使う <code>opencv-python</code> をインストールします。</p>
+            <pre><code class="language-bash">pip3 install ailia ailia_tracker opencv-python</code></pre>
+            <p>Python や git をまだインストールしていない方は、<a href="../setup/python/">Python 環境のセットアップ（Windows / Mac / Linux）</a> を先にご覧ください。</p>
+            <a href="https://pypi.org/project/ailia-tracker/" target="_blank" class="card-link">PyPI で見る</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>サンプルを実行</h3>
+            <p><code>ailia-models</code> から <code>example_tracker.py</code> をダウンロードして実行します。YOLOX-S で検出した物体を ByteTrack で追跡し、ID 付きのバウンディングボックスを表示します。モデルは自動ダウンロードされます。デフォルトは Web カメラ入力で、<code>-v video.mp4</code> で動画ファイルも指定できます。</p>
+            <pre><code class="language-bash">wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/object_tracking/bytetrack/example_tracker.py
+python3 example_tracker.py</code></pre>
+            <p>Windows の場合は <code>python3</code> の代わりに <code>python</code> を使用してください。</p>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/object_tracking/bytetrack/example_tracker.py" target="_blank" class="card-link">example_tracker.py</a>
+          </div>
+        </div>
+      </div>
+
       <!-- C++ -->
-      <div class="platform-panel" data-platform="cpp">
+      <div class="platform-panel hidden" data-platform="cpp">
         <div class="steps-grid">
           <div class="step">
             <div class="step-number">1</div>
@@ -133,6 +158,34 @@ cd object_tracking/bytetrack
         </div>
       </div>
 
+      <!-- Flutter -->
+      <div class="platform-panel hidden" data-platform="flutter">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>pubspec に追加</h3>
+            <p>Flutter プロジェクトの <code>pubspec.yaml</code> に ailia Tracker を git 依存として追加し、<code>flutter pub get</code> を実行します。Flutter 3.3 以降が必要です。</p>
+            <pre><code class="language-yaml">dependencies:
+  ailia_tracker:
+    git:
+      url: https://github.com/ailia-ai/ailia-tracker-flutter.git
+      ref: main</code></pre>
+            <a href="../tracker/flutter/en/" class="card-link">Flutter API リファレンス</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>サンプルを実行</h3>
+            <p>バインディングリポジトリの <code>example</code> アプリをそのまま実行できます。ダミーの検出結果を毎フレーム与えて、追跡 ID の割り当てを画面上で確認できます。</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-tracker-flutter.git
+cd ailia-tracker-flutter/example
+flutter pub get
+flutter run</code></pre>
+            <a href="https://github.com/ailia-ai/ailia-tracker-flutter" target="_blank" class="card-link">バインディング</a>
+            <a href="https://github.com/ailia-ai/ailia-tracker-flutter/blob/main/example/lib/main.dart" target="_blank" class="card-link">main.dart</a>
+          </div>
+        </div>
+      </div>
+
       <!-- JNI -->
       <div class="platform-panel hidden" data-platform="jni">
         <div class="steps-grid">
@@ -175,6 +228,7 @@ git submodule update --init --recursive</code></pre>
       <div class="req-card">
         <h3>言語とコンパイラ</h3>
         <ul>
+          <li>Python 3.8 以降 / Dart・Flutter 3.3 以降</li>
           <li>C++17 (VS 2019 以降 / Xcode 14.2 以降 / clang) + CMake</li>
           <li>C# / Unity 2021.3.10f1 以降</li>
           <li>Kotlin / Java (JNI)</li>
@@ -204,7 +258,7 @@ git submodule update --init --recursive</code></pre>
   <section class="getting-started-section">
     <div class="section">
       <h2 class="section-title">機能</h2>
-      <p class="section-subtitle">C / C# / JNI API で利用できる物体追跡機能。</p>
+      <p class="section-subtitle">Python / C / C# / Flutter / JNI API で利用できる物体追跡機能。</p>
       <div class="req-grid">
         <div class="req-card">
           <h3>検出と対応付け</h3>
@@ -249,12 +303,32 @@ git submodule update --init --recursive</code></pre>
       <p class="section-subtitle">既存の検出器に ByteTrack の追跡処理を組み合わせる最小サンプル。</p>
 
       <div class="platform-tabs" role="tablist">
-        <button class="platform-tab active" data-platform="cpp" role="tab">C++</button>
+        <button class="platform-tab active" data-platform="python" role="tab">Python</button>
+        <button class="platform-tab" data-platform="cpp" role="tab">C++</button>
         <button class="platform-tab" data-platform="unity" role="tab">Unity (C#)</button>
+        <button class="platform-tab" data-platform="flutter" role="tab">Flutter (Dart)</button>
         <button class="platform-tab" data-platform="jni" role="tab">JNI (Kotlin)</button>
       </div>
 
-      <div class="platform-panel" data-platform="cpp">
+      <div class="platform-panel" data-platform="python">
+        <pre class="code-block"><code class="language-python">import ailia_tracker
+
+tracker = ailia_tracker.AiliaTracker()  # ByteTrack with default settings
+
+# Per frame: feed detector outputs, compute, read tracked objects
+for obj in detections:  # ailia.Detector results
+    tracker.add_target(obj["category"], obj["prob"],
+                       obj["box"]["x"], obj["box"]["y"],
+                       obj["box"]["w"], obj["box"]["h"])
+tracker.compute()
+
+for obj in tracker.get_objects():
+    print(f"ID {obj.id}  bbox {obj.x:.2f} {obj.y:.2f} {obj.w:.2f} {obj.h:.2f}")
+
+tracker.release()</code></pre>
+      </div>
+
+      <div class="platform-panel hidden" data-platform="cpp">
         <pre class="code-block"><code class="language-cpp">#include "ailia_tracker.h"
 #include "ailia_detector.h"
 
@@ -302,6 +376,27 @@ foreach (var obj in tracked) {
 tracker.Close();</code></pre>
       </div>
 
+      <div class="platform-panel hidden" data-platform="flutter">
+        <pre class="code-block"><code class="language-dart">import 'package:ailia_tracker/ailia_tracker_model.dart';
+
+final tracker = AiliaTrackerModel();
+tracker.create(); // ByteTrack with default settings
+
+// Per frame: feed detector outputs, compute, read tracked objects
+for (final d in detections) {
+  tracker.addTarget(AiliaTrackerTarget(
+    category: d.category, prob: d.prob,
+    x: d.x, y: d.y, w: d.w, h: d.h,
+  ));
+}
+final objects = tracker.compute();
+for (final obj in objects) {
+  print('ID ${obj.id}  bbox ${obj.x} ${obj.y} ${obj.w} ${obj.h}');
+}
+
+tracker.close();</code></pre>
+      </div>
+
       <div class="platform-panel hidden" data-platform="jni">
         <pre class="code-block"><code class="language-kotlin">val settings = AiliaTrackerSettings(
     score_threshold = 0.1f, nms_threshold = 0.7f,
@@ -338,6 +433,14 @@ tracker.close()</code></pre>
     <div class="card-grid">
 
       <div class="card">
+        <h3>Python</h3>
+        <ul>
+          <li><a href="../tracker/python/en/">API (EN)</a></li>
+          <li><a href="https://pypi.org/project/ailia-tracker/" target="_blank">PyPI</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
         <h3>C++</h3>
         <ul>
           <li><a href="../tracker/cpp/jp/">API</a></li>
@@ -354,8 +457,17 @@ tracker.close()</code></pre>
       </div>
 
       <div class="card">
+        <h3>Flutter</h3>
+        <ul>
+          <li><a href="../tracker/flutter/en/">API (EN)</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-tracker-flutter" target="_blank">Binding</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
         <h3>JNI</h3>
         <ul>
+          <li><a href="../tracker/java/en/">API (EN)</a></li>
           <li><a href="https://github.com/ailia-ai/ailia-tracker-jni" target="_blank">Binding</a></li>
         </ul>
       </div>
@@ -399,7 +511,7 @@ tracker.close()</code></pre>
 
       <details class="faq-item">
         <summary>Web カメラでも使えますか?</summary>
-        <p>はい。C++ サンプルでは <code>-w &lt;index&gt;</code> を渡すとファイルの代わりに Web カメラ入力になります。Unity バインディングも <code>ailia-tracker-unity</code> パッケージで同じカメラ入力モードを提供します。</p>
+        <p>はい。Python サンプルはデフォルトで Web カメラ入力です (<code>-v &lt;index&gt;</code> でカメラ番号を指定)。C++ サンプルでは <code>-w &lt;index&gt;</code> を渡すとファイルの代わりに Web カメラ入力になります。Unity バインディングも <code>ailia-tracker-unity</code> パッケージで同じカメラ入力モードを提供します。</p>
       </details>
 
       <details class="faq-item">
