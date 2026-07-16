@@ -94,7 +94,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 wget -O ax.wav https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/demo.wav
 python3 example_ailia_speech.py</code></pre>
             <p>On Windows, use <code>python</code> instead of <code>python3</code>.</p>
-            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/whisper/example_ailia_speech.py" target="_blank" class="card-link">example_ailia_speech.py</a>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/whisper/example_ailia_speech.py" target="_blank" class="card-link">example_ailia_speech.py (Whisper)</a>
+            <p>To use SenseVoice, use the script below instead.</p>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/sensevoice/example_ailia_speech.py" target="_blank" class="card-link">example_ailia_speech.py (SenseVoice)</a>
           </div>
         </div>
       </div>
@@ -340,6 +342,12 @@ speech.initialize_model(
     model_type=ailia_speech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO,
 )
 text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
+        <p class="section-subtitle">To perform speaker diarization, pass <code>diarization_type</code> to <code>initialize_model()</code>. The diarization results are stored in <code>speaker_id</code>.</p>
+        <pre class="code-block"><code class="language-python">speech.initialize_model(
+    model_path="./models/",
+    model_type=ailia_speech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO,
+    diarization_type=ailia_speech.AILIA_SPEECH_DIARIZATION_TYPE_PYANNOTE_AUDIO,
+)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">

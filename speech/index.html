@@ -94,7 +94,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 wget -O ax.wav https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/whisper/demo.wav
 python3 example_ailia_speech.py</code></pre>
             <p>Windows の場合は <code>python3</code> の代わりに <code>python</code> を使用してください。</p>
-            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/whisper/example_ailia_speech.py" target="_blank" class="card-link">example_ailia_speech.py</a>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/whisper/example_ailia_speech.py" target="_blank" class="card-link">example_ailia_speech.py (Whisper)</a>
+            <p>SenseVoice を使用する場合は下記のスクリプトを使用してください。</p>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/sensevoice/example_ailia_speech.py" target="_blank" class="card-link">example_ailia_speech.py (SenseVoice)</a>
           </div>
         </div>
       </div>
@@ -340,6 +342,12 @@ speech.initialize_model(
     model_type=ailia_speech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO,
 )
 text = speech.transcribe(audio_waveform, sample_rate)</code></pre>
+        <p class="section-subtitle">話者分離 (ダイアリゼーション) を行う場合は、<code>initialize_model()</code> に <code>diarization_type</code> を指定します。話者分離の結果は <code>speaker_id</code> に格納されます。</p>
+        <pre class="code-block"><code class="language-python">speech.initialize_model(
+    model_path="./models/",
+    model_type=ailia_speech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO,
+    diarization_type=ailia_speech.AILIA_SPEECH_DIARIZATION_TYPE_PYANNOTE_AUDIO,
+)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
