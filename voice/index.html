@@ -93,7 +93,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <pre><code class="language-bash">wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/audio_processing/gpt-sovits/example_ailia_voice.py
 python3 example_ailia_voice.py</code></pre>
             <p>Windows の場合は <code>python3</code> の代わりに <code>python</code> を使用してください。</p>
-            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/gpt-sovits/example_ailia_voice.py" target="_blank" class="card-link">example_ailia_voice.py</a>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/gpt-sovits/example_ailia_voice.py" target="_blank" class="card-link">example_ailia_voice.py (GPT-SoVITS)</a>
+            <p>蒸留モデル (GPT-SoVITS v2 Pro) を使用する場合は下記のスクリプトを使用してください。</p>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/audio_processing/gpt-sovits-v2-pro/example_ailia_voice.py" target="_blank" class="card-link">example_ailia_voice.py (GPT-SoVITS v2 Pro)</a>
           </div>
         </div>
       </div>
@@ -339,6 +341,9 @@ voice.set_reference_audio(
     ref_text, ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA, ref_audio, rate,
 )
 buf, sr = voice.synthesize_voice("こんにちは。", ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_JA)</code></pre>
+        <p class="section-subtitle">英語や中国語で音声合成する場合は、G2P タイプを切り替えます。</p>
+        <pre class="code-block"><code class="language-python">buf, sr = voice.synthesize_voice("Hello world.", ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_EN)
+buf, sr = voice.synthesize_voice("你好。今天天气真好。", ailia_voice.AILIA_VOICE_G2P_TYPE_GPT_SOVITS_ZH)</code></pre>
       </div>
 
       <div class="platform-panel hidden" data-platform="cpp">
