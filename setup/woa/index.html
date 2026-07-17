@@ -84,7 +84,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <pre><code class="language-bash">python -m pip install opencv_python_headless-4.10.0.84-cp313-cp313-win_arm64.whl</code></pre>
 
     <div class="note">
-      <strong>注意:</strong> OpenCV Headless は GUI 機能を含まないバージョンです。<code>cv2.imshow()</code> などの GUI 表示機能は使用できません。画像の表示が必要な場合は、<code>cv2.imwrite()</code> でファイルに保存するか、他のライブラリを使用してください。
+      <strong>注意:</strong> OpenCV Headless は GUI 機能を含まないバージョンのため、<code>cv2.imshow()</code> などの GUI 表示機能は含まれていません。ailia-models では、OpenCV が Headless かどうかを自動判定し、Headless の場合は <code>cv2.imshow()</code> を tkinter ベースの実装に置き換えることで、画面表示が可能です。
     </div>
 
     <h2>ailia SDK のインストール</h2>
