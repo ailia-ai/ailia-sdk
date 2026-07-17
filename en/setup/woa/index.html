@@ -84,7 +84,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <pre><code class="language-bash">python -m pip install opencv_python_headless-4.10.0.84-cp313-cp313-win_arm64.whl</code></pre>
 
     <div class="note">
-      <strong>Note:</strong> OpenCV Headless does not include GUI functionality. Functions such as <code>cv2.imshow()</code> are not available. If you need to display images, save them to a file using <code>cv2.imwrite()</code> or use another library.
+      <strong>Note:</strong> OpenCV Headless does not include GUI functionality such as <code>cv2.imshow()</code>. In ailia-models, whether OpenCV is headless is detected automatically, and when it is, <code>cv2.imshow()</code> is replaced with a tkinter-based implementation, so on-screen display is available.
     </div>
 
     <h2>Installing ailia SDK</h2>
