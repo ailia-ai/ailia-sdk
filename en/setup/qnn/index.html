@@ -79,8 +79,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2>Supported Platforms</h2>
     <ul>
       <li>Windows on Arm (Snapdragon X Plus)</li>
-      <li>Android (Snapdragon 8 or later)</li>
+      <li>Android (Snapdragon 8 Gen 1 or later)</li>
     </ul>
+    <div class="note">
+      <strong>Note:</strong> FP16 computation on the HMX of QNN requires Hexagon v69 or later. Therefore, a device with Snapdragon 8 Gen 1 or later is required.
+    </div>
 
     <h2>Usage</h2>
     <p>QNN is planned to become available experimentally from ailia SDK 1.7 onwards.</p>
@@ -98,12 +101,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>After running <code>pip3 install ailia</code>, download QNN and copy the following files from the zip to <code>site-packages/ailia/windows/arm64</code>, based on the path shown by <code>pip3 show ailia</code>.</p>
     <ul>
       <li>The DLLs in <code>qairt\2.47.0.260601\lib\aarch64-windows-msvc</code> (QnnHtp.dll, etc.)</li>
-      <li>The so files in <code>qairt\2.47.0.260601\lib\hexagon-v73\unsigned</code> (libQnnHtpV73.so, etc.)</li>
+      <li>The so files (libQnnHtpV73.so, etc.) and cat files (libsnpehtpv73.cat, etc.) in <code>qairt\2.47.0.260601\lib\hexagon-v73\unsigned</code></li>
     </ul>
     <p><a href="https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk" target="_blank">https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk</a></p>
     <div class="note">
       <strong>Note:</strong> QNN has version dependencies, so please use the following:<br>
       <a href="https://apigwx-aws.qualcomm.com/qsc/public/v1/api/download/software/sdks/Qualcomm_AI_Runtime_Community/All/2.47.0.260601/v2.47.0.260601.zip" target="_blank">v2.47.0.260601.zip</a>
+    </div>
+    <div class="note">
+      <strong>Note:</strong> The <code>hexagon-v*</code> directory must be selected according to the Hexagon architecture of your device. For Snapdragon X Plus, copy <code>hexagon-v73</code>. In addition to the so files, the cat files such as <code>qairt\2.47.0.260601\lib\hexagon-v73\unsigned\libsnpehtpv73.cat</code> must also be copied.
     </div>
     <div class="note">
       <strong>Note:</strong> The so files are not Windows libraries — they are binaries executed on the NPU (Hexagon). The DLLs run on Windows and dispatch processing to the NPU via FastRPC, while libQnnHtpV73.so is transferred to the NPU via FastRPC and loaded onto the Hexagon processor to execute the actual computation. Since Hexagon binaries use the ELF format (.so), the extension remains .so even when the host OS is Windows.
@@ -148,6 +154,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/groovy.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {

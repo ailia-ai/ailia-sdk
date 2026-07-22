@@ -79,8 +79,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2>対応プラットフォーム</h2>
     <ul>
       <li>Windows on Arm（Snapdragon X Plus）</li>
-      <li>Android（Snapdragon 8 以降）</li>
+      <li>Android（Snapdragon 8 Gen 1 以降）</li>
     </ul>
+    <div class="note">
+      <strong>注意:</strong> QNN の HMX による FP16 演算には Hexagon v69 以降が必要です。そのため、Snapdragon 8 Gen 1 以降のデバイスが必要です。
+    </div>
 
     <h2>使用方法</h2>
     <p>QNN は ailia SDK 1.7 以降で試験的に使用可能になる予定です。</p>
@@ -98,12 +101,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p><code>pip3 install ailia</code> を行ったあと、QNN をダウンロードし、<code>pip3 show ailia</code> で表示されるパスを元に、zip 内の下記のファイルを <code>site-packages/ailia/windows/arm64</code> にコピーしてください。</p>
     <ul>
       <li><code>qairt\2.47.0.260601\lib\aarch64-windows-msvc</code> にある DLL（QnnHtp.dll など）</li>
-      <li><code>qairt\2.47.0.260601\lib\hexagon-v73\unsigned</code> にある so（libQnnHtpV73.so など）</li>
+      <li><code>qairt\2.47.0.260601\lib\hexagon-v73\unsigned</code> にある so（libQnnHtpV73.so など）と cat（libsnpehtpv73.cat など）</li>
     </ul>
     <p><a href="https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk" target="_blank">https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk</a></p>
     <div class="note">
       <strong>注意:</strong> QNN はバージョン依存があるため、下記をご利用ください。<br>
       <a href="https://apigwx-aws.qualcomm.com/qsc/public/v1/api/download/software/sdks/Qualcomm_AI_Runtime_Community/All/2.47.0.260601/v2.47.0.260601.zip" target="_blank">v2.47.0.260601.zip</a>
+    </div>
+    <div class="note">
+      <strong>注意:</strong> <code>hexagon-v*</code> はデバイスの Hexagon アーキテクチャに合わせてバージョンを指定してコピーする必要があります。Snapdragon X Plus の場合は <code>hexagon-v73</code> をコピーしてください。so だけでなく、<code>qairt\2.47.0.260601\lib\hexagon-v73\unsigned\libsnpehtpv73.cat</code> などの cat ファイルもコピーが必要です。
     </div>
     <div class="note">
       <strong>補足:</strong> so ファイルは Windows 用のライブラリではなく、NPU（Hexagon）上で実行されるバイナリです。DLL は Windows 上で動作し、FastRPC 経由で NPU に処理を依頼します。libQnnHtpV73.so は FastRPC 経由で NPU に転送され、Hexagon プロセッサ上にロードされて実際の演算を実行します。Hexagon 向けのバイナリは ELF 形式（.so）のため、ホスト OS が Windows でも拡張子は .so になります。
@@ -148,6 +154,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/groovy.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {
