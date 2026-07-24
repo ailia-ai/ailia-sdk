@@ -10,8 +10,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ailia.js - ドキュメント</title>
-  <meta name="description" content="ailia.js - WebAssembly を使ってブラウザ上で機械学習モデルを実行できる AI 推論ライブラリ。ONNX モデルを JavaScript から直接実行できます。">
+  <title>ailia JS - ドキュメント</title>
+  <meta name="description" content="ailia JS - WebAssembly を使ってブラウザ上で機械学習モデルを実行できる AI 推論ライブラリ。ONNX モデルを JavaScript から直接実行できます。">
   <link rel="canonical" href="https://docs.ailia.ai/js/">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/js/">
   <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/js/">
@@ -21,12 +21,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:locale:alternate" content="en_US">
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/js/">
-  <meta property="og:title" content="ailia.js - ドキュメント">
-  <meta property="og:description" content="ailia.js - WebAssembly を使ってブラウザ上で機械学習モデルを実行できる AI 推論ライブラリ。">
+  <meta property="og:title" content="ailia JS - ドキュメント">
+  <meta property="og:description" content="ailia JS - WebAssembly を使ってブラウザ上で機械学習モデルを実行できる AI 推論ライブラリ。">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ailia.js - ドキュメント">
-  <meta name="twitter:description" content="ailia.js - WebAssembly を使ってブラウザ上で機械学習モデルを実行できる AI 推論ライブラリ。">
+  <meta name="twitter:title" content="ailia JS - ドキュメント">
+  <meta name="twitter:description" content="ailia JS - WebAssembly を使ってブラウザ上で機械学習モデルを実行できる AI 推論ライブラリ。">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="stylesheet" href="../css/common.css">
@@ -37,7 +37,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="header-inner">
       <div class="logo">
         <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
-        <a href="./" class="logo-text">ailia.js Docs</a>
+        <a href="./" class="logo-text">ailia JS Docs</a>
       </div>
       <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -58,7 +58,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </header>
 
   <section class="hero">
-    <h1>ailia.js</h1>
+    <h1>ailia JS</h1>
     <p>ブラウザ上で機械学習モデルを実行できる AI 推論ライブラリ。WebAssembly を使用して、ONNX モデルを JavaScript から直接実行できます。</p>
   </section>
 
@@ -72,7 +72,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="step">
           <div class="step-number">1</div>
           <h3>サンプルをクローン</h3>
-          <p>ailia.js のライブラリ本体は <code>ailia-js</code> リポジトリで公開されています。サンプルリポジトリ <code>ailia-models-js</code> をクローンしてサブモジュールを初期化すると、ライブラリ (<code>ailia.js</code> / <code>ailia_s.wasm</code> / <code>ailia_simd_s.wasm</code> など) が取得されます。</p>
+          <p>ailia JS のライブラリ本体は <code>ailia-js</code> リポジトリで公開されています。サンプルリポジトリ <code>ailia-models-js</code> をクローンしてサブモジュールを初期化すると、ライブラリ (<code>ailia.js</code> / <code>ailia_s.wasm</code> / <code>ailia_simd_s.wasm</code> など) が取得されます。</p>
           <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-js.git
 cd ailia-models-js
 git submodule init
@@ -99,7 +99,7 @@ git submodule update</code></pre>
   <!-- System Requirements -->
   <section class="section">
     <h2 class="section-title">動作環境</h2>
-    <p class="section-subtitle">ailia.js は WebAssembly 上で ailia の推論エンジンを動作させるため、インストール不要でブラウザネイティブに AI 推論を実行できます。</p>
+    <p class="section-subtitle">ailia JS は WebAssembly 上で ailia の推論エンジンを動作させるため、インストール不要でブラウザネイティブに AI 推論を実行できます。</p>
     <div class="req-grid">
       <div class="req-card">
         <h3>対応ブラウザ</h3>
@@ -249,11 +249,11 @@ ailia.destroy();</code></pre>
   <section class="getting-started-section">
     <div class="section">
       <h2 class="section-title">よくある質問</h2>
-      <p class="section-subtitle">ailia.js についてのよくある質問。</p>
+      <p class="section-subtitle">ailia JS についてのよくある質問。</p>
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary>ailia.js はどうやって入手できますか?</summary>
+          <summary>ailia JS はどうやって入手できますか?</summary>
           <p>ライブラリ本体は <a href="https://github.com/ailia-ai/ailia-js" target="_blank">ailia-js</a> リポジトリからダウンロードできます。サンプルは <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js</a> をクローンし、<code>git submodule init</code> と <code>git submodule update</code> を実行するとライブラリごと取得できます。</p>
         </details>
 
@@ -275,7 +275,7 @@ ailia.destroy();</code></pre>
 
         <details class="faq-item">
           <summary>ES6 モジュール以外からも使えますか?</summary>
-          <p>はい。ailia.js は ES6 モジュールとして提供されていますが、旧式の JavaScript からも利用できます。</p>
+          <p>はい。ailia JS は ES6 モジュールとして提供されていますが、旧式の JavaScript からも利用できます。</p>
         </details>
 
         <details class="faq-item">

@@ -10,8 +10,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ailia.js - Documentation</title>
-  <meta name="description" content="ailia.js - AI inference library that runs machine learning models in the browser using WebAssembly. Run ONNX models directly from JavaScript.">
+  <title>ailia JS - Documentation</title>
+  <meta name="description" content="ailia JS - AI inference library that runs machine learning models in the browser using WebAssembly. Run ONNX models directly from JavaScript.">
   <link rel="canonical" href="https://docs.ailia.ai/en/js/">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/js/">
   <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/js/">
@@ -21,12 +21,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:locale:alternate" content="ja_JP">
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/en/js/">
-  <meta property="og:title" content="ailia.js - Documentation">
-  <meta property="og:description" content="ailia.js - AI inference library that runs machine learning models in the browser using WebAssembly.">
+  <meta property="og:title" content="ailia JS - Documentation">
+  <meta property="og:description" content="ailia JS - AI inference library that runs machine learning models in the browser using WebAssembly.">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="ailia.js - Documentation">
-  <meta name="twitter:description" content="ailia.js - AI inference library that runs machine learning models in the browser using WebAssembly.">
+  <meta name="twitter:title" content="ailia JS - Documentation">
+  <meta name="twitter:description" content="ailia JS - AI inference library that runs machine learning models in the browser using WebAssembly.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../../favicon.png">
   <link rel="stylesheet" href="../../css/common.css">
@@ -37,7 +37,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="header-inner">
       <div class="logo">
         <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
-        <a href="./" class="logo-text">ailia.js Docs</a>
+        <a href="./" class="logo-text">ailia JS Docs</a>
       </div>
       <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -58,7 +58,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </header>
 
   <section class="hero">
-    <h1>ailia.js</h1>
+    <h1>ailia JS</h1>
     <p>AI inference library that runs machine learning models in the browser. Run ONNX models directly from JavaScript using WebAssembly.</p>
   </section>
 
@@ -72,7 +72,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="step">
           <div class="step-number">1</div>
           <h3>Clone the samples</h3>
-          <p>The ailia.js library itself is published in the <code>ailia-js</code> repository. Clone the sample repository <code>ailia-models-js</code> and initialize its submodules to fetch the library (<code>ailia.js</code>, <code>ailia_s.wasm</code>, <code>ailia_simd_s.wasm</code>, etc.) along with it.</p>
+          <p>The ailia JS library itself is published in the <code>ailia-js</code> repository. Clone the sample repository <code>ailia-models-js</code> and initialize its submodules to fetch the library (<code>ailia.js</code>, <code>ailia_s.wasm</code>, <code>ailia_simd_s.wasm</code>, etc.) along with it.</p>
           <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-js.git
 cd ailia-models-js
 git submodule init
@@ -99,7 +99,7 @@ git submodule update</code></pre>
   <!-- System Requirements -->
   <section class="section">
     <h2 class="section-title">System Requirements</h2>
-    <p class="section-subtitle">ailia.js runs the ailia inference engine on WebAssembly, enabling browser-native AI inference with no installation required.</p>
+    <p class="section-subtitle">ailia JS runs the ailia inference engine on WebAssembly, enabling browser-native AI inference with no installation required.</p>
     <div class="req-grid">
       <div class="req-card">
         <h3>Supported Browsers</h3>
@@ -249,11 +249,11 @@ ailia.destroy();</code></pre>
   <section class="getting-started-section">
     <div class="section">
       <h2 class="section-title">FAQ</h2>
-      <p class="section-subtitle">Frequently asked questions about ailia.js.</p>
+      <p class="section-subtitle">Frequently asked questions about ailia JS.</p>
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary>How can I get ailia.js?</summary>
+          <summary>How can I get ailia JS?</summary>
           <p>The library itself can be downloaded from the <a href="https://github.com/ailia-ai/ailia-js" target="_blank">ailia-js</a> repository. For the samples, clone <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js</a> and run <code>git submodule init</code> and <code>git submodule update</code> to fetch the library along with them.</p>
         </details>
 
@@ -270,12 +270,12 @@ ailia.destroy();</code></pre>
 
         <details class="faq-item">
           <summary>Are images or audio sent to a server?</summary>
-          <p>No. All inference runs inside the browser (WebAssembly), so input data is never sent to a server. This makes ailia.js a good fit for privacy-sensitive use cases such as background removal for video chat and microphone noise reduction.</p>
+          <p>No. All inference runs inside the browser (WebAssembly), so input data is never sent to a server. This makes ailia JS a good fit for privacy-sensitive use cases such as background removal for video chat and microphone noise reduction.</p>
         </details>
 
         <details class="faq-item">
           <summary>Can I use it outside of ES6 modules?</summary>
-          <p>Yes. ailia.js is provided as an ES6 module, but it can also be adapted for old-style JavaScript.</p>
+          <p>Yes. ailia JS is provided as an ES6 module, but it can also be adapted for old-style JavaScript.</p>
         </details>
 
         <details class="faq-item">
