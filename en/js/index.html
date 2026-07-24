@@ -71,24 +71,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="steps-grid">
         <div class="step">
           <div class="step-number">1</div>
-          <h3>Deploy the runtime</h3>
-          <p>ailia.js is included in the ailia SDK package (1.2.16 and later). Download the evaluation version and place the following five files in a folder served by your web server.</p>
-          <pre><code class="language-bash">ailia.js            # ES6 module (API entry point)
-ailia_s.js          # non-SIMD loader
-ailia_s.wasm        # non-SIMD WebAssembly binary
-ailia_simd_s.js     # SIMD loader
-ailia_simd_s.wasm   # SIMD WebAssembly binary</code></pre>
-          <p>The SIMD or non-SIMD binary is selected automatically depending on the execution environment.</p>
-          <a href="https://axip-console.appspot.com/trial/terms/AILIA" target="_blank" class="card-link">Download evaluation version</a>
+          <h3>Clone the samples</h3>
+          <p>The ailia.js library itself is published in the <code>ailia-js</code> repository. Clone the sample repository <code>ailia-models-js</code> and initialize its submodules to fetch the library (<code>ailia.js</code>, <code>ailia_s.wasm</code>, <code>ailia_simd_s.wasm</code>, etc.) along with it.</p>
+          <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-js.git
+cd ailia-models-js
+git submodule init
+git submodule update</code></pre>
+          <p>The SIMD or non-SIMD WebAssembly binary is selected automatically depending on the execution environment.</p>
+          <a href="https://github.com/ailia-ai/ailia-js" target="_blank" class="card-link">Library</a>
+          <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank" class="card-link">Sample repository</a>
         </div>
         <div class="step">
           <div class="step-number">2</div>
           <h3>Run the sample</h3>
-          <p>Put the bundled <code>example_mnist_standard_api.html</code> and the input image <code>testmnist.jpg</code> in the same folder and open the page through a local server. The prediction results of the MNIST handwritten digit recognition model are printed to the console.</p>
-          <pre><code class="language-bash"># wasm files cannot be loaded via file://,
-# so start a local server first
-python3 -m http.server 8000
-# → http://localhost:8000/example_mnist_standard_api.html</code></pre>
+          <p>Since wasm files cannot be loaded via <code>file://</code>, start a local server and access it from your browser. Samples such as face detection (BlazeFace) and object detection (YOLOX) run directly in the browser.</p>
+          <pre><code class="language-bash">python3 -m http.server 8080
+# → open http://localhost:8080</code></pre>
           <a href="../../sdk/js/en/tutorial-get_started.html" class="card-link">Get Started tutorial</a>
         </div>
       </div>
@@ -130,7 +128,7 @@ python3 -m http.server 8000
       <div class="req-card">
         <h3>Distribution</h3>
         <ul>
-          <li>Bundled with ailia SDK 1.2.16+</li>
+          <li>Published on GitHub (ailia-js)</li>
           <li>Provided as an ES6 module</li>
           <li>Usable from old-style JavaScript</li>
         </ul>
@@ -170,12 +168,12 @@ python3 -m http.server 8000
           </ul>
         </div>
         <div class="req-card">
-          <h3>Demos</h3>
+          <h3>Sample models</h3>
           <ul>
-            <li>Face detection</li>
-            <li>Hand detection</li>
-            <li>Object detection</li>
-            <li>Handwritten digit recognition (MNIST)</li>
+            <li>Face detection (BlazeFace)</li>
+            <li>Hand detection (BlazeHand / BlazePalm)</li>
+            <li>Object detection (YOLOX)</li>
+            <li>Object detection (MobileNetV2-SSDLite)</li>
           </ul>
         </div>
       </div>
@@ -235,9 +233,10 @@ ailia.destroy();</code></pre>
       </div>
 
       <div class="card">
-        <h3>Models</h3>
+        <h3>Library &amp; Samples</h3>
         <ul>
-          <li><a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models (400+ models)</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-js" target="_blank">ailia-js (library)</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js (samples)</a></li>
         </ul>
       </div>
 
@@ -253,7 +252,7 @@ ailia.destroy();</code></pre>
 
         <details class="faq-item">
           <summary>How can I get ailia.js?</summary>
-          <p>ailia.js is bundled with the standard ailia SDK package (1.2.16 and later). Download the evaluation version from the <a href="https://axip-console.appspot.com/trial/terms/AILIA" target="_blank">Free Trial</a> page.</p>
+          <p>The library itself can be downloaded from the <a href="https://github.com/ailia-ai/ailia-js" target="_blank">ailia-js</a> repository. For the samples, clone <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js</a> and run <code>git submodule init</code> and <code>git submodule update</code> to fetch the library along with them.</p>
         </details>
 
         <details class="faq-item">
@@ -264,7 +263,7 @@ ailia.destroy();</code></pre>
 
         <details class="faq-item">
           <summary>What models can I run?</summary>
-          <p>Models in the ONNX format are supported. Load the model definition file (<code>.onnx.prototxt</code>) and the weights file (<code>.onnx</code>) with <code>loadModelAndWeights()</code>. Models published in <a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> can be used.</p>
+          <p>Models in the ONNX format are supported. Load the model definition file (<code>.onnx.prototxt</code>) and the weights file (<code>.onnx</code>) with <code>loadModelAndWeights()</code>. <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js</a> ships with sample models such as BlazeFace, BlazeHand, and YOLOX, and models published in <a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> can also be used.</p>
         </details>
 
         <details class="faq-item">
@@ -299,13 +298,22 @@ ailia.destroy();</code></pre>
             <small>ailia.ai</small>
           </div>
         </a>
-        <a href="https://axip-console.appspot.com/trial/terms/AILIA" target="_blank" class="material-item">
+        <a href="https://github.com/ailia-ai/ailia-js" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           </div>
           <div class="material-text">
-            Free Trial
-            <small>Download evaluation version</small>
+            ailia-js
+            <small>Download the library</small>
+          </div>
+        </a>
+        <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div class="material-text">
+            ailia-models-js
+            <small>Download the samples</small>
           </div>
         </a>
       </div>

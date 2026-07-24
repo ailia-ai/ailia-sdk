@@ -71,24 +71,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="steps-grid">
         <div class="step">
           <div class="step-number">1</div>
-          <h3>ランタイムを配置</h3>
-          <p>ailia.js は ailia SDK 1.2.16 以降のパッケージに同梱されています。評価版をダウンロードし、次の 5 つのファイルを Web サーバーの公開フォルダに配置します。</p>
-          <pre><code class="language-bash">ailia.js            # ES6 モジュール (API 本体)
-ailia_s.js          # 非 SIMD 版ローダ
-ailia_s.wasm        # 非 SIMD 版 WebAssembly
-ailia_simd_s.js     # SIMD 版ローダ
-ailia_simd_s.wasm   # SIMD 版 WebAssembly</code></pre>
-          <p>実行環境に応じて SIMD 版と非 SIMD 版が自動的に選択されます。</p>
-          <a href="https://axip-console.appspot.com/trial/terms/AILIA" target="_blank" class="card-link">評価版をダウンロード</a>
+          <h3>サンプルをクローン</h3>
+          <p>ailia.js のライブラリ本体は <code>ailia-js</code> リポジトリで公開されています。サンプルリポジトリ <code>ailia-models-js</code> をクローンしてサブモジュールを初期化すると、ライブラリ (<code>ailia.js</code> / <code>ailia_s.wasm</code> / <code>ailia_simd_s.wasm</code> など) が取得されます。</p>
+          <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-js.git
+cd ailia-models-js
+git submodule init
+git submodule update</code></pre>
+          <p>実行環境に応じて SIMD 版と非 SIMD 版の WebAssembly バイナリが自動的に選択されます。</p>
+          <a href="https://github.com/ailia-ai/ailia-js" target="_blank" class="card-link">ライブラリ</a>
+          <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank" class="card-link">サンプルリポジトリ</a>
         </div>
         <div class="step">
           <div class="step-number">2</div>
           <h3>サンプルを実行</h3>
-          <p>同梱の <code>example_mnist_standard_api.html</code> と入力画像 <code>testmnist.jpg</code> を同じフォルダに置き、ローカルサーバー経由でブラウザから開きます。手書き数字認識モデル (MNIST) の推論結果がコンソールに表示されます。</p>
-          <pre><code class="language-bash"># wasm は file:// では読み込めないため
-# ローカルサーバーを起動してアクセスします
-python3 -m http.server 8000
-# → http://localhost:8000/example_mnist_standard_api.html</code></pre>
+          <p>wasm は <code>file://</code> では読み込めないため、ローカルサーバーを起動してブラウザからアクセスします。顔検出 (BlazeFace) や物体検出 (YOLOX) などのサンプルをブラウザ上で実行できます。</p>
+          <pre><code class="language-bash">python3 -m http.server 8080
+# → http://localhost:8080 にアクセス</code></pre>
           <a href="../sdk/js/en/tutorial-get_started.html" class="card-link">Get Started チュートリアル (EN)</a>
         </div>
       </div>
@@ -130,7 +128,7 @@ python3 -m http.server 8000
       <div class="req-card">
         <h3>配布形態</h3>
         <ul>
-          <li>ailia SDK 1.2.16 以降に同梱</li>
+          <li>GitHub (ailia-js) で公開</li>
           <li>ES6 モジュールとして提供</li>
           <li>旧式 JavaScript からも利用可能</li>
         </ul>
@@ -170,12 +168,12 @@ python3 -m http.server 8000
           </ul>
         </div>
         <div class="req-card">
-          <h3>デモ</h3>
+          <h3>サンプルモデル</h3>
           <ul>
-            <li>顔検出</li>
-            <li>手検出</li>
-            <li>物体検出</li>
-            <li>手書き数字認識 (MNIST)</li>
+            <li>顔検出 (BlazeFace)</li>
+            <li>手検出 (BlazeHand / BlazePalm)</li>
+            <li>物体検出 (YOLOX)</li>
+            <li>物体検出 (MobileNetV2-SSDLite)</li>
           </ul>
         </div>
       </div>
@@ -235,9 +233,10 @@ ailia.destroy();</code></pre>
       </div>
 
       <div class="card">
-        <h3>モデル</h3>
+        <h3>ライブラリとサンプル</h3>
         <ul>
-          <li><a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models (400+ models)</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-js" target="_blank">ailia-js (ライブラリ)</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js (サンプル)</a></li>
         </ul>
       </div>
 
@@ -253,7 +252,7 @@ ailia.destroy();</code></pre>
 
         <details class="faq-item">
           <summary>ailia.js はどうやって入手できますか?</summary>
-          <p>ailia SDK 1.2.16 以降の標準パッケージに同梱されています。<a href="https://axip-console.appspot.com/trial/terms/AILIA" target="_blank">Free Trial</a> から評価版をダウンロードしてください。</p>
+          <p>ライブラリ本体は <a href="https://github.com/ailia-ai/ailia-js" target="_blank">ailia-js</a> リポジトリからダウンロードできます。サンプルは <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js</a> をクローンし、<code>git submodule init</code> と <code>git submodule update</code> を実行するとライブラリごと取得できます。</p>
         </details>
 
         <details class="faq-item">
@@ -264,7 +263,7 @@ ailia.destroy();</code></pre>
 
         <details class="faq-item">
           <summary>どのようなモデルを実行できますか?</summary>
-          <p>ONNX フォーマットのモデルに対応しています。モデル定義ファイル (<code>.onnx.prototxt</code>) と重みファイル (<code>.onnx</code>) を <code>loadModelAndWeights()</code> で読み込みます。<a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> で公開されているモデルを利用できます。</p>
+          <p>ONNX フォーマットのモデルに対応しています。モデル定義ファイル (<code>.onnx.prototxt</code>) と重みファイル (<code>.onnx</code>) を <code>loadModelAndWeights()</code> で読み込みます。<a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js</a> には BlazeFace / BlazeHand / YOLOX などのサンプルモデルが含まれており、<a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> で公開されているモデルも利用できます。</p>
         </details>
 
         <details class="faq-item">
@@ -299,13 +298,22 @@ ailia.destroy();</code></pre>
             <small>ailia.ai</small>
           </div>
         </a>
-        <a href="https://axip-console.appspot.com/trial/terms/AILIA" target="_blank" class="material-item">
+        <a href="https://github.com/ailia-ai/ailia-js" target="_blank" class="material-item">
           <div class="material-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           </div>
           <div class="material-text">
-            Free Trial
-            <small>Download evaluation version</small>
+            ailia-js
+            <small>ライブラリのダウンロード</small>
+          </div>
+        </a>
+        <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div class="material-text">
+            ailia-models-js
+            <small>サンプルのダウンロード</small>
           </div>
         </a>
       </div>
