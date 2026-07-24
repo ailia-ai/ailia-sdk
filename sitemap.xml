@@ -34,6 +34,22 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/sdk/"/>
   </url>
   <url>
+    <loc>https://docs.ailia.ai/js/</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/js/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/js/"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/js/</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/js/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/js/"/>
+  </url>
+  <url>
     <loc>https://docs.ailia.ai/tflite/</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>

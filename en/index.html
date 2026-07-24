@@ -48,6 +48,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .card { display: flex; flex-direction: column; }
     .card-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 22px; }
     .card-icon.sdk       { background: #eef2ff; color: #4f46e5; }
+    .card-icon.js        { background: #fefce8; color: #ca8a04; }
     .card-icon.tokenizer { background: #fef3c7; color: #d97706; }
     .card-icon.speech    { background: #ecfdf5; color: #059669; }
     .card-icon.voice     { background: #fce7f3; color: #db2777; }
@@ -84,6 +85,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </button>
       <div class="header-links">
         <a href="sdk/">SDK</a>
+        <a href="js/">JS</a>
         <a href="tflite/">TFLite</a>
         <a href="llm/">LLM</a>
         <a href="speech/">Speech</a>
@@ -139,6 +141,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <span class="platform-tag">JNI</span>
         </div>
         <a href="sdk/" class="card-link">View Documentation</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon js">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20M6 6.5h.01"/></svg>
+        </div>
+        <h3>ailia.js</h3>
+        <p>AI inference library that runs machine learning models in the browser using WebAssembly.</p>
+        <div class="card-platforms">
+          <span class="platform-tag">JavaScript</span>
+          <span class="platform-tag">WebAssembly</span>
+          <span class="platform-tag">Browser</span>
+        </div>
+        <a href="js/" class="card-link">View Documentation</a>
       </div>
 
       <div class="card">
