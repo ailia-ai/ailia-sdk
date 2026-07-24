@@ -87,6 +87,8 @@ git submodule update</code></pre>
           <p>wasm は <code>file://</code> では読み込めないため、ローカルサーバーを起動してブラウザからアクセスします。顔検出 (BlazeFace) や物体検出 (YOLOX) などのサンプルをブラウザ上で実行できます。</p>
           <pre><code class="language-bash">python3 -m http.server 8080
 # → http://localhost:8080 にアクセス</code></pre>
+          <p>ビルド不要で試したい場合は、公開中のサンプルサイトからブラウザだけで動作を確認できます。</p>
+          <a href="https://ailia.jp/ailia-js/" target="_blank" class="card-link">サンプルサイト</a>
           <a href="../sdk/js/en/tutorial-get_started.html" class="card-link">Get Started チュートリアル (EN)</a>
         </div>
       </div>
@@ -114,7 +116,7 @@ git submodule update</code></pre>
           <li>Windows: 対応</li>
           <li>macOS: 対応</li>
           <li>Android: 対応</li>
-          <li>iOS: 非対応 (非 SIMD 版で自動動作)</li>
+          <li>iOS: 16.4 以降で対応 (それ以前は非 SIMD 版で自動動作)</li>
         </ul>
       </div>
       <div class="req-card">
@@ -258,7 +260,7 @@ ailia.destroy();</code></pre>
         <details class="faq-item">
           <summary>SIMD には対応していますか?</summary>
           <p>対応しています。SIMD 版 (<code>ailia_simd_s.wasm</code>) と非 SIMD 版 (<code>ailia_s.wasm</code>) の 2 種類のバイナリが同梱されており、実行環境に応じて最適な方が自動的に選択されます。SIMD を有効にすると、BlazeFace の推論時間が 21ms から 8ms に短縮されます (M2 Mac / Chrome での計測)。</p>
-          <p>Windows / macOS / Android のブラウザは SIMD に対応しています。iOS は SIMD 非対応のため、非 SIMD 版で動作します。</p>
+          <p>Windows / macOS / Android のブラウザは SIMD に対応しています。iOS も 16.4 (Safari 16.4) 以降で WebAssembly SIMD に対応しました。それ以前の iOS では非 SIMD 版が自動的に使用されます。</p>
         </details>
 
         <details class="faq-item">
@@ -296,6 +298,15 @@ ailia.destroy();</code></pre>
           <div class="material-text">
             Product Site
             <small>ailia.ai</small>
+          </div>
+        </a>
+        <a href="https://ailia.jp/ailia-js/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="material-text">
+            サンプルサイト
+            <small>ブラウザでデモを実行</small>
           </div>
         </a>
         <a href="https://github.com/ailia-ai/ailia-js" target="_blank" class="material-item">

@@ -87,6 +87,8 @@ git submodule update</code></pre>
           <p>Since wasm files cannot be loaded via <code>file://</code>, start a local server and access it from your browser. Samples such as face detection (BlazeFace) and object detection (YOLOX) run directly in the browser.</p>
           <pre><code class="language-bash">python3 -m http.server 8080
 # → open http://localhost:8080</code></pre>
+          <p>To try it without any setup, the live sample site runs the demos directly in your browser.</p>
+          <a href="https://ailia.jp/ailia-js/" target="_blank" class="card-link">Sample site</a>
           <a href="../../sdk/js/en/tutorial-get_started.html" class="card-link">Get Started tutorial</a>
         </div>
       </div>
@@ -114,7 +116,7 @@ git submodule update</code></pre>
           <li>Windows: supported</li>
           <li>macOS: supported</li>
           <li>Android: supported</li>
-          <li>iOS: not supported (falls back to non-SIMD)</li>
+          <li>iOS: supported on 16.4+ (earlier versions fall back to non-SIMD)</li>
         </ul>
       </div>
       <div class="req-card">
@@ -258,7 +260,7 @@ ailia.destroy();</code></pre>
         <details class="faq-item">
           <summary>Is SIMD supported?</summary>
           <p>Yes. Two binaries are bundled — a SIMD build (<code>ailia_simd_s.wasm</code>) and a non-SIMD build (<code>ailia_s.wasm</code>) — and the best one is selected automatically for the execution environment. With SIMD enabled, BlazeFace inference time drops from 21ms to 8ms (measured on M2 Mac / Chrome).</p>
-          <p>Browsers on Windows, macOS, and Android support SIMD. iOS does not support SIMD, so the non-SIMD build is used there.</p>
+          <p>Browsers on Windows, macOS, and Android support SIMD. iOS also supports WebAssembly SIMD since iOS 16.4 (Safari 16.4). On earlier iOS versions the non-SIMD build is used automatically.</p>
         </details>
 
         <details class="faq-item">
@@ -296,6 +298,15 @@ ailia.destroy();</code></pre>
           <div class="material-text">
             Product Site
             <small>ailia.ai</small>
+          </div>
+        </a>
+        <a href="https://ailia.jp/ailia-js/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="material-text">
+            Sample Site
+            <small>Run the demos in your browser</small>
           </div>
         </a>
         <a href="https://github.com/ailia-ai/ailia-js" target="_blank" class="material-item">
