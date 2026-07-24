@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia JS - Documentation</title>
+  <meta name="description" content="ailia JS - AI inference library that runs machine learning models in the browser using WebAssembly. Run ONNX models directly from JavaScript.">
+  <link rel="canonical" href="https://docs.ailia.ai/en/js/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/js/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/js/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/js/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/js/">
+  <meta property="og:title" content="ailia JS - Documentation">
+  <meta property="og:description" content="ailia JS - AI inference library that runs machine learning models in the browser using WebAssembly.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia JS - Documentation">
+  <meta name="twitter:description" content="ailia JS - AI inference library that runs machine learning models in the browser using WebAssembly.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia JS Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../../js/" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia JS</h1>
+    <p>AI inference library that runs machine learning models in the browser. Run ONNX models directly from JavaScript using WebAssembly.</p>
+  </section>
+
+  <!-- Getting Started -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-subtitle">Deploy the runtime files and run your first inference in the browser.</p>
+
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Clone the samples</h3>
+          <p>The ailia JS library itself is published in the <code>ailia-js</code> repository. Clone the sample repository <code>ailia-models-js</code> and initialize its submodules to fetch the library (<code>ailia.js</code>, <code>ailia_s.wasm</code>, <code>ailia_simd_s.wasm</code>, etc.) along with it.</p>
+          <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-js.git
+cd ailia-models-js
+git submodule init
+git submodule update</code></pre>
+          <p>The SIMD or non-SIMD WebAssembly binary is selected automatically depending on the execution environment.</p>
+          <a href="https://github.com/ailia-ai/ailia-js" target="_blank" class="card-link">Library</a>
+          <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank" class="card-link">Sample repository</a>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Run the sample</h3>
+          <p>Since wasm files cannot be loaded via <code>file://</code>, start a local server and access it from your browser. Samples such as face detection (BlazeFace) and object detection (YOLOX) run directly in the browser.</p>
+          <pre><code class="language-bash">python3 -m http.server 8080
+# → open http://localhost:8080</code></pre>
+          <p>To try it without any setup, the live sample site runs the demos directly in your browser.</p>
+          <a href="https://ailia-ai.github.io/ailia-models-js/" target="_blank" class="card-link">Sample site</a>
+          <a href="../../sdk/js/en/tutorial-get_started.html" class="card-link">Get Started tutorial</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia JS runs the ailia inference engine on WebAssembly, enabling browser-native AI inference with no installation required.</p>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>Supported Browsers</h3>
+        <ul>
+          <li>Chrome / Edge</li>
+          <li>Safari</li>
+          <li>Firefox</li>
+          <li>Modern browsers with WebAssembly support</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>SIMD Acceleration</h3>
+        <ul>
+          <li>Windows: supported</li>
+          <li>macOS: supported</li>
+          <li>Android: supported</li>
+          <li>iOS: supported on 16.4+ (earlier versions fall back to non-SIMD)</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Model Format</h3>
+        <ul>
+          <li>ONNX (.onnx)</li>
+          <li>Model definition (.onnx.prototxt)</li>
+          <li>Models from ailia-models</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>Distribution</h3>
+        <ul>
+          <li>Published on GitHub (ailia-js)</li>
+          <li>Provided as an ES6 module</li>
+          <li>Usable from old-style JavaScript</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Features</h2>
+      <p class="section-subtitle">Edge AI in the browser. Inference runs entirely on the client, without sending data to a server.</p>
+      <div class="req-grid">
+        <div class="req-card">
+          <h3>WebAssembly-based</h3>
+          <ul>
+            <li>The ailia inference engine compiled to wasm</li>
+            <li>Full ailia API access from JavaScript</li>
+            <li>No installation required</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>SIMD acceleration</h3>
+          <ul>
+            <li>Automatic SIMD / non-SIMD selection</li>
+            <li>BlazeFace inference: 21ms → 8ms</li>
+            <li>(measured on M2 Mac / Chrome)</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Use cases</h3>
+          <ul>
+            <li>Background removal for video chat</li>
+            <li>Microphone noise reduction / VAD</li>
+            <li>Face detection / face recognition</li>
+            <li>QR code detection</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Sample models</h3>
+          <ul>
+            <li>Face detection (BlazeFace)</li>
+            <li>Hand detection (BlazeHand / BlazePalm)</li>
+            <li>Object detection (YOLOX)</li>
+            <li>Object detection (MobileNetV2-SSDLite)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use the API -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Use the API in Your Project</h2>
+      <p class="section-subtitle">A minimal sample that loads an ONNX model and runs inference with preprocessing and postprocessing callbacks.</p>
+
+      <pre class="code-block"><code class="language-javascript">import {Ailia} from './ailia.js';
+
+// Initialize the module (SIMD support is detected automatically)
+await Ailia.initialize();
+
+// Create an instance and load the model and weights
+const ailia = new Ailia();
+ailia.loadModelAndWeights(modelFileContents, weightsFileContents);
+
+// Define preprocessing and postprocessing callbacks
+const preprocess = (inputBuffers) => {
+  inputBuffers.byIndex[0].buffer.Float32.set(inputData);
+};
+const postprocess = (outputBuffers) => {
+  return Array.from(outputBuffers.byIndex[0].buffer.Float32);
+};
+
+// Run inference with the input shapes
+const result = ailia.run(preprocess, postprocess, [[1, 1, width, height]]);
+
+// Call the destructor when done
+ailia.destroy();</code></pre>
+
+    </div>
+  </section>
+
+  <!-- API Reference -->
+  <section class="section">
+    <h2 class="section-title">API Reference</h2>
+    <div class="card-grid">
+
+      <div class="card">
+        <h3>JavaScript API</h3>
+        <ul>
+          <li><a href="../../sdk/js/en/">API Reference</a></li>
+          <li><a href="../../sdk/js/en/Ailia.html">Ailia class</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Tutorial</h3>
+        <ul>
+          <li><a href="../../sdk/js/en/tutorial-get_started.html">Get Started</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Library &amp; Samples</h3>
+        <ul>
+          <li><a href="https://github.com/ailia-ai/ailia-js" target="_blank">ailia-js (library)</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js (samples)</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-subtitle">Frequently asked questions about ailia JS.</p>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>How can I get ailia JS?</summary>
+          <p>The library itself can be downloaded from the <a href="https://github.com/ailia-ai/ailia-js" target="_blank">ailia-js</a> repository. For the samples, clone <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js</a> and run <code>git submodule init</code> and <code>git submodule update</code> to fetch the library along with them.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is SIMD supported?</summary>
+          <p>Yes. Two binaries are bundled — a SIMD build (<code>ailia_simd_s.wasm</code>) and a non-SIMD build (<code>ailia_s.wasm</code>) — and the best one is selected automatically for the execution environment. With SIMD enabled, BlazeFace inference time drops from 21ms to 8ms (measured on M2 Mac / Chrome).</p>
+          <p>Browsers on Windows, macOS, and Android support SIMD. iOS also supports WebAssembly SIMD since iOS 16.4 (Safari 16.4). On earlier iOS versions the non-SIMD build is used automatically.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What models can I run?</summary>
+          <p>Models in the ONNX format are supported. Load the model definition file (<code>.onnx.prototxt</code>) and the weights file (<code>.onnx</code>) with <code>loadModelAndWeights()</code>. <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js</a> ships with sample models such as BlazeFace, BlazeHand, and YOLOX, and models published in <a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> can also be used.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Are images or audio sent to a server?</summary>
+          <p>No. All inference runs inside the browser (WebAssembly), so input data is never sent to a server. This makes ailia JS a good fit for privacy-sensitive use cases such as background removal for video chat and microphone noise reduction.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I use it outside of ES6 modules?</summary>
+          <p>Yes. ailia JS is provided as an ES6 module, but it can also be adapted for old-style JavaScript.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How is licensing handled?</summary>
+          <p>The evaluation license can be used for development and evaluation. For commercial distribution, please apply for a commercial license. See the <a href="https://ailia.ai/license/" target="_blank">ailia license terms</a> for details.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="materials-section">
+    <div class="section">
+      <h2 class="section-title">Materials</h2>
+      <div class="materials-grid">
+        <a href="https://ailia.ai/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div class="material-text">
+            Product Site
+            <small>ailia.ai</small>
+          </div>
+        </a>
+        <a href="https://ailia-ai.github.io/ailia-models-js/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="material-text">
+            Sample Site
+            <small>Run the demos in your browser</small>
+          </div>
+        </a>
+        <a href="https://github.com/ailia-ai/ailia-js" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          </div>
+          <div class="material-text">
+            ailia-js
+            <small>Download the library</small>
+          </div>
+        </a>
+        <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div class="material-text">
+            ailia-models-js
+            <small>Download the samples</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+<!-- Related Articles -->
+<section class="section">
+  <h2 class="section-title">Related Articles</h2>
+  <p class="section-subtitle">Articles from the ailia Tech Blog.</p>
+  <div class="articles-grid">
+    <a class="article-card" href="https://medium.com/axinc-ai/released-ailia-sdk-1-2-16-c7289dd1c4b4" target="_blank" rel="noopener">
+      <div class="article-title">Released ailia SDK 1.2.16: Addition of ailia.js</div>
+      <div class="article-source">medium.com/axinc-ai</div>
+    </a>
+    <a class="article-card" href="https://tech.ailia.ai/ailia-js-%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E4%B8%8A%E3%81%A7%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92%E5%AE%9F%E8%A1%8C%E5%8F%AF%E8%83%BD%E3%81%AB%E3%81%99%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA-bcddf5aed057/" target="_blank" rel="noopener">
+      <div class="article-title">ailia.JS: Machine Learning Library for Browsers (JA)</div>
+      <div class="article-source">tech.ailia.ai</div>
+    </a>
+  </div>
+</section>
+<!-- /Related Articles -->
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+  <script src="../../js/copy.js" defer></script>
+</body>
+</html>
