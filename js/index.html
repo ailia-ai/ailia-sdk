@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia JS - ドキュメント</title>
+  <meta name="description" content="ailia JS - WebAssembly を使ってブラウザ上で機械学習モデルを実行できる AI 推論ライブラリ。ONNX モデルを JavaScript から直接実行できます。">
+  <link rel="canonical" href="https://docs.ailia.ai/js/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/js/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/js/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/js/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/js/">
+  <meta property="og:title" content="ailia JS - ドキュメント">
+  <meta property="og:description" content="ailia JS - WebAssembly を使ってブラウザ上で機械学習モデルを実行できる AI 推論ライブラリ。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia JS - ドキュメント">
+  <meta name="twitter:description" content="ailia JS - WebAssembly を使ってブラウザ上で機械学習モデルを実行できる AI 推論ライブラリ。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia JS Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../en/js/" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia JS</h1>
+    <p>ブラウザ上で機械学習モデルを実行できる AI 推論ライブラリ。WebAssembly を使用して、ONNX モデルを JavaScript から直接実行できます。</p>
+  </section>
+
+  <!-- Getting Started -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">はじめに</h2>
+      <p class="section-subtitle">ランタイムファイルを配置して、ブラウザで最初の推論を動かすまでの手順です。</p>
+
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>サンプルをクローン</h3>
+          <p>ailia JS のライブラリ本体は <code>ailia-js</code> リポジトリで公開されています。サンプルリポジトリ <code>ailia-models-js</code> をクローンしてサブモジュールを初期化すると、ライブラリ (<code>ailia.js</code> / <code>ailia_s.wasm</code> / <code>ailia_simd_s.wasm</code> など) が取得されます。</p>
+          <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models-js.git
+cd ailia-models-js
+git submodule init
+git submodule update</code></pre>
+          <p>実行環境に応じて SIMD 版と非 SIMD 版の WebAssembly バイナリが自動的に選択されます。</p>
+          <a href="https://github.com/ailia-ai/ailia-js" target="_blank" class="card-link">ライブラリ</a>
+          <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank" class="card-link">サンプルリポジトリ</a>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>サンプルを実行</h3>
+          <p>wasm は <code>file://</code> では読み込めないため、ローカルサーバーを起動してブラウザからアクセスします。顔検出 (BlazeFace) や物体検出 (YOLOX) などのサンプルをブラウザ上で実行できます。</p>
+          <pre><code class="language-bash">python3 -m http.server 8080
+# → http://localhost:8080 にアクセス</code></pre>
+          <p>ビルド不要で試したい場合は、公開中のサンプルサイトからブラウザだけで動作を確認できます。</p>
+          <a href="https://ailia-ai.github.io/ailia-models-js/" target="_blank" class="card-link">サンプルサイト</a>
+          <a href="../sdk/js/en/tutorial-get_started.html" class="card-link">Get Started チュートリアル (EN)</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">動作環境</h2>
+    <p class="section-subtitle">ailia JS は WebAssembly 上で ailia の推論エンジンを動作させるため、インストール不要でブラウザネイティブに AI 推論を実行できます。</p>
+    <div class="req-grid">
+      <div class="req-card">
+        <h3>対応ブラウザ</h3>
+        <ul>
+          <li>Chrome / Edge</li>
+          <li>Safari</li>
+          <li>Firefox</li>
+          <li>WebAssembly 対応のモダンブラウザ</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>SIMD アクセラレーション</h3>
+        <ul>
+          <li>Windows: 対応</li>
+          <li>macOS: 対応</li>
+          <li>Android: 対応</li>
+          <li>iOS: 16.4 以降で対応 (それ以前は非 SIMD 版で自動動作)</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>モデル形式</h3>
+        <ul>
+          <li>ONNX (.onnx)</li>
+          <li>モデル定義 (.onnx.prototxt)</li>
+          <li>ailia-models のモデルを利用可能</li>
+        </ul>
+      </div>
+      <div class="req-card">
+        <h3>配布形態</h3>
+        <ul>
+          <li>GitHub (ailia-js) で公開</li>
+          <li>ES6 モジュールとして提供</li>
+          <li>旧式 JavaScript からも利用可能</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">特徴</h2>
+      <p class="section-subtitle">エッジ AI をブラウザへ。サーバーにデータを送らずクライアント内で推論が完結します。</p>
+      <div class="req-grid">
+        <div class="req-card">
+          <h3>WebAssembly ベース</h3>
+          <ul>
+            <li>ailia の推論エンジンを wasm 化</li>
+            <li>JavaScript から ailia API を利用可能</li>
+            <li>インストール不要で実行</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>SIMD による高速化</h3>
+          <ul>
+            <li>SIMD 版 / 非 SIMD 版を自動選択</li>
+            <li>BlazeFace 推論: 21ms → 8ms</li>
+            <li>(M2 Mac / Chrome での計測)</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>ユースケース</h3>
+          <ul>
+            <li>ビデオチャットの背景切り抜き</li>
+            <li>マイクのノイズ除去・音声検知 (VAD)</li>
+            <li>顔検知・顔認証</li>
+            <li>QR コード検知</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>サンプルモデル</h3>
+          <ul>
+            <li>顔検出 (BlazeFace)</li>
+            <li>手検出 (BlazeHand / BlazePalm)</li>
+            <li>物体検出 (YOLOX)</li>
+            <li>物体検出 (MobileNetV2-SSDLite)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use the API -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">プロジェクトで API を使う</h2>
+      <p class="section-subtitle">ONNX モデルを読み込み、前処理・後処理コールバックを渡して推論を実行する最小サンプル。</p>
+
+      <pre class="code-block"><code class="language-javascript">import {Ailia} from './ailia.js';
+
+// モジュールを初期化 (SIMD 対応を自動判定)
+await Ailia.initialize();
+
+// インスタンスを生成してモデルと重みを読み込み
+const ailia = new Ailia();
+ailia.loadModelAndWeights(modelFileContents, weightsFileContents);
+
+// 前処理・後処理コールバックを定義
+const preprocess = (inputBuffers) => {
+  inputBuffers.byIndex[0].buffer.Float32.set(inputData);
+};
+const postprocess = (outputBuffers) => {
+  return Array.from(outputBuffers.byIndex[0].buffer.Float32);
+};
+
+// 入力形状を指定して推論を実行
+const result = ailia.run(preprocess, postprocess, [[1, 1, width, height]]);
+
+// 終了時にデストラクタを呼び出し
+ailia.destroy();</code></pre>
+
+    </div>
+  </section>
+
+  <!-- API Reference -->
+  <section class="section">
+    <h2 class="section-title">API リファレンス</h2>
+    <div class="card-grid">
+
+      <div class="card">
+        <h3>JavaScript API</h3>
+        <ul>
+          <li><a href="../sdk/js/en/">API リファレンス (EN)</a></li>
+          <li><a href="../sdk/js/en/Ailia.html">Ailia クラス (EN)</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>チュートリアル</h3>
+        <ul>
+          <li><a href="../sdk/js/en/tutorial-get_started.html">Get Started (EN)</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>ライブラリとサンプル</h3>
+        <ul>
+          <li><a href="https://github.com/ailia-ai/ailia-js" target="_blank">ailia-js (ライブラリ)</a></li>
+          <li><a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js (サンプル)</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">よくある質問</h2>
+      <p class="section-subtitle">ailia JS についてのよくある質問。</p>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>ailia JS はどうやって入手できますか?</summary>
+          <p>ライブラリ本体は <a href="https://github.com/ailia-ai/ailia-js" target="_blank">ailia-js</a> リポジトリからダウンロードできます。サンプルは <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js</a> をクローンし、<code>git submodule init</code> と <code>git submodule update</code> を実行するとライブラリごと取得できます。</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>SIMD には対応していますか?</summary>
+          <p>対応しています。SIMD 版 (<code>ailia_simd_s.wasm</code>) と非 SIMD 版 (<code>ailia_s.wasm</code>) の 2 種類のバイナリが同梱されており、実行環境に応じて最適な方が自動的に選択されます。SIMD を有効にすると、BlazeFace の推論時間が 21ms から 8ms に短縮されます (M2 Mac / Chrome での計測)。</p>
+          <p>Windows / macOS / Android のブラウザは SIMD に対応しています。iOS も 16.4 (Safari 16.4) 以降で WebAssembly SIMD に対応しました。それ以前の iOS では非 SIMD 版が自動的に使用されます。</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>どのようなモデルを実行できますか?</summary>
+          <p>ONNX フォーマットのモデルに対応しています。モデル定義ファイル (<code>.onnx.prototxt</code>) と重みファイル (<code>.onnx</code>) を <code>loadModelAndWeights()</code> で読み込みます。<a href="https://github.com/ailia-ai/ailia-models-js" target="_blank">ailia-models-js</a> には BlazeFace / BlazeHand / YOLOX などのサンプルモデルが含まれており、<a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> で公開されているモデルも利用できます。</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>サーバーに画像や音声は送信されますか?</summary>
+          <p>いいえ。推論はすべてブラウザ内 (WebAssembly) で実行されるため、入力データがサーバーに送信されることはありません。ビデオチャットの背景切り抜きやマイクのノイズ除去など、プライバシーが重要な用途に適しています。</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>ES6 モジュール以外からも使えますか?</summary>
+          <p>はい。ailia JS は ES6 モジュールとして提供されていますが、旧式の JavaScript からも利用できます。</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>ライセンスはどう扱われますか?</summary>
+          <p>評価ライセンスは開発・評価用途に利用できます。商用配布には製品ライセンスを申請してください。詳細は <a href="https://ailia.ai/license/" target="_blank">ailia ライセンス規約</a> を参照してください。</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="materials-section">
+    <div class="section">
+      <h2 class="section-title">資料</h2>
+      <div class="materials-grid">
+        <a href="https://ailia.ai/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div class="material-text">
+            Product Site
+            <small>ailia.ai</small>
+          </div>
+        </a>
+        <a href="https://ailia-ai.github.io/ailia-models-js/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="material-text">
+            サンプルサイト
+            <small>ブラウザでデモを実行</small>
+          </div>
+        </a>
+        <a href="https://github.com/ailia-ai/ailia-js" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          </div>
+          <div class="material-text">
+            ailia-js
+            <small>ライブラリのダウンロード</small>
+          </div>
+        </a>
+        <a href="https://github.com/ailia-ai/ailia-models-js" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div class="material-text">
+            ailia-models-js
+            <small>サンプルのダウンロード</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+<!-- Related Articles -->
+<section class="section">
+  <h2 class="section-title">関連記事</h2>
+  <p class="section-subtitle">ailia Tech Blog の解説記事です。</p>
+  <div class="articles-grid">
+    <a class="article-card" href="https://tech.ailia.ai/ailia-js-%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E4%B8%8A%E3%81%A7%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92%E5%AE%9F%E8%A1%8C%E5%8F%AF%E8%83%BD%E3%81%AB%E3%81%99%E3%82%8B%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA-bcddf5aed057/" target="_blank" rel="noopener">
+      <div class="article-title">ailia.JS: ブラウザ上で機械学習モデルを実行可能にするライブラリ</div>
+      <div class="article-source">tech.ailia.ai</div>
+    </a>
+  </div>
+</section>
+<!-- /Related Articles -->
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+  <script src="copy.js" defer></script>
+</body>
+</html>
