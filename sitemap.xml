@@ -50,6 +50,22 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/js/"/>
   </url>
   <url>
+    <loc>https://docs.ailia.ai/mp/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/mp/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/mp/"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/mp/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/mp/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/mp/"/>
+  </url>
+  <url>
     <loc>https://docs.ailia.ai/tflite/</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>

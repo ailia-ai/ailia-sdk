@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia MotionPortrait - Documentation</title>
+  <meta name="description" content="ailia MotionPortrait - Avatar library that generates facial expression and lip-sync animation from a single image.">
+  <link rel="canonical" href="https://docs.ailia.ai/en/mp/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/mp/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/mp/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/mp/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/mp/">
+  <meta property="og:title" content="ailia MotionPortrait - Documentation">
+  <meta property="og:description" content="ailia MotionPortrait - Avatar library that generates facial expression and lip-sync animation from a single image.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia MotionPortrait - Documentation">
+  <meta name="twitter:description" content="ailia MotionPortrait - Avatar library that generates facial expression and lip-sync animation from a single image.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia MotionPortrait Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../../mp/" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia MotionPortrait</h1>
+    <p>Try preset avatars, or drag and drop your own image to generate one of your own, complete with facial expression and lip-sync animation.</p>
+  </section>
+
+  <!-- Getting Started -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-subtitle">Choose a platform and try your first avatar animation.</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="javascript" role="tab">JavaScript</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+      </div>
+
+      <!-- JavaScript -->
+      <div class="platform-panel" data-platform="javascript">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install</h3>
+            <p>Clone the sample program <code>mp-sample-js</code>. The SDK <code>mp-sdk-js</code> is included as a submodule within the <code>mp-sample-js</code> project.</p>
+            <a href="https://github.com/ailia-ai/mp-sample-js" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/mp-sdk-js" target="_blank" class="card-link">SDK</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run</h3>
+            <p>Run the following command in the <code>mp-sample-js</code> folder to start a web server.</p>
+            <pre><code class="language-bash">python3 -m http.server 8000</code></pre>
+            <p>You can run the sample program by accessing <code>http://localhost:8000/mpavatar</code> in your web browser. A port number other than 8000 can also be used.</p>
+            <p>If you haven't installed Python or git yet, please see <a href="../setup/python/">Setting up your Python environment (Windows / Mac / Linux)</a> first.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unity -->
+      <div class="platform-panel hidden" data-platform="unity">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install</h3>
+            <p>After cloning the sample program <code>mp-sample-unity</code>, open it in Unity 6.3 LTS (6000.3.16f1) or later. The SDK <code>mp-sdk-unity</code> is downloaded automatically via the Package Manager.</p>
+            <a href="https://github.com/ailia-ai/mp-sample-unity" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/mp-sdk-unity" target="_blank" class="card-link">SDK</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run</h3>
+            <p>Open the <code>mpSampleScene.unity</code> scene and press Play. Alternatively, build and run it from the menu bar via [File]-[Build Profiles].</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">System Requirements</h2>
+    <p class="section-subtitle">ailia MotionPortrait runs in browser and mobile environments.</p>
+    <div class="req-grid">
+      <div class="platform-panel" data-platform="javascript">
+        <div class="req-card">
+          <h3>JavaScript</h3>
+          <ul>
+            <li>A WebGL-capable web browser</li>
+            <li>Run via an HTTP server</li>
+            <li>An environment with internet access</li>
+          </ul>
+        </div>
+      </div>
+      <div class="platform-panel hidden" data-platform="unity">
+        <div class="req-card">
+          <h3>Unity</h3>
+          <ul>
+            <li>Windows 10 (version 21H1 or later) / Windows 11</li>
+            <li>macOS Monterey (12.0) or later</li>
+            <li>Linux (Ubuntu 22.04 / 24.04)</li>
+            <li>iOS 15 or later</li>
+            <li>Android 7.1 (API 25) or later</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Features</h2>
+      <p class="section-subtitle">Features available in the JavaScript sample program.</p>
+      <div class="req-grid">
+        <div class="req-card">
+          <h3>Avatar Generation</h3>
+          <ul>
+            <li>Switch between preset avatars (6 by default)</li>
+            <li>Generate an avatar from any image file</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Accessories</h3>
+          <ul>
+            <li>Hair (5 types) / Glasses (5 types)</li>
+            <li>Beard (4 types) / Contact lenses (3 types)</li>
+            <li>CHANGE to switch, CLEAR to remove</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Makeup</h3>
+          <ul>
+            <li>Lip (5 types) / Cheek (6 types) / Eye makeup (6 types)</li>
+            <li>CLEAR removes all makeup</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>Animation / Expression</h3>
+          <ul>
+            <li>ANIMATION — plays 2 types of animation (preset avatars only)</li>
+            <li>SPEECH — lip-sync with 2 voice options</li>
+            <li>EXPRESSION — switches between 7 expressions</li>
+            <li>Gaze follows the mouse pointer, FPS counter displayed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+-->
+
+<!--
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">Using the API in Your Project</h2>
+      <p class="section-subtitle">A minimal example for embedding an avatar in your own application. Avatar files (<code>.bin</code>) are loaded by adding them to the file list inside <code>js/mp_fileio.js</code>.</p>
+      <pre class="code-block"><code class="language-javascript">// Start/stop lip-sync with a specified voice file
+var voiceId = mpwebgl.instance.loadvoice('items/voice/voice0.mp3');
+if (mpwebgl.instance.isanimplaying(2)) {
+    mpwebgl.instance.pauseaudio();
+    mpwebgl.instance.unloadanimation();
+    mpwebgl.instance.destroyvoice();
+}</code></pre>
+    </div>
+  </section>
+-->
+
+<!--
+  <section class="section">
+    <h2 class="section-title">Platform-specific API Reference</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>JavaScript</h3>
+        <ul>
+          <li><a href="#">API Reference (URL not set)</a></li>
+          <li><a href="#">Sample Repository (URL not set)</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Unity</h3>
+        <ul>
+          <li>Coming soon</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+-->
+
+<!--
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-subtitle">Frequently asked questions about ailia MotionPortrait.</p>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>What browsers and environments are supported?</summary>
+          <p>It runs on modern WebGL-capable browsers (Chrome, Edge, Safari, etc.). Detailed requirements are being prepared.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I use my own image as an avatar?</summary>
+          <p>Selecting an image file via the "BROWSE FILE" button in the GUI generates an avatar from that image. As with preset avatars, you can add Hair / Glasses / Beard / Lens and makeup. For more precise feature-point adjustment, use the dedicated avatar generation tool (account required). Use a square image (512×512, 1024×1024, or 2048×2048).</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Where are the model files used by the sample?</summary>
+          <p>Avatar <code>.bin</code> files are placed in the <code>items/face</code> folder and added to the file list in <code>js/mp_fileio.js</code>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How is the image's alpha channel handled?</summary>
+          <p>If a PNG image has an alpha channel, its value is used as the character's outline. If you use a fully opaque background (alpha value 255), the outline becomes a square. With formats that have no alpha channel, such as JPEG, the outline is automatically estimated. For a higher-precision avatar, include the character's mask values in the alpha channel.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I specify the avatar's resolution?</summary>
+          <p>You can specify the avatar's resolution with the <code>texsize</code> option. Choose from 512 / 1024 / 2048 (px).</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Where can I find the installation instructions?</summary>
+          <p>Installation steps are described in the "Getting Started" section of this page. For detailed operation of each button, please refer to the operation manual (PDF) in the "Resources" section.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+-->
+
+  <section class="materials-section">
+    <div class="section">
+      <h2 class="section-title">Resources</h2>
+      <div class="materials-grid">
+        <div class="platform-panel" data-platform="javascript">
+          <a href="../../mp/docs/mp_animator_js_manual_en.pdf" target="_blank" class="material-item">
+            <div class="material-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            </div>
+            <div class="material-text">
+              JavaScript Operation Manual (PDF)
+              <small>Sample program operation manual Ver. 1.0</small>
+            </div>
+          </a>
+        </div>
+        <div class="platform-panel hidden" data-platform="unity">
+          <a href="../../mp/docs/mp_animator_unity_manual_en.pdf" target="_blank" class="material-item">
+            <div class="material-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            </div>
+            <div class="material-text">
+              Unity Operation Manual (PDF)
+              <small>Sample program operation manual Ver. 1.0</small>
+            </div>
+          </a>
+        </div>
+        <a href="https://ailia.ai/mp/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div class="material-text">
+            Product Site
+            <small>ailia.ai/mp/</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+<!-- Related Articles -->
+<section class="section">
+  <h2 class="section-title">Related Articles</h2>
+  <p class="section-subtitle">Model explanations, release notes, and tutorials from the ailia Tech Blog.</p>
+  <div class="articles-grid">
+    <a class="article-card" href="https://medium.com/axinc-ai/motion-portrait-avatar-solution-combined-with-llm-9db0dc187a91" target="_blank" rel="noopener">
+      <div class="article-title">Motion Portrait: Avatar Solution Combined with LLM</div>
+      <div class="article-source">medium.com/axinc-ai</div>
+    </a>
+  </div>
+</section>
+<!-- /Related Articles -->
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.platform-tabs').forEach(tabsBar => {
+      const tabs = tabsBar.querySelectorAll('.platform-tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const platform = tab.dataset.platform;
+          tabs.forEach(t => t.classList.toggle('active', t === tab));
+          // This page has a single tab bar, but its panels live in several
+          // sections, so every panel on the page follows the selected tab.
+          document.querySelectorAll('.platform-panel').forEach(p => p.classList.toggle('hidden', p.dataset.platform !== platform));
+        });
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+  <script src="../../js/copy.js" defer></script>
+</body>
+</html>
