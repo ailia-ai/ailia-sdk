@@ -72,6 +72,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="platform-tabs" role="tablist">
         <button class="platform-tab active" data-platform="javascript" role="tab">JavaScript</button>
         <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+        <button class="platform-tab" data-platform="kotlin" role="tab">Kotlin</button>
       </div>
 
       <!-- JavaScript -->
@@ -90,7 +91,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <p>Run the following command in the <code>mp-sample-js</code> folder to start a web server.</p>
             <pre><code class="language-bash">python3 -m http.server 8000</code></pre>
             <p>You can run the sample program by accessing <code>http://localhost:8000/mpavatar</code> in your web browser. A port number other than 8000 can also be used.</p>
-            <p>If you haven't installed Python or git yet, please see <a href="../setup/python/">Setting up your Python environment (Windows / Mac / Linux)</a> first.</p>
           </div>
         </div>
       </div>
@@ -109,6 +109,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="step-number">2</div>
             <h3>Run</h3>
             <p>Open the <code>mpSampleScene.unity</code> scene and press Play. Alternatively, build and run it from the menu bar via [File]-[Build Profiles].</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kotlin -->
+      <div class="platform-panel hidden" data-platform="kotlin">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Install</h3>
+            <p>Clone the sample program <code>mp-sample-kotlin</code>, initialize its submodules, and open it in Android Studio. The SDK <code>mp-sdk-kotlin</code> is included as a submodule within the <code>mp-sample-kotlin</code> project.</p>
+            <pre><code class="language-bash">git clone https://github.com/ailia-ai/mp-sample-kotlin.git
+cd mp-sample-kotlin
+git submodule update --init --recursive</code></pre>
+            <a href="https://github.com/ailia-ai/mp-sample-kotlin" target="_blank" class="card-link">Sample Repository</a>
+            <a href="https://github.com/ailia-ai/mp-sdk-kotlin" target="_blank" class="card-link">SDK</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Run</h3>
+            <p>Connect an Android device over USB or start an emulator, then run the sample program with the Run button in Android Studio.</p>
           </div>
         </div>
       </div>
@@ -140,6 +161,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li>Linux (Ubuntu 22.04 / 24.04)</li>
             <li>iOS 15 or later</li>
             <li>Android 7.1 (API 25) or later</li>
+          </ul>
+        </div>
+      </div>
+      <div class="platform-panel hidden" data-platform="kotlin">
+        <div class="req-card">
+          <h3>Kotlin</h3>
+          <ul>
+            <li>Android 7.1 (API 25) or later</li>
+            <li>Android Studio 2025.1.3 or later</li>
+            <li>Kotlin / Java (JNI)</li>
           </ul>
         </div>
       </div>
