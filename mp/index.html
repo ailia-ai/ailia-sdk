@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia MotionPortrait - ドキュメント</title>
+  <meta name="description" content="ailia MotionPortrait - 1 枚の画像から表情・リップシンクアニメーションを生成するアバターライブラリ。">
+  <link rel="canonical" href="https://docs.ailia.ai/mp/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/mp/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/mp/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/mp/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/mp/">
+  <meta property="og:title" content="ailia MotionPortrait - ドキュメント">
+  <meta property="og:description" content="ailia MotionPortrait - 1 枚の画像から表情・リップシンクアニメーションを生成するアバターライブラリ。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia MotionPortrait - ドキュメント">
+  <meta name="twitter:description" content="ailia MotionPortrait - 1 枚の画像から表情・リップシンクアニメーションを生成するアバターライブラリ。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia MotionPortrait Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../en/mp/" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia MotionPortrait</h1>
+    <p>プリセットのアバターを試したり、好きな画像をドラッグ&amp;ドロップして自分だけのアバターを生成し、表情・リップシンクアニメーションを再生できるライブラリです。</p>
+  </section>
+
+  <!-- Getting Started -->
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">はじめに</h2>
+      <p class="section-subtitle">プラットフォームを選び、最初のアニメーション生成を実行してみましょう。</p>
+
+      <div class="platform-tabs" role="tablist">
+        <button class="platform-tab active" data-platform="javascript" role="tab">JavaScript</button>
+        <button class="platform-tab" data-platform="unity" role="tab">Unity</button>
+      </div>
+
+      <!-- JavaScript -->
+      <div class="platform-panel" data-platform="javascript">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>インストール</h3>
+            <p>サンプルプログラム <code>mp-sample-js</code> をクローンしてください。SDK <code>mp-sdk-js</code> は <code>mp-sample-js</code> プロジェクト内に submodule として含まれています。</p>
+            <a href="https://github.com/ailia-ai/mp-sample-js" target="_blank" class="card-link">サンプルプログラム</a>
+            <a href="https://github.com/ailia-ai/mp-sdk-js" target="_blank" class="card-link">SDK</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>実行</h3>
+            <p><code>mp-sample-js</code> フォルダで下記のコマンドを実行して、Web サーバーを立ち上げます。</p>
+            <pre><code class="language-bash">python3 -m http.server 8000</code></pre>
+            <p>Web ブラウザで <code>http://localhost:8000/mpavatar</code> にアクセスすることで、サンプルプログラムを実行可能です。ポート番号には 8000 番以外も指定可能です。</p>
+            <p>Python や git をまだインストールしていない方は、<a href="../setup/python/">Python 環境のセットアップ（Windows / Mac / Linux）</a> を先にご覧ください。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unity -->
+      <div class="platform-panel hidden" data-platform="unity">
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>インストール</h3>
+            <p>サンプルプログラム <code>mp-sample-unity</code> をクローンした後、Unity 6.3 LTS (6000.3.16f1) 以降で開きます。SDK <code>mp-sdk-unity</code> は Package Manager 経由で自動的にダウンロードされます。</p>
+            <a href="https://github.com/ailia-ai/mp-sample-unity" target="_blank" class="card-link">サンプルプログラム</a>
+            <a href="https://github.com/ailia-ai/mp-sdk-unity" target="_blank" class="card-link">SDK</a>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>実行</h3>
+            <p><code>mpSampleScene.unity</code> のシーンを開き、Play してください。または、メニューバーの [File]-[Build Profiles] からビルドして実行してください。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- System Requirements -->
+  <section class="section">
+    <h2 class="section-title">動作環境</h2>
+    <p class="section-subtitle">ailia MotionPortrait はブラウザおよびモバイル環境で動作します。</p>
+    <div class="req-grid">
+      <div class="platform-panel" data-platform="javascript">
+        <div class="req-card">
+          <h3>JavaScript</h3>
+          <ul>
+            <li>WebGL 対応の Web ブラウザ</li>
+            <li>HTTP サーバ経由での実行</li>
+            <li>インターネット接続のある環境</li>
+          </ul>
+        </div>
+      </div>
+      <div class="platform-panel hidden" data-platform="unity">
+        <div class="req-card">
+          <h3>Unity</h3>
+          <ul>
+            <li>Windows 10 (バージョン 21H1 以降) / Windows 11</li>
+            <li>macOS Monterey (12.0) 以降</li>
+            <li>Linux (Ubuntu 22.04 / 24.04)</li>
+            <li>iOS 15 以上</li>
+            <li>Android 7.1 (API 25) 以上</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">機能</h2>
+      <p class="section-subtitle">JavaScript 版サンプルプログラムで確認できる機能。</p>
+      <div class="req-grid">
+        <div class="req-card">
+          <h3>アバター生成</h3>
+          <ul>
+            <li>用意されたアバターへの切り替え（デフォルト 6 種類）</li>
+            <li>任意の画像ファイルからアバターを生成</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>アクセサリー</h3>
+          <ul>
+            <li>髪型（5 種類）/ メガネ（5 種類）</li>
+            <li>ヒゲ（4 種類）/ コンタクトレンズ（3 種類）</li>
+            <li>CHANGE で切り替え、CLEAR で解除</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>メイク</h3>
+          <ul>
+            <li>口紅（5 種類）/ チーク（6 種類）/ アイメイク（6 種類）</li>
+            <li>CLEAR で全てのメイクを解除</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <h3>アニメーション / 表情</h3>
+          <ul>
+            <li>ANIMATION — 2 種類のアニメーションを再生（あらかじめ用意されているアバターのみ対応）</li>
+            <li>SPEECH — 2 種類の音声でリップシンク</li>
+            <li>EXPRESSION — 7 種類の表情に切り替え</li>
+            <li>マウス方向への視線追従、FPS 表示</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+-->
+
+<!--
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">プロジェクトで API を使う</h2>
+      <p class="section-subtitle">自分のアプリケーションにアバターを組み込む最小サンプル。アバターファイル（<code>.bin</code>）は <code>js/mp_fileio.js</code> 内のファイルリストに追加して読み込みます。</p>
+      <pre class="code-block"><code class="language-javascript">// 音声ファイルを指定してリップシンクを開始/停止
+var voiceId = mpwebgl.instance.loadvoice('items/voice/voice0.mp3');
+if (mpwebgl.instance.isanimplaying(2)) {
+    mpwebgl.instance.pauseaudio();
+    mpwebgl.instance.unloadanimation();
+    mpwebgl.instance.destroyvoice();
+}</code></pre>
+    </div>
+  </section>
+-->
+
+<!--
+  <section class="section">
+    <h2 class="section-title">プラットフォーム別 API リファレンス</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>JavaScript</h3>
+        <ul>
+          <li><a href="#">API リファレンス（URL未設定）</a></li>
+          <li><a href="#">サンプルリポジトリ（URL未設定）</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Unity</h3>
+        <ul>
+          <li>準備中</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+-->
+
+<!--
+  <section class="getting-started-section">
+    <div class="section">
+      <h2 class="section-title">よくある質問</h2>
+      <p class="section-subtitle">ailia MotionPortrait についてのよくある質問。</p>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>対応ブラウザ・動作環境は?</summary>
+          <p>WebGL に対応したモダンブラウザ（Chrome、Edge、Safari など）で動作します。詳細な動作要件は準備中です。</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>自分の画像をアバターとして使うには?</summary>
+          <p>GUI の「BROWSE FILE」ボタンから画像ファイルを選択すると、その画像をもとにアバターが生成されます。あらかじめ用意されたアバターと同様に、Hair / Glasses / Beard / Lens やメイクを付加できます。より精密な特徴点調整が必要な場合は、専用のアバター生成ツール（要アカウント）を使用します。画像は正方形（512×512 / 1024×1024 / 2048×2048 のいずれか）を使用してください。</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>サンプルで使用しているモデルファイルはどこにありますか?</summary>
+          <p>アバターの <code>.bin</code> ファイルは <code>items/face</code> フォルダに配置し、<code>js/mp_fileio.js</code> のファイルリストに追加します。</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>画像のアルファチャンネルはどう扱われますか?</summary>
+          <p>PNG 画像にアルファチャンネルがある場合、その値がキャラクターの輪郭として使用されます。背景が完全に不透明（アルファ値 255）な画像を使うと、輪郭が四角形になります。JPEG など、アルファチャンネルを持たない形式を使うと、輪郭は自動推定されます。より高精度なアバターを作成する場合は、アルファチャンネルにキャラクターのマスク値を含めてください。</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>アバターの解像度はどう指定しますか?</summary>
+          <p><code>texsize</code> オプションでアバターの解像度を指定できます。512 / 1024 / 2048 (px) から選択可能です。</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>インストール方法はどこに記載されていますか?</summary>
+          <p>インストール手順はこのページの「はじめに」に記載しています。ボタンごとの詳しい操作方法については「資料」の操作マニュアル（PDF）をご参照ください。</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+-->
+
+  <section class="materials-section">
+    <div class="section">
+      <h2 class="section-title">資料</h2>
+      <div class="materials-grid">
+        <div class="platform-panel" data-platform="javascript">
+          <a href="https://ailia.ai/mp/docs/mp_animator_js_manual_ja.pdf" target="_blank" class="material-item">
+            <div class="material-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            </div>
+            <div class="material-text">
+              JavaScript版 操作マニュアル (PDF)
+              <small>サンプルプログラム操作マニュアル Ver. 1.0</small>
+            </div>
+          </a>
+        </div>
+        <div class="platform-panel hidden" data-platform="unity">
+          <a href="https://ailia.ai/mp/docs/mp_animator_unity_manual_ja.pdf" target="_blank" class="material-item">
+            <div class="material-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            </div>
+            <div class="material-text">
+              Unity版 操作マニュアル (PDF)
+              <small>サンプルプログラム操作マニュアル Ver. 1.0</small>
+            </div>
+          </a>
+        </div>
+        <a href="https://ailia.ai/mp/" target="_blank" class="material-item">
+          <div class="material-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div class="material-text">
+            Product Site
+            <small>ailia.ai/mp/</small>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+<!-- Related Articles -->
+<section class="section">
+  <h2 class="section-title">関連記事</h2>
+  <p class="section-subtitle">ailia Tech Blog のモデル解説・リリースノート・チュートリアルです。</p>
+  <div class="articles-grid">
+    <a class="article-card" href="https://tech.ailia.ai/motionportrait-llm%E3%81%A8%E5%90%88%E3%82%8F%E3%81%9B%E3%81%A6%E4%BD%BF%E3%81%88%E3%82%8Bax%E3%81%AE%E3%82%A2%E3%83%90%E3%82%BF%E3%83%BC%E3%82%BD%E3%83%AA%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3-ea5d940ead03/" target="_blank" rel="noopener">
+      <div class="article-title">MotionPortrait: LLMと合わせて使えるaxのアバターソリューション</div>
+      <div class="article-source">tech.ailia.ai</div>
+    </a>
+  </div>
+</section>
+<!-- /Related Articles -->
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.platform-tabs').forEach(tabsBar => {
+      const tabs = tabsBar.querySelectorAll('.platform-tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const platform = tab.dataset.platform;
+          tabs.forEach(t => t.classList.toggle('active', t === tab));
+          // This page has a single tab bar, but its panels live in several
+          // sections, so every panel on the page follows the selected tab.
+          document.querySelectorAll('.platform-panel').forEach(p => p.classList.toggle('hidden', p.dataset.platform !== platform));
+        });
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+  <script src="../js/copy.js" defer></script>
+</body>
+</html>
