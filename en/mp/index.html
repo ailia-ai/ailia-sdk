@@ -121,17 +121,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">1</div>
             <h3>Install</h3>
-            <p>Clone the sample program <code>mp-sample-kotlin</code>, initialize its submodules, and open it in Android Studio. The SDK <code>mp-sdk-kotlin</code> is included as a submodule within the <code>mp-sample-kotlin</code> project.</p>
+            <p>Clone the sample program <code>mp-sample-kotlin</code> and initialize its submodules. The SDK <code>mp-sdk-kotlin</code> is included as a submodule within the <code>mp-sample-kotlin</code> project.</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/mp-sample-kotlin.git
 cd mp-sample-kotlin
 git submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/mp-sample-kotlin" target="_blank" class="card-link">Sample Repository</a>
             <a href="https://github.com/ailia-ai/mp-sdk-kotlin" target="_blank" class="card-link">SDK</a>
+            <a href="https://github.com/ailia-ai/mp-sample-kotlin/blob/main/TUTORIAL.md" target="_blank" class="card-link">Tutorial</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run</h3>
-            <p>Connect an Android device over USB or start an emulator, then run the sample program with the Run button in Android Studio.</p>
+            <p>Open <code>mp-sample-kotlin</code> in Android Studio Narwhal 3 Feature Drop (2025.1.3) or later, connect an Android device over USB, and build, install, and run the sample with the Run button.</p>
           </div>
         </div>
       </div>
@@ -170,8 +171,8 @@ git submodule update --init --recursive</code></pre>
         <div class="req-card">
           <h3>Kotlin</h3>
           <ul>
-            <li>Android 7.1 (API 25) or later</li>
-            <li>Android Studio 2025.1.3 or later</li>
+            <li>Android 7.0 (API 24) or later</li>
+            <li>Android Studio Narwhal 3 Feature Drop (2025.1.3) or later</li>
             <li>Kotlin / Java (JNI)</li>
           </ul>
         </div>
@@ -322,6 +323,17 @@ if (mpwebgl.instance.isanimplaying(2)) {
             </div>
             <div class="material-text">
               Unity Operation Manual (PDF)
+              <small>Sample program operation manual Ver. 1.0</small>
+            </div>
+          </a>
+        </div>
+        <div class="platform-panel hidden" data-platform="kotlin">
+          <a href="https://ailia.ai/mp/docs/mp_animator_kotlin_manual_en.pdf" target="_blank" class="material-item">
+            <div class="material-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            </div>
+            <div class="material-text">
+              Kotlin Operation Manual (PDF)
               <small>Sample program operation manual Ver. 1.0</small>
             </div>
           </a>
