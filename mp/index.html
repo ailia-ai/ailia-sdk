@@ -91,6 +91,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <p><code>mp-sample-js</code> フォルダで下記のコマンドを実行して、Web サーバーを立ち上げます。</p>
             <pre><code class="language-bash">python3 -m http.server 8000</code></pre>
             <p>Web ブラウザで <code>http://localhost:8000/mpavatar</code> にアクセスすることで、サンプルプログラムを実行可能です。ポート番号には 8000 番以外も指定可能です。</p>
+            <p>クローン不要で試したい場合は、公開中のサンプルサイトからブラウザだけで動作を確認できます。</p>
+            <a href="https://mp.ailia.ai/mpavatar/" target="_blank" class="card-link">サンプルサイト</a>
           </div>
         </div>
       </div>
@@ -119,17 +121,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">1</div>
             <h3>インストール</h3>
-            <p>サンプルプログラム <code>mp-sample-kotlin</code> をクローンしてサブモジュールを初期化し、Android Studio で開きます。SDK <code>mp-sdk-kotlin</code> は <code>mp-sample-kotlin</code> プロジェクト内に submodule として含まれています。</p>
+            <p>サンプルプログラム <code>mp-sample-kotlin</code> をクローンしてサブモジュールを初期化してください。SDK <code>mp-sdk-kotlin</code> は <code>mp-sample-kotlin</code> プロジェクト内に submodule として含まれています。</p>
             <pre><code class="language-bash">git clone https://github.com/ailia-ai/mp-sample-kotlin.git
 cd mp-sample-kotlin
 git submodule update --init --recursive</code></pre>
             <a href="https://github.com/ailia-ai/mp-sample-kotlin" target="_blank" class="card-link">サンプルプログラム</a>
             <a href="https://github.com/ailia-ai/mp-sdk-kotlin" target="_blank" class="card-link">SDK</a>
+            <a href="https://github.com/ailia-ai/mp-sample-kotlin/blob/main/TUTORIAL.md" target="_blank" class="card-link">チュートリアル</a>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>実行</h3>
-            <p>Android 端末を USB で接続するか、エミュレータを起動し、Android Studio の Run ボタンからサンプルプログラムを実行してください。</p>
+            <p>Android Studio Narwhal 3 Feature Drop (2025.1.3) 以降で <code>mp-sample-kotlin</code> を開き、Android 端末を USB で接続して、Run ボタンからビルド・インストール・実行してください。</p>
           </div>
         </div>
       </div>
@@ -168,8 +171,8 @@ git submodule update --init --recursive</code></pre>
         <div class="req-card">
           <h3>Kotlin</h3>
           <ul>
-            <li>Android 7.1 (API 25) 以上</li>
-            <li>Android Studio 2025.1.3 以降</li>
+            <li>Android 7.0 (API 24) 以上</li>
+            <li>Android Studio Narwhal 3 Feature Drop (2025.1.3) 以降</li>
             <li>Kotlin / Java (JNI)</li>
           </ul>
         </div>
@@ -320,6 +323,17 @@ if (mpwebgl.instance.isanimplaying(2)) {
             </div>
             <div class="material-text">
               Unity版 操作マニュアル (PDF)
+              <small>サンプルプログラム操作マニュアル Ver. 1.0</small>
+            </div>
+          </a>
+        </div>
+        <div class="platform-panel hidden" data-platform="kotlin">
+          <a href="https://ailia.ai/mp/docs/mp_animator_kotlin_manual_ja.pdf" target="_blank" class="material-item">
+            <div class="material-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            </div>
+            <div class="material-text">
+              Kotlin版 操作マニュアル (PDF)
               <small>サンプルプログラム操作マニュアル Ver. 1.0</small>
             </div>
           </a>
