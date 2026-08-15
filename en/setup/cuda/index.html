@@ -69,7 +69,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>CUDA Toolkit is NVIDIA's platform for general-purpose GPU computing (GPGPU). cuDNN is NVIDIA's library for deep neural networks. By installing these, ailia SDK can perform faster inference using NVIDIA GPUs.</p>
 
     <h2>Version Compatibility</h2>
-    <p>The cuDNN version requires a specific minimum version of CUDA Toolkit and ailia SDK.</p>
+    <p>The required CUDA Toolkit and ailia SDK versions differ depending on the cuDNN version.</p>
 
     <table class="version-table">
       <thead>
@@ -82,27 +82,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tbody>
         <tr>
           <td>cuDNN 8.0.2 - 8.2.4</td>
-          <td>CUDA Toolkit 11.0 or later</td>
+          <td>CUDA Toolkit 11.0 - 11.4</td>
           <td>ailia SDK 1.2.4 and later</td>
         </tr>
         <tr>
           <td>cuDNN 8.3.0 - 8.7.0</td>
-          <td>CUDA Toolkit 11.5 or later</td>
+          <td>CUDA Toolkit 11.5 - 11.x</td>
           <td>ailia SDK 1.2.11 and later</td>
         </tr>
         <tr>
           <td>cuDNN 8.8.0 - 8.9.7</td>
-          <td>CUDA Toolkit 12.0 or later</td>
+          <td>CUDA Toolkit 12.0 - 12.x</td>
           <td>ailia SDK 1.2.15 and later</td>
         </tr>
         <tr>
           <td>cuDNN 9.0.0 - 9.x</td>
-          <td>CUDA Toolkit 12.0 or later</td>
+          <td>CUDA Toolkit 12.0 - 12.x</td>
           <td>ailia SDK 1.4.0 and later</td>
         </tr>
         <tr>
           <td>cuDNN 10.0.0 -</td>
-          <td>CUDA Toolkit 12.0 or later</td>
+          <td>CUDA Toolkit 13.0 -</td>
           <td>ailia SDK 1.7.0 and later (planned)</td>
         </tr>
       </tbody>
@@ -114,7 +114,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h3>1. Install CUDA Toolkit</h3>
 
-    <p>Go to the <a href="https://developer.nvidia.com/cuda-toolkit" target="_blank">CUDA Toolkit download page</a> and click "Download Now".</p>
+    <p>Go to the <a href="https://developer.nvidia.com/cuda-toolkit" target="_blank">CUDA Toolkit official page</a>, click <a href="https://developer.nvidia.com/cuda-downloads" target="_blank">"Download Now"</a>, then click <a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank">"Archive of Previous CUDA Releases"</a>.</p>
+    <p>Select the CUDA Toolkit version that matches the ailia SDK you are using.</p>
     <p>Select your operating system, architecture, version, and installer type:</p>
     <ul>
       <li>Operating System: <strong>Windows</strong></li>
@@ -153,13 +154,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h3>2. Install cuDNN</h3>
 
-    <p>Go to the <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN page</a> and click "Download cuDNN Library".</p>
+    <p>Go to the <a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN official page</a>, click <a href="https://developer.nvidia.com/cudnn-downloads" target="_blank">"Download cuDNN Library"</a>, then click <a href="https://developer.nvidia.com/cudnn-archive" target="_blank">"Archive of Previous Releases"</a>.</p>
+
+    <p>Select the cuDNN version that matches the ailia SDK you are using.</p>
+
     <img src="../../../setup/cuda/images/image_008.png" alt="NVIDIA cuDNN page - click Download cuDNN Library">
 
-    <p>An NVIDIA Developer account is required to download cuDNN. Sign up if you don't have one.</p>
+    <p>An NVIDIA Developer account used to be required to download cuDNN, but as of August 2026 it is no longer necessary. If you are asked to sign up, create an account and log in.</p>
     <img src="../../../setup/cuda/images/image_009.png" alt="NVIDIA Developer account login / sign-up page">
 
-    <p>After logging in, select "Local Installer for Windows (Zip)" on the download page.</p>
+    <p>On the download page, select "Local Installer for Windows (Zip)".</p>
     <img src="../../../setup/cuda/images/image_010.png" alt="cuDNN download page - select Local Installer for Windows (Zip)">
 
     <p>Extract the downloaded zip file. Move the extracted folder (e.g., <code>cudnn-windows-x86_64-8.9.6.50_cuda12-archive</code>) to a location of your choice (e.g., <code>C:\nvidia\</code>).</p>
