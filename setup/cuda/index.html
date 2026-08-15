@@ -69,7 +69,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>CUDA Toolkit は NVIDIA が提供する GPGPU のためのプラットフォームです。cuDNN は NVIDIA が提供する DNN (ディープニューラルネットワーク) のためのライブラリです。ailia SDK はこれらを導入することで、NVIDIA GPU を使ったより高速な推論が可能になります。</p>
 
     <h2>バージョンの対応関係</h2>
-    <p>cuDNN のバージョンに応じて、必要な CUDA Toolkit と ailia SDK の最低バージョンが異なります。</p>
+    <p>cuDNN のバージョンに応じて、必要な CUDA Toolkit と ailia SDK のバージョンが異なります。</p>
 
     <table class="version-table">
       <thead>
@@ -82,27 +82,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tbody>
         <tr>
           <td>cuDNN 8.0.2 - 8.2.4</td>
-          <td>CUDA Toolkit 11.0 以上</td>
+          <td>CUDA Toolkit 11.0 - 11.4</td>
           <td>ailia SDK 1.2.4 以降</td>
         </tr>
         <tr>
           <td>cuDNN 8.3.0 - 8.7.0</td>
-          <td>CUDA Toolkit 11.5 以上</td>
+          <td>CUDA Toolkit 11.5 - 11.x</td>
           <td>ailia SDK 1.2.11 以降</td>
         </tr>
         <tr>
           <td>cuDNN 8.8.0 - 8.9.7</td>
-          <td>CUDA Toolkit 12.0 以上</td>
+          <td>CUDA Toolkit 12.0 - 12.x</td>
           <td>ailia SDK 1.2.15 以降</td>
         </tr>
         <tr>
           <td>cuDNN 9.0.0 - 9.x</td>
-          <td>CUDA Toolkit 12.0 以上</td>
+          <td>CUDA Toolkit 12.0 - 12.x</td>
           <td>ailia SDK 1.4.0 以降</td>
         </tr>
         <tr>
           <td>cuDNN 10.0.0 -</td>
-          <td>CUDA Toolkit 12.0 以上</td>
+          <td>CUDA Toolkit 13.0 -</td>
           <td>ailia SDK 1.7.0 以降 (予定)</td>
         </tr>
       </tbody>
@@ -114,7 +114,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h3>1. CUDA Toolkit のインストール</h3>
 
-    <p><a href="https://developer.nvidia.com/cuda-toolkit" target="_blank">CUDA Toolkit 公式ページ</a> にアクセスし、「Download Now」をクリックします。</p>
+    <p><a href="https://developer.nvidia.com/cuda-toolkit" target="_blank">CUDA Toolkit 公式ページ</a> にアクセスし、<a href="https://developer.nvidia.com/cuda-downloads" target="_blank">「Download Now」</a>をクリックし、<a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank">「Archive of Previous CUDA Releases」</a>をクリックします。</p>
+    <p>使用するailia SDKに対応したCUDA Toolkitのバージョンを選択します。</p>
     <p>OS、アーキテクチャ、バージョン、インストーラタイプを選択します。</p>
     <ul>
       <li>Operating System: <strong>Windows</strong></li>
@@ -153,13 +154,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h3>2. cuDNN のインストール</h3>
 
-    <p><a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN 公式ページ</a> にアクセスし、「Download cuDNN Library」をクリックします。</p>
+    <p><a href="https://developer.nvidia.com/cudnn" target="_blank">cuDNN 公式ページ</a> にアクセスし、<a href="https://developer.nvidia.com/cudnn-downloads" target="_blank">「Download cuDNN Library」</a>をクリックし、<a href="https://developer.nvidia.com/cudnn-archive" target="_blank">「Archive of Previous Releases」</a>をクリックします。</p>
+
+    <p>使用するailia SDKに対応したcuDNNのバージョンを選択します。</p>
+
     <img src="images/image_008.png" alt="NVIDIA cuDNN ページ - Download cuDNN Library をクリック">
 
-    <p>cuDNN のダウンロードには NVIDIA 開発者アカウントが必要です。アカウントをお持ちでない場合は新規登録してください。</p>
+    <p>cuDNN のダウンロードには NVIDIA 開発者アカウントが必要でしたが、2026年8月現在は不要になっています。サインアップを要求された場合は、アカウントを新規登録して、ログインしてください。</p>
     <img src="images/image_009.png" alt="NVIDIA 開発者アカウント ログイン / サインアップ画面">
 
-    <p>ログイン後、ダウンロードページで「Local Installer for Windows (Zip)」を選択してダウンロードします。</p>
+    <p>ダウンロードページで「Local Installer for Windows (Zip)」を選択してダウンロードします。</p>
     <img src="images/image_010.png" alt="cuDNN ダウンロードページ - Local Installer for Windows (Zip) を選択">
 
     <p>ダウンロードした zip ファイルを展開します。展開されたフォルダ (例: <code>cudnn-windows-x86_64-8.9.6.50_cuda12-archive</code>) を任意の場所 (例: <code>C:\nvidia\</code>) に配置します。</p>
