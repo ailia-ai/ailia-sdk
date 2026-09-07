@@ -89,7 +89,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>概要</h2>
     <p>Gemma 4 は、ツール（関数）の宣言、ツール呼び出し、ツール実行結果を専用の制御トークンで表現するネイティブの Function Calling に対応しています。ailia LLM の API にはツール定義を渡す引数はありませんが、Gemma 4 の制御トークンはテキストとしてプロンプトに含めるだけで特殊トークンとしてトークナイズされるため、<strong>システムプロンプトにツール宣言を記述し、モデルの出力をアプリケーション側でパースする</strong>ことで Tool Use を実現できます。</p>
-    <p>本ページの内容は Google の <a href="https://ai.google.dev/gemma/docs/capabilities/text/function-calling-gemma4?hl=ja" target="_blank">Gemma 4 Function Calling ドキュメント</a> と、ailia LLM を使った実装例である ailia Insight の Agent モードに基づいています。</p>
+    <p>本ページの内容は Google の <a href="https://ai.google.dev/gemma/docs/capabilities/text/function-calling-gemma4?hl=ja" target="_blank">Gemma 4 Function Calling ドキュメント</a> と、ailia LLM を使った Agent の実装例に基づいています。</p>
 
     <h2>対応モデル</h2>
     <ul>
@@ -130,7 +130,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2>システムプロンプトでのツール定義</h2>
     <p>Gemma 4 のチャットテンプレートは、ツール宣言をシステムターンの中に <code>&lt;|tool&gt;declaration:...&lt;tool|&gt;</code> として展開します。ailia LLM ではこの宣言文字列をシステムプロンプトの末尾に直接記述します。宣言の形式は次のとおりです（JSON Schema の内容を Gemma 4 の記法で記述します。<code>type</code> は大文字で <code>STRING</code>、<code>INTEGER</code>、<code>BOOLEAN</code>、<code>OBJECT</code> などを指定します）。</p>
     <pre><code class="language-text">&lt;|tool&gt;declaration:get_current_temperature{description:&lt;|"|&gt;Gets the current temperature for a given location.&lt;|"|&gt;,parameters:{properties:{location:{description:&lt;|"|&gt;The city name, e.g. San Francisco&lt;|"|&gt;,type:&lt;|"|&gt;STRING&lt;|"|&gt;}},required:[&lt;|"|&gt;location&lt;|"|&gt;],type:&lt;|"|&gt;OBJECT&lt;|"|&gt;}}&lt;tool|&gt;</code></pre>
-    <p>ailia Insight では、宣言だけでなく、自然文でのツール説明と呼び出し形式の指示をあわせてシステムプロンプトに含めています。宣言だけでは引数の型やクォートの規則が守られないことがあるため、次の 4 つの要素を空行で連結しています。</p>
+    <p>実際の実装では、宣言だけでなく、自然文でのツール説明と呼び出し形式の指示をあわせてシステムプロンプトに含めることを推奨します。宣言だけでは引数の型やクォートの規則が守られないことがあるため、次の 4 つの要素を空行で連結しています。</p>
     <ol>
       <li>基本のシステムプロンプト（アシスタントの役割）</li>
       <li>ツールの一覧と使用ルール（1 応答につき 1 ツール呼び出し、すべて完了してから最終回答、など）と、各ツールの説明・パラメータ・呼び出し例</li>
@@ -167,7 +167,7 @@ path: Local file path to read. (string, required).
 cursor: Opaque cursor. Use 0 first, then reuse returned next_cursor. (integer, required). minimum 0.
 max_chars: Maximum text characters to return. Use 12000 by default. (integer, optional). minimum 1.}&lt;tool|&gt;</code></pre>
     <div class="note">
-      <strong>補足:</strong> ailia Insight では、ツール定義の source of truth を JSON Schema にし、Gemma 4 向けにはスキーマからパラメータの説明文（型・必須・最小値などを文章化したもの）を自動生成しています。型情報の弱い記法のため、整数や真偽値の制約は説明文に落とし込んでいます。
+      <strong>補足:</strong> ツール定義の source of truth を JSON Schema にし、Gemma 4 向けにはスキーマからパラメータの説明文（型・必須・最小値などを文章化したもの）を自動生成すると、他の LLM プロバイダの Function Calling と定義を共通化できます。型情報の弱い記法のため、整数や真偽値の制約は説明文に落とし込んでいます。
     </div>
     <p>システムプロンプトは通常の <code>system</code> ロールのメッセージとして渡します。ailia LLM はプロンプトのトークナイズ時に特殊トークンを解釈するため、<code>&lt;|tool&gt;</code> などは文字列として含めるだけで正しく制御トークンになります。</p>
     <pre><code class="language-python">import ailia_llm
@@ -282,7 +282,7 @@ def parse_response(text):
     <h2>ツール実行結果の返し方</h2>
     <p>ツールを実行したら、結果を <code>&lt;|tool_response&gt;</code> ブロックにして会話に追加し、再度生成します。結果は <code>response:ツール名{...}</code> の形式で、キーと値のペアで記述します。</p>
     <pre><code class="language-text">&lt;|tool_response&gt;response:read_file_chunk{result:&lt;|"|&gt;（ファイルの内容）&lt;|"|&gt;}&lt;tool_response|&gt;</code></pre>
-    <p>ailia LLM の API には <code>tool</code> ロールがないため、ailia Insight では会話履歴（ユーザー発話、モデルのツール呼び出し、ツール実行結果）をテキストとして順に連結し、1 つの <code>user</code> メッセージとしてシステムプロンプトと一緒に送信しています。モデルの過去のツール呼び出しは <code>&lt;|tool_call&gt;</code> 形式のまま履歴に書き戻します。</p>
+    <p>ailia LLM の API には <code>tool</code> ロールがないため、会話履歴（ユーザー発話、モデルのツール呼び出し、ツール実行結果）をテキストとして順に連結し、1 つの <code>user</code> メッセージとしてシステムプロンプトと一緒に送信します。モデルの過去のツール呼び出しは <code>&lt;|tool_call&gt;</code> 形式のまま履歴に書き戻します。</p>
     <pre><code class="language-text">/home/user/file.txt の先頭を読んで要約してください。
 &lt;|tool_call&gt;call:read_file_chunk{path:&lt;|"|&gt;/home/user/file.txt&lt;|"|&gt;,cursor:0,max_chars:12000}&lt;tool_call|&gt;
 &lt;|tool_response&gt;response:read_file_chunk{result:&lt;|"|&gt;{"text":"...","next_cursor":12000,"eof":true}&lt;|"|&gt;}&lt;tool_response|&gt;</code></pre>
@@ -303,7 +303,7 @@ while True:
 
     <h2>実装上の注意</h2>
     <ul>
-      <li><strong>1 応答につき 1 ツール呼び出し:</strong> Gemma 4 は複数のツール呼び出しを並列に出力できますが、ailia Insight では処理を単純にするため 1 回に 1 つだけ呼ぶようシステムプロンプトで指示し、複数返された場合はエラーとして再試行しています。</li>
+      <li><strong>1 応答につき 1 ツール呼び出し:</strong> Gemma 4 は複数のツール呼び出しを並列に出力できますが、処理を単純にするため 1 回に 1 つだけ呼ぶようシステムプロンプトで指示し、複数返された場合はエラーとして再試行することを推奨します。</li>
       <li><strong>Thinking の制御:</strong> <code>ailiaLLMSetThinking</code> で Thinking を有効にすると、ツールを使うかどうかの判断精度が上がりますが、生成時間が増えます。無効にしても推論過程を平文で出力することがあり、これがツール呼び出しなしの平文と区別できないため、システムプロンプトの先頭に「推論を書き出さず、ツール呼び出しか最終回答のみを返す」旨の指示を入れると安定します。</li>
       <li><strong>入力の検証:</strong> モデルが返したツール名と引数は必ず検証してください。存在しないツール名、必須引数の欠落、パストラバーサル（<code>..</code>）などはエラーメッセージとしてモデルに返し、再試行させます。</li>
       <li><strong>出力の長さ:</strong> ツールの実行結果はコンテキスト長を消費するため、一定の文字数で切り詰めてください。</li>
@@ -313,7 +313,6 @@ while True:
     <h2>参考</h2>
     <ul>
       <li><a href="https://ai.google.dev/gemma/docs/capabilities/text/function-calling-gemma4?hl=ja" target="_blank">Gemma 4 の関数呼び出し（Google AI for Developers）</a></li>
-      <li><a href="https://ailia.ai/dx/" target="_blank">ailia DX Insight</a>（Agent モードの実装例）</li>
     </ul>
 
   </div>
