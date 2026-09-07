@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QNN（NPU）ガイド - ailia LLM</title>
+  <meta name="description" content="ailia LLM の QNN バックエンドを使用して、Qualcomm SoC の NPU で LLM / VLM を高速に推論する方法を解説します。">
+  <link rel="canonical" href="https://docs.ailia.ai/llm/qnn.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/qnn.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/qnn.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/llm/qnn.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/llm/qnn.html">
+  <meta property="og:title" content="QNN（NPU）ガイド - ailia LLM">
+  <meta property="og:description" content="ailia LLM の QNN バックエンドを使用して、Qualcomm SoC の NPU で LLM / VLM を高速に推論する方法を解説します。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="QNN（NPU）ガイド - ailia LLM">
+  <meta name="twitter:description" content="ailia LLM の QNN バックエンドを使用して、Qualcomm SoC の NPU で LLM / VLM を高速に推論する方法を解説します。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
+    .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; max-width: 480px; }
+    .arch-box .arch-name { font-weight: 600; color: var(--primary); }
+    .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
+    .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .arch-split { display: flex; justify-content: center; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+    .arch-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .arch-col .arch-box { min-width: 220px; max-width: 320px; }
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia LLM Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../en/llm/qnn.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>QNN（NPU）ガイド</h1>
+    <p>ailia LLM の QNN バックエンドを使用して、Qualcomm SoC の NPU で LLM / VLM を高速に推論する方法を説明します。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>概要</h2>
+    <p>ailia LLM は Qualcomm SoC の NPU（Hexagon）を使用した高速推論に対応しています。NPU 向けには、llama.cpp とは異なるアイリア社独自の実装を搭載しており、Android 端末上で Prefill を 10 倍以上高速化できます。テキストの LLM だけでなく、画像を入力する VLM（Vision Language Model）も NPU で処理できます。</p>
+    <p>QNN（Qualcomm AI Engine Direct）は Qualcomm が提供するバックエンド API です。ailia SDK（ONNX 推論）の QNN バックエンドについては <a href="../setup/qnn/">QNN バックエンドガイド</a> を参照してください。</p>
+
+    <h2>対応プラットフォーム</h2>
+    <ul>
+      <li>Android（Snapdragon 8 Gen 1 以降 / Hexagon v69 以降）</li>
+    </ul>
+    <div class="note">
+      <strong>注意:</strong> ailia LLM の QNN バックエンドは現在 Android のみ対応です。Windows on Arm には未対応です。
+    </div>
+    <div class="note">
+      <strong>注意:</strong> QNN（QAIRT）の対応バージョンは ailia SDK と同じ 2.47.0.260601 です。QNN Model は QNN SDK のバージョンにも依存するため、異なるバージョンの QNN ランタイムと組み合わせないでください。
+    </div>
+
+    <h2>ワークフロー</h2>
+    <p>GGUF を PC 上で QNN Model に変換し、変換済みの QNN Model を端末上の ailia LLM で実行します。端末側では GGUF は不要で、QNN Model のみを配置します。</p>
+    <div class="arch-diagram">
+      <div class="arch-box"><div class="arch-name">GGUF</div><div class="arch-desc">llama.cpp 互換のモデルファイル（Q4 量子化）</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">ailia LLM Compiler（PC）</div><div class="arch-desc">QNN API でグラフを構築し、SoC 別の Context Binary を生成</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">QNN Model（.qnn）</div><div class="arch-desc">SoC 固有・自己完結のモデルファイル</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">ailia LLM（Device）</div><div class="arch-desc">Context Binary を復元し、Hexagon NPU で Prefill / Decode を実行</div></div>
+    </div>
+    <p>QNN Model は Prefill 用の固定長グラフ（AR-N）と Decode 用のグラフ（AR-1）を同じ QNN Context に格納し、重みと FP16 の KV キャッシュを共有します。重みは変換時に 4bit（W4）に量子化され、活性値と KV キャッシュは FP16 で処理されます。</p>
+
+    <h2>対応モデル</h2>
+    <p>現在は <strong>Gemma 4 E2B</strong>（テキストおよび VLM）に対応しています。VLM はテキスト用の QNN Model に加えて、画像エンコーダ（mmproj）用の QNN Model を使用します。</p>
+    <p>QNN Model は Snapdragon の機種（SoC）ごとに別ファイルになります。変換済みのモデルファイルを提供していますので、対象端末の SoC に対応したファイルをご利用ください。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>ファイル</th><th>内容</th></tr>
+      <tr><td><code>&lt;soc&gt;.qnn</code>（例: <code>sm8475.qnn</code>）</td><td>テキストモデル（Prefill + Decode）</td></tr>
+      <tr><td><code>&lt;soc&gt;-mmproj.qnn</code>（例: <code>sm8475-mmproj.qnn</code>）</td><td>VLM 用の画像エンコーダ（mmproj）</td></tr>
+    </table>
+    </div>
+    <div class="note">
+      <strong>注意:</strong> QNN Model は Hexagon のバージョンだけでなく、QNN SDK のバージョンと SoC のモデル ID にも依存します。異なる SoC 向けのファイルを流用しないでください。実行中の端末に対応する SoC 名は <code>ailiaLLMGetQNNModelName</code> API で取得できます（例: <code>"sm8475"</code>）。
+    </div>
+
+    <h2>使用方法</h2>
+
+    <h3>Android への組み込み</h3>
+    <p>libailia_llm.so に加えて、libailia_llm_qnn.so をアプリケーションの <code>jniLibs/arm64-v8a</code> に同梱します。アプリ側がロードするのは libailia_llm.so のみで、QNN Model を開いたときにだけ libailia_llm_qnn.so がプラグインとして遅延ロードされます。</p>
+    <p>libcdsprpc.so の使用を AndroidManifest.xml に記載する必要があります。また、NPU 側のライブラリ（libQnnHtpV*Skel.so）をファイルシステム経由で参照するため、<code>extractNativeLibs</code> を有効にします。</p>
+    <pre><code class="language-xml">&lt;application android:extractNativeLibs="true" ...&gt;
+    &lt;uses-native-library android:name="libcdsprpc.so" android:required="false"/&gt;
+&lt;/application&gt;</code></pre>
+    <p>build.gradle に下記を追加すると、QNN ランタイムが自動的に apk に同梱されます。</p>
+    <pre><code class="language-groovy">implementation 'com.qualcomm.qti:qnn-runtime:2.47.0'</code></pre>
+    <div class="note">
+      <strong>注意:</strong> QNN Model はファイルパスで指定するため、apk の assets を直接開くことはできません。初回起動時にアプリのプライベートストレージへコピー、またはダウンロードしてから開いてください。
+    </div>
+
+    <h3>QNN Model の読み込み</h3>
+    <p>QNN Model（.qnn）は GGUF と同じモデル読み込み API に渡します。コンテキスト長に 0 を指定すると、QNN Model に埋め込まれた固定のコンテキスト長が使用されます。VLM の場合は、テキストモデルを開いた後に mmproj の QNN Model をプロジェクタとして開きます。</p>
+    <pre><code class="language-cpp">#include "ailia_llm.h"
+struct AILIALLM *llm = nullptr;
+ailiaLLMCreate(&amp;llm);
+ailiaLLMOpenModelFileA(llm, "sm8475.qnn", /*ctx_size=*/0);
+ailiaLLMOpenMultimodalProjectorFileA(llm, "sm8475-mmproj.qnn"); // VLM のみ
+// 以降は GGUF と同じ prompt / generate API を使用します
+ailiaLLMDestroy(llm);</code></pre>
+    <p>Kotlin（JNI）でも同様に、GGUF のパスの代わりに QNN Model のパスを渡します。</p>
+    <pre><code class="language-kotlin">val llm = AiliaLLM()
+llm.openModelFile(qnnModelPath, 0)            // n_ctx=0 で QNN Model 内の固定長を使用
+llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM のみ</code></pre>
+
+    <h3>評価版アプリ</h3>
+    <p>Android 向けの評価版 apk は下記からダウンロードできます。QNN 対応版は <code>ailia-models-kotlin-qnn.apk</code> です。</p>
+    <p><a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720" target="_blank">https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720</a></p>
+
+    <h2>アーキテクチャ</h2>
+    <p>ailia LLM は QNN Model を mmap で読み込み、QNN Context を復元して Hexagon NPU（HTP）上で実行します。Prefill は固定長の AR-N グラフで処理し、プロンプトが AR の倍数でない場合は最後のスライスをパディングします。Decode は同じ Context 内の AR-1 グラフで処理し、Prefill 後の KV キャッシュのコピーは発生しません。VLM では画像のパッチ化と位置埋め込みを CPU で行い、16 層の Vision Transformer からプーリング、プロジェクションまでを 1 つの QNN グラフで実行します。</p>
+    <div class="arch-diagram">
+      <div class="arch-box"><div class="arch-name">QNN Model（.qnn）</div><div class="arch-desc">mmap で読み込み</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">ailia LLM</div><div class="arch-desc">トークナイズ / プロンプト分割 / サンプリング</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">ailia_llm_qnn</div><div class="arch-desc">QNN Context の復元、KV キャッシュ管理（プラグイン）</div></div>
+      <div class="arch-arrow">↙ ↓ ↘</div>
+      <div class="arch-split">
+        <div class="arch-col">
+          <div class="arch-box"><div class="arch-name">AR-N グラフ</div><div class="arch-desc">Prefill（Transformer + LM head）</div></div>
+        </div>
+        <div class="arch-col">
+          <div class="arch-box"><div class="arch-name">AR-1 グラフ</div><div class="arch-desc">Decode（Transformer + LM head）</div></div>
+        </div>
+        <div class="arch-col">
+          <div class="arch-box"><div class="arch-name">Vision グラフ</div><div class="arch-desc">画像エンコーダ（VLM のみ）</div></div>
+        </div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">QNN（HTP バックエンド）</div><div class="arch-desc">Qualcomm AI Engine Direct</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">libcdsprpc.so</div><div class="arch-desc">FastRPC（CPU と NPU 間の RPC インタフェース）</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">Hexagon NPU</div><div class="arch-desc">HVX（ベクトル演算ユニット）/ HMX（行列演算ユニット）</div></div>
+    </div>
+
+    <h2>ベンチマーク</h2>
+    <p>Gemma 4 E2B を Snapdragon 8+ Gen 1（SM8475 / Hexagon v69、ASUS AI2202）、QAIRT 2.47.0.260601 で測定した結果です。CPU は同じ端末上の llama.cpp 互換の CPU 実装（GGUF）、NPU は同じモデルから生成した QNN Model を使用し、同一プロンプト・greedy サンプリングで比較しています。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>項目</th><th>CPU</th><th>NPU（QNN）</th><th>高速化率</th></tr>
+      <tr><td>VLM 画像エンコーダ（768x768、1 枚）</td><td class="num">99.19 秒</td><td class="num">2.67 秒</td><td class="num">37.2 倍</td></tr>
+      <tr><td>VLM マルチモーダルプロンプト設定</td><td class="num">98.5 秒</td><td class="num">2.59 秒</td><td class="num">38.0 倍</td></tr>
+      <tr><td>VLM 画像入力から最初のトークンまで（TTFT）</td><td class="num">105.7 秒</td><td class="num">10.2 秒</td><td class="num">10.3 倍</td></tr>
+      <tr><td>テキスト Prefill（1000 トークン入力）</td><td class="num">-</td><td class="num">121.3 tokens/s</td><td class="num">-</td></tr>
+      <tr><td>テキスト Decode（ウォーム）</td><td class="num">11.4 tokens/s</td><td class="num">7.9 tokens/s</td><td class="num">0.7 倍</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>VLM の TTFT は、画像のデコード・前処理・画像エンコーダ・テキスト Prefill を含む時間です。VLM の行は画像エンコーダを CPU / NPU で切り替えた比較で、テキスト側はいずれも NPU で実行しています。</li>
+      <li>Prefill は Prefill 用グラフに LM head を統合した構成で、1000 トークン入力時の <code>プロンプトのトークン数 / 最初の生成呼び出し時間</code> です。</li>
+      <li>Decode は Hexagon v69 では CPU の方が高速です。Hexagon v73 以降の新しい SoC では別途測定が必要です。</li>
+    </ul>
+    <div class="note">
+      <strong>注意:</strong> ベンチマークは性能のみを示すもので、精度を保証するものではありません。現在、4bit 量子化に由来する精度問題（長いプロンプトでの単語の反復、VLM の画像埋め込みの数値誤差）を確認しており、今後修正予定です。
+    </div>
+
+    <h2>制約</h2>
+    <ul>
+      <li>QNN Model は SoC ごとに変換が必要で、他の SoC 向けのファイルは使用できません。</li>
+      <li>コンテキスト長と Prefill の固定長（AR）は変換時に決定され、実行時に変更できません。</li>
+      <li>VLM では 1 枚の画像トークン列（256 トークン）を分割せずに処理する必要があるため、テキスト側は AR-256 以上で変換した QNN Model を使用します。</li>
+      <li>現在の対応モデルは Gemma 4 E2B のみです。</li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/groovy.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
