@@ -91,14 +91,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>QNN（Qualcomm AI Engine Direct）は Qualcomm が提供するバックエンド API です。ailia LLMでは、llama.cppのモデル形式であるGGUFを、QNNで実行可能な形式に変換することで、NPUでの推論を実現しています。</p>
 
     <h2>他の手法との比較</h2>
-    <p>Android の Qualcomm SoC で LLM を実行する主な手法と ailia LLM の比較です。ailia LLM は NPU を使用でき、Hexagon v69 以降の比較的古い SoC にも対応し、Gemma 4 を NPU で実行できます。</p>
+    <p>Android の Qualcomm SoC で LLM を実行する主な手法と ailia LLM の比較です。ailia LLM は NPU を使用でき、Gemma 4 を NPU で実行でき、Hexagon v69 以降の比較的古い SoC にも対応します。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>手法</th><th>NPU 使用</th><th>対応 SoC（Android）</th><th>Gemma 4</th><th>備考</th></tr>
-      <tr><td>llama.cpp</td><td>△</td><td>CPU 実行はすべて</td><td>○（CPU）</td><td>基本は CPU 実行です。Hexagon バックエンドは実験的で、Q4_0 のみ NPU で実行され、Hexagon v73 以降（Snapdragon 8 Gen 2 以降）を対象としています。画像エンコーダは CPU で実行されます。</td></tr>
-      <tr><td>QNN（Qualcomm AI Engine Direct）</td><td>○</td><td>Hexagon v69 以降</td><td>×</td><td>低レベルの推論 API で、LLM のランタイムは提供されません。</td></tr>
-      <tr><td>QNN GenAI（Qualcomm Genie / GenieX）</td><td>○</td><td>Snapdragon 8 Elite / 8 Elite Gen 5 のみ</td><td>×</td><td>公式の対応 Android SoC は Snapdragon 8 Elite 系のみで、Hexagon v73 以降が必須です。Gemma 4 の NPU 用（QAIRT）モデルは提供されていません。</td></tr>
-      <tr><td><strong>ailia LLM</strong></td><td>○</td><td>Hexagon v69 以降（Snapdragon 8 Gen 1 以降）</td><td>○（NPU）</td><td>Snapdragon 8+ Gen 1 などの古い SoC でも NPU を使用でき、Gemma 4 E2B をテキスト・VLM とも NPU で実行できます。</td></tr>
+      <tr><th>手法</th><th>NPU 対応</th><th>Gemma 4 対応</th><th>対応 SoC（Android）</th><th>備考</th></tr>
+      <tr><td>llama.cpp</td><td>×</td><td>○（CPU）</td><td>CPU 実行はすべて</td><td>CPU 実行です。実験的な Hexagon バックエンドがありますが、NPU 側のライブラリ（Skel）が署名されていないため一般の端末では実行できず、HMX（行列演算ユニット）も使用できないため速度も出ません。画像エンコーダは CPU で実行されます。</td></tr>
+      <tr><td>QNN（Qualcomm AI Engine Direct）</td><td>○</td><td>×</td><td>Hexagon v69 以降</td><td>低レベルの推論 API で、LLM のランタイムは提供されません。</td></tr>
+      <tr><td>QNN GenAI（Qualcomm Genie / GenieX）</td><td>○</td><td>×</td><td>Snapdragon 8 Elite / 8 Elite Gen 5 のみ</td><td>公式の対応 Android SoC は Snapdragon 8 Elite 系のみで、Hexagon v73 以降が必須です。Gemma 4 の NPU 用（QAIRT）モデルは提供されていません。</td></tr>
+      <tr><td><strong>ailia LLM</strong></td><td>○</td><td>○（NPU）</td><td>Hexagon v69 以降（Snapdragon 8 Gen 1 以降）</td><td>Snapdragon 8+ Gen 1 などの古い SoC でも NPU を使用でき、Gemma 4 E2B をテキスト・VLM とも NPU で実行できます。</td></tr>
     </table>
     </div>
 
