@@ -98,7 +98,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>llama.cpp</td><td>No</td><td>Yes (CPU)</td><td>No restriction (CPU execution)</td><td>Runs on the CPU. An experimental Hexagon backend exists, but its NPU-side libraries (Skel) are unsigned, so it cannot run on regular devices, and it cannot use the HMX (matrix unit), so it is not fast either. The image encoder runs on the CPU.</td></tr>
       <tr><td>QNN (Qualcomm AI Engine Direct)</td><td>Yes</td><td>No</td><td>Snapdragon 845 or later (per QNN SoC definitions)</td><td>Low-level inference API; no LLM runtime is provided.</td></tr>
       <tr><td>QNN GenAI (Qualcomm Genie / GenieX)</td><td>Yes</td><td>No</td><td>Snapdragon 8 Elite / 8 Elite Gen 5 only</td><td>The officially supported Android SoCs are limited to the Snapdragon 8 Elite family, and Hexagon v73 or later is required. No NPU (QAIRT) model is provided for Gemma 4.</td></tr>
-      <tr><td><strong>ailia LLM</strong></td><td>Yes</td><td>Yes (NPU)</td><td>Hexagon v69 or later (Snapdragon 8 Gen 1 or later)</td><td>Uses the NPU even on older SoCs such as Snapdragon 8+ Gen 1, and runs Gemma 4 E2B on the NPU for both text and VLM.</td></tr>
+      <tr><td><strong>ailia LLM</strong></td><td>Yes</td><td>Yes (NPU)</td><td>Hexagon v69 or later (Snapdragon 8 Gen 1 or later)</td><td>Uses the NPU even on older SoCs such as Snapdragon 8+ Gen 1, and runs Gemma 4 E2B / E4B on the NPU for both text and VLM.</td></tr>
     </table>
     </div>
 
@@ -127,7 +127,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>A QNN Model stores a fixed-length prefill graph (AR-N) and a decode graph (AR-1) in the same QNN context, sharing the weights and the FP16 KV cache between them. Weights are quantized to 4 bits (W4) at conversion time, while activations and the KV cache are processed in FP16.</p>
 
     <h2>Supported Models</h2>
-    <p><strong>Gemma 4 E2B</strong> (text and VLM) is currently supported. For VLM, a QNN Model for the image encoder (mmproj) is used in addition to the text QNN Model.</p>
+    <p><strong>Gemma 4 E2B</strong> and <strong>Gemma 4 E4B</strong> (both text and VLM) are currently supported. For VLM, a QNN Model for the image encoder (mmproj) is used in addition to the text QNN Model. The supported models depend on the Hexagon version of the SoC.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Hexagon version</th><th>Example SoCs</th><th>Supported models</th><th>Context length</th></tr>
+      <tr><td>v69</td><td>Snapdragon 8 Gen 1 / 8+ Gen 1</td><td>Gemma 4 E2B</td><td>8K</td></tr>
+      <tr><td>v73 or later</td><td>Snapdragon 8 Gen 2 or later</td><td>Gemma 4 E2B / E4B</td><td>8K</td></tr>
+    </table>
+    </div>
+    <div class="note">
+      <strong>Note:</strong> Hexagon v69 limits the size of a context binary to 2 GB, so only E2B is supported there. Hexagon v73 and later have no such limit, so E4B is also supported. The pre-converted models all use a context length of 8K, which can be changed through the conversion settings of ailia LLM Compiler.
+    </div>
     <p>QNN Models are separate files for each Snapdragon model (SoC). Pre-converted model files are provided, so please use the file that matches the SoC of your target device.</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -224,9 +234,9 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     <h2>Limitations</h2>
     <ul>
       <li>QNN Models must be converted for each SoC, and a file built for another SoC cannot be used.</li>
-      <li>The context length and the fixed prefill length (AR) are determined at conversion time and cannot be changed at runtime.</li>
+      <li>The context length and the fixed prefill length (AR) are determined at conversion time and cannot be changed at runtime. To change them, reconvert the model with ailia LLM Compiler.</li>
       <li>For VLM, the token sequence of one image (256 tokens) must be processed without splitting, so the text model must be converted with AR-256 or larger.</li>
-      <li>Gemma 4 E2B is currently the only supported model.</li>
+      <li>The currently supported models are Gemma 4 E2B / E4B. On Hexagon v69 only E2B can be used because of the 2 GB context binary limit.</li>
     </ul>
 
   </div>

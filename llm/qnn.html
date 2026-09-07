@@ -98,7 +98,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>llama.cpp</td><td>×</td><td>○（CPU）</td><td>制約なし（CPU 実行）</td><td>CPU 実行です。実験的な Hexagon バックエンドがありますが、NPU 側のライブラリ（Skel）が署名されていないため一般の端末では実行できず、HMX（行列演算ユニット）も使用できないため速度も出ません。画像エンコーダは CPU で実行されます。</td></tr>
       <tr><td>QNN（Qualcomm AI Engine Direct）</td><td>○</td><td>×</td><td>Snapdragon 845 以降（QNN の SoC 定義上）</td><td>低レベルの推論 API で、LLM のランタイムは提供されません。</td></tr>
       <tr><td>QNN GenAI（Qualcomm Genie / GenieX）</td><td>○</td><td>×</td><td>Snapdragon 8 Elite / 8 Elite Gen 5 のみ</td><td>公式の対応 Android SoC は Snapdragon 8 Elite 系のみで、Hexagon v73 以降が必須です。Gemma 4 の NPU 用（QAIRT）モデルは提供されていません。</td></tr>
-      <tr><td><strong>ailia LLM</strong></td><td>○</td><td>○（NPU）</td><td>Hexagon v69 以降（Snapdragon 8 Gen 1 以降）</td><td>Snapdragon 8+ Gen 1 などの古い SoC でも NPU を使用でき、Gemma 4 E2B をテキスト・VLM とも NPU で実行できます。</td></tr>
+      <tr><td><strong>ailia LLM</strong></td><td>○</td><td>○（NPU）</td><td>Hexagon v69 以降（Snapdragon 8 Gen 1 以降）</td><td>Snapdragon 8+ Gen 1 などの古い SoC でも NPU を使用でき、Gemma 4 E2B / E4B をテキスト・VLM とも NPU で実行できます。</td></tr>
     </table>
     </div>
 
@@ -127,7 +127,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>QNN Model は Prefill 用の固定長グラフ（AR-N）と Decode 用のグラフ（AR-1）を同じ QNN Context に格納し、重みと FP16 の KV キャッシュを共有します。重みは変換時に 4bit（W4）に量子化され、活性値と KV キャッシュは FP16 で処理されます。</p>
 
     <h2>対応モデル</h2>
-    <p>現在は <strong>Gemma 4 E2B</strong>（テキストおよび VLM）に対応しています。VLM はテキスト用の QNN Model に加えて、画像エンコーダ（mmproj）用の QNN Model を使用します。</p>
+    <p>現在は <strong>Gemma 4 E2B</strong> と <strong>Gemma 4 E4B</strong>（いずれもテキストおよび VLM）に対応しています。VLM はテキスト用の QNN Model に加えて、画像エンコーダ（mmproj）用の QNN Model を使用します。対応するモデルは SoC の Hexagon バージョンによって異なります。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Hexagon バージョン</th><th>SoC の例</th><th>対応モデル</th><th>コンテキスト長</th></tr>
+      <tr><td>v69</td><td>Snapdragon 8 Gen 1 / 8+ Gen 1</td><td>Gemma 4 E2B</td><td>8K</td></tr>
+      <tr><td>v73 以降</td><td>Snapdragon 8 Gen 2 以降</td><td>Gemma 4 E2B / E4B</td><td>8K</td></tr>
+    </table>
+    </div>
+    <div class="note">
+      <strong>注意:</strong> Hexagon v69 には Context Binary のサイズが 2 GB に制限される制約があるため、E2B のみ対応です。v73 以降にはこの制約がないため E4B にも対応します。コンテキスト長は変換済みモデルではいずれも 8K ですが、ailia LLM Compiler での変換時の設定で変更できます。
+    </div>
     <p>QNN Model は Snapdragon の機種（SoC）ごとに別ファイルになります。変換済みのモデルファイルを提供していますので、対象端末の SoC に対応したファイルをご利用ください。</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -224,9 +234,9 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM のみ</code></pre>
     <h2>制約</h2>
     <ul>
       <li>QNN Model は SoC ごとに変換が必要で、他の SoC 向けのファイルは使用できません。</li>
-      <li>コンテキスト長と Prefill の固定長（AR）は変換時に決定され、実行時に変更できません。</li>
+      <li>コンテキスト長と Prefill の固定長（AR）は変換時に決定され、実行時に変更できません。変更する場合は ailia LLM Compiler で再変換します。</li>
       <li>VLM では 1 枚の画像トークン列（256 トークン）を分割せずに処理する必要があるため、テキスト側は AR-256 以上で変換した QNN Model を使用します。</li>
-      <li>現在の対応モデルは Gemma 4 E2B のみです。</li>
+      <li>現在の対応モデルは Gemma 4 E2B / E4B です。Hexagon v69 では Context Binary の 2 GB 制約のため E2B のみ使用できます。</li>
     </ul>
 
   </div>
