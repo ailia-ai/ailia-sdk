@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QNN (NPU) Guide - ailia LLM</title>
+  <title>ailia LLM NPU (QNN) Guide</title>
   <meta name="description" content="How to run fast LLM / VLM inference on the NPU of Qualcomm SoCs using the QNN backend of ailia LLM.">
   <link rel="canonical" href="https://docs.ailia.ai/en/llm/qnn.html">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/qnn.html">
@@ -21,11 +21,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:locale:alternate" content="ja_JP">
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/en/llm/qnn.html">
-  <meta property="og:title" content="QNN (NPU) Guide - ailia LLM">
+  <meta property="og:title" content="ailia LLM NPU (QNN) Guide">
   <meta property="og:description" content="How to run fast LLM / VLM inference on the NPU of Qualcomm SoCs using the QNN backend of ailia LLM.">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="QNN (NPU) Guide - ailia LLM">
+  <meta name="twitter:title" content="ailia LLM NPU (QNN) Guide">
   <meta name="twitter:description" content="How to run fast LLM / VLM inference on the NPU of Qualcomm SoCs using the QNN backend of ailia LLM.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../../favicon.png">
@@ -40,6 +40,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .arch-split { display: flex; justify-content: center; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
     .arch-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
     .arch-col .arch-box { min-width: 220px; max-width: 320px; }
+    .arch-side { display: flex; justify-content: center; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin: 24px 0; }
+    .arch-group { border: 1px dashed var(--border); border-radius: 10px; padding: 12px 12px 14px; background: var(--bg); display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .arch-group-title { font-weight: 600; color: var(--primary); margin-bottom: 6px; text-align: center; }
+    .arch-group-title small { display: block; font-weight: 400; font-size: 13px; color: var(--text-light); }
+    .arch-group .arch-box { min-width: 0; width: 240px; box-sizing: border-box; padding: 8px 12px; }
+    .arch-side .arch-arrow.horizontal { display: flex; flex-direction: column; align-items: center; align-self: center; width: 110px; font-size: 22px; }
+    .arch-plus { color: var(--text-light); font-size: 13px; line-height: 1; }
+    .arch-hint { font-size: 12px; color: var(--text-light); text-align: center; margin: 0; }
+    @media (max-width: 768px) { .arch-side .arch-arrow.horizontal { transform: rotate(90deg); } }
     .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
     .table-wrap { overflow-x: auto; }
   </style>
@@ -71,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </header>
 
   <section class="hero">
-    <h1>QNN (NPU) Guide</h1>
+    <h1>ailia LLM NPU (QNN) Guide</h1>
     <p>How to run fast LLM / VLM inference on the NPU of Qualcomm SoCs using the QNN backend of ailia LLM.</p>
   </section>
 
@@ -79,7 +88,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>Overview</h2>
     <p>ailia LLM supports fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp, and it accelerates prefill by more than 10x on Android devices. In addition to text LLMs, VLMs (Vision Language Models) that take images as input can also be processed on the NPU.</p>
-    <p>QNN (Qualcomm AI Engine Direct) is a backend API provided by Qualcomm. For the QNN backend of ailia SDK (ONNX inference), see the <a href="../setup/qnn/">QNN Backend Guide</a>.</p>
+    <p>QNN (Qualcomm AI Engine Direct) is a backend API provided by Qualcomm. ailia LLM achieves NPU inference by converting GGUF, the model format of llama.cpp, into a format that can be executed by QNN.</p>
 
     <h2>Supported Platforms</h2>
     <ul>
@@ -149,34 +158,34 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
 
     <h3>Evaluation app</h3>
     <p>An evaluation apk for Android can be downloaded from the link below. The QNN-enabled build is <code>ailia-models-kotlin-qnn.apk</code>.</p>
-    <p><a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720" target="_blank">https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720</a></p>
+    <p><a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720" target="_blank">https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720 (TBD)</a></p>
 
     <h2>Architecture</h2>
     <p>ailia LLM maps the QNN Model with mmap, restores the QNN context, and executes it on the Hexagon NPU (HTP). Prefill is processed with the fixed-length AR-N graph; when the prompt length is not a multiple of AR, the last slice is padded. Decode uses the AR-1 graph in the same context, so no KV cache copy occurs after prefill. For VLM, image patching and position embedding are performed on the CPU, and the 16-layer Vision Transformer, pooling and projection are executed in a single QNN graph.</p>
-    <div class="arch-diagram">
-      <div class="arch-box"><div class="arch-name">QNN Model (.qnn)</div><div class="arch-desc">Loaded with mmap</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">ailia LLM</div><div class="arch-desc">Tokenization / prompt slicing / sampling</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">ailia_llm_qnn</div><div class="arch-desc">QNN context restore, KV cache management (plug-in)</div></div>
-      <div class="arch-arrow">↙ ↓ ↘</div>
-      <div class="arch-split">
-        <div class="arch-col">
-          <div class="arch-box"><div class="arch-name">AR-N graph</div><div class="arch-desc">Prefill (transformer + LM head)</div></div>
-        </div>
-        <div class="arch-col">
-          <div class="arch-box"><div class="arch-name">AR-1 graph</div><div class="arch-desc">Decode (transformer + LM head)</div></div>
-        </div>
-        <div class="arch-col">
-          <div class="arch-box"><div class="arch-name">Vision graph</div><div class="arch-desc">Image encoder (VLM only)</div></div>
-        </div>
+    <div class="arch-side">
+      <div class="arch-group">
+        <div class="arch-group-title">QNN Model (.qnn)<small>SoC-specific, self-contained model file</small></div>
+        <div class="arch-box"><div class="arch-name">AR-N graph</div><div class="arch-desc">Prefill (transformer + LM head)</div></div>
+        <div class="arch-plus">+</div>
+        <div class="arch-box"><div class="arch-name">AR-1 graph</div><div class="arch-desc">Decode (transformer + LM head)</div></div>
+        <div class="arch-plus">+</div>
+        <div class="arch-box"><div class="arch-name">Shared static weights (W4)</div><div class="arch-desc">Referenced by both AR-N and AR-1</div></div>
+        <div class="arch-plus">+</div>
+        <div class="arch-box"><div class="arch-name">Vision graph</div><div class="arch-desc">Image encoder (mmproj.qnn for VLM)</div></div>
       </div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">QNN (HTP backend)</div><div class="arch-desc">Qualcomm AI Engine Direct</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">libcdsprpc.so</div><div class="arch-desc">FastRPC (RPC interface between CPU and NPU)</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">Hexagon NPU</div><div class="arch-desc">HVX (vector unit) / HMX (matrix unit)</div></div>
+      <div class="arch-arrow horizontal">→<br><span class="arch-hint">mmap / context restore</span></div>
+      <div class="arch-group">
+        <div class="arch-group-title">ailia LLM (Device)<small>Runtime software stack</small></div>
+        <div class="arch-box"><div class="arch-name">ailia LLM</div><div class="arch-desc">Tokenization / prompt slicing / sampling</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">ailia_llm_qnn</div><div class="arch-desc">Context restore, FP16 KV cache management (plug-in)</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">QNN (HTP backend)</div><div class="arch-desc">Qualcomm AI Engine Direct</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">libcdsprpc.so</div><div class="arch-desc">FastRPC (RPC interface between CPU and NPU)</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">Hexagon NPU</div><div class="arch-desc">HVX (vector unit) / HMX (matrix unit)</div></div>
+      </div>
     </div>
 
     <h2>Benchmark</h2>
