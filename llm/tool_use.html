@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia LLM Tool Use ガイド</title>
+  <meta name="description" content="ailia LLM で Gemma 4 の Function Calling（Tool Use）を使う方法を解説します。システムプロンプトでのツール定義、モデルの戻り値の形式、パース方法をまとめます。">
+  <link rel="canonical" href="https://docs.ailia.ai/llm/tool_use.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/tool_use.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/tool_use.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/llm/tool_use.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/llm/tool_use.html">
+  <meta property="og:title" content="ailia LLM Tool Use ガイド">
+  <meta property="og:description" content="ailia LLM で Gemma 4 の Function Calling（Tool Use）を使う方法を解説します。システムプロンプトでのツール定義、モデルの戻り値の形式、パース方法をまとめます。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia LLM Tool Use ガイド">
+  <meta name="twitter:description" content="ailia LLM で Gemma 4 の Function Calling（Tool Use）を使う方法を解説します。システムプロンプトでのツール定義、モデルの戻り値の形式、パース方法をまとめます。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
+    .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; max-width: 480px; }
+    .arch-box .arch-name { font-weight: 600; color: var(--primary); }
+    .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
+    .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .arch-split { display: flex; justify-content: center; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+    .arch-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .arch-col .arch-box { min-width: 220px; max-width: 320px; }
+    .arch-side { display: flex; justify-content: center; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin: 24px 0; }
+    .arch-group { border: 1px dashed var(--border); border-radius: 10px; padding: 12px 12px 14px; background: var(--bg); display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .arch-group-title { font-weight: 600; color: var(--primary); margin-bottom: 6px; text-align: center; }
+    .arch-group-title small { display: block; font-weight: 400; font-size: 13px; color: var(--text-light); }
+    .arch-group .arch-box { min-width: 0; width: 240px; box-sizing: border-box; padding: 8px 12px; }
+    .arch-side .arch-arrow.horizontal { display: flex; flex-direction: column; align-items: center; align-self: center; width: 110px; font-size: 22px; }
+    .arch-plus { color: var(--text-light); font-size: 13px; line-height: 1; }
+    .arch-hint { font-size: 12px; color: var(--text-light); text-align: center; margin: 0; }
+    @media (max-width: 768px) { .arch-side .arch-arrow.horizontal { transform: rotate(90deg); } }
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+    .guide-content .version-table td code { white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia LLM Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../en/llm/tool_use.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia LLM Tool Use ガイド</h1>
+    <p>ailia LLM で Gemma 4 の Function Calling（Tool Use）を使う方法を説明します。システムプロンプトでのツール定義、モデルの戻り値の形式、パース方法をまとめます。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>概要</h2>
+    <p>Gemma 4 は、ツール（関数）の宣言、ツール呼び出し、ツール実行結果を専用の制御トークンで表現するネイティブの Function Calling に対応しています。ailia LLM の API にはツール定義を渡す引数はありませんが、Gemma 4 の制御トークンはテキストとしてプロンプトに含めるだけで特殊トークンとしてトークナイズされるため、<strong>システムプロンプトにツール宣言を記述し、モデルの出力をアプリケーション側でパースする</strong>ことで Tool Use を実現できます。</p>
+    <p>本ページの内容は Google の <a href="https://ai.google.dev/gemma/docs/capabilities/text/function-calling-gemma4?hl=ja" target="_blank">Gemma 4 Function Calling ドキュメント</a> と、ailia LLM を使った実装例である ailia Insight の Agent モードに基づいています。</p>
+
+    <h2>対応モデル</h2>
+    <ul>
+      <li>Gemma 4 E2B / E4B / 26B-A4B / 31B（GGUF）</li>
+    </ul>
+    <div class="note">
+      <strong>注意:</strong> 制御トークンの形式は Gemma 4 固有です。他のモデルでは、そのモデルのチャットテンプレートが定義する形式に合わせる必要があります。
+    </div>
+
+    <h2>全体フロー</h2>
+    <p>Tool Use は、モデルがツール呼び出しを出力し、アプリケーションがツールを実行して結果を返し、モデルが最終回答を生成する、というループで実現します。</p>
+    <div class="arch-diagram">
+      <div class="arch-box"><div class="arch-name">システムプロンプト</div><div class="arch-desc">ツールの説明 + 呼び出し形式の指示 + <code>&lt;|tool&gt;</code> 宣言</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">ailia LLM（Gemma 4）</div><div class="arch-desc"><code>ailiaLLMSetPrompt</code> → <code>ailiaLLMGenerate</code></div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">戻り値のパース</div><div class="arch-desc"><code>&lt;|tool_call&gt;</code> があればツール呼び出し、なければ最終回答</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">ツールの実行</div><div class="arch-desc">アプリケーション側で関数を実行</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">結果を追記して再生成</div><div class="arch-desc"><code>&lt;|tool_response&gt;</code> を会話に追加し、再度 <code>ailiaLLMGenerate</code></div></div>
+    </div>
+
+    <h2>制御トークン</h2>
+    <p>Gemma 4 の Tool Use では次の制御トークンを使用します。開きトークンは <code>&lt;|name&gt;</code>、閉じトークンは <code>&lt;name|&gt;</code> の形です。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>トークン</th><th>用途</th><th>形式</th></tr>
+      <tr><td><code>&lt;|tool&gt;</code> … <code>&lt;tool|&gt;</code></td><td>ツール宣言（システムプロンプト）</td><td><code>&lt;|tool&gt;declaration:名前{...}&lt;tool|&gt;</code></td></tr>
+      <tr><td><code>&lt;|tool_call&gt;</code> … <code>&lt;tool_call|&gt;</code></td><td>ツール呼び出し（モデルの出力）</td><td><code>&lt;|tool_call&gt;call:名前{引数}&lt;tool_call|&gt;</code></td></tr>
+      <tr><td><code>&lt;|tool_response&gt;</code> … <code>&lt;tool_response|&gt;</code></td><td>ツール実行結果（アプリケーションが返す）</td><td><code>&lt;|tool_response&gt;response:名前{結果}&lt;tool_response|&gt;</code></td></tr>
+      <tr><td><code>&lt;|"|&gt;</code></td><td>文字列値のクォート</td><td><code>key:&lt;|"|&gt;value&lt;|"|&gt;</code></td></tr>
+      <tr><td><code>&lt;|channel&gt;</code> … <code>&lt;channel|&gt;</code></td><td>Thinking（推論過程）</td><td>出力の先頭に付く。回答には含めない</td></tr>
+    </table>
+    </div>
+    <p>引数や結果は <code>key:value</code> をカンマで区切った形式です。文字列は <code>&lt;|"|&gt;</code> で囲み、数値と真偽値は <code>cursor:0</code>、<code>literal:true</code> のようにクォートなしで記述します。JSON とは異なり、キーはクォートしません。</p>
+
+    <h2>システムプロンプトでのツール定義</h2>
+    <p>Gemma 4 のチャットテンプレートは、ツール宣言をシステムターンの中に <code>&lt;|tool&gt;declaration:...&lt;tool|&gt;</code> として展開します。ailia LLM ではこの宣言文字列をシステムプロンプトの末尾に直接記述します。宣言の形式は次のとおりです（JSON Schema の内容を Gemma 4 の記法で記述します。<code>type</code> は大文字で <code>STRING</code>、<code>INTEGER</code>、<code>BOOLEAN</code>、<code>OBJECT</code> などを指定します）。</p>
+    <pre><code class="language-text">&lt;|tool&gt;declaration:get_current_temperature{description:&lt;|"|&gt;Gets the current temperature for a given location.&lt;|"|&gt;,parameters:{properties:{location:{description:&lt;|"|&gt;The city name, e.g. San Francisco&lt;|"|&gt;,type:&lt;|"|&gt;STRING&lt;|"|&gt;}},required:[&lt;|"|&gt;location&lt;|"|&gt;],type:&lt;|"|&gt;OBJECT&lt;|"|&gt;}}&lt;tool|&gt;</code></pre>
+    <p>ailia Insight では、宣言だけでなく、自然文でのツール説明と呼び出し形式の指示をあわせてシステムプロンプトに含めています。宣言だけでは引数の型やクォートの規則が守られないことがあるため、次の 4 つの要素を空行で連結しています。</p>
+    <ol>
+      <li>基本のシステムプロンプト（アシスタントの役割）</li>
+      <li>ツールの一覧と使用ルール（1 応答につき 1 ツール呼び出し、すべて完了してから最終回答、など）と、各ツールの説明・パラメータ・呼び出し例</li>
+      <li>呼び出し形式の指示（下記）</li>
+      <li><code>&lt;|tool&gt;</code> 宣言</li>
+    </ol>
+    <pre><code class="language-text">You are a helpful AI assistant with access to tools.
+
+Rules:
+1. Use exactly ONE tool call per response. Never call multiple tools at once.
+2. After each tool response, decide the next step and either call another tool or provide the final answer.
+3. Do NOT give your final answer until every part of the user's request is fulfilled.
+4. When all steps are done, give your final answer as plain text.
+
+### Available tools
+
+- read_file_chunk: Read a chunk of text from a local file. Use cursor "0" for the first chunk, then pass the returned next_cursor to continue until eof is true.
+  Parameters: {path:&lt;|"|&gt;...&lt;|"|&gt;,cursor:&lt;|"|&gt;...&lt;|"|&gt;,max_chars:&lt;|"|&gt;...&lt;|"|&gt;}
+path: Local file path to read. (string, required).
+cursor: Opaque cursor. Use 0 first, then reuse returned next_cursor. (integer, required). minimum 0.
+max_chars: Maximum text characters to return. Use 12000 by default. (integer, optional). minimum 1.
+  Examples:
+  - Read the first chunk of a local text file.
+    &lt;|tool_call&gt;call:read_file_chunk{path:&lt;|"|&gt;/home/user/file.txt&lt;|"|&gt;,cursor:0,max_chars:12000}&lt;tool_call|&gt;
+
+Tool call format for this provider:
+To call a tool, output exactly:
+&lt;|tool_call&gt;call:TOOL_NAME{PARAM:&lt;|"|&gt;VALUE&lt;|"|&gt;}&lt;tool_call|&gt;
+
+Every string value in tool calls must be wrapped with &lt;|"|&gt; on both sides. Integer and boolean values may be written without quotes, such as cursor:0 and literal:true. Multi-line string values are allowed inside &lt;|"|&gt;...&lt;|"|&gt;. To give your final answer, respond with plain text without tool_call tags.
+
+&lt;|tool&gt;declaration:read_file_chunk{description:&lt;|"|&gt;Read a chunk of text from a local file. ...&lt;|"|&gt;,parameters:{path:&lt;|"|&gt;...&lt;|"|&gt;,cursor:&lt;|"|&gt;...&lt;|"|&gt;,max_chars:&lt;|"|&gt;...&lt;|"|&gt;}
+path: Local file path to read. (string, required).
+cursor: Opaque cursor. Use 0 first, then reuse returned next_cursor. (integer, required). minimum 0.
+max_chars: Maximum text characters to return. Use 12000 by default. (integer, optional). minimum 1.}&lt;tool|&gt;</code></pre>
+    <div class="note">
+      <strong>補足:</strong> ailia Insight では、ツール定義の source of truth を JSON Schema にし、Gemma 4 向けにはスキーマからパラメータの説明文（型・必須・最小値などを文章化したもの）を自動生成しています。型情報の弱い記法のため、整数や真偽値の制約は説明文に落とし込んでいます。
+    </div>
+    <p>システムプロンプトは通常の <code>system</code> ロールのメッセージとして渡します。ailia LLM はプロンプトのトークナイズ時に特殊トークンを解釈するため、<code>&lt;|tool&gt;</code> などは文字列として含めるだけで正しく制御トークンになります。</p>
+    <pre><code class="language-python">import ailia_llm
+
+model = ailia_llm.AiliaLLM()
+model.open("gemma-4-E2B-it-Q4_K_M.gguf")
+
+messages = [
+    {"role": "system", "content": system_prompt},   # ツール宣言を含むシステムプロンプト
+    {"role": "user", "content": "/home/user/file.txt の先頭を読んで要約してください。"},
+]
+response = "".join(model.generate(messages))</code></pre>
+
+    <h2>LLM からの戻り値</h2>
+    <p>モデルがツールを使うと判断した場合、出力に <code>&lt;|tool_call&gt;</code> ブロックが含まれます。</p>
+    <pre><code class="language-text">&lt;|tool_call&gt;call:read_file_chunk{path:&lt;|"|&gt;/home/user/file.txt&lt;|"|&gt;,cursor:0,max_chars:12000}&lt;tool_call|&gt;</code></pre>
+    <p>Thinking を有効にしている場合（<code>ailiaLLMSetThinking</code>）は、先頭に推論過程が付きます。</p>
+    <pre><code class="language-text">&lt;|channel&gt;The user wants a summary of a file, so I should read it first.&lt;channel|&gt;&lt;|tool_call&gt;call:read_file_chunk{path:&lt;|"|&gt;/home/user/file.txt&lt;|"|&gt;,cursor:0,max_chars:12000}&lt;tool_call|&gt;</code></pre>
+    <p>ツール呼び出しが不要な場合は、制御トークンを含まない平文が返ります。これを最終回答として扱います。</p>
+    <p>戻り値の判定は次のように行います。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>戻り値の内容</th><th>解釈</th><th>次のアクション</th></tr>
+      <tr><td><code>&lt;|tool_call&gt;...&lt;tool_call|&gt;</code> を含む</td><td>ツール呼び出し</td><td>引数をパースしてツールを実行し、結果を返して再生成</td></tr>
+      <tr><td>制御トークンなしの平文</td><td>最終回答</td><td>ユーザーに表示して終了</td></tr>
+      <tr><td>Thinking のみで本文なし</td><td>思考のみ</td><td>回答を促すメッセージを追加して再生成</td></tr>
+      <tr><td>空、または形式が不正</td><td>パースエラー</td><td>期待する形式をエラーとして返して再生成</td></tr>
+    </table>
+    </div>
+
+    <h2>戻り値のパース</h2>
+    <p>パースは 3 段階で行います。</p>
+    <ol>
+      <li><strong>Thinking の分離:</strong> <code>&lt;|channel&gt;</code> から <code>&lt;channel|&gt;</code> までを取り除きます。Thinking を無効にしていても閉じトークン <code>&lt;channel|&gt;</code> だけが出力されることがあるため、その場合は <code>&lt;channel|&gt;</code> より前を Thinking として扱います。ただし前方に <code>&lt;|tool_call&gt;</code> がある場合は削らずそのまま残します。</li>
+      <li><strong>ツール呼び出しの抽出:</strong> 正規表現 <code>&lt;\|tool_call&gt;call:(\w+)\{(.*)\}&lt;tool_call\|&gt;</code>（DOTALL）で、ツール名と引数文字列を取り出します。</li>
+      <li><strong>引数のデコード:</strong> 引数文字列を <code>key:value</code> のカンマ区切りとして解析します。値が <code>&lt;|"|&gt;</code> で始まる場合は次の <code>&lt;|"|&gt;</code> までを文字列として読み、それ以外は数値または真偽値として解釈します。</li>
+    </ol>
+    <p>文字列値の中に <code>\</code> や <code>&lt;|"|&gt;</code> のリテラルを含める場合は、<code>\\</code> および <code>&lt;|\"|&gt;</code> のようにバックスラッシュでエスケープします。文字列は改行を含むことができます。文字列値の中にカンマが含まれることがあるため、単純に <code>split(",")</code> で分割せず、クォートを考慮して先頭から順に読み進める必要があります。</p>
+    <pre><code class="language-python">import re
+
+QUOTE = '&lt;|"|&gt;'
+TOOL_CALL = re.compile(r'&lt;\|tool_call&gt;call:(\w+)\{(.*)\}&lt;tool_call\|&gt;', re.DOTALL)
+
+def extract_thinking(text):
+    start = text.find('&lt;|channel&gt;')
+    if start &lt; 0:
+        end = text.find('&lt;channel|&gt;')
+        if end &lt; 0 or '&lt;|tool_call&gt;' in text[:end]:
+            return None, text
+        return text[:end].strip(), text[end + len('&lt;channel|&gt;'):].strip()
+    end = text.find('&lt;channel|&gt;', start)
+    if end &lt; 0:
+        return text[start + len('&lt;|channel&gt;'):].strip(), text[:start].strip()
+    thinking = text[start + len('&lt;|channel&gt;'):end].strip()
+    return thinking, (text[:start] + text[end + len('&lt;channel|&gt;'):]).strip()
+
+def parse_bare(value):
+    low = value.lower()
+    if low == 'true': return True
+    if low == 'false': return False
+    try: return int(value)
+    except ValueError: pass
+    try: return float(value)
+    except ValueError: return value
+
+def decode_args(src):
+    result, i, n = {}, 0, len(src)
+    while i &lt; n:
+        while i &lt; n and src[i].isspace(): i += 1
+        m = re.compile(r'\w+').match(src, i)
+        if not m: return None
+        key, i = m.group(0), m.end()
+        while i &lt; n and src[i].isspace(): i += 1
+        if i &gt;= n or src[i] != ':': return None
+        i += 1
+        while i &lt; n and src[i].isspace(): i += 1
+        if src.startswith(QUOTE, i):                      # 文字列値
+            i += len(QUOTE); buf = []
+            while i &lt; n and not src.startswith(QUOTE, i):
+                if src[i] == '\\' and i + 1 &lt; n and src[i + 1] in ('\\', '"'):
+                    buf.append(src[i + 1]); i += 2
+                else:
+                    buf.append(src[i]); i += 1
+            if i &gt;= n: return None                        # 閉じクォートなし
+            i += len(QUOTE)
+            result[key] = ''.join(buf)
+        else:                                            # 数値 / 真偽値
+            j = src.find(',', i)
+            j = n if j &lt; 0 else j
+            result[key] = parse_bare(src[i:j].strip()); i = j
+        while i &lt; n and src[i].isspace(): i += 1
+        if i &lt; n:
+            if src[i] != ',': return None
+            i += 1
+    return result or None
+
+def parse_response(text):
+    thinking, body = extract_thinking(text)
+    m = TOOL_CALL.search(body)
+    if m:
+        return {"type": "tool_call", "name": m.group(1),
+                "args": decode_args(m.group(2)), "thinking": thinking}
+    if body.strip():
+        return {"type": "final_answer", "content": body.strip()}
+    if thinking:
+        return {"type": "thought", "content": thinking}
+    return {"type": "parse_error"}</code></pre>
+    <div class="note">
+      <strong>補足:</strong> ストリーミング表示を行う場合は、閉じトークンまで揃った <code>&lt;|tool_call&gt;...&lt;tool_call|&gt;</code> と <code>&lt;|tool_response&gt;...&lt;tool_response|&gt;</code> のブロックを表示から除去し、末尾で閉じていない開きトークン以降も表示しないようにします。
+    </div>
+
+    <h2>ツール実行結果の返し方</h2>
+    <p>ツールを実行したら、結果を <code>&lt;|tool_response&gt;</code> ブロックにして会話に追加し、再度生成します。結果は <code>response:ツール名{...}</code> の形式で、キーと値のペアで記述します。</p>
+    <pre><code class="language-text">&lt;|tool_response&gt;response:read_file_chunk{result:&lt;|"|&gt;（ファイルの内容）&lt;|"|&gt;}&lt;tool_response|&gt;</code></pre>
+    <p>ailia LLM の API には <code>tool</code> ロールがないため、ailia Insight では会話履歴（ユーザー発話、モデルのツール呼び出し、ツール実行結果）をテキストとして順に連結し、1 つの <code>user</code> メッセージとしてシステムプロンプトと一緒に送信しています。モデルの過去のツール呼び出しは <code>&lt;|tool_call&gt;</code> 形式のまま履歴に書き戻します。</p>
+    <pre><code class="language-text">/home/user/file.txt の先頭を読んで要約してください。
+&lt;|tool_call&gt;call:read_file_chunk{path:&lt;|"|&gt;/home/user/file.txt&lt;|"|&gt;,cursor:0,max_chars:12000}&lt;tool_call|&gt;
+&lt;|tool_response&gt;response:read_file_chunk{result:&lt;|"|&gt;{"text":"...","next_cursor":12000,"eof":true}&lt;|"|&gt;}&lt;tool_response|&gt;</code></pre>
+    <pre><code class="language-python">history = user_message
+while True:
+    messages = [{"role": "system", "content": system_prompt},
+                {"role": "user", "content": history}]
+    step = parse_response("".join(model.generate(messages)))
+    if step["type"] == "tool_call":
+        output = run_tool(step["name"], step["args"])      # アプリケーション側でツールを実行
+        history += "\n" + build_tool_call(step["name"], step["args"])
+        history += "\n" + build_tool_response(step["name"], output)
+    elif step["type"] == "final_answer":
+        print(step["content"]); break
+    else:
+        history += "\nError: Invalid input. Expected: &lt;|tool_call&gt;call:tool_name{param:&lt;|"|&gt;value&lt;|"|&gt;}&lt;tool_call|&gt;"</code></pre>
+    <p>ツールの出力に <code>&lt;|"|&gt;</code> や <code>\</code> が含まれる場合は、引数と同じ規則でエスケープしてから <code>&lt;|"|&gt;</code> で囲みます。</p>
+
+    <h2>実装上の注意</h2>
+    <ul>
+      <li><strong>1 応答につき 1 ツール呼び出し:</strong> Gemma 4 は複数のツール呼び出しを並列に出力できますが、ailia Insight では処理を単純にするため 1 回に 1 つだけ呼ぶようシステムプロンプトで指示し、複数返された場合はエラーとして再試行しています。</li>
+      <li><strong>Thinking の制御:</strong> <code>ailiaLLMSetThinking</code> で Thinking を有効にすると、ツールを使うかどうかの判断精度が上がりますが、生成時間が増えます。無効にしても推論過程を平文で出力することがあり、これがツール呼び出しなしの平文と区別できないため、システムプロンプトの先頭に「推論を書き出さず、ツール呼び出しか最終回答のみを返す」旨の指示を入れると安定します。</li>
+      <li><strong>入力の検証:</strong> モデルが返したツール名と引数は必ず検証してください。存在しないツール名、必須引数の欠落、パストラバーサル（<code>..</code>）などはエラーメッセージとしてモデルに返し、再試行させます。</li>
+      <li><strong>出力の長さ:</strong> ツールの実行結果はコンテキスト長を消費するため、一定の文字数で切り詰めてください。</li>
+      <li><strong>コンテキスト長:</strong> システムプロンプトにツール宣言と履歴を含めるため、8K 以上のコンテキスト長を推奨します。</li>
+    </ul>
+
+    <h2>参考</h2>
+    <ul>
+      <li><a href="https://ai.google.dev/gemma/docs/capabilities/text/function-calling-gemma4?hl=ja" target="_blank">Gemma 4 の関数呼び出し（Google AI for Developers）</a></li>
+      <li><a href="https://ailia.ai/insight/" target="_blank">ailia Insight</a>（Agent モードの実装例）</li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
