@@ -51,6 +51,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     @media (max-width: 768px) { .arch-side .arch-arrow.horizontal { transform: rotate(90deg); } }
     .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
     .table-wrap { overflow-x: auto; }
+    .bench-figure { margin: 24px 0; }
+    .bench-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--white); }
+    .bench-figure figcaption { margin-top: 8px; font-size: 0.9em; color: #666; text-align: center; }
   </style>
 </head>
 <body>
@@ -87,7 +90,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>概要</h2>
-    <p>ailia LLM は Qualcomm SoC の NPU（Hexagon）を使用した高速推論に対応しています。NPU 向けには、llama.cpp とは異なるアイリア社独自の実装を搭載しており、Android 端末上で Prefill を 10 倍以上高速化できます。テキストの LLM だけでなく、画像を入力する VLM（Vision Language Model）も NPU で処理できます。</p>
+    <p>ailia LLM は Qualcomm SoC の NPU（Hexagon）を使用した高速推論に対応しています。NPU 向けには、llama.cpp とは異なるアイリア社独自の実装を搭載しており、Android 端末上で Prefill を 6 倍以上高速化できます。テキストの LLM だけでなく、画像を入力する VLM（Vision Language Model）も NPU で処理できます。</p>
     <p>QNN（Qualcomm AI Engine Direct）は Qualcomm が提供するバックエンド API です。ailia LLMでは、llama.cppのモデル形式であるGGUFを、QNNで実行可能な形式に変換することで、NPUでの推論を実現しています。</p>
 
     <h2>他の手法との比較</h2>
@@ -95,10 +98,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>手法</th><th>NPU 対応</th><th>Gemma 4 対応</th><th>対応 SoC（Android）</th><th>備考</th></tr>
-      <tr><td>llama.cpp</td><td>×</td><td>○（CPU）</td><td>制約なし（CPU 実行）</td><td>CPU 実行です。実験的な Hexagon バックエンドがありますが、NPU 側のライブラリ（Skel）が署名されていないため一般の端末では実行できず、HMX（行列演算ユニット）も使用できないため速度も出ません。画像エンコーダは CPU で実行されます。</td></tr>
-      <tr><td>QNN（Qualcomm AI Engine Direct）</td><td>○</td><td>×</td><td>Snapdragon 845 以降（QNN の SoC 定義上）</td><td>低レベルの推論 API で、LLM のランタイムは提供されません。</td></tr>
-      <tr><td>QNN GenAI（Qualcomm Genie / GenieX）</td><td>○</td><td>×</td><td>Snapdragon 8 Elite / 8 Elite Gen 5 のみ</td><td>公式の対応 Android SoC は Snapdragon 8 Elite 系のみで、Hexagon v73 以降が必須です。Gemma 4 の NPU 用（QAIRT）モデルは提供されていません。</td></tr>
-      <tr><td><strong>ailia LLM</strong></td><td>○</td><td>○（NPU）</td><td>Hexagon v69 以降（Snapdragon 8 Gen 1 以降）</td><td>Snapdragon 8+ Gen 1 などの古い SoC でも NPU を使用でき、Gemma 4 E2B / E4B をテキスト・VLM とも NPU で実行できます。</td></tr>
+      <tr><td>llama.cpp</td><td>×</td><td>○</td><td>制約なし（CPU 実行）</td><td>CPU 実行です。実験的な Hexagon バックエンドがありますが、NPU 側のライブラリ（Skel）が署名されていないため一般の端末では実行できず、HMX（行列演算ユニット）も使用できないため速度も出ません。画像エンコーダは CPU で実行されます。</td></tr>
+      <tr><td>QNN（Qualcomm AI Engine Direct）</td><td>○</td><td>×</td><td>Hexagon v65 以降（Snapdragon 845 以降）</td><td>低レベルの推論 API で、LLM のランタイムは提供されません。</td></tr>
+      <tr><td>QNN GenAI（Qualcomm Genie / GenieX）</td><td>○</td><td>×</td><td>Hexagon v79 以降（Snapdragon 8 Elite 以降）</td><td>公式の対応 Android SoC は Snapdragon 8 Elite 系のみで、Hexagon v79 以降が必須です。Gemma 4 の NPU 用（QAIRT）モデルは提供されていません。</td></tr>
+      <tr><td><strong>ailia LLM</strong></td><td>○</td><td>○</td><td>Hexagon v69 以降（Snapdragon 8 Gen 1 以降）</td><td>Snapdragon 8+ Gen 1 などの古い SoC でも NPU を使用でき、Gemma 4 E2B / E4B をテキスト・VLM とも NPU で実行できます。</td></tr>
     </table>
     </div>
 
@@ -106,9 +109,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <ul>
       <li>Android（Snapdragon 8 Gen 1 以降 / Hexagon v69 以降）</li>
     </ul>
-    <div class="note">
-      <strong>注意:</strong> ailia LLM の QNN バックエンドは現在 Android のみ対応です。Windows on Arm には未対応です。
-    </div>
     <div class="note">
       <strong>注意:</strong> QNN（QAIRT）の対応バージョンは ailia SDK と同じ 2.47.0.260601 です。QNN Model は QNN SDK のバージョンにも依存するため、異なるバージョンの QNN ランタイムと組み合わせないでください。
     </div>
@@ -227,9 +227,14 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM のみ</code></pre>
       <li>Prefill は Prefill 用グラフに LM head を統合した構成で、1000 トークン入力時の <code>プロンプトのトークン数 / 最初の生成呼び出し時間</code> です。</li>
       <li>Decode は Hexagon v69 では CPU の方が高速です。Hexagon v73 以降の新しい SoC では別途測定が必要です。</li>
     </ul>
-    <div class="note">
-      <strong>注意:</strong> ベンチマークは性能のみを示すもので、精度を保証するものではありません。現在、4bit 量子化に由来する精度問題（長いプロンプトでの単語の反復、VLM の画像埋め込みの数値誤差）を確認しており、今後修正予定です。
-    </div>
+    <figure class="bench-figure">
+      <img src="benchmark/pps_sm8475.png" alt="Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）" loading="lazy">
+      <figcaption>Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/tps_sm8475.png" alt="Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）" loading="lazy">
+      <figcaption>Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）</figcaption>
+    </figure>
 
     <h2>制約</h2>
     <ul>

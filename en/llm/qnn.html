@@ -51,6 +51,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     @media (max-width: 768px) { .arch-side .arch-arrow.horizontal { transform: rotate(90deg); } }
     .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
     .table-wrap { overflow-x: auto; }
+    .bench-figure { margin: 24px 0; }
+    .bench-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--white); }
+    .bench-figure figcaption { margin-top: 8px; font-size: 0.9em; color: #666; text-align: center; }
   </style>
 </head>
 <body>
@@ -87,7 +90,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>Overview</h2>
-    <p>ailia LLM supports fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp, and it accelerates prefill by more than 10x on Android devices. In addition to text LLMs, VLMs (Vision Language Models) that take images as input can also be processed on the NPU.</p>
+    <p>ailia LLM supports fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp, and it accelerates prefill by more than 6x on Android devices. In addition to text LLMs, VLMs (Vision Language Models) that take images as input can also be processed on the NPU.</p>
     <p>QNN (Qualcomm AI Engine Direct) is a backend API provided by Qualcomm. ailia LLM achieves NPU inference by converting GGUF, the model format of llama.cpp, into a format that can be executed by QNN.</p>
 
     <h2>Comparison with Other Approaches</h2>
@@ -95,10 +98,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Approach</th><th>NPU</th><th>Gemma 4</th><th>Supported SoCs (Android)</th><th>Notes</th></tr>
-      <tr><td>llama.cpp</td><td>No</td><td>Yes (CPU)</td><td>No restriction (CPU execution)</td><td>Runs on the CPU. An experimental Hexagon backend exists, but its NPU-side libraries (Skel) are unsigned, so it cannot run on regular devices, and it cannot use the HMX (matrix unit), so it is not fast either. The image encoder runs on the CPU.</td></tr>
-      <tr><td>QNN (Qualcomm AI Engine Direct)</td><td>Yes</td><td>No</td><td>Snapdragon 845 or later (per QNN SoC definitions)</td><td>Low-level inference API; no LLM runtime is provided.</td></tr>
-      <tr><td>QNN GenAI (Qualcomm Genie / GenieX)</td><td>Yes</td><td>No</td><td>Snapdragon 8 Elite / 8 Elite Gen 5 only</td><td>The officially supported Android SoCs are limited to the Snapdragon 8 Elite family, and Hexagon v73 or later is required. No NPU (QAIRT) model is provided for Gemma 4.</td></tr>
-      <tr><td><strong>ailia LLM</strong></td><td>Yes</td><td>Yes (NPU)</td><td>Hexagon v69 or later (Snapdragon 8 Gen 1 or later)</td><td>Uses the NPU even on older SoCs such as Snapdragon 8+ Gen 1, and runs Gemma 4 E2B / E4B on the NPU for both text and VLM.</td></tr>
+      <tr><td>llama.cpp</td><td>No</td><td>Yes</td><td>No restriction (CPU execution)</td><td>Runs on the CPU. An experimental Hexagon backend exists, but its NPU-side libraries (Skel) are unsigned, so it cannot run on regular devices, and it cannot use the HMX (matrix unit), so it is not fast either. The image encoder runs on the CPU.</td></tr>
+      <tr><td>QNN (Qualcomm AI Engine Direct)</td><td>Yes</td><td>No</td><td>Hexagon v65 or later (Snapdragon 845 or later)</td><td>Low-level inference API; no LLM runtime is provided.</td></tr>
+      <tr><td>QNN GenAI (Qualcomm Genie / GenieX)</td><td>Yes</td><td>No</td><td>Hexagon v79 or later (Snapdragon 8 Elite or later)</td><td>The officially supported Android SoCs are limited to the Snapdragon 8 Elite family, and Hexagon v79 or later is required. No NPU (QAIRT) model is provided for Gemma 4.</td></tr>
+      <tr><td><strong>ailia LLM</strong></td><td>Yes</td><td>Yes</td><td>Hexagon v69 or later (Snapdragon 8 Gen 1 or later)</td><td>Uses the NPU even on older SoCs such as Snapdragon 8+ Gen 1, and runs Gemma 4 E2B / E4B on the NPU for both text and VLM.</td></tr>
     </table>
     </div>
 
@@ -106,9 +109,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <ul>
       <li>Android (Snapdragon 8 Gen 1 or later / Hexagon v69 or later)</li>
     </ul>
-    <div class="note">
-      <strong>Note:</strong> The QNN backend of ailia LLM currently supports Android only. Windows on Arm is not supported.
-    </div>
     <div class="note">
       <strong>Note:</strong> The supported QNN (QAIRT) version is 2.47.0.260601, the same as ailia SDK. QNN Models also depend on the QNN SDK version, so do not combine them with a different version of the QNN runtime.
     </div>
@@ -227,9 +227,14 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
       <li>Prefill uses the configuration with the LM head fused into the prefill graph, and is computed as <code>prompt tokens / time of the first generate call</code> with a 1000-token input.</li>
       <li>On Hexagon v69, decode is faster on the CPU. Newer SoCs with Hexagon v73 or later need to be measured separately.</li>
     </ul>
-    <div class="note">
-      <strong>Note:</strong> The benchmark shows performance only and does not guarantee accuracy. Accuracy issues caused by the 4-bit quantization (word repetition with long prompts, numerical mismatch in VLM image embeddings) have been confirmed and will be fixed in a future release.
-    </div>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/pps_sm8475.png" alt="Prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)" loading="lazy">
+      <figcaption>Prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_sm8475.png" alt="Per-token decode throughput over 1000 generated tokens (CPU vs. NPU)" loading="lazy">
+      <figcaption>Per-token decode throughput over 1000 generated tokens (CPU vs. NPU)</figcaption>
+    </figure>
 
     <h2>Limitations</h2>
     <ul>
