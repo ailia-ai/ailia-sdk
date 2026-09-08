@@ -103,6 +103,7 @@ GetResponseJsonは読み取りで蓄積を消去しません。新しいプロ�
 別ターンではIDを再利用できます。連続するtool結果は直前のassistantの呼び出しにIDで対応付けます。
 結果の順序は問いません。不明なID、重複結果、矛盾するツール名はINVALID_ARGUMENTです。
 ツール結果のcontentには文字列を指定し、オブジェクトはJSON文字列に変換してください。</p>
+<p><code>setTools(null)</code>でツールを解除した後も、過去のtool_callsとtool結果を<code>setPromptJson</code>へ渡して要約・最終回答を生成できます。ID対応の検証は引き続き行います。解除すると出力パーサーが無効になるため、生成結果のJSONは解除前に取得してください。</p>
 <h3>画像・音声</h3>
 <p>対応するprojectorを<code>ailiaLLMOpenMultimodalProjectorFileA</code>で読み込んだ後、userのcontent配列に順番に指定します。
 メディアはtoolsの有無にかかわらずJSONで入力できます。</p>
@@ -120,7 +121,7 @@ GetResponseJsonは読み取りで蓄積を消去しません。新しいプロ�
 <ul>
 <li>GetResponseJson：生成完了後に呼び出してください。未完了tool call/ThinkingはPARSE_ERRORです。部分結果を実行したり、引数を補完したりしません。</li>
 <li>SetPromptJson：不完全なarguments、不正なJSON・型・ID対応、空配列はINVALID_ARGUMENTです。自動切り捨ては行いません。</li>
-<li>再試行：不完全なtool_callsを履歴へ登録せず、必要な本文・Thinkingと次のuserメッセージだけを明示します。不完全な呼び出しのtool結果は作りません。</li>
+<li>再試行：GetResponseJsonがPARSE_ERRORの場合、失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加します。部分的な本文・Thinkingの取得は不要です。不完全な呼び出しのtool結果は作りません。</li>
 <li>GetResponseJsonはプロンプト未設定、tools/Thinking変更後にINVALID_STATEを返します。プロンプト設定後・生成前の空出力は空のassistantです。</li>
 <li>ファイル読込失敗はERROR_FILE_API、Base64からのデコード済みメディア読込失敗はERROR_BUFFER_API、不正なBase64はINVALID_ARGUMENTです。</li>
 </ul>
@@ -202,42 +203,45 @@ import org.json.JSONObject
 
 // llmはモデル読込済み。JSON操作にはAndroidのorg.jsonを使用します。
 fun runToolUse(llm: AiliaLLM) {
-    llm.setTools(&quot;&quot;&quot;[{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{
-        &quot;name&quot;:&quot;get_weather&quot;,&quot;description&quot;:&quot;現在の天気を取得します。&quot;,
-        &quot;parameters&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;}},
-                      &quot;required&quot;:[&quot;city&quot;]}
-    }}]&quot;&quot;&quot;)
-    val messages = JSONArray().put(
-        JSONObject().put(&quot;role&quot;, &quot;user&quot;).put(&quot;content&quot;, &quot;東京の天気は？&quot;)
-    )
-    for (turn in 0 until 8) {
-        llm.setPromptJson(messages.toString())
-        while (!llm.generate()) {
-            print(llm.getDeltaText()) // 任意のプレビュー。連結は不要。
+    try {
+        llm.setTools(&quot;&quot;&quot;[{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{
+            &quot;name&quot;:&quot;get_weather&quot;,&quot;description&quot;:&quot;現在の天気を取得します。&quot;,
+            &quot;parameters&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;}},
+                          &quot;required&quot;:[&quot;city&quot;]}
+        }}]&quot;&quot;&quot;)
+        val messages = JSONArray().put(
+            JSONObject().put(&quot;role&quot;, &quot;user&quot;).put(&quot;content&quot;, &quot;東京の天気は？&quot;)
+        )
+        for (turn in 0 until 8) {
+            llm.setPromptJson(messages.toString())
+            while (!llm.generate()) {
+                print(llm.getDeltaText()) // 任意のプレビュー。連結は不要。
+            }
+            // 不完全な出力の場合は例外。ツールを実行せず再試行を判断します。
+            val response = JSONObject(llm.getResponseJson())
+            messages.put(response)
+            val calls = response.optJSONArray(&quot;tool_calls&quot;)
+            if (calls == null || calls.length() == 0) {
+                println(response.optString(&quot;content&quot;))
+                break
+            }
+            for (i in 0 until calls.length()) {
+                val call = calls.getJSONObject(i)
+                val function = call.getJSONObject(&quot;function&quot;)
+                require(function.getString(&quot;name&quot;) == &quot;get_weather&quot;)
+                val args = JSONObject(function.getString(&quot;arguments&quot;))
+                val city = args.getString(&quot;city&quot;)
+                // 実際には引数を検証してツールを実行します。以下はモック結果。
+                val result = JSONObject().put(&quot;city&quot;, city).put(&quot;weather&quot;, &quot;sunny&quot;)
+                messages.put(JSONObject()
+                    .put(&quot;role&quot;, &quot;tool&quot;)
+                    .put(&quot;tool_call_id&quot;, call.getString(&quot;id&quot;))
+                    .put(&quot;content&quot;, result.toString())) // 結果はJSON文字列
+            }
         }
-        // 不完全な出力の場合は例外。ツールを実行せず再試行を判断します。
-        val response = JSONObject(llm.getResponseJson())
-        messages.put(response)
-        val calls = response.optJSONArray(&quot;tool_calls&quot;)
-        if (calls == null || calls.length() == 0) {
-            println(response.optString(&quot;content&quot;))
-            break
-        }
-        for (i in 0 until calls.length()) {
-            val call = calls.getJSONObject(i)
-            val function = call.getJSONObject(&quot;function&quot;)
-            require(function.getString(&quot;name&quot;) == &quot;get_weather&quot;)
-            val args = JSONObject(function.getString(&quot;arguments&quot;))
-            val city = args.getString(&quot;city&quot;)
-            // 実際には引数を検証してツールを実行します。以下はモック結果。
-            val result = JSONObject().put(&quot;city&quot;, city).put(&quot;weather&quot;, &quot;sunny&quot;)
-            messages.put(JSONObject()
-                .put(&quot;role&quot;, &quot;tool&quot;)
-                .put(&quot;tool_call_id&quot;, call.getString(&quot;id&quot;))
-                .put(&quot;content&quot;, result.toString())) // 結果はJSON文字列
-        }
+    } finally {
+        llm.setTools(null)
     }
-    llm.setTools(null)
 }
 </code></pre>
 <h2>Flutterサンプル</h2>
@@ -248,81 +252,94 @@ import &#x27;package:ailia_llm/ailia_llm_model.dart&#x27;;
 
 // llmはモデル読込済み。
 void runToolUse(AiliaLLMModel llm) {
-  llm.setTools([{
-    &#x27;type&#x27;: &#x27;function&#x27;,
-    &#x27;function&#x27;: {
-      &#x27;name&#x27;: &#x27;get_weather&#x27;,
-      &#x27;description&#x27;: &#x27;現在の天気を取得します。&#x27;,
-      &#x27;parameters&#x27;: {
-        &#x27;type&#x27;: &#x27;object&#x27;,
-        &#x27;properties&#x27;: {&#x27;city&#x27;: {&#x27;type&#x27;: &#x27;string&#x27;}},
-        &#x27;required&#x27;: [&#x27;city&#x27;],
+  try {
+    llm.setTools([{
+      &#x27;type&#x27;: &#x27;function&#x27;,
+      &#x27;function&#x27;: {
+        &#x27;name&#x27;: &#x27;get_weather&#x27;,
+        &#x27;description&#x27;: &#x27;現在の天気を取得します。&#x27;,
+        &#x27;parameters&#x27;: {
+          &#x27;type&#x27;: &#x27;object&#x27;,
+          &#x27;properties&#x27;: {&#x27;city&#x27;: {&#x27;type&#x27;: &#x27;string&#x27;}},
+          &#x27;required&#x27;: [&#x27;city&#x27;],
+        },
       },
-    },
-  }]);
-  final messages = &lt;Map&lt;String, dynamic&gt;&gt;[
-    {&#x27;role&#x27;: &#x27;user&#x27;, &#x27;content&#x27;: &#x27;東京の天気は？&#x27;},
-  ];
-  for (var turn = 0; turn &lt; 8; turn++) {
-    llm.setPromptJson(messages);
-    String? delta;
-    while ((delta = llm.generate()) != null) {
-      stdout.write(delta); // 任意のプレビュー。連結は不要。
-    }
-    // 不完全な出力の場合は例外。ツールを実行せず再試行を判断します。
-    final response = llm.getResponseJson();
-    messages.add(response);
-    final calls = response[&#x27;tool_calls&#x27;] as List? ?? [];
-    if (calls.isEmpty) {
-      print(response[&#x27;content&#x27;]);
-      break;
-    }
-    for (final call in calls) {
-      final function = call[&#x27;function&#x27;];
-      if (function[&#x27;name&#x27;] != &#x27;get_weather&#x27;) {
-        throw StateError(&#x27;Unknown tool: ${function[&#x27;name&#x27;]}&#x27;);
+    }]);
+    final messages = &lt;Map&lt;String, dynamic&gt;&gt;[
+      {&#x27;role&#x27;: &#x27;user&#x27;, &#x27;content&#x27;: &#x27;東京の天気は？&#x27;},
+    ];
+    for (var turn = 0; turn &lt; 8; turn++) {
+      llm.setPromptJson(messages);
+      String? delta;
+      while ((delta = llm.generate()) != null) {
+        stdout.write(delta); // 任意のプレビュー。連結は不要。
       }
-      final args = jsonDecode(function[&#x27;arguments&#x27;] as String);
-      final city = args[&#x27;city&#x27;] as String;
-      // 実際には引数を検証してツールを実行します。以下はモック結果。
-      final result = {&#x27;city&#x27;: city, &#x27;weather&#x27;: &#x27;sunny&#x27;};
-      messages.add({
-        &#x27;role&#x27;: &#x27;tool&#x27;,
-        &#x27;tool_call_id&#x27;: call[&#x27;id&#x27;],
-        &#x27;content&#x27;: jsonEncode(result), // 結果はJSON文字列
-      });
+      // 不完全な出力の場合は例外。ツールを実行せず再試行を判断します。
+      final response = llm.getResponseJson();
+      messages.add(response);
+      final calls = response[&#x27;tool_calls&#x27;] as List? ?? [];
+      if (calls.isEmpty) {
+        print(response[&#x27;content&#x27;]);
+        break;
+      }
+      for (final call in calls) {
+        final function = call[&#x27;function&#x27;];
+        if (function[&#x27;name&#x27;] != &#x27;get_weather&#x27;) {
+          throw StateError(&#x27;Unknown tool: ${function[&#x27;name&#x27;]}&#x27;);
+        }
+        final args = jsonDecode(function[&#x27;arguments&#x27;] as String);
+        final city = args[&#x27;city&#x27;] as String;
+        // 実際には引数を検証してツールを実行します。以下はモック結果。
+        final result = {&#x27;city&#x27;: city, &#x27;weather&#x27;: &#x27;sunny&#x27;};
+        messages.add({
+          &#x27;role&#x27;: &#x27;tool&#x27;,
+          &#x27;tool_call_id&#x27;: call[&#x27;id&#x27;],
+          &#x27;content&#x27;: jsonEncode(result), // 結果はJSON文字列
+        });
+      }
     }
+  } finally {
+    llm.setTools(null);
   }
-  llm.setTools(null);
 }
 </code></pre>
 <h2>Pythonサンプル</h2>
+<p>PARSE_ERRORだけを再試行します。失敗したassistantは履歴に追加せず、既存履歴にuserの再試行指示を追加します。各サンプルでは例外時もfinallyでツール設定を解除します。</p>
 <pre><code class="language-python"># Tool Use with SDK-buffered responses. Deltas are optional previews.
 import json
 import ailia_llm
 
 model = ailia_llm.AiliaLLM()
 model.open(&quot;gemma-4-E2B-it-Q4_K_M.gguf&quot;, n_ctx=4096)
-model.set_tools([{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{
-    &quot;name&quot;:&quot;get_weather&quot;, &quot;description&quot;:&quot;Get the current weather.&quot;,
-    &quot;parameters&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;}},&quot;required&quot;:[&quot;city&quot;]}
-}}])
-messages = [{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;What is the weather in Tokyo?&quot;}]
-for turn in range(8):
-    for delta in model.generate_json(messages):
-        print(delta, end=&quot;&quot;, flush=True)  # optional preview; no accumulation
-    response = model.get_response_json()  # raises on incomplete output
-    messages.append(response)
-    if not response.get(&quot;tool_calls&quot;):
-        print(response[&quot;content&quot;])
-        break
-    for call in response[&quot;tool_calls&quot;]:
-        args = json.loads(call[&quot;function&quot;][&quot;arguments&quot;])
-        # Validate and execute the tool in the application. Mock result here.
-        result = {&quot;city&quot;: args[&quot;city&quot;], &quot;weather&quot;: &quot;sunny&quot;}
-        messages.append({&quot;role&quot;:&quot;tool&quot;, &quot;tool_call_id&quot;:call[&quot;id&quot;],
-                         &quot;content&quot;:json.dumps(result)})
-model.set_tools(None)
+try:
+    model.set_tools([{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{
+        &quot;name&quot;:&quot;get_weather&quot;, &quot;description&quot;:&quot;Get the current weather.&quot;,
+        &quot;parameters&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;}},&quot;required&quot;:[&quot;city&quot;]}
+    }}])
+    messages = [{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;What is the weather in Tokyo?&quot;}]
+    for turn in range(8):
+        for delta in model.generate_json(messages):
+            print(delta, end=&quot;&quot;, flush=True)  # optional preview; no accumulation
+        try:
+            response = model.get_response_json()
+        except ailia_llm.AiliaLLMError as error:
+            if error.code != ailia_llm.AILIA_LLM_STATUS_PARSE_ERROR:
+                raise
+            # Keep existing history; never append the failed assistant or a tool result.
+            messages.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Please retry with a complete response or tool call.&quot;})
+            continue
+        messages.append(response)
+        if not response.get(&quot;tool_calls&quot;):
+            print(response[&quot;content&quot;])
+            break
+        for call in response[&quot;tool_calls&quot;]:
+            args = json.loads(call[&quot;function&quot;][&quot;arguments&quot;])
+            # Validate and execute the tool in the application. Mock result here.
+            result = {&quot;city&quot;: args[&quot;city&quot;], &quot;weather&quot;: &quot;sunny&quot;}
+            messages.append({&quot;role&quot;:&quot;tool&quot;, &quot;tool_call_id&quot;:call[&quot;id&quot;],
+                             &quot;content&quot;:json.dumps(result)})
+finally:
+    model.set_tools(None)
 </code></pre>
   </div>
 
