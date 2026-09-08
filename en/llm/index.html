@@ -418,7 +418,7 @@ while (!done) {
         </details>
         <details class="faq-item">
           <summary>Does it support tool use (function calling)?</summary>
-          <p>Yes. Gemma 4's native function calling can be used. Since the ailia LLM API has no argument for tool definitions, write <code>&lt;|tool&gt;</code> declarations in the system prompt and parse the <code>&lt;|tool_call&gt;</code> block returned by the model on the application side. See the <a href="tool_use.html">ailia LLM Tool Use Guide</a> for details.</p>
+          <p>Yes. Gemma 4's native function calling can be used. With the Tool Use API of ailia LLM 1.5.0 and later, tools are defined in OpenAI-compatible JSON (<code>ailiaLLMSetTools</code>) and the output is parsed into <code>tool_calls</code> with <code>ailiaLLMParseResponse</code>. Tool results are returned as messages with the <code>tool</code> role. See the <a href="tool_use.html">ailia LLM Tool Use Guide</a> for details.</p>
         </details>
 
         <details class="faq-item">

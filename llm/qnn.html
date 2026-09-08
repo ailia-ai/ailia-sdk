@@ -90,8 +90,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>概要</h2>
-    <p>ailia LLM は Qualcomm SoC の NPU（Hexagon）を使用した高速推論に対応しています。NPU 向けには、llama.cpp とは異なるアイリア社独自の実装を搭載しており、Android 端末上で Prefill を 6 倍以上高速化できます。テキストの LLM だけでなく、画像を入力する VLM（Vision Language Model）も NPU で処理できます。</p>
+    <p>ailia LLM 1.5.0 以降は Qualcomm SoC の NPU（Hexagon）を使用した高速推論に対応しています。NPU 向けには、llama.cpp とは異なるアイリア社独自の実装を搭載しており、Android 端末上で Prefill を 6 倍以上高速化できます。テキストの LLM だけでなく、画像を入力する VLM（Vision Language Model）も NPU で処理できます。</p>
     <p>QNN（Qualcomm AI Engine Direct）は Qualcomm が提供するバックエンド API です。ailia LLMでは、llama.cppのモデル形式であるGGUFを、QNNで実行可能な形式に変換することで、NPUでの推論を実現しています。</p>
+    <div class="note">
+      <strong>注意:</strong> QNN バックエンドは ailia LLM 1.5.0 以降で利用できます。
+    </div>
 
     <h2>他の手法との比較</h2>
     <p>Android の Qualcomm SoC で LLM を実行する主な手法と ailia LLM の比較です。ailia LLM は NPU を使用でき、Gemma 4 を NPU で実行でき、Hexagon v69 以降の比較的古い SoC にも対応します。</p>

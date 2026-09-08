@@ -418,7 +418,7 @@ while (!done) {
         </details>
         <details class="faq-item">
           <summary>Tool Use（Function Calling）に対応していますか?</summary>
-          <p>はい。Gemma 4 のネイティブ Function Calling を利用できます。ailia LLM の API にはツール定義を渡す引数がないため、システムプロンプトに <code>&lt;|tool&gt;</code> 形式のツール宣言を記述し、モデルが返す <code>&lt;|tool_call&gt;</code> ブロックをアプリケーション側でパースします。詳しくは <a href="tool_use.html">ailia LLM Tool Use ガイド</a> を参照してください。</p>
+          <p>はい。Gemma 4 のネイティブ Function Calling を利用できます。ailia LLM 1.5.0 以降では Tool Use API により、OpenAI 互換の JSON でツールを定義し（<code>ailiaLLMSetTools</code>）、生成結果を <code>ailiaLLMParseResponse</code> で <code>tool_calls</code> に構造化できます。ツールの実行結果は <code>tool</code> ロールのメッセージとして返します。詳しくは <a href="tool_use.html">ailia LLM Tool Use ガイド</a> を参照してください。</p>
         </details>
 
         <details class="faq-item">
