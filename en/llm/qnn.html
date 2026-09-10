@@ -90,7 +90,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>Overview</h2>
-    <p>ailia LLM 1.5.0 and later support fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp, and it accelerates prefill by more than 6x on Android devices. In addition to text LLMs, VLMs (Vision Language Models) that take images as input can also be processed on the NPU.</p>
+    <p>ailia LLM 1.5.0 and later support fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp, and it accelerates prefill by more than 6x on Android devices. In addition to text LLMs and VLMs (Vision Language Models) that take images as input, ailia LLM also supports audio input, with processing on the NPU.</p>
     <p>QNN (Qualcomm AI Engine Direct) is a backend API provided by Qualcomm. ailia LLM achieves NPU inference by converting GGUF, the model format of llama.cpp, into a format that can be executed by QNN.</p>
     <div class="note">
       <strong>Note:</strong> The QNN backend is available in ailia LLM 1.5.0 and later.
@@ -127,10 +127,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="arch-arrow">↓</div>
       <div class="arch-box"><div class="arch-name">ailia LLM (Device)</div><div class="arch-desc">Restores the context binary and runs prefill / decode on the Hexagon NPU</div></div>
     </div>
-    <p>A QNN Model stores a fixed-length prefill graph (AR-N) and a decode graph (AR-1) in the same QNN context, sharing the weights and the FP16 KV cache between them. Weights are quantized to 4 bits (W4) at conversion time, while activations and the KV cache are processed in FP16.</p>
+    <p>A QNN Model stores a fixed-length prefill graph (AR-N) and a decode graph (AR-1) in the same QNN context, sharing the weights and the KV cache between them. Weights are quantized to 4 bits (W4) at conversion time. In FP16 models, activations and the KV cache are processed in FP16.</p>
+
+    <p>ailia LLM Compiler supports both FP16 and Int16, which can be selected at conversion time according to the target SoC. The Snapdragon 7s Gen 3 NPU uses Hexagon v73 but does not support FP16, so ailia LLM uses an Int16-quantized model on this SoC. The <a href="https://docs.qualcomm.com/doc/87-78936-1/87-78936-1_REV_A_Snapdragon_7s_Gen_3_Mobile_Platform_Product_Brief.pdf">Qualcomm Snapdragon 7s Gen 3 product brief (PDF, Artificial Intelligence section on page 2)</a> lists INT4, INT8, and INT16 as supported NPU precisions; FP16 is not included. Select a model based on the precisions supported by the specific SoC, as well as its Hexagon version.</p>
 
     <h2>Supported Models</h2>
-    <p><strong>Gemma 4 E2B</strong> and <strong>Gemma 4 E4B</strong> (both text and VLM) are currently supported. For VLM, a QNN Model for the image encoder (mmproj) is used in addition to the text QNN Model. The supported models depend on the Hexagon version of the SoC.</p>
+    <p><strong>Gemma 4 E2B</strong> and <strong>Gemma 4 E4B</strong> (both supporting text, image, and audio input) are currently supported. For VLM, a QNN Model for the image encoder (mmproj) is used in addition to the text QNN Model. The supported models depend on the Hexagon version of the SoC.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Hexagon version</th><th>Example SoCs</th><th>Supported models</th><th>Context length</th></tr>
@@ -186,7 +188,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     <p><a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720" target="_blank">https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720 (TBD)</a></p>
 
     <h2>Architecture</h2>
-    <p>ailia LLM maps the QNN Model with mmap, restores the QNN context, and executes it on the Hexagon NPU (HTP). Prefill is processed with the fixed-length AR-N graph; when the prompt length is not a multiple of AR, the last slice is padded. Decode uses the AR-1 graph in the same context, so no KV cache copy occurs after prefill. For VLM, image patching and position embedding are performed on the CPU, and the 16-layer Vision Transformer, pooling and projection are executed in a single QNN graph.</p>
+    <p>ailia LLM maps the QNN Model with mmap, restores the QNN context, and executes it on the Hexagon NPU (HTP). Prefill is processed with the fixed-length AR-N graph; when the prompt length is not a multiple of AR, the last slice is padded. Decode uses the AR-1 graph in the same context, so no KV cache copy occurs after prefill. For VLM, image patching and position embedding are performed on the CPU, and the 16-layer Vision Transformer, pooling and projection are executed in a single QNN graph. Audio input uses an Audio graph to run the audio encoder on the NPU.</p>
     <div class="arch-side">
       <div class="arch-group">
         <div class="arch-group-title">QNN Model (.qnn)<small>SoC-specific, self-contained model file</small></div>
@@ -197,13 +199,15 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
         <div class="arch-box"><div class="arch-name">Shared static weights (W4)</div><div class="arch-desc">Referenced by both AR-N and AR-1</div></div>
         <div class="arch-plus">+</div>
         <div class="arch-box"><div class="arch-name">Vision graph</div><div class="arch-desc">Image encoder (mmproj.qnn for VLM)</div></div>
+        <div class="arch-plus">+</div>
+        <div class="arch-box"><div class="arch-name">Audio graph</div><div class="arch-desc">Audio encoder for audio input</div></div>
       </div>
       <div class="arch-arrow horizontal">→<br><span class="arch-hint">mmap / context restore</span></div>
       <div class="arch-group">
         <div class="arch-group-title">ailia LLM (Device)<small>Runtime software stack</small></div>
         <div class="arch-box"><div class="arch-name">ailia LLM</div><div class="arch-desc">Tokenization / prompt slicing / sampling</div></div>
         <div class="arch-arrow">↓</div>
-        <div class="arch-box"><div class="arch-name">ailia_llm_qnn</div><div class="arch-desc">Context restore, FP16 KV cache management (plug-in)</div></div>
+        <div class="arch-box"><div class="arch-name">ailia_llm_qnn</div><div class="arch-desc">Context restore, KV cache management (plug-in)</div></div>
         <div class="arch-arrow">↓</div>
         <div class="arch-box"><div class="arch-name">QNN (HTP backend)</div><div class="arch-desc">Qualcomm AI Engine Direct</div></div>
         <div class="arch-arrow">↓</div>

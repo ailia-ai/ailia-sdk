@@ -90,7 +90,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>概要</h2>
-    <p>ailia LLM 1.5.0 以降は Qualcomm SoC の NPU（Hexagon）を使用した高速推論に対応しています。NPU 向けには、llama.cpp とは異なるアイリア社独自の実装を搭載しており、Android 端末上で Prefill を 6 倍以上高速化できます。テキストの LLM だけでなく、画像を入力する VLM（Vision Language Model）も NPU で処理できます。</p>
+    <p>ailia LLM 1.5.0 以降は Qualcomm SoC の NPU（Hexagon）を使用した高速推論に対応しています。NPU 向けには、llama.cpp とは異なるアイリア社独自の実装を搭載しており、Android 端末上で Prefill を 6 倍以上高速化できます。テキストの LLM だけでなく、画像を入力する VLM（Vision Language Model）や音声入力にも対応し、NPU で処理できます。</p>
     <p>QNN（Qualcomm AI Engine Direct）は Qualcomm が提供するバックエンド API です。ailia LLMでは、llama.cppのモデル形式であるGGUFを、QNNで実行可能な形式に変換することで、NPUでの推論を実現しています。</p>
     <div class="note">
       <strong>注意:</strong> QNN バックエンドは ailia LLM 1.5.0 以降で利用できます。
@@ -127,10 +127,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="arch-arrow">↓</div>
       <div class="arch-box"><div class="arch-name">ailia LLM（Device）</div><div class="arch-desc">Context Binary を復元し、Hexagon NPU で Prefill / Decode を実行</div></div>
     </div>
-    <p>QNN Model は Prefill 用の固定長グラフ（AR-N）と Decode 用のグラフ（AR-1）を同じ QNN Context に格納し、重みと FP16 の KV キャッシュを共有します。重みは変換時に 4bit（W4）に量子化され、活性値と KV キャッシュは FP16 で処理されます。</p>
+    <p>QNN Model は Prefill 用の固定長グラフ（AR-N）と Decode 用のグラフ（AR-1）を同じ QNN Context に格納し、重みと KV キャッシュを共有します。重みは変換時に 4bit（W4）に量子化され、FP16 モデルでは活性値と KV キャッシュは FP16 で処理されます。</p>
+    <p>ailia LLM Compiler は FP16 と Int16 の両方に対応しており、対象の SoC に応じて変換時に切り替えられます。Snapdragon 7s Gen 3 の NPU は Hexagon v73 ですが、FP16 に対応していないため、ailia LLM では Int16 に量子化したモデルを使用します。<a href="https://docs.qualcomm.com/doc/87-78936-1/87-78936-1_REV_A_Snapdragon_7s_Gen_3_Mobile_Platform_Product_Brief.pdf">Qualcomm の Snapdragon 7s Gen 3 製品資料（PDF、2 ページの Artificial Intelligence）</a>では、NPU の対応精度として INT4、INT8、INT16 が記載されており、FP16 は含まれていません。Hexagon のバージョンだけでなく、SoC ごとの対応精度に合わせてモデルを選択してください。</p>
 
     <h2>対応モデル</h2>
-    <p>現在は <strong>Gemma 4 E2B</strong> と <strong>Gemma 4 E4B</strong>（いずれもテキストおよび VLM）に対応しています。VLM はテキスト用の QNN Model に加えて、画像エンコーダ（mmproj）用の QNN Model を使用します。対応するモデルは SoC の Hexagon バージョンによって異なります。</p>
+    <p>現在は <strong>Gemma 4 E2B</strong> と <strong>Gemma 4 E4B</strong>（いずれもテキスト・画像・音声入力）に対応しています。VLM はテキスト用の QNN Model に加えて、画像エンコーダ（mmproj）用の QNN Model を使用します。対応するモデルは SoC の Hexagon バージョンによって異なります。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Hexagon バージョン</th><th>SoC の例</th><th>対応モデル</th><th>コンテキスト長</th></tr>
@@ -186,7 +187,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM のみ</code></pre>
     <p><a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720" target="_blank">https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720（TBD）</a></p>
 
     <h2>アーキテクチャ</h2>
-    <p>ailia LLM は QNN Model を mmap で読み込み、QNN Context を復元して Hexagon NPU（HTP）上で実行します。Prefill は固定長の AR-N グラフで処理し、プロンプトが AR の倍数でない場合は最後のスライスをパディングします。Decode は同じ Context 内の AR-1 グラフで処理し、Prefill 後の KV キャッシュのコピーは発生しません。VLM では画像のパッチ化と位置埋め込みを CPU で行い、16 層の Vision Transformer からプーリング、プロジェクションまでを 1 つの QNN グラフで実行します。</p>
+    <p>ailia LLM は QNN Model を mmap で読み込み、QNN Context を復元して Hexagon NPU（HTP）上で実行します。Prefill は固定長の AR-N グラフで処理し、プロンプトが AR の倍数でない場合は最後のスライスをパディングします。Decode は同じ Context 内の AR-1 グラフで処理し、Prefill 後の KV キャッシュのコピーは発生しません。VLM では画像のパッチ化と位置埋め込みを CPU で行い、16 層の Vision Transformer からプーリング、プロジェクションまでを 1 つの QNN グラフで実行します。音声入力には Audio グラフを使用し、音声エンコーダを NPU で実行します。</p>
     <div class="arch-side">
       <div class="arch-group">
         <div class="arch-group-title">QNN Model（.qnn）<small>SoC 固有・自己完結のモデルファイル</small></div>
@@ -197,13 +198,15 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM のみ</code></pre>
         <div class="arch-box"><div class="arch-name">共有 static weights（W4）</div><div class="arch-desc">AR-N / AR-1 で同じ重みを参照</div></div>
         <div class="arch-plus">+</div>
         <div class="arch-box"><div class="arch-name">Vision グラフ</div><div class="arch-desc">画像エンコーダ（VLM 用 mmproj.qnn）</div></div>
+        <div class="arch-plus">+</div>
+        <div class="arch-box"><div class="arch-name">Audio グラフ</div><div class="arch-desc">音声入力用の音声エンコーダ</div></div>
       </div>
       <div class="arch-arrow horizontal">→<br><span class="arch-hint">mmap / Context 復元</span></div>
       <div class="arch-group">
         <div class="arch-group-title">ailia LLM（Device）<small>実行時のソフトウェアスタック</small></div>
         <div class="arch-box"><div class="arch-name">ailia LLM</div><div class="arch-desc">トークナイズ / プロンプト分割 / サンプリング</div></div>
         <div class="arch-arrow">↓</div>
-        <div class="arch-box"><div class="arch-name">ailia_llm_qnn</div><div class="arch-desc">Context 復元、FP16 KV キャッシュ管理（プラグイン）</div></div>
+        <div class="arch-box"><div class="arch-name">ailia_llm_qnn</div><div class="arch-desc">Context 復元、KV キャッシュ管理（プラグイン）</div></div>
         <div class="arch-arrow">↓</div>
         <div class="arch-box"><div class="arch-name">QNN（HTP バックエンド）</div><div class="arch-desc">Qualcomm AI Engine Direct</div></div>
         <div class="arch-arrow">↓</div>
