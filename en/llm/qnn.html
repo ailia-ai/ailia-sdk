@@ -50,6 +50,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .arch-hint { font-size: 12px; color: var(--text-light); text-align: center; margin: 0; }
     @media (max-width: 768px) { .arch-side .arch-arrow.horizontal { transform: rotate(90deg); } }
     .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .guide-content .version-table a.method-link { text-decoration: underline; }
     .table-wrap { overflow-x: auto; }
     .bench-figure { margin: 24px 0; }
     .bench-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--white); }
@@ -101,10 +102,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Approach</th><th>NPU</th><th>Gemma 4</th><th>Supported SoCs (Android)</th><th>Notes</th></tr>
-      <tr><td>llama.cpp</td><td>No</td><td>Yes</td><td>No restriction (CPU execution)</td><td>Runs on the CPU. An experimental Hexagon backend exists, but its NPU-side libraries (Skel) are unsigned, so it cannot run on regular devices, and it cannot use the HMX (matrix unit), so it is not fast either. The image encoder runs on the CPU.</td></tr>
-      <tr><td>QNN (Qualcomm AI Engine Direct)</td><td>Yes</td><td>No</td><td>Hexagon v65 or later (Snapdragon 845 or later)</td><td>Low-level inference API; no LLM runtime is provided.</td></tr>
-      <tr><td>QNN GenAI (Qualcomm Genie / GenieX)</td><td>Yes</td><td>No</td><td>Hexagon v79 or later (Snapdragon 8 Elite or later)</td><td>The officially supported Android SoCs are limited to the Snapdragon 8 Elite family, and Hexagon v79 or later is required. No NPU (QAIRT) model is provided for Gemma 4.</td></tr>
-      <tr><td><strong>ailia LLM</strong></td><td>Yes</td><td>Yes</td><td>Hexagon v69 or later (Snapdragon 8 Gen 1 or later)</td><td>Uses the NPU even on older SoCs such as Snapdragon 8+ Gen 1, and runs Gemma 4 E2B / E4B on the NPU for both text and VLM.</td></tr>
+      <tr><td><a class="method-link" href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></td><td>No</td><td>Yes</td><td>No restriction (CPU execution)</td><td>Runs on the CPU. An experimental Hexagon backend exists, but its NPU-side libraries (Skel) are unsigned, so it cannot run on regular devices, and it cannot use the HMX (matrix unit), so it is not fast either. The image encoder runs on the CPU.</td></tr>
+      <tr><td>QNN (<a class="method-link" href="https://docs.qualcomm.com/nav/home/general_introduction.html?product=1601111740009302">Qualcomm AI Engine Direct</a>)</td><td>Yes</td><td>No</td><td>Hexagon v65 or later (Snapdragon 845 or later)</td><td>Low-level inference API; no LLM runtime is provided.</td></tr>
+      <tr><td>QNN GenAI (Qualcomm Genie / <a class="method-link" href="https://github.com/qualcomm/GenieX">GenieX</a>)</td><td>Yes</td><td>No</td><td>Hexagon v79 or later (Snapdragon 8 Elite or later)</td><td>The officially supported Android SoCs are limited to the Snapdragon 8 Elite family, and Hexagon v79 or later is required. No NPU (QAIRT) model is provided for Gemma 4.</td></tr>
+      <tr><td><strong><a class="method-link" href="https://ailia.ai/en/llm/">ailia LLM</a></strong></td><td>Yes</td><td>Yes</td><td>Hexagon v69 or later (Snapdragon 8 Gen 1 or later)</td><td>Uses the NPU even on older SoCs such as Snapdragon 8+ Gen 1, and runs Gemma 4 E2B / E4B on the NPU for both text and VLM.</td></tr>
     </table>
     </div>
 

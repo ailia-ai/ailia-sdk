@@ -50,6 +50,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .arch-hint { font-size: 12px; color: var(--text-light); text-align: center; margin: 0; }
     @media (max-width: 768px) { .arch-side .arch-arrow.horizontal { transform: rotate(90deg); } }
     .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .guide-content .version-table a.method-link { text-decoration: underline; }
     .table-wrap { overflow-x: auto; }
     .bench-figure { margin: 24px 0; }
     .bench-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--white); }
@@ -101,10 +102,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>手法</th><th>NPU 対応</th><th>Gemma 4 対応</th><th>対応 SoC（Android）</th><th>備考</th></tr>
-      <tr><td>llama.cpp</td><td>×</td><td>○</td><td>制約なし（CPU 実行）</td><td>CPU 実行です。実験的な Hexagon バックエンドがありますが、NPU 側のライブラリ（Skel）が署名されていないため一般の端末では実行できず、HMX（行列演算ユニット）も使用できないため速度も出ません。画像エンコーダは CPU で実行されます。</td></tr>
-      <tr><td>QNN（Qualcomm AI Engine Direct）</td><td>○</td><td>×</td><td>Hexagon v65 以降（Snapdragon 845 以降）</td><td>低レベルの推論 API で、LLM のランタイムは提供されません。</td></tr>
-      <tr><td>QNN GenAI（Qualcomm Genie / GenieX）</td><td>○</td><td>×</td><td>Hexagon v79 以降（Snapdragon 8 Elite 以降）</td><td>公式の対応 Android SoC は Snapdragon 8 Elite 系のみで、Hexagon v79 以降が必須です。Gemma 4 の NPU 用（QAIRT）モデルは提供されていません。</td></tr>
-      <tr><td><strong>ailia LLM</strong></td><td>○</td><td>○</td><td>Hexagon v69 以降（Snapdragon 8 Gen 1 以降）</td><td>Snapdragon 8+ Gen 1 などの古い SoC でも NPU を使用でき、Gemma 4 E2B / E4B をテキスト・VLM とも NPU で実行できます。</td></tr>
+      <tr><td><a class="method-link" href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></td><td>×</td><td>○</td><td>制約なし（CPU 実行）</td><td>CPU 実行です。実験的な Hexagon バックエンドがありますが、NPU 側のライブラリ（Skel）が署名されていないため一般の端末では実行できず、HMX（行列演算ユニット）も使用できないため速度も出ません。画像エンコーダは CPU で実行されます。</td></tr>
+      <tr><td>QNN（<a class="method-link" href="https://docs.qualcomm.com/nav/home/general_introduction.html?product=1601111740009302">Qualcomm AI Engine Direct</a>）</td><td>○</td><td>×</td><td>Hexagon v65 以降（Snapdragon 845 以降）</td><td>低レベルの推論 API で、LLM のランタイムは提供されません。</td></tr>
+      <tr><td>QNN GenAI（Qualcomm Genie / <a class="method-link" href="https://github.com/qualcomm/GenieX">GenieX</a>）</td><td>○</td><td>×</td><td>Hexagon v79 以降（Snapdragon 8 Elite 以降）</td><td>公式の対応 Android SoC は Snapdragon 8 Elite 系のみで、Hexagon v79 以降が必須です。Gemma 4 の NPU 用（QAIRT）モデルは提供されていません。</td></tr>
+      <tr><td><strong><a class="method-link" href="https://ailia.ai/llm/">ailia LLM</a></strong></td><td>○</td><td>○</td><td>Hexagon v69 以降（Snapdragon 8 Gen 1 以降）</td><td>Snapdragon 8+ Gen 1 などの古い SoC でも NPU を使用でき、Gemma 4 E2B / E4B をテキスト・VLM とも NPU で実行できます。</td></tr>
     </table>
     </div>
 
