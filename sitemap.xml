@@ -98,6 +98,38 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/"/>
   </url>
   <url>
+    <loc>https://docs.ailia.ai/llm/qnn.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/qnn.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/qnn.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/llm/qnn.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/qnn.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/qnn.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/llm/tool_use.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/tool_use.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/tool_use.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/llm/tool_use.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/tool_use.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/tool_use.html"/>
+  </url>
+  <url>
     <loc>https://docs.ailia.ai/speech/</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>

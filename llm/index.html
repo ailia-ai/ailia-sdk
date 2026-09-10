@@ -412,6 +412,14 @@ while (!done) {
           <summary>GPU 推論に対応していますか?</summary>
           <p>はい。ailia LLM は iOS / macOS で <strong>Metal</strong>、Windows で <strong>Vulkan</strong> を使用します (ailia SDK / Speech / Voice と異なり cuDNN は不要です)。GPU が無い環境では CPU フォールバックします。詳しくは <a href="../setup/vulkan/">Vulkan セットアップガイド</a> を参照してください。</p>
         </details>
+        <details class="faq-item">
+          <summary>NPU 推論に対応していますか?</summary>
+          <p>はい。Android の Qualcomm SoC（Snapdragon 8 Gen 1 以降）では、QNN バックエンドにより <strong>Hexagon NPU</strong> で推論できます。NPU 向けには llama.cpp とは異なる独自実装を搭載しており、GGUF を PC 上で QNN Model に変換して端末で実行します。現在は Gemma 4 E2B（テキスト / VLM）に対応しています。詳しくは <a href="qnn.html">ailia LLM NPU（QNN）ガイド</a> を参照してください。</p>
+        </details>
+        <details class="faq-item">
+          <summary>Tool Use（Function Calling）に対応していますか?</summary>
+          <p>はい。Gemma 4 のネイティブ Function Calling を利用できます。ailia LLM 1.5.0 以降では Tool Use API により、OpenAI 互換の JSON でツールを定義し（<code>ailiaLLMSetTools</code>）、生成結果を <code>ailiaLLMParseResponse</code> で <code>tool_calls</code> に構造化できます。ツールの実行結果は <code>tool</code> ロールのメッセージとして返します。詳しくは <a href="tool_use.html">ailia LLM Tool Use ガイド</a> を参照してください。</p>
+        </details>
 
         <details class="faq-item">
           <summary>C++ で使うとき、ライセンスファイルはどこに置きますか?</summary>
@@ -494,6 +502,14 @@ while (!done) {
   <a class="article-card" href="https://tech.ailia.ai/flash-attention-%E3%83%A1%E3%83%A2%E3%83%AA%E5%B8%AF%E5%9F%9F%E3%82%92%E5%89%8A%E6%B8%9B%E3%81%99%E3%82%8B%E3%81%93%E3%81%A8%E3%81%A7attention%E3%82%92%E9%AB%98%E9%80%9F%E5%8C%96%E3%81%99%E3%82%8B%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0-f4b740c1054c/" target="_blank" rel="noopener">
     <div class="article-title">Flash Attention: Attention を高速化</div>
     <div class="article-source">tech.ailia.ai</div>
+  </a>
+  <a class="article-card" href="qnn.html">
+    <div class="article-title">ailia LLM NPU（QNN）ガイド</div>
+    <div class="article-source">docs.ailia.ai</div>
+  </a>
+  <a class="article-card" href="tool_use.html">
+    <div class="article-title">ailia LLM Tool Use ガイド</div>
+    <div class="article-source">docs.ailia.ai</div>
   </a>
   </div>
 </section>

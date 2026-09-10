@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia LLM Tool Use Guide</title>
+  <meta name="description" content="How to use Gemma 4 function calling with the ailia LLM Tool Use API: OpenAI-compatible tool definitions, returning tool results with the tool role, and parsing the output with ailiaLLMParseResponse.">
+  <link rel="canonical" href="https://docs.ailia.ai/en/llm/tool_use.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/tool_use.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/tool_use.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/llm/tool_use.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/llm/tool_use.html">
+  <meta property="og:title" content="ailia LLM Tool Use Guide">
+  <meta property="og:description" content="How to use Gemma 4 function calling with the ailia LLM Tool Use API: OpenAI-compatible tool definitions, returning tool results with the tool role, and parsing the output with ailiaLLMParseResponse.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia LLM Tool Use Guide">
+  <meta name="twitter:description" content="How to use Gemma 4 function calling with the ailia LLM Tool Use API: OpenAI-compatible tool definitions, returning tool results with the tool role, and parsing the output with ailiaLLMParseResponse.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
+    .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; max-width: 480px; }
+    .arch-box .arch-name { font-weight: 600; color: var(--primary); }
+    .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
+    .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+    .guide-content .version-table td code { white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia LLM Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../../llm/tool_use.html" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia LLM Tool Use Guide</h1>
+    <p>How to use Gemma 4 function calling (tool use) with the ailia LLM Tool Use API: OpenAI-compatible tool definitions, returning tool results with the tool role, and parsing the output into structured data.</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>Overview</h2>
+    <p>ailia LLM 1.5.0 and later provide a Tool Use (function calling) API. When tools are defined in OpenAI-compatible JSON, the tool declarations are rendered into the prompt through the model's chat template (llama.cpp) and the output is constrained by a grammar for the tool call syntax. The generated text can be converted into OpenAI-compatible <code>tool_calls</code> with <code>ailiaLLMParseResponse</code>, and tool results are appended to the history as messages with the <code>tool</code> role.</p>
+    <p>The declaration syntax, the tool call syntax and the embedding of tool results into the history are all handled by the chat template, so the application never has to build or parse Gemma 4 control tokens itself.</p>
+    <div class="note">
+      <strong>Note:</strong> The Tool Use API is available in ailia LLM 1.5.0 and later.
+    </div>
+
+    <h2>Supported Models</h2>
+    <ul>
+      <li>Gemma 4 E2B / E4B / 26B-A4B / 31B (GGUF)</li>
+    </ul>
+    <p>Any model whose chat template supports tool calling can be used with the same API. The tool call syntax differs between models, but the declaration and the parsing are performed by the library according to the template.</p>
+
+    <h2>Overall Flow</h2>
+    <p>Tool use is a loop: the model emits a tool call, the application runs the tool and returns the result, and the model generates the final answer.</p>
+    <div class="arch-diagram">
+      <div class="arch-box"><div class="arch-name">Tool definitions</div><div class="arch-desc"><code>ailiaLLMSetTools</code> (OpenAI-compatible JSON)</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">Generation</div><div class="arch-desc"><code>ailiaLLMSetPrompt</code> → accumulate the raw output with <code>ailiaLLMGenerate</code> / <code>ailiaLLMGetDeltaText</code></div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">Parse the output</div><div class="arch-desc"><code>ailiaLLMParseResponse</code> → a tool call if <code>tool_calls</code> is present, otherwise <code>content</code> is the final answer</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">Run the tool</div><div class="arch-desc">Execute the function on the application side</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">Append the result and regenerate</div><div class="arch-desc">Append the raw output as <code>assistant</code> and the result as <code>tool</code>, then call <code>ailiaLLMSetPrompt</code> again</div></div>
+    </div>
+
+    <h2>API</h2>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>API</th><th>Description</th></tr>
+      <tr><td><code>ailiaLLMSetTools(llm, tools_json)</code></td><td>Sets the OpenAI-compatible tool definitions (JSON array). NULL or an empty string clears them. They are rendered into the prompt from the next <code>ailiaLLMSetPrompt</code>.</td></tr>
+      <tr><td><code>role: "tool"</code> in <code>ailiaLLMSetPrompt</code></td><td>Returns a tool result. <code>content</code> is the result text (or a JSON string) as is. Tool messages are matched to the tool calls of the preceding <code>assistant</code> message by order.</td></tr>
+      <tr><td><code>role: "assistant"</code> in <code>ailiaLLMSetPrompt</code></td><td>While tools are set, the content is the raw model output (the concatenation of <code>ailiaLLMGetDeltaText</code>) as is. It is parsed internally and re-rendered according to the chat template.</td></tr>
+      <tr><td><code>ailiaLLMParseResponseSize</code> / <code>ailiaLLMParseResponse(llm, text, ...)</code></td><td>Converts the raw output into an OpenAI-compatible assistant message JSON (<code>content</code> / <code>reasoning_content</code> / <code>tool_calls</code>).</td></tr>
+      <tr><td><code>AILIA_LLM_STATUS_PARSE_ERROR</code> (-10)</td><td>Returned when the text does not match the tool call syntax (e.g. the text of an unfinished generation).</td></tr>
+    </table>
+    </div>
+    <p>The language bindings expose the API under the following names.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Language</th><th>Tool definitions</th><th>Parse the output</th><th>Tool message</th></tr>
+      <tr><td>C / C++</td><td><code>ailiaLLMSetTools</code></td><td><code>ailiaLLMParseResponse</code></td><td><code>AILIALLMChatMessage</code> with <code>role = "tool"</code></td></tr>
+      <tr><td>Python</td><td><code>set_tools(tools)</code></td><td><code>parse_response(text)</code></td><td><code>{"role": "tool", "content": ...}</code> (a dict is serialized as JSON)</td></tr>
+      <tr><td>Unity (C#)</td><td><code>SetTools(json)</code></td><td><code>ParseResponse(text)</code></td><td><code>AiliaLLMChatMessage.role = "tool"</code></td></tr>
+      <tr><td>Flutter (Dart)</td><td><code>setTools(tools)</code></td><td><code>parseResponse(text)</code></td><td><code>{'role': 'tool', 'content': ...}</code> (a Map is serialized as JSON)</td></tr>
+      <tr><td>Kotlin / JNI</td><td><code>setTools(json)</code></td><td><code>parseResponse(text)</code></td><td><code>AiliaLLMChatMessage("tool", result)</code></td></tr>
+    </table>
+    </div>
+
+    <h2>Defining Tools</h2>
+    <p>Tools are defined in the same format as the <code>tools</code> parameter of the OpenAI Chat Completions API. <code>parameters</code> is a JSON Schema. The template converts the declaration into Gemma 4's <code>&lt;|tool&gt;declaration:...&lt;tool|&gt;</code> form, so there is no need to care about upper-case type names or the quoting notation.</p>
+    <pre><code class="language-json">[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Get the current weather of a city.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "city": {"type": "string", "description": "City name"}
+        },
+        "required": ["city"]
+      }
+    }
+  }
+]</code></pre>
+    <p>While tools are set, the model output is constrained by a grammar for the tool call syntax. Missing quotes and malformed arguments are prevented at generation time, so format-error retries on the application side are normally unnecessary. Whether to call a tool is left to the model (equivalent to <code>tool_choice: auto</code>), and one tool call is emitted per response.</p>
+
+    <h2>Generation and Parsing the Output</h2>
+    <p>The text returned by <code>ailiaLLMGenerate</code> / <code>ailiaLLMGetDeltaText</code> is the raw model output including control tokens. When the model decides to use a tool, the output looks like this:</p>
+    <pre><code class="language-text">&lt;|tool_call&gt;call:get_weather{city:&lt;|"|&gt;Tokyo&lt;|"|&gt;}&lt;tool_call|&gt;</code></pre>
+    <p>Passing the complete text of the generation to <code>ailiaLLMParseResponse</code> yields an OpenAI-compatible assistant message. <code>arguments</code> is a JSON string and <code>id</code> is <code>call_0</code>, <code>call_1</code>, ... in order of appearance within the message.</p>
+    <pre><code class="language-json">{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {"id": "call_0", "type": "function",
+     "function": {"name": "get_weather", "arguments": "{\"city\":\"Tokyo\"}"}}
+  ]
+}</code></pre>
+    <p>When thinking is enabled (<code>ailiaLLMSetThinking</code>), the reasoning is separated from <code>content</code> into <code>reasoning_content</code>. When no tool call is needed, <code>tool_calls</code> is absent and <code>content</code> is the final answer.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Parsed result</th><th>Meaning</th><th>Next action</th></tr>
+      <tr><td><code>tool_calls</code> present</td><td>Tool call</td><td>Read <code>arguments</code> as JSON, run the tool, return the result and regenerate</td></tr>
+      <tr><td>No <code>tool_calls</code>, <code>content</code> present</td><td>Final answer</td><td>Show it to the user and stop</td></tr>
+      <tr><td><code>reasoning_content</code> only</td><td>Thoughts only</td><td>Add a message asking for the answer and regenerate</td></tr>
+      <tr><td><code>AILIA_LLM_STATUS_PARSE_ERROR</code></td><td>The generation stopped early or the syntax does not match</td><td>Check the context length / interruption and regenerate</td></tr>
+    </table>
+    </div>
+
+    <h2>Returning Tool Results</h2>
+    <p>After running the tool, append the following two messages to the history and call <code>ailiaLLMSetPrompt</code>.</p>
+    <ol>
+      <li><code>role: "assistant"</code>: the raw model output as is. The library parses it and re-renders the tool call according to the chat template.</li>
+      <li><code>role: "tool"</code>: the tool result (plain text or a JSON string) as <code>content</code>, as is. It is matched to the tool calls of the preceding assistant message by order and the tool name is filled in automatically.</li>
+    </ol>
+    <p>Gemma 4 has no <code>tool</code> role: the tool call and the result are placed in the same model turn as <code>&lt;|tool_call&gt;</code> and <code>&lt;|tool_response&gt;</code>. This conversion is performed by the chat template. Passing a <code>tool</code> message while no tools are set returns <code>AILIA_LLM_STATUS_INVALID_STATE</code>.</p>
+
+    <h2>Sample Code</h2>
+    <h3>Python</h3>
+    <pre><code class="language-python">import json
+import ailia_llm
+
+model = ailia_llm.AiliaLLM()
+model.open("gemma-4-E2B-it-Q4_K_M.gguf", n_ctx=4096)
+
+# 1. Tool definitions (OpenAI-compatible)
+model.set_tools([{
+    "type": "function",
+    "function": {
+        "name": "get_weather",
+        "description": "Get the current weather of a city.",
+        "parameters": {"type": "object",
+                       "properties": {"city": {"type": "string"}},
+                       "required": ["city"]},
+    },
+}])
+
+def get_weather(city):
+    return {"city": city, "weather": "sunny", "temperature_c": 25}
+
+messages = [{"role": "user", "content": "What is the weather in Tokyo right now?"}]
+
+while True:
+    # 2. Generate (accumulate the raw output and append it to the history as assistant)
+    raw = "".join(model.generate(messages))
+    messages.append({"role": "assistant", "content": raw})
+
+    # 3. Parse the output
+    response = model.parse_response(raw)
+    if not response.get("tool_calls"):
+        print(response["content"])          # final answer
+        break
+
+    # 4. Run the tools and append the results to the history as tool
+    for call in response["tool_calls"]:
+        args = json.loads(call["function"]["arguments"])
+        result = get_weather(**args) if call["function"]["name"] == "get_weather" else {"error": "unknown tool"}
+        messages.append({"role": "tool", "content": result})   # a dict is serialized as JSON
+
+model.set_tools(None)   # clear the tools</code></pre>
+
+    <h3>C++</h3>
+    <pre><code class="language-cpp">const char* tools =
+    "[{\"type\":\"function\",\"function\":{\"name\":\"get_weather\","
+    "\"description\":\"Get the current weather of a city.\","
+    "\"parameters\":{\"type\":\"object\",\"properties\":{\"city\":{\"type\":\"string\"}},\"required\":[\"city\"]}}}]";
+ailiaLLMSetTools(llm, tools);
+
+std::vector&lt;AILIALLMChatMessage&gt; messages = {{"user", "What is the weather in Tokyo right now?"}};
+ailiaLLMSetPrompt(llm, messages.data(), messages.size());
+std::string raw = generate(llm);                 // concatenation of ailiaLLMGenerate / ailiaLLMGetDeltaText
+messages.push_back({"assistant", raw.c_str()});   // append the raw output to the history as is
+
+unsigned int size = 0;
+ailiaLLMParseResponseSize(llm, raw.c_str(), &amp;size);
+std::vector&lt;char&gt; json(size);
+ailiaLLMParseResponse(llm, raw.c_str(), json.data(), size);
+// {"role":"assistant","content":"","tool_calls":[{"id":"call_0","type":"function",
+//   "function":{"name":"get_weather","arguments":"{\"city\":\"Tokyo\"}"}}]}
+
+std::string result = run_tool(json.data());       // run the tool on the application side
+messages.push_back({"tool", result.c_str()});     // result as is
+ailiaLLMSetPrompt(llm, messages.data(), messages.size());
+std::string answer = generate(llm);               // content of ParseResponse is the final answer</code></pre>
+
+    <h3>Flutter</h3>
+    <pre><code class="language-dart">llm.setTools([{'type': 'function', 'function': {'name': 'get_weather', 'description': '...',
+    'parameters': {'type': 'object', 'properties': {'city': {'type': 'string'}}, 'required': ['city']}}}]);
+
+final messages = &lt;Map&lt;String, dynamic&gt;&gt;[{'role': 'user', 'content': 'What is the weather in Tokyo right now?'}];
+llm.setPrompt(messages);
+final raw = StringBuffer();
+String? delta;
+while ((delta = llm.generate()) != null) { raw.write(delta); }
+messages.add({'role': 'assistant', 'content': raw.toString()});   // append the raw output to the history as is
+
+final response = llm.parseResponse(raw.toString());
+for (final call in (response['tool_calls'] as List? ?? [])) {
+  messages.add({'role': 'tool', 'content': runTool(call)});   // the result is a String or a Map
+}
+llm.setPrompt(messages);</code></pre>
+
+    <h3>Kotlin</h3>
+    <pre><code class="language-kotlin">llm.setTools("""[{"type":"function","function":{"name":"get_weather","description":"...","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]}}}]""")
+
+llm.setPrompt(arrayOf(AiliaLLMChatMessage("user", question)))
+val raw = StringBuilder()
+while (!llm.generate()) { raw.append(llm.getDeltaText()) }
+val response = llm.parseResponse(raw.toString())
+
+llm.setPrompt(arrayOf(
+    AiliaLLMChatMessage("user", question),
+    AiliaLLMChatMessage("assistant", raw.toString()),   // raw output as is
+    AiliaLLMChatMessage("tool", result)                  // result as is
+))</code></pre>
+
+    <h2>Implementation Notes</h2>
+    <ul>
+      <li><strong>Precondition of ParseResponse:</strong> the parser is built when <code>ailiaLLMSetPrompt</code> is called, from the tool definitions and the thinking setting at that time. Before <code>ailiaLLMSetPrompt</code>, or after <code>ailiaLLMSetTools</code> / <code>ailiaLLMSetThinking</code> without a new <code>ailiaLLMSetPrompt</code>, it returns <code>AILIA_LLM_STATUS_INVALID_STATE</code>.</li>
+      <li><strong>Pass the complete output:</strong> the text of an unfinished generation, or an output truncated by the context length, returns <code>AILIA_LLM_STATUS_PARSE_ERROR</code>. Do not use it while streaming; call it once after the generation is complete.</li>
+      <li><strong>Keep the raw output in the history:</strong> put the raw output, not the result of <code>ailiaLLMParseResponse</code>, into the assistant history. The library parses and re-renders it, which also satisfies the Gemma 4 rules of removing the thinking of previous turns while keeping it within a turn that contains tool calls.</li>
+      <li><strong>Streaming display:</strong> the text from <code>ailiaLLMGetDeltaText</code> contains control tokens such as <code>&lt;|tool_call&gt;</code> and <code>&lt;|channel&gt;</code>. Remove these blocks before displaying it.</li>
+      <li><strong>Input validation:</strong> tool names are constrained to the defined ones, but argument values (e.g. paths) must be validated on the application side. Return errors as tool results in a <code>tool</code> message and let the model retry.</li>
+      <li><strong>Context length:</strong> since the tool declarations, the history and the tool results are included in the prompt, a context length of 4K or more (8K or more for multi-round agents) is recommended. Truncate tool results to a fixed number of characters.</li>
+      <li><strong>Clearing tools:</strong> call <code>ailiaLLMSetTools(llm, NULL)</code> when tools are no longer needed. After that, a history containing the <code>tool</code> role cannot be passed.</li>
+    </ul>
+
+    <h2>References</h2>
+    <ul>
+      <li><a href="https://ai.google.dev/gemma/docs/capabilities/text/function-calling-gemma4" target="_blank">Function calling with Gemma 4 (Google AI for Developers)</a></li>
+      <li><a href="https://ai.google.dev/gemma/docs/core/prompt-formatting-gemma4" target="_blank">Gemma 4 prompt formatting (Google AI for Developers)</a></li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
