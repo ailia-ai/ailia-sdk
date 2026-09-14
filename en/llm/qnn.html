@@ -91,7 +91,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>Overview</h2>
-    <p>ailia LLM 1.5.0 and later support fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp, and it accelerates prefill by more than 6x on Android devices. In addition to text LLMs and VLMs (Vision Language Models) that take images as input, ailia LLM also supports audio input, with processing on the NPU.</p>
+    <p>ailia LLM 1.5.0 and later support fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp, and it accelerates prefill by up to 14x on Android devices (Snapdragon 8+ Gen 1, 2,048-token input, compared with the CPU on the same device). In addition to text LLMs and VLMs (Vision Language Models) that take images as input, ailia LLM also supports audio input, with processing on the NPU.</p>
     <p>QNN (Qualcomm AI Engine Direct) is a backend API provided by Qualcomm. ailia LLM achieves NPU inference by converting GGUF, the model format of llama.cpp, into a format that can be executed by QNN.</p>
     <div class="note">
       <strong>Note:</strong> The QNN backend is available in ailia LLM 1.5.0 and later.
@@ -303,16 +303,17 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     <p>Image TTFT is about 14.4x shorter on SM8475 and about 4.1x shorter on SM7635. Each image was measured once, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B.</p>
 
     <h3>Audio input latency</h3>
-    <p>Medians over 10 FLEURS recordings (2 each in 5 languages). TTFT is the prompt setup including the audio encoder plus the first generate call, excluding model opening.</p>
+    <p>Medians over 10 FLEURS recordings (2 each in 5 languages). TTFT is the prompt setup including the audio encoder plus the first generate call, excluding model opening. On the CPU path the decoder uses 2 threads and the audio encoder uses the default number of cores.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Device / path</th><th>TTFT (median)</th><th>Decode (median)</th><th>Output tokens</th></tr>
+      <tr><td>SM8475 CPU</td><td class="num">49.32 s</td><td class="num">7.68 tokens/s</td><td class="num">21-91</td></tr>
       <tr><td>SM8475 NPU (FP16)</td><td class="num">8.37 s</td><td class="num">6.86 tokens/s</td><td class="num">21-60</td></tr>
-      <tr><td>SM7635 NPU (Int16)</td><td class="num">13.98 s</td><td class="num">5.89 tokens/s</td><td class="num">21-61</td></tr>
       <tr><td>SM7635 CPU</td><td class="num">45.65 s</td><td class="num">7.92 tokens/s</td><td class="num">21-91</td></tr>
+      <tr><td>SM7635 NPU (Int16)</td><td class="num">13.98 s</td><td class="num">5.89 tokens/s</td><td class="num">21-61</td></tr>
     </table>
     </div>
-    <p>The generated text and output length differ between paths, so values other than TTFT are not a comparison over identical outputs.</p>
+    <p>Audio TTFT is about 5.9x shorter on SM8475 and about 3.3x shorter on SM7635. The generated text and output length differ between paths, so values other than TTFT are not a comparison over identical outputs, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B.</p>
 
     <h3>8K context run</h3>
     <p>7,936 input tokens + 256 output tokens, run twice on each device. All four runs completed the specified token counts.</p>
