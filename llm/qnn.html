@@ -105,6 +105,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td><a class="method-link" href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></td><td>×</td><td>○</td><td>制約なし（CPU 実行）</td><td>CPU 実行です。実験的な Hexagon バックエンドがありますが、NPU 側のライブラリ（Skel）が署名されていないため一般の端末では実行できず、HMX（行列演算ユニット）も使用できないため速度も出ません。画像エンコーダは CPU で実行されます。</td></tr>
       <tr><td>QNN（<a class="method-link" href="https://docs.qualcomm.com/nav/home/general_introduction.html?product=1601111740009302">Qualcomm AI Engine Direct</a>）</td><td>○</td><td>×</td><td>Hexagon v65 以降（Snapdragon 845 以降）</td><td>低レベルの推論 API で、LLM のランタイムは提供されません。</td></tr>
       <tr><td>QNN GenAI（Qualcomm Genie / <a class="method-link" href="https://github.com/qualcomm/GenieX">GenieX</a>）</td><td>○</td><td>×</td><td>Hexagon v79 以降（Snapdragon 8 Elite 以降）</td><td>公式の対応 Android SoC は Snapdragon 8 Elite 系のみで、Hexagon v79 以降が必須です。Gemma 4 の NPU 用（QAIRT）モデルは提供されていません。</td></tr>
+      <tr><td><a class="method-link" href="https://developers.google.com/edge/litert/next/litert_lm_npu">LiteRT-LM NPU</a></td><td>○</td><td>×</td><td>Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite（SM8550 / SM8650 / SM8750）</td><td>Qualcomm 向けに公開されている NPU モデルは Gemma3-1B（4bit、コンテキスト長 1,280）のみです。Gemma 4 の NPU モデルは Google Tensor と Intel 向けにのみ提供されています。テキスト専用で、画像・音声入力には対応していません。</td></tr>
       <tr><td><strong><a class="method-link" href="https://ailia.ai/llm/">ailia LLM</a></strong></td><td>○</td><td>○</td><td>Hexagon v69 以降（Snapdragon 8 Gen 1 以降）</td><td>Snapdragon 8+ Gen 1 などの古い SoC でも NPU を使用でき、Gemma 4 E2B / E4B をテキスト・VLM とも NPU で実行できます。</td></tr>
     </table>
     </div>
@@ -151,6 +152,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td><code>&lt;soc&gt;-mmproj.qnn</code>（例: <code>sm8475-mmproj.qnn</code>）</td><td>VLM 用の画像エンコーダ（mmproj）</td></tr>
     </table>
     </div>
+    <h3>モデルのダウンロード</h3>
+    <p>変換済みの Gemma 4 E2B の QNN Model は下記からダウンロードできます。VLM / 音声入力を使用する場合は、テキストモデルと mmproj の両方をダウンロードしてください。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>SoC</th><th>端末の例</th><th>ファイル</th><th>内容</th><th>サイズ</th></tr>
+      <tr><td rowspan="2">sm8475<br>（Hexagon v69 / FP16）</td><td rowspan="2">Snapdragon 8+ Gen 1</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm8475.qnn">gemma4-e2b-sm8475.qnn</a></td><td>テキストモデル（Prefill + Decode）</td><td class="num">3.62 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm8475-mmproj.qnn">gemma4-e2b-sm8475-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">1.11 GB</td></tr>
+      <tr><td rowspan="2">sm7635<br>（Hexagon v73 / Int16）</td><td rowspan="2">Snapdragon 7s Gen 3</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm7635.qnn">gemma4-e2b-sm7635.qnn</a></td><td>テキストモデル（Prefill + Decode）</td><td class="num">3.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm7635-mmproj.qnn">gemma4-e2b-sm7635-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">0.73 GB</td></tr>
+    </table>
+    </div>
+    <p>いずれも ailia LLM 1.5.0（QAIRT 2.47.0.260601）向けで、コンテキスト長は 8192、AR-256 / AR-1 構成です。</p>
+    <div class="note">
+      <strong>その他の SoC について:</strong> 現在モデルファイルを公開しているのは sm8475 と sm7635 の 2 機種のみですが、その他の SoC 向けの変換も承っております。対象の SoC（<code>ailiaLLMGetQNNModelName</code> API で取得できる名称）をお知らせいただければ、ailia LLM Compiler で該当 SoC 向けの QNN Model をコンパイルいたしますので、<a href="https://ailia.ai/">ailia</a> までお問い合わせください。
+    </div>
+
     <div class="note">
       <strong>注意:</strong> QNN Model は Hexagon のバージョンだけでなく、QNN SDK のバージョンと SoC のモデル ID にも依存します。異なる SoC 向けのファイルを流用しないでください。実行中の端末に対応する SoC 名は <code>ailiaLLMGetQNNModelName</code> API で取得できます（例: <code>"sm8475"</code>）。
     </div>
@@ -218,30 +235,95 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM のみ</code></pre>
     </div>
 
     <h2>ベンチマーク</h2>
-    <p>Gemma 4 E2B を Snapdragon 8+ Gen 1（SM8475 / Hexagon v69、ASUS AI2202）、QAIRT 2.47.0.260601 で測定した結果です。CPU は同じ端末上の llama.cpp 互換の CPU 実装（GGUF）、NPU は同じモデルから生成した QNN Model を使用し、同一プロンプト・greedy サンプリングで比較しています。</p>
+    <p>Gemma 4 E2B を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69、ASUS AI2202）は FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は Int16 モデルを使用しています。いずれも QAIRT 2.47.0.260601、コンテキスト長 8192、Q4_0 入力、AR-256 / AR-1 構成です。CPU は同じ端末上の llama.cpp 互換の CPU 実装（GGUF、2 スレッド）を使用しています。</p>
+    <div class="note">
+      <strong>注意:</strong> 2 機種は SoC も量子化方式も異なるため、両者の差を量子化方式だけの差とみなすことはできません。各測定は 1 試行の値であり、複数回の平均ではありません。
+    </div>
+
+    <h3>Decode スループット</h3>
+    <p>1,000 トークン生成時のスループットです。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>項目</th><th>CPU</th><th>NPU（QNN）</th><th>高速化率</th></tr>
-      <tr><td>VLM 画像エンコーダ（768x768、1 枚）</td><td class="num">99.19 秒</td><td class="num">2.67 秒</td><td class="num">37.2 倍</td></tr>
-      <tr><td>VLM マルチモーダルプロンプト設定</td><td class="num">98.5 秒</td><td class="num">2.59 秒</td><td class="num">38.0 倍</td></tr>
-      <tr><td>VLM 画像入力から最初のトークンまで（TTFT）</td><td class="num">105.7 秒</td><td class="num">10.2 秒</td><td class="num">10.3 倍</td></tr>
-      <tr><td>テキスト Prefill（1000 トークン入力）</td><td class="num">-</td><td class="num">121.3 tokens/s</td><td class="num">-</td></tr>
-      <tr><td>テキスト Decode（ウォーム）</td><td class="num">11.4 tokens/s</td><td class="num">7.9 tokens/s</td><td class="num">0.7 倍</td></tr>
+      <tr><th>端末</th><th>モデル</th><th>CPU</th><th>NPU（QNN）</th><th>NPU / CPU</th></tr>
+      <tr><td>SM8475（Hexagon v69）</td><td>FP16</td><td class="num">8.340 tokens/s</td><td class="num">7.536 tokens/s</td><td class="num">0.90 倍</td></tr>
+      <tr><td>SM7635（Hexagon v73）</td><td>Int16</td><td class="num">7.851 tokens/s</td><td class="num">6.473 tokens/s</td><td class="num">0.82 倍</td></tr>
+    </table>
+    </div>
+    <p>この条件では、いずれの端末でも Decode は CPU の方が高速です。Decode は 1 トークンずつ処理するため重みの読み出しが支配的で、NPU の並列演算性能を活かしにくいことによります。</p>
+
+    <figure class="bench-figure">
+      <img src="benchmark/tps_sm8475.png" alt="SM8475 の Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）" loading="lazy">
+      <figcaption>SM8475（FP16）の Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/tps_sm7635.png" alt="SM7635 の Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）" loading="lazy">
+      <figcaption>SM7635（Int16）の Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）</figcaption>
+    </figure>
+
+    <h3>Prefill スループット</h3>
+    <p>入力トークン数を 64〜2,048 まで変えたときのスループット（tokens/s）です。各条件で 100 トークンを生成しています。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力トークン数</th><th>SM8475 CPU</th><th>SM8475 NPU（FP16）</th><th>SM7635 CPU</th><th>SM7635 NPU（Int16）</th></tr>
+      <tr><td class="num">64</td><td class="num">14.870</td><td class="num">17.210</td><td class="num">12.571</td><td class="num">9.775</td></tr>
+      <tr><td class="num">128</td><td class="num">21.505</td><td class="num">72.384</td><td class="num">16.822</td><td class="num">23.033</td></tr>
+      <tr><td class="num">256</td><td class="num">21.214</td><td class="num">142.785</td><td class="num">16.544</td><td class="num">45.248</td></tr>
+      <tr><td class="num">512</td><td class="num">20.454</td><td class="num">188.090</td><td class="num">16.013</td><td class="num">50.435</td></tr>
+      <tr><td class="num">1024</td><td class="num">18.662</td><td class="num">206.170</td><td class="num">15.208</td><td class="num">52.660</td></tr>
+      <tr><td class="num">2048</td><td class="num">14.549</td><td class="num">214.491</td><td class="num">14.295</td><td class="num">53.870</td></tr>
     </table>
     </div>
     <ul>
-      <li>VLM の TTFT は、画像のデコード・前処理・画像エンコーダ・テキスト Prefill を含む時間です。VLM の行は画像エンコーダを CPU / NPU で切り替えた比較で、テキスト側はいずれも NPU で実行しています。</li>
-      <li>Prefill は Prefill 用グラフに LM head を統合した構成で、1000 トークン入力時の <code>プロンプトのトークン数 / 最初の生成呼び出し時間</code> です。</li>
-      <li>Decode は Hexagon v69 では CPU の方が高速です。Hexagon v73 以降の新しい SoC では別途測定が必要です。</li>
+      <li>Prefill のスループットは <code>実入力トークン数 / 最初の生成呼び出し時間</code> です。ウォームアップは行っておらず、初回の遅延を含みます。</li>
+      <li>短い入力から長い入力へ順に測定しているため、64 トークンの結果は後続の条件と初期状態が異なります。</li>
+      <li>2,048 トークン入力では、SM8475 で CPU の約 14.7 倍、SM7635 で約 3.8 倍のスループットです。</li>
     </ul>
+
     <figure class="bench-figure">
-      <img src="benchmark/pps_sm8475.png" alt="Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）" loading="lazy">
-      <figcaption>Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）</figcaption>
+      <img src="benchmark/pps_sm8475.png" alt="SM8475 の Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）" loading="lazy">
+      <figcaption>SM8475（FP16）の Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/tps_sm8475.png" alt="Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）" loading="lazy">
-      <figcaption>Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）</figcaption>
+      <img src="benchmark/pps_sm7635.png" alt="SM7635 の Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）" loading="lazy">
+      <figcaption>SM7635（Int16）の Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）</figcaption>
     </figure>
+
+    <h3>VLM（画像入力）の応答時間</h3>
+    <p>同一の 768x768 画像 10 枚（画像 256 + テキスト 62 = 318 入力トークン）の中央値です。TTFT は画像エンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。CPU 側は Decoder が 2 スレッド、画像エンコーダは既定のコア数で動作しています。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・経路</th><th>TTFT（中央値）</th><th>Decode（中央値）</th></tr>
+      <tr><td>SM8475 CPU</td><td class="num">137.37 秒</td><td class="num">6.60 tokens/s</td></tr>
+      <tr><td>SM8475 NPU（FP16）</td><td class="num">9.51 秒</td><td class="num">6.91 tokens/s</td></tr>
+      <tr><td>SM7635 CPU</td><td class="num">105.18 秒</td><td class="num">7.93 tokens/s</td></tr>
+      <tr><td>SM7635 NPU（Int16）</td><td class="num">25.82 秒</td><td class="num">6.20 tokens/s</td></tr>
+    </table>
+    </div>
+    <p>画像入力の TTFT は、SM8475 で約 14.4 倍、SM7635 で約 4.1 倍短縮されます。各画像 1 試行の測定であり、CPU と NPU は別試行のため厳密な同時条件の A/B ではありません。</p>
+
+    <h3>音声入力の応答時間</h3>
+    <p>FLEURS の 10 録音（5 言語 各 2 件）の中央値です。TTFT は音声エンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・経路</th><th>TTFT（中央値）</th><th>Decode（中央値）</th><th>出力トークン数</th></tr>
+      <tr><td>SM8475 NPU（FP16）</td><td class="num">8.37 秒</td><td class="num">6.86 tokens/s</td><td class="num">21〜60</td></tr>
+      <tr><td>SM7635 NPU（Int16）</td><td class="num">13.98 秒</td><td class="num">5.89 tokens/s</td><td class="num">21〜61</td></tr>
+      <tr><td>SM7635 CPU</td><td class="num">45.65 秒</td><td class="num">7.92 tokens/s</td><td class="num">21〜91</td></tr>
+    </table>
+    </div>
+    <p>生成される文と出力長は経路ごとに異なるため、TTFT 以外の値は同一出力に対する比較ではありません。</p>
+
+    <h3>8K コンテキストでの実行</h3>
+    <p>7,936 トークン入力 + 256 トークン出力を各端末で 2 回実行した結果です。全 4 試行で指定トークン数を完走しています。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末</th><th>試行</th><th>Prefill</th><th>Decode</th></tr>
+      <tr><td>SM8475（FP16）</td><td class="num">1</td><td class="num">218.956 tokens/s</td><td class="num">7.485 tokens/s</td></tr>
+      <tr><td>SM8475（FP16）</td><td class="num">2</td><td class="num">200.439 tokens/s</td><td class="num">7.509 tokens/s</td></tr>
+      <tr><td>SM7635（Int16）</td><td class="num">1</td><td class="num">54.931 tokens/s</td><td class="num">6.444 tokens/s</td></tr>
+      <tr><td>SM7635（Int16）</td><td class="num">2</td><td class="num">55.082 tokens/s</td><td class="num">6.495 tokens/s</td></tr>
+    </table>
+    </div>
 
     <h2>制約</h2>
     <ul>

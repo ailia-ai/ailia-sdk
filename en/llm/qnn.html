@@ -105,6 +105,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td><a class="method-link" href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></td><td>No</td><td>Yes</td><td>No restriction (CPU execution)</td><td>Runs on the CPU. An experimental Hexagon backend exists, but its NPU-side libraries (Skel) are unsigned, so it cannot run on regular devices, and it cannot use the HMX (matrix unit), so it is not fast either. The image encoder runs on the CPU.</td></tr>
       <tr><td>QNN (<a class="method-link" href="https://docs.qualcomm.com/nav/home/general_introduction.html?product=1601111740009302">Qualcomm AI Engine Direct</a>)</td><td>Yes</td><td>No</td><td>Hexagon v65 or later (Snapdragon 845 or later)</td><td>Low-level inference API; no LLM runtime is provided.</td></tr>
       <tr><td>QNN GenAI (Qualcomm Genie / <a class="method-link" href="https://github.com/qualcomm/GenieX">GenieX</a>)</td><td>Yes</td><td>No</td><td>Hexagon v79 or later (Snapdragon 8 Elite or later)</td><td>The officially supported Android SoCs are limited to the Snapdragon 8 Elite family, and Hexagon v79 or later is required. No NPU (QAIRT) model is provided for Gemma 4.</td></tr>
+      <tr><td><a class="method-link" href="https://developers.google.com/edge/litert/next/litert_lm_npu">LiteRT-LM NPU</a></td><td>Yes</td><td>No</td><td>Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite (SM8550 / SM8650 / SM8750)</td><td>The only NPU model published for Qualcomm is Gemma3-1B (4-bit, 1,280 context). NPU models for Gemma 4 are provided only for Google Tensor and Intel. It is text only and does not support image or audio input.</td></tr>
       <tr><td><strong><a class="method-link" href="https://ailia.ai/en/llm/">ailia LLM</a></strong></td><td>Yes</td><td>Yes</td><td>Hexagon v69 or later (Snapdragon 8 Gen 1 or later)</td><td>Uses the NPU even on older SoCs such as Snapdragon 8+ Gen 1, and runs Gemma 4 E2B / E4B on the NPU for both text and VLM.</td></tr>
     </table>
     </div>
@@ -152,6 +153,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td><code>&lt;soc&gt;-mmproj.qnn</code> (e.g. <code>sm8475-mmproj.qnn</code>)</td><td>Image encoder (mmproj) for VLM</td></tr>
     </table>
     </div>
+    <h3>Model downloads</h3>
+    <p>Pre-converted QNN Models for Gemma 4 E2B can be downloaded below. To use VLM or audio input, download both the text model and the mmproj file.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>SoC</th><th>Example device</th><th>File</th><th>Contents</th><th>Size</th></tr>
+      <tr><td rowspan="2">sm8475<br>(Hexagon v69 / FP16)</td><td rowspan="2">Snapdragon 8+ Gen 1</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm8475.qnn">gemma4-e2b-sm8475.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">3.62 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm8475-mmproj.qnn">gemma4-e2b-sm8475-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">1.11 GB</td></tr>
+      <tr><td rowspan="2">sm7635<br>(Hexagon v73 / Int16)</td><td rowspan="2">Snapdragon 7s Gen 3</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm7635.qnn">gemma4-e2b-sm7635.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">3.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm7635-mmproj.qnn">gemma4-e2b-sm7635-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.73 GB</td></tr>
+    </table>
+    </div>
+    <p>All of these are for ailia LLM 1.5.0 (QAIRT 2.47.0.260601), with a context length of 8192 and the AR-256 / AR-1 configuration.</p>
+    <div class="note">
+      <strong>Other SoCs:</strong> Model files are currently published only for the two SoCs above (sm8475 and sm7635), but we can also convert models for other SoCs. Let us know the target SoC (the name returned by the <code>ailiaLLMGetQNNModelName</code> API) and we will compile a QNN Model for it with ailia LLM Compiler. Please <a href="https://ailia.ai/en/">contact ailia</a> for details.
+    </div>
+
     <div class="note">
       <strong>Note:</strong> A QNN Model depends not only on the Hexagon version but also on the QNN SDK version and the SoC model ID. Do not reuse a file built for a different SoC. The SoC name of the running device can be obtained with the <code>ailiaLLMGetQNNModelName</code> API (e.g. <code>"sm8475"</code>).
     </div>
@@ -219,30 +236,95 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     </div>
 
     <h2>Benchmark</h2>
-    <p>The following results were measured with Gemma 4 E2B on Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69, ASUS AI2202) with QAIRT 2.47.0.260601. CPU uses the llama.cpp compatible CPU implementation (GGUF) on the same device, and NPU uses the QNN Model generated from the same model, compared with the same prompt and greedy sampling.</p>
+    <p>The following results were measured with Gemma 4 E2B on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69, ASUS AI2202) uses the FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the Int16 model. Both were measured with QAIRT 2.47.0.260601, a context length of 8192, Q4_0 input and the AR-256 / AR-1 configuration. CPU uses the llama.cpp compatible CPU implementation (GGUF, 2 threads) on the same device.</p>
+    <div class="note">
+      <strong>Note:</strong> The two devices differ in both SoC and quantization, so the gap between them cannot be attributed to quantization alone. Each number is a single run, not an average of repeated runs.
+    </div>
+
+    <h3>Decode throughput</h3>
+    <p>Throughput while generating 1,000 tokens.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Item</th><th>CPU</th><th>NPU (QNN)</th><th>Speedup</th></tr>
-      <tr><td>VLM image encoder (768x768, 1 image)</td><td class="num">99.19 s</td><td class="num">2.67 s</td><td class="num">37.2x</td></tr>
-      <tr><td>VLM multimodal prompt setup</td><td class="num">98.5 s</td><td class="num">2.59 s</td><td class="num">38.0x</td></tr>
-      <tr><td>VLM image-to-first-token (TTFT)</td><td class="num">105.7 s</td><td class="num">10.2 s</td><td class="num">10.3x</td></tr>
-      <tr><td>Text prefill (1000 input tokens)</td><td class="num">-</td><td class="num">121.3 tokens/s</td><td class="num">-</td></tr>
-      <tr><td>Text decode (warm)</td><td class="num">11.4 tokens/s</td><td class="num">7.9 tokens/s</td><td class="num">0.7x</td></tr>
+      <tr><th>Device</th><th>Model</th><th>CPU</th><th>NPU (QNN)</th><th>NPU / CPU</th></tr>
+      <tr><td>SM8475 (Hexagon v69)</td><td>FP16</td><td class="num">8.340 tokens/s</td><td class="num">7.536 tokens/s</td><td class="num">0.90x</td></tr>
+      <tr><td>SM7635 (Hexagon v73)</td><td>Int16</td><td class="num">7.851 tokens/s</td><td class="num">6.473 tokens/s</td><td class="num">0.82x</td></tr>
+    </table>
+    </div>
+    <p>Under these conditions decode is faster on the CPU on both devices. Decode processes one token at a time, so it is dominated by weight loading and does not benefit much from the parallel compute of the NPU.</p>
+
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_sm8475.png" alt="SM8475 per-token decode throughput over 1000 generated tokens (CPU vs. NPU)" loading="lazy">
+      <figcaption>SM8475 (FP16) per-token decode throughput over 1000 generated tokens (CPU vs. NPU)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_sm7635.png" alt="SM7635 per-token decode throughput over 1000 generated tokens (CPU vs. NPU)" loading="lazy">
+      <figcaption>SM7635 (Int16) per-token decode throughput over 1000 generated tokens (CPU vs. NPU)</figcaption>
+    </figure>
+
+    <h3>Prefill throughput</h3>
+    <p>Throughput (tokens/s) for input lengths from 64 to 2,048 tokens. Each condition generates 100 tokens.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Input tokens</th><th>SM8475 CPU</th><th>SM8475 NPU (FP16)</th><th>SM7635 CPU</th><th>SM7635 NPU (Int16)</th></tr>
+      <tr><td class="num">64</td><td class="num">14.870</td><td class="num">17.210</td><td class="num">12.571</td><td class="num">9.775</td></tr>
+      <tr><td class="num">128</td><td class="num">21.505</td><td class="num">72.384</td><td class="num">16.822</td><td class="num">23.033</td></tr>
+      <tr><td class="num">256</td><td class="num">21.214</td><td class="num">142.785</td><td class="num">16.544</td><td class="num">45.248</td></tr>
+      <tr><td class="num">512</td><td class="num">20.454</td><td class="num">188.090</td><td class="num">16.013</td><td class="num">50.435</td></tr>
+      <tr><td class="num">1024</td><td class="num">18.662</td><td class="num">206.170</td><td class="num">15.208</td><td class="num">52.660</td></tr>
+      <tr><td class="num">2048</td><td class="num">14.549</td><td class="num">214.491</td><td class="num">14.295</td><td class="num">53.870</td></tr>
     </table>
     </div>
     <ul>
-      <li>VLM TTFT includes image decoding, preprocessing, the image encoder and text prefill. The VLM rows compare the image encoder running on CPU vs. NPU, with the text model running on the NPU in both cases.</li>
-      <li>Prefill uses the configuration with the LM head fused into the prefill graph, and is computed as <code>prompt tokens / time of the first generate call</code> with a 1000-token input.</li>
-      <li>On Hexagon v69, decode is faster on the CPU. Newer SoCs with Hexagon v73 or later need to be measured separately.</li>
+      <li>Prefill throughput is <code>actual input tokens / time of the first generate call</code>. No warmup is performed, so the first-call latency is included.</li>
+      <li>Conditions are measured from short to long inputs, so the 64-token result starts from a different state than the later ones.</li>
+      <li>With a 2,048-token input, the NPU reaches about 14.7x the CPU throughput on SM8475 and about 3.8x on SM7635.</li>
     </ul>
+
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/pps_sm8475.png" alt="Prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)" loading="lazy">
-      <figcaption>Prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)</figcaption>
+      <img src="../../llm/benchmark/pps_sm8475.png" alt="SM8475 prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)" loading="lazy">
+      <figcaption>SM8475 (FP16) prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/tps_sm8475.png" alt="Per-token decode throughput over 1000 generated tokens (CPU vs. NPU)" loading="lazy">
-      <figcaption>Per-token decode throughput over 1000 generated tokens (CPU vs. NPU)</figcaption>
+      <img src="../../llm/benchmark/pps_sm7635.png" alt="SM7635 prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)" loading="lazy">
+      <figcaption>SM7635 (Int16) prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)</figcaption>
     </figure>
+
+    <h3>VLM (image input) latency</h3>
+    <p>Medians over the same 10 images at 768x768 (256 image + 62 text = 318 input tokens). TTFT is the prompt setup including the image encoder plus the first generate call, excluding model opening. On the CPU path the decoder uses 2 threads and the image encoder uses the default number of cores.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device / path</th><th>TTFT (median)</th><th>Decode (median)</th></tr>
+      <tr><td>SM8475 CPU</td><td class="num">137.37 s</td><td class="num">6.60 tokens/s</td></tr>
+      <tr><td>SM8475 NPU (FP16)</td><td class="num">9.51 s</td><td class="num">6.91 tokens/s</td></tr>
+      <tr><td>SM7635 CPU</td><td class="num">105.18 s</td><td class="num">7.93 tokens/s</td></tr>
+      <tr><td>SM7635 NPU (Int16)</td><td class="num">25.82 s</td><td class="num">6.20 tokens/s</td></tr>
+    </table>
+    </div>
+    <p>Image TTFT is about 14.4x shorter on SM8475 and about 4.1x shorter on SM7635. Each image was measured once, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B.</p>
+
+    <h3>Audio input latency</h3>
+    <p>Medians over 10 FLEURS recordings (2 each in 5 languages). TTFT is the prompt setup including the audio encoder plus the first generate call, excluding model opening.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device / path</th><th>TTFT (median)</th><th>Decode (median)</th><th>Output tokens</th></tr>
+      <tr><td>SM8475 NPU (FP16)</td><td class="num">8.37 s</td><td class="num">6.86 tokens/s</td><td class="num">21-60</td></tr>
+      <tr><td>SM7635 NPU (Int16)</td><td class="num">13.98 s</td><td class="num">5.89 tokens/s</td><td class="num">21-61</td></tr>
+      <tr><td>SM7635 CPU</td><td class="num">45.65 s</td><td class="num">7.92 tokens/s</td><td class="num">21-91</td></tr>
+    </table>
+    </div>
+    <p>The generated text and output length differ between paths, so values other than TTFT are not a comparison over identical outputs.</p>
+
+    <h3>8K context run</h3>
+    <p>7,936 input tokens + 256 output tokens, run twice on each device. All four runs completed the specified token counts.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device</th><th>Run</th><th>Prefill</th><th>Decode</th></tr>
+      <tr><td>SM8475 (FP16)</td><td class="num">1</td><td class="num">218.956 tokens/s</td><td class="num">7.485 tokens/s</td></tr>
+      <tr><td>SM8475 (FP16)</td><td class="num">2</td><td class="num">200.439 tokens/s</td><td class="num">7.509 tokens/s</td></tr>
+      <tr><td>SM7635 (Int16)</td><td class="num">1</td><td class="num">54.931 tokens/s</td><td class="num">6.444 tokens/s</td></tr>
+      <tr><td>SM7635 (Int16)</td><td class="num">2</td><td class="num">55.082 tokens/s</td><td class="num">6.495 tokens/s</td></tr>
+    </table>
+    </div>
 
     <h2>Limitations</h2>
     <ul>
