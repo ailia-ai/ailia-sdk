@@ -91,7 +91,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>概要</h2>
-    <p>ailia LLM 1.5.0 以降は Qualcomm SoC の NPU（Hexagon）を使用した高速推論に対応しています。NPU 向けには、llama.cpp とは異なるアイリア社独自の実装を搭載しており、Android 端末上で Prefill を最大 19 倍高速化できます（Snapdragon 8+ Gen 1、2,048 トークン入力時の同端末 CPU 比）。テキストの LLM だけでなく、画像を入力する VLM（Vision Language Model）や音声入力にも対応し、NPU で処理できます。</p>
+    <p>ailia LLM 1.5.0 以降は Qualcomm SoC の NPU（Hexagon）を使用した高速推論に対応しています。NPU 向けには、llama.cpp とは異なるアイリア社独自の実装を搭載しており、Android 端末上で Prefill を最大 3.3 倍高速化し、Prefill 中の CPU 使用率を 1/20 以下に抑えられます（Snapdragon 8+ Gen 1、2,048 トークン入力時の同端末 CPU 比）。テキストの LLM だけでなく、画像を入力する VLM（Vision Language Model）や音声入力にも対応し、NPU で処理できます。</p>
     <p>QNN（Qualcomm AI Engine Direct）は Qualcomm が提供するバックエンド API です。ailia LLMでは、llama.cppのモデル形式であるGGUFを、QNNで実行可能な形式に変換することで、NPUでの推論を実現しています。</p>
     <div class="note">
       <strong>注意:</strong> QNN バックエンドは ailia LLM 1.5.0 以降で利用できます。
@@ -235,84 +235,108 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM のみ</code></pre>
     </div>
 
     <h2>ベンチマーク</h2>
-    <p>Gemma 4 E2B を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69、ASUS AI2202）は FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は Int16 モデルを使用しています。いずれも QAIRT 2.47.0.260601、コンテキスト長 8192、Q4_0 入力、AR-256 / AR-1 構成です。CPU は同じ端末上の llama.cpp 互換の CPU 実装（GGUF、2 スレッド）を使用しています。NPU の値は 2026-09-16 の量産パッケージ（PLE フロントエンドを NPU 側で実行）での測定です。</p>
+    <p>Gemma 4 E2B を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69、ASUS AI2202）は FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は Int16 モデルを使用しています。いずれも QAIRT 2.47.0.260601、コンテキスト長 8192、Q4_0 入力、AR-256 / AR-1 構成で、NPU の値は 2026-09-16 の量産パッケージ（PLE フロントエンドを NPU 側で実行）での測定です。</p>
+    <p>CPU は同じ端末上で、同一の Q4_0 GGUF を標準の llama.cpp 経路で実行した値です（デコーダワーカー 8、コンテキスト 8192、NDK r27c）。出荷構成は OpenMP 無効のビルドで、表の「CPU」がこれにあたります。「CPU（OpenMP）」は <code>GGML_OPENMP=ON</code> / <code>OMP_NUM_THREADS=2</code> でビルドした比較用の構成です。</p>
     <div class="note">
-      <strong>注意:</strong> 2 機種は SoC も量子化方式も異なるため、両者の差を量子化方式だけの差とみなすことはできません。各測定は 1 試行の値であり、複数回の平均ではありません。
+      <strong>注意:</strong> 2 機種は SoC も量子化方式も異なるため、両者の差を量子化方式だけの差とみなすことはできません。CPU は 2 回実行の中央値、NPU は各条件 1 試行の値です。
     </div>
 
     <h3>Decode スループット</h3>
     <p>1,000 トークン生成時のスループットです。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>端末</th><th>モデル</th><th>CPU</th><th>NPU（QNN）</th><th>NPU / CPU</th></tr>
-      <tr><td>SM8475（Hexagon v69）</td><td>FP16</td><td class="num">8.340 tokens/s</td><td class="num">7.843 tokens/s</td><td class="num">0.94 倍</td></tr>
-      <tr><td>SM7635（Hexagon v73）</td><td>Int16</td><td class="num">7.851 tokens/s</td><td class="num">6.883 tokens/s</td><td class="num">0.88 倍</td></tr>
+      <tr><th>端末</th><th>モデル</th><th>CPU</th><th>CPU（OpenMP）</th><th>NPU（QNN）</th><th>NPU / CPU</th></tr>
+      <tr><td>SM8475（Hexagon v69）</td><td>FP16</td><td class="num">9.971 tokens/s</td><td class="num">8.482 tokens/s</td><td class="num">7.843 tokens/s</td><td class="num">0.79 倍</td></tr>
+      <tr><td>SM7635（Hexagon v73）</td><td>Int16</td><td class="num">6.045 tokens/s</td><td class="num">4.730 tokens/s</td><td class="num">6.883 tokens/s</td><td class="num">1.14 倍</td></tr>
     </table>
     </div>
-    <p>この条件では、いずれの端末でも Decode は CPU の方が高速です。Decode は 1 トークンずつ処理するため重みの読み出しが支配的で、NPU の並列演算性能を活かしにくいことによります。</p>
+    <p>SM7635 では NPU の Decode が CPU より 1.14 倍（OpenMP ビルド比では 1.46 倍）高速です。SM8475 では CPU の方が高速で、Decode は 1 トークンずつ処理するため重みの読み出しが支配的になり、NPU の並列演算性能を活かしにくいことによります。</p>
 
     <figure class="bench-figure">
-      <img src="benchmark/tps_sm8475.png" alt="SM8475 の Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）" loading="lazy">
-      <figcaption>SM8475（FP16）の Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）</figcaption>
+      <img src="benchmark/tps_sm8475.png" alt="SM8475 の Decode のトークンごとのスループット（1000 トークン生成、CPU / CPU OpenMP / NPU）" loading="lazy">
+      <figcaption>SM8475（FP16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/tps_sm7635.png" alt="SM7635 の Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）" loading="lazy">
-      <figcaption>SM7635（Int16）の Decode のトークンごとのスループット（1000 トークン生成、CPU vs NPU）</figcaption>
+      <img src="benchmark/tps_sm7635.png" alt="SM7635 の Decode のトークンごとのスループット（1000 トークン生成、CPU / CPU OpenMP / NPU）" loading="lazy">
+      <figcaption>SM7635（Int16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
     </figure>
 
     <h3>Prefill スループット</h3>
     <p>入力トークン数を 64〜2,048 まで変えたときのスループット（tokens/s）です。各条件で 100 トークンを生成しています。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>入力トークン数</th><th>SM8475 CPU</th><th>SM8475 NPU（FP16）</th><th>SM7635 CPU</th><th>SM7635 NPU（Int16）</th></tr>
-      <tr><td class="num">64</td><td class="num">14.870</td><td class="num">23.978</td><td class="num">12.571</td><td class="num">14.296</td></tr>
-      <tr><td class="num">128</td><td class="num">21.505</td><td class="num">147.489</td><td class="num">16.822</td><td class="num">55.247</td></tr>
-      <tr><td class="num">256</td><td class="num">21.214</td><td class="num">265.230</td><td class="num">16.544</td><td class="num">109.083</td></tr>
-      <tr><td class="num">512</td><td class="num">20.454</td><td class="num">286.695</td><td class="num">16.013</td><td class="num">111.699</td></tr>
-      <tr><td class="num">1024</td><td class="num">18.662</td><td class="num">293.811</td><td class="num">15.208</td><td class="num">111.440</td></tr>
-      <tr><td class="num">2048</td><td class="num">14.549</td><td class="num">286.029</td><td class="num">14.295</td><td class="num">110.301</td></tr>
+      <tr><th>入力トークン数</th><th>SM8475 CPU</th><th>SM8475 CPU（OpenMP）</th><th>SM8475 NPU（FP16）</th><th>SM7635 CPU</th><th>SM7635 CPU（OpenMP）</th><th>SM7635 NPU（Int16）</th></tr>
+      <tr><td class="num">64</td><td class="num">69.627</td><td class="num">49.362</td><td class="num">23.978</td><td class="num">92.689</td><td class="num">76.227</td><td class="num">14.296</td></tr>
+      <tr><td class="num">128</td><td class="num">86.688</td><td class="num">61.941</td><td class="num">147.489</td><td class="num">97.005</td><td class="num">83.779</td><td class="num">55.247</td></tr>
+      <tr><td class="num">256</td><td class="num">61.918</td><td class="num">53.572</td><td class="num">265.230</td><td class="num">80.064</td><td class="num">67.042</td><td class="num">109.083</td></tr>
+      <tr><td class="num">512</td><td class="num">84.692</td><td class="num">75.048</td><td class="num">286.695</td><td class="num">105.030</td><td class="num">100.753</td><td class="num">111.699</td></tr>
+      <tr><td class="num">1024</td><td class="num">90.603</td><td class="num">77.651</td><td class="num">293.811</td><td class="num">112.090</td><td class="num">105.844</td><td class="num">111.440</td></tr>
+      <tr><td class="num">2048</td><td class="num">86.761</td><td class="num">72.302</td><td class="num">286.029</td><td class="num">96.678</td><td class="num">93.273</td><td class="num">110.301</td></tr>
     </table>
     </div>
     <ul>
-      <li>Prefill のスループットは <code>実入力トークン数 / 最初の生成呼び出し時間</code> です。ウォームアップは行っておらず、初回の遅延を含みます。</li>
-      <li>短い入力から長い入力へ順に測定しているため、64 トークンの結果は後続の条件と初期状態が異なります。</li>
-      <li>2,048 トークン入力では、SM8475 で CPU の約 19.7 倍、SM7635 で約 7.7 倍のスループットです。</li>
+      <li>Prefill のスループットは <code>実入力トークン数 / 最初の生成呼び出し時間</code> です。2 トークンのウォームアップ後に測定しています。</li>
+      <li>2,048 トークン入力では、SM8475 で CPU の約 3.30 倍（OpenMP ビルド比 3.96 倍）、SM7635 で約 1.14 倍（同 1.18 倍）のスループットです。</li>
+      <li>64 トークンのような短い入力では、固定長の AR-256 グラフでパディングが大きくなるため NPU が不利になります。</li>
     </ul>
 
     <figure class="bench-figure">
-      <img src="benchmark/pps_sm8475.png" alt="SM8475 の Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）" loading="lazy">
-      <figcaption>SM8475（FP16）の Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）</figcaption>
+      <img src="benchmark/pps_sm8475.png" alt="SM8475 の Prefill スループットと Prefill 中の CPU 使用率（CPU / CPU OpenMP / NPU）" loading="lazy">
+      <figcaption>SM8475（FP16）の Prefill スループット（左）と 2,048 トークン Prefill 中のホストプロセス CPU 使用率（右）</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/pps_sm7635.png" alt="SM7635 の Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）" loading="lazy">
-      <figcaption>SM7635（Int16）の Prefill スループット（入力トークン数 64〜2048、CPU vs NPU）</figcaption>
+      <img src="benchmark/pps_sm7635.png" alt="SM7635 の Prefill スループットと Prefill 中の CPU 使用率（CPU / CPU OpenMP / NPU）" loading="lazy">
+      <figcaption>SM7635（Int16）の Prefill スループット（左）と 2,048 トークン Prefill 中のホストプロセス CPU 使用率（右）</figcaption>
     </figure>
 
+    <h3>Prefill 中の CPU 使用率</h3>
+    <p>2,048 トークン Prefill における、最初の生成呼び出し前後のプロセス CPU 時間です（3 回実行の中央値）。8 コアすべてを使い切った状態を 100% として表しています。アプリケーションプロセスの使用率であり、端末全体の使用率ではありません。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末</th><th>CPU</th><th>CPU（OpenMP）</th><th>NPU（QNN）</th></tr>
+      <tr><td>SM8475</td><td class="num">98.2%</td><td class="num">86.2%</td><td class="num">4.0%</td></tr>
+      <tr><td>SM7635</td><td class="num">93.0%</td><td class="num">98.0%</td><td class="num">3.4%</td></tr>
+    </table>
+    </div>
+    <p>NPU では Prefill 中の CPU 使用率が 4% 程度に収まるため、アプリケーション側の処理に CPU を残せます。3 回の連続実行での PPS の変動は NPU が 4.5%（SM8475）・2.1%（SM7635）だったのに対し、CPU 構成では最大 64.0%・38.5% でした。この測定は温度制御を行っていないため、変動の原因をサーマルスロットリングだけに帰することはできません。</p>
+
     <h3>VLM（画像入力）の応答時間</h3>
-    <p>同一の 768x768 画像 10 枚（画像 256 + テキスト 62 = 318 入力トークン、各 100 トークン出力）の中央値です。TTFT は画像エンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。CPU 側は Decoder が 2 スレッド、画像エンコーダは既定のコア数で動作しています。</p>
+    <p>同一の 768x768 画像 10 枚、各 100 トークン出力での中央値です。TTFT は画像エンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>端末・経路</th><th>TTFT（中央値）</th><th>Decode（中央値）</th></tr>
-      <tr><td>SM8475 CPU</td><td class="num">137.37 秒</td><td class="num">6.60 tokens/s</td></tr>
-      <tr><td>SM8475 NPU（FP16）</td><td class="num">6.57 秒</td><td class="num">7.69 tokens/s</td></tr>
-      <tr><td>SM7635 CPU</td><td class="num">105.18 秒</td><td class="num">7.93 tokens/s</td></tr>
-      <tr><td>SM7635 NPU（Int16）</td><td class="num">9.83 秒</td><td class="num">6.98 tokens/s</td></tr>
+      <tr><td>SM8475 CPU</td><td class="num">83.63 秒</td><td class="num">12.081 tokens/s</td></tr>
+      <tr><td>SM8475 CPU（OpenMP）</td><td class="num">128.22 秒</td><td class="num">7.491 tokens/s</td></tr>
+      <tr><td>SM8475 NPU（FP16）</td><td class="num">6.57 秒</td><td class="num">7.692 tokens/s</td></tr>
+      <tr><td>SM7635 CPU</td><td class="num">95.01 秒</td><td class="num">5.891 tokens/s</td></tr>
+      <tr><td>SM7635 CPU（OpenMP）</td><td class="num">97.45 秒</td><td class="num">3.569 tokens/s</td></tr>
+      <tr><td>SM7635 NPU（Int16）</td><td class="num">9.83 秒</td><td class="num">6.982 tokens/s</td></tr>
     </table>
     </div>
-    <p>画像入力の TTFT は、SM8475 で約 20.9 倍、SM7635 で約 10.7 倍短縮されます。各画像 1 試行の測定であり、CPU と NPU は別試行のため厳密な同時条件の A/B ではありません。CPU の値は 2026-09-13 の測定で、CPU 実行経路は変更していません。</p>
+    <p>画像入力の TTFT は、SM8475 で約 12.7 倍、SM7635 で約 9.7 倍短縮されます。各画像 1 試行の測定であり、CPU と NPU は別試行のため厳密な同時条件の A/B ではありません。なお、入力トークン数の数え方は経路によって異なり（CPU はテキスト 64 トークン、NPU は画像 256 トークンを含む 318 トークンとして報告）、いずれも同じ 768x768 の画素と 256 個の画像埋め込みを処理しています。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/media_ttft_sm8475.png" alt="SM8475 の VLM / 音声入力の TTFT 内訳（CPU / CPU OpenMP / NPU）" loading="lazy">
+      <figcaption>SM8475（FP16）の VLM / 音声入力の TTFT 内訳（エンコーダとデコーダ Prefill）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/media_ttft_sm7635.png" alt="SM7635 の VLM / 音声入力の TTFT 内訳（CPU / CPU OpenMP / NPU）" loading="lazy">
+      <figcaption>SM7635（Int16）の VLM / 音声入力の TTFT 内訳（エンコーダとデコーダ Prefill）</figcaption>
+    </figure>
 
     <h3>音声入力の応答時間</h3>
-    <p>FLEURS の 10 録音（5 言語 各 2 件、自然な EOS まで生成し上限 256 トークン）の中央値です。TTFT は音声エンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。CPU 側は Decoder が 2 スレッド、音声エンコーダは既定のコア数で動作しています。</p>
+    <p>FLEURS の 10 録音（5 言語 各 2 件、自然な EOS まで生成し上限 256 トークン）の中央値です。TTFT は音声エンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>端末・経路</th><th>TTFT（中央値）</th><th>Decode（中央値）</th><th>出力トークン数</th></tr>
-      <tr><td>SM8475 CPU</td><td class="num">49.32 秒</td><td class="num">7.68 tokens/s</td><td class="num">21〜91</td></tr>
-      <tr><td>SM8475 NPU（FP16）</td><td class="num">8.08 秒</td><td class="num">7.19 tokens/s</td><td class="num">21〜60</td></tr>
-      <tr><td>SM7635 CPU</td><td class="num">45.65 秒</td><td class="num">7.92 tokens/s</td><td class="num">21〜91</td></tr>
-      <tr><td>SM7635 NPU（Int16）</td><td class="num">9.29 秒</td><td class="num">6.54 tokens/s</td><td class="num">21〜90</td></tr>
+      <tr><td>SM8475 CPU</td><td class="num">37.29 秒</td><td class="num">10.416 tokens/s</td><td class="num">21〜89</td></tr>
+      <tr><td>SM8475 CPU（OpenMP）</td><td class="num">36.49 秒</td><td class="num">10.539 tokens/s</td><td class="num">21〜89</td></tr>
+      <tr><td>SM8475 NPU（FP16）</td><td class="num">8.08 秒</td><td class="num">7.193 tokens/s</td><td class="num">21〜60</td></tr>
+      <tr><td>SM7635 CPU</td><td class="num">47.22 秒</td><td class="num">5.167 tokens/s</td><td class="num">21〜89</td></tr>
+      <tr><td>SM7635 CPU（OpenMP）</td><td class="num">35.37 秒</td><td class="num">3.847 tokens/s</td><td class="num">21〜89</td></tr>
+      <tr><td>SM7635 NPU（Int16）</td><td class="num">9.29 秒</td><td class="num">6.539 tokens/s</td><td class="num">21〜90</td></tr>
     </table>
     </div>
-    <p>音声入力の TTFT は、SM8475 で約 6.1 倍、SM7635 で約 4.9 倍短縮されます。生成される文と出力長は経路ごとに異なるため、TTFT 以外の値は同一出力に対する比較ではありません。CPU と NPU は別試行の測定であり、同時条件の A/B ではありません。</p>
+    <p>音声入力の TTFT は、SM8475 で約 4.6 倍、SM7635 で約 5.1 倍短縮されます。生成される文と出力長は経路ごとに異なるため、TTFT 以外の値は同一出力に対する比較ではありません。CPU と NPU は別試行の測定であり、同時条件の A/B ではありません。</p>
 
     <h2>制約</h2>
     <ul>

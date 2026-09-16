@@ -91,7 +91,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>Overview</h2>
-    <p>ailia LLM 1.5.0 and later support fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp, and it accelerates prefill by up to 19x on Android devices (Snapdragon 8+ Gen 1, 2,048-token input, compared with the CPU on the same device). In addition to text LLMs and VLMs (Vision Language Models) that take images as input, ailia LLM also supports audio input, with processing on the NPU.</p>
+    <p>ailia LLM 1.5.0 and later support fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp, and it accelerates prefill by up to 3.3x on Android devices while keeping CPU use during prefill below one twentieth of the CPU path (Snapdragon 8+ Gen 1, 2,048-token input, compared with the CPU on the same device). In addition to text LLMs and VLMs (Vision Language Models) that take images as input, ailia LLM also supports audio input, with processing on the NPU.</p>
     <p>QNN (Qualcomm AI Engine Direct) is a backend API provided by Qualcomm. ailia LLM achieves NPU inference by converting GGUF, the model format of llama.cpp, into a format that can be executed by QNN.</p>
     <div class="note">
       <strong>Note:</strong> The QNN backend is available in ailia LLM 1.5.0 and later.
@@ -236,84 +236,108 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     </div>
 
     <h2>Benchmark</h2>
-    <p>The following results were measured with Gemma 4 E2B on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69, ASUS AI2202) uses the FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the Int16 model. Both were measured with QAIRT 2.47.0.260601, a context length of 8192, Q4_0 input and the AR-256 / AR-1 configuration. CPU uses the llama.cpp compatible CPU implementation (GGUF, 2 threads) on the same device. The NPU numbers were measured with the 2026-09-16 production package, which runs the PLE frontend on the NPU.</p>
+    <p>The following results were measured with Gemma 4 E2B on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69, ASUS AI2202) uses the FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the Int16 model. Both were measured with QAIRT 2.47.0.260601, a context length of 8192, Q4_0 input and the AR-256 / AR-1 configuration. The NPU numbers were measured with the 2026-09-16 production package, which runs the PLE frontend on the NPU.</p>
+    <p>The CPU numbers run the same Q4_0 GGUF through the standard llama.cpp path on the same device (8 decoder workers, context 8192, NDK r27c). The shipping configuration is the build with OpenMP disabled, which is the "CPU" column. "CPU (OpenMP)" is a comparison build made with <code>GGML_OPENMP=ON</code> and <code>OMP_NUM_THREADS=2</code>.</p>
     <div class="note">
-      <strong>Note:</strong> The two devices differ in both SoC and quantization, so the gap between them cannot be attributed to quantization alone. Each number is a single run, not an average of repeated runs.
+      <strong>Note:</strong> The two devices differ in both SoC and quantization, so the gap between them cannot be attributed to quantization alone. CPU values are the median of two runs; NPU values are a single run per condition.
     </div>
 
     <h3>Decode throughput</h3>
     <p>Throughput while generating 1,000 tokens.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device</th><th>Model</th><th>CPU</th><th>NPU (QNN)</th><th>NPU / CPU</th></tr>
-      <tr><td>SM8475 (Hexagon v69)</td><td>FP16</td><td class="num">8.340 tokens/s</td><td class="num">7.843 tokens/s</td><td class="num">0.94x</td></tr>
-      <tr><td>SM7635 (Hexagon v73)</td><td>Int16</td><td class="num">7.851 tokens/s</td><td class="num">6.883 tokens/s</td><td class="num">0.88x</td></tr>
+      <tr><th>Device</th><th>Model</th><th>CPU</th><th>CPU (OpenMP)</th><th>NPU (QNN)</th><th>NPU / CPU</th></tr>
+      <tr><td>SM8475 (Hexagon v69)</td><td>FP16</td><td class="num">9.971 tokens/s</td><td class="num">8.482 tokens/s</td><td class="num">7.843 tokens/s</td><td class="num">0.79x</td></tr>
+      <tr><td>SM7635 (Hexagon v73)</td><td>Int16</td><td class="num">6.045 tokens/s</td><td class="num">4.730 tokens/s</td><td class="num">6.883 tokens/s</td><td class="num">1.14x</td></tr>
     </table>
     </div>
-    <p>Under these conditions decode is faster on the CPU on both devices. Decode processes one token at a time, so it is dominated by weight loading and does not benefit much from the parallel compute of the NPU.</p>
+    <p>On SM7635, NPU decode is 1.14x faster than the CPU (1.46x faster than the OpenMP build). On SM8475 the CPU is faster: decode processes one token at a time, so it is dominated by weight loading and does not benefit much from the parallel compute of the NPU.</p>
 
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/tps_sm8475.png" alt="SM8475 per-token decode throughput over 1000 generated tokens (CPU vs. NPU)" loading="lazy">
-      <figcaption>SM8475 (FP16) per-token decode throughput over 1000 generated tokens (CPU vs. NPU)</figcaption>
+      <img src="../../llm/benchmark/tps_sm8475.png" alt="SM8475 per-token decode throughput over 1000 generated tokens (CPU / CPU OpenMP / NPU)" loading="lazy">
+      <figcaption>SM8475 (FP16) per-token decode throughput over 1000 generated tokens</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/tps_sm7635.png" alt="SM7635 per-token decode throughput over 1000 generated tokens (CPU vs. NPU)" loading="lazy">
-      <figcaption>SM7635 (Int16) per-token decode throughput over 1000 generated tokens (CPU vs. NPU)</figcaption>
+      <img src="../../llm/benchmark/tps_sm7635.png" alt="SM7635 per-token decode throughput over 1000 generated tokens (CPU / CPU OpenMP / NPU)" loading="lazy">
+      <figcaption>SM7635 (Int16) per-token decode throughput over 1000 generated tokens</figcaption>
     </figure>
 
     <h3>Prefill throughput</h3>
     <p>Throughput (tokens/s) for input lengths from 64 to 2,048 tokens. Each condition generates 100 tokens.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Input tokens</th><th>SM8475 CPU</th><th>SM8475 NPU (FP16)</th><th>SM7635 CPU</th><th>SM7635 NPU (Int16)</th></tr>
-      <tr><td class="num">64</td><td class="num">14.870</td><td class="num">23.978</td><td class="num">12.571</td><td class="num">14.296</td></tr>
-      <tr><td class="num">128</td><td class="num">21.505</td><td class="num">147.489</td><td class="num">16.822</td><td class="num">55.247</td></tr>
-      <tr><td class="num">256</td><td class="num">21.214</td><td class="num">265.230</td><td class="num">16.544</td><td class="num">109.083</td></tr>
-      <tr><td class="num">512</td><td class="num">20.454</td><td class="num">286.695</td><td class="num">16.013</td><td class="num">111.699</td></tr>
-      <tr><td class="num">1024</td><td class="num">18.662</td><td class="num">293.811</td><td class="num">15.208</td><td class="num">111.440</td></tr>
-      <tr><td class="num">2048</td><td class="num">14.549</td><td class="num">286.029</td><td class="num">14.295</td><td class="num">110.301</td></tr>
+      <tr><th>Input tokens</th><th>SM8475 CPU</th><th>SM8475 CPU (OpenMP)</th><th>SM8475 NPU (FP16)</th><th>SM7635 CPU</th><th>SM7635 CPU (OpenMP)</th><th>SM7635 NPU (Int16)</th></tr>
+      <tr><td class="num">64</td><td class="num">69.627</td><td class="num">49.362</td><td class="num">23.978</td><td class="num">92.689</td><td class="num">76.227</td><td class="num">14.296</td></tr>
+      <tr><td class="num">128</td><td class="num">86.688</td><td class="num">61.941</td><td class="num">147.489</td><td class="num">97.005</td><td class="num">83.779</td><td class="num">55.247</td></tr>
+      <tr><td class="num">256</td><td class="num">61.918</td><td class="num">53.572</td><td class="num">265.230</td><td class="num">80.064</td><td class="num">67.042</td><td class="num">109.083</td></tr>
+      <tr><td class="num">512</td><td class="num">84.692</td><td class="num">75.048</td><td class="num">286.695</td><td class="num">105.030</td><td class="num">100.753</td><td class="num">111.699</td></tr>
+      <tr><td class="num">1024</td><td class="num">90.603</td><td class="num">77.651</td><td class="num">293.811</td><td class="num">112.090</td><td class="num">105.844</td><td class="num">111.440</td></tr>
+      <tr><td class="num">2048</td><td class="num">86.761</td><td class="num">72.302</td><td class="num">286.029</td><td class="num">96.678</td><td class="num">93.273</td><td class="num">110.301</td></tr>
     </table>
     </div>
     <ul>
-      <li>Prefill throughput is <code>actual input tokens / time of the first generate call</code>. No warmup is performed, so the first-call latency is included.</li>
-      <li>Conditions are measured from short to long inputs, so the 64-token result starts from a different state than the later ones.</li>
-      <li>With a 2,048-token input, the NPU reaches about 19.7x the CPU throughput on SM8475 and about 7.7x on SM7635.</li>
+      <li>Prefill throughput is <code>actual input tokens / time of the first generate call</code>, measured after a two-token warmup.</li>
+      <li>With a 2,048-token input, the NPU reaches about 3.30x the CPU throughput on SM8475 (3.96x against the OpenMP build) and about 1.14x on SM7635 (1.18x against the OpenMP build).</li>
+      <li>For short inputs such as 64 tokens the NPU is at a disadvantage, because the fixed-length AR-256 graph is mostly padding.</li>
     </ul>
 
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/pps_sm8475.png" alt="SM8475 prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)" loading="lazy">
-      <figcaption>SM8475 (FP16) prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)</figcaption>
+      <img src="../../llm/benchmark/pps_sm8475.png" alt="SM8475 prefill throughput and host CPU use during prefill (CPU / CPU OpenMP / NPU)" loading="lazy">
+      <figcaption>SM8475 (FP16) prefill throughput (left) and host process CPU use during a 2,048-token prefill (right)</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/pps_sm7635.png" alt="SM7635 prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)" loading="lazy">
-      <figcaption>SM7635 (Int16) prefill throughput vs. input length (64 to 2048 tokens, CPU vs. NPU)</figcaption>
+      <img src="../../llm/benchmark/pps_sm7635.png" alt="SM7635 prefill throughput and host CPU use during prefill (CPU / CPU OpenMP / NPU)" loading="lazy">
+      <figcaption>SM7635 (Int16) prefill throughput (left) and host process CPU use during a 2,048-token prefill (right)</figcaption>
     </figure>
 
+    <h3>CPU use during prefill</h3>
+    <p>Process CPU time measured around the first generate call of a 2,048-token prefill (median of three runs), expressed as a share of all 8 cores fully occupied (8 cores = 100%). This is the utilization of the application process, not of the whole device.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device</th><th>CPU</th><th>CPU (OpenMP)</th><th>NPU (QNN)</th></tr>
+      <tr><td>SM8475</td><td class="num">98.2%</td><td class="num">86.2%</td><td class="num">4.0%</td></tr>
+      <tr><td>SM7635</td><td class="num">93.0%</td><td class="num">98.0%</td><td class="num">3.4%</td></tr>
+    </table>
+    </div>
+    <p>On the NPU, CPU use during prefill stays around 4%, leaving the CPU available for the rest of the application. Across three consecutive runs, PPS varied by 4.5% (SM8475) and 2.1% (SM7635) on the NPU, against up to 64.0% and 38.5% for the CPU configurations. This measurement was not temperature-controlled, so the variation cannot be attributed to thermal throttling alone.</p>
+
     <h3>VLM (image input) latency</h3>
-    <p>Medians over the same 10 images at 768x768 (256 image + 62 text = 318 input tokens, 100 output tokens each). TTFT is the prompt setup including the image encoder plus the first generate call, excluding model opening. On the CPU path the decoder uses 2 threads and the image encoder uses the default number of cores.</p>
+    <p>Medians over the same 10 images at 768x768 with 100 output tokens each. TTFT is the prompt setup including the image encoder plus the first generate call, excluding model opening.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Device / path</th><th>TTFT (median)</th><th>Decode (median)</th></tr>
-      <tr><td>SM8475 CPU</td><td class="num">137.37 s</td><td class="num">6.60 tokens/s</td></tr>
-      <tr><td>SM8475 NPU (FP16)</td><td class="num">6.57 s</td><td class="num">7.69 tokens/s</td></tr>
-      <tr><td>SM7635 CPU</td><td class="num">105.18 s</td><td class="num">7.93 tokens/s</td></tr>
-      <tr><td>SM7635 NPU (Int16)</td><td class="num">9.83 s</td><td class="num">6.98 tokens/s</td></tr>
+      <tr><td>SM8475 CPU</td><td class="num">83.63 s</td><td class="num">12.081 tokens/s</td></tr>
+      <tr><td>SM8475 CPU (OpenMP)</td><td class="num">128.22 s</td><td class="num">7.491 tokens/s</td></tr>
+      <tr><td>SM8475 NPU (FP16)</td><td class="num">6.57 s</td><td class="num">7.692 tokens/s</td></tr>
+      <tr><td>SM7635 CPU</td><td class="num">95.01 s</td><td class="num">5.891 tokens/s</td></tr>
+      <tr><td>SM7635 CPU (OpenMP)</td><td class="num">97.45 s</td><td class="num">3.569 tokens/s</td></tr>
+      <tr><td>SM7635 NPU (Int16)</td><td class="num">9.83 s</td><td class="num">6.982 tokens/s</td></tr>
     </table>
     </div>
-    <p>Image TTFT is about 20.9x shorter on SM8475 and about 10.7x shorter on SM7635. Each image was measured once, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B. The CPU values were measured on 2026-09-13; the CPU execution path is unchanged.</p>
+    <p>Image TTFT is about 12.7x shorter on SM8475 and about 9.7x shorter on SM7635. Each image was measured once, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B. Note that the two paths count input tokens differently (the CPU path reports 64 text tokens, the NPU path reports 318 tokens including 256 image embeddings); both consume the same 768x768 pixels and the same 256 image embeddings.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/media_ttft_sm8475.png" alt="SM8475 VLM and audio TTFT breakdown (CPU / CPU OpenMP / NPU)" loading="lazy">
+      <figcaption>SM8475 (FP16) VLM and audio TTFT breakdown (encoder and decoder prefill)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/media_ttft_sm7635.png" alt="SM7635 VLM and audio TTFT breakdown (CPU / CPU OpenMP / NPU)" loading="lazy">
+      <figcaption>SM7635 (Int16) VLM and audio TTFT breakdown (encoder and decoder prefill)</figcaption>
+    </figure>
 
     <h3>Audio input latency</h3>
-    <p>Medians over 10 FLEURS recordings (2 each in 5 languages, generated to natural EOS with a 256-token cap). TTFT is the prompt setup including the audio encoder plus the first generate call, excluding model opening. On the CPU path the decoder uses 2 threads and the audio encoder uses the default number of cores.</p>
+    <p>Medians over 10 FLEURS recordings (2 each in 5 languages, generated to natural EOS with a 256-token cap). TTFT is the prompt setup including the audio encoder plus the first generate call, excluding model opening.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Device / path</th><th>TTFT (median)</th><th>Decode (median)</th><th>Output tokens</th></tr>
-      <tr><td>SM8475 CPU</td><td class="num">49.32 s</td><td class="num">7.68 tokens/s</td><td class="num">21-91</td></tr>
-      <tr><td>SM8475 NPU (FP16)</td><td class="num">8.08 s</td><td class="num">7.19 tokens/s</td><td class="num">21-60</td></tr>
-      <tr><td>SM7635 CPU</td><td class="num">45.65 s</td><td class="num">7.92 tokens/s</td><td class="num">21-91</td></tr>
-      <tr><td>SM7635 NPU (Int16)</td><td class="num">9.29 s</td><td class="num">6.54 tokens/s</td><td class="num">21-90</td></tr>
+      <tr><td>SM8475 CPU</td><td class="num">37.29 s</td><td class="num">10.416 tokens/s</td><td class="num">21-89</td></tr>
+      <tr><td>SM8475 CPU (OpenMP)</td><td class="num">36.49 s</td><td class="num">10.539 tokens/s</td><td class="num">21-89</td></tr>
+      <tr><td>SM8475 NPU (FP16)</td><td class="num">8.08 s</td><td class="num">7.193 tokens/s</td><td class="num">21-60</td></tr>
+      <tr><td>SM7635 CPU</td><td class="num">47.22 s</td><td class="num">5.167 tokens/s</td><td class="num">21-89</td></tr>
+      <tr><td>SM7635 CPU (OpenMP)</td><td class="num">35.37 s</td><td class="num">3.847 tokens/s</td><td class="num">21-89</td></tr>
+      <tr><td>SM7635 NPU (Int16)</td><td class="num">9.29 s</td><td class="num">6.539 tokens/s</td><td class="num">21-90</td></tr>
     </table>
     </div>
-    <p>Audio TTFT is about 6.1x shorter on SM8475 and about 4.9x shorter on SM7635. The generated text and output length differ between paths, so values other than TTFT are not a comparison over identical outputs, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B.</p>
+    <p>Audio TTFT is about 4.6x shorter on SM8475 and about 5.1x shorter on SM7635. The generated text and output length differ between paths, so values other than TTFT are not a comparison over identical outputs, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B.</p>
 
     <h2>Limitations</h2>
     <ul>
