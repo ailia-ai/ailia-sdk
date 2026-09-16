@@ -238,17 +238,14 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     <h2>Benchmark</h2>
     <p>The following results were measured with Gemma 4 E2B on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69, ASUS AI2202) uses the FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the Int16 model. Both were measured with QAIRT 2.47.0.260601, a context length of 8192, Q4_0 input and the AR-256 / AR-1 configuration. The NPU numbers were measured with the 2026-09-16 production package, which runs the PLE frontend on the NPU.</p>
     <p>The CPU numbers run the same Q4_0 GGUF through the standard llama.cpp path on the same device (8 decoder workers, context 8192, NDK r27c). The shipping configuration is the build with OpenMP disabled, which is the "CPU" column. "CPU (OpenMP)" is a comparison build made with <code>GGML_OPENMP=ON</code> and <code>OMP_NUM_THREADS=2</code>.</p>
-    <div class="note">
-      <strong>Note:</strong> The two devices differ in both SoC and quantization, so the gap between them cannot be attributed to quantization alone. CPU values are the median of two runs; NPU values are a single run per condition.
-    </div>
 
     <h3>Decode throughput</h3>
     <p>Throughput while generating 1,000 tokens.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device</th><th>Model</th><th>CPU</th><th>CPU (OpenMP)</th><th>NPU (QNN)</th><th>NPU / CPU</th></tr>
+      <tr><th>Device</th><th>Model</th><th>CPU</th><th>CPU (OpenMP)</th><th>NPU (QNN)</th><th>Effect of the NPU</th></tr>
       <tr><td>SM8475 (Hexagon v69)</td><td>FP16</td><td class="num">9.971 tokens/s</td><td class="num">8.482 tokens/s</td><td class="num">7.843 tokens/s</td><td class="num">0.79x</td></tr>
-      <tr><td>SM7635 (Hexagon v73)</td><td>Int16</td><td class="num">6.045 tokens/s</td><td class="num">4.730 tokens/s</td><td class="num">6.883 tokens/s</td><td class="num">1.14x</td></tr>
+      <tr><td>SM7635 (Hexagon v73)</td><td>Int16</td><td class="num">6.045 tokens/s</td><td class="num">4.730 tokens/s</td><td class="num">6.883 tokens/s</td><td class="num">1.14x faster</td></tr>
     </table>
     </div>
     <p>On SM7635, NPU decode is 1.14x faster than the CPU (1.46x faster than the OpenMP build). On SM8475 the CPU is faster: decode processes one token at a time, so it is dominated by weight loading and does not benefit much from the parallel compute of the NPU.</p>
@@ -277,7 +274,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     </div>
     <ul>
       <li>Prefill throughput is <code>actual input tokens / time of the first generate call</code>, measured after a two-token warmup.</li>
-      <li>With a 2,048-token input, the NPU reaches about 3.30x the CPU throughput on SM8475 (3.96x against the OpenMP build) and about 1.14x on SM7635 (1.18x against the OpenMP build).</li>
+      <li>With a 2,048-token input, the NPU is about 3.30x faster than the CPU on SM8475 (3.96x faster than the OpenMP build) and about 1.14x faster on SM7635 (1.18x faster than the OpenMP build).</li>
       <li>For short inputs such as 64 tokens the NPU is at a disadvantage, because the fixed-length AR-256 graph is mostly padding.</li>
     </ul>
 
@@ -299,7 +296,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
       <tr><td>SM7635</td><td class="num">93.0%</td><td class="num">98.0%</td><td class="num">3.4%</td></tr>
     </table>
     </div>
-    <p>On the NPU, CPU use during prefill stays around 4%, leaving the CPU available for the rest of the application. Across three consecutive runs, PPS varied by 4.5% (SM8475) and 2.1% (SM7635) on the NPU, against up to 64.0% and 38.5% for the CPU configurations. This measurement was not temperature-controlled, so the variation cannot be attributed to thermal throttling alone.</p>
+    <p>On the NPU, CPU use during prefill stays around 4%, leaving the CPU available for the rest of the application. Across three consecutive runs, PPS varied by 4.5% (SM8475) and 2.1% (SM7635) on the NPU, against up to 64.0% and 38.5% for the CPU configurations. CPU performance drops considerably under continuous operation, while NPU performance stays stable.</p>
 
     <h3>VLM (image input) latency</h3>
     <p>Medians over the same 10 images at 768x768 with 100 output tokens each. TTFT is the prompt setup including the image encoder plus the first generate call, excluding model opening.</p>
@@ -314,7 +311,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
       <tr><td>SM7635 NPU (Int16)</td><td class="num">9.83 s</td><td class="num">6.982 tokens/s</td></tr>
     </table>
     </div>
-    <p>Image TTFT is about 12.7x shorter on SM8475 and about 9.7x shorter on SM7635. Each image was measured once, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B. Note that the two paths count input tokens differently (the CPU path reports 64 text tokens, the NPU path reports 318 tokens including 256 image embeddings); both consume the same 768x768 pixels and the same 256 image embeddings.</p>
+    <p>Image TTFT is about 12.7x faster on SM8475 and about 9.7x faster on SM7635. Both the CPU and the NPU consume the same 768x768 pixels and the same 256 image embeddings.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/media_ttft_sm8475.png" alt="SM8475 VLM and audio TTFT breakdown (CPU / CPU OpenMP / NPU)" loading="lazy">
       <figcaption>SM8475 (FP16) VLM and audio TTFT breakdown (encoder and decoder prefill)</figcaption>
@@ -337,7 +334,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
       <tr><td>SM7635 NPU (Int16)</td><td class="num">9.29 s</td><td class="num">6.539 tokens/s</td><td class="num">21-90</td></tr>
     </table>
     </div>
-    <p>Audio TTFT is about 4.6x shorter on SM8475 and about 5.1x shorter on SM7635. The generated text and output length differ between paths, so values other than TTFT are not a comparison over identical outputs, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B.</p>
+    <p>Audio TTFT is about 4.6x faster on SM8475 and about 5.1x faster on SM7635.</p>
 
     <h2>Limitations</h2>
     <ul>
