@@ -91,7 +91,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>Overview</h2>
-    <p>ailia LLM 1.5.0 and later support fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp, and it accelerates prefill by up to 14x on Android devices (Snapdragon 8+ Gen 1, 2,048-token input, compared with the CPU on the same device). In addition to text LLMs and VLMs (Vision Language Models) that take images as input, ailia LLM also supports audio input, with processing on the NPU.</p>
+    <p>ailia LLM 1.5.0 and later support fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp, and it accelerates prefill by up to 19x on Android devices (Snapdragon 8+ Gen 1, 2,048-token input, compared with the CPU on the same device). In addition to text LLMs and VLMs (Vision Language Models) that take images as input, ailia LLM also supports audio input, with processing on the NPU.</p>
     <p>QNN (Qualcomm AI Engine Direct) is a backend API provided by Qualcomm. ailia LLM achieves NPU inference by converting GGUF, the model format of llama.cpp, into a format that can be executed by QNN.</p>
     <div class="note">
       <strong>Note:</strong> The QNN backend is available in ailia LLM 1.5.0 and later.
@@ -158,10 +158,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>SoC</th><th>Example device</th><th>File</th><th>Contents</th><th>Size</th></tr>
-      <tr><td rowspan="2">sm8475<br>(Hexagon v69 / FP16)</td><td rowspan="2">Snapdragon 8+ Gen 1</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm8475.qnn">gemma4-e2b-sm8475.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">3.62 GB</td></tr>
+      <tr><td rowspan="2">sm8475<br>(Hexagon v69 / FP16)</td><td rowspan="2">Snapdragon 8+ Gen 1</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm8475.qnn">gemma4-e2b-sm8475.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">3.60 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm8475-mmproj.qnn">gemma4-e2b-sm8475-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">1.11 GB</td></tr>
-      <tr><td rowspan="2">sm7635<br>(Hexagon v73 / Int16)</td><td rowspan="2">Snapdragon 7s Gen 3</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm7635.qnn">gemma4-e2b-sm7635.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">3.60 GB</td></tr>
-      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm7635-mmproj.qnn">gemma4-e2b-sm7635-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.73 GB</td></tr>
+      <tr><td rowspan="2">sm7635<br>(Hexagon v73 / Int16)</td><td rowspan="2">Snapdragon 7s Gen 3</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm7635.qnn">gemma4-e2b-sm7635.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">3.57 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm7635-mmproj.qnn">gemma4-e2b-sm7635-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.63 GB</td></tr>
     </table>
     </div>
     <p>All of these are for ailia LLM 1.5.0 (QAIRT 2.47.0.260601), with a context length of 8192 and the AR-256 / AR-1 configuration.</p>
@@ -206,7 +206,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     <p><a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720" target="_blank">https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720 (TBD)</a></p>
 
     <h2>Architecture</h2>
-    <p>ailia LLM maps the QNN Model with mmap, restores the QNN context, and executes it on the Hexagon NPU (HTP). Prefill is processed with the fixed-length AR-N graph; when the prompt length is not a multiple of AR, the last slice is padded. Decode uses the AR-1 graph in the same context, so no KV cache copy occurs after prefill. For VLM, image patching and position embedding are performed on the CPU, and the 16-layer Vision Transformer, pooling and projection are executed in a single QNN graph. Audio input uses an Audio graph to run the audio encoder on the NPU.</p>
+    <p>ailia LLM maps the QNN Model with mmap, restores the QNN context, and executes it on the Hexagon NPU (HTP). Prefill is processed with the fixed-length AR-N graph; when the prompt length is not a multiple of AR, the last slice is padded. Decode uses the AR-1 graph in the same context, so no KV cache copy occurs after prefill. For VLM, image patching and position embedding are performed on the CPU, and the 16-layer Vision Transformer, pooling and projection are executed in a single QNN graph. Audio input uses an Audio graph to run the audio encoder on the NPU. The per-layer embedding (PLE) frontend also runs inside each transformer graph, leaving only token-row lookup and media embedding replacement on the CPU. This improves prefill for the Int16 model compared with running that input processing on the CPU.</p>
     <div class="arch-side">
       <div class="arch-group">
         <div class="arch-group-title">QNN Model (.qnn)<small>SoC-specific, self-contained model file</small></div>
@@ -236,7 +236,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     </div>
 
     <h2>Benchmark</h2>
-    <p>The following results were measured with Gemma 4 E2B on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69, ASUS AI2202) uses the FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the Int16 model. Both were measured with QAIRT 2.47.0.260601, a context length of 8192, Q4_0 input and the AR-256 / AR-1 configuration. CPU uses the llama.cpp compatible CPU implementation (GGUF, 2 threads) on the same device.</p>
+    <p>The following results were measured with Gemma 4 E2B on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69, ASUS AI2202) uses the FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the Int16 model. Both were measured with QAIRT 2.47.0.260601, a context length of 8192, Q4_0 input and the AR-256 / AR-1 configuration. CPU uses the llama.cpp compatible CPU implementation (GGUF, 2 threads) on the same device. The NPU numbers were measured with the 2026-09-16 production package, which runs the PLE frontend on the NPU.</p>
     <div class="note">
       <strong>Note:</strong> The two devices differ in both SoC and quantization, so the gap between them cannot be attributed to quantization alone. Each number is a single run, not an average of repeated runs.
     </div>
@@ -246,8 +246,8 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Device</th><th>Model</th><th>CPU</th><th>NPU (QNN)</th><th>NPU / CPU</th></tr>
-      <tr><td>SM8475 (Hexagon v69)</td><td>FP16</td><td class="num">8.340 tokens/s</td><td class="num">7.536 tokens/s</td><td class="num">0.90x</td></tr>
-      <tr><td>SM7635 (Hexagon v73)</td><td>Int16</td><td class="num">7.851 tokens/s</td><td class="num">6.473 tokens/s</td><td class="num">0.82x</td></tr>
+      <tr><td>SM8475 (Hexagon v69)</td><td>FP16</td><td class="num">8.340 tokens/s</td><td class="num">7.843 tokens/s</td><td class="num">0.94x</td></tr>
+      <tr><td>SM7635 (Hexagon v73)</td><td>Int16</td><td class="num">7.851 tokens/s</td><td class="num">6.883 tokens/s</td><td class="num">0.88x</td></tr>
     </table>
     </div>
     <p>Under these conditions decode is faster on the CPU on both devices. Decode processes one token at a time, so it is dominated by weight loading and does not benefit much from the parallel compute of the NPU.</p>
@@ -266,18 +266,18 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Input tokens</th><th>SM8475 CPU</th><th>SM8475 NPU (FP16)</th><th>SM7635 CPU</th><th>SM7635 NPU (Int16)</th></tr>
-      <tr><td class="num">64</td><td class="num">14.870</td><td class="num">17.210</td><td class="num">12.571</td><td class="num">9.775</td></tr>
-      <tr><td class="num">128</td><td class="num">21.505</td><td class="num">72.384</td><td class="num">16.822</td><td class="num">23.033</td></tr>
-      <tr><td class="num">256</td><td class="num">21.214</td><td class="num">142.785</td><td class="num">16.544</td><td class="num">45.248</td></tr>
-      <tr><td class="num">512</td><td class="num">20.454</td><td class="num">188.090</td><td class="num">16.013</td><td class="num">50.435</td></tr>
-      <tr><td class="num">1024</td><td class="num">18.662</td><td class="num">206.170</td><td class="num">15.208</td><td class="num">52.660</td></tr>
-      <tr><td class="num">2048</td><td class="num">14.549</td><td class="num">214.491</td><td class="num">14.295</td><td class="num">53.870</td></tr>
+      <tr><td class="num">64</td><td class="num">14.870</td><td class="num">23.978</td><td class="num">12.571</td><td class="num">14.296</td></tr>
+      <tr><td class="num">128</td><td class="num">21.505</td><td class="num">147.489</td><td class="num">16.822</td><td class="num">55.247</td></tr>
+      <tr><td class="num">256</td><td class="num">21.214</td><td class="num">265.230</td><td class="num">16.544</td><td class="num">109.083</td></tr>
+      <tr><td class="num">512</td><td class="num">20.454</td><td class="num">286.695</td><td class="num">16.013</td><td class="num">111.699</td></tr>
+      <tr><td class="num">1024</td><td class="num">18.662</td><td class="num">293.811</td><td class="num">15.208</td><td class="num">111.440</td></tr>
+      <tr><td class="num">2048</td><td class="num">14.549</td><td class="num">286.029</td><td class="num">14.295</td><td class="num">110.301</td></tr>
     </table>
     </div>
     <ul>
       <li>Prefill throughput is <code>actual input tokens / time of the first generate call</code>. No warmup is performed, so the first-call latency is included.</li>
       <li>Conditions are measured from short to long inputs, so the 64-token result starts from a different state than the later ones.</li>
-      <li>With a 2,048-token input, the NPU reaches about 14.7x the CPU throughput on SM8475 and about 3.8x on SM7635.</li>
+      <li>With a 2,048-token input, the NPU reaches about 19.7x the CPU throughput on SM8475 and about 7.7x on SM7635.</li>
     </ul>
 
     <figure class="bench-figure">
@@ -290,42 +290,30 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     </figure>
 
     <h3>VLM (image input) latency</h3>
-    <p>Medians over the same 10 images at 768x768 (256 image + 62 text = 318 input tokens). TTFT is the prompt setup including the image encoder plus the first generate call, excluding model opening. On the CPU path the decoder uses 2 threads and the image encoder uses the default number of cores.</p>
+    <p>Medians over the same 10 images at 768x768 (256 image + 62 text = 318 input tokens, 100 output tokens each). TTFT is the prompt setup including the image encoder plus the first generate call, excluding model opening. On the CPU path the decoder uses 2 threads and the image encoder uses the default number of cores.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Device / path</th><th>TTFT (median)</th><th>Decode (median)</th></tr>
       <tr><td>SM8475 CPU</td><td class="num">137.37 s</td><td class="num">6.60 tokens/s</td></tr>
-      <tr><td>SM8475 NPU (FP16)</td><td class="num">9.51 s</td><td class="num">6.91 tokens/s</td></tr>
+      <tr><td>SM8475 NPU (FP16)</td><td class="num">6.57 s</td><td class="num">7.69 tokens/s</td></tr>
       <tr><td>SM7635 CPU</td><td class="num">105.18 s</td><td class="num">7.93 tokens/s</td></tr>
-      <tr><td>SM7635 NPU (Int16)</td><td class="num">25.82 s</td><td class="num">6.20 tokens/s</td></tr>
+      <tr><td>SM7635 NPU (Int16)</td><td class="num">9.83 s</td><td class="num">6.98 tokens/s</td></tr>
     </table>
     </div>
-    <p>Image TTFT is about 14.4x shorter on SM8475 and about 4.1x shorter on SM7635. Each image was measured once, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B.</p>
+    <p>Image TTFT is about 20.9x shorter on SM8475 and about 10.7x shorter on SM7635. Each image was measured once, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B. The CPU values were measured on 2026-09-13; the CPU execution path is unchanged.</p>
 
     <h3>Audio input latency</h3>
-    <p>Medians over 10 FLEURS recordings (2 each in 5 languages). TTFT is the prompt setup including the audio encoder plus the first generate call, excluding model opening. On the CPU path the decoder uses 2 threads and the audio encoder uses the default number of cores.</p>
+    <p>Medians over 10 FLEURS recordings (2 each in 5 languages, generated to natural EOS with a 256-token cap). TTFT is the prompt setup including the audio encoder plus the first generate call, excluding model opening. On the CPU path the decoder uses 2 threads and the audio encoder uses the default number of cores.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Device / path</th><th>TTFT (median)</th><th>Decode (median)</th><th>Output tokens</th></tr>
       <tr><td>SM8475 CPU</td><td class="num">49.32 s</td><td class="num">7.68 tokens/s</td><td class="num">21-91</td></tr>
-      <tr><td>SM8475 NPU (FP16)</td><td class="num">8.37 s</td><td class="num">6.86 tokens/s</td><td class="num">21-60</td></tr>
+      <tr><td>SM8475 NPU (FP16)</td><td class="num">8.08 s</td><td class="num">7.19 tokens/s</td><td class="num">21-60</td></tr>
       <tr><td>SM7635 CPU</td><td class="num">45.65 s</td><td class="num">7.92 tokens/s</td><td class="num">21-91</td></tr>
-      <tr><td>SM7635 NPU (Int16)</td><td class="num">13.98 s</td><td class="num">5.89 tokens/s</td><td class="num">21-61</td></tr>
+      <tr><td>SM7635 NPU (Int16)</td><td class="num">9.29 s</td><td class="num">6.54 tokens/s</td><td class="num">21-90</td></tr>
     </table>
     </div>
-    <p>Audio TTFT is about 5.9x shorter on SM8475 and about 3.3x shorter on SM7635. The generated text and output length differ between paths, so values other than TTFT are not a comparison over identical outputs, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B.</p>
-
-    <h3>8K context run</h3>
-    <p>7,936 input tokens + 256 output tokens, run twice on each device. All four runs completed the specified token counts.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Device</th><th>Run</th><th>Prefill</th><th>Decode</th></tr>
-      <tr><td>SM8475 (FP16)</td><td class="num">1</td><td class="num">218.956 tokens/s</td><td class="num">7.485 tokens/s</td></tr>
-      <tr><td>SM8475 (FP16)</td><td class="num">2</td><td class="num">200.439 tokens/s</td><td class="num">7.509 tokens/s</td></tr>
-      <tr><td>SM7635 (Int16)</td><td class="num">1</td><td class="num">54.931 tokens/s</td><td class="num">6.444 tokens/s</td></tr>
-      <tr><td>SM7635 (Int16)</td><td class="num">2</td><td class="num">55.082 tokens/s</td><td class="num">6.495 tokens/s</td></tr>
-    </table>
-    </div>
+    <p>Audio TTFT is about 6.1x shorter on SM8475 and about 4.9x shorter on SM7635. The generated text and output length differ between paths, so values other than TTFT are not a comparison over identical outputs, and the CPU and NPU numbers come from separate runs rather than a strict side-by-side A/B.</p>
 
     <h2>Limitations</h2>
     <ul>
