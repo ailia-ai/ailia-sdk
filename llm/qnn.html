@@ -297,6 +297,18 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM のみ</code></pre>
     </div>
     <p>NPU では Prefill 中の CPU 使用率が 4% 程度に収まるため、アプリケーション側の処理に CPU を残せます。3 回の連続実行での PPS の変動は NPU が 4.5%（SM8475）・2.1%（SM7635）だったのに対し、CPU 構成では最大 64.0%・38.5% でした。CPU は連続稼働でパフォーマンスが大きく低下しますが、NPU のパフォーマンスは安定しています。</p>
 
+    <p>同じ 2,048 トークン Prefill を連続して 3 回実行したときのスループット（tokens/s）です。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・経路</th><th>1 回目</th><th>2 回目</th><th>3 回目</th></tr>
+      <tr><td>SM8475 CPU</td><td class="num">129.377</td><td class="num">68.112</td><td class="num">60.324</td></tr>
+      <tr><td>SM8475 NPU（FP16）</td><td class="num">272.190</td><td class="num">265.726</td><td class="num">259.892</td></tr>
+      <tr><td>SM7635 CPU</td><td class="num">106.273</td><td class="num">38.289</td><td class="num">39.740</td></tr>
+      <tr><td>SM7635 NPU（Int16）</td><td class="num">109.307</td><td class="num">109.252</td><td class="num">106.963</td></tr>
+    </table>
+    </div>
+    <p>SM7635 では 1 回目こそ CPU と NPU がほぼ同等ですが、2 回目以降の CPU は発熱による性能低下（サーマルスロットリング）で約 3 分の 1 まで落ち込みます。NPU は 3 回とも同じスループットを維持するため、連続して推論を行う実際の利用では NPU が約 2.8 倍高速になります。SM8475 でも CPU は 2 回目以降に約半分まで低下し、NPU との差は 2.1 倍から 4.3 倍に広がります。</p>
+
     <h3>VLM（画像入力）の応答時間</h3>
     <p>同一の 768x768 画像 10 枚、各 100 トークン出力での中央値です。TTFT は画像エンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。</p>
     <div class="table-wrap">

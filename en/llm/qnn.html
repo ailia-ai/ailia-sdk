@@ -298,6 +298,18 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     </div>
     <p>On the NPU, CPU use during prefill stays around 4%, leaving the CPU available for the rest of the application. Across three consecutive runs, PPS varied by 4.5% (SM8475) and 2.1% (SM7635) on the NPU, against up to 64.0% and 38.5% for the CPU configurations. CPU performance drops considerably under continuous operation, while NPU performance stays stable.</p>
 
+    <p>Throughput (tokens/s) of the same 2,048-token prefill run three times in a row.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device / path</th><th>Run 1</th><th>Run 2</th><th>Run 3</th></tr>
+      <tr><td>SM8475 CPU</td><td class="num">129.377</td><td class="num">68.112</td><td class="num">60.324</td></tr>
+      <tr><td>SM8475 NPU (FP16)</td><td class="num">272.190</td><td class="num">265.726</td><td class="num">259.892</td></tr>
+      <tr><td>SM7635 CPU</td><td class="num">106.273</td><td class="num">38.289</td><td class="num">39.740</td></tr>
+      <tr><td>SM7635 NPU (Int16)</td><td class="num">109.307</td><td class="num">109.252</td><td class="num">106.963</td></tr>
+    </table>
+    </div>
+    <p>On SM7635 the CPU and the NPU are nearly identical on the first run, but from the second run on the CPU falls to about a third of that because of thermal throttling. The NPU holds the same throughput across all three runs, so in real use with continuous inference the NPU is about 2.8x faster. On SM8475 the CPU also drops to about half from the second run on, widening the gap with the NPU from 2.1x to 4.3x.</p>
+
     <h3>VLM (image input) latency</h3>
     <p>Medians over the same 10 images at 768x768 with 100 output tokens each. TTFT is the prompt setup including the image encoder plus the first generate call, excluding model opening.</p>
     <div class="table-wrap">
