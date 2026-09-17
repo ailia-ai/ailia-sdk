@@ -348,6 +348,26 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     </div>
     <p>Audio TTFT is about 4.6x faster on SM8475 and about 5.1x faster on SM7635.</p>
 
+    <h3>Memory usage</h3>
+    <p>Memory usage on SH-M33 (SM7635 / Hexagon v73) while running the LLM, VLM and ALM configurations with 8 generated tokens (in MiB, context length 8192). The CPU path uses the Q4_0 GGUF with the BF16 mmproj, and the NPU path uses the Int16 QNN Model. Models are loaded with mmap, so anonymous memory (<code>RssAnon</code>, the working memory actually allocated) and file-backed mappings (<code>RssFile</code>, reusable page cache) are listed separately. Peak is the peak resident size of the process (<code>VmHWM</code>).</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Workload</th><th>Path</th><th><code>VmHWM</code></th><th><code>RssAnon</code></th><th><code>RssFile</code></th></tr>
+      <tr><td>LLM</td><td>CPU</td><td class="num">4574.2</td><td class="num">1524.1</td><td class="num">2896.5</td></tr>
+      <tr><td>LLM</td><td>NPU (Int16)</td><td class="num">1666.8</td><td class="num">386.4</td><td class="num">1276.2</td></tr>
+      <tr><td>VLM</td><td>CPU</td><td class="num">4881.2</td><td class="num">2512.4</td><td class="num">40.3</td></tr>
+      <tr><td>VLM</td><td>NPU (Int16)</td><td class="num">2161.2</td><td class="num">673.3</td><td class="num">1483.7</td></tr>
+      <tr><td>ALM</td><td>CPU</td><td class="num">4873.7</td><td class="num">2623.0</td><td class="num">1509.1</td></tr>
+      <tr><td>ALM</td><td>NPU (Int16)</td><td class="num">2202.5</td><td class="num">591.6</td><td class="num">1606.7</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>Anonymous memory on the NPU is about a quarter of the CPU path (0.25x for LLM, 0.27x for VLM, 0.23x for ALM), and peak resident size stays at 0.36x to 0.45x.</li>
+      <li>The CPU path expands all weights when the model is opened, taking 4,690.4 MiB, while the NPU path opens with 98.4 MiB and loads the compiled context on the first generate call. Between opening the model and the first generation it therefore holds about 1/48 as much.</li>
+      <li>Destroying the model returns both paths to about 87 MiB, and calling <code>mallopt(M_PURGE, 0)</code> brings it down to about 23 MiB.</li>
+      <li>The NPU values cover what is visible from the process; allocations that stay inside the DSP are not included. With only 8 generated tokens they also exclude the KV cache, which grows with longer inputs.</li>
+    </ul>
+
     <h2>Limitations</h2>
     <ul>
       <li>QNN Models must be converted for each SoC, and a file built for another SoC cannot be used.</li>

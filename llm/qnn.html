@@ -347,6 +347,26 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM のみ</code></pre>
     </div>
     <p>音声入力の TTFT は、SM8475 で約 4.6 倍、SM7635 で約 5.1 倍高速です。</p>
 
+    <h3>メモリ使用量</h3>
+    <p>SH-M33（SM7635 / Hexagon v73）で、LLM / VLM / ALM の各構成を 8 トークン生成で実行したときのメモリ使用量です（単位 MiB、コンテキスト長 8192）。CPU は Q4_0 GGUF と BF16 の mmproj、NPU は Int16 の QNN Model を使用しています。モデルは mmap で読み込むため、実際に確保した作業メモリである匿名メモリ（<code>RssAnon</code>）と、ページキャッシュとして再利用できるファイルマッピング（<code>RssFile</code>）を分けて記載します。ピークはプロセスの最大常駐サイズ（<code>VmHWM</code>）です。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>ワークロード</th><th>実行系</th><th><code>VmHWM</code></th><th><code>RssAnon</code></th><th><code>RssFile</code></th></tr>
+      <tr><td>LLM</td><td>CPU</td><td class="num">4574.2</td><td class="num">1524.1</td><td class="num">2896.5</td></tr>
+      <tr><td>LLM</td><td>NPU（Int16）</td><td class="num">1666.8</td><td class="num">386.4</td><td class="num">1276.2</td></tr>
+      <tr><td>VLM</td><td>CPU</td><td class="num">4881.2</td><td class="num">2512.4</td><td class="num">40.3</td></tr>
+      <tr><td>VLM</td><td>NPU（Int16）</td><td class="num">2161.2</td><td class="num">673.3</td><td class="num">1483.7</td></tr>
+      <tr><td>ALM</td><td>CPU</td><td class="num">4873.7</td><td class="num">2623.0</td><td class="num">1509.1</td></tr>
+      <tr><td>ALM</td><td>NPU（Int16）</td><td class="num">2202.5</td><td class="num">591.6</td><td class="num">1606.7</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>匿名メモリは NPU が CPU の 4 分の 1 前後です（LLM 0.25 倍、VLM 0.27 倍、ALM 0.23 倍）。ピーク常駐でも 0.36〜0.45 倍に収まります。</li>
+      <li>CPU はモデルを開いた時点で全重みを展開するため 4,690.4 MiB を確保しますが、NPU は 98.4 MiB で開き、最初の生成でコンパイル済みのコンテキストを読み込みます。モデルを開いてから最初の生成までの占有は 1/48 程度です。</li>
+      <li>モデルを破棄すると CPU / NPU とも 87 MiB 前後まで戻ります。<code>mallopt(M_PURGE, 0)</code> を呼ぶと 23 MiB 前後になります。</li>
+      <li>NPU の値はプロセスから見えた分であり、DSP 内部で完結する領域は含みません。また 8 トークン生成のため、長文で増加する KV キャッシュは含みません。</li>
+    </ul>
+
     <h2>制約</h2>
     <ul>
       <li>QNN Model は SoC ごとに変換が必要で、他の SoC 向けのファイルは使用できません。</li>
