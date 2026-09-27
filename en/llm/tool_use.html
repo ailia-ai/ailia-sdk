@@ -126,34 +126,87 @@ Image and audio support can be checked with <code>ailiaLLMGetMultimodalCapabilit
 <li>A file read failure is ERROR_FILE_API, a failure to load media decoded from Base64 is ERROR_BUFFER_API, and invalid Base64 is INVALID_ARGUMENT.</li>
 </ul>
 <h2>C++ sample</h2>
-<p>The sample below uses nlohmann/json to edit the history. The model and the tool definitions are assumed to be set already.</p>
+<p>The full flow: opening the model, setting the tools with <code>ailiaLLMSetTools</code>, generating, returning tool results, and clearing the tools. The history is edited with nlohmann/json.</p>
 <pre><code class="language-cpp">#include &quot;ailia_llm.h&quot;
 #include &lt;nlohmann/json.hpp&gt;
+#include &lt;cstdio&gt;
+#include &lt;string&gt;
 #include &lt;vector&gt;
 using json = nlohmann::json;
 
-bool next_turn(AILIALLM* llm, json&amp; history) {
-    std::string input = history.dump();
-    if (ailiaLLMSetPromptJson(llm, input.c_str()) != 0) return false;
+// Runs one turn: SetPromptJson → Generate → GetResponseJson.
+static int generate_turn(AILIALLM* llm, const json&amp; messages, json&amp; response) {
+    std::string input = messages.dump();
+    int status = ailiaLLMSetPromptJson(llm, input.c_str());
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
     unsigned int done = 0;
     while (!done) {
-        if (ailiaLLMGenerate(llm, &amp;done) != 0) return false;
+        status = ailiaLLMGenerate(llm, &amp;done);
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
         // Preview with GetDeltaText only if needed. No concatenation for the history.
     }
     unsigned int size = 0;
-    if (ailiaLLMGetResponseJsonSize(llm, &amp;size) != 0) return false;
+    status = ailiaLLMGetResponseJsonSize(llm, &amp;size);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
     std::vector&lt;char&gt; output(size);
-    if (ailiaLLMGetResponseJson(llm, output.data(), size) != 0) return false;
-    json response = json::parse(output.data());
-    history.push_back(response);
-    if (response.contains(&quot;tool_calls&quot;)) {
+    status = ailiaLLMGetResponseJson(llm, output.data(), size);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    response = json::parse(output.data());
+    return AILIA_LLM_STATUS_SUCCESS;
+}
+
+static int run_tool_use(AILIALLM* llm) {
+    const char* tools = R&quot;([{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{
+        &quot;name&quot;:&quot;get_weather&quot;,&quot;description&quot;:&quot;Get the current weather.&quot;,
+        &quot;parameters&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;}},
+                      &quot;required&quot;:[&quot;city&quot;]}}}])&quot;;
+    int status = ailiaLLMSetTools(llm, tools);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+
+    json messages = json::array({{{&quot;role&quot;, &quot;user&quot;}, {&quot;content&quot;, &quot;What is the weather in Tokyo?&quot;}}});
+    for (int turn = 0; turn &lt; 8; turn++) {
+        json response;
+        status = generate_turn(llm, messages, response);
+        if (status == AILIA_LLM_STATUS_PARSE_ERROR) {
+            // Keep the existing history; never append the failed assistant or a tool result.
+            messages.push_back({{&quot;role&quot;, &quot;user&quot;},
+                                {&quot;content&quot;, &quot;Please retry with a complete response or tool call.&quot;}});
+            continue;
+        }
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+        messages.push_back(response);
+        if (!response.contains(&quot;tool_calls&quot;) || response[&quot;tool_calls&quot;].empty()) {
+            if (response[&quot;content&quot;].is_string()) {
+                printf(&quot;%s\n&quot;, response[&quot;content&quot;].get&lt;std::string&gt;().c_str());
+            }
+            break;
+        }
         for (const auto&amp; call : response[&quot;tool_calls&quot;]) {
-            // Validate the name and arguments and execute the tool. Mock result here.
-            history.push_back({{&quot;role&quot;, &quot;tool&quot;}, {&quot;tool_call_id&quot;, call[&quot;id&quot;]},
-                               {&quot;content&quot;, &quot;Sunny, 25 C&quot;}});
+            const auto&amp; function = call[&quot;function&quot;];
+            if (function[&quot;name&quot;] != &quot;get_weather&quot;) return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+            json args = json::parse(function[&quot;arguments&quot;].get&lt;std::string&gt;());
+            // Validate the arguments and execute the tool. Mock result here.
+            json result = {{&quot;city&quot;, args[&quot;city&quot;]}, {&quot;weather&quot;, &quot;sunny&quot;}};
+            messages.push_back({{&quot;role&quot;, &quot;tool&quot;}, {&quot;tool_call_id&quot;, call[&quot;id&quot;]},
+                                {&quot;content&quot;, result.dump()}}); // The result is a JSON string
         }
     }
-    return true;
+    return AILIA_LLM_STATUS_SUCCESS;
+}
+
+int main() {
+    AILIALLM* llm = nullptr;
+    if (ailiaLLMCreate(&amp;llm) != AILIA_LLM_STATUS_SUCCESS) return 1;
+    int status = ailiaLLMOpenModelFileA(llm, &quot;gemma-4-E2B-it-Q4_K_M.gguf&quot;, 4096);
+    if (status == AILIA_LLM_STATUS_SUCCESS) {
+        status = run_tool_use(llm);
+        ailiaLLMSetTools(llm, nullptr); // Clear the tools even on error.
+    }
+    if (status != AILIA_LLM_STATUS_SUCCESS) {
+        fprintf(stderr, &quot;error %d: %s\n&quot;, status, ailiaLLMGetErrorDetail(llm));
+    }
+    ailiaLLMDestroy(llm);
+    return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
 }
 </code></pre>
 <h2>API for each language</h2>
