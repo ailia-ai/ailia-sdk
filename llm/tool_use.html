@@ -126,34 +126,87 @@ GetResponseJsonは読み取りで蓄積を消去しません。新しいプロ�
 <li>ファイル読込失敗はERROR_FILE_API、Base64からのデコード済みメディア読込失敗はERROR_BUFFER_API、不正なBase64はINVALID_ARGUMENTです。</li>
 </ul>
 <h2>C++サンプル</h2>
-<p>以下では履歴の編集にnlohmann/jsonを使用します。モデルとツール定義は設定済みとします。</p>
+<p>モデルの読み込み、<code>ailiaLLMSetTools</code>によるツール設定から、生成、ツール結果の返却、ツールの解除までの一連の流れです。履歴の編集にはnlohmann/jsonを使用します。</p>
 <pre><code class="language-cpp">#include &quot;ailia_llm.h&quot;
 #include &lt;nlohmann/json.hpp&gt;
+#include &lt;cstdio&gt;
+#include &lt;string&gt;
 #include &lt;vector&gt;
 using json = nlohmann::json;
 
-bool next_turn(AILIALLM* llm, json&amp; history) {
-    std::string input = history.dump();
-    if (ailiaLLMSetPromptJson(llm, input.c_str()) != 0) return false;
+// SetPromptJson → Generate → GetResponseJsonを1ターン分実行します。
+static int generate_turn(AILIALLM* llm, const json&amp; messages, json&amp; response) {
+    std::string input = messages.dump();
+    int status = ailiaLLMSetPromptJson(llm, input.c_str());
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
     unsigned int done = 0;
     while (!done) {
-        if (ailiaLLMGenerate(llm, &amp;done) != 0) return false;
+        status = ailiaLLMGenerate(llm, &amp;done);
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
         // 必要な場合だけGetDeltaTextでプレビュー。履歴用の連結は不要。
     }
     unsigned int size = 0;
-    if (ailiaLLMGetResponseJsonSize(llm, &amp;size) != 0) return false;
+    status = ailiaLLMGetResponseJsonSize(llm, &amp;size);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
     std::vector&lt;char&gt; output(size);
-    if (ailiaLLMGetResponseJson(llm, output.data(), size) != 0) return false;
-    json response = json::parse(output.data());
-    history.push_back(response);
-    if (response.contains(&quot;tool_calls&quot;)) {
+    status = ailiaLLMGetResponseJson(llm, output.data(), size);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    response = json::parse(output.data());
+    return AILIA_LLM_STATUS_SUCCESS;
+}
+
+static int run_tool_use(AILIALLM* llm) {
+    const char* tools = R&quot;([{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{
+        &quot;name&quot;:&quot;get_weather&quot;,&quot;description&quot;:&quot;現在の天気を取得します。&quot;,
+        &quot;parameters&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;}},
+                      &quot;required&quot;:[&quot;city&quot;]}}}])&quot;;
+    int status = ailiaLLMSetTools(llm, tools);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+
+    json messages = json::array({{{&quot;role&quot;, &quot;user&quot;}, {&quot;content&quot;, &quot;東京の天気は？&quot;}}});
+    for (int turn = 0; turn &lt; 8; turn++) {
+        json response;
+        status = generate_turn(llm, messages, response);
+        if (status == AILIA_LLM_STATUS_PARSE_ERROR) {
+            // 失敗したassistantもtool結果も追加せず、既存履歴に再試行の指示を追加します。
+            messages.push_back({{&quot;role&quot;, &quot;user&quot;},
+                                {&quot;content&quot;, &quot;完全な応答またはツール呼び出しで再試行してください。&quot;}});
+            continue;
+        }
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+        messages.push_back(response);
+        if (!response.contains(&quot;tool_calls&quot;) || response[&quot;tool_calls&quot;].empty()) {
+            if (response[&quot;content&quot;].is_string()) {
+                printf(&quot;%s\n&quot;, response[&quot;content&quot;].get&lt;std::string&gt;().c_str());
+            }
+            break;
+        }
         for (const auto&amp; call : response[&quot;tool_calls&quot;]) {
-            // 実際には名前・引数を検証してツールを実行します。以下はモック結果。
-            history.push_back({{&quot;role&quot;, &quot;tool&quot;}, {&quot;tool_call_id&quot;, call[&quot;id&quot;]},
-                               {&quot;content&quot;, &quot;Sunny, 25 C&quot;}});
+            const auto&amp; function = call[&quot;function&quot;];
+            if (function[&quot;name&quot;] != &quot;get_weather&quot;) return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+            json args = json::parse(function[&quot;arguments&quot;].get&lt;std::string&gt;());
+            // 実際には引数を検証してツールを実行します。以下はモック結果。
+            json result = {{&quot;city&quot;, args[&quot;city&quot;]}, {&quot;weather&quot;, &quot;sunny&quot;}};
+            messages.push_back({{&quot;role&quot;, &quot;tool&quot;}, {&quot;tool_call_id&quot;, call[&quot;id&quot;]},
+                                {&quot;content&quot;, result.dump()}}); // 結果はJSON文字列
         }
     }
-    return true;
+    return AILIA_LLM_STATUS_SUCCESS;
+}
+
+int main() {
+    AILIALLM* llm = nullptr;
+    if (ailiaLLMCreate(&amp;llm) != AILIA_LLM_STATUS_SUCCESS) return 1;
+    int status = ailiaLLMOpenModelFileA(llm, &quot;gemma-4-E2B-it-Q4_K_M.gguf&quot;, 4096);
+    if (status == AILIA_LLM_STATUS_SUCCESS) {
+        status = run_tool_use(llm);
+        ailiaLLMSetTools(llm, nullptr); // エラー時もツール設定を解除します。
+    }
+    if (status != AILIA_LLM_STATUS_SUCCESS) {
+        fprintf(stderr, &quot;error %d: %s\n&quot;, status, ailiaLLMGetErrorDetail(llm));
+    }
+    ailiaLLMDestroy(llm);
+    return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
 }
 </code></pre>
 <h2>各言語のAPI</h2>
