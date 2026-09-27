@@ -108,13 +108,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>QNN (<a class="method-link" href="https://docs.qualcomm.com/nav/home/general_introduction.html?product=1601111740009302">Qualcomm AI Engine Direct</a>)</td><td>Yes</td><td>No</td><td>Hexagon v65 or later (Snapdragon 845 or later)</td><td>Low-level inference API; no LLM runtime is provided.</td></tr>
       <tr><td>QNN GenAI (Qualcomm Genie / <a class="method-link" href="https://github.com/qualcomm/GenieX">GenieX</a>)</td><td>Yes</td><td>No</td><td>Hexagon v79 or later (Snapdragon 8 Elite or later)</td><td>The officially supported Android SoCs are limited to the Snapdragon 8 Elite family, and Hexagon v79 or later is required. No NPU (QAIRT) model is provided for Gemma 4.</td></tr>
       <tr><td><a class="method-link" href="https://developers.google.com/edge/litert/next/litert_lm_npu">LiteRT-LM NPU</a></td><td>Yes</td><td>No</td><td>Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite (SM8550 / SM8650 / SM8750)</td><td>The only NPU model published for Qualcomm is Gemma3-1B (4-bit, 1,280 context). NPU models for Gemma 4 are provided only for Google Tensor and Intel. It is text only and does not support image or audio input.</td></tr>
-      <tr><td><strong><a class="method-link" href="https://ailia.ai/en/llm/">ailia LLM</a></strong></td><td>Yes</td><td>Yes</td><td>Hexagon v69 or later (Snapdragon 8 Gen 1 or later)</td><td>Uses the NPU even on older SoCs such as Snapdragon 8+ Gen 1, and runs Gemma 4 E2B / E4B on the NPU for text, VLM and ALM alike. Int16 quantization is supported, so it also runs on the Snapdragon 7s, which has no FP16 support.</td></tr>
+      <tr><td><strong><a class="method-link" href="https://ailia.ai/en/llm/">ailia LLM</a></strong></td><td>Yes</td><td>Yes</td><td>Hexagon v69 or later (Snapdragon 8 Gen 1 or later, 7s Gen 3, etc.)</td><td>Uses the NPU even on older SoCs such as Snapdragon 8+ Gen 1, and runs Gemma 4 E2B / E4B on the NPU for text, VLM and ALM alike. Int16 quantization is supported, so it also runs on the Snapdragon 7s, which has no FP16 support.</td></tr>
     </table>
     </div>
 
     <h2>Supported Platforms</h2>
     <ul>
-      <li>Android (Snapdragon 8 Gen 1 or later / Hexagon v69 or later)</li>
+      <li>Android (Hexagon v69 or later, e.g. Snapdragon 8 Gen 1 / 8+ Gen 1, 7s Gen 3, 8 Gen 2 or later)</li>
     </ul>
     <div class="note">
       <strong>Note:</strong> The supported QNN (QAIRT) version is 2.47.0.260601, the same as ailia SDK. QNN Models also depend on the QNN SDK version, so do not combine them with a different version of the QNN runtime.
@@ -136,23 +136,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>ailia LLM Compiler supports both FP16 and Int16, which can be selected at conversion time according to the target SoC. The Snapdragon 7s Gen 3 NPU uses Hexagon v73 but does not support FP16, so ailia LLM uses an Int16-quantized model on this SoC. The <a href="https://docs.qualcomm.com/doc/87-78936-1/87-78936-1_REV_A_Snapdragon_7s_Gen_3_Mobile_Platform_Product_Brief.pdf">Qualcomm Snapdragon 7s Gen 3 product brief (PDF, Artificial Intelligence section on page 2)</a> lists INT4, INT8, and INT16 as supported NPU precisions; FP16 is not included. Select a model based on the precisions supported by the specific SoC, as well as its Hexagon version.</p>
 
     <h2>Supported Models</h2>
-    <p><strong>Gemma 4 E2B</strong> and <strong>Gemma 4 E4B</strong> (both supporting text, image, and audio input) are currently supported. For VLM, a QNN Model for the image encoder (mmproj) is used in addition to the text QNN Model. The supported models depend on the Hexagon version of the SoC.</p>
+    <p><strong>Gemma 4 E2B</strong> and <strong>Gemma 4 E4B</strong> (both supporting text, image, and audio input) are currently supported. For image and audio input, a QNN Model for the image / audio encoder (mmproj) is used in addition to the text QNN Model. The supported models depend on the Hexagon version of the SoC.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Hexagon version</th><th>Example SoCs</th><th>Supported models</th><th>Context length</th></tr>
       <tr><td>v69</td><td>Snapdragon 8 Gen 1 / 8+ Gen 1</td><td>Gemma 4 E2B</td><td>8K</td></tr>
-      <tr><td>v73 or later</td><td>Snapdragon 8 Gen 2 or later</td><td>Gemma 4 E2B / E4B</td><td>8K</td></tr>
+      <tr><td>v73 or later</td><td>Snapdragon 7s Gen 3, 8 Gen 2 or later</td><td>Gemma 4 E2B / E4B</td><td>8K</td></tr>
     </table>
     </div>
     <div class="note">
       <strong>Note:</strong> Hexagon v69 limits the size of a context binary to 2 GB, so only E2B is supported there. Hexagon v73 and later have no such limit, so E4B is also supported. The pre-converted models all use a context length of 8K, which can be changed through the conversion settings of ailia LLM Compiler.
     </div>
-    <p>QNN Models are separate files for each Snapdragon model (SoC). Pre-converted model files are provided, so please use the file that matches the SoC of your target device.</p>
+    <p>QNN Models are separate files for each model and each Snapdragon model (SoC). Pre-converted model files are provided, so please use the file that matches the SoC of your target device.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>File</th><th>Contents</th></tr>
-      <tr><td><code>&lt;soc&gt;.qnn</code> (e.g. <code>sm8475.qnn</code>)</td><td>Text model (prefill + decode)</td></tr>
-      <tr><td><code>&lt;soc&gt;-mmproj.qnn</code> (e.g. <code>sm8475-mmproj.qnn</code>)</td><td>Image encoder (mmproj) for VLM</td></tr>
+      <tr><td><code>gemma4-&lt;model&gt;-&lt;soc&gt;.qnn</code> (e.g. <code>gemma4-e2b-sm8475.qnn</code>)</td><td>Text model (prefill + decode)</td></tr>
+      <tr><td><code>gemma4-&lt;model&gt;-&lt;soc&gt;-mmproj.qnn</code> (e.g. <code>gemma4-e2b-sm8475-mmproj.qnn</code>)</td><td>Image / audio encoder (mmproj)</td></tr>
     </table>
     </div>
     <h3>Model downloads</h3>
@@ -192,18 +192,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h3>Loading a QNN Model</h3>
-    <p>A QNN Model (.qnn) is passed to the same model loading API as a GGUF file. When the context size is set to 0, the fixed context length embedded in the QNN Model is used. For VLM, open the mmproj QNN Model as the projector after opening the text model.</p>
+    <p>A QNN Model (.qnn) is passed to the same model loading API as a GGUF file. When the context size is set to 0, the fixed context length embedded in the QNN Model is used. For image or audio input, open the mmproj QNN Model as the projector after opening the text model.</p>
     <pre><code class="language-cpp">#include "ailia_llm.h"
 struct AILIALLM *llm = nullptr;
 ailiaLLMCreate(&amp;llm);
-ailiaLLMOpenModelFileA(llm, "sm8475.qnn", /*ctx_size=*/0);
-ailiaLLMOpenMultimodalProjectorFileA(llm, "sm8475-mmproj.qnn"); // VLM only
+ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm8475.qnn", /*ctx_size=*/0);
+ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm8475-mmproj.qnn"); // image / audio input only
 // The prompt / generate APIs are the same as for GGUF
 ailiaLLMDestroy(llm);</code></pre>
     <p>In Kotlin (JNI), pass the path of the QNN Model instead of the GGUF path in the same way.</p>
     <pre><code class="language-kotlin">val llm = AiliaLLM()
 llm.openModelFile(qnnModelPath, 0)            // n_ctx=0 uses the fixed length in the QNN Model
-llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
+llm.openMultimodalProjectorFile(mmprojQnnPath) // image / audio input only</code></pre>
 
     <h3>Evaluation app</h3>
     <p>An evaluation apk for Android can be downloaded from the link below. The QNN-enabled build is <code>ailia-models-kotlin-qnn.apk</code>.</p>
@@ -220,9 +220,9 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
         <div class="arch-plus">+</div>
         <div class="arch-box"><div class="arch-name">Shared static weights (W4)</div><div class="arch-desc">Referenced by both AR-N and AR-1</div></div>
         <div class="arch-plus">+</div>
-        <div class="arch-box"><div class="arch-name">Vision graph</div><div class="arch-desc">Image encoder (mmproj.qnn for VLM)</div></div>
+        <div class="arch-box"><div class="arch-name">Vision graph</div><div class="arch-desc">Image encoder (mmproj.qnn)</div></div>
         <div class="arch-plus">+</div>
-        <div class="arch-box"><div class="arch-name">Audio graph</div><div class="arch-desc">Audio encoder for audio input</div></div>
+        <div class="arch-box"><div class="arch-name">Audio graph</div><div class="arch-desc">Audio encoder (mmproj.qnn)</div></div>
       </div>
       <div class="arch-arrow horizontal">→<br><span class="arch-hint">mmap / context restore</span></div>
       <div class="arch-group">
@@ -240,7 +240,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
     </div>
 
     <h2>Benchmark</h2>
-    <p>The following results were measured with Gemma 4 on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69, ASUS AI2202) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B and E4B Int16 models. All were measured with QAIRT 2.47, a context length of 8192 and the AR-256 / AR-1 configuration.</p>
+    <p>The following results were measured with Gemma 4 on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B and E4B Int16 models. All were measured with QAIRT 2.47, a context length of 8192 and the AR-256 / AR-1 configuration.</p>
     <p>The CPU numbers run the same Q4_0 GGUF through the standard llama.cpp path on the same device (8 decoder workers, context 8192). The shipping configuration is the build with OpenMP disabled, which is the "CPU" column. "CPU (OpenMP)" is a comparison build made with <code>GGML_OPENMP=ON</code> and <code>OMP_NUM_THREADS=2</code>.</p>
 
     <h3>Decode throughput</h3>
@@ -253,7 +253,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // VLM only</code></pre>
       <tr><td>SM7635 (Hexagon v73)</td><td>E4B / Int16</td><td class="num">3.351 tokens/s</td><td class="num">3.203 tokens/s</td><td class="num">3.128 tokens/s</td><td class="num">0.93x</td></tr>
     </table>
     </div>
-    <p>With E2B on SM7635, NPU decode is 1.10x faster than the CPU (1.53x faster than the OpenMP build). Decode processes one token at a time, so it is dominated by weight loading and does not benefit much from the parallel compute of the NPU; in the other configurations it matches or slightly trails the CPU.</p>
+    <p>With E2B on SM7635, NPU decode is 1.10x faster than the CPU (1.53x faster than the OpenMP build). On the other hand, E2B on SM8475 (0.81x) and E4B on SM7635 (0.93x) are slower than the CPU. Decode processes one token at a time, so it is dominated by weight loading and does not benefit much from the parallel compute of the NPU.</p>
 
     <figure class="bench-figure">
       <img src="../../llm/benchmark/tps_sm8475.png" alt="SM8475 E2B per-token decode throughput over 1000 generated tokens (CPU / CPU OpenMP / NPU)" loading="lazy">
