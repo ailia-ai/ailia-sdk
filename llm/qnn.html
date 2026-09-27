@@ -206,7 +206,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // 画像・音声入力のみ</c
 
     <h3>評価版アプリ</h3>
     <p>Android 向けの評価版 apk は下記からダウンロードできます。QNN 対応版は <code>ailia-models-kotlin-qnn.apk</code> です。</p>
-    <p><a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720" target="_blank">https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720（TBD）</a></p>
+    <p><a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927" target="_blank">https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927</a></p>
 
     <h2>アーキテクチャ</h2>
     <p>ailia LLM は QNN Model を mmap で読み込み、QNN Context を復元して Hexagon NPU（HTP）上で実行します。Prefill は固定長の AR-N グラフで処理し、プロンプトが AR の倍数でない場合は最後のスライスをパディングします。Decode は同じ Context 内の AR-1 グラフで処理し、Prefill 後の KV キャッシュのコピーは発生しません。VLM では画像のパッチ化と位置埋め込みを CPU で行い、16 層の Vision Transformer からプーリング、プロジェクションまでを 1 つの QNN グラフで実行します。音声入力には Audio グラフを使用し、音声エンコーダを NPU で実行します。また、層別トークン埋め込み（PLE）のフロントエンドも各 Transformer グラフ内で実行し、CPU 側にはトークン行の参照とメディア埋め込みの差し替えのみを残しています。これにより、入力処理を CPU で行う場合に比べて Int16 モデルの Prefill が改善します。</p>

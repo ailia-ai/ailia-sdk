@@ -207,7 +207,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // image / audio input only</code
 
     <h3>Evaluation app</h3>
     <p>An evaluation apk for Android can be downloaded from the link below. The QNN-enabled build is <code>ailia-models-kotlin-qnn.apk</code>.</p>
-    <p><a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720" target="_blank">https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260720 (TBD)</a></p>
+    <p><a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927" target="_blank">https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927</a></p>
 
     <h2>Architecture</h2>
     <p>ailia LLM maps the QNN Model with mmap, restores the QNN context, and executes it on the Hexagon NPU (HTP). Prefill is processed with the fixed-length AR-N graph; when the prompt length is not a multiple of AR, the last slice is padded. Decode uses the AR-1 graph in the same context, so no KV cache copy occurs after prefill. For VLM, image patching and position embedding are performed on the CPU, and the 16-layer Vision Transformer, pooling and projection are executed in a single QNN graph. Audio input uses an Audio graph to run the audio encoder on the NPU. The per-layer embedding (PLE) frontend also runs inside each transformer graph, leaving only token-row lookup and media embedding replacement on the CPU. This improves prefill for the Int16 model compared with running that input processing on the CPU.</p>
