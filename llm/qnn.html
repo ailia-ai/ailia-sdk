@@ -115,6 +115,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2>対応プラットフォーム</h2>
     <ul>
       <li>Android（Hexagon v69 以降。Snapdragon 8 Gen 1 / 8+ Gen 1、7s Gen 3、8 Gen 2 以降など）</li>
+      <li>Experimental: QCS6490（Hexagon v68、E2B のみ）</li>
     </ul>
     <div class="note">
       <strong>注意:</strong> QNN（QAIRT）の対応バージョンは ailia SDK と同じ 2.47.0.260601 です。QNN Model は QNN SDK のバージョンにも依存するため、異なるバージョンの QNN ランタイムと組み合わせないでください。
@@ -139,12 +140,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Hexagon バージョン</th><th>SoC の例</th><th>対応モデル</th><th>コンテキスト長</th></tr>
+      <tr><td>v68（Experimental）</td><td>QCS6490</td><td>Gemma 4 E2B</td><td>8K</td></tr>
       <tr><td>v69</td><td>Snapdragon 8 Gen 1 / 8+ Gen 1</td><td>Gemma 4 E2B</td><td>8K</td></tr>
       <tr><td>v73 以降</td><td>Snapdragon 7s Gen 3、8 Gen 2 以降</td><td>Gemma 4 E2B / E4B</td><td>8K</td></tr>
     </table>
     </div>
     <div class="note">
-      <strong>注意:</strong> Hexagon v69 には Context Binary のサイズが 2 GB に制限される制約があるため、E2B のみ対応です。v73 以降にはこの制約がないため E4B にも対応します。コンテキスト長は変換済みモデルではいずれも 8K ですが、ailia LLM Compiler での変換時の設定で変更できます。
+      <strong>注意:</strong> Hexagon v68 / v69 には 2 GB のサイズ制約があるため、E2B のみ対応です。v73 以降にはこの制約がないため E4B にも対応します。コンテキスト長は変換済みモデルではいずれも 8K ですが、ailia LLM Compiler での変換時の設定で変更できます。
     </div>
     <p>QNN Model はモデルと Snapdragon の機種（SoC）ごとに別ファイルになります。変換済みのモデルファイルを提供していますので、対象端末の SoC に対応したファイルをご利用ください。</p>
     <div class="table-wrap">
@@ -165,11 +167,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm7635-mmproj.qnn">gemma4-e2b-sm7635-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">0.63 GB</td></tr>
       <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e4b-sm7635.qnn">gemma4-e4b-sm7635.qnn</a></td><td>テキストモデル（Prefill + Decode）</td><td class="num">5.54 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e4b-sm7635-mmproj.qnn">gemma4-e4b-sm7635-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">0.64 GB</td></tr>
+      <tr><td rowspan="2">qcs6490<br>（Hexagon v68 / Int16）<br><strong>Experimental</strong></td><td rowspan="2">QCS6490</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-qcs6490.qnn">gemma4-e2b-qcs6490.qnn</a></td><td>テキストモデル（Prefill + Decode）</td><td class="num">3.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-qcs6490-mmproj.qnn">gemma4-e2b-qcs6490-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">0.63 GB</td></tr>
     </table>
     </div>
     <p>いずれも ailia LLM 1.5.0（QAIRT 2.47.0.260601）向けで、コンテキスト長は 8192、AR-256 / AR-1 構成です。</p>
     <div class="note">
-      <strong>その他の SoC について:</strong> 現在モデルファイルを公開しているのは sm8475 と sm7635 の 2 機種のみですが、その他の SoC 向けの変換も承っております。対象の SoC（<code>ailiaLLMGetQNNModelName</code> API で取得できる名称）をお知らせいただければ、ailia LLM Compiler で該当 SoC 向けの QNN Model をコンパイルいたしますので、<a href="https://ailia.ai/">ailia</a> までお問い合わせください。
+      <strong>Experimental:</strong> qcs6490 向けのモデルは実機での動作・精度・速度を検証していません。PC 上での構造検査と数値照合のみ行っています。
+    </div>
+    <div class="note">
+      <strong>その他の SoC について:</strong> 現在モデルファイルを公開しているのは sm8475 と sm7635 の 2 機種（および Experimental の qcs6490）のみですが、その他の SoC 向けの変換も承っております。対象の SoC（<code>ailiaLLMGetQNNModelName</code> API で取得できる名称）をお知らせいただければ、ailia LLM Compiler で該当 SoC 向けの QNN Model をコンパイルいたしますので、<a href="https://ailia.ai/">ailia</a> までお問い合わせください。
     </div>
 
     <div class="note">
@@ -399,7 +406,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // 画像・音声入力のみ</c
       <li>QNN Model は SoC ごとに変換が必要で、他の SoC 向けのファイルは使用できません。</li>
       <li>コンテキスト長と Prefill の固定長（AR）は変換時に決定され、実行時に変更できません。変更する場合は ailia LLM Compiler で再変換します。</li>
       <li>VLM では 1 枚の画像トークン列（256 トークン）を分割せずに処理する必要があるため、テキスト側は AR-256 以上で変換した QNN Model を使用します。</li>
-      <li>現在の対応モデルは Gemma 4 E2B / E4B です。Hexagon v69 では Context Binary の 2 GB 制約のため E2B のみ使用できます。</li>
+      <li>現在の対応モデルは Gemma 4 E2B / E4B です。Hexagon v68 / v69 では 2 GB のサイズ制約のため E2B のみ使用できます。</li>
     </ul>
 
   </div>

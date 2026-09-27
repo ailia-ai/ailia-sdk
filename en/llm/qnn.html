@@ -115,6 +115,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2>Supported Platforms</h2>
     <ul>
       <li>Android (Hexagon v69 or later, e.g. Snapdragon 8 Gen 1 / 8+ Gen 1, 7s Gen 3, 8 Gen 2 or later)</li>
+      <li>Experimental: QCS6490 (Hexagon v68, E2B only)</li>
     </ul>
     <div class="note">
       <strong>Note:</strong> The supported QNN (QAIRT) version is 2.47.0.260601, the same as ailia SDK. QNN Models also depend on the QNN SDK version, so do not combine them with a different version of the QNN runtime.
@@ -140,12 +141,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Hexagon version</th><th>Example SoCs</th><th>Supported models</th><th>Context length</th></tr>
+      <tr><td>v68 (Experimental)</td><td>QCS6490</td><td>Gemma 4 E2B</td><td>8K</td></tr>
       <tr><td>v69</td><td>Snapdragon 8 Gen 1 / 8+ Gen 1</td><td>Gemma 4 E2B</td><td>8K</td></tr>
       <tr><td>v73 or later</td><td>Snapdragon 7s Gen 3, 8 Gen 2 or later</td><td>Gemma 4 E2B / E4B</td><td>8K</td></tr>
     </table>
     </div>
     <div class="note">
-      <strong>Note:</strong> Hexagon v69 limits the size of a context binary to 2 GB, so only E2B is supported there. Hexagon v73 and later have no such limit, so E4B is also supported. The pre-converted models all use a context length of 8K, which can be changed through the conversion settings of ailia LLM Compiler.
+      <strong>Note:</strong> Hexagon v68 / v69 have a 2 GB size limit, so only E2B is supported there. Hexagon v73 and later have no such limit, so E4B is also supported. The pre-converted models all use a context length of 8K, which can be changed through the conversion settings of ailia LLM Compiler.
     </div>
     <p>QNN Models are separate files for each model and each Snapdragon model (SoC). Pre-converted model files are provided, so please use the file that matches the SoC of your target device.</p>
     <div class="table-wrap">
@@ -166,11 +168,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm7635-mmproj.qnn">gemma4-e2b-sm7635-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.63 GB</td></tr>
       <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e4b-sm7635.qnn">gemma4-e4b-sm7635.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">5.54 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e4b-sm7635-mmproj.qnn">gemma4-e4b-sm7635-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.64 GB</td></tr>
+      <tr><td rowspan="2">qcs6490<br>(Hexagon v68 / Int16)<br><strong>Experimental</strong></td><td rowspan="2">QCS6490</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-qcs6490.qnn">gemma4-e2b-qcs6490.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">3.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-qcs6490-mmproj.qnn">gemma4-e2b-qcs6490-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.63 GB</td></tr>
     </table>
     </div>
     <p>All of these are for ailia LLM 1.5.0 (QAIRT 2.47.0.260601), with a context length of 8192 and the AR-256 / AR-1 configuration.</p>
     <div class="note">
-      <strong>Other SoCs:</strong> Model files are currently published only for the two SoCs above (sm8475 and sm7635), but we can also convert models for other SoCs. Let us know the target SoC (the name returned by the <code>ailiaLLMGetQNNModelName</code> API) and we will compile a QNN Model for it with ailia LLM Compiler. Please <a href="https://ailia.ai/en/">contact ailia</a> for details.
+      <strong>Experimental:</strong> The qcs6490 models have not been validated on a device for operation, accuracy or speed. Only structural checks and numerical comparison on a PC have been performed.
+    </div>
+    <div class="note">
+      <strong>Other SoCs:</strong> Model files are currently published only for the two SoCs above (sm8475 and sm7635, plus the experimental qcs6490), but we can also convert models for other SoCs. Let us know the target SoC (the name returned by the <code>ailiaLLMGetQNNModelName</code> API) and we will compile a QNN Model for it with ailia LLM Compiler. Please <a href="https://ailia.ai/en/">contact ailia</a> for details.
     </div>
 
     <div class="note">
@@ -400,7 +407,7 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // image / audio input only</code
       <li>QNN Models must be converted for each SoC, and a file built for another SoC cannot be used.</li>
       <li>The context length and the fixed prefill length (AR) are determined at conversion time and cannot be changed at runtime. To change them, reconvert the model with ailia LLM Compiler.</li>
       <li>For VLM, the token sequence of one image (256 tokens) must be processed without splitting, so the text model must be converted with AR-256 or larger.</li>
-      <li>The currently supported models are Gemma 4 E2B / E4B. On Hexagon v69 only E2B can be used because of the 2 GB context binary limit.</li>
+      <li>The currently supported models are Gemma 4 E2B / E4B. On Hexagon v68 / v69 only E2B can be used because of the 2 GB size limit.</li>
     </ul>
 
   </div>
