@@ -94,35 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>ailia LLM 1.5.0 and later support fast inference on the NPU (Hexagon) of Qualcomm SoCs. For the NPU, ailia LLM uses a proprietary implementation developed by ailia Inc. that is separate from llama.cpp.</p>
     <p>Using the NPU runs an LLM quickly and with low power consumption. In addition to text LLMs and VLMs (Vision Language Models) that take images as input, ailia LLM also supports audio input, with processing on the NPU. Gemma 4 E2B and E4B also run on mid-range devices such as the Snapdragon 7s.</p>
     <p>In our measurements, prefill is up to 4.2x faster on Android devices, with CPU use during prefill kept below one thirtieth of the CPU path (Snapdragon 8+ Gen 1, 2,048-token input, compared with the CPU on the same device).</p>
-    <p>QNN (Qualcomm AI Engine Direct) is a backend API provided by Qualcomm. ailia LLM achieves NPU inference by converting GGUF, the model format of llama.cpp, into a format that can be executed by QNN.</p>
-    <div class="note">
-      <strong>Note:</strong> The QNN backend is available in ailia LLM 1.5.0 and later.
-    </div>
-
-    <h2>Comparison with Other Approaches</h2>
-    <p>The table below compares ailia LLM with the main approaches for running LLMs on Qualcomm SoCs on Android. ailia LLM can use the NPU, runs Gemma 4 on the NPU, and supports relatively old SoCs with Hexagon v69 or later.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Approach</th><th>NPU</th><th>Gemma 4</th><th>Supported SoCs (Android)</th><th>Notes</th></tr>
-      <tr><td><a class="method-link" href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></td><td>No</td><td>Yes</td><td>No restriction (CPU execution)</td><td>Runs on the CPU. An experimental Hexagon backend exists, but its NPU-side libraries (Skel) are unsigned, so it cannot run on regular devices. The image encoder runs on the CPU.</td></tr>
-      <tr><td>QNN (<a class="method-link" href="https://docs.qualcomm.com/nav/home/general_introduction.html?product=1601111740009302">Qualcomm AI Engine Direct</a>)</td><td>Yes</td><td>No</td><td>Hexagon v65 or later (Snapdragon 845 or later)</td><td>Low-level inference API; no LLM runtime is provided.</td></tr>
-      <tr><td>QNN GenAI (Qualcomm Genie / <a class="method-link" href="https://github.com/qualcomm/GenieX">GenieX</a>)</td><td>Yes</td><td>No</td><td>Hexagon v79 or later (Snapdragon 8 Elite or later)</td><td>The officially supported Android SoCs are limited to the Snapdragon 8 Elite family, and Hexagon v79 or later is required. No NPU (QAIRT) model is provided for Gemma 4.</td></tr>
-      <tr><td><a class="method-link" href="https://developers.google.com/edge/litert/next/litert_lm_npu">LiteRT-LM NPU</a></td><td>Yes</td><td>No</td><td>Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite (SM8550 / SM8650 / SM8750)</td><td>The only NPU model published for Qualcomm is Gemma3-1B (4-bit, 1,280 context). NPU models for Gemma 4 are provided only for Google Tensor and Intel. It is text only and does not support image or audio input.</td></tr>
-      <tr><td><strong><a class="method-link" href="https://ailia.ai/en/llm/">ailia LLM</a></strong></td><td>Yes</td><td>Yes</td><td>Hexagon v69 or later (Snapdragon 8 Gen 1 or later, 7s Gen 3, etc.)</td><td>Uses the NPU even on older SoCs such as Snapdragon 8+ Gen 1, and runs Gemma 4 E2B / E4B on the NPU for text, VLM and ALM alike. Int16 quantization is supported, so it also runs on the Snapdragon 7s, which has no FP16 support.</td></tr>
-    </table>
-    </div>
-
-    <h2>Supported Platforms</h2>
-    <ul>
-      <li>Android (Hexagon v69 or later, e.g. Snapdragon 8 Gen 1 / 8+ Gen 1, 7s Gen 3, 8 Gen 2 or later)</li>
-      <li>Experimental: QCS6490 (Hexagon v68, E2B only)</li>
-    </ul>
-    <div class="note">
-      <strong>Note:</strong> The supported QNN (QAIRT) version is 2.47.0.260601, the same as ailia SDK. QNN Models also depend on the QNN SDK version, so do not combine them with a different version of the QNN runtime.
-    </div>
-
-    <h2>Workflow</h2>
-    <p>A GGUF file is converted into a QNN Model on a PC, and the converted QNN Model is executed by ailia LLM on the device. The GGUF file is not needed on the device; only the QNN Model is deployed.</p>
+    <p>QNN (Qualcomm AI Engine Direct) is a backend API provided by Qualcomm. ailia LLM converts GGUF, the model format of llama.cpp, into an SoC-specific QNN Model (<code>.qnn</code>) on a PC, and runs it on the NPU with ailia LLM on the device. The GGUF file is not needed on the device; only the QNN Model is deployed.</p>
     <div class="arch-diagram">
       <div class="arch-box"><div class="arch-name">GGUF</div><div class="arch-desc">llama.cpp compatible model file (Q4 quantization)</div></div>
       <div class="arch-arrow">↓</div>
@@ -132,9 +104,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="arch-arrow">↓</div>
       <div class="arch-box"><div class="arch-name">ailia LLM (Device)</div><div class="arch-desc">Restores the context binary and runs prefill / decode on the Hexagon NPU</div></div>
     </div>
-    <p>A QNN Model stores a fixed-length prefill graph (AR-N) and a decode graph (AR-1) in the same QNN context, sharing the weights and the KV cache between them. Weights are quantized to 4 bits (W4) at conversion time. In FP16 models, activations and the KV cache are processed in FP16.</p>
+    <div class="note">
+      <strong>Note:</strong> The QNN backend is available in ailia LLM 1.5.0 and later.
+    </div>
 
-    <p>ailia LLM Compiler supports both FP16 and Int16, which can be selected at conversion time according to the target SoC. The Snapdragon 7s Gen 3 NPU uses Hexagon v73 but does not support FP16, so ailia LLM uses an Int16-quantized model on this SoC. The <a href="https://docs.qualcomm.com/doc/87-78936-1/87-78936-1_REV_A_Snapdragon_7s_Gen_3_Mobile_Platform_Product_Brief.pdf">Qualcomm Snapdragon 7s Gen 3 product brief (PDF, Artificial Intelligence section on page 2)</a> lists INT4, INT8, and INT16 as supported NPU precisions; FP16 is not included. Select a model based on the precisions supported by the specific SoC, as well as its Hexagon version.</p>
+    <h2>Supported Platforms</h2>
+    <ul>
+      <li>Android (Hexagon v69 or later, e.g. Snapdragon 8 Gen 1 / 8+ Gen 1, 7s Gen 3, 8 Gen 2 or later)</li>
+      <li>Windows on Arm (Snapdragon X Plus / sc8380xp, Hexagon v73)</li>
+      <li>Experimental: QCS6490 (Hexagon v68, E2B only)</li>
+    </ul>
+    <p>On Windows on Arm, use the QNN-enabled ailia LLM ARM64 build and a <code>.qnn</code> file that matches the SoC of the device. The E2B text, image, and audio packages have been verified on a Snapdragon X Plus device. Models built for a different SoC cannot be reused.</p>
+    <div class="note">
+      <strong>Note:</strong> The supported QNN (QAIRT) version is 2.47.0.260601, the same as ailia SDK. QNN Models also depend on the QNN SDK version, so do not combine them with a different version of the QNN runtime.
+    </div>
 
     <h2>Supported Models</h2>
     <p><strong>Gemma 4 E2B</strong> and <strong>Gemma 4 E4B</strong> (both supporting text, image, and audio input) are currently supported. For image and audio input, a QNN Model for the image / audio encoder (mmproj) is used in addition to the text QNN Model. The supported models depend on the Hexagon version of the SoC.</p>
@@ -168,6 +151,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sm7635-mmproj.qnn">gemma4-e2b-sm7635-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.63 GB</td></tr>
       <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e4b-sm7635.qnn">gemma4-e4b-sm7635.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">5.54 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e4b-sm7635-mmproj.qnn">gemma4-e4b-sm7635-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.64 GB</td></tr>
+      <tr><td rowspan="4">sc8380xp<br>(Hexagon v73 / FP16)</td><td rowspan="4">Surface (Snapdragon X Plus)</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sc8380xp.qnn">gemma4-e2b-sc8380xp.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">3.61 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sc8380xp-mmproj.qnn">gemma4-e2b-sc8380xp-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">1.09 GB</td></tr>
+      <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e4b-sc8380xp.qnn">gemma4-e4b-sc8380xp.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">5.58 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e4b-sc8380xp-mmproj.qnn">gemma4-e4b-sc8380xp-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">1.10 GB</td></tr>
       <tr><td rowspan="2">qcs6490<br>(Hexagon v68 / Int16)<br><strong>Experimental</strong></td><td rowspan="2">QCS6490</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-qcs6490.qnn">gemma4-e2b-qcs6490.qnn</a></td><td>Text model (prefill + decode)</td><td class="num">3.60 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-qcs6490-mmproj.qnn">gemma4-e2b-qcs6490-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.63 GB</td></tr>
     </table>
@@ -177,46 +164,105 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <strong>Experimental:</strong> The qcs6490 models have not been validated on a device for operation, accuracy or speed. Only structural checks and numerical comparison on a PC have been performed.
     </div>
     <div class="note">
-      <strong>Other SoCs:</strong> Model files are currently published only for the two SoCs above (sm8475 and sm7635, plus the experimental qcs6490), but we can also convert models for other SoCs. Let us know the target SoC (the name returned by the <code>ailiaLLMGetQNNModelName</code> API) and we will compile a QNN Model for it with ailia LLM Compiler. Please <a href="https://ailia.ai/en/">contact ailia</a> for details.
+      <strong>Other SoCs:</strong> Model files are currently published for sm8475, sm7635, sc8380xp, and the experimental qcs6490. For other SoCs, provide the target name returned by <code>ailiaLLMGetQNNModelName</code> when you <a href="https://ailia.ai/en/">contact ailia</a> about model conversion.
     </div>
 
     <div class="note">
       <strong>Note:</strong> A QNN Model depends not only on the Hexagon version but also on the QNN SDK version and the SoC model ID. Do not reuse a file built for a different SoC. The SoC name of the running device can be obtained with the <code>ailiaLLMGetQNNModelName</code> API (e.g. <code>"sm8475"</code>).
     </div>
 
-    <h2>Usage</h2>
+    <h2>Project Setup</h2>
+    <p>The following settings are for running precompiled <code>.qnn</code> files in your application. This is not a procedure for compiling models. Use the same QNN runtime as the one used to generate the models, QAIRT 2.47.0.260601.</p>
 
-    <h3>Integrating into an Android app</h3>
-    <p>In addition to libailia_llm.so, bundle libailia_llm_qnn.so in <code>jniLibs/arm64-v8a</code> of your application. The app loads only libailia_llm.so; libailia_llm_qnn.so is lazily loaded as a plug-in only when a QNN Model is opened.</p>
-    <p>You need to declare the use of libcdsprpc.so in AndroidManifest.xml. Also enable <code>extractNativeLibs</code>, because the NPU-side libraries (libQnnHtpV*Skel.so) must be reachable through a regular filesystem path.</p>
+    <h3>Windows on Arm: getting the QNN runtime</h3>
+    <p>Get QAIRT 2.47.0.260601 (<a href="https://apigwx-aws.qualcomm.com/qsc/public/v1/api/download/software/sdks/Qualcomm_AI_Runtime_Community/All/2.47.0.260601/v2.47.0.260601.zip">distribution ZIP</a>) from the <a href="https://www.qualcomm.com/developer/software/qualcomm-ai-engine-direct-sdk">Qualcomm AI Engine Direct SDK</a> page. A Qualcomm account may be required for the download. See the <a href="../setup/qnn/">QNN setup for ailia SDK</a> for where the files are located in the distribution and how to choose the Hexagon version. For Snapdragon X Plus (Hexagon v73), use the QNN DLLs in <code>lib/aarch64-windows-msvc</code> and the NPU-side <code>.so</code> and <code>.cat</code> files in <code>lib/hexagon-v73/unsigned</code> of the SDK.</p>
+    <p>With the QNN-enabled Windows ARM64 build, place <code>ailia_llm.dll</code>, <code>ailia_llm_qnn.dll</code>, the shared GGML/llama DLLs, the QNN DLLs from the SDK, and the NPU-side <code>.so</code> and <code>.cat</code> files where your application can find them. The Qualcomm NPU driver is also required. <code>ailia_qnn</code> for ailia SDK and <code>ailia_llm_qnn</code> for ailia LLM are separate plug-ins. See the <a href="https://github.com/ailia-ai/ailia-llm/blob/codex/windows-qnn/docs/qnn/WINDOWS.md">Windows ARM64 QNN instructions</a> for details on building and deployment.</p>
+
+    <h3>Android: integrating into an app</h3>
+    <p>Place <code>libailia_llm.so</code> and <code>libailia_llm_qnn.so</code> from the distribution, the bundled <code>libggml*.so</code> / <code>libllama*.so</code> and CPU variants, and the QNN Stub / Skel for the target Hexagon generation in <code>app/src/main/jniLibs/arm64-v8a/</code> of your Android project. When <code>libailia_llm.so</code> is loaded, the QNN plug-in is lazily loaded when needed. Check the redistribution terms of the SDK.</p>
+    <p>Add the FastRPC declaration and native library extraction to <code>&lt;application&gt;</code> in <code>app/src/main/AndroidManifest.xml</code>. The Skel libraries must be visible as regular files.</p>
     <pre><code class="language-xml">&lt;application android:extractNativeLibs="true" ...&gt;
-    &lt;uses-native-library android:name="libcdsprpc.so" android:required="false"/&gt;
+    &lt;uses-native-library android:name="libcdsprpc.so" android:required="false" /&gt;
 &lt;/application&gt;</code></pre>
-    <p>Add the following to build.gradle so that the QNN runtime is automatically bundled into the apk.</p>
-    <pre><code class="language-groovy">implementation 'com.qualcomm.qti:qnn-runtime:2.47.0'</code></pre>
-    <div class="note">
-      <strong>Note:</strong> QNN Models are specified by filesystem path, so they cannot be opened directly from apk assets. Copy them to the app's private storage or download them on first launch before opening.
-    </div>
-
-    <h3>Loading a QNN Model</h3>
-    <p>A QNN Model (.qnn) is passed to the same model loading API as a GGUF file. When the context size is set to 0, the fixed context length embedded in the QNN Model is used. For image or audio input, open the mmproj QNN Model as the projector after opening the text model.</p>
-    <pre><code class="language-cpp">#include "ailia_llm.h"
-struct AILIALLM *llm = nullptr;
-ailiaLLMCreate(&amp;llm);
-ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm8475.qnn", /*ctx_size=*/0);
-ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm8475-mmproj.qnn"); // image / audio input only
-// The prompt / generate APIs are the same as for GGUF
-ailiaLLMDestroy(llm);</code></pre>
-    <p>In Kotlin (JNI), pass the path of the QNN Model instead of the GGUF path in the same way.</p>
-    <pre><code class="language-kotlin">val llm = AiliaLLM()
-llm.openModelFile(qnnModelPath, 0)            // n_ctx=0 uses the fixed length in the QNN Model
-llm.openMultimodalProjectorFile(mmprojQnnPath) // image / audio input only</code></pre>
+    <p>Add the QNN runtime of the same generation to the dependencies in <code>app/build.gradle</code>.</p>
+    <pre><code class="language-groovy">dependencies {
+    implementation 'com.qualcomm.qti:qnn-runtime:2.47.0'
+}</code></pre>
+    <p>A path inside assets cannot be passed for a <code>.qnn</code> file. Copy or download it to the app's private storage on first launch, and pass that real file path to the APIs below.</p>
 
     <h3>Evaluation app</h3>
-    <p>An evaluation apk for Android can be downloaded from the link below. The QNN-enabled build is <code>ailia-models-kotlin-qnn.apk</code>.</p>
-    <p><a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927" target="_blank">https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927</a></p>
+    <p>The evaluation APK for Android is <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927">ailia-models-kotlin-qnn.apk</a>.</p>
 
-    <h2>Architecture</h2>
+    <h2>Code Samples: Getting the SoC Name and Opening the Model</h2>
+    <p>First get the SoC name (e.g. <code>sm7635</code>), then choose a text model compiled for the same SoC, such as <code>gemma4-e2b-&lt;soc&gt;.qnn</code>. The returned string is the SoC name, not the whole file name. <code>n_ctx=0</code> selects the context length embedded in the package. Do not reuse a file built for a different SoC on an SoC for which no model is published. For image and audio input, open the text model first, then add the <code>-mmproj.qnn</code> of the same model and SoC with the regular projector API.</p>
+    <p>The following are Android examples for the text model. The model file is assumed to be in the private storage described above. The QNN-enabled build for Windows on Arm uses the same API; replace the file path with the location on Windows. Without the QNN plug-in the result is <code>UNIMPLEMENTED</code>, and on an unsupported SoC it is <code>OTHER_ERROR</code>.</p>
+
+    <h3>C</h3>
+    <pre><code class="language-c">#include "ailia_llm.h"
+#include &lt;stdio.h&gt;
+
+/* model_dir: the app's private storage. On success the caller destroys the instance. */
+int open_qnn_model(const char *model_dir, struct AILIALLM **out) {
+    if (model_dir == NULL || out == NULL) return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+    *out = NULL;
+    const char *soc = NULL; /* owned by the library; do not free */
+    int status = ailiaLLMGetQNNModelName(&amp;soc);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    char path[512];
+    int n = snprintf(path, sizeof(path), "%s/gemma4-e2b-%s.qnn", model_dir, soc);
+    if (n &lt; 0 || (size_t)n &gt;= sizeof(path)) return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+    struct AILIALLM *llm = NULL;
+    status = ailiaLLMCreate(&amp;llm);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    status = ailiaLLMOpenModelFileA(llm, path, 0);
+    if (status != AILIA_LLM_STATUS_SUCCESS) { ailiaLLMDestroy(llm); return status; }
+    *out = llm;
+    return AILIA_LLM_STATUS_SUCCESS;
+}</code></pre>
+
+    <h3>Python</h3>
+    <pre><code class="language-python">from pathlib import Path
+import ailia_llm
+
+soc = ailia_llm.AiliaLLM.get_qnn_model_name()
+model_path = Path("/data/user/0/your.package/files") / f"gemma4-e2b-{soc}.qnn"
+llm = ailia_llm.AiliaLLM()
+llm.open(str(model_path), n_ctx=0)</code></pre>
+
+    <h3>Flutter</h3>
+    <pre><code class="language-dart">import 'package:ailia_llm/ailia_llm_model.dart';
+
+final soc = AiliaLLMModel.getQNNModelName();
+final model = AiliaLLMModel();
+model.open('/data/user/0/your.package/files/gemma4-e2b-$soc.qnn', 0);
+// Call model.close() when done</code></pre>
+
+    <h3>JNI (Kotlin)</h3>
+    <p><code>context</code> is the Context of an Android Activity or Application.</p>
+    <pre><code class="language-kotlin">import axip.ailia_llm.AiliaLLM
+
+val soc = AiliaLLM.getQNNModelName()
+val llm = AiliaLLM()
+val modelPath = "${context.filesDir}/gemma4-e2b-$soc.qnn"
+llm.openModelFile(modelPath, 0)
+// Call llm.close() when done</code></pre>
+
+    <h3>Unity (C#)</h3>
+    <pre><code class="language-csharp">using System;
+using System.IO;
+using UnityEngine;
+using ailiaLLM;
+
+string soc = AiliaLLMModel.GetQNNModelName();
+var llm = new AiliaLLMModel();
+if (!llm.Create()) throw new Exception("ailiaLLMCreate failed");
+string modelPath = Path.Combine(Application.persistentDataPath, $"gemma4-e2b-{soc}.qnn");
+if (!llm.Open(modelPath, 0)) throw new Exception(llm.GetErrorDetail());
+// Call llm.Dispose() when done</code></pre>
+
+    <h2>Architecture Details</h2>
+    <p>A QNN Model stores a fixed-length prefill graph (AR-N) and a decode graph (AR-1) in the same QNN context, sharing the weights and the KV cache between them. Weights are quantized to 4 bits (W4) at conversion time. In FP16 models, activations and the KV cache are processed in FP16.</p>
+    <p>ailia LLM Compiler supports both FP16 and Int16, which can be selected at conversion time according to the target SoC. The Snapdragon 7s Gen 3 NPU uses Hexagon v73 but does not support FP16, so ailia LLM uses an Int16-quantized model on this SoC. The <a href="https://docs.qualcomm.com/doc/87-78936-1/87-78936-1_REV_A_Snapdragon_7s_Gen_3_Mobile_Platform_Product_Brief.pdf">Qualcomm Snapdragon 7s Gen 3 product brief (PDF, Artificial Intelligence section on page 2)</a> lists INT4, INT8, and INT16 as supported NPU precisions; FP16 is not included. Select a model based on the precisions supported by the specific SoC, as well as its Hexagon version.</p>
     <p>ailia LLM maps the QNN Model with mmap, restores the QNN context, and executes it on the Hexagon NPU (HTP). Prefill is processed with the fixed-length AR-N graph; when the prompt length is not a multiple of AR, the last slice is padded. Decode uses the AR-1 graph in the same context, so no KV cache copy occurs after prefill. For VLM, image patching and position embedding are performed on the CPU, and the 16-layer Vision Transformer, pooling and projection are executed in a single QNN graph. Audio input uses an Audio graph to run the audio encoder on the NPU. The per-layer embedding (PLE) frontend also runs inside each transformer graph, leaving only token-row lookup and media embedding replacement on the CPU. This improves prefill for the Int16 model compared with running that input processing on the CPU.</p>
     <div class="arch-side">
       <div class="arch-group">
@@ -410,6 +456,19 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // image / audio input only</code
       <li>The currently supported models are Gemma 4 E2B / E4B. On Hexagon v68 / v69 only E2B can be used because of the 2 GB size limit.</li>
     </ul>
 
+    <h2>Comparison with Other Approaches</h2>
+    <p>The table below compares ailia LLM with the main approaches for running LLMs on Qualcomm SoCs on Android. ailia LLM can use the NPU, runs Gemma 4 on the NPU, and supports relatively old SoCs with Hexagon v69 or later.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Approach</th><th>NPU</th><th>Gemma 4</th><th>Supported SoCs (Android)</th><th>Notes</th></tr>
+      <tr><td><a class="method-link" href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></td><td>No</td><td>Yes</td><td>No restriction (CPU execution)</td><td>Runs on the CPU. An experimental Hexagon backend exists, but its NPU-side libraries (Skel) are unsigned, so it cannot run on regular devices. The image encoder runs on the CPU.</td></tr>
+      <tr><td>QNN (<a class="method-link" href="https://docs.qualcomm.com/nav/home/general_introduction.html?product=1601111740009302">Qualcomm AI Engine Direct</a>)</td><td>Yes</td><td>No</td><td>Hexagon v65 or later (Snapdragon 845 or later)</td><td>Low-level inference API; no LLM runtime is provided.</td></tr>
+      <tr><td>QNN GenAI (Qualcomm Genie / <a class="method-link" href="https://github.com/qualcomm/GenieX">GenieX</a>)</td><td>Yes</td><td>No</td><td>Hexagon v79 or later (Snapdragon 8 Elite or later)</td><td>The officially supported Android SoCs are limited to the Snapdragon 8 Elite family, and Hexagon v79 or later is required. No NPU (QAIRT) model is provided for Gemma 4.</td></tr>
+      <tr><td><a class="method-link" href="https://developers.google.com/edge/litert/next/litert_lm_npu">LiteRT-LM NPU</a></td><td>Yes</td><td>No</td><td>Snapdragon 8 Gen 2 / 8 Gen 3 / 8 Elite (SM8550 / SM8650 / SM8750)</td><td>The only NPU model published for Qualcomm is Gemma3-1B (4-bit, 1,280 context). NPU models for Gemma 4 are provided only for Google Tensor and Intel. It is text only and does not support image or audio input.</td></tr>
+      <tr><td><strong><a class="method-link" href="https://ailia.ai/en/llm/">ailia LLM</a></strong></td><td>Yes</td><td>Yes</td><td>Hexagon v69 or later (Snapdragon 8 Gen 1 or later, 7s Gen 3, etc.)</td><td>Uses the NPU even on older SoCs such as Snapdragon 8+ Gen 1, and runs Gemma 4 E2B / E4B on the NPU for text, VLM and ALM alike. Int16 quantization is supported, so it also runs on the Snapdragon 7s, which has no FP16 support.</td></tr>
+    </table>
+    </div>
+
   </div>
 
   <footer>
@@ -419,7 +478,11 @@ llm.openMultimodalProjectorFile(mmprojQnnPath) // image / audio input only</code
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/groovy.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {

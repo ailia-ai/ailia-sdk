@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia LLM マルチモーダル ガイド</title>
+  <meta name="description" content="ailia LLM で画像・音声を入力する方法を解説します。マルチモーダルプロジェクタの読み込み、対応状況の確認、ailiaLLMSetMultimodalPrompt と ailiaLLMSetPromptJson の2つの入力方法、エラーの扱いと C++ サンプルをまとめます。">
+  <link rel="canonical" href="https://docs.ailia.ai/llm/multimodal.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/multimodal.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/multimodal.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/llm/multimodal.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/llm/multimodal.html">
+  <meta property="og:title" content="ailia LLM マルチモーダル ガイド">
+  <meta property="og:description" content="ailia LLM で画像・音声を入力する方法を解説します。マルチモーダルプロジェクタの読み込み、対応状況の確認、ailiaLLMSetMultimodalPrompt と ailiaLLMSetPromptJson の2つの入力方法、エラーの扱いと C++ サンプルをまとめます。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia LLM マルチモーダル ガイド">
+  <meta name="twitter:description" content="ailia LLM で画像・音声を入力する方法を解説します。マルチモーダルプロジェクタの読み込み、対応状況の確認、ailiaLLMSetMultimodalPrompt と ailiaLLMSetPromptJson の2つの入力方法、エラーの扱いと C++ サンプルをまとめます。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
+    .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; max-width: 480px; }
+    .arch-box .arch-name { font-weight: 600; color: var(--primary); }
+    .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
+    .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+    .guide-content .version-table td code { white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia LLM Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../en/llm/multimodal.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia LLM マルチモーダル ガイド</h1>
+    <p>ailia LLM でマルチモーダルプロジェクタを読み込み、画像・音声を入力する方法を説明します。構造体で渡す<code>ailiaLLMSetMultimodalPrompt</code>と、JSON履歴で渡す<code>ailiaLLMSetPromptJson</code>の2つの方法があります。</p>
+  </section>
+
+  <div class="guide-content">
+<h2>プロジェクタの読み込み</h2>
+<p>モデルを読み込んだ後、対応するprojectorを<code>ailiaLLMOpenMultimodalProjectorFileA</code>で読み込みます。
+画像と音声の対応状況は<code>ailiaLLMGetMultimodalCapabilities</code>の<code>vision_support</code> / <code>audio_support</code>で確認できます。メディア非対応のモデル/projectorや未読込の状態で画像・音声を指定するとINVALID_STATEです。</p>
+<h2>入力方法</h2>
+<div class="table-wrap"><table class="version-table">
+<thead>
+<tr><th></th><th><code>ailiaLLMSetMultimodalPrompt</code></th><th><code>ailiaLLMSetPromptJson</code></th></tr>
+</thead>
+<tbody>
+<tr><td>メッセージ</td><td><code>AILIALLMMultimodalChatMessage</code>の配列</td><td>messages配列のJSON（UTF-8）</td></tr>
+<tr><td>メディアの位置</td><td>contentの<code>&lt;__media__&gt;</code>プレースホルダー</td><td>content配列の順序</td></tr>
+<tr><td>入力形式</td><td>ファイルパス、エンコード済みバッファ、Raw RGB</td><td>ファイルパス、Base64（エンコード済みファイル）</td></tr>
+<tr><td>生成結果</td><td><code>ailiaLLMGetDeltaText</code>を連結</td><td><code>ailiaLLMGetResponseJson</code>で取得</td></tr>
+<tr><td>Tool Use</td><td>ツール設定中はINVALID_STATE</td><td>toolsの有無にかかわらず使用可</td></tr>
+</tbody>
+</table></div>
+<p>画像・音声を入力するだけであればどちらの方法でも使用できます。Raw RGBを渡す場合は<code>ailiaLLMSetMultimodalPrompt</code>を、Tool Useと組み合わせる場合は<code>ailiaLLMSetPromptJson</code>を使用してください。
+Tool Useの詳細は<a href="tool_use.html">Tool Use ガイド</a>を参照してください。</p>
+<h2>SetMultimodalPrompt（構造体）</h2>
+<p>メッセージのcontentに<code>&lt;__media__&gt;</code>プレースホルダーを含め、対応するメディアを<code>media_data</code>に順番に設定し、<code>media_count</code>に個数を指定します。
+メッセージの内容は内部でコピーされるため、呼び出し後に解放できます。</p>
+<p><code>AILIALLMMediaData</code>の<code>media_type</code>には<code>&quot;image&quot;</code>または<code>&quot;audio&quot;</code>を指定します。画像と音声のどちらも使用できます。メディアは次のいずれかで指定します。</p>
+<ul>
+<li>ファイル：<code>file_path</code>（UTF-8）。<code>data</code>を指定した場合は無視されます。</li>
+<li>エンコード済みバッファ：<code>data</code>と<code>data_size</code>を指定し、<code>width</code> / <code>height</code>は0にします。画像はJPG、PNG、TGA、BMP、PSD、GIF、HDR、PIC、音声はWAV、MP3、FLAC等に対応します。</li>
+<li>Raw RGB：<code>data</code>に<code>width * height * 3</code>バイトのRGBデータを指定し、<code>width</code> / <code>height</code>を設定します。画像のみ使用できます。</li>
+</ul>
+<h2>SetPromptJson（JSON）</h2>
+<p>画像・音声はuserのcontent配列に、textと並べて順番に指定します。</p>
+<pre><code class="language-json">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[
+  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;この画像と音声について説明してください。&quot;},
+  {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},
+  {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}
+]}]
+</code></pre>
+<p>image/audioは<code>file_path</code>または<code>data</code>をちょうど1つ指定します。<code>data</code>は標準Base64（パディング付き）で
+エンコードしたファイル内容です。JPEG/PNG、WAV/MP3/FLAC等を使用できます。URL取得、動画、生RGB/PCMには対応しません。
+画像・音声を含む履歴は毎回再評価します。</p>
+<h2>エラー</h2>
+<ul>
+<li>ファイル読込失敗はERROR_FILE_API、バッファ（Base64からのデコード済みメディアを含む）の読込失敗はERROR_BUFFER_APIです。</li>
+<li>SetPromptJsonで不正なBase64はINVALID_ARGUMENTです。</li>
+</ul>
+<h2>C++サンプル（SetMultimodalPrompt）</h2>
+<p>モデルとprojectorを読み込み、構造体で画像を渡して応答を生成します。生成結果はGetDeltaTextで連結します。</p>
+<pre><code class="language-cpp">#include &quot;ailia_llm.h&quot;
+#include &lt;cstdio&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+static int open_projector(AILIALLM* llm) {
+    int status = ailiaLLMOpenMultimodalProjectorFileA(llm, &quot;/path/to/mmproj.gguf&quot;);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    unsigned int vision = 0, audio = 0;
+    status = ailiaLLMGetMultimodalCapabilities(llm, &amp;vision, &amp;audio);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    // vision_support / audio_support で画像・音声の対応を確認します。
+    return vision ? AILIA_LLM_STATUS_SUCCESS : AILIA_LLM_STATUS_INVALID_STATE;
+}
+
+static int describe_image(AILIALLM* llm) {
+    AILIALLMMediaData media = {};
+    media.media_type = &quot;image&quot;;
+    media.file_path = &quot;/path/to/image.jpg&quot;; // dataとdata_sizeでバッファも指定可
+    AILIALLMMultimodalChatMessage message = {};
+    message.role = &quot;user&quot;;
+    message.content = &quot;この画像について説明してください。 &lt;__media__&gt;&quot;;
+    message.media_data = &amp;media;
+    message.media_count = 1;
+    int status = ailiaLLMSetMultimodalPrompt(llm, &amp;message, 1);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    std::string text;
+    unsigned int done = 0;
+    while (!done) {
+        status = ailiaLLMGenerate(llm, &amp;done);
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+        if (done) break;
+        unsigned int size = 0;
+        status = ailiaLLMGetDeltaTextSize(llm, &amp;size);
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+        std::vector&lt;char&gt; delta(size);
+        status = ailiaLLMGetDeltaText(llm, delta.data(), size);
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+        text += delta.data();
+    }
+    printf(&quot;%s\n&quot;, text.c_str());
+    return AILIA_LLM_STATUS_SUCCESS;
+}
+
+int main() {
+    AILIALLM* llm = nullptr;
+    if (ailiaLLMCreate(&amp;llm) != AILIA_LLM_STATUS_SUCCESS) return 1;
+    int status = ailiaLLMOpenModelFileA(llm, &quot;gemma-4-E2B-it-Q4_K_M.gguf&quot;, 4096);
+    if (status == AILIA_LLM_STATUS_SUCCESS) status = open_projector(llm);
+    if (status == AILIA_LLM_STATUS_SUCCESS) status = describe_image(llm);
+    if (status != AILIA_LLM_STATUS_SUCCESS) {
+        fprintf(stderr, &quot;error %d: %s\n&quot;, status, ailiaLLMGetErrorDetail(llm));
+    }
+    ailiaLLMDestroy(llm);
+    return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
+}
+</code></pre>
+<h2>C++サンプル（SetPromptJson）</h2>
+<p>同じ処理をJSON履歴で行います。履歴の編集にはnlohmann/jsonを使用します。</p>
+<pre><code class="language-cpp">#include &quot;ailia_llm.h&quot;
+#include &lt;nlohmann/json.hpp&gt;
+#include &lt;cstdio&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using json = nlohmann::json;
+
+static int open_projector(AILIALLM* llm) {
+    int status = ailiaLLMOpenMultimodalProjectorFileA(llm, &quot;/path/to/mmproj.gguf&quot;);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    unsigned int vision = 0, audio = 0;
+    status = ailiaLLMGetMultimodalCapabilities(llm, &amp;vision, &amp;audio);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    // vision_support / audio_support で画像・音声の対応を確認します。
+    return vision ? AILIA_LLM_STATUS_SUCCESS : AILIA_LLM_STATUS_INVALID_STATE;
+}
+
+static int describe_image_json(AILIALLM* llm) {
+    json messages = json::array({{{&quot;role&quot;, &quot;user&quot;}, {&quot;content&quot;, json::array({
+        {{&quot;type&quot;, &quot;text&quot;}, {&quot;text&quot;, &quot;この画像について説明してください。&quot;}},
+        {{&quot;type&quot;, &quot;image&quot;}, {&quot;file_path&quot;, &quot;/path/to/image.jpg&quot;}}
+    })}}});
+    std::string input = messages.dump();
+    int status = ailiaLLMSetPromptJson(llm, input.c_str());
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    unsigned int done = 0;
+    while (!done) {
+        status = ailiaLLMGenerate(llm, &amp;done);
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    }
+    unsigned int size = 0;
+    status = ailiaLLMGetResponseJsonSize(llm, &amp;size);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    std::vector&lt;char&gt; output(size);
+    status = ailiaLLMGetResponseJson(llm, output.data(), size);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    try {
+        json response = json::parse(output.data());
+        printf(&quot;%s\n&quot;, response.at(&quot;content&quot;).get&lt;std::string&gt;().c_str());
+    } catch (const json::exception&amp;) {
+        return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+    }
+    return AILIA_LLM_STATUS_SUCCESS;
+}
+
+int main() {
+    AILIALLM* llm = nullptr;
+    if (ailiaLLMCreate(&amp;llm) != AILIA_LLM_STATUS_SUCCESS) return 1;
+    int status = ailiaLLMOpenModelFileA(llm, &quot;gemma-4-E2B-it-Q4_K_M.gguf&quot;, 4096);
+    if (status == AILIA_LLM_STATUS_SUCCESS) status = open_projector(llm);
+    if (status == AILIA_LLM_STATUS_SUCCESS) status = describe_image_json(llm);
+    if (status != AILIA_LLM_STATUS_SUCCESS) {
+        fprintf(stderr, &quot;error %d: %s\n&quot;, status, ailiaLLMGetErrorDetail(llm));
+    }
+    ailiaLLMDestroy(llm);
+    return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
+}
+</code></pre>
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

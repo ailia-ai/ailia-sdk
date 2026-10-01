@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ailia LLM Tool Use Guide</title>
-  <meta name="description" content="How to use Gemma 4 function calling with the Tool Use API of ailia LLM 1.5: OpenAI-compatible tool definitions, returning results with the tool role, JSON history, image and audio input, retrieving the response buffered by the SDK, and handling incomplete output.">
+  <meta name="description" content="How to use Gemma 4 function calling with the Tool Use API of ailia LLM 1.5: OpenAI-compatible tool definitions, returning results with the tool role, JSON history, retrieving the response buffered by the SDK, and handling incomplete output.">
   <link rel="canonical" href="https://docs.ailia.ai/en/llm/tool_use.html">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/tool_use.html">
   <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/tool_use.html">
@@ -22,11 +22,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/en/llm/tool_use.html">
   <meta property="og:title" content="ailia LLM Tool Use Guide">
-  <meta property="og:description" content="How to use Gemma 4 function calling with the Tool Use API of ailia LLM 1.5: OpenAI-compatible tool definitions, returning results with the tool role, JSON history, image and audio input, retrieving the response buffered by the SDK, and handling incomplete output.">
+  <meta property="og:description" content="How to use Gemma 4 function calling with the Tool Use API of ailia LLM 1.5: OpenAI-compatible tool definitions, returning results with the tool role, JSON history, retrieving the response buffered by the SDK, and handling incomplete output.">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="ailia LLM Tool Use Guide">
-  <meta name="twitter:description" content="How to use Gemma 4 function calling with the Tool Use API of ailia LLM 1.5: OpenAI-compatible tool definitions, returning results with the tool role, JSON history, image and audio input, retrieving the response buffered by the SDK, and handling incomplete output.">
+  <meta name="twitter:description" content="How to use Gemma 4 function calling with the Tool Use API of ailia LLM 1.5: OpenAI-compatible tool definitions, returning results with the tool role, JSON history, retrieving the response buffered by the SDK, and handling incomplete output.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../../favicon.png">
   <link rel="stylesheet" href="../../css/common.css">
@@ -37,6 +37,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .arch-box .arch-name { font-weight: 600; color: var(--primary); }
     .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
     .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .arch-split { display: flex; justify-content: center; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+    .arch-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .arch-col .arch-box { min-width: 0; width: 220px; padding: 8px 12px; }
+    .arch-group { border: 1px dashed var(--border); border-radius: 10px; padding: 12px 12px 14px; background: var(--bg); display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; max-width: 760px; }
+    .arch-group-title { font-weight: 600; color: var(--primary); margin-bottom: 6px; text-align: center; }
+    .arch-group-title small { display: block; font-weight: 400; font-size: 13px; color: var(--text-light); }
+    .arch-box.decision { border: 2px solid var(--accent); }
+    .arch-branch { font-size: 13px; font-weight: 600; color: var(--accent); }
+    .arch-loop { font-size: 13px; color: var(--text-light); }
+    .arch-box.final { border: 2px solid var(--primary); }
     .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
     .table-wrap { overflow-x: auto; }
     .guide-content .version-table td code { white-space: nowrap; }
@@ -70,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM Tool Use Guide</h1>
-    <p>How to use Gemma 4 function calling with the Tool Use API of ailia LLM 1.5. This guide covers the JSON history, returning results with tool_call_id, image and audio input, and retrieving the response with GetResponseJson.</p>
+    <p>How to use Gemma 4 function calling with the Tool Use API of ailia LLM 1.5. This guide covers the JSON history, returning results with tool_call_id, and retrieving the response with GetResponseJson.</p>
   </section>
 
   <div class="guide-content">
@@ -85,6 +95,47 @@ While tools are set with <code>ailiaLLMSetTools</code>, the conventional <code>a
 <li>Get the structured assistant JSON with <code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code>.</li>
 <li>Append the successful object to the history as is, execute the tool_calls if present, append the tool results with their IDs, and set the next prompt.</li>
 </ol>
+<div class="arch-diagram" role="img" aria-label="Call flow of the Tool Use API">
+  <div class="arch-box"><div class="arch-name">ailiaLLMSetTools</div><div class="arch-desc">Set OpenAI-compatible tool definitions</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">messages</div><div class="arch-desc">Start the history with a user message</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-group">
+    <div class="arch-group-title">Turn loop<small>Until a final answer is obtained (e.g. up to 8 turns)</small></div>
+    <div class="arch-box"><div class="arch-name">ailiaLLMSetPromptJson</div><div class="arch-desc">Pass the messages array as is</div></div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-box"><div class="arch-name">ailiaLLMGenerate</div><div class="arch-desc">Call until done (delta preview is optional)</div></div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-box decision"><div class="arch-name">ailiaLLMGetResponseJson</div><div class="arch-desc">Get the assistant JSON and branch</div></div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-split">
+      <div class="arch-col">
+        <div class="arch-branch">With tool_calls</div>
+        <div class="arch-box"><div class="arch-name">Append to history</div><div class="arch-desc">Append the assistant as is</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">Run the tools</div><div class="arch-desc">Validate the arguments and execute</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">Append to history</div><div class="arch-desc">role: tool results with tool_call_id</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-loop">↺ back to SetPromptJson</div>
+      </div>
+      <div class="arch-col">
+        <div class="arch-branch">Without tool_calls</div>
+        <div class="arch-box"><div class="arch-name">Append to history</div><div class="arch-desc">Append the assistant as is</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box final"><div class="arch-name">Final answer</div><div class="arch-desc">Show the content and leave the loop</div></div>
+      </div>
+      <div class="arch-col">
+        <div class="arch-branch">PARSE_ERROR</div>
+        <div class="arch-box"><div class="arch-name">Ask for a retry</div><div class="arch-desc">Do not append the failed assistant; append a user retry message</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-loop">↺ back to SetPromptJson</div>
+      </div>
+    </div>
+  </div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">ailiaLLMSetTools(NULL)</div><div class="arch-desc">Clear the tools (also on errors)</div></div>
+</div>
 <p>The SDK buffers the generated response, so the application does not have to carry the raw output around.
 GetResponseJson is a read and does not clear the buffer. It is reset by a new prompt.
 </p>
@@ -105,28 +156,16 @@ The order of the results does not matter. An unknown ID, a duplicated result or 
 The content of a tool result must be a string; convert objects into a JSON string.</p>
 <p>After clearing the tools with <code>setTools(null)</code>, past tool_calls and tool results can still be passed to <code>setPromptJson</code> to generate a summary or a final answer. ID matching is still validated. Clearing the tools disables the output parser, so retrieve the response JSON before clearing them.</p>
 <h3>Images and audio</h3>
-<p>After loading the corresponding projector with <code>ailiaLLMOpenMultimodalProjectorFileA</code>, specify the media in order inside the content array of a user message.
-Media can be given in JSON whether or not tools are set.</p>
-<pre><code class="language-json">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[
-  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;Describe this image and audio.&quot;},
-  {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},
-  {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}
-]}]
-</code></pre>
-<p>An image or audio entry must specify exactly one of <code>file_path</code> or <code>data</code>. <code>data</code> is the file content encoded in
-standard Base64 (with padding). JPEG/PNG, WAV/MP3/FLAC and similar formats can be used. Fetching from a URL, video, and raw RGB/PCM are not supported.
-A history that contains images or audio is re-evaluated every time. A model or projector without media support, or a projector that has not been loaded, is INVALID_STATE.
-Image and audio support can be checked with <code>ailiaLLMGetMultimodalCapabilities</code>.</p>
+<p>The content array of a user message can also contain images and audio. See the <a href="multimodal.html">Multimodal Guide</a> for details.</p>
 <h3>Incomplete output and errors</h3>
 <ul>
 <li>GetResponseJson: call it after generation completes. An incomplete tool call or thinking is PARSE_ERROR. Partial results are never executed and arguments are never completed.</li>
 <li>SetPromptJson: incomplete arguments, invalid JSON, invalid types, broken ID matching and an empty array are INVALID_ARGUMENT. Nothing is truncated automatically.</li>
 <li>Retries: when GetResponseJson returns PARSE_ERROR, do not append the failed assistant message; append a user message asking for a retry to the existing history instead. There is no need to retrieve the partial content or thinking, and no tool result is created for an incomplete call.</li>
 <li>GetResponseJson returns INVALID_STATE when no prompt has been set, or after the tools or the thinking setting have been changed. Empty output after setting a prompt and before generating is an empty assistant message.</li>
-<li>A file read failure is ERROR_FILE_API, a failure to load media decoded from Base64 is ERROR_BUFFER_API, and invalid Base64 is INVALID_ARGUMENT.</li>
 </ul>
 <h2>C++ sample</h2>
-<p>The full flow: opening the model, setting the tools with <code>ailiaLLMSetTools</code>, generating, returning tool results, and clearing the tools. The history is edited with nlohmann/json.</p>
+<p>The full flow: opening the model, setting the tools with <code>ailiaLLMSetTools</code>, generating, returning tool results, and clearing the tools. The history is edited with nlohmann/json. Weather values are mock data, not live weather information.</p>
 <pre><code class="language-cpp">#include &quot;ailia_llm.h&quot;
 #include &lt;nlohmann/json.hpp&gt;
 #include &lt;cstdio&gt;
@@ -151,7 +190,11 @@ static int generate_turn(AILIALLM* llm, const json&amp; messages, json&amp; resp
     std::vector&lt;char&gt; output(size);
     status = ailiaLLMGetResponseJson(llm, output.data(), size);
     if (status != AILIA_LLM_STATUS_SUCCESS) return status;
-    response = json::parse(output.data());
+    try {
+        response = json::parse(output.data());
+    } catch (const json::exception&amp;) {
+        return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+    }
     return AILIA_LLM_STATUS_SUCCESS;
 }
 
@@ -174,24 +217,44 @@ static int run_tool_use(AILIALLM* llm) {
             continue;
         }
         if (status != AILIA_LLM_STATUS_SUCCESS) return status;
-        messages.push_back(response);
-        if (!response.contains(&quot;tool_calls&quot;) || response[&quot;tool_calls&quot;].empty()) {
-            if (response[&quot;content&quot;].is_string()) {
-                printf(&quot;%s\n&quot;, response[&quot;content&quot;].get&lt;std::string&gt;().c_str());
+        try {
+            if (!response.is_object() || response.at(&quot;role&quot;) != &quot;assistant&quot;) {
+                return AILIA_LLM_STATUS_INVALID_ARGUMENT;
             }
-            break;
-        }
-        for (const auto&amp; call : response[&quot;tool_calls&quot;]) {
-            const auto&amp; function = call[&quot;function&quot;];
-            if (function[&quot;name&quot;] != &quot;get_weather&quot;) return AILIA_LLM_STATUS_INVALID_ARGUMENT;
-            json args = json::parse(function[&quot;arguments&quot;].get&lt;std::string&gt;());
-            // Validate the arguments and execute the tool. Mock result here.
-            json result = {{&quot;city&quot;, args[&quot;city&quot;]}, {&quot;weather&quot;, &quot;sunny&quot;}};
-            messages.push_back({{&quot;role&quot;, &quot;tool&quot;}, {&quot;tool_call_id&quot;, call[&quot;id&quot;]},
-                                {&quot;content&quot;, result.dump()}}); // The result is a JSON string
+            messages.push_back(response);
+            if (!response.contains(&quot;tool_calls&quot;) || response[&quot;tool_calls&quot;].is_null()) {
+                if (!response.contains(&quot;content&quot;) || !response[&quot;content&quot;].is_string() ||
+                    response[&quot;content&quot;].get&lt;std::string&gt;().empty()) {
+                    return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+                }
+                printf(&quot;%s\n&quot;, response[&quot;content&quot;].get&lt;std::string&gt;().c_str());
+                return AILIA_LLM_STATUS_SUCCESS;
+            }
+            if (!response[&quot;tool_calls&quot;].is_array() || response[&quot;tool_calls&quot;].empty()) {
+                return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+            }
+            for (const auto&amp; call : response[&quot;tool_calls&quot;]) {
+                const std::string id = call.at(&quot;id&quot;).get&lt;std::string&gt;();
+                const auto&amp; function = call.at(&quot;function&quot;);
+                if (id.empty() || function.at(&quot;name&quot;) != &quot;get_weather&quot;) {
+                    return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+                }
+                json args = json::parse(function.at(&quot;arguments&quot;).get&lt;std::string&gt;());
+                if (!args.is_object() || !args.contains(&quot;city&quot;) || !args[&quot;city&quot;].is_string() ||
+                    args[&quot;city&quot;].get&lt;std::string&gt;().empty()) {
+                    return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+                }
+                // Execute the tool with validated arguments. Mock result here.
+                json result = {{&quot;city&quot;, args[&quot;city&quot;]}, {&quot;weather&quot;, &quot;sunny&quot;}};
+                messages.push_back({{&quot;role&quot;, &quot;tool&quot;}, {&quot;tool_call_id&quot;, id},
+                                    {&quot;content&quot;, result.dump()}}); // The result is a JSON string
+            }
+        } catch (const json::exception&amp;) {
+            return AILIA_LLM_STATUS_INVALID_ARGUMENT;
         }
     }
-    return AILIA_LLM_STATUS_SUCCESS;
+    // Reaching the turn limit after tool calls is not a final answer.
+    return AILIA_LLM_STATUS_OTHER_ERROR;
 }
 
 int main() {
@@ -276,7 +339,7 @@ fun runToolUse(llm: AiliaLLM) {
             val calls = response.optJSONArray(&quot;tool_calls&quot;)
             if (calls == null || calls.length() == 0) {
                 println(response.optString(&quot;content&quot;))
-                break
+                return
             }
             for (i in 0 until calls.length()) {
                 val call = calls.getJSONObject(i)
@@ -284,6 +347,7 @@ fun runToolUse(llm: AiliaLLM) {
                 require(function.getString(&quot;name&quot;) == &quot;get_weather&quot;)
                 val args = JSONObject(function.getString(&quot;arguments&quot;))
                 val city = args.getString(&quot;city&quot;)
+                require(city.isNotBlank())
                 // Validate the arguments and execute the tool. Mock result here.
                 val result = JSONObject().put(&quot;city&quot;, city).put(&quot;weather&quot;, &quot;sunny&quot;)
                 messages.put(JSONObject()
@@ -292,6 +356,7 @@ fun runToolUse(llm: AiliaLLM) {
                     .put(&quot;content&quot;, result.toString())) // The result is a JSON string
             }
         }
+        error(&quot;No final answer within 8 turns&quot;)
     } finally {
         llm.setTools(null)
     }
@@ -333,7 +398,7 @@ void runToolUse(AiliaLLMModel llm) {
       final calls = response[&#x27;tool_calls&#x27;] as List? ?? [];
       if (calls.isEmpty) {
         print(response[&#x27;content&#x27;]);
-        break;
+        return;
       }
       for (final call in calls) {
         final function = call[&#x27;function&#x27;];
@@ -342,6 +407,7 @@ void runToolUse(AiliaLLMModel llm) {
         }
         final args = jsonDecode(function[&#x27;arguments&#x27;] as String);
         final city = args[&#x27;city&#x27;] as String;
+        if (city.isEmpty) throw FormatException(&#x27;city must not be empty&#x27;);
         // Validate the arguments and execute the tool. Mock result here.
         final result = {&#x27;city&#x27;: city, &#x27;weather&#x27;: &#x27;sunny&#x27;};
         messages.add({
@@ -351,6 +417,7 @@ void runToolUse(AiliaLLMModel llm) {
         });
       }
     }
+    throw StateError(&#x27;No final answer within 8 turns&#x27;);
   } finally {
     llm.setTools(null);
   }
@@ -386,11 +453,17 @@ try:
             print(response[&quot;content&quot;])
             break
         for call in response[&quot;tool_calls&quot;]:
+            if call[&quot;function&quot;][&quot;name&quot;] != &quot;get_weather&quot;:
+                raise ValueError(&quot;Unknown tool&quot;)
             args = json.loads(call[&quot;function&quot;][&quot;arguments&quot;])
+            if not isinstance(args, dict) or not isinstance(args.get(&quot;city&quot;), str) or not args[&quot;city&quot;]:
+                raise ValueError(&quot;Invalid city argument&quot;)
             # Validate and execute the tool in the application. Mock result here.
             result = {&quot;city&quot;: args[&quot;city&quot;], &quot;weather&quot;: &quot;sunny&quot;}
             messages.append({&quot;role&quot;:&quot;tool&quot;, &quot;tool_call_id&quot;:call[&quot;id&quot;],
                              &quot;content&quot;:json.dumps(result)})
+    else:
+        raise RuntimeError(&quot;No final answer within 8 turns&quot;)
 finally:
     model.set_tools(None)
 </code></pre>
