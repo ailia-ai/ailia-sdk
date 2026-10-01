@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia LLM Multimodal Guide</title>
+  <meta name="description" content="How to input images and audio in ailia LLM: loading the multimodal projector, checking support, the two input methods ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson, error handling, and C++ samples.">
+  <link rel="canonical" href="https://docs.ailia.ai/en/llm/multimodal.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/multimodal.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/multimodal.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/llm/multimodal.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/llm/multimodal.html">
+  <meta property="og:title" content="ailia LLM Multimodal Guide">
+  <meta property="og:description" content="How to input images and audio in ailia LLM: loading the multimodal projector, checking support, the two input methods ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson, error handling, and C++ samples.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia LLM Multimodal Guide">
+  <meta name="twitter:description" content="How to input images and audio in ailia LLM: loading the multimodal projector, checking support, the two input methods ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson, error handling, and C++ samples.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
+    .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; max-width: 480px; }
+    .arch-box .arch-name { font-weight: 600; color: var(--primary); }
+    .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
+    .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+    .guide-content .version-table td code { white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia LLM Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../../llm/multimodal.html" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia LLM Multimodal Guide</h1>
+    <p>How to load a multimodal projector in ailia LLM and input images and audio. There are two methods: <code>ailiaLLMSetMultimodalPrompt</code>, which takes structs, and <code>ailiaLLMSetPromptJson</code>, which takes a JSON history.</p>
+  </section>
+
+  <div class="guide-content">
+<h2>Loading the projector</h2>
+<p>After opening the model, load the corresponding projector with <code>ailiaLLMOpenMultimodalProjectorFileA</code>.
+Image and audio support can be checked with <code>vision_support</code> / <code>audio_support</code> of <code>ailiaLLMGetMultimodalCapabilities</code>. Specifying images or audio with a model or projector without media support, or before the projector is loaded, is INVALID_STATE.</p>
+<h2>Input methods</h2>
+<div class="table-wrap"><table class="version-table">
+<thead>
+<tr><th></th><th><code>ailiaLLMSetMultimodalPrompt</code></th><th><code>ailiaLLMSetPromptJson</code></th></tr>
+</thead>
+<tbody>
+<tr><td>Messages</td><td>Array of <code>AILIALLMMultimodalChatMessage</code></td><td>JSON messages array (UTF-8)</td></tr>
+<tr><td>Media position</td><td><code>&lt;__media__&gt;</code> placeholder in content</td><td>Order in the content array</td></tr>
+<tr><td>Input formats</td><td>File path, encoded buffer, raw RGB</td><td>File path, Base64 (encoded file)</td></tr>
+<tr><td>Response</td><td>Concatenate <code>ailiaLLMGetDeltaText</code></td><td>Retrieve with <code>ailiaLLMGetResponseJson</code></td></tr>
+<tr><td>Tool Use</td><td>INVALID_STATE while tools are set</td><td>Available whether or not tools are set</td></tr>
+</tbody>
+</table></div>
+<p>Either method can be used to input images and audio. Use <code>ailiaLLMSetMultimodalPrompt</code> to pass raw RGB, and <code>ailiaLLMSetPromptJson</code> to combine media with Tool Use.
+See the <a href="tool_use.html">Tool Use Guide</a> for details on Tool Use.</p>
+<h2>SetMultimodalPrompt (structs)</h2>
+<p>Include <code>&lt;__media__&gt;</code> placeholders in the content of a message, set the corresponding media in order in <code>media_data</code>, and set their number in <code>media_count</code>.
+The content of the messages is copied internally, so it can be freed after the call.</p>
+<p>Set <code>media_type</code> of <code>AILIALLMMediaData</code> to <code>&quot;image&quot;</code> or <code>&quot;audio&quot;</code>. Both images and audio can be used. Media is given in one of the following ways.</p>
+<ul>
+<li>File: <code>file_path</code> (UTF-8). Ignored when <code>data</code> is set.</li>
+<li>Encoded buffer: set <code>data</code> and <code>data_size</code>, with <code>width</code> / <code>height</code> set to 0. Images can be JPG, PNG, TGA, BMP, PSD, GIF, HDR or PIC, and audio can be WAV, MP3, FLAC and similar formats.</li>
+<li>Raw RGB: set <code>width * height * 3</code> bytes of RGB data in <code>data</code>, and set <code>width</code> / <code>height</code>. Images only.</li>
+</ul>
+<h2>SetPromptJson (JSON)</h2>
+<p>Specify images and audio in order inside the content array of a user message, alongside text entries.</p>
+<pre><code class="language-json">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[
+  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;Describe this image and audio.&quot;},
+  {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},
+  {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}
+]}]
+</code></pre>
+<p>An image or audio entry must specify exactly one of <code>file_path</code> or <code>data</code>. <code>data</code> is the file content encoded in
+standard Base64 (with padding). JPEG/PNG, WAV/MP3/FLAC and similar formats can be used. Fetching from a URL, video, and raw RGB/PCM are not supported.
+A history that contains images or audio is re-evaluated every time.</p>
+<h2>Errors</h2>
+<ul>
+<li>A file read failure is ERROR_FILE_API, and a failure to load a buffer (including media decoded from Base64) is ERROR_BUFFER_API.</li>
+<li>Invalid Base64 passed to SetPromptJson is INVALID_ARGUMENT.</li>
+</ul>
+<h2>C++ sample (SetMultimodalPrompt)</h2>
+<p>Opens the model and the projector, passes an image with structs, and generates a response. The response is built by concatenating GetDeltaText.</p>
+<pre><code class="language-cpp">#include &quot;ailia_llm.h&quot;
+#include &lt;cstdio&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+static int open_projector(AILIALLM* llm) {
+    int status = ailiaLLMOpenMultimodalProjectorFileA(llm, &quot;/path/to/mmproj.gguf&quot;);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    unsigned int vision = 0, audio = 0;
+    status = ailiaLLMGetMultimodalCapabilities(llm, &amp;vision, &amp;audio);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    // Check image and audio support with vision_support / audio_support.
+    return vision ? AILIA_LLM_STATUS_SUCCESS : AILIA_LLM_STATUS_INVALID_STATE;
+}
+
+static int describe_image(AILIALLM* llm) {
+    AILIALLMMediaData media = {};
+    media.media_type = &quot;image&quot;;
+    media.file_path = &quot;/path/to/image.jpg&quot;; // a buffer can also be given with data and data_size
+    AILIALLMMultimodalChatMessage message = {};
+    message.role = &quot;user&quot;;
+    message.content = &quot;Describe this image. &lt;__media__&gt;&quot;;
+    message.media_data = &amp;media;
+    message.media_count = 1;
+    int status = ailiaLLMSetMultimodalPrompt(llm, &amp;message, 1);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    std::string text;
+    unsigned int done = 0;
+    while (!done) {
+        status = ailiaLLMGenerate(llm, &amp;done);
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+        if (done) break;
+        unsigned int size = 0;
+        status = ailiaLLMGetDeltaTextSize(llm, &amp;size);
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+        std::vector&lt;char&gt; delta(size);
+        status = ailiaLLMGetDeltaText(llm, delta.data(), size);
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+        text += delta.data();
+    }
+    printf(&quot;%s\n&quot;, text.c_str());
+    return AILIA_LLM_STATUS_SUCCESS;
+}
+
+int main() {
+    AILIALLM* llm = nullptr;
+    if (ailiaLLMCreate(&amp;llm) != AILIA_LLM_STATUS_SUCCESS) return 1;
+    int status = ailiaLLMOpenModelFileA(llm, &quot;gemma-4-E2B-it-Q4_K_M.gguf&quot;, 4096);
+    if (status == AILIA_LLM_STATUS_SUCCESS) status = open_projector(llm);
+    if (status == AILIA_LLM_STATUS_SUCCESS) status = describe_image(llm);
+    if (status != AILIA_LLM_STATUS_SUCCESS) {
+        fprintf(stderr, &quot;error %d: %s\n&quot;, status, ailiaLLMGetErrorDetail(llm));
+    }
+    ailiaLLMDestroy(llm);
+    return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
+}
+</code></pre>
+<h2>C++ sample (SetPromptJson)</h2>
+<p>The same process with a JSON history. The history is built with nlohmann/json.</p>
+<pre><code class="language-cpp">#include &quot;ailia_llm.h&quot;
+#include &lt;nlohmann/json.hpp&gt;
+#include &lt;cstdio&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+using json = nlohmann::json;
+
+static int open_projector(AILIALLM* llm) {
+    int status = ailiaLLMOpenMultimodalProjectorFileA(llm, &quot;/path/to/mmproj.gguf&quot;);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    unsigned int vision = 0, audio = 0;
+    status = ailiaLLMGetMultimodalCapabilities(llm, &amp;vision, &amp;audio);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    // Check image and audio support with vision_support / audio_support.
+    return vision ? AILIA_LLM_STATUS_SUCCESS : AILIA_LLM_STATUS_INVALID_STATE;
+}
+
+static int describe_image_json(AILIALLM* llm) {
+    json messages = json::array({{{&quot;role&quot;, &quot;user&quot;}, {&quot;content&quot;, json::array({
+        {{&quot;type&quot;, &quot;text&quot;}, {&quot;text&quot;, &quot;Describe this image.&quot;}},
+        {{&quot;type&quot;, &quot;image&quot;}, {&quot;file_path&quot;, &quot;/path/to/image.jpg&quot;}}
+    })}}});
+    std::string input = messages.dump();
+    int status = ailiaLLMSetPromptJson(llm, input.c_str());
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    unsigned int done = 0;
+    while (!done) {
+        status = ailiaLLMGenerate(llm, &amp;done);
+        if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    }
+    unsigned int size = 0;
+    status = ailiaLLMGetResponseJsonSize(llm, &amp;size);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    std::vector&lt;char&gt; output(size);
+    status = ailiaLLMGetResponseJson(llm, output.data(), size);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    try {
+        json response = json::parse(output.data());
+        printf(&quot;%s\n&quot;, response.at(&quot;content&quot;).get&lt;std::string&gt;().c_str());
+    } catch (const json::exception&amp;) {
+        return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+    }
+    return AILIA_LLM_STATUS_SUCCESS;
+}
+
+int main() {
+    AILIALLM* llm = nullptr;
+    if (ailiaLLMCreate(&amp;llm) != AILIA_LLM_STATUS_SUCCESS) return 1;
+    int status = ailiaLLMOpenModelFileA(llm, &quot;gemma-4-E2B-it-Q4_K_M.gguf&quot;, 4096);
+    if (status == AILIA_LLM_STATUS_SUCCESS) status = open_projector(llm);
+    if (status == AILIA_LLM_STATUS_SUCCESS) status = describe_image_json(llm);
+    if (status != AILIA_LLM_STATUS_SUCCESS) {
+        fprintf(stderr, &quot;error %d: %s\n&quot;, status, ailiaLLMGetErrorDetail(llm));
+    }
+    ailiaLLMDestroy(llm);
+    return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
+}
+</code></pre>
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

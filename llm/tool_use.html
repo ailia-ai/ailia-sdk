@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ailia LLM Tool Use ガイド</title>
-  <meta name="description" content="ailia LLM 1.5 の Tool Use API で Gemma 4 の Function Calling を使う方法を解説します。OpenAI 互換のツール定義、tool ロールによる実行結果の返却、JSON履歴、画像・音声入力、SDKに蓄積した生成結果の取得、不完全な出力の扱いをまとめます。">
+  <meta name="description" content="ailia LLM 1.5 の Tool Use API で Gemma 4 の Function Calling を使う方法を解説します。OpenAI 互換のツール定義、tool ロールによる実行結果の返却、JSON履歴、SDKに蓄積した生成結果の取得、不完全な出力の扱いをまとめます。">
   <link rel="canonical" href="https://docs.ailia.ai/llm/tool_use.html">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/tool_use.html">
   <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/tool_use.html">
@@ -22,11 +22,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/llm/tool_use.html">
   <meta property="og:title" content="ailia LLM Tool Use ガイド">
-  <meta property="og:description" content="ailia LLM 1.5 の Tool Use API で Gemma 4 の Function Calling を使う方法を解説します。OpenAI 互換のツール定義、tool ロールによる実行結果の返却、JSON履歴、画像・音声入力、SDKに蓄積した生成結果の取得、不完全な出力の扱いをまとめます。">
+  <meta property="og:description" content="ailia LLM 1.5 の Tool Use API で Gemma 4 の Function Calling を使う方法を解説します。OpenAI 互換のツール定義、tool ロールによる実行結果の返却、JSON履歴、SDKに蓄積した生成結果の取得、不完全な出力の扱いをまとめます。">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="ailia LLM Tool Use ガイド">
-  <meta name="twitter:description" content="ailia LLM 1.5 の Tool Use API で Gemma 4 の Function Calling を使う方法を解説します。OpenAI 互換のツール定義、tool ロールによる実行結果の返却、JSON履歴、画像・音声入力、SDKに蓄積した生成結果の取得、不完全な出力の扱いをまとめます。">
+  <meta name="twitter:description" content="ailia LLM 1.5 の Tool Use API で Gemma 4 の Function Calling を使う方法を解説します。OpenAI 互換のツール定義、tool ロールによる実行結果の返却、JSON履歴、SDKに蓄積した生成結果の取得、不完全な出力の扱いをまとめます。">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="stylesheet" href="../css/common.css">
@@ -37,6 +37,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .arch-box .arch-name { font-weight: 600; color: var(--primary); }
     .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
     .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .arch-split { display: flex; justify-content: center; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+    .arch-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .arch-col .arch-box { min-width: 0; width: 220px; padding: 8px 12px; }
+    .arch-group { border: 1px dashed var(--border); border-radius: 10px; padding: 12px 12px 14px; background: var(--bg); display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; max-width: 760px; }
+    .arch-group-title { font-weight: 600; color: var(--primary); margin-bottom: 6px; text-align: center; }
+    .arch-group-title small { display: block; font-weight: 400; font-size: 13px; color: var(--text-light); }
+    .arch-box.decision { border: 2px solid var(--accent); }
+    .arch-branch { font-size: 13px; font-weight: 600; color: var(--accent); }
+    .arch-loop { font-size: 13px; color: var(--text-light); }
+    .arch-box.final { border: 2px solid var(--primary); }
     .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
     .table-wrap { overflow-x: auto; }
     .guide-content .version-table td code { white-space: nowrap; }
@@ -70,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM Tool Use ガイド</h1>
-    <p>ailia LLM 1.5 の Tool Use API で Gemma 4 の Function Calling を使う方法を説明します。JSON履歴とtool_call_idによる結果の返却、画像・音声入力、GetResponseJsonによる結果取得を説明します。</p>
+    <p>ailia LLM 1.5 の Tool Use API で Gemma 4 の Function Calling を使う方法を説明します。JSON履歴とtool_call_idによる結果の返却、GetResponseJsonによる結果取得を説明します。</p>
   </section>
 
   <div class="guide-content">
@@ -85,6 +95,47 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li><code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code>で構造化assistant JSONを取得します。</li>
 <li>成功したオブジェクトをそのまま履歴に追加し、tool_callsがあれば実行して、ID付きのtool結果を追加し、次のプロンプトを設定します。</li>
 </ol>
+<div class="arch-diagram" role="img" aria-label="Tool Use APIの呼び出しの流れ">
+  <div class="arch-box"><div class="arch-name">ailiaLLMSetTools</div><div class="arch-desc">OpenAI互換のツール定義を設定</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">messages</div><div class="arch-desc">userメッセージで履歴を作成</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-group">
+    <div class="arch-group-title">ターンのループ<small>最終回答が得られるまで（例：最大8ターン）</small></div>
+    <div class="arch-box"><div class="arch-name">ailiaLLMSetPromptJson</div><div class="arch-desc">messages配列をそのまま渡す</div></div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-box"><div class="arch-name">ailiaLLMGenerate</div><div class="arch-desc">doneになるまで呼び出す（deltaのプレビューは任意）</div></div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-box decision"><div class="arch-name">ailiaLLMGetResponseJson</div><div class="arch-desc">assistant JSONを取得して分岐</div></div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-split">
+      <div class="arch-col">
+        <div class="arch-branch">tool_callsあり</div>
+        <div class="arch-box"><div class="arch-name">履歴に追加</div><div class="arch-desc">assistantをそのまま追加</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">ツールを実行</div><div class="arch-desc">argumentsを検証して実行</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">履歴に追加</div><div class="arch-desc">role: tool、tool_call_id付きの結果</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-loop">↺ SetPromptJsonへ</div>
+      </div>
+      <div class="arch-col">
+        <div class="arch-branch">tool_callsなし</div>
+        <div class="arch-box"><div class="arch-name">履歴に追加</div><div class="arch-desc">assistantをそのまま追加</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box final"><div class="arch-name">最終回答</div><div class="arch-desc">contentを表示してループを抜ける</div></div>
+      </div>
+      <div class="arch-col">
+        <div class="arch-branch">PARSE_ERROR</div>
+        <div class="arch-box"><div class="arch-name">再試行を指示</div><div class="arch-desc">失敗したassistantは追加せず、userの再試行指示を追加</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-loop">↺ SetPromptJsonへ</div>
+      </div>
+    </div>
+  </div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">ailiaLLMSetTools(NULL)</div><div class="arch-desc">ツールを解除（エラー時も実行）</div></div>
+</div>
 <p>SDKが生成結果を蓄積するので、生の出力をアプリ側で引き回す必要はありません。
 GetResponseJsonは読み取りで蓄積を消去しません。新しいプロンプトでリセットします。
 </p>
@@ -105,25 +156,13 @@ GetResponseJsonは読み取りで蓄積を消去しません。新しいプロ�
 ツール結果のcontentには文字列を指定し、オブジェクトはJSON文字列に変換してください。</p>
 <p><code>setTools(null)</code>でツールを解除した後も、過去のtool_callsとtool結果を<code>setPromptJson</code>へ渡して要約・最終回答を生成できます。ID対応の検証は引き続き行います。解除すると出力パーサーが無効になるため、生成結果のJSONは解除前に取得してください。</p>
 <h3>画像・音声</h3>
-<p>対応するprojectorを<code>ailiaLLMOpenMultimodalProjectorFileA</code>で読み込んだ後、userのcontent配列に順番に指定します。
-メディアはtoolsの有無にかかわらずJSONで入力できます。</p>
-<pre><code class="language-json">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[
-  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;この画像と音声について説明してください。&quot;},
-  {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},
-  {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}
-]}]
-</code></pre>
-<p>image/audioは<code>file_path</code>または<code>data</code>をちょうど1つ指定します。<code>data</code>は標準Base64（パディング付き）で
-エンコードしたファイル内容です。JPEG/PNG、WAV/MP3/FLAC等を使用できます。URL取得、動画、生RGB/PCMには対応しません。
-画像・音声を含む履歴は毎回再評価します。メディア非対応のモデル/projectorや未読込はINVALID_STATEです。
-画像と音声の対応状況は<code>ailiaLLMGetMultimodalCapabilities</code>で確認できます。</p>
+<p>userのcontent配列には画像・音声も指定できます。詳しくは<a href="multimodal.html">マルチモーダル ガイド</a>を参照してください。</p>
 <h3>不完全な出力・エラー</h3>
 <ul>
 <li>GetResponseJson：生成完了後に呼び出してください。未完了tool call/ThinkingはPARSE_ERRORです。部分結果を実行したり、引数を補完したりしません。</li>
 <li>SetPromptJson：不完全なarguments、不正なJSON・型・ID対応、空配列はINVALID_ARGUMENTです。自動切り捨ては行いません。</li>
 <li>再試行：GetResponseJsonがPARSE_ERRORの場合、失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加します。部分的な本文・Thinkingの取得は不要です。不完全な呼び出しのtool結果は作りません。</li>
 <li>GetResponseJsonはプロンプト未設定、tools/Thinking変更後にINVALID_STATEを返します。プロンプト設定後・生成前の空出力は空のassistantです。</li>
-<li>ファイル読込失敗はERROR_FILE_API、Base64からのデコード済みメディア読込失敗はERROR_BUFFER_API、不正なBase64はINVALID_ARGUMENTです。</li>
 </ul>
 <h2>C++サンプル</h2>
 <p>モデルの読み込み、<code>ailiaLLMSetTools</code>によるツール設定から、生成、ツール結果の返却、ツールの解除までの一連の流れです。履歴の編集にはnlohmann/jsonを使用します。天気は動作例のモック値で、実際の天気情報ではありません。</p>
