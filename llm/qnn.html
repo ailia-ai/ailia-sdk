@@ -94,7 +94,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>ailia LLM 1.5.0 以降は Qualcomm SoC の NPU（Hexagon）を使用した高速推論に対応しています。NPU 向けには、llama.cpp とは異なるアイリア社独自の実装を搭載しています。</p>
     <p>NPU を使用することで、高速・低消費電力に LLM を実行可能です。テキストの LLM だけでなく、画像を入力する VLM（Vision Language Model）や音声入力にも対応し、NPU で処理できます。また、Snapdragon 7s など、ミドルレンジの端末でも Gemma 4 E2B や E4B を実行可能です。</p>
     <p>実測値では、Android 端末上で Prefill を最大 4.2 倍高速化し、Prefill 中の CPU 使用率を 1/30 以下に抑えられます（Snapdragon 8+ Gen 1、2,048 トークン入力時の同端末 CPU 比）。</p>
-    <p>QNN（Qualcomm AI Engine Direct）は Qualcomm が提供するバックエンド API です。ailia LLM では、llama.cpp のモデル形式である GGUF を、QNN で実行可能な形式に変換することで、NPU での推論を実現しています。</p>
+    <p>QNN（Qualcomm AI Engine Direct）は Qualcomm が提供するバックエンド API です。ailia LLM では、llama.cpp のモデル形式である GGUF を PC 上で SoC 専用の QNN Model（<code>.qnn</code>）に変換し、端末上の ailia LLM で NPU を使って実行します。端末には GGUF は不要で、QNN Model のみを配置します。</p>
+    <div class="arch-diagram">
+      <div class="arch-box"><div class="arch-name">GGUF</div><div class="arch-desc">llama.cpp 互換のモデルファイル（Q4 量子化）</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">ailia LLM Compiler（PC）</div><div class="arch-desc">QNN API でグラフを構築し、SoC 別の Context Binary を生成</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">QNN Model（.qnn）</div><div class="arch-desc">SoC 固有・自己完結のモデルファイル</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">ailia LLM（Device）</div><div class="arch-desc">Context Binary を復元し、Hexagon NPU で Prefill / Decode を実行</div></div>
+    </div>
     <div class="note">
       <strong>注意:</strong> QNN バックエンドは ailia LLM 1.5.0 以降で利用できます。
     </div>
@@ -251,18 +260,7 @@ string modelPath = Path.Combine(Application.persistentDataPath, $"gemma4-e2b-{so
 if (!llm.Open(modelPath, 0)) throw new Exception(llm.GetErrorDetail());
 // 使用後は llm.Dispose();</code></pre>
 
-    <h2>アーキテクチャ</h2>
-    <h3>GGUF から端末実行まで</h3>
-    <p>GGUF を PC 上で QNN Model に変換し、変換済みの QNN Model を端末上の ailia LLM で実行します。端末側では GGUF は不要で、QNN Model のみを配置します。</p>
-    <div class="arch-diagram">
-      <div class="arch-box"><div class="arch-name">GGUF</div><div class="arch-desc">llama.cpp 互換のモデルファイル（Q4 量子化）</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">ailia LLM Compiler（PC）</div><div class="arch-desc">QNN API でグラフを構築し、SoC 別の Context Binary を生成</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">QNN Model（.qnn）</div><div class="arch-desc">SoC 固有・自己完結のモデルファイル</div></div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-box"><div class="arch-name">ailia LLM（Device）</div><div class="arch-desc">Context Binary を復元し、Hexagon NPU で Prefill / Decode を実行</div></div>
-    </div>
+    <h2>アーキテクチャ詳細</h2>
     <p>QNN Model は Prefill 用の固定長グラフ（AR-N）と Decode 用のグラフ（AR-1）を同じ QNN Context に格納し、重みと KV キャッシュを共有します。重みは変換時に 4bit（W4）に量子化され、FP16 モデルでは活性値と KV キャッシュは FP16 で処理されます。</p>
     <p>ailia LLM Compiler は FP16 と Int16 の両方に対応しており、対象の SoC に応じて変換時に切り替えられます。Snapdragon 7s Gen 3 の NPU は Hexagon v73 ですが、FP16 に対応していないため、ailia LLM では Int16 に量子化したモデルを使用します。<a href="https://docs.qualcomm.com/doc/87-78936-1/87-78936-1_REV_A_Snapdragon_7s_Gen_3_Mobile_Platform_Product_Brief.pdf">Qualcomm の Snapdragon 7s Gen 3 製品資料（PDF、2 ページの Artificial Intelligence）</a>では、NPU の対応精度として INT4、INT8、INT16 が記載されており、FP16 は含まれていません。Hexagon のバージョンだけでなく、SoC ごとの対応精度に合わせてモデルを選択してください。</p>
     <p>ailia LLM は QNN Model を mmap で読み込み、QNN Context を復元して Hexagon NPU（HTP）上で実行します。Prefill は固定長の AR-N グラフで処理し、プロンプトが AR の倍数でない場合は最後のスライスをパディングします。Decode は同じ Context 内の AR-1 グラフで処理し、Prefill 後の KV キャッシュのコピーは発生しません。VLM では画像のパッチ化と位置埋め込みを CPU で行い、16 層の Vision Transformer からプーリング、プロジェクションまでを 1 つの QNN グラフで実行します。音声入力には Audio グラフを使用し、音声エンコーダを NPU で実行します。また、層別トークン埋め込み（PLE）のフロントエンドも各 Transformer グラフ内で実行し、CPU 側にはトークン行の参照とメディア埋め込みの差し替えのみを残しています。これにより、入力処理を CPU で行う場合に比べて Int16 モデルの Prefill が改善します。</p>
@@ -485,7 +483,6 @@ if (!llm.Open(modelPath, 0)) throw new Exception(llm.GetErrorDetail());
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {
