@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -66,15 +66,28 @@ $(function() {
 <div class="title">Features </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md19"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md35"></a>
 Features of ailia LLM</h1>
 <p>In this page, we present the features that are provided by both the C and the C# APIs.</p>
-<h2><a class="anchor" id="autotoc_md20"></a>
+<h2><a class="anchor" id="autotoc_md36"></a>
 Loading GGUF</h2>
 <p>It is possible to load GGUF files and conduct chat.</p>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md37"></a>
 Utilizing the GPU</h2>
-<p>GPU inference is possible using Metal on iOS and macOS, and Vulkan on Windows. </p>
+<p>GPU inference is possible using Metal on iOS and macOS, and Vulkan on Windows.</p>
+<h2><a class="anchor" id="autotoc_md38"></a>
+Image input (VLM)</h2>
+<p>Ask questions about images with a vision-capable model and its matching mmproj. Image files, encoded image buffers and raw RGB are supported. Check vision capability after opening the projector. See <a href="./api.html">API Usage</a> for a calling example.</p>
+<h2><a class="anchor" id="autotoc_md39"></a>
+Audio input</h2>
+<p>Generate text from audio using an audio-capable model and its matching mmproj. Input may be a WAV/MP3/FLAC file or encoded buffer. Check the audio capability after opening the projector; vision-only models do not support audio. Raw PCM and audio synthesis are unsupported. See API Usage for the procedure.</p>
+<p>Android QNN uses precompiled linear graphs from an audio-enabled mmproj <code>.qnn</code>. The encoder still includes CPU processing; it does not run entirely on the NPU.</p>
+<h2><a class="anchor" id="autotoc_md40"></a>
+Android QNN</h2>
+<p>Load a precompiled SoC-specific text <code>.qnn</code> and its matching mmproj <code>.qnn</code> for VLM/ALM. Source GGUF files are not required on the device. On QNN-enabled builds, query the device model stem and select packages for the same SoC and model. See <a href="./api.html">API Usage</a>.</p>
+<h2><a class="anchor" id="autotoc_md41"></a>
+Tool Use (Function Calling)</h2>
+<p>For models whose chat template supports tool calling (e.g. Gemma 4), OpenAI-compatible tool definitions can be passed so that the model calls tools (functions). The tool call output is guaranteed by a grammar and the raw output can be converted into an OpenAI-compatible assistant message (content / reasoning_content / tool_calls). After generation, retrieve structured assistant JSON and append it to history; append tool results as messages with role "tool". </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

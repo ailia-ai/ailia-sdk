@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -80,14 +80,14 @@ _AILIALLMMultimodalChatMessage 連携図</div>
 <div class="center"><img src="struct__AILIALLMMultimodalChatMessage__coll__graph.png" border="0" usemap="#a__AILIALLMMultimodalChatMessage_coll__map" alt="Collaboration graph"/></div>
 <map name="a__AILIALLMMultimodalChatMessage_coll__map" id="a__AILIALLMMultimodalChatMessage_coll__map">
 <area shape="rect" title="マルチモーダル対応チャットメッセージ" alt="" coords="5,95,256,121"/>
-<area shape="rect" href="struct__AILIALLMMediaData.html" title="マルチモーダル用のメディアデータ構造体。オーディオは現在未サポートで、将来的な実装のために予約されています。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータか..." alt="" coords="51,5,210,32"/>
+<area shape="rect" href="struct__AILIALLMMediaData.html" title="マルチモーダル用の画像・音声データ構造体。音声には音声対応プロジェクタが必要です。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エン..." alt="" coords="51,5,210,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">凡例</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 公開変数類</h2></td></tr>
 <tr class="memitem:a9ee470dd9cf00f75e90c18371688b1be"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMultimodalChatMessage.html#a9ee470dd9cf00f75e90c18371688b1be">role</a></td></tr>
-<tr class="memdesc:a9ee470dd9cf00f75e90c18371688b1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent the role. (system, user, assistant)  <a href="struct__AILIALLMMultimodalChatMessage.html#a9ee470dd9cf00f75e90c18371688b1be">[詳解]</a><br /></td></tr>
+<tr class="memdesc:a9ee470dd9cf00f75e90c18371688b1be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent the role. (system, user, assistant, tool) "tool" holds a tool result for tool use, see ailiaLLMSetTools.  <a href="struct__AILIALLMMultimodalChatMessage.html#a9ee470dd9cf00f75e90c18371688b1be">[詳解]</a><br /></td></tr>
 <tr class="separator:a9ee470dd9cf00f75e90c18371688b1be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad980deb6909cba08a2571887ae1d3b19"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMultimodalChatMessage.html#ad980deb6909cba08a2571887ae1d3b19">content</a></td></tr>
 <tr class="memdesc:ad980deb6909cba08a2571887ae1d3b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent the content of the message. Use &lt;<b>media</b>&gt; placeholder for media.  <a href="struct__AILIALLMMultimodalChatMessage.html#ad980deb6909cba08a2571887ae1d3b19">[詳解]</a><br /></td></tr>
@@ -162,7 +162,7 @@ _AILIALLMMultimodalChatMessage 連携図</div>
       </table>
 </div><div class="memdoc">
 
-<p>Represent the role. (system, user, assistant) </p>
+<p>Represent the role. (system, user, assistant, tool) "tool" holds a tool result for tool use, see ailiaLLMSetTools. </p>
 
 </div>
 </div>

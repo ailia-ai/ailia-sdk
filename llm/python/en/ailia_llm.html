@@ -16,7 +16,8 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ailia LLM Python API document" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,21 +39,28 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">ailia_llm package</a><ul>
-<li><a class="reference internal" href="#classes">Classes</a><ul>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM"><code class="docutils literal notranslate"><span class="pre">AiliaLLM</span></code></a><ul>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM.__init__"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM.context_full"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.context_full()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM.generate"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.generate()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM.generated_token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.generated_token_count()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM.get_multimodal_capabilities"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.get_multimodal_capabilities()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM.open"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM.open_multimodal_projector"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open_multimodal_projector()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM.prompt_token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.prompt_token_count()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM.set_thinking"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_thinking()</span></code></a></li>
-<li><a class="reference internal" href="#ailia_llm.AiliaLLM.token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.token_count()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ailia_llm package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailia_llm.AiliaLLM"><code class="docutils literal notranslate"><span class="pre">AiliaLLM</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.__init__"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.context_full"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.context_full()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.generate"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.generate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.generate_json"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.generate_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.generated_token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.generated_token_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.get_backend_list"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.get_backend_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.get_error_detail"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.get_error_detail()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.get_multimodal_capabilities"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.get_multimodal_capabilities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.get_qnn_model_name"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.get_qnn_model_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.get_response_json"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.get_response_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.open"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.open_multimodal_projector"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open_multimodal_projector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.prompt_token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.prompt_token_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_backend"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_thinking"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_thinking()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_tools"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_tools()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.token_count()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -60,7 +68,7 @@
 </ul>
 </li>
 </ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -150,26 +158,12 @@ the model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>prompts</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – <dl>
-<dt>A list of message dictionaries, each containing:</dt><dd><ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;role&quot;</span></code> (str): The role (e.g., “system”, “user”, “assistant”).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;content&quot;</span></code> (str): The text content of the message.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;media_data&quot;</span></code> (list[dict], optional): A list of media entries,
-each containing:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;media_type&quot;</span></code> (str): Type of media (e.g., “image”).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;file_path&quot;</span></code> (str, optional): Path to the media file.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;data&quot;</span></code> (bytes, optional): Raw media data.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;width&quot;</span></code> (int, optional): Media width in pixels.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;height&quot;</span></code> (int, optional): Media height in pixels.</p></li>
-</ul>
-</div></blockquote>
-</li>
-</ul>
-</dd>
-</dl>
-</p></li>
+<li><p><strong>prompts</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Message dictionaries contain <code class="docutils literal notranslate"><span class="pre">&quot;role&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;content&quot;</span></code> strings.
+Optional <code class="docutils literal notranslate"><span class="pre">&quot;media_data&quot;</span></code> is a list of entries with <code class="docutils literal notranslate"><span class="pre">&quot;media_type&quot;</span></code>
+(<code class="docutils literal notranslate"><span class="pre">&quot;image&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;audio&quot;</span></code>), <code class="docutils literal notranslate"><span class="pre">&quot;file_path&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;data&quot;</span></code>, and
+optional <code class="docutils literal notranslate"><span class="pre">&quot;width&quot;</span></code>/<code class="docutils literal notranslate"><span class="pre">&quot;height&quot;</span></code>. Audio data contains an encoded
+WAV/MP3/FLAC file, not raw PCM. Tool results use role <code class="docutils literal notranslate"><span class="pre">&quot;tool&quot;</span></code>
+and a string <code class="docutils literal notranslate"><span class="pre">&quot;content&quot;</span></code> (see <a class="reference internal" href="#ailia_llm.AiliaLLM.set_tools" title="ailia_llm.AiliaLLM.set_tools"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_tools()</span></code></a>).</p></li>
 <li><p><strong>top_k</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=40</em>) – Top-k sampling parameter. Limits the token candidates
 to the top-k most probable tokens.</p></li>
 <li><p><strong>top_p</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.9</em>) – Top-p (nucleus) sampling parameter. Limits the token
@@ -195,6 +189,9 @@ the generator stops early. Use <a class="reference internal" href="#ailia_llm.Ai
 whether the context was exhausted.</p>
 <p>For multimodal generation with media_data, you must first call
 <a class="reference internal" href="#ailia_llm.AiliaLLM.open_multimodal_projector" title="ailia_llm.AiliaLLM.open_multimodal_projector"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_multimodal_projector()</span></code></a> to load the projector file.</p>
+<p>The yielded text is for streaming previews. While tools are configured,
+this legacy method fails with INVALID_STATE. Use generate_json() and
+get_response_json(), and keep structured assistant messages in history.</p>
 <p class="rubric">Examples</p>
 <p>Text-only generation:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ailia_llm</span>
@@ -221,6 +218,32 @@ whether the context was exhausted.</p>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Tool use (function calling) with Gemma 4:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">llm</span><span class="o">.</span><span class="n">set_tools</span><span class="p">([{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span> <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;get_weather&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Get the current weather.&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}},</span>
+<span class="gp">... </span>                   <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;city&quot;</span><span class="p">]}}}])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">messages</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What is the weather in Tokyo?&quot;</span><span class="p">}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">llm</span><span class="o">.</span><span class="n">generate_json</span><span class="p">(</span><span class="n">messages</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">get_response_json</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">call</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tool_calls&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+<span class="gp">... </span>    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="s2">&quot;tool_call_id&quot;</span><span class="p">:</span> <span class="n">call</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Sunny, 25C&quot;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">delta</span> <span class="ow">in</span> <span class="n">llm</span><span class="o">.</span><span class="n">generate_json</span><span class="p">(</span><span class="n">messages</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.generate_json">
+<span class="sig-name descname"><span class="pre">generate_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">messages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1234</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.generate_json" title="Link to this definition">¶</a></dt>
+<dd><p>Generate from structured JSON-compatible message dictionaries.</p>
+<p>Required while tools are set. User content can be an array of text,
+image or audio parts with file_path or base64 data. Load a compatible
+projector first for media; submit image and audio in separate prompts.
+Retrieve history with get_response_json().
+Yielded deltas are optional display output; the SDK accumulates them.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -246,6 +269,28 @@ whether the context was exhausted.</p>
 <span class="go">128</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.get_backend_list">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_backend_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.get_backend_list" title="Link to this definition">¶</a></dt>
+<dd><p>Return all available backends and their selection indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Each item contains <code class="docutils literal notranslate"><span class="pre">backend_name</span></code>, <code class="docutils literal notranslate"><span class="pre">device_name</span></code>, and <code class="docutils literal notranslate"><span class="pre">idx</span></code>.
+Use <code class="docutils literal notranslate"><span class="pre">backend_name</span></code> to select a backend type, then pass <code class="docutils literal notranslate"><span class="pre">idx</span></code>
+to <a class="reference internal" href="#ailia_llm.AiliaLLM.set_backend" title="ailia_llm.AiliaLLM.set_backend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_backend()</span></code></a> before opening a model.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.get_error_detail">
+<span class="sig-name descname"><span class="pre">get_error_detail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.get_error_detail" title="Link to this definition">¶</a></dt>
+<dd><p>Return the detail of the last failed native operation.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -283,13 +328,39 @@ whether the context was exhausted.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.get_qnn_model_name">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_qnn_model_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.get_qnn_model_name" title="Link to this definition">¶</a></dt>
+<dd><p>Return the QNN model name for the current device, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;sm7635&quot;</span></code>.</p>
+<p>The name is an artifact stem, not a numeric SoC ID. Use it to select
+a matching precompiled text <code class="docutils literal notranslate"><span class="pre">.qnn</span></code> and multimodal projector <code class="docutils literal notranslate"><span class="pre">.qnn</span></code>.
+No model instance needs to be opened. The returned native string is
+copied before this method returns; callers must not free it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AiliaLLMError</strong> – If QNN is unavailable, the plug-in is absent, or the SoC is
+    unsupported. The native error code is available as <code class="docutils literal notranslate"><span class="pre">code</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.get_response_json">
+<span class="sig-name descname"><span class="pre">get_response_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.get_response_json" title="Link to this definition">¶</a></dt>
+<dd><p>Return the buffered assistant object after generation.</p>
+<p>Raises AiliaLLMError for invalid state or incomplete calls/thinking.
+Does not require collecting the deltas. A new prompt resets the buffer.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ailia_llm.AiliaLLM.open">
 <span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ctx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.open" title="Link to this definition">¶</a></dt>
 <dd><p>Open and load a language model file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model_path</strong> (<em>str</em>) – Path to the GGUF model file.</p></li>
+<li><p><strong>model_path</strong> (<em>str</em>) – Path to a GGUF model or a self-contained, SoC-specific QNN text
+package (<code class="docutils literal notranslate"><span class="pre">.qnn</span></code>). A matching QNN projector is opened separately
+with <a class="reference internal" href="#ailia_llm.AiliaLLM.open_multimodal_projector" title="ailia_llm.AiliaLLM.open_multimodal_projector"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_multimodal_projector()</span></code></a> for vision or audio.</p></li>
 <li><p><strong>n_ctx</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=0</em>) – Context window size (number of tokens).
 When 0, the default context size of the model is used.</p></li>
 </ul>
@@ -315,7 +386,7 @@ When 0, the default context size of the model is used.</p></li>
 such as image or audio understanding.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>mmproj_path</strong> (<em>str</em>) – Path to the multimodal projector file (e.g., mmproj-model.gguf).</p>
+<dd class="field-odd"><p><strong>mmproj_path</strong> (<em>str</em>) – Path to the multimodal projector GGUF or self-contained QNN package.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>AiliaLLMError</strong> – If the projector file cannot be opened or loaded.</p>
@@ -356,6 +427,14 @@ such as image or audio understanding.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.set_backend">
+<span class="sig-name descname"><span class="pre">set_backend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.set_backend" title="Link to this definition">¶</a></dt>
+<dd><p>Select a backend before <a class="reference internal" href="#ailia_llm.AiliaLLM.open" title="ailia_llm.AiliaLLM.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a> (GPU, CPU, or HTP (QNN)).</p>
+<p>With no selection, model format selects the backend automatically.
+Explicit CPU/GPU rejects .qnn and explicit HTP (QNN) rejects GGUF.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ailia_llm.AiliaLLM.set_thinking">
 <span class="sig-name descname"><span class="pre">set_thinking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.set_thinking" title="Link to this definition">¶</a></dt>
 <dd><p>Enable or disable thinking (reasoning output) for thinking models.</p>
@@ -367,6 +446,46 @@ such as image or audio understanding.</p>
 <dd class="field-even"><p><strong>AiliaLLMError</strong> – If the operation fails.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.set_tools">
+<span class="sig-name descname"><span class="pre">set_tools</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tools</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.set_tools" title="Link to this definition">¶</a></dt>
+<dd><p>Set the tool (function) definitions for tool use (function calling).</p>
+<p>The tools are rendered into the prompt through the chat template on the
+next <a class="reference internal" href="#ailia_llm.AiliaLLM.generate" title="ailia_llm.AiliaLLM.generate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate()</span></code></a> call, the model output is constrained to the tool
+call syntax, and the raw output can be converted into tool calls with
+<a class="reference internal" href="#ailia_llm.AiliaLLM.get_response_json" title="ailia_llm.AiliaLLM.get_response_json"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_response_json()</span></code></a>.
+Available for models whose chat template supports tool calling (e.g. Gemma 4).</p>
+<p>While tools are set, the legacy <a class="reference internal" href="#ailia_llm.AiliaLLM.generate" title="ailia_llm.AiliaLLM.generate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate()</span></code></a> prompt path fails
+with INVALID_STATE. Use <a class="reference internal" href="#ailia_llm.AiliaLLM.generate_json" title="ailia_llm.AiliaLLM.generate_json"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_json()</span></code></a> from the first turn and
+<a class="reference internal" href="#ailia_llm.AiliaLLM.get_response_json" title="ailia_llm.AiliaLLM.get_response_json"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_response_json()</span></code></a> afterwards.
+Deltas are optional streaming previews and need not be concatenated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tools</strong> (<em>list</em><em>[</em><em>dict</em><em>] or </em><em>None</em>) – OpenAI-compatible tool definitions. None or an empty list clears the tools.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>AiliaLLMError</strong> – If the tool definitions are invalid or the operation fails.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">llm</span><span class="o">.</span><span class="n">set_tools</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="gp">... </span>            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;get_weather&quot;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Get the current weather of a city.&quot;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="gp">... </span>                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">}},</span>
+<span class="gp">... </span>                <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;city&quot;</span><span class="p">],</span>
+<span class="gp">... </span>            <span class="p">},</span>
+<span class="gp">... </span>        <span class="p">},</span>
+<span class="gp">... </span>    <span class="p">}</span>
+<span class="gp">... </span><span class="p">])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -405,7 +524,9 @@ such as image or audio understanding.</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="ailia LLM Python API document" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 

@@ -64,11 +64,11 @@
       
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">wcsnrtombs</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="wcsnrtombs-param-arg0"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">arg0</span>, </span></li>
-<li><span class="parameter" id="wcsnrtombs-param-arg1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">arg1</span>, </span></li>
-<li><span class="parameter" id="wcsnrtombs-param-arg2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">arg2</span>, </span></li>
-<li><span class="parameter" id="wcsnrtombs-param-arg3"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">arg3</span>, </span></li>
-<li><span class="parameter" id="wcsnrtombs-param-arg4"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">arg4</span></span></li>
+<span class="name ">wcsnrtombs</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="wcsnrtombs-param-__dst"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">__dst</span>, </span></li>
+<li><span class="parameter" id="wcsnrtombs-param-__src"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">__src</span>, </span></li>
+<li><span class="parameter" id="wcsnrtombs-param-__nwc"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">__nwc</span>, </span></li>
+<li><span class="parameter" id="wcsnrtombs-param-__len"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">__len</span>, </span></li>
+<li><span class="parameter" id="wcsnrtombs-param-__ps"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">__ps</span></span></li>
 </ol>)
 
       
@@ -81,18 +81,18 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">int wcsnrtombs(
-  ffi.Pointer&lt;ffi.Char&gt; arg0,
-  ffi.Pointer&lt;ffi.Pointer&lt;ffi.WChar&gt;&gt; arg1,
-  int arg2,
-  int arg3,
-  ffi.Pointer&lt;mbstate_t&gt; arg4,
+  ffi.Pointer&lt;ffi.Char&gt; __dst,
+  ffi.Pointer&lt;ffi.Pointer&lt;ffi.WChar&gt;&gt; __src,
+  int __nwc,
+  int __len,
+  ffi.Pointer&lt;mbstate_t&gt; __ps,
 ) {
   return _wcsnrtombs(
-    arg0,
-    arg1,
-    arg2,
-    arg3,
-    arg4,
+    __dst,
+    __src,
+    __nwc,
+    __len,
+    __ps,
   );
 }</code></pre>
 </section>
@@ -128,7 +128,7 @@
 <footer>
   <span class="no-break">
     ailia_llm
-      1.3.0
+      1.5.0
   </span>
 
   

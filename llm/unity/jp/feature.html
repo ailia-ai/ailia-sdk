@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -66,15 +66,28 @@ $(function() {
 <div class="title">機能 </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md16"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md28"></a>
 ailia LLMの機能</h1>
 <p>本ページでは、CとC#で共通に使用できる機能を解説します。</p>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md29"></a>
 GGUFの読み込み</h2>
 <p>GGUFファイルを読み込んでチャットを行うことが可能です。</p>
-<h2><a class="anchor" id="autotoc_md18"></a>
+<h2><a class="anchor" id="autotoc_md30"></a>
 GPUの活用</h2>
-<p>iOSとmacOSではMetal、WindowsではVulkanを使用したGPU推論が可能です。 </p>
+<p>iOSとmacOSではMetal、WindowsではVulkanを使用したGPU推論が可能です。</p>
+<h2><a class="anchor" id="autotoc_md31"></a>
+画像入力（VLM）</h2>
+<p>画像対応モデルと対応するmmprojを読み込み、画像について質問できます。 画像ファイル、エンコード済み画像バッファ、Raw RGBに対応します。 プロジェクタを開いた後、画像capabilityを確認してください。呼び出し例は <a href="./api.html">APIの使用方法</a>を参照してください。</p>
+<h2><a class="anchor" id="autotoc_md32"></a>
+音声入力</h2>
+<p>音声対応モデルと対応するmmprojを使用して、音声からテキストを生成できます。 WAV/MP3/FLACのファイルまたはエンコード済みバッファを入力します。 プロジェクタを開いた後に音声capabilityを確認してください。画像専用モデルでは利用できません。 Raw PCM・音声合成には対応していません。詳細はAPI使用方法を参照してください。</p>
+<p>Android QNNでは音声入りmmproj <code>.qnn</code> の事前コンパイル済みlinear graphを使用します。 encoder全体をNPUで実行する方式ではなく、CPU処理も含まれます。</p>
+<h2><a class="anchor" id="autotoc_md33"></a>
+Android QNN</h2>
+<p>事前コンパイル済みのSoC専用Text <code>.qnn</code> と、VLM/ALM用の対応するmmproj <code>.qnn</code> を読み込めます。端末に元のGGUFを置く必要はありません。QNN対応ビルドで 端末用モデル名を取得し、同じSoC・モデルのpackageを選びます。詳細は <a href="./api.html">APIの使用方法</a>を参照してください。</p>
+<h2><a class="anchor" id="autotoc_md34"></a>
+Tool Use（Function Calling）</h2>
+<p>Gemma 4など、チャットテンプレートがツール呼び出しに対応しているモデルでは、OpenAI互換のツール定義を渡して モデルにツール（関数）を呼び出させることができます。ツール呼び出しの出力はgrammarで構文が保証され、 生の出力をOpenAI互換のassistantメッセージ（content / reasoning_content / tool_calls）に変換できます。 生成完了後に構造化されたassistant JSONを取得して履歴に追加し、ツールの実行結果は role "tool" のメッセージのcontentとして履歴に追加します。 </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

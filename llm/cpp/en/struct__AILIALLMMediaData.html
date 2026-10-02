@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -70,7 +70,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Media data structure for multimodal processing. Audio is currently unsupported and reserved for future implementation. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Supported encoded buffer formats are JPG, PNG, TGA, BMP, PSD, GIF, HDR, and PIC.  
+<p>Image/audio data for multimodal processing. Audio requires an audio-capable projector. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Supported encoded buffer formats are JPG, PNG, TGA, BMP, PSD, GIF, HDR, and PIC.  
  <a href="struct__AILIALLMMediaData.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ailia__llm_8h_source.html">ailia_llm.h</a>&gt;</code></p>
@@ -78,13 +78,13 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a43e8d23c34220d44836c17655a3072cf"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">media_type</a></td></tr>
-<tr class="memdesc:a43e8d23c34220d44836c17655a3072cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Media type (image, audio). "audio" keywords are reserved for future use, currently unsupported.  <a href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">More...</a><br /></td></tr>
+<tr class="memdesc:a43e8d23c34220d44836c17655a3072cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Media type (image, audio). Audio requires an audio-capable mmproj.  <a href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">More...</a><br /></td></tr>
 <tr class="separator:a43e8d23c34220d44836c17655a3072cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27a3d02da0966de614e862e96a61e73e"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">file_path</a></td></tr>
 <tr class="memdesc:a27a3d02da0966de614e862e96a61e73e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to the media file (UTF-8). Ignored if data is provided.  <a href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">More...</a><br /></td></tr>
 <tr class="separator:a27a3d02da0966de614e862e96a61e73e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1c38eb55c25fd6988c05c55e4198d91"><td class="memItemLeft" align="right" valign="top">const unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#aa1c38eb55c25fd6988c05c55e4198d91">data</a></td></tr>
-<tr class="memdesc:aa1c38eb55c25fd6988c05c55e4198d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional: Image data from buffer (alternative to file_path). If width/height are 0, treated as encoded file buffer (JPG, PNG, etc.). If width/height are specified, treated as raw RGB data (width * height * 3 bytes).  <a href="struct__AILIALLMMediaData.html#aa1c38eb55c25fd6988c05c55e4198d91">More...</a><br /></td></tr>
+<tr class="memdesc:aa1c38eb55c25fd6988c05c55e4198d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional: Media data from buffer (alternative to file_path). If width/height are 0, treated as encoded file buffer (JPG, PNG, etc.). If width/height are specified, treated as raw RGB data (width * height * 3 bytes). For audio, use an encoded WAV/MP3/FLAC buffer with width/height=0. Raw PCM is unsupported.  <a href="struct__AILIALLMMediaData.html#aa1c38eb55c25fd6988c05c55e4198d91">More...</a><br /></td></tr>
 <tr class="separator:aa1c38eb55c25fd6988c05c55e4198d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a012017da38c61ff839def6195ff07bf3"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#a012017da38c61ff839def6195ff07bf3">data_size</a></td></tr>
 <tr class="memdesc:a012017da38c61ff839def6195ff07bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the buffer (used with data parameter)  <a href="struct__AILIALLMMediaData.html#a012017da38c61ff839def6195ff07bf3">More...</a><br /></td></tr>
@@ -97,7 +97,7 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a9b749d1571956d676066b6ce49c274ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Media data structure for multimodal processing. Audio is currently unsupported and reserved for future implementation. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Supported encoded buffer formats are JPG, PNG, TGA, BMP, PSD, GIF, HDR, and PIC. </p>
+<div class="textblock"><p>Image/audio data for multimodal processing. Audio requires an audio-capable projector. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Supported encoded buffer formats are JPG, PNG, TGA, BMP, PSD, GIF, HDR, and PIC. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="aa1c38eb55c25fd6988c05c55e4198d91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa1c38eb55c25fd6988c05c55e4198d91">&#9670;&nbsp;</a></span>data</h2>
@@ -111,7 +111,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Optional: Image data from buffer (alternative to file_path). If width/height are 0, treated as encoded file buffer (JPG, PNG, etc.). If width/height are specified, treated as raw RGB data (width * height * 3 bytes). </p>
+<p>Optional: Media data from buffer (alternative to file_path). If width/height are 0, treated as encoded file buffer (JPG, PNG, etc.). If width/height are specified, treated as raw RGB data (width * height * 3 bytes). For audio, use an encoded WAV/MP3/FLAC buffer with width/height=0. Raw PCM is unsupported. </p>
 
 </div>
 </div>
@@ -175,7 +175,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Media type (image, audio). "audio" keywords are reserved for future use, currently unsupported. </p>
+<p>Media type (image, audio). Audio requires an audio-capable mmproj. </p>
 
 </div>
 </div>

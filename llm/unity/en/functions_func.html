@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -77,6 +77,9 @@ $(function() {
 <li>ailiaLLMGetBackendCount()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ad792a5d7b5ac83ef1af42a8b8d7ed603">ailiaLLM.AiliaLLM</a>
 </li>
+<li>ailiaLLMGetBackendDeviceName()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a2f475287fa0438202fced2fed506fa74">ailiaLLM.AiliaLLM</a>
+</li>
 <li>ailiaLLMGetBackendName()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a7d50c364dbf2df7fe152c3da6af9f857">ailiaLLM.AiliaLLM</a>
 </li>
@@ -89,6 +92,9 @@ $(function() {
 <li>ailiaLLMGetDeltaTextSize()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#af4144f69070b768379d89de403c80ef4">ailiaLLM.AiliaLLM</a>
 </li>
+<li>ailiaLLMGetErrorDetail()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a614b26a66843953f48adee164e140018">ailiaLLM.AiliaLLM</a>
+</li>
 <li>ailiaLLMGetGeneratedTokenCount()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ae14bac2aaf0d16fce47bf57d2f2c1422">ailiaLLM.AiliaLLM</a>
 </li>
@@ -97,6 +103,15 @@ $(function() {
 </li>
 <li>ailiaLLMGetPromptTokenCount()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ae3fb8d50c4b71ffd12ff589b130c6ff9">ailiaLLM.AiliaLLM</a>
+</li>
+<li>ailiaLLMGetQNNModelName()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ab9e09efb450048c8e60e38051c4bb187">ailiaLLM.AiliaLLM</a>
+</li>
+<li>ailiaLLMGetResponseJson()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a705491e23f9c3d0c841db10b638f9b56">ailiaLLM.AiliaLLM</a>
+</li>
+<li>ailiaLLMGetResponseJsonSize()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a19179f4b2d9c2fed6bf0c12cfea510b2">ailiaLLM.AiliaLLM</a>
 </li>
 <li>ailiaLLMGetTokenCount()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ade874f9fee362701d8d19458ff25366d">ailiaLLM.AiliaLLM</a>
@@ -107,17 +122,26 @@ $(function() {
 <li>ailiaLLMOpenMultimodalProjectorFile()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ab4b15e5f0cf6582a8f8884f297829198">ailiaLLM.AiliaLLM</a>
 </li>
+<li>ailiaLLMSetBackend()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a11237d0ad99269e220d9e822330d9b35">ailiaLLM.AiliaLLM</a>
+</li>
 <li>ailiaLLMSetMultimodalPrompt()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a6c4c91514abfd922ee11ffdb67e9be57">ailiaLLM.AiliaLLM</a>
 </li>
 <li>ailiaLLMSetPrompt()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a1dd8f7bcc0377f9a50fa22e19927faaa">ailiaLLM.AiliaLLM</a>
 </li>
+<li>ailiaLLMSetPromptJson()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3a7859079da2ae347080a4a3a1047a14">ailiaLLM.AiliaLLM</a>
+</li>
 <li>ailiaLLMSetSamplingParams()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a1e035d98b06ee69b970aa8a629ff2239">ailiaLLM.AiliaLLM</a>
 </li>
 <li>ailiaLLMSetThinking()
 : <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a72ccd909b7bc45a3938bc26a1ab1a5b5">ailiaLLM.AiliaLLM</a>
+</li>
+<li>ailiaLLMSetTools()
+: <a class="el" href="classailiaLLM_1_1AiliaLLM.html#acdb0d8cd9ed53592ad4eddca9b1dd62f">ailiaLLM.AiliaLLM</a>
 </li>
 </ul>
 
@@ -149,11 +173,23 @@ $(function() {
 <li>GeneratedTokenCount()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a8f63f32e6140914027dd08d365da2993">ailiaLLM.AiliaLLMModel</a>
 </li>
+<li>GetBackendList()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a1c7547bd035cd51ccbfc9d1fa74b3adc">ailiaLLM.AiliaLLMModel</a>
+</li>
 <li>GetDeltaText()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a1b1d08e0551152d6cb36f7e1a56494a5">ailiaLLM.AiliaLLMModel</a>
 </li>
+<li>GetErrorDetail()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a6cba084a9e66ebe773388131b50932ab">ailiaLLM.AiliaLLMModel</a>
+</li>
 <li>GetMultimodalCapabilities()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a74e32e875a25aa23c31cb049487133e6">ailiaLLM.AiliaLLMModel</a>
+</li>
+<li>GetQNNModelName()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a6d21ec8141849f890b27e3545d2ca5ca">ailiaLLM.AiliaLLMModel</a>
+</li>
+<li>GetResponseJson()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a8a6434869fcad5a4449baf7b67ef9c78">ailiaLLM.AiliaLLMModel</a>
 </li>
 </ul>
 
@@ -176,17 +212,26 @@ $(function() {
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>SetBackend()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a773c96065334dffe8cad77062a06140c">ailiaLLM.AiliaLLMModel</a>
+</li>
 <li>SetMultimodalPrompt()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a4e8ecd0adc50f72fe1391adc13c77fc8">ailiaLLM.AiliaLLMModel</a>
 </li>
 <li>SetPrompt()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a1167fe00b2598e433b1ef09aa70734c7">ailiaLLM.AiliaLLMModel</a>
 </li>
+<li>SetPromptJson()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a2b185e220b59db4db132e6facf4b12ed">ailiaLLM.AiliaLLMModel</a>
+</li>
 <li>SetSamplingParam()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#a3f5f06a39299aa83e9bc0dbe79bdefcc">ailiaLLM.AiliaLLMModel</a>
 </li>
 <li>SetThinking()
 : <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#aa7fe8def881c7cd3c39754ff117bb4d6">ailiaLLM.AiliaLLMModel</a>
+</li>
+<li>SetTools()
+: <a class="el" href="classailiaLLM_1_1AiliaLLMModel.html#ad519447f909788f19949922f4731d371">ailiaLLM.AiliaLLMModel</a>
 </li>
 </ul>
 </div><!-- contents -->

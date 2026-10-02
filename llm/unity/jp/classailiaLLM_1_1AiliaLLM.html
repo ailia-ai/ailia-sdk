@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -101,9 +101,18 @@ $(function() {
 <tr class="memitem:a72ccd909b7bc45a3938bc26a1ab1a5b5"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a72ccd909b7bc45a3938bc26a1ab1a5b5">ailiaLLMSetThinking</a> (IntPtr llm, uint enable)</td></tr>
 <tr class="memdesc:a72ccd909b7bc45a3938bc26a1ab1a5b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thinking（推論過程の出力）を有効または無効にします。  <a href="classailiaLLM_1_1AiliaLLM.html#a72ccd909b7bc45a3938bc26a1ab1a5b5">[詳解]</a><br /></td></tr>
 <tr class="separator:a72ccd909b7bc45a3938bc26a1ab1a5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdb0d8cd9ed53592ad4eddca9b1dd62f"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#acdb0d8cd9ed53592ad4eddca9b1dd62f">ailiaLLMSetTools</a> (IntPtr llm, IntPtr tools_json)</td></tr>
+<tr class="memdesc:acdb0d8cd9ed53592ad4eddca9b1dd62f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ツール（関数）の定義を設定します。  <a href="classailiaLLM_1_1AiliaLLM.html#acdb0d8cd9ed53592ad4eddca9b1dd62f">[詳解]</a><br /></td></tr>
+<tr class="separator:acdb0d8cd9ed53592ad4eddca9b1dd62f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dd8f7bcc0377f9a50fa22e19927faaa"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a1dd8f7bcc0377f9a50fa22e19927faaa">ailiaLLMSetPrompt</a> (IntPtr llm, IntPtr messages, uint messages_len)</td></tr>
 <tr class="memdesc:a1dd8f7bcc0377f9a50fa22e19927faaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">プロンプトを設定します。  <a href="classailiaLLM_1_1AiliaLLM.html#a1dd8f7bcc0377f9a50fa22e19927faaa">[詳解]</a><br /></td></tr>
 <tr class="separator:a1dd8f7bcc0377f9a50fa22e19927faaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a7859079da2ae347080a4a3a1047a14"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3a7859079da2ae347080a4a3a1047a14">ailiaLLMSetPromptJson</a> (IntPtr llm, IntPtr messages_json)</td></tr>
+<tr class="separator:a3a7859079da2ae347080a4a3a1047a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19179f4b2d9c2fed6bf0c12cfea510b2"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a19179f4b2d9c2fed6bf0c12cfea510b2">ailiaLLMGetResponseJsonSize</a> (IntPtr llm, ref uint size)</td></tr>
+<tr class="separator:a19179f4b2d9c2fed6bf0c12cfea510b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a705491e23f9c3d0c841db10b638f9b56"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a705491e23f9c3d0c841db10b638f9b56">ailiaLLMGetResponseJson</a> (IntPtr llm, IntPtr json, uint size)</td></tr>
+<tr class="separator:a705491e23f9c3d0c841db10b638f9b56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d642cee294951efad19710e448acfad"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a4d642cee294951efad19710e448acfad">ailiaLLMGenerate</a> (IntPtr llm, ref uint done)</td></tr>
 <tr class="memdesc:a4d642cee294951efad19710e448acfad"><td class="mdescLeft">&#160;</td><td class="mdescRight">生成を行います。  <a href="classailiaLLM_1_1AiliaLLM.html#a4d642cee294951efad19710e448acfad">[詳解]</a><br /></td></tr>
 <tr class="separator:a4d642cee294951efad19710e448acfad"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,14 +144,24 @@ $(function() {
 <tr class="memdesc:a6c4c91514abfd922ee11ffdb67e9be57"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチモーダルプロンプトを設定します。  <a href="classailiaLLM_1_1AiliaLLM.html#a6c4c91514abfd922ee11ffdb67e9be57">[詳解]</a><br /></td></tr>
 <tr class="separator:a6c4c91514abfd922ee11ffdb67e9be57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad792a5d7b5ac83ef1af42a8b8d7ed603"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#ad792a5d7b5ac83ef1af42a8b8d7ed603">ailiaLLMGetBackendCount</a> (ref uint env_count)</td></tr>
-<tr class="memdesc:ad792a5d7b5ac83ef1af42a8b8d7ed603"><td class="mdescLeft">&#160;</td><td class="mdescRight">利用可能な計算環境(CPU, GPU)の数を取得します  <a href="classailiaLLM_1_1AiliaLLM.html#ad792a5d7b5ac83ef1af42a8b8d7ed603">[詳解]</a><br /></td></tr>
+<tr class="memdesc:ad792a5d7b5ac83ef1af42a8b8d7ed603"><td class="mdescLeft">&#160;</td><td class="mdescRight">利用可能な計算環境(GPU, CPU, HTP (QNN))の数を取得します  <a href="classailiaLLM_1_1AiliaLLM.html#ad792a5d7b5ac83ef1af42a8b8d7ed603">[詳解]</a><br /></td></tr>
 <tr class="separator:ad792a5d7b5ac83ef1af42a8b8d7ed603"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d50c364dbf2df7fe152c3da6af9f857"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a7d50c364dbf2df7fe152c3da6af9f857">ailiaLLMGetBackendName</a> (ref IntPtr env, uint env_idx)</td></tr>
 <tr class="memdesc:a7d50c364dbf2df7fe152c3da6af9f857"><td class="mdescLeft">&#160;</td><td class="mdescRight">計算環境の一覧を取得します  <a href="classailiaLLM_1_1AiliaLLM.html#a7d50c364dbf2df7fe152c3da6af9f857">[詳解]</a><br /></td></tr>
 <tr class="separator:a7d50c364dbf2df7fe152c3da6af9f857"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f475287fa0438202fced2fed506fa74"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a2f475287fa0438202fced2fed506fa74">ailiaLLMGetBackendDeviceName</a> (ref IntPtr name, uint env_idx)</td></tr>
+<tr class="separator:a2f475287fa0438202fced2fed506fa74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11237d0ad99269e220d9e822330d9b35"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a11237d0ad99269e220d9e822330d9b35">ailiaLLMSetBackend</a> (IntPtr llm, uint backend_idx)</td></tr>
+<tr class="separator:a11237d0ad99269e220d9e822330d9b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a7432fef0b41ea6ff5cc889efece1f0f7">ailiaLLMDestroy</a> (IntPtr llm)</td></tr>
 <tr class="memdesc:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">LLMオブジェクトを破棄します。  <a href="classailiaLLM_1_1AiliaLLM.html#a7432fef0b41ea6ff5cc889efece1f0f7">[詳解]</a><br /></td></tr>
 <tr class="separator:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9e09efb450048c8e60e38051c4bb187"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#ab9e09efb450048c8e60e38051c4bb187">ailiaLLMGetQNNModelName</a> (ref IntPtr model_name)</td></tr>
+<tr class="memdesc:ab9e09efb450048c8e60e38051c4bb187"><td class="mdescLeft">&#160;</td><td class="mdescRight">デバイスのQNN成果物名（例: "sm8475"）を取得します。  <a href="classailiaLLM_1_1AiliaLLM.html#ab9e09efb450048c8e60e38051c4bb187">[詳解]</a><br /></td></tr>
+<tr class="separator:ab9e09efb450048c8e60e38051c4bb187"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a614b26a66843953f48adee164e140018"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a614b26a66843953f48adee164e140018">ailiaLLMGetErrorDetail</a> (IntPtr llm)</td></tr>
+<tr class="memdesc:a614b26a66843953f48adee164e140018"><td class="mdescLeft">&#160;</td><td class="mdescRight">モデルのエラー詳細をUTF-8文字列で取得します。返された文字列は解放しないでください。  <a href="classailiaLLM_1_1AiliaLLM.html#a614b26a66843953f48adee164e140018">[詳解]</a><br /></td></tr>
+<tr class="separator:a614b26a66843953f48adee164e140018"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 静的公開変数類</h2></td></tr>
@@ -168,6 +187,8 @@ $(function() {
 <tr class="separator:a724d240075439199bde4c8d3055b8648"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7abb46a4ff7a0a8c7e35d438fc08eaf"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#ae7abb46a4ff7a0a8c7e35d438fc08eaf">AILIA_LLM_STATUS_ERROR_BUFFER_API</a> = (-9)</td></tr>
 <tr class="separator:ae7abb46a4ff7a0a8c7e35d438fc08eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb248e27889e9accda9e56c55cef1dfa"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#adb248e27889e9accda9e56c55cef1dfa">AILIA_LLM_STATUS_PARSE_ERROR</a> = (-10)</td></tr>
+<tr class="separator:adb248e27889e9accda9e56c55cef1dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06511cd041a06428846d612cd48fd706"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a06511cd041a06428846d612cd48fd706">AILIA_LLM_STATUS_UNIMPLEMENTED</a> = (-15)</td></tr>
 <tr class="separator:a06511cd041a06428846d612cd48fd706"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d58100a7aa2dbd2a15f8a38cf5999fc"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a2d58100a7aa2dbd2a15f8a38cf5999fc">AILIA_LLM_STATUS_OTHER_ERROR</a> = (-128)</td></tr>
@@ -283,7 +304,7 @@ $(function() {
       </table>
 </div><div class="memdoc">
 
-<p>利用可能な計算環境(CPU, GPU)の数を取得します </p>
+<p>利用可能な計算環境(GPU, CPU, HTP (QNN))の数を取得します </p>
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">env_count</td><td>計算環境情報の数の格納先 </td></tr>
@@ -291,6 +312,34 @@ $(function() {
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。 </dd></dl>
+
+</div>
+</div>
+<a id="a2f475287fa0438202fced2fed506fa74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f475287fa0438202fced2fed506fa74">&#9670;&nbsp;</a></span>ailiaLLMGetBackendDeviceName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMGetBackendDeviceName </td>
+          <td>(</td>
+          <td class="paramtype">ref IntPtr&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>env_idx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -324,7 +373,7 @@ $(function() {
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">env</td><td>計算環境情報の格納先(AILIANetworkインスタンスを破棄するまで有効) </td></tr>
-    <tr><td class="paramname">env_idx</td><td>計算環境情報のインデックス(0～ <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ad792a5d7b5ac83ef1af42a8b8d7ed603" title="利用可能な計算環境(CPU, GPU)の数を取得します">ailiaLLMGetBackendCount()</a> -1) </td></tr>
+    <tr><td class="paramname">env_idx</td><td>計算環境情報のインデックス(0～ <a class="el" href="classailiaLLM_1_1AiliaLLM.html#ad792a5d7b5ac83ef1af42a8b8d7ed603" title="利用可能な計算環境(GPU, CPU, HTP (QNN))の数を取得します">ailiaLLMGetBackendCount()</a> -1) </td></tr>
   </table>
   </dd>
 </dl>
@@ -454,6 +503,33 @@ $(function() {
 
 </div>
 </div>
+<a id="a614b26a66843953f48adee164e140018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a614b26a66843953f48adee164e140018">&#9670;&nbsp;</a></span>ailiaLLMGetErrorDetail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static IntPtr ailiaLLM.AiliaLLM.ailiaLLMGetErrorDetail </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>モデルのエラー詳細をUTF-8文字列で取得します。返された文字列は解放しないでください。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLMオブジェクトポインタ </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>ライブラリが所有するUTF-8文字列へのポインタ </dd></dl>
+
+</div>
+</div>
 <a id="ae14bac2aaf0d16fce47bf57d2f2c1422"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae14bac2aaf0d16fce47bf57d2f2c1422">&#9670;&nbsp;</a></span>ailiaLLMGetGeneratedTokenCount()</h2>
 
@@ -529,8 +605,8 @@ $(function() {
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">llm</td><td>LLMオブジェクトポインタ </td></tr>
-    <tr><td class="paramname">vision_support</td><td>画像処理をサポートしているか </td></tr>
-    <tr><td class="paramname">audio_support</td><td>音声処理をサポートしているか </td></tr>
+    <tr><td class="paramname">vision_support</td><td>画像入力（VLM）をサポートしているか </td></tr>
+    <tr><td class="paramname">audio_support</td><td>音声入力（ALM）をサポートしているか </td></tr>
   </table>
   </dd>
 </dl>
@@ -575,6 +651,96 @@ $(function() {
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
 <p>ailiaLLMSetPromptを呼び出した後に呼び出し可能です。 </p>
+
+</div>
+</div>
+<a id="ab9e09efb450048c8e60e38051c4bb187"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9e09efb450048c8e60e38051c4bb187">&#9670;&nbsp;</a></span>ailiaLLMGetQNNModelName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMGetQNNModelName </td>
+          <td>(</td>
+          <td class="paramtype">ref IntPtr&#160;</td>
+          <td class="paramname"><em>model_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デバイスのQNN成果物名（例: "sm8475"）を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model_name</td><td>ライブラリが所有する文字列へのポインタ。解放しないでください。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>QNN非対応時はUNIMPLEMENTED、未対応デバイスではOTHER_ERRORを返します。</dd></dl>
+<p>QNNはAndroid arm64とWindows ARM64に対応します。 </p>
+
+</div>
+</div>
+<a id="a705491e23f9c3d0c841db10b638f9b56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a705491e23f9c3d0c841db10b638f9b56">&#9670;&nbsp;</a></span>ailiaLLMGetResponseJson()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMGetResponseJson </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>json</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a19179f4b2d9c2fed6bf0c12cfea510b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19179f4b2d9c2fed6bf0c12cfea510b2">&#9670;&nbsp;</a></span>ailiaLLMGetResponseJsonSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMGetResponseJsonSize </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ref uint&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -659,13 +825,13 @@ $(function() {
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">llm</td><td>LLMオブジェクトポインタへのポインタ </td></tr>
-    <tr><td class="paramname">path</td><td>GGUFファイルのパス </td></tr>
+    <tr><td class="paramname">path</td><td>GGUFまたはQNNパッケージのパス </td></tr>
     <tr><td class="paramname">n_ctx</td><td>コンテキスト長（0でモデルのデフォルト） </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
-<p>GGUFのモデルファイルを読み込みます。 </p>
+<p>バックエンド未選択ならGGUFはCPU/GPU、.qnnはHTPを自動選択します。 明示選択したバックエンドと異なるモデル形式は拒否します。 </p>
 
 </div>
 </div>
@@ -699,12 +865,40 @@ $(function() {
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">llm</td><td>LLMオブジェクトポインタ </td></tr>
-    <tr><td class="paramname">mmproj_path</td><td>MMPROJファイルのパス（GGUF形式） </td></tr>
+    <tr><td class="paramname">mmproj_path</td><td>MMPROJ GGUFまたは自己完結ailia QNN projector（.qnn）のパス </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>マルチモーダル機能を使用するには、先にailiaLLMOpenModelFileでテキストモデルを読み込み、 その後でこの関数でマルチモーダルプロジェクタを読み込む必要があります。 </p>
+<p>マルチモーダル機能を使用するには、先にailiaLLMOpenModelFileでテキストモデルを読み込み、 その後でこの関数でマルチモーダルプロジェクタを読み込む必要があります。 画像入力（VLM）には画像対応、音声入力（ALM）には音声対応のprojectorが必要です。 QNN projectorはAndroid arm64とWindows ARM64に対応します。 </p>
+
+</div>
+</div>
+<a id="a11237d0ad99269e220d9e822330d9b35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11237d0ad99269e220d9e822330d9b35">&#9670;&nbsp;</a></span>ailiaLLMSetBackend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMSetBackend </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>backend_idx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -797,6 +991,34 @@ $(function() {
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
 <p>LLMに問い合わせるプロンプトを設定します。 ChatHistoryもmessageに含めてください。 </p>
+
+</div>
+</div>
+<a id="a3a7859079da2ae347080a4a3a1047a14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a7859079da2ae347080a4a3a1047a14">&#9670;&nbsp;</a></span>ailiaLLMSetPromptJson()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMSetPromptJson </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>messages_json</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -896,6 +1118,45 @@ $(function() {
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
 <p>Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ailiaLLMSetPromptの前に実行する必要があります。 </p>
+
+</div>
+</div>
+<a id="acdb0d8cd9ed53592ad4eddca9b1dd62f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdb0d8cd9ed53592ad4eddca9b1dd62f">&#9670;&nbsp;</a></span>ailiaLLMSetTools()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMSetTools </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>tools_json</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ツール（関数）の定義を設定します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLMオブジェクトポインタ </td></tr>
+    <tr><td class="paramname">tools_json</td><td>OpenAI互換のツール定義JSON配列（UTF-8、NULL終端）。IntPtr.Zeroで解除します。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
+<p>OpenAI Chat Completions APIのtoolsパラメータと同じ形式でツールを定義します。 設定したツールは次回のailiaLLMSetPrompt時にチャットテンプレート経由でプロンプトへ展開され、 出力はツール呼び出し構文のgrammarで制約されます。生の出力はailiaLLMGetResponseJsonで構造化できます。 ツール設定中、role "assistant" のcontentは生の出力、role "tool" のcontentはツールの実行結果として解釈されます。 ツール設定中は従来のプロンプトAPIを拒否します。SetPromptJson/GetResponseJsonを使用してください。 </p>
 
 </div>
 </div>
@@ -1087,6 +1348,28 @@ $(function() {
       <table class="memname">
         <tr>
           <td class="memname">const int ailiaLLM.AiliaLLM.AILIA_LLM_STATUS_OTHER_ERROR = (-128)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adb248e27889e9accda9e56c55cef1dfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb248e27889e9accda9e56c55cef1dfa">&#9670;&nbsp;</a></span>AILIA_LLM_STATUS_PARSE_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int ailiaLLM.AiliaLLM.AILIA_LLM_STATUS_PARSE_ERROR = (-10)</td>
         </tr>
       </table>
   </td>

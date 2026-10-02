@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the ailiaLLMGetQNNModelName method from the ailiaLlmFFI class, for the Dart programming language.">
+  <title>ailiaLLMGetQNNModelName method - ailiaLlmFFI class - ailia_llm library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">ailia_llm</a></li>
+    <li><a href="../../ailia_llm/ailia_llm-library.html">ailia_llm.dart</a></li>
+    <li><a href="../../ailia_llm/ailiaLlmFFI-class.html">ailiaLlmFFI</a></li>
+    <li class="self-crumb">ailiaLLMGetQNNModelName method</li>
+  </ol>
+  <div class="self-name">ailiaLLMGetQNNModelName</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_llm&#47;ailiaLlmFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-method">ailiaLLMGetQNNModelName</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+<span class="name ">ailiaLLMGetQNNModelName</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaLLMGetQNNModelName-param-model_name"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">model_name</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>~japanese
+@brief 現在の端末に対応するQNNモデル名を取得します。
+@param model_name QNNモデル名の格納先（例: "sm8475"）。返された文字列は
+libraryが所有するため、呼び出し側で解放しないでください。
+@return
+成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+返される名前はailia_llm_compile_cが生成するtext modelのファイル名から
+<code>.qnn</code>を除いた部分と一致します。画像入力（VLM）／音声入力（ALM）用projectorは
+同じ名前に<code>-mmproj.qnn</code>を付けたファイルです。QNNはAndroid arm64と
+Windows ARM64に対応します。この呼び出しでQNN plug-inを初めて
+遅延loadします。未対応SoCでは \ref AILIA_LLM_STATUS_OTHER_ERROR 、plug-inが
+存在しない場合、およびBUILD_QNN以外では
+\ref AILIA_LLM_STATUS_UNIMPLEMENTED を返します。</p>
+<p>~english
+@brief Gets the QNN model name for the current device.
+@param model_name Storage for the QNN model name (for example, "sm8475").
+The library owns the returned string; the caller must not free it.
+@return
+If this function is successful, it returns \ref AILIA_LLM_STATUS_SUCCESS,
+or an error code otherwise.
+@details
+The returned name matches the text model filename emitted by
+ailia_llm_compile_c, excluding <code>.qnn</code>. The image-input (VLM) / audio-input
+(ALM) projector uses the same name followed by <code>-mmproj.qnn</code>. QNN is
+supported on Android arm64 and Windows ARM64. This call lazily loads the QNN plug-in.
+An unsupported SoC returns \ref AILIA_LLM_STATUS_OTHER_ERROR. A missing
+plug-in or a non-BUILD_QNN library returns
+\ref AILIA_LLM_STATUS_UNIMPLEMENTED.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">int ailiaLLMGetQNNModelName(
+  ffi.Pointer&lt;ffi.Pointer&lt;ffi.Char&gt;&gt; model_name,
+) {
+  return _ailiaLLMGetQNNModelName(
+    model_name,
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">ailia_llm</a></li>
+    <li><a href="../../ailia_llm/ailia_llm-library.html">ailia_llm</a></li>
+    <li><a href="../../ailia_llm/ailiaLlmFFI-class.html">ailiaLlmFFI</a></li>
+    <li class="self-crumb">ailiaLLMGetQNNModelName method</li>
+</ol>
+
+
+    <h5>ailiaLlmFFI class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ailia_llm
+      1.5.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['generate_59',['Generate',['../classailiaLLM_1_1AiliaLLMModel.html#a1fc7b4d8291775d9e8dcf6fb14ac2ce5',1,'ailiaLLM::AiliaLLMModel']]],
-  ['generatedtokencount_60',['GeneratedTokenCount',['../classailiaLLM_1_1AiliaLLMModel.html#a8f63f32e6140914027dd08d365da2993',1,'ailiaLLM::AiliaLLMModel']]],
-  ['getdeltatext_61',['GetDeltaText',['../classailiaLLM_1_1AiliaLLMModel.html#a1b1d08e0551152d6cb36f7e1a56494a5',1,'ailiaLLM::AiliaLLMModel']]],
-  ['getmultimodalcapabilities_62',['GetMultimodalCapabilities',['../classailiaLLM_1_1AiliaLLMModel.html#a74e32e875a25aa23c31cb049487133e6',1,'ailiaLLM::AiliaLLMModel']]]
+  ['feature_67',['feature',['../md_md_common_feature.html',1,'']]],
+  ['feature_2emd_68',['feature.md',['../feature_8md.html',1,'']]],
+  ['features_69',['Features',['../feature.html',1,'']]],
+  ['file_5fpath_70',['file_path',['../classailiaLLM_1_1AiliaLLMMediaData.html#a1a1e493c17dad1c108f2f71dffbe5e9d',1,'ailiaLLM.AiliaLLMMediaData.file_path()'],['../classailiaLLM_1_1AiliaLLM_1_1AILIALLMMediaData.html#a493419876f33032c51b99dfd689ef5ee',1,'ailiaLLM.AiliaLLM.AILIALLMMediaData.file_path()']]]
 ];

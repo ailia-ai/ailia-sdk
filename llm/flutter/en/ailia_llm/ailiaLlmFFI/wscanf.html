@@ -64,7 +64,7 @@
       
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">wscanf</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="wscanf-param-arg0"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">arg0</span></span></li>
+<span class="name ">wscanf</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="wscanf-param-__format"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">__format</span></span></li>
 </ol>)
 
       
@@ -77,10 +77,10 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">int wscanf(
-  ffi.Pointer&lt;ffi.WChar&gt; arg0,
+  ffi.Pointer&lt;ffi.WChar&gt; __format,
 ) {
   return _wscanf(
-    arg0,
+    __format,
   );
 }</code></pre>
 </section>
@@ -116,7 +116,7 @@
 <footer>
   <span class="no-break">
     ailia_llm
-      1.3.0
+      1.5.0
   </span>
 
   
