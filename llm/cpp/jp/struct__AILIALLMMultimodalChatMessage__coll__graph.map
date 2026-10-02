@@ -1,4 +1,4 @@
 <map id="_AILIALLMMultimodalChatMessage" name="_AILIALLMMultimodalChatMessage">
 <area shape="rect" id="node1" title="マルチモーダル対応チャットメッセージ" alt="" coords="5,95,256,121"/>
-<area shape="rect" id="node2" href="$struct__AILIALLMMediaData.html" title="マルチモーダル用のメディアデータ構造体。オーディオは現在未サポートで、将来的な実装のために予約されています。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータか..." alt="" coords="51,5,210,32"/>
+<area shape="rect" id="node2" href="$struct__AILIALLMMediaData.html" title="マルチモーダル用の画像・音声データ構造体。音声には音声対応プロジェクタが必要です。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エン..." alt="" coords="51,5,210,32"/>
 </map>

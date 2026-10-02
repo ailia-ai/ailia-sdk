@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -66,7 +66,7 @@ $(function() {
 <div class="title">API Usage </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md1"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md7"></a>
 High Level API</h1>
 <p>This is an example of using ailia LLM.</p>
 <div class="fragment"><div class="line">AiliaLLMModel llm = new AiliaLLMModel();</div>
@@ -106,6 +106,82 @@ High Level API</h1>
 <div class="line">message.role = &quot;assistant&quot;;</div>
 <div class="line">message.content = text;</div>
 <div class="line">messages.Add(message);</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
+Image (VLM) and audio (ALM) input</h2>
+<p>Open a compatible text model and matching projector with <code>OpenMultimodalProjector</code>. Check <code>GetMultimodalCapabilities</code> before submitting media. Match every <code>&lt;__media__&gt;</code> marker to one <code>media_data</code> entry in order.</p>
+<div class="fragment"><div class="line">using ailiaLLM;</div>
+<div class="line">using System.Collections.Generic;</div>
+<div class="line"> </div>
+<div class="line">var llm = new AiliaLLMModel();</div>
+<div class="line">if (!llm.Create() || !llm.Open(textModelPath) ||</div>
+<div class="line">    !llm.OpenMultimodalProjector(projectorPath)) return;</div>
+<div class="line">bool vision = false, audio = false;</div>
+<div class="line">if (!llm.GetMultimodalCapabilities(ref vision, ref audio)) return;</div>
+<div class="line"> </div>
+<div class="line">if (vision) {</div>
+<div class="line">    var image = new AiliaLLMMediaData { media_type = &quot;image&quot;, file_path = imagePath };</div>
+<div class="line">    var message = new AiliaLLMMultimodalChatMessage {</div>
+<div class="line">        role = &quot;user&quot;, content = &quot;Describe this image: &lt;__media__&gt;&quot;,</div>
+<div class="line">        media_data = new List&lt;AiliaLLMMediaData&gt; { image }</div>
+<div class="line">    };</div>
+<div class="line">    if (!llm.SetMultimodalPrompt(new List&lt;AiliaLLMMultimodalChatMessage&gt; { message })) return;</div>
+<div class="line">    bool done = false;</div>
+<div class="line">    string text = &quot;&quot;;</div>
+<div class="line">    while (!done) {</div>
+<div class="line">        if (!llm.Generate(ref done)) return;</div>
+<div class="line">        if (!done) text += llm.GetDeltaText();</div>
+<div class="line">    }</div>
+<div class="line">    Debug.Log(text);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>For ALM, check <code>audio</code> and use <code>media_type = "audio"</code>, a WAV/MP3/FLAC <code>file_path</code>, and an audio question. Encoded <code>byte[] data</code> is also supported; leave width and height zero for audio. Raw PCM and audio output are not supported. Submit image and audio as separate prompts.</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Android QNN</h2>
+<p>With a QNN-enabled build, <code>AiliaLLMModel.GetQNNModelName()</code> gives the device model stem (for example, <code>sm7635</code>). Select the precompiled text <code>.qnn</code> and matching mmproj <code>.qnn</code> for the same SoC and model. Open them with <code>Open</code> and <code>OpenMultimodalProjector</code>; a text-only session needs no projector. Match the QNN runtime and plug-in versions as well. Without an explicit backend selection, <code>.qnn</code> selects HTP (QNN) automatically. The available-backend order is GPU, CPU, then HTP (QNN). Explicit CPU/GPU selection rejects <code>.qnn</code>, and explicit HTP selection rejects GGUF. HTP is listed only when a compatible QNN runtime is available.</p>
+<div class="fragment"><div class="line">string soc = AiliaLLMModel.GetQNNModelName();</div>
+<div class="line">// Select distributed text/projector paths matching soc.</div>
+<div class="line">var llm = new AiliaLLMModel();</div>
+<div class="line">if (!llm.Create() || !llm.Open(textQnnPath, 0) ||</div>
+<div class="line">    !llm.OpenMultimodalProjector(mmprojQnnPath)) return;</div>
+</div><!-- fragment --><p>The model-name lookup fails for builds without QNN, missing plug-ins or unsupported SoCs. Inspect load/generation failures with <code>GetErrorDetail()</code>.</p>
+<h2><a class="anchor" id="autotoc_md10"></a>
+Tool Use (JSON API)</h2>
+<p>Use <code>ailiaLLMSetPromptJson</code> from the first user message while tools are configured. The legacy <code>ailiaLLMSetPrompt</code> and <code>ailiaLLMSetMultimodalPrompt</code> return INVALID_STATE until tools are cleared. Define tools with <code>ailiaLLMSetTools</code>, set the JSON messages array, and call <code>ailiaLLMGenerate</code> until done. Deltas remain available through <code>ailiaLLMGetDeltaText</code> for previews; retrieving or concatenating them is optional. Retrieve assistant JSON with <code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code>, append the object to history, execute complete calls, and append tool results with matching <code>tool_call_id</code>. Set the next JSON prompt to continue.</p>
+<p>The SDK accumulates generated output. Reads do not consume it; a new prompt resets it.</p>
+<div class="fragment"><div class="line">string toolsJson = &quot;[{\&quot;type\&quot;:\&quot;function\&quot;,\&quot;function\&quot;:{\&quot;name\&quot;:\&quot;get_weather\&quot;,\&quot;description\&quot;:\&quot;Get weather for a city\&quot;,\&quot;parameters\&quot;:{\&quot;type\&quot;:\&quot;object\&quot;,\&quot;properties\&quot;:{\&quot;city\&quot;:{\&quot;type\&quot;:\&quot;string\&quot;}},\&quot;required\&quot;:[\&quot;city\&quot;]}}}]&quot;;</div>
+<div class="line">if (!llm.SetTools(toolsJson)) return;</div>
+<div class="line">if (!llm.SetPromptJson(&quot;[{\&quot;role\&quot;:\&quot;user\&quot;,\&quot;content\&quot;:\&quot;Weather in Tokyo?\&quot;}]&quot;)) return;</div>
+<div class="line">bool done = false;</div>
+<div class="line">while (!done) { if (!llm.Generate(ref done)) return; }</div>
+<div class="line">string assistantJson = llm.GetResponseJson();</div>
+<div class="line">// Parse JSON, validate and execute complete tool_calls, then append tool results.</div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md11"></a>
+Structured history</h3>
+<div class="fragment"><div class="line">[</div>
+<div class="line"> {&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;Weather in Tokyo?&quot;},</div>
+<div class="line"> {&quot;role&quot;:&quot;assistant&quot;,&quot;content&quot;:&quot;&quot;,&quot;tool_calls&quot;:[</div>
+<div class="line">  {&quot;id&quot;:&quot;call_0&quot;,&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{&quot;name&quot;:&quot;get_weather&quot;,&quot;arguments&quot;:&quot;{\&quot;city\&quot;:\&quot;Tokyo\&quot;}&quot;}}</div>
+<div class="line"> ]},</div>
+<div class="line"> {&quot;role&quot;:&quot;tool&quot;,&quot;tool_call_id&quot;:&quot;call_0&quot;,&quot;content&quot;:&quot;Snow, -3 C&quot;}</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>Content is not reparsed as tool syntax. Supply assistant thinking in <code>reasoning_content</code>. Arguments must be a string containing a JSON object. Call IDs/names must be nonempty; IDs are unique per assistant, but may be reused in later turns. Consecutive tool results match the preceding assistant by ID, not order. Unknown IDs, duplicate results and conflicting names are rejected. Tool content must be a string; serialize objects first.</p>
+<h3><a class="anchor" id="autotoc_md12"></a>
+Images and audio</h3>
+<p>Load a compatible projector with <code>ailiaLLMOpenMultimodalProjectorFileA</code> and use ordered user content parts:</p>
+<div class="fragment"><div class="line">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[</div>
+<div class="line"> {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;Describe this image and audio.&quot;},</div>
+<div class="line"> {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},</div>
+<div class="line"> {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}</div>
+<div class="line">]}]</div>
+</div><!-- fragment --><p>Each image/audio part specifies exactly one of <code>file_path</code> or <code>data</code>. Data is standard padded Base64 containing encoded file bytes (JPEG/PNG, WAV/MP3/FLAC, etc.). No URL fetching, video or raw RGB/PCM is supported. Media works with or without tools and is re-evaluated each prompt. An unloaded/incompatible projector returns INVALID_STATE. Query image/audio support with <code>ailiaLLMGetMultimodalCapabilities</code>.</p>
+<h3><a class="anchor" id="autotoc_md13"></a>
+Incomplete output and errors</h3>
+<p>GetResponseJson rejects unfinished calls/thinking with PARSE_ERROR. It never repairs arguments or returns executable partial results. SetPromptJson rejects incomplete arguments, invalid JSON/types/ID associations and empty arrays with INVALID_ARGUMENT. If GetResponseJson returns PARSE_ERROR, do not append the failed assistant. Append a retry user message to the existing history; no partial content/reasoning retrieval is needed. Do not invent tool results.</p>
+<p>After clearing tools with SetTools(NULL), SetPromptJson still accepts historical tool calls and results for summaries or final answers. Retrieve response JSON before clearing tools, which invalidates the output parser. Use finally to clear tools even when an exception occurs. An unset prompt or changed tools/thinking returns INVALID_STATE; before generation an initialized prompt returns an empty assistant. File failures return ERROR_FILE_API, invalid Base64 returns INVALID_ARGUMENT, and undecodable media buffers return ERROR_BUFFER_API.</p>
+<div class="fragment"><div class="line">if (!llm.SetPromptJson(messagesJson)) return;</div>
+<div class="line">bool done = false;</div>
+<div class="line">while (!done) { if (!llm.Generate(ref done)) return; }</div>
+<div class="line">string responseJson = llm.GetResponseJson();</div>
+<div class="line">// Empty string signals error. Otherwise append the object and ID-linked tool results.</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

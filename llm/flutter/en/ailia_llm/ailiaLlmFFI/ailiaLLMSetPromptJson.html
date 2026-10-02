@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the ailiaLLMSetPromptJson method from the ailiaLlmFFI class, for the Dart programming language.">
+  <title>ailiaLLMSetPromptJson method - ailiaLlmFFI class - ailia_llm library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">ailia_llm</a></li>
+    <li><a href="../../ailia_llm/ailia_llm-library.html">ailia_llm.dart</a></li>
+    <li><a href="../../ailia_llm/ailiaLlmFFI-class.html">ailiaLlmFFI</a></li>
+    <li class="self-crumb">ailiaLLMSetPromptJson method</li>
+  </ol>
+  <div class="self-name">ailiaLLMSetPromptJson</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_llm&#47;ailiaLlmFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-method">ailiaLLMSetPromptJson</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+<span class="name ">ailiaLLMSetPromptJson</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaLLMSetPromptJson-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span></li>
+<li><span class="parameter" id="ailiaLLMSetPromptJson-param-messages_json"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">messages_json</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>~japanese
+@brief 構造化されたJSON会話履歴からプロンプトを設定します。
+@param llm LLMオブジェクトポインタ
+@param messages_json UTF-8の空でないメッセージJSON配列（NULL終端）
+@details
+roleはsystem/user/assistant/tool、contentは文字列またはnullです。userはcontent配列にも対応します。
+配列要素は{"type":"text","text":"..."}、またはtypeがimage/audioでfile_path（ローカルファイル）か
+data（標準Base64のエンコード済みファイル）を1つ指定します。JPEG/PNG、WAV/MP3/FLAC等に対応します。
+メディアは対応projectorの読込が必要です。URL取得・生PCM/RGB・動画には対応しません。
+配列順に入力し、画像/音声を含む履歴は毎回評価します。
+assistantのcontentをモデル固有構文として再解析しません。reasoning_contentとtool_callsを明示してください。
+ailiaLLMGetResponseJsonの結果をassistantメッセージとしてそのまま追加できます。
+tool_callsはtype="function"、空でないidとfunction.name、JSONオブジェクトを表す文字列function.argumentsを必要とします。
+idはassistant内で一意とし、後続ターンでは再利用できます。
+tool結果のcontentは文字列、tool_call_idは直前のassistantの呼び出しIDです。
+連続するtool結果は順序ではなくIDで対応付け、ツール名を補います。重複・不一致の結果は拒否します。
+不完全なargumentsは補完・破棄せずエラーとします。GetResponseJsonがPARSE_ERRORの場合は、
+失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加してください。
+SetTools(NULL)後も過去のtool_callsとtool結果を入力できます。結果JSONはツール解除前に取得してください。
+入力は呼び出し後に解放できます。成功後はailiaLLMGenerateで生成します。
+@return 成功時SUCCESS。不正なJSON・型・ID対応・引数はINVALID_ARGUMENT。
+モデル未読込の場合はINVALID_STATE。
+その他の生成準備エラーはailiaLLMSetPromptと同じです。
+~english
+@brief Sets a prompt from structured JSON conversation history.
+@param llm A LLM instance pointer
+@param messages_json Nonempty UTF-8 JSON message array (null terminated)
+@details
+Roles are system/user/assistant/tool; content is a string or null. User content also accepts arrays.
+Parts are {"type":"text","text":"..."}, or type image/audio with exactly one of file_path (local file)
+and data (standard padded Base64 encoded file). JPEG/PNG and WAV/MP3/FLAC are supported by the decoder.
+Media requires a compatible loaded projector. URLs, raw PCM/RGB and video are unsupported.
+Parts retain input order; media history is re-evaluated on each prompt.
+Assistant content is not reparsed as model-specific syntax. Supply reasoning_content and tool_calls explicitly.
+Append the assistant JSON returned by ailiaLLMGetResponseJson directly to the array.
+Each tool call requires type="function", nonempty id and function.name, and function.arguments as a JSON-object string.
+IDs must be unique within an assistant message but may be reused in later turns.
+Tool results require string content and tool_call_id matching the preceding assistant.
+Consecutive results are matched by ID, not position; names are filled in. Duplicate/unmatched results are rejected.
+Incomplete arguments are rejected, never repaired or discarded. If GetResponseJson returns PARSE_ERROR,
+do not append the failed assistant; append a retry user message to the existing history.
+Historical tool calls/results remain accepted after SetTools(NULL). Retrieve response JSON before clearing tools.
+Input can be freed after the call. On success, generate with ailiaLLMGenerate.
+@return SUCCESS on success; INVALID_ARGUMENT for invalid JSON, types, ID associations or arguments;
+INVALID_STATE if no model is loaded.
+Other prompt preparation errors are the same as ailiaLLMSetPrompt.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">int ailiaLLMSetPromptJson(
+  ffi.Pointer&lt;AILIALLM&gt; llm,
+  ffi.Pointer&lt;ffi.Char&gt; messages_json,
+) {
+  return _ailiaLLMSetPromptJson(
+    llm,
+    messages_json,
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">ailia_llm</a></li>
+    <li><a href="../../ailia_llm/ailia_llm-library.html">ailia_llm</a></li>
+    <li><a href="../../ailia_llm/ailiaLlmFFI-class.html">ailiaLlmFFI</a></li>
+    <li class="self-crumb">ailiaLLMSetPromptJson method</li>
+</ol>
+
+
+    <h5>ailiaLlmFFI class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ailia_llm
+      1.5.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

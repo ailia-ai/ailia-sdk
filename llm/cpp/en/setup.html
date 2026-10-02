@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -66,47 +66,47 @@ $(function() {
 <div class="title">Setup and Build </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md16"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md32"></a>
 Compiler setup</h1>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md33"></a>
 Windows</h2>
 <p>Requirements:</p><ul>
 <li>VisualStudio 2019 and higher</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md18"></a>
+<h2><a class="anchor" id="autotoc_md34"></a>
 macOS</h2>
 <p>Requirements:</p><ul>
 <li>Xcode 14.2 and higher</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md19"></a>
+<h2><a class="anchor" id="autotoc_md35"></a>
 Linux</h2>
 <p>Requirements:</p><ul>
 <li>clang</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md20"></a>
+<h1><a class="anchor" id="autotoc_md36"></a>
 Building the sample</h1>
 <p>Move to the <code>cpp</code> folder, then run the command corresponding to your OS as described below.</p>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md37"></a>
 Windows</h2>
 <div class="fragment"><div class="line">cl ailia_llm_sample.cpp ailia_llm.lib</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md22"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md38"></a>
 macOS</h2>
 <div class="fragment"><div class="line">clang++ -o ailia_llm_sample ailia_llm_sample.cpp libailia_llm.dylib -Wl,-rpath,./ -std=c++17</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md23"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md39"></a>
 Linux</h2>
 <div class="fragment"><div class="line">export LD_LIBRARY_PATH=./</div>
 <div class="line">g++ -o ailia_llm_sample ailia_llm_sample.cpp libailia_llm.so</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md40"></a>
 Model file download</h1>
 <p>Download the specified model file and place it in the models folder.</p>
 <p><a href="https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf?download=true">https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf?download=true</a></p>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md41"></a>
 Running the sample</h1>
 <p>Run the sample by executing the command below.</p>
 <div class="fragment"><div class="line">./ailia_llm_sample</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md26"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md42"></a>
 Platform-specific remarks</h1>
-<h2><a class="anchor" id="autotoc_md27"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 Release the 'downloaded' attribute in MacOS</h2>
 <p>Binaries downloaded from the browser in macOS may have a 'downloaded' attribute and may not be able to be executed. In that case, it is possible to remove the attribute by right-clicking on the <code>.dylib</code> file and executing it. You can also release the 'downloaded' attribute by executing the following command from the command line:</p>
 <div class="fragment"><div class="line">xattr -d com.apple.quarantine libailia_llm.dylib</div>

@@ -63,9 +63,9 @@
     <section class="multi-line-signature">
       
 
-<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_llm/FILE.html">FILE</a></span>&gt;</span></span>
-<span class="name ">open_wmemstream</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="open_wmemstream-param-__bufp"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">__bufp</span>, </span></li>
-<li><span class="parameter" id="open_wmemstream-param-__sizep"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Size-class.html">Size</a></span>&gt;</span></span> <span class="parameter-name">__sizep</span></span></li>
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter">__FILE</span>&gt;</span></span>
+<span class="name ">open_wmemstream</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="open_wmemstream-param-__bufloc"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">__bufloc</span>, </span></li>
+<li><span class="parameter" id="open_wmemstream-param-__sizeloc"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Size-class.html">Size</a></span>&gt;</span></span> <span class="parameter-name">__sizeloc</span></span></li>
 </ol>)
 
       
@@ -77,13 +77,13 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">ffi.Pointer&lt;FILE&gt; open_wmemstream(
-  ffi.Pointer&lt;ffi.Pointer&lt;ffi.WChar&gt;&gt; __bufp,
-  ffi.Pointer&lt;ffi.Size&gt; __sizep,
+  <pre class="language-dart"><code class="language-dart">ffi.Pointer&lt;__FILE&gt; open_wmemstream(
+  ffi.Pointer&lt;ffi.Pointer&lt;ffi.WChar&gt;&gt; __bufloc,
+  ffi.Pointer&lt;ffi.Size&gt; __sizeloc,
 ) {
   return _open_wmemstream(
-    __bufp,
-    __sizep,
+    __bufloc,
+    __sizeloc,
   );
 }</code></pre>
 </section>
@@ -119,7 +119,7 @@
 <footer>
   <span class="no-break">
     ailia_llm
-      1.3.0
+      1.5.0
   </span>
 
   

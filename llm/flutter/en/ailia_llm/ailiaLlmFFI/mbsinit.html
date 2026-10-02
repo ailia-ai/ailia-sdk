@@ -64,7 +64,7 @@
       
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">mbsinit</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="mbsinit-param-arg0"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">arg0</span></span></li>
+<span class="name ">mbsinit</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="mbsinit-param-__ps"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">__ps</span></span></li>
 </ol>)
 
       
@@ -77,10 +77,10 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">int mbsinit(
-  ffi.Pointer&lt;mbstate_t&gt; arg0,
+  ffi.Pointer&lt;mbstate_t&gt; __ps,
 ) {
   return _mbsinit(
-    arg0,
+    __ps,
   );
 }</code></pre>
 </section>
@@ -116,7 +116,7 @@
 <footer>
   <span class="no-break">
     ailia_llm
-      1.3.0
+      1.5.0
   </span>
 
   

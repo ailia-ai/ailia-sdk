@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -66,41 +66,41 @@ $(function() {
 <div class="title">セットアップ </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md4"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md20"></a>
 コンパイラのセットアップ</h1>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md21"></a>
 Windows</h2>
 <p>VisualStudio 2019以降が必要です。</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md22"></a>
 macOS</h2>
 <p>Xcode 14.2以降が必要です。</p>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md23"></a>
 Linux</h2>
 <p>clangが必要です。</p>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 サンプルのビルド</h1>
 <p>cppフォルダに移動して、プラットフォーム別のビルドコマンドを実行します。</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md25"></a>
 Windows</h2>
 <div class="fragment"><div class="line">cl ailia_llm_sample.cpp ailia_llm.lib</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md10"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md26"></a>
 macOS</h2>
 <div class="fragment"><div class="line">clang++ -o ailia_llm_sample ailia_llm_sample.cpp libailia_llm.dylib -Wl,-rpath,./ -std=c++17</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md11"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md27"></a>
 Linux</h2>
 <div class="fragment"><div class="line">export LD_LIBRARY_PATH=./</div>
 <div class="line">g++ -o ailia_llm_sample ailia_llm_sample.cpp libailia_llm.so</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md28"></a>
 モデルファイルのダウンロード</h1>
 <p>下記のモデルファイルをダウンロードして、modelsフォルダに配置します。</p>
 <p><a href="https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf?download=true">https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf?download=true</a></p>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 サンプルの実行</h1>
 <p>下記のコマンドでサンプルを実行します。</p>
 <div class="fragment"><div class="line">./ailia_llm_sample</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md14"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md30"></a>
 プラットフォーム別の注意点</h1>
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md31"></a>
 macOSにおけるダウンロード属性の解除</h2>
 <p>macOSにおいてブラウザからダウンロードしたバイナリには、ダウンロード属性が付与され、実行できない場合があります。 その場合、dylibを右クリックから実行して開くことで、ダウンロード属性を解除することが可能です。 また、コマンドラインから下記のコマンドを実行することでも、ダウンロード属性を解除することが可能です。</p>
 <div class="fragment"><div class="line">xattr -d com.apple.quarantine libailia_llm.dylib</div>

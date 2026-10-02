@@ -10,10 +10,7 @@ ailia LLM Python API document
    :maxdepth: 2
    :caption: Contents:
 
-Packages
-==================
-
-* :doc:`ailia_llm`
+   ailia_llm
 
 Indices and tables
 ==================

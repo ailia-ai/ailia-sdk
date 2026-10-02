@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_llm</a></li>
-    <li><a href="../../ailia_llm_model/">ailia_llm_model.dart</a></li>
+    <li><a href="../../ailia_llm_model/ailia_llm_model-library.html">ailia_llm_model.dart</a></li>
     <li><a href="../../ailia_llm_model/AiliaLLMModel-class.html">AiliaLLMModel</a></li>
     <li class="self-crumb">getBackendList static method</li>
   </ol>
@@ -33,27 +37,32 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_llm_model&#47;AiliaLLMModel-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_llm_model&#47;AiliaLLMModel-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">getBackendList</span> static method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>
 <span class="name ">getBackendList</span>(<wbr>)
 
@@ -67,35 +76,53 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">static List&lt;String&gt; getBackendList() {
-  if (_backend.length &gt; 0) {
-    return _backend[1];
+  if (_backend.isNotEmpty) {
+    return List&lt;String&gt;.unmodifiable(_backend);
   }
-  _backend = List&lt;List&lt;String&gt;&gt;.empty(growable: true);
-  _backend.add(List&lt;String&gt;.empty(growable: true));
-  _backend.add(List&lt;String&gt;.empty(growable: true));
-  List&lt;List&lt;String&gt;&gt; libraries = _ailiaCommonGetLlmPath();
-  for (int i = 0; i &lt; libraries[0].length; i++) {
-    &#47;&#47; Check Vulkan Supported Version
-    if (libraries[1][i] == BACKEND_VULKAN) {
-      if (checkVulkanVersion() == false) {
-        continue;
-      }
+  final api = _getApi();
+  final count = calloc&lt;UnsignedInt&gt;();
+  try {
+    final status = api.ailiaLLMGetBackendCount(count);
+    if (status != ailia_llm_dart.AILIA_LLM_STATUS_SUCCESS) {
+      throw Exception(&#39;ailiaLLMGetBackendCount returned $status&#39;);
     }
-    &#47;&#47; Continue
+    final names = &lt;String&gt;[];
+    final types = &lt;String&gt;[];
+    final name = calloc&lt;Pointer&lt;Char&gt;&gt;();
     try {
-      DynamicLibrary library = _ailiaCommonGetLibrary(libraries[0][i]);
-      _backend[0].add(libraries[0][i]);
-      _backend[1].add(libraries[1][i]);
-      library.close();
-    } on Exception {
-    } on ArgumentError {}
+      for (int i = 0; i &lt; count.value; ++i) {
+        final status = api.ailiaLLMGetBackendName(name, i);
+        if (status != ailia_llm_dart.AILIA_LLM_STATUS_SUCCESS ||
+            name.value == nullptr) {
+          throw Exception(&#39;ailiaLLMGetBackendName returned $status&#39;);
+        }
+        final nativeName = name.value.cast&lt;Utf8&gt;().toDartString();
+        &#47;&#47; ggml calls its Metal registry &quot;MTL&quot;; keep Flutter&#39;s public name.
+        final type = nativeName == &#39;MTL&#39; ? BACKEND_METAL : nativeName;
+        types.add(type);
+        final deviceStatus = api.ailiaLLMGetBackendDeviceName(name, i);
+        if (deviceStatus != ailia_llm_dart.AILIA_LLM_STATUS_SUCCESS ||
+            name.value == nullptr) {
+          throw Exception(&#39;ailiaLLMGetBackendDeviceName returned $deviceStatus&#39;);
+        }
+        final deviceName = name.value.cast&lt;Utf8&gt;().toDartString();
+        names.add(type == BACKEND_CPU ? type : &#39;$type: $deviceName&#39;);
+      }
+    } finally {
+      calloc.free(name);
+    }
+    _backend = disambiguateBackendNames(names);
+    _backendTypes = types;
+    return List&lt;String&gt;.unmodifiable(_backend);
+  } finally {
+    calloc.free(count);
   }
-  return _backend[1];
 }</code></pre>
 </section>
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -103,31 +130,41 @@
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_llm</a></li>
-    <li><a href="../../ailia_llm_model/">ailia_llm_model</a></li>
+    <li><a href="../../ailia_llm_model/ailia_llm_model-library.html">ailia_llm_model</a></li>
     <li><a href="../../ailia_llm_model/AiliaLLMModel-class.html">AiliaLLMModel</a></li>
     <li class="self-crumb">getBackendList static method</li>
 </ol>
 
+
     <h5>AiliaLLMModel class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_llm
-      1.4.1
+      1.5.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 
