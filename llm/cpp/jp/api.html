@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -75,7 +75,7 @@ ailia LLMのAPIの概要</h1>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]){</div>
 <div class="line">    <span class="keyword">struct </span>AILIALLM* llm;</div>
-<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n_ctx = 512;</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n_ctx = 8192;</div>
 <div class="line">    <a class="code" href="ailia__llm_8h.html#a9ddba82a4cda99e783cb59ff4e30ca2b">ailiaLLMCreate</a>(&amp;llm);</div>
 <div class="line">    <a class="code" href="ailia__llm_8h.html#a884a746fb28b8f71fdd846ae50150c3d">ailiaLLMOpenModelFileA</a>(llm, <span class="stringliteral">&quot;../models/gemma-2-2b-it-Q4_K_M.gguf&quot;</span>, n_ctx);</div>
 <div class="line"> </div>
@@ -119,10 +119,164 @@ ailia LLMのAPIの概要</h1>
 <div class="ttc" id="aailia__llm_8h_html_a884a746fb28b8f71fdd846ae50150c3d"><div class="ttname"><a href="ailia__llm_8h.html#a884a746fb28b8f71fdd846ae50150c3d">ailiaLLMOpenModelFileA</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMOpenModelFileA(struct AILIALLM *llm, const char *path, unsigned int n_ctx)</div><div class="ttdoc">モデルファイルを読み込みます。</div></div>
 <div class="ttc" id="aailia__llm_8h_html_a9ddba82a4cda99e783cb59ff4e30ca2b"><div class="ttname"><a href="ailia__llm_8h.html#a9ddba82a4cda99e783cb59ff4e30ca2b">ailiaLLMCreate</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMCreate(struct AILIALLM **llm)</div><div class="ttdoc">LLMオブジェクトを作成します。</div></div>
 <div class="ttc" id="aailia__llm_8h_html_aa365516599d78f9dc6b633defe1c5a97"><div class="ttname"><a href="ailia__llm_8h.html#aa365516599d78f9dc6b633defe1c5a97">ailiaLLMDestroy</a></div><div class="ttdeci">AILIA_LLM_API void ailiaLLMDestroy(struct AILIALLM *llm)</div><div class="ttdoc">LLMオブジェクトを破棄します。</div></div>
-<div class="ttc" id="astruct__AILIALLMChatMessage_html"><div class="ttname"><a href="struct__AILIALLMChatMessage.html">_AILIALLMChatMessage</a></div><div class="ttdef"><b>Definition:</b> ailia_llm.h:180</div></div>
-<div class="ttc" id="astruct__AILIALLMChatMessage_html_a0ffec73b21e26a677fbb8ae8576f79c9"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a0ffec73b21e26a677fbb8ae8576f79c9">_AILIALLMChatMessage::content</a></div><div class="ttdeci">const char * content</div><div class="ttdoc">Represent the content of the message.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:188</div></div>
-<div class="ttc" id="astruct__AILIALLMChatMessage_html_a657ea086dd1a07ed3ef23b0602b157ff"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff">_AILIALLMChatMessage::role</a></div><div class="ttdeci">const char * role</div><div class="ttdoc">Represent the role. (system, user, assistant)</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:184</div></div>
-</div><!-- fragment --> </div></div><!-- contents -->
+<div class="ttc" id="astruct__AILIALLMChatMessage_html"><div class="ttname"><a href="struct__AILIALLMChatMessage.html">_AILIALLMChatMessage</a></div><div class="ttdef"><b>Definition:</b> ailia_llm.h:197</div></div>
+<div class="ttc" id="astruct__AILIALLMChatMessage_html_a0ffec73b21e26a677fbb8ae8576f79c9"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a0ffec73b21e26a677fbb8ae8576f79c9">_AILIALLMChatMessage::content</a></div><div class="ttdeci">const char * content</div><div class="ttdoc">Represent the content of the message. For role &quot;tool&quot; the content is the tool result,...</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:207</div></div>
+<div class="ttc" id="astruct__AILIALLMChatMessage_html_a657ea086dd1a07ed3ef23b0602b157ff"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff">_AILIALLMChatMessage::role</a></div><div class="ttdeci">const char * role</div><div class="ttdoc">Represent the role. (system, user, assistant, tool) &quot;tool&quot; holds a tool result for tool use,...</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:202</div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md2"></a>
+画像入力（VLM）</h2>
+<p>画像対応のTextモデルと対応するmmprojを用意します。<code>ailiaLLMCreate</code> → <code>ailiaLLMOpenModelFileA</code> → <code>ailiaLLMOpenMultimodalProjectorFileA</code> の順に呼び、 <code>ailiaLLMGetMultimodalCapabilities</code> の <code>vision_support</code> を確認してください。 <code>&lt;__media__&gt;</code> は <code>media_data</code> の各要素と出現順・個数を一致させます。</p>
+<div class="fragment"><div class="line"><span class="comment">/* llm: text model and matching vision-capable projector already opened. */</span></div>
+<div class="line"><span class="keywordtype">int</span> set_image_prompt(<span class="keyword">struct</span> AILIALLM *llm, <span class="keyword">const</span> <span class="keywordtype">char</span> *image_path) {</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vision = 0, audio = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> status = <a class="code" href="ailia__llm_8h.html#a5f8af24efc1b0eafa572828c29bb94d2">ailiaLLMGetMultimodalCapabilities</a>(llm, &amp;vision, &amp;audio);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    <span class="keywordflow">if</span> (!vision || !image_path) <span class="keywordflow">return</span> <a class="code" href="ailia__llm_8h.html#afa7527f72f155616f9439e8d97c2d85f">AILIA_LLM_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="struct__AILIALLMMediaData.html">AILIALLMMediaData</a> media = {0};</div>
+<div class="line">    media.<a class="code" href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">media_type</a> = <span class="stringliteral">&quot;image&quot;</span>;</div>
+<div class="line">    media.<a class="code" href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">file_path</a> = image_path; <span class="comment">/* UTF-8 local image path */</span></div>
+<div class="line">    <a class="code" href="struct__AILIALLMMultimodalChatMessage.html">AILIALLMMultimodalChatMessage</a> message = {0};</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#a9ee470dd9cf00f75e90c18371688b1be">role</a> = <span class="stringliteral">&quot;user&quot;</span>;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#ad980deb6909cba08a2571887ae1d3b19">content</a> = <span class="stringliteral">&quot;この画像を説明してください: &lt;__media__&gt;&quot;</span>;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#a4c214c4d07561b149a0bfccff63e5e76">media_data</a> = &amp;media;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#acd6be98cfa12b6d086b865f62b7c3650">media_count</a> = 1;</div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code" href="ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162">ailiaLLMSetMultimodalPrompt</a>(llm, &amp;message, 1);</div>
+<div class="line">}</div>
+<div class="ttc" id="aailia__llm_8h_html_a5f8af24efc1b0eafa572828c29bb94d2"><div class="ttname"><a href="ailia__llm_8h.html#a5f8af24efc1b0eafa572828c29bb94d2">ailiaLLMGetMultimodalCapabilities</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGetMultimodalCapabilities(struct AILIALLM *llm, unsigned int *vision_support, unsigned int *audio_support)</div><div class="ttdoc">マルチモーダル機能がサポートされているかを確認します。</div></div>
+<div class="ttc" id="aailia__llm_8h_html_a7b6ed4adee89f894289b749bf0898162"><div class="ttname"><a href="ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162">ailiaLLMSetMultimodalPrompt</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMSetMultimodalPrompt(struct AILIALLM *llm, const AILIALLMMultimodalChatMessage *message, unsigned int message_cnt)</div><div class="ttdoc">マルチモーダルプロンプトを設定します。</div></div>
+<div class="ttc" id="aailia__llm_8h_html_afa7527f72f155616f9439e8d97c2d85f"><div class="ttname"><a href="ailia__llm_8h.html#afa7527f72f155616f9439e8d97c2d85f">AILIA_LLM_STATUS_INVALID_ARGUMENT</a></div><div class="ttdeci">#define AILIA_LLM_STATUS_INVALID_ARGUMENT</div><div class="ttdoc">引数が不正</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:52</div></div>
+<div class="ttc" id="astruct__AILIALLMMediaData_html"><div class="ttname"><a href="struct__AILIALLMMediaData.html">_AILIALLMMediaData</a></div><div class="ttdoc">マルチモーダル用の画像・音声データ構造体。音声には音声対応プロジェクタが必要です。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エン...</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:224</div></div>
+<div class="ttc" id="astruct__AILIALLMMediaData_html_a27a3d02da0966de614e862e96a61e73e"><div class="ttname"><a href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">_AILIALLMMediaData::file_path</a></div><div class="ttdeci">const char * file_path</div><div class="ttdoc">メディアファイルへのパス（UTF-8）。dataが指定されている場合は無視されます。</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:238</div></div>
+<div class="ttc" id="astruct__AILIALLMMediaData_html_a43e8d23c34220d44836c17655a3072cf"><div class="ttname"><a href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">_AILIALLMMediaData::media_type</a></div><div class="ttdeci">const char * media_type</div><div class="ttdoc">メディアタイプ（image, audio）。audioには音声対応mmprojが必要です。</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:231</div></div>
+<div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html">_AILIALLMMultimodalChatMessage</a></div><div class="ttdoc">マルチモーダル対応チャットメッセージ</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:281</div></div>
+<div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html_a4c214c4d07561b149a0bfccff63e5e76"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html#a4c214c4d07561b149a0bfccff63e5e76">_AILIALLMMultimodalChatMessage::media_data</a></div><div class="ttdeci">const AILIALLMMediaData * media_data</div><div class="ttdoc">Array of media data (images, audio) referenced by &lt;media&gt; markers</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:294</div></div>
+<div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html_a9ee470dd9cf00f75e90c18371688b1be"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html#a9ee470dd9cf00f75e90c18371688b1be">_AILIALLMMultimodalChatMessage::role</a></div><div class="ttdeci">const char * role</div><div class="ttdoc">Represent the role. (system, user, assistant, tool) &quot;tool&quot; holds a tool result for tool use,...</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:286</div></div>
+<div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html_acd6be98cfa12b6d086b865f62b7c3650"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html#acd6be98cfa12b6d086b865f62b7c3650">_AILIALLMMultimodalChatMessage::media_count</a></div><div class="ttdeci">unsigned int media_count</div><div class="ttdoc">Number of media items in media_data array</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:298</div></div>
+<div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html_ad980deb6909cba08a2571887ae1d3b19"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html#ad980deb6909cba08a2571887ae1d3b19">_AILIALLMMultimodalChatMessage::content</a></div><div class="ttdeci">const char * content</div><div class="ttdoc">Represent the content of the message. Use &lt;media&gt; placeholder for media.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:290</div></div>
+</div><!-- fragment --><p>成功後は基本例と同じ生成APIでテキストを取得します。画像はファイルパスのほか、 エンコード済み画像バッファ（<code>data</code> / <code>data_size</code>、<code>width=height=0</code>）または Raw RGB（<code>width * height * 3</code> バイト）を渡せます。</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+音声入力（ALM）</h2>
+<p>音声認識・音声内容への質問には、音声入力に対応するTextモデルと、そのモデルに対応した 音声encoder入りmmprojが必要です。画像専用mmprojでは音声を処理できません。 対応する機能・言語はモデルに依存します。音声合成・音声出力には対応していません。</p>
+<ol type="1">
+<li><code>ailiaLLMCreate</code> 後、<code>ailiaLLMOpenModelFileA</code> でTextモデルを開きます。</li>
+<li><code>ailiaLLMOpenMultimodalProjectorFileA</code> で対応するmmprojを開きます。</li>
+<li><code>ailiaLLMGetMultimodalCapabilities</code> の <code>audio_support</code> が非0であることを確認します。</li>
+<li>以下の例で音声promptを設定します。</li>
+<li>成功後は基本例と同じ <code>ailiaLLMGenerate</code>、 <code>ailiaLLMGetDeltaTextSize</code>、<code>ailiaLLMGetDeltaText</code> でテキストを取得します。 各APIの戻り値を確認し、失敗時は <code>ailiaLLMGetErrorDetail</code> を参照してください。</li>
+</ol>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="ailia__llm_8h.html">ailia_llm.h</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">/* llm: text model and matching audio-capable projector already opened. */</span></div>
+<div class="line"><span class="keywordtype">int</span> set_audio_prompt(<span class="keyword">struct</span> AILIALLM *llm, <span class="keyword">const</span> <span class="keywordtype">char</span> *audio_path) {</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vision = 0, audio = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> status = <a class="code" href="ailia__llm_8h.html#a5f8af24efc1b0eafa572828c29bb94d2">ailiaLLMGetMultimodalCapabilities</a>(llm, &amp;vision, &amp;audio);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    <span class="keywordflow">if</span> (!audio || !audio_path) <span class="keywordflow">return</span> <a class="code" href="ailia__llm_8h.html#afa7527f72f155616f9439e8d97c2d85f">AILIA_LLM_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="struct__AILIALLMMediaData.html">AILIALLMMediaData</a> media = {0};</div>
+<div class="line">    media.<a class="code" href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">media_type</a> = <span class="stringliteral">&quot;audio&quot;</span>;</div>
+<div class="line">    media.<a class="code" href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">file_path</a> = audio_path; <span class="comment">/* UTF-8 WAV/MP3/FLAC path */</span></div>
+<div class="line">    <span class="comment">/* data=NULL, data_size=0, width=0, height=0 */</span></div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="struct__AILIALLMMultimodalChatMessage.html">AILIALLMMultimodalChatMessage</a> message = {0};</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#a9ee470dd9cf00f75e90c18371688b1be">role</a> = <span class="stringliteral">&quot;user&quot;</span>;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#ad980deb6909cba08a2571887ae1d3b19">content</a> = <span class="stringliteral">&quot;Transcribe this audio: &lt;__media__&gt;&quot;</span>;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#a4c214c4d07561b149a0bfccff63e5e76">media_data</a> = &amp;media;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#acd6be98cfa12b6d086b865f62b7c3650">media_count</a> = 1;</div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code" href="ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162">ailiaLLMSetMultimodalPrompt</a>(llm, &amp;message, 1);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>音声はWAV/MP3/FLACのファイルパス、またはエンコード済みファイルのバッファを渡します。 バッファ入力では <code>file_path=NULL</code>、<code>data</code> と <code>data_size</code> を設定します。 <code>data</code> がある場合はパスより優先されます。<code>data_size</code> はunsigned intに収まるサイズを使い、 呼出しが完了するまでバッファと文字列を保持してください。 音声の <code>width</code> と <code>height</code> は必ず0です。Raw PCMやマイクの逐次入力APIではありません。 <code>&lt;__media__&gt;</code> とメディア配列は順序・個数を一致させます。</p>
+<h3><a class="anchor" id="autotoc_md4"></a>
+Android QNNでの音声入力</h3>
+<p>事前コンパイル済みText <code>.qnn</code> と、音声context・CPU用weightを含むmmproj <code>.qnn</code> を 上記のモデルopen APIへ渡せます。元のGGUFを端末へ配置する必要はありません。 SoCに一致するモデルとQNNライブラリ、本体と同じビルドのQNN pluginを使用してください。 古い画像専用 <code>.qnn</code> を読み込んでも音声機能は追加されません。</p>
+<p>特徴抽出とsubsamplingはCPU、全12 Conformer層と最終射影は単一HTPグラフで実行します。 短音声のパディングと長音声の履歴付き分割はランタイムが処理します。 旧linear版の音声packageは、現在のコンパイラで再生成してください。 音声と画像を一つのpromptに混在させることはできません。別のpromptとして実行してください。 音声入力時は以前のpromptのKVを再利用しません。音声tokenはcausalに処理するため、 AR256を跨ぐ入力も可能ですが、音声から生成されたtoken列はモデルのcontext容量内に収める必要があります。 音声入りpackageのQNN linear weightにはCPU fallbackを使えません。</p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Android QNNモデル</h2>
+<p>QNN対応ビルドでは、端末に合う事前コンパイル済みのText <code>.qnn</code> を <code>ailiaLLMOpenModelFileA</code> に渡します。VLM/ALMには同じモデル向けの projector <code>.qnn</code> を <code>ailiaLLMOpenMultimodalProjectorFileA</code> に渡します。 GGUFと異なり <code>.qnn</code> はSoC固有です。モデルとprojectorの組み合わせ、 QNNランタイム・pluginのバージョンを揃えてください。 バックエンド未選択なら&lt;tt&gt;.qnnはHTP (QNN)へ自動振り分けされます。 明示選択する場合は、CPU/GPUで<code>.qnn</code>を、HTP (QNN)でGGUFを開けません。</p>
+<div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> *stem = NULL;</div>
+<div class="line"><span class="keywordtype">int</span> status = <a class="code" href="ailia__llm_8h.html#a2a381755d8e0881fe58eb1e3ee40796e">ailiaLLMGetQNNModelName</a>(&amp;stem); <span class="comment">/* e.g. &quot;sm7635&quot; */</span></div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line"><span class="comment">/* 実際の配布ファイル名にはモデル名などの接頭辞が付く場合があります。</span></div>
+<div class="line"><span class="comment">   stemとSoCが一致するText/Projectorパッケージを選択してください。 */</span></div>
+<div class="line">status = <a class="code" href="ailia__llm_8h.html#a884a746fb28b8f71fdd846ae50150c3d">ailiaLLMOpenModelFileA</a>(llm, text_qnn_path, 0);</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">status = <a class="code" href="ailia__llm_8h.html#adf9eb2721656c69eca33fbfceaec306d">ailiaLLMOpenMultimodalProjectorFileA</a>(llm, mmproj_qnn_path);</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="ttc" id="aailia__llm_8h_html_a2a381755d8e0881fe58eb1e3ee40796e"><div class="ttname"><a href="ailia__llm_8h.html#a2a381755d8e0881fe58eb1e3ee40796e">ailiaLLMGetQNNModelName</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGetQNNModelName(const char **model_name)</div><div class="ttdoc">現在の端末に対応するQNNモデル名を取得します。</div></div>
+<div class="ttc" id="aailia__llm_8h_html_adf9eb2721656c69eca33fbfceaec306d"><div class="ttname"><a href="ailia__llm_8h.html#adf9eb2721656c69eca33fbfceaec306d">ailiaLLMOpenMultimodalProjectorFileA</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMOpenMultimodalProjectorFileA(struct AILIALLM *llm, const char *mmproj_path)</div><div class="ttdoc">マルチモーダルプロジェクタファイルを読み込みます。</div></div>
+</div><!-- fragment --><p>Textだけを使う場合、projectorを開く必要はありません。<code>n_ctx=0</code> はpackageの コンテキスト長を使用します。非QNNビルドやplugin不在ではモデル名取得は <code>UNIMPLEMENTED</code>、未対応SoCでは <code>OTHER_ERROR</code> を返します。 失敗の詳細は <code>ailiaLLMGetErrorDetail</code> で確認できます。</p>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Tool Use（JSON API）</h2>
+<p>Tool Useでは最初のuserメッセージから<code>ailiaLLMSetPromptJson</code>を使用します。 <code>ailiaLLMSetTools</code>でツールが設定されている間、従来の<code>ailiaLLMSetPrompt</code>と<code>ailiaLLMSetMultimodalPrompt</code>は <code>AILIA_LLM_STATUS_INVALID_STATE</code>を返します。ツールを解除すると再び利用できます。</p>
+<ol type="1">
+<li><code>ailiaLLMSetTools</code>にOpenAI互換のツール定義配列を渡します。</li>
+<li><code>ailiaLLMSetPromptJson</code>にmessages配列そのもの（UTF-8 JSON）を渡します。</li>
+<li><code>ailiaLLMGenerate</code>を完了まで呼び出します。deltaは<code>ailiaLLMGetDeltaText</code>でプレビューできますが、取得・連結は必須ではありません。</li>
+<li><code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code>で構造化assistant JSONを取得します。</li>
+<li>成功したオブジェクトをそのまま履歴に追加し、tool_callsがあれば実行して、ID付きのtool結果を追加し、次のプロンプトを設定します。</li>
+</ol>
+<p>SDKが生成結果を蓄積するので、生の出力をアプリ側で引き回す必要はありません。 GetResponseJsonは読み取りで蓄積を消去しません。新しいプロンプトでリセットします。</p>
+<p>例えばツール定義と最初の入力は次の形式です。ツールの実行はアプリ側で行い、 モデルから返された名前・引数を検証してから呼び出してください。</p>
+<div class="fragment"><div class="line">[{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{&quot;name&quot;:&quot;get_weather&quot;,&quot;description&quot;:&quot;都市の天気を取得する&quot;,&quot;parameters&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;}},&quot;required&quot;:[&quot;city&quot;]}}}]</div>
+</div><!-- fragment --><div class="fragment"><div class="line">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;東京の天気は？&quot;}]</div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="comment">/* llm: モデルを開いた状態。tools_json/messages_jsonには上記のJSON文字列を渡す。 */</span></div>
+<div class="line"><span class="keywordtype">int</span> run_tool_turn(<span class="keyword">struct</span> AILIALLM *llm, <span class="keyword">const</span> <span class="keywordtype">char</span> *tools_json,</div>
+<div class="line">                  <span class="keyword">const</span> <span class="keywordtype">char</span> *messages_json, <span class="keywordtype">char</span> **response) {</div>
+<div class="line">    <span class="keywordtype">int</span> status = <a class="code" href="ailia__llm_8h.html#a687e4bd51ae3544952d71cb7a95185e8">ailiaLLMSetTools</a>(llm, tools_json);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    status = <a class="code" href="ailia__llm_8h.html#a51de94ebe6684eb3aa9ba9a68a0ae717">ailiaLLMSetPromptJson</a>(llm, messages_json);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> done = 0;</div>
+<div class="line">    <span class="keywordflow">while</span> (!done) {</div>
+<div class="line">        status = <a class="code" href="ailia__llm_8h.html#a5dd8bd3eb42561a666a6855759d49a87">ailiaLLMGenerate</a>(llm, &amp;done);</div>
+<div class="line">        <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size = 0;</div>
+<div class="line">    status = <a class="code" href="ailia__llm_8h.html#a2467553fdc75b0c0a91851b42f4c4aa7">ailiaLLMGetResponseJsonSize</a>(llm, &amp;size);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    *response = (<span class="keywordtype">char</span> *)malloc(size); <span class="comment">/* 呼び出し側でfreeする */</span></div>
+<div class="line">    <span class="keywordflow">if</span> (!*response) <span class="keywordflow">return</span> <a class="code" href="ailia__llm_8h.html#af163e0259421bae206477575f5c90338">AILIA_LLM_STATUS_OTHER_ERROR</a>;</div>
+<div class="line">    status = <a class="code" href="ailia__llm_8h.html#a47c6e1ae9cf3088c4de3283cf2291a77">ailiaLLMGetResponseJson</a>(llm, *response, size);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) { free(*response); *response = NULL; }</div>
+<div class="line">    <span class="keywordflow">return</span> status;</div>
+<div class="line">}</div>
+<div class="ttc" id="aailia__llm_8h_html_a2467553fdc75b0c0a91851b42f4c4aa7"><div class="ttname"><a href="ailia__llm_8h.html#a2467553fdc75b0c0a91851b42f4c4aa7">ailiaLLMGetResponseJsonSize</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGetResponseJsonSize(struct AILIALLM *llm, unsigned int *buf_size)</div><div class="ttdoc">SDK内部に蓄積した生成結果のassistant JSONサイズを取得します（NULL文字含む）。</div></div>
+<div class="ttc" id="aailia__llm_8h_html_a47c6e1ae9cf3088c4de3283cf2291a77"><div class="ttname"><a href="ailia__llm_8h.html#a47c6e1ae9cf3088c4de3283cf2291a77">ailiaLLMGetResponseJson</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGetResponseJson(struct AILIALLM *llm, char *json, unsigned int buf_size)</div><div class="ttdoc">SDK内部に蓄積した生成結果を構造化assistant JSONとして取得します。</div></div>
+<div class="ttc" id="aailia__llm_8h_html_a51de94ebe6684eb3aa9ba9a68a0ae717"><div class="ttname"><a href="ailia__llm_8h.html#a51de94ebe6684eb3aa9ba9a68a0ae717">ailiaLLMSetPromptJson</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMSetPromptJson(struct AILIALLM *llm, const char *messages_json)</div><div class="ttdoc">構造化されたJSON会話履歴からプロンプトを設定します。</div></div>
+<div class="ttc" id="aailia__llm_8h_html_a687e4bd51ae3544952d71cb7a95185e8"><div class="ttname"><a href="ailia__llm_8h.html#a687e4bd51ae3544952d71cb7a95185e8">ailiaLLMSetTools</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMSetTools(struct AILIALLM *llm, const char *tools_json)</div><div class="ttdoc">OpenAI互換のツール定義JSON配列を設定します。NULL/空文字列/空配列で解除します。</div></div>
+<div class="ttc" id="aailia__llm_8h_html_af163e0259421bae206477575f5c90338"><div class="ttname"><a href="ailia__llm_8h.html#af163e0259421bae206477575f5c90338">AILIA_LLM_STATUS_OTHER_ERROR</a></div><div class="ttdeci">#define AILIA_LLM_STATUS_OTHER_ERROR</div><div class="ttdoc">不明なエラー</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:191</div></div>
+</div><!-- fragment --><p>この例では <code>&lt;stdlib.h&gt;</code> をincludeし、<code>response</code> は有効な <code>char **</code> とします。</p>
+<h3><a class="anchor" id="autotoc_md7"></a>
+JSON履歴</h3>
+<div class="fragment"><div class="line">[</div>
+<div class="line">  {&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;東京の天気は？&quot;},</div>
+<div class="line">  {&quot;role&quot;:&quot;assistant&quot;,&quot;content&quot;:&quot;&quot;,&quot;tool_calls&quot;:[</div>
+<div class="line">    {&quot;id&quot;:&quot;call_0&quot;,&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{</div>
+<div class="line">      &quot;name&quot;:&quot;get_weather&quot;,&quot;arguments&quot;:&quot;{\&quot;city\&quot;:\&quot;東京\&quot;}&quot;}}</div>
+<div class="line">  ]},</div>
+<div class="line">  {&quot;role&quot;:&quot;tool&quot;,&quot;tool_call_id&quot;:&quot;call_0&quot;,&quot;content&quot;:&quot;雪、-3度&quot;}</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>本文をツール構文として再解析しません。assistantのThinkingは<code>reasoning_content</code>に指定します。 <code>arguments</code>はJSONオブジェクトを表す**文字列**です。呼び出しのid/nameは空にできず、IDはassistant内で一意です。 別ターンではIDを再利用できます。連続するtool結果は直前のassistantの呼び出しにIDで対応付けます。 結果の順序は問いません。不明なID、重複結果、矛盾するツール名はINVALID_ARGUMENTです。 ツール結果のcontentには文字列を指定し、オブジェクトはJSON文字列に変換してください。</p>
+<h3><a class="anchor" id="autotoc_md8"></a>
+画像・音声</h3>
+<p>対応するprojectorを<code>ailiaLLMOpenMultimodalProjectorFileA</code>で読み込んだ後、userのcontent配列に順番に指定します。 メディアはtoolsの有無にかかわらずJSONで入力できます。</p>
+<div class="fragment"><div class="line">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[</div>
+<div class="line">  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;この画像と音声について説明してください。&quot;},</div>
+<div class="line">  {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},</div>
+<div class="line">  {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}</div>
+<div class="line">]}]</div>
+</div><!-- fragment --><p>image/audioは<code>file_path</code>または<code>data</code>をちょうど1つ指定します。<code>data</code>は標準Base64（パディング付き）で エンコードしたファイル内容です。JPEG/PNG、WAV/MP3/FLAC等を使用できます。URL取得、動画、生RGB/PCMには対応しません。 画像・音声を含む履歴は毎回再評価します。メディア非対応のモデル/projectorや未読込はINVALID_STATEです。 画像と音声の対応状況は<code>ailiaLLMGetMultimodalCapabilities</code>で確認できます。</p>
+<h3><a class="anchor" id="autotoc_md9"></a>
+不完全な出力・エラー</h3>
+<ul>
+<li>GetResponseJson：生成完了後に呼び出してください。未完了tool call/ThinkingはPARSE_ERRORです。部分結果を実行したり、引数を補完したりしません。</li>
+<li>SetPromptJson：不完全なarguments、不正なJSON・型・ID対応、空配列はINVALID_ARGUMENTです。自動切り捨ては行いません。</li>
+<li>再試行：GetResponseJsonがPARSE_ERRORの場合、失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加します。部分的な本文・Thinkingの取得は不要です。不完全な呼び出しのtool結果は作りません。</li>
+<li>GetResponseJsonはプロンプト未設定、tools/Thinking変更後にINVALID_STATEを返します。プロンプト設定後・生成前の空出力は空のassistantです。</li>
+<li>ファイル読込失敗はERROR_FILE_API、Base64からのデコード済みメディア読込失敗はERROR_BUFFER_API、不正なBase64はINVALID_ARGUMENTです。</li>
+</ul>
+<p>SetTools(NULL)でツールを解除した後も、過去のtool_callsとtool結果をSetPromptJsonへ渡して要約・最終回答を生成できます。解除すると出力パーサーが無効になるため、結果JSONは解除前に取得してください。例外時もツール設定を解除するにはfinallyを使用してください。 </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

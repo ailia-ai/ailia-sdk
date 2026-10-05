@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_llm</a></li>
-    <li><a href="../../ailia_llm_model/">ailia_llm_model.dart</a></li>
+    <li><a href="../../ailia_llm_model/ailia_llm_model-library.html">ailia_llm_model.dart</a></li>
     <li><a href="../../ailia_llm_model/AiliaLLMModel-class.html">AiliaLLMModel</a></li>
     <li class="self-crumb">open method</li>
   </ol>
@@ -33,39 +37,50 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_llm_model&#47;AiliaLLMModel-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_llm_model&#47;AiliaLLMModel-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">open</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype">void</span>
-<span class="name ">open</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="open-param-modelPath"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">modelPath</span>, </span></li>
-<li><span class="parameter" id="open-param-nCtx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">nCtx</span>, {</span></li>
-<li><span class="parameter" id="open-param-backend"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">backend</span> = <span class="default-value">&quot;&quot;</span>, </span></li>
-</ol>})
+<span class="name ">open</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="open-param-modelPath"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">modelPath</span>, </span></li>
+<li><span class="parameter" id="open-param-nCtx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">nCtx</span>, </span></li>
+<li><span class="parameter" id="open-param-backend">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">backend</span> = <span class="default-value">&quot;&quot;</span>}</span></li>
+</ol>)
 
       
 
     </section>
     
 <section class="desc markdown">
-  <p>Initialize the context using the given model and parameters.</p>
+  <p>Opens a GGUF model or a self-contained, SoC-specific QNN text package.
+With no backend argument, GGUF uses automatic GPU fitting with CPU
+fallback, while .qnn selects HTP (QNN). Explicit Metal/GPU selection
+still fits layers to available memory, but requires some GPU offload.
+CPU/GPU for .qnn or HTP for GGUF is rejected.
+Use <a href="../../ailia_llm_model/AiliaLLMModel/openMultimodalProjectorFile.html">openMultimodalProjectorFile</a> afterwards for vision or audio.
+A context size of zero selects the package/model default.</p>
 </section>
 
 
@@ -74,43 +89,43 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void open(String modelPath, int nCtx, {String backend = &quot;&quot;}) {
   if (pLLm != nullptr) {
-    if (pLLm.value != nullptr) {
-      dllHandle.ailiaLLMDestroy(pLLm.value);
-    }
+    close();
   }
 
   &#47;&#47; Reset multimodal projector state when opening a new model
   _multimodalProjectorOpened = false;
 
-  if (backend == &quot;&quot;) {
-    backend = _backend[1][0];
+  final List&lt;String&gt; backendList = getBackendList();
+  if (backendList.isEmpty) {
+    throw Exception(&#39;ailiaLLM no available backend found&#39;);
   }
-
-  if (_currentBackend != backend) {
-    if (_library != null) {
-      _library!.close();
-      _library = null;
-    }
-    List&lt;String&gt; backendList = getBackendList();
-    for (int i = 0; i &lt; backendList.length; i++) {
-      if (backendList[i] == backend) {
-        _library = _ailiaCommonGetLibrary(_backend[0][i]);
-        dllHandle = ailia_llm_dart.ailiaLlmFFI(_library!);
-        _currentBackend = backend;
-        break;
-      }
-    }
-    if (_library == null) {
-      throw Exception(&quot;ailiaLLM backend not found&quot;);
-    }
+  &#47;&#47; The native API chooses GGUF GPU&#47;CPU placement or QNN HTP by model format
+  &#47;&#47; when the caller did not explicitly select a backend.
+  final automatic = backend.isEmpty;
+  var backendIdx = automatic ? -1 : backendList.indexOf(backend);
+  if (!automatic &amp;&amp; backendIdx &lt; 0) {
+    backendIdx = _backendTypes.indexOf(backend);
   }
+  if (!automatic &amp;&amp; backendIdx &lt; 0) {
+    throw Exception(&#39;ailiaLLM backend not found: $backend&#39;);
+  }
+  dllHandle = _getApi();
 
   pLLm = malloc&lt;Pointer&lt;ailia_llm_dart.AILIALLM&gt;&gt;();
   pLLm.value = nullptr;
 
   var status = dllHandle.ailiaLLMCreate(pLLm);
   if (status != 0) {
+    close();
     throw Exception(&quot;ailiaLLMCreate returned an error status $status&quot;);
+  }
+
+  if (!automatic) {
+    status = dllHandle.ailiaLLMSetBackend(pLLm.value, backendIdx);
+    if (status != 0) {
+      close();
+      throw Exception(&#39;ailiaLLMSetBackend returned an error status $status&#39;);
+    }
   }
 
   if (Platform.isWindows) {
@@ -123,6 +138,7 @@
     malloc.free(path);
   }
   if (status != 0) {
+    close();
     throw Exception(&quot;ailiaLLMOpenModelFile returned an error status $status&quot;);
   }
 }</code></pre>
@@ -130,6 +146,7 @@
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -137,31 +154,41 @@
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_llm</a></li>
-    <li><a href="../../ailia_llm_model/">ailia_llm_model</a></li>
+    <li><a href="../../ailia_llm_model/ailia_llm_model-library.html">ailia_llm_model</a></li>
     <li><a href="../../ailia_llm_model/AiliaLLMModel-class.html">AiliaLLMModel</a></li>
     <li class="self-crumb">open method</li>
 </ol>
 
+
     <h5>AiliaLLMModel class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_llm
-      1.4.1
+      1.5.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 

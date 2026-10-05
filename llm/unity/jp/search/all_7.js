@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['library_5fname_64',['LIBRARY_NAME',['../classailiaLLM_1_1AiliaLLM.html#ae708df039094f588060032bdddc5f09f',1,'ailiaLLM::AiliaLLM']]]
+  ['idx_79',['idx',['../classailiaLLM_1_1AiliaLLMBackendInfo.html#afc363993f014022b7d8ef0ef3546b6e8',1,'ailiaLLM::AiliaLLMBackendInfo']]],
+  ['index_2dcsharp_2edox_80',['index-csharp.dox',['../index-csharp_8dox.html',1,'']]]
 ];

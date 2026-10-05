@@ -412,31 +412,17 @@ while (!done) {
           <summary>Does it support GPU acceleration?</summary>
           <p>Yes. ailia LLM uses <strong>Metal</strong> on iOS and macOS, and <strong>Vulkan</strong> on Windows. (Unlike ailia SDK / Speech / Voice, ailia LLM does not require cuDNN.) Inference falls back to CPU when no GPU is available. See the <a href="../setup/vulkan/">Vulkan Setup Guide</a> for details.</p>
         </details>
-        <!--
         <details class="faq-item">
           <summary>Does it support NPU acceleration?</summary>
-          <p>Yes. On Android devices with Qualcomm SoCs (Snapdragon 8 Gen 1 or later), the QNN backend runs inference on the <strong>Hexagon NPU</strong>. The NPU path uses a proprietary implementation separate from llama.cpp: a GGUF file is converted into a QNN Model on a PC and executed on the device. Gemma 4 E2B (text / VLM) is currently supported. See the <a href="qnn.html">ailia LLM NPU (QNN) Guide</a> for details.</p>
+          <p>Yes. On supported Android and Windows on Arm devices, the QNN backend runs inference on the <strong>Hexagon NPU</strong>. A GGUF file is converted into an SoC-specific QNN Model on a PC and executed on the device. Gemma 4 E2B / E4B support text, image, and audio input, depending on the SoC. See the <a href="qnn.html">ailia LLM NPU (QNN) Guide</a> for details.</p>
         </details>
-        -->
-        <!--
+        <details class="faq-item">
+          <summary>Does it support VLM / ALM?</summary>
+          <p>Yes. ailia LLM supports VLMs with image input and ALMs with audio input. Load a compatible model and multimodal projector, then pass images or audio with <code>ailiaLLMSetMultimodalPrompt</code> or <code>ailiaLLMSetPromptJson</code>. Check the model's capabilities with <code>ailiaLLMGetMultimodalCapabilities</code>. See the <a href="multimodal.html">Multimodal Guide</a> for details.</p>
+        </details>
         <details class="faq-item">
           <summary>Does it support tool use (function calling)?</summary>
-          <p>Yes. Gemma 4's native function calling can be used. With the Tool Use API of ailia LLM 1.5.0 and later, tools are defined in OpenAI-compatible JSON (<code>ailiaLLMSetTools</code>) and the output is parsed into <code>tool_calls</code> with <code>ailiaLLMParseResponse</code>. Tool results are returned as messages with the <code>tool</code> role. See the <a href="tool_use.html">ailia LLM Tool Use Guide</a> for details.</p>
-        </details>
-        -->
-
-        <details class="faq-item">
-          <summary>Where do I place the license file when using C++?</summary>
-          <p>The C++ binding requires <code>ailia.lic</code> next to the runtime libraries:</p>
-          <p><strong>Windows:</strong> same folder as <code>ailia.dll</code> (or in <code>cpp/</code> for the sample).<br/>
-          <strong>macOS:</strong> <code>~/Library/SHALO/</code><br/>
-          <strong>Linux:</strong> <code>~/.shalo/</code></p>
-          <p>Python, Unity, Flutter, and JNI bindings auto-download the license on first run, so this only applies to the native C++ binding.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary>How does licensing work?</summary>
-          <p>An evaluation license is downloaded automatically at runtime, suitable for development and trial. For commercial deployment, request a production license. See the <a href="https://ailia.ai/license/en/" target="_blank">ailia license terms</a>.</p>
+          <p>Yes. ailia LLM 1.5.0 and later support Gemma 4 function calling. Define tools with <code>ailiaLLMSetTools</code> and pass the JSON history with <code>ailiaLLMSetPromptJson</code>. After generation, retrieve the response containing <code>tool_calls</code> with <code>ailiaLLMGetResponseJson</code>, then return each result as a message with the <code>tool</code> role. See the <a href="tool_use.html">ailia LLM Tool Use Guide</a> for details.</p>
         </details>
 
       </div>
@@ -507,18 +493,18 @@ while (!done) {
     <div class="article-title">Flash Attention: Improve transformer efficiency</div>
     <div class="article-source">tech.ailia.ai</div>
   </a>
-  <!-- <a class="article-card" href="qnn.html">
+  <a class="article-card" href="qnn.html">
     <div class="article-title">ailia LLM NPU (QNN) Guide</div>
     <div class="article-source">docs.ailia.ai</div>
-  </a> -->
-  <!-- <a class="article-card" href="tool_use.html">
+  </a>
+  <a class="article-card" href="tool_use.html">
     <div class="article-title">ailia LLM Tool Use Guide</div>
     <div class="article-source">docs.ailia.ai</div>
-  </a> -->
-  <!-- <a class="article-card" href="multimodal.html">
+  </a>
+  <a class="article-card" href="multimodal.html">
     <div class="article-title">ailia LLM Multimodal Guide</div>
     <div class="article-source">docs.ailia.ai</div>
-  </a> -->
+  </a>
   </div>
 </section>
 <!-- /Related Articles -->

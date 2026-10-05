@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -66,16 +66,16 @@ $(function() {
 <div class="title">API Usage </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md2"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md10"></a>
 Overview of ailia LLM API</h1>
-<h2><a class="anchor" id="autotoc_md3"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 Basic usage</h2>
 <p>This is an example of using ailia LLM.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="ailia__llm_8h.html">ailia_llm.h</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[]){</div>
 <div class="line">    <span class="keyword">struct </span>AILIALLM* llm;</div>
-<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n_ctx = 512;</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n_ctx = 8192;</div>
 <div class="line">    <a class="code" href="ailia__llm_8h.html#a9ddba82a4cda99e783cb59ff4e30ca2b">ailiaLLMCreate</a>(&amp;llm);</div>
 <div class="line">    <a class="code" href="ailia__llm_8h.html#a884a746fb28b8f71fdd846ae50150c3d">ailiaLLMOpenModelFileA</a>(llm, <span class="stringliteral">&quot;../models/gemma-2-2b-it-Q4_K_M.gguf&quot;</span>, n_ctx);</div>
 <div class="line"> </div>
@@ -119,10 +119,150 @@ Basic usage</h2>
 <div class="ttc" id="aailia__llm_8h_html_a884a746fb28b8f71fdd846ae50150c3d"><div class="ttname"><a href="ailia__llm_8h.html#a884a746fb28b8f71fdd846ae50150c3d">ailiaLLMOpenModelFileA</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMOpenModelFileA(struct AILIALLM *llm, const char *path, unsigned int n_ctx)</div><div class="ttdoc">Open model file.</div></div>
 <div class="ttc" id="aailia__llm_8h_html_a9ddba82a4cda99e783cb59ff4e30ca2b"><div class="ttname"><a href="ailia__llm_8h.html#a9ddba82a4cda99e783cb59ff4e30ca2b">ailiaLLMCreate</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMCreate(struct AILIALLM **llm)</div><div class="ttdoc">Creates a LLM instance.</div></div>
 <div class="ttc" id="aailia__llm_8h_html_aa365516599d78f9dc6b633defe1c5a97"><div class="ttname"><a href="ailia__llm_8h.html#aa365516599d78f9dc6b633defe1c5a97">ailiaLLMDestroy</a></div><div class="ttdeci">AILIA_LLM_API void ailiaLLMDestroy(struct AILIALLM *llm)</div><div class="ttdoc">It destroys the LLM instance.</div></div>
-<div class="ttc" id="astruct__AILIALLMChatMessage_html"><div class="ttname"><a href="struct__AILIALLMChatMessage.html">_AILIALLMChatMessage</a></div><div class="ttdef"><b>Definition:</b> ailia_llm.h:180</div></div>
-<div class="ttc" id="astruct__AILIALLMChatMessage_html_a0ffec73b21e26a677fbb8ae8576f79c9"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a0ffec73b21e26a677fbb8ae8576f79c9">_AILIALLMChatMessage::content</a></div><div class="ttdeci">const char * content</div><div class="ttdoc">Represent the content of the message.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:188</div></div>
-<div class="ttc" id="astruct__AILIALLMChatMessage_html_a657ea086dd1a07ed3ef23b0602b157ff"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff">_AILIALLMChatMessage::role</a></div><div class="ttdeci">const char * role</div><div class="ttdoc">Represent the role. (system, user, assistant)</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:184</div></div>
-</div><!-- fragment --> </div></div><!-- contents -->
+<div class="ttc" id="astruct__AILIALLMChatMessage_html"><div class="ttname"><a href="struct__AILIALLMChatMessage.html">_AILIALLMChatMessage</a></div><div class="ttdef"><b>Definition:</b> ailia_llm.h:197</div></div>
+<div class="ttc" id="astruct__AILIALLMChatMessage_html_a0ffec73b21e26a677fbb8ae8576f79c9"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a0ffec73b21e26a677fbb8ae8576f79c9">_AILIALLMChatMessage::content</a></div><div class="ttdeci">const char * content</div><div class="ttdoc">Represent the content of the message. For role &quot;tool&quot; the content is the tool result,...</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:207</div></div>
+<div class="ttc" id="astruct__AILIALLMChatMessage_html_a657ea086dd1a07ed3ef23b0602b157ff"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff">_AILIALLMChatMessage::role</a></div><div class="ttdeci">const char * role</div><div class="ttdoc">Represent the role. (system, user, assistant, tool) &quot;tool&quot; holds a tool result for tool use,...</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:202</div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md12"></a>
+Image input (VLM)</h2>
+<p>Use a vision-capable text model and its matching projector. Call <code>ailiaLLMCreate</code>, <code>ailiaLLMOpenModelFileA</code>, then <code>ailiaLLMOpenMultimodalProjectorFileA</code>; check <code>vision_support</code> with <code>ailiaLLMGetMultimodalCapabilities</code>. Each <code>&lt;__media__&gt;</code> marker must match one entry in <code>media_data</code>, in order.</p>
+<div class="fragment"><div class="line"><span class="comment">/* llm: text model and matching vision-capable projector already opened. */</span></div>
+<div class="line"><span class="keywordtype">int</span> set_image_prompt(<span class="keyword">struct</span> AILIALLM *llm, <span class="keyword">const</span> <span class="keywordtype">char</span> *image_path) {</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vision = 0, audio = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> status = <a class="code" href="ailia__llm_8h.html#a5f8af24efc1b0eafa572828c29bb94d2">ailiaLLMGetMultimodalCapabilities</a>(llm, &amp;vision, &amp;audio);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    <span class="keywordflow">if</span> (!vision || !image_path) <span class="keywordflow">return</span> <a class="code" href="ailia__llm_8h.html#afa7527f72f155616f9439e8d97c2d85f">AILIA_LLM_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="struct__AILIALLMMediaData.html">AILIALLMMediaData</a> media = {0};</div>
+<div class="line">    media.<a class="code" href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">media_type</a> = <span class="stringliteral">&quot;image&quot;</span>;</div>
+<div class="line">    media.<a class="code" href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">file_path</a> = image_path; <span class="comment">/* UTF-8 local image path */</span></div>
+<div class="line">    <a class="code" href="struct__AILIALLMMultimodalChatMessage.html">AILIALLMMultimodalChatMessage</a> message = {0};</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#a9ee470dd9cf00f75e90c18371688b1be">role</a> = <span class="stringliteral">&quot;user&quot;</span>;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#ad980deb6909cba08a2571887ae1d3b19">content</a> = <span class="stringliteral">&quot;Describe this image: &lt;__media__&gt;&quot;</span>;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#a4c214c4d07561b149a0bfccff63e5e76">media_data</a> = &amp;media;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#acd6be98cfa12b6d086b865f62b7c3650">media_count</a> = 1;</div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code" href="ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162">ailiaLLMSetMultimodalPrompt</a>(llm, &amp;message, 1);</div>
+<div class="line">}</div>
+<div class="ttc" id="aailia__llm_8h_html_a5f8af24efc1b0eafa572828c29bb94d2"><div class="ttname"><a href="ailia__llm_8h.html#a5f8af24efc1b0eafa572828c29bb94d2">ailiaLLMGetMultimodalCapabilities</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGetMultimodalCapabilities(struct AILIALLM *llm, unsigned int *vision_support, unsigned int *audio_support)</div><div class="ttdoc">Check if multimodal features are supported.</div></div>
+<div class="ttc" id="aailia__llm_8h_html_a7b6ed4adee89f894289b749bf0898162"><div class="ttname"><a href="ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162">ailiaLLMSetMultimodalPrompt</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMSetMultimodalPrompt(struct AILIALLM *llm, const AILIALLMMultimodalChatMessage *message, unsigned int message_cnt)</div><div class="ttdoc">Set multimodal prompt.</div></div>
+<div class="ttc" id="aailia__llm_8h_html_afa7527f72f155616f9439e8d97c2d85f"><div class="ttname"><a href="ailia__llm_8h.html#afa7527f72f155616f9439e8d97c2d85f">AILIA_LLM_STATUS_INVALID_ARGUMENT</a></div><div class="ttdeci">#define AILIA_LLM_STATUS_INVALID_ARGUMENT</div><div class="ttdoc">Incorrect argument.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:52</div></div>
+<div class="ttc" id="astruct__AILIALLMMediaData_html"><div class="ttname"><a href="struct__AILIALLMMediaData.html">_AILIALLMMediaData</a></div><div class="ttdoc">Image/audio data for multimodal processing. Audio requires an audio-capable projector....</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:224</div></div>
+<div class="ttc" id="astruct__AILIALLMMediaData_html_a27a3d02da0966de614e862e96a61e73e"><div class="ttname"><a href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">_AILIALLMMediaData::file_path</a></div><div class="ttdeci">const char * file_path</div><div class="ttdoc">Path to the media file (UTF-8). Ignored if data is provided.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:238</div></div>
+<div class="ttc" id="astruct__AILIALLMMediaData_html_a43e8d23c34220d44836c17655a3072cf"><div class="ttname"><a href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">_AILIALLMMediaData::media_type</a></div><div class="ttdeci">const char * media_type</div><div class="ttdoc">Media type (image, audio). Audio requires an audio-capable mmproj.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:231</div></div>
+<div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html">_AILIALLMMultimodalChatMessage</a></div><div class="ttdoc">Multimodal chat message with media attachments.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:281</div></div>
+<div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html_a4c214c4d07561b149a0bfccff63e5e76"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html#a4c214c4d07561b149a0bfccff63e5e76">_AILIALLMMultimodalChatMessage::media_data</a></div><div class="ttdeci">const AILIALLMMediaData * media_data</div><div class="ttdoc">Array of media data (images, audio) referenced by &lt;media&gt; markers.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:294</div></div>
+<div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html_a9ee470dd9cf00f75e90c18371688b1be"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html#a9ee470dd9cf00f75e90c18371688b1be">_AILIALLMMultimodalChatMessage::role</a></div><div class="ttdeci">const char * role</div><div class="ttdoc">Represent the role. (system, user, assistant, tool) &quot;tool&quot; holds a tool result for tool use,...</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:286</div></div>
+<div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html_acd6be98cfa12b6d086b865f62b7c3650"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html#acd6be98cfa12b6d086b865f62b7c3650">_AILIALLMMultimodalChatMessage::media_count</a></div><div class="ttdeci">unsigned int media_count</div><div class="ttdoc">Number of media items in media_data array.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:298</div></div>
+<div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html_ad980deb6909cba08a2571887ae1d3b19"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html#ad980deb6909cba08a2571887ae1d3b19">_AILIALLMMultimodalChatMessage::content</a></div><div class="ttdeci">const char * content</div><div class="ttdoc">Represent the content of the message. Use &lt;media&gt; placeholder for media.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:290</div></div>
+</div><!-- fragment --><p>Generate text with the same APIs as the basic example. Besides a file path, images accept encoded bytes (<code>data</code> / <code>data_size</code>, width and height zero) or raw RGB bytes (<code>width * height * 3</code>).</p>
+<h2><a class="anchor" id="autotoc_md13"></a>
+Audio input (ALM)</h2>
+<p>Use an audio-capable text model and its matching mmproj containing an audio encoder. A vision-only projector cannot process audio. Tasks and languages depend on the model. Audio synthesis/output is not supported.</p>
+<ol type="1">
+<li>Create the session and open the text model with <code>ailiaLLMOpenModelFileA</code>.</li>
+<li>Open its projector with <code>ailiaLLMOpenMultimodalProjectorFileA</code>.</li>
+<li>Check that <code>ailiaLLMGetMultimodalCapabilities</code> reports nonzero audio support.</li>
+<li>Set an audio prompt using the example below.</li>
+<li>On success, use <code>ailiaLLMGenerate</code>, <code>ailiaLLMGetDeltaTextSize</code> and <code>ailiaLLMGetDeltaText</code> as in the basic example. Check every return value; use <code>ailiaLLMGetErrorDetail</code> to inspect failures.</li>
+</ol>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="ailia__llm_8h.html">ailia_llm.h</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">/* llm: text model and matching audio-capable projector already opened. */</span></div>
+<div class="line"><span class="keywordtype">int</span> set_audio_prompt(<span class="keyword">struct</span> AILIALLM *llm, <span class="keyword">const</span> <span class="keywordtype">char</span> *audio_path) {</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vision = 0, audio = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> status = <a class="code" href="ailia__llm_8h.html#a5f8af24efc1b0eafa572828c29bb94d2">ailiaLLMGetMultimodalCapabilities</a>(llm, &amp;vision, &amp;audio);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    <span class="keywordflow">if</span> (!audio || !audio_path) <span class="keywordflow">return</span> <a class="code" href="ailia__llm_8h.html#afa7527f72f155616f9439e8d97c2d85f">AILIA_LLM_STATUS_INVALID_ARGUMENT</a>;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="struct__AILIALLMMediaData.html">AILIALLMMediaData</a> media = {0};</div>
+<div class="line">    media.<a class="code" href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">media_type</a> = <span class="stringliteral">&quot;audio&quot;</span>;</div>
+<div class="line">    media.<a class="code" href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">file_path</a> = audio_path; <span class="comment">/* UTF-8 WAV/MP3/FLAC path */</span></div>
+<div class="line">    <span class="comment">/* data=NULL, data_size=0, width=0, height=0 */</span></div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="struct__AILIALLMMultimodalChatMessage.html">AILIALLMMultimodalChatMessage</a> message = {0};</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#a9ee470dd9cf00f75e90c18371688b1be">role</a> = <span class="stringliteral">&quot;user&quot;</span>;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#ad980deb6909cba08a2571887ae1d3b19">content</a> = <span class="stringliteral">&quot;Transcribe this audio: &lt;__media__&gt;&quot;</span>;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#a4c214c4d07561b149a0bfccff63e5e76">media_data</a> = &amp;media;</div>
+<div class="line">    message.<a class="code" href="struct__AILIALLMMultimodalChatMessage.html#acd6be98cfa12b6d086b865f62b7c3650">media_count</a> = 1;</div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code" href="ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162">ailiaLLMSetMultimodalPrompt</a>(llm, &amp;message, 1);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Input is a WAV/MP3/FLAC file path or an encoded file buffer. For buffer input, set <code>file_path=NULL</code>, <code>data</code> and <code>data_size</code>; data takes precedence over a path. The size must fit an unsigned int. Keep the buffer and strings alive until the call returns. Set both width and height to zero. Raw PCM and live microphone streaming are not supported by this API. Media markers and array entries must match in count and order.</p>
+<h3><a class="anchor" id="autotoc_md14"></a>
+Audio on Android QNN</h3>
+<p>The same open APIs accept a precompiled text <code>.qnn</code> and an mmproj <code>.qnn</code> containing audio contexts and CPU weights. Source GGUF files are not required on the device. Use the correct SoC target, QNN libraries and matching base/plugin builds. Old vision-only packages do not acquire audio capability automatically.</p>
+<p>Feature extraction and subsampling remain on CPU; all 12 Conformer blocks and the final projection execute in one HTP graph. Padding and history-preserving chunking support short/long inputs. Regenerate older linear audio packages with the current compiler. Mixed image/audio in one prompt is unsupported; use separate prompts. Audio prompts do not reuse previous-prompt KV. Audio tokens are causal and may cross AR256 boundaries, but the resulting token sequence must fit the model context. QNN-owned sparse linear weights cannot fall back to CPU.</p>
+<h2><a class="anchor" id="autotoc_md15"></a>
+Android QNN models</h2>
+<p>With a QNN-enabled build, open a device-specific, precompiled text <code>.qnn</code> using <code>ailiaLLMOpenModelFileA</code>. For VLM/ALM, open its matching projector <code>.qnn</code> using <code>ailiaLLMOpenMultimodalProjectorFileA</code>. Unlike GGUF files, these packages are SoC-specific. Match the text/projector pair, QNN runtime and plug-in versions. Without an explicit backend selection, a <code>.qnn</code> package selects HTP (QNN). Explicit CPU/GPU selection rejects <code>.qnn</code>, and explicit HTP (QNN) rejects GGUF.</p>
+<div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> *stem = NULL;</div>
+<div class="line"><span class="keywordtype">int</span> status = <a class="code" href="ailia__llm_8h.html#a2a381755d8e0881fe58eb1e3ee40796e">ailiaLLMGetQNNModelName</a>(&amp;stem); <span class="comment">/* e.g. &quot;sm7635&quot; */</span></div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line"><span class="comment">/* Distribution filenames may also include a model prefix. Select the</span></div>
+<div class="line"><span class="comment">   text/projector packages for this stem and the current SoC. */</span></div>
+<div class="line">status = <a class="code" href="ailia__llm_8h.html#a884a746fb28b8f71fdd846ae50150c3d">ailiaLLMOpenModelFileA</a>(llm, text_qnn_path, 0);</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">status = <a class="code" href="ailia__llm_8h.html#adf9eb2721656c69eca33fbfceaec306d">ailiaLLMOpenMultimodalProjectorFileA</a>(llm, mmproj_qnn_path);</div>
+<div class="line"><span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="ttc" id="aailia__llm_8h_html_a2a381755d8e0881fe58eb1e3ee40796e"><div class="ttname"><a href="ailia__llm_8h.html#a2a381755d8e0881fe58eb1e3ee40796e">ailiaLLMGetQNNModelName</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGetQNNModelName(const char **model_name)</div><div class="ttdoc">Gets the QNN model name for the current device.</div></div>
+<div class="ttc" id="aailia__llm_8h_html_adf9eb2721656c69eca33fbfceaec306d"><div class="ttname"><a href="ailia__llm_8h.html#adf9eb2721656c69eca33fbfceaec306d">ailiaLLMOpenMultimodalProjectorFileA</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMOpenMultimodalProjectorFileA(struct AILIALLM *llm, const char *mmproj_path)</div><div class="ttdoc">Load multimodal projector file.</div></div>
+</div><!-- fragment --><p>Skip the projector for text-only use. <code>n_ctx=0</code> selects the package context length. Model-name lookup returns UNIMPLEMENTED for a non-QNN build or absent plug-in, and OTHER_ERROR on unsupported SoCs. Inspect failures with <code>ailiaLLMGetErrorDetail</code>.</p>
+<h2><a class="anchor" id="autotoc_md16"></a>
+Tool Use (JSON API)</h2>
+<p>Use <code>ailiaLLMSetPromptJson</code> from the first user message while tools are configured. The legacy <code>ailiaLLMSetPrompt</code> and <code>ailiaLLMSetMultimodalPrompt</code> return INVALID_STATE until tools are cleared. Define tools with <code>ailiaLLMSetTools</code>, set the JSON messages array, and call <code>ailiaLLMGenerate</code> until done. Deltas remain available through <code>ailiaLLMGetDeltaText</code> for previews; retrieving or concatenating them is optional. Retrieve assistant JSON with <code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code>, append the object to history, execute complete calls, and append tool results with matching <code>tool_call_id</code>. Set the next JSON prompt to continue.</p>
+<p>The SDK accumulates generated output. Reads do not consume it; a new prompt resets it.</p>
+<p>For example, set the following tool definition and initial message. The application executes tools, validating the returned function name and arguments.</p>
+<div class="fragment"><div class="line">[{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{&quot;name&quot;:&quot;get_weather&quot;,&quot;description&quot;:&quot;Get weather for a city&quot;,&quot;parameters&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;}},&quot;required&quot;:[&quot;city&quot;]}}}]</div>
+</div><!-- fragment --><div class="fragment"><div class="line">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;Weather in Tokyo?&quot;}]</div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="comment">/* llm: model already opened; tools_json/messages_json contain the JSON above. */</span></div>
+<div class="line"><span class="keywordtype">int</span> run_tool_turn(<span class="keyword">struct</span> AILIALLM *llm, <span class="keyword">const</span> <span class="keywordtype">char</span> *tools_json,</div>
+<div class="line">                  <span class="keyword">const</span> <span class="keywordtype">char</span> *messages_json, <span class="keywordtype">char</span> **response) {</div>
+<div class="line">    <span class="keywordtype">int</span> status = <a class="code" href="ailia__llm_8h.html#a687e4bd51ae3544952d71cb7a95185e8">ailiaLLMSetTools</a>(llm, tools_json);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    status = <a class="code" href="ailia__llm_8h.html#a51de94ebe6684eb3aa9ba9a68a0ae717">ailiaLLMSetPromptJson</a>(llm, messages_json);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> done = 0;</div>
+<div class="line">    <span class="keywordflow">while</span> (!done) {</div>
+<div class="line">        status = <a class="code" href="ailia__llm_8h.html#a5dd8bd3eb42561a666a6855759d49a87">ailiaLLMGenerate</a>(llm, &amp;done);</div>
+<div class="line">        <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size = 0;</div>
+<div class="line">    status = <a class="code" href="ailia__llm_8h.html#a2467553fdc75b0c0a91851b42f4c4aa7">ailiaLLMGetResponseJsonSize</a>(llm, &amp;size);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) <span class="keywordflow">return</span> status;</div>
+<div class="line">    *response = (<span class="keywordtype">char</span> *)malloc(size); <span class="comment">/* caller frees */</span></div>
+<div class="line">    <span class="keywordflow">if</span> (!*response) <span class="keywordflow">return</span> <a class="code" href="ailia__llm_8h.html#af163e0259421bae206477575f5c90338">AILIA_LLM_STATUS_OTHER_ERROR</a>;</div>
+<div class="line">    status = <a class="code" href="ailia__llm_8h.html#a47c6e1ae9cf3088c4de3283cf2291a77">ailiaLLMGetResponseJson</a>(llm, *response, size);</div>
+<div class="line">    <span class="keywordflow">if</span> (status != <a class="code" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>) { free(*response); *response = NULL; }</div>
+<div class="line">    <span class="keywordflow">return</span> status;</div>
+<div class="line">}</div>
+<div class="ttc" id="aailia__llm_8h_html_a2467553fdc75b0c0a91851b42f4c4aa7"><div class="ttname"><a href="ailia__llm_8h.html#a2467553fdc75b0c0a91851b42f4c4aa7">ailiaLLMGetResponseJsonSize</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGetResponseJsonSize(struct AILIALLM *llm, unsigned int *buf_size)</div><div class="ttdoc">Gets the buffered assistant JSON size, including the terminating null.</div></div>
+<div class="ttc" id="aailia__llm_8h_html_a47c6e1ae9cf3088c4de3283cf2291a77"><div class="ttname"><a href="ailia__llm_8h.html#a47c6e1ae9cf3088c4de3283cf2291a77">ailiaLLMGetResponseJson</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGetResponseJson(struct AILIALLM *llm, char *json, unsigned int buf_size)</div><div class="ttdoc">Gets structured assistant JSON from output accumulated inside the SDK.</div></div>
+<div class="ttc" id="aailia__llm_8h_html_a51de94ebe6684eb3aa9ba9a68a0ae717"><div class="ttname"><a href="ailia__llm_8h.html#a51de94ebe6684eb3aa9ba9a68a0ae717">ailiaLLMSetPromptJson</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMSetPromptJson(struct AILIALLM *llm, const char *messages_json)</div><div class="ttdoc">Sets a prompt from structured JSON conversation history.</div></div>
+<div class="ttc" id="aailia__llm_8h_html_a687e4bd51ae3544952d71cb7a95185e8"><div class="ttname"><a href="ailia__llm_8h.html#a687e4bd51ae3544952d71cb7a95185e8">ailiaLLMSetTools</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMSetTools(struct AILIALLM *llm, const char *tools_json)</div><div class="ttdoc">Sets OpenAI-compatible tool definitions. NULL, empty string or array clears tools.</div></div>
+<div class="ttc" id="aailia__llm_8h_html_af163e0259421bae206477575f5c90338"><div class="ttname"><a href="ailia__llm_8h.html#af163e0259421bae206477575f5c90338">AILIA_LLM_STATUS_OTHER_ERROR</a></div><div class="ttdeci">#define AILIA_LLM_STATUS_OTHER_ERROR</div><div class="ttdoc">Unknown error.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:191</div></div>
+</div><!-- fragment --><p>Include <code>&lt;stdlib.h&gt;</code> and pass a valid <code>char **response</code> to this example.</p>
+<h3><a class="anchor" id="autotoc_md17"></a>
+Structured history</h3>
+<div class="fragment"><div class="line">[</div>
+<div class="line"> {&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;Weather in Tokyo?&quot;},</div>
+<div class="line"> {&quot;role&quot;:&quot;assistant&quot;,&quot;content&quot;:&quot;&quot;,&quot;tool_calls&quot;:[</div>
+<div class="line">  {&quot;id&quot;:&quot;call_0&quot;,&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{&quot;name&quot;:&quot;get_weather&quot;,&quot;arguments&quot;:&quot;{\&quot;city\&quot;:\&quot;Tokyo\&quot;}&quot;}}</div>
+<div class="line"> ]},</div>
+<div class="line"> {&quot;role&quot;:&quot;tool&quot;,&quot;tool_call_id&quot;:&quot;call_0&quot;,&quot;content&quot;:&quot;Snow, -3 C&quot;}</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>Content is not reparsed as tool syntax. Supply assistant thinking in <code>reasoning_content</code>. Arguments must be a string containing a JSON object. Call IDs/names must be nonempty; IDs are unique per assistant, but may be reused in later turns. Consecutive tool results match the preceding assistant by ID, not order. Unknown IDs, duplicate results and conflicting names are rejected. Tool content must be a string; serialize objects first.</p>
+<h3><a class="anchor" id="autotoc_md18"></a>
+Images and audio</h3>
+<p>Load a compatible projector with <code>ailiaLLMOpenMultimodalProjectorFileA</code> and use ordered user content parts:</p>
+<div class="fragment"><div class="line">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[</div>
+<div class="line"> {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;Describe this image and audio.&quot;},</div>
+<div class="line"> {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},</div>
+<div class="line"> {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}</div>
+<div class="line">]}]</div>
+</div><!-- fragment --><p>Each image/audio part specifies exactly one of <code>file_path</code> or <code>data</code>. Data is standard padded Base64 containing encoded file bytes (JPEG/PNG, WAV/MP3/FLAC, etc.). No URL fetching, video or raw RGB/PCM is supported. Media works with or without tools and is re-evaluated each prompt. An unloaded/incompatible projector returns INVALID_STATE. Query image/audio support with <code>ailiaLLMGetMultimodalCapabilities</code>.</p>
+<h3><a class="anchor" id="autotoc_md19"></a>
+Incomplete output and errors</h3>
+<p>GetResponseJson rejects unfinished calls/thinking with PARSE_ERROR. It never repairs arguments or returns executable partial results. SetPromptJson rejects incomplete arguments, invalid JSON/types/ID associations and empty arrays with INVALID_ARGUMENT. If GetResponseJson returns PARSE_ERROR, do not append the failed assistant. Append a retry user message to the existing history; no partial content/reasoning retrieval is needed. Do not invent tool results.</p>
+<p>After clearing tools with SetTools(NULL), SetPromptJson still accepts historical tool calls and results for summaries or final answers. Retrieve response JSON before clearing tools, which invalidates the output parser. Use finally to clear tools even when an exception occurs. An unset prompt or changed tools/thinking returns INVALID_STATE; before generation an initialized prompt returns an empty assistant. File failures return ERROR_FILE_API, invalid Base64 returns INVALID_ARGUMENT, and undecodable media buffers return ERROR_BUFFER_API. </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

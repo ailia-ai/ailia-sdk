@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -76,7 +76,7 @@ High Level API</h1>
 <div class="line">string model_path = &quot;gemma-2-2b-it-Q4_K_M.gguf&quot;;</div>
 <div class="line"> </div>
 <div class="line">llm.Create();</div>
-<div class="line">llm.Open(asset_path + &quot;/&quot; + model_path);</div>
+<div class="line">llm.Open(asset_path + &quot;/&quot; + model_path, 8192);</div>
 <div class="line"> </div>
 <div class="line">AiliaLLMChatMessage message = new AiliaLLMChatMessage();</div>
 <div class="line">message.role = &quot;system&quot;;</div>
@@ -106,6 +106,96 @@ High Level API</h1>
 <div class="line">message.role = &quot;assistant&quot;;</div>
 <div class="line">message.content = text;</div>
 <div class="line">messages.Add(message);</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md1"></a>
+画像（VLM）・音声（ALM）入力</h2>
+<p>対応するTextモデルを開き、同じモデルのmmprojを <code>OpenMultimodalProjector</code> で開きます。 <code>GetMultimodalCapabilities</code> で画像・音声の対応を確認してから入力してください。 <code>&lt;__media__&gt;</code> の出現順・個数と <code>media_data</code> の要素を一致させます。</p>
+<div class="fragment"><div class="line">using ailiaLLM;</div>
+<div class="line">using System.Collections.Generic;</div>
+<div class="line"> </div>
+<div class="line">var llm = new AiliaLLMModel();</div>
+<div class="line">if (!llm.Create() || !llm.Open(textModelPath, 8192) ||</div>
+<div class="line">    !llm.OpenMultimodalProjector(projectorPath)) return;</div>
+<div class="line">bool vision = false, audio = false;</div>
+<div class="line">if (!llm.GetMultimodalCapabilities(ref vision, ref audio)) return;</div>
+<div class="line"> </div>
+<div class="line">if (vision) {</div>
+<div class="line">    var image = new AiliaLLMMediaData { media_type = &quot;image&quot;, file_path = imagePath };</div>
+<div class="line">    var message = new AiliaLLMMultimodalChatMessage {</div>
+<div class="line">        role = &quot;user&quot;, content = &quot;この画像を説明してください: &lt;__media__&gt;&quot;,</div>
+<div class="line">        media_data = new List&lt;AiliaLLMMediaData&gt; { image }</div>
+<div class="line">    };</div>
+<div class="line">    if (!llm.SetMultimodalPrompt(new List&lt;AiliaLLMMultimodalChatMessage&gt; { message })) return;</div>
+<div class="line">    bool done = false;</div>
+<div class="line">    string text = &quot;&quot;;</div>
+<div class="line">    while (!done) {</div>
+<div class="line">        if (!llm.Generate(ref done)) return;</div>
+<div class="line">        if (!done) text += llm.GetDeltaText();</div>
+<div class="line">    }</div>
+<div class="line">    Debug.Log(text);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>ALMでは <code>audio</code> を確認し、<code>media_type = "audio"</code>、WAV/MP3/FLACの <code>file_path</code>、音声用の質問文を指定します。ファイルの代わりにエンコード済み <code>byte[] data</code> も使用でき、音声では <code>width=height=0</code> にします。Raw PCMや 音声出力は対象外です。画像と音声は別々のpromptとして実行してください。</p>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Android QNN</h2>
+<p>QNN対応ビルドでは <code>AiliaLLMModel.GetQNNModelName()</code> でSoCに対応する モデル名（例: <code>sm7635</code>）を確認し、同じSoC・モデル向けのText <code>.qnn</code> と mmproj <code>.qnn</code> を <code>Open</code>、<code>OpenMultimodalProjector</code> にそれぞれ渡します。 Textのみならmmprojは不要です。QNNパッケージは端末のSoCに合わせてコンパイルされた packageです。QNNランタイムとpluginの組み合わせも一致させてください。 バックエンド未選択時は&lt;tt&gt;.qnnがHTP (QNN)を自動選択します。明示選択する場合、 一覧はGPU、CPU、HTP (QNN)の順で、CPU/GPUでは<code>.qnn</code>を、HTPではGGUFを開けません。 HTPは対応するQNNランタイムが利用可能なときだけ一覧に表示されます。</p>
+<div class="fragment"><div class="line">string soc = AiliaLLMModel.GetQNNModelName();</div>
+<div class="line">// socに一致する配布済みのTextとmmprojのパスを選ぶ。</div>
+<div class="line">var llm = new AiliaLLMModel();</div>
+<div class="line">if (!llm.Create() || !llm.Open(textQnnPath, 0) ||</div>
+<div class="line">    !llm.OpenMultimodalProjector(mmprojQnnPath)) return;</div>
+</div><!-- fragment --><p>モデル名取得はQNN非対応ビルド・plugin不在・未対応SoCでは失敗します。 読み込みや生成の失敗は <code>GetErrorDetail()</code> で調べられます。</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Tool Use（JSON API）</h2>
+<p>Tool Useでは最初のuserメッセージから<code>ailiaLLMSetPromptJson</code>を使用します。 <code>ailiaLLMSetTools</code>でツールが設定されている間、従来の<code>ailiaLLMSetPrompt</code>と<code>ailiaLLMSetMultimodalPrompt</code>は <code>AILIA_LLM_STATUS_INVALID_STATE</code>を返します。ツールを解除すると再び利用できます。</p>
+<ol type="1">
+<li><code>ailiaLLMSetTools</code>にOpenAI互換のツール定義配列を渡します。</li>
+<li><code>ailiaLLMSetPromptJson</code>にmessages配列そのもの（UTF-8 JSON）を渡します。</li>
+<li><code>ailiaLLMGenerate</code>を完了まで呼び出します。deltaは<code>ailiaLLMGetDeltaText</code>でプレビューできますが、取得・連結は必須ではありません。</li>
+<li><code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code>で構造化assistant JSONを取得します。</li>
+<li>成功したオブジェクトをそのまま履歴に追加し、tool_callsがあれば実行して、ID付きのtool結果を追加し、次のプロンプトを設定します。</li>
+</ol>
+<p>SDKが生成結果を蓄積するので、生の出力をアプリ側で引き回す必要はありません。 GetResponseJsonは読み取りで蓄積を消去しません。新しいプロンプトでリセットします。</p>
+<div class="fragment"><div class="line">string toolsJson = &quot;[{\&quot;type\&quot;:\&quot;function\&quot;,\&quot;function\&quot;:{\&quot;name\&quot;:\&quot;get_weather\&quot;,\&quot;description\&quot;:\&quot;都市の天気を取得する\&quot;,\&quot;parameters\&quot;:{\&quot;type\&quot;:\&quot;object\&quot;,\&quot;properties\&quot;:{\&quot;city\&quot;:{\&quot;type\&quot;:\&quot;string\&quot;}},\&quot;required\&quot;:[\&quot;city\&quot;]}}}]&quot;;</div>
+<div class="line">if (!llm.SetTools(toolsJson)) return;</div>
+<div class="line">if (!llm.SetPromptJson(&quot;[{\&quot;role\&quot;:\&quot;user\&quot;,\&quot;content\&quot;:\&quot;東京の天気は？\&quot;}]&quot;)) return;</div>
+<div class="line">bool done = false;</div>
+<div class="line">while (!done) { if (!llm.Generate(ref done)) return; }</div>
+<div class="line">string assistantJson = llm.GetResponseJson();</div>
+<div class="line">// JSONを解析し、完全なtool_callsを検証・実行して履歴に追加する。</div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md4"></a>
+JSON履歴</h3>
+<div class="fragment"><div class="line">[</div>
+<div class="line">  {&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;東京の天気は？&quot;},</div>
+<div class="line">  {&quot;role&quot;:&quot;assistant&quot;,&quot;content&quot;:&quot;&quot;,&quot;tool_calls&quot;:[</div>
+<div class="line">    {&quot;id&quot;:&quot;call_0&quot;,&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{</div>
+<div class="line">      &quot;name&quot;:&quot;get_weather&quot;,&quot;arguments&quot;:&quot;{\&quot;city\&quot;:\&quot;東京\&quot;}&quot;}}</div>
+<div class="line">  ]},</div>
+<div class="line">  {&quot;role&quot;:&quot;tool&quot;,&quot;tool_call_id&quot;:&quot;call_0&quot;,&quot;content&quot;:&quot;雪、-3度&quot;}</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>本文をツール構文として再解析しません。assistantのThinkingは<code>reasoning_content</code>に指定します。 <code>arguments</code>はJSONオブジェクトを表す**文字列**です。呼び出しのid/nameは空にできず、IDはassistant内で一意です。 別ターンではIDを再利用できます。連続するtool結果は直前のassistantの呼び出しにIDで対応付けます。 結果の順序は問いません。不明なID、重複結果、矛盾するツール名はINVALID_ARGUMENTです。 ツール結果のcontentには文字列を指定し、オブジェクトはJSON文字列に変換してください。</p>
+<h3><a class="anchor" id="autotoc_md5"></a>
+画像・音声</h3>
+<p>対応するprojectorを<code>ailiaLLMOpenMultimodalProjectorFileA</code>で読み込んだ後、userのcontent配列に順番に指定します。 メディアはtoolsの有無にかかわらずJSONで入力できます。</p>
+<div class="fragment"><div class="line">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[</div>
+<div class="line">  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;この画像と音声について説明してください。&quot;},</div>
+<div class="line">  {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},</div>
+<div class="line">  {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}</div>
+<div class="line">]}]</div>
+</div><!-- fragment --><p>image/audioは<code>file_path</code>または<code>data</code>をちょうど1つ指定します。<code>data</code>は標準Base64（パディング付き）で エンコードしたファイル内容です。JPEG/PNG、WAV/MP3/FLAC等を使用できます。URL取得、動画、生RGB/PCMには対応しません。 画像・音声を含む履歴は毎回再評価します。メディア非対応のモデル/projectorや未読込はINVALID_STATEです。 画像と音声の対応状況は<code>ailiaLLMGetMultimodalCapabilities</code>で確認できます。</p>
+<h3><a class="anchor" id="autotoc_md6"></a>
+不完全な出力・エラー</h3>
+<ul>
+<li>GetResponseJson：生成完了後に呼び出してください。未完了tool call/ThinkingはPARSE_ERRORです。部分結果を実行したり、引数を補完したりしません。</li>
+<li>SetPromptJson：不完全なarguments、不正なJSON・型・ID対応、空配列はINVALID_ARGUMENTです。自動切り捨ては行いません。</li>
+<li>再試行：GetResponseJsonがPARSE_ERRORの場合、失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加します。部分的な本文・Thinkingの取得は不要です。不完全な呼び出しのtool結果は作りません。</li>
+<li>GetResponseJsonはプロンプト未設定、tools/Thinking変更後にINVALID_STATEを返します。プロンプト設定後・生成前の空出力は空のassistantです。</li>
+<li>ファイル読込失敗はERROR_FILE_API、Base64からのデコード済みメディア読込失敗はERROR_BUFFER_API、不正なBase64はINVALID_ARGUMENTです。</li>
+</ul>
+<p>SetTools(NULL)でツールを解除した後も、過去のtool_callsとtool結果をSetPromptJsonへ渡して要約・最終回答を生成できます。解除すると出力パーサーが無効になるため、結果JSONは解除前に取得してください。例外時もツール設定を解除するにはfinallyを使用してください。</p>
+<div class="fragment"><div class="line">if (!llm.SetPromptJson(messagesJson)) return;</div>
+<div class="line">bool done = false;</div>
+<div class="line">while (!done) { if (!llm.Generate(ref done)) return; }</div>
+<div class="line">string responseJson = llm.GetResponseJson();</div>
+<div class="line">// Empty string signals error. Otherwise append the object and ID-linked tool results.</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

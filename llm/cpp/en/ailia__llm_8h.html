@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -96,7 +96,7 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMChatMessage.html">_AILIALLMChatMessage</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html">_AILIALLMMediaData</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Media data structure for multimodal processing. Audio is currently unsupported and reserved for future implementation. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Supported encoded buffer formats are JPG, PNG, TGA, BMP, PSD, GIF, HDR, and PIC.  <a href="struct__AILIALLMMediaData.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image/audio data for multimodal processing. Audio requires an audio-capable projector. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Supported encoded buffer formats are JPG, PNG, TGA, BMP, PSD, GIF, HDR, and PIC.  <a href="struct__AILIALLMMediaData.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMultimodalChatMessage.html">_AILIALLMMultimodalChatMessage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multimodal chat message with media attachments.  <a href="struct__AILIALLMMultimodalChatMessage.html#details">More...</a><br /></td></tr>
@@ -136,6 +136,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a8b34aa6721f17cdf6fe5497e3f367f18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a8b34aa6721f17cdf6fe5497e3f367f18">AILIA_LLM_STATUS_ERROR_BUFFER_API</a>&#160;&#160;&#160;(-9)</td></tr>
 <tr class="memdesc:a8b34aa6721f17cdf6fe5497e3f367f18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer read failed.  <a href="ailia__llm_8h.html#a8b34aa6721f17cdf6fe5497e3f367f18">More...</a><br /></td></tr>
 <tr class="separator:a8b34aa6721f17cdf6fe5497e3f367f18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a154a7a0fde816def684bd3e0fab0f7a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a154a7a0fde816def684bd3e0fab0f7a5">AILIA_LLM_STATUS_PARSE_ERROR</a>&#160;&#160;&#160;(-10)</td></tr>
+<tr class="memdesc:a154a7a0fde816def684bd3e0fab0f7a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed to parse the generated text.  <a href="ailia__llm_8h.html#a154a7a0fde816def684bd3e0fab0f7a5">More...</a><br /></td></tr>
+<tr class="separator:a154a7a0fde816def684bd3e0fab0f7a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab57dfcb2f409a6dbd07bb8423f2addfa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#ab57dfcb2f409a6dbd07bb8423f2addfa">AILIA_LLM_STATUS_UNIMPLEMENTED</a>&#160;&#160;&#160;(-15)</td></tr>
 <tr class="memdesc:ab57dfcb2f409a6dbd07bb8423f2addfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unimplemented error.  <a href="ailia__llm_8h.html#ab57dfcb2f409a6dbd07bb8423f2addfa">More...</a><br /></td></tr>
 <tr class="separator:ab57dfcb2f409a6dbd07bb8423f2addfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,7 +151,7 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a54ac4162a7bbc022ceb36634d2c7e632"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct__AILIALLMChatMessage.html">_AILIALLMChatMessage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a54ac4162a7bbc022ceb36634d2c7e632">AILIALLMChatMessage</a></td></tr>
 <tr class="separator:a54ac4162a7bbc022ceb36634d2c7e632"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf0f616a753f386a71a9ebcf2858d864"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct__AILIALLMMediaData.html">_AILIALLMMediaData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#aaf0f616a753f386a71a9ebcf2858d864">AILIALLMMediaData</a></td></tr>
-<tr class="memdesc:aaf0f616a753f386a71a9ebcf2858d864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Media data structure for multimodal processing. Audio is currently unsupported and reserved for future implementation. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Supported encoded buffer formats are JPG, PNG, TGA, BMP, PSD, GIF, HDR, and PIC.  <a href="ailia__llm_8h.html#aaf0f616a753f386a71a9ebcf2858d864">More...</a><br /></td></tr>
+<tr class="memdesc:aaf0f616a753f386a71a9ebcf2858d864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image/audio data for multimodal processing. Audio requires an audio-capable projector. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Supported encoded buffer formats are JPG, PNG, TGA, BMP, PSD, GIF, HDR, and PIC.  <a href="ailia__llm_8h.html#aaf0f616a753f386a71a9ebcf2858d864">More...</a><br /></td></tr>
 <tr class="separator:aaf0f616a753f386a71a9ebcf2858d864"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8fd3e86dc911ba9dd5462735362df06"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct__AILIALLMMultimodalChatMessage.html">_AILIALLMMultimodalChatMessage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#ac8fd3e86dc911ba9dd5462735362df06">AILIALLMMultimodalChatMessage</a></td></tr>
 <tr class="memdesc:ac8fd3e86dc911ba9dd5462735362df06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multimodal chat message with media attachments.  <a href="ailia__llm_8h.html#ac8fd3e86dc911ba9dd5462735362df06">More...</a><br /></td></tr>
@@ -157,11 +160,17 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae8bb41111905ea567116efdf438b412e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#ae8bb41111905ea567116efdf438b412e">ailiaLLMGetBackendCount</a> (unsigned int *env_count)</td></tr>
-<tr class="memdesc:ae8bb41111905ea567116efdf438b412e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of available computational environments (CPU, GPU).  <a href="ailia__llm_8h.html#ae8bb41111905ea567116efdf438b412e">More...</a><br /></td></tr>
+<tr class="memdesc:ae8bb41111905ea567116efdf438b412e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of available computational environments (CPU, GPU, HTP (QNN)).  <a href="ailia__llm_8h.html#ae8bb41111905ea567116efdf438b412e">More...</a><br /></td></tr>
 <tr class="separator:ae8bb41111905ea567116efdf438b412e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80ce058b55e21e9fdd95bbb671f750c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a80ce058b55e21e9fdd95bbb671f750c6">ailiaLLMGetBackendName</a> (const char **env, unsigned int env_idx)</td></tr>
 <tr class="memdesc:a80ce058b55e21e9fdd95bbb671f750c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the list of computational environments.  <a href="ailia__llm_8h.html#a80ce058b55e21e9fdd95bbb671f750c6">More...</a><br /></td></tr>
 <tr class="separator:a80ce058b55e21e9fdd95bbb671f750c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35ad92bbaeb333eac3622f99ea445972"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a35ad92bbaeb333eac3622f99ea445972">ailiaLLMGetBackendDeviceName</a> (const char **name, unsigned int env_idx)</td></tr>
+<tr class="memdesc:a35ad92bbaeb333eac3622f99ea445972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the device name for a computational environment.  <a href="ailia__llm_8h.html#a35ad92bbaeb333eac3622f99ea445972">More...</a><br /></td></tr>
+<tr class="separator:a35ad92bbaeb333eac3622f99ea445972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2966a202d63034ae417bef30ecf9df57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a2966a202d63034ae417bef30ecf9df57">ailiaLLMSetBackend</a> (struct AILIALLM *llm, unsigned int backend_idx)</td></tr>
+<tr class="memdesc:a2966a202d63034ae417bef30ecf9df57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the backend for this instance before opening a model.  <a href="ailia__llm_8h.html#a2966a202d63034ae417bef30ecf9df57">More...</a><br /></td></tr>
+<tr class="separator:a2966a202d63034ae417bef30ecf9df57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ddba82a4cda99e783cb59ff4e30ca2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a9ddba82a4cda99e783cb59ff4e30ca2b">ailiaLLMCreate</a> (struct AILIALLM **llm)</td></tr>
 <tr class="memdesc:a9ddba82a4cda99e783cb59ff4e30ca2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a LLM instance.  <a href="ailia__llm_8h.html#a9ddba82a4cda99e783cb59ff4e30ca2b">More...</a><br /></td></tr>
 <tr class="separator:a9ddba82a4cda99e783cb59ff4e30ca2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,6 +209,9 @@ Functions</h2></td></tr>
 <tr class="memitem:acae43f3347fdd12df1a30d9302ff169d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#acae43f3347fdd12df1a30d9302ff169d">ailiaLLMGetGeneratedTokenCount</a> (struct AILIALLM *llm, unsigned int *cnt)</td></tr>
 <tr class="memdesc:acae43f3347fdd12df1a30d9302ff169d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the count of prompt token.  <a href="ailia__llm_8h.html#acae43f3347fdd12df1a30d9302ff169d">More...</a><br /></td></tr>
 <tr class="separator:acae43f3347fdd12df1a30d9302ff169d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa365516599d78f9dc6b633defe1c5a97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#aa365516599d78f9dc6b633defe1c5a97">ailiaLLMDestroy</a> (struct AILIALLM *llm)</td></tr>
+<tr class="memdesc:aa365516599d78f9dc6b633defe1c5a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">It destroys the LLM instance.  <a href="ailia__llm_8h.html#aa365516599d78f9dc6b633defe1c5a97">More...</a><br /></td></tr>
+<tr class="separator:aa365516599d78f9dc6b633defe1c5a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf9eb2721656c69eca33fbfceaec306d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#adf9eb2721656c69eca33fbfceaec306d">ailiaLLMOpenMultimodalProjectorFileA</a> (struct AILIALLM *llm, const char *mmproj_path)</td></tr>
 <tr class="memdesc:adf9eb2721656c69eca33fbfceaec306d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load multimodal projector file.  <a href="ailia__llm_8h.html#adf9eb2721656c69eca33fbfceaec306d">More...</a><br /></td></tr>
 <tr class="separator:adf9eb2721656c69eca33fbfceaec306d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,14 +223,29 @@ Functions</h2></td></tr>
 <tr class="memitem:a7b6ed4adee89f894289b749bf0898162"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162">ailiaLLMSetMultimodalPrompt</a> (struct AILIALLM *llm, const <a class="el" href="ailia__llm_8h.html#ac8fd3e86dc911ba9dd5462735362df06">AILIALLMMultimodalChatMessage</a> *message, unsigned int message_cnt)</td></tr>
 <tr class="memdesc:a7b6ed4adee89f894289b749bf0898162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set multimodal prompt.  <a href="ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162">More...</a><br /></td></tr>
 <tr class="separator:a7b6ed4adee89f894289b749bf0898162"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa365516599d78f9dc6b633defe1c5a97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#aa365516599d78f9dc6b633defe1c5a97">ailiaLLMDestroy</a> (struct AILIALLM *llm)</td></tr>
-<tr class="memdesc:aa365516599d78f9dc6b633defe1c5a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">It destroys the LLM instance.  <a href="ailia__llm_8h.html#aa365516599d78f9dc6b633defe1c5a97">More...</a><br /></td></tr>
-<tr class="separator:aa365516599d78f9dc6b633defe1c5a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a687e4bd51ae3544952d71cb7a95185e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a687e4bd51ae3544952d71cb7a95185e8">ailiaLLMSetTools</a> (struct AILIALLM *llm, const char *tools_json)</td></tr>
+<tr class="memdesc:a687e4bd51ae3544952d71cb7a95185e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets OpenAI-compatible tool definitions. NULL, empty string or array clears tools.  <a href="ailia__llm_8h.html#a687e4bd51ae3544952d71cb7a95185e8">More...</a><br /></td></tr>
+<tr class="separator:a687e4bd51ae3544952d71cb7a95185e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51de94ebe6684eb3aa9ba9a68a0ae717"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a51de94ebe6684eb3aa9ba9a68a0ae717">ailiaLLMSetPromptJson</a> (struct AILIALLM *llm, const char *messages_json)</td></tr>
+<tr class="memdesc:a51de94ebe6684eb3aa9ba9a68a0ae717"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a prompt from structured JSON conversation history.  <a href="ailia__llm_8h.html#a51de94ebe6684eb3aa9ba9a68a0ae717">More...</a><br /></td></tr>
+<tr class="separator:a51de94ebe6684eb3aa9ba9a68a0ae717"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2467553fdc75b0c0a91851b42f4c4aa7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a2467553fdc75b0c0a91851b42f4c4aa7">ailiaLLMGetResponseJsonSize</a> (struct AILIALLM *llm, unsigned int *buf_size)</td></tr>
+<tr class="memdesc:a2467553fdc75b0c0a91851b42f4c4aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the buffered assistant JSON size, including the terminating null.  <a href="ailia__llm_8h.html#a2467553fdc75b0c0a91851b42f4c4aa7">More...</a><br /></td></tr>
+<tr class="separator:a2467553fdc75b0c0a91851b42f4c4aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47c6e1ae9cf3088c4de3283cf2291a77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a47c6e1ae9cf3088c4de3283cf2291a77">ailiaLLMGetResponseJson</a> (struct AILIALLM *llm, char *json, unsigned int buf_size)</td></tr>
+<tr class="memdesc:a47c6e1ae9cf3088c4de3283cf2291a77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets structured assistant JSON from output accumulated inside the SDK.  <a href="ailia__llm_8h.html#a47c6e1ae9cf3088c4de3283cf2291a77">More...</a><br /></td></tr>
+<tr class="separator:a47c6e1ae9cf3088c4de3283cf2291a77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5f87aa3627ae05d78c5d1050db5ee0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#ae5f87aa3627ae05d78c5d1050db5ee0f">ailiaLLMGetErrorDetail</a> (struct AILIALLM *llm)</td></tr>
+<tr class="memdesc:ae5f87aa3627ae05d78c5d1050db5ee0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns details of the last model-open, prompt-setup or generation error.  <a href="ailia__llm_8h.html#ae5f87aa3627ae05d78c5d1050db5ee0f">More...</a><br /></td></tr>
+<tr class="separator:ae5f87aa3627ae05d78c5d1050db5ee0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a381755d8e0881fe58eb1e3ee40796e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a2a381755d8e0881fe58eb1e3ee40796e">ailiaLLMGetQNNModelName</a> (const char **model_name)</td></tr>
+<tr class="memdesc:a2a381755d8e0881fe58eb1e3ee40796e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the QNN model name for the current device.  <a href="ailia__llm_8h.html#a2a381755d8e0881fe58eb1e3ee40796e">More...</a><br /></td></tr>
+<tr class="separator:a2a381755d8e0881fe58eb1e3ee40796e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>LLM inference library. </p>
 <dl class="section copyright"><dt>Copyright</dt><dd>AXELL CORPORATION, ailia Inc. </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>January 29, 2026 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>September 8, 2026 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a3c69aad585c8ee619c34450cb5f35ea9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c69aad585c8ee619c34450cb5f35ea9">&#9670;&nbsp;</a></span>AILIA_LLM_API</h2>
@@ -387,6 +414,23 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a154a7a0fde816def684bd3e0fab0f7a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a154a7a0fde816def684bd3e0fab0f7a5">&#9670;&nbsp;</a></span>AILIA_LLM_STATUS_PARSE_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_LLM_STATUS_PARSE_ERROR&#160;&#160;&#160;(-10)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Failed to parse the generated text. </p>
+<dl class="section remark"><dt>Remarks</dt><dd>The model output did not match the tool call syntax of the chat template. Please check that the same tool definitions (ailiaLLMSetTools) and thinking setting as used for the generation are set, and that the text is the complete output of the generation. </dd></dl>
+
+</div>
+</div>
 <a id="a72cbafcad4ce0dd29db5174e4348a67e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a72cbafcad4ce0dd29db5174e4348a67e">&#9670;&nbsp;</a></span>AILIA_LLM_STATUS_SUCCESS</h2>
 
@@ -464,7 +508,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Media data structure for multimodal processing. Audio is currently unsupported and reserved for future implementation. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Supported encoded buffer formats are JPG, PNG, TGA, BMP, PSD, GIF, HDR, and PIC. </p>
+<p>Image/audio data for multimodal processing. Audio requires an audio-capable projector. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Supported encoded buffer formats are JPG, PNG, TGA, BMP, PSD, GIF, HDR, and PIC. </p>
 
 </div>
 </div>
@@ -594,7 +638,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the number of available computational environments (CPU, GPU). </p>
+<p>Gets the number of available computational environments (CPU, GPU, HTP (QNN)). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">env_count</td><td>The storage location of the number of computational environment information </td></tr>
@@ -602,6 +646,44 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a35ad92bbaeb333eac3622f99ea445972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35ad92bbaeb333eac3622f99ea445972">&#9670;&nbsp;</a></span>ailiaLLMGetBackendDeviceName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMGetBackendDeviceName </td>
+          <td>(</td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>env_idx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the device name for a computational environment. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Storage for the device name (valid while the library remains loaded) </td></tr>
+    <tr><td class="paramname">env_idx</td><td>Index enumerated by <a class="el" href="ailia__llm_8h.html#ae8bb41111905ea567116efdf438b412e" title="Gets the number of available computational environments (CPU, GPU, HTP (QNN)).">ailiaLLMGetBackendCount()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>AILIA_LLM_STATUS_SUCCESS on success. </dd></dl>
 
 </div>
 </div>
@@ -634,8 +716,8 @@ Functions</h2></td></tr>
 <p>Gets the list of computational environments. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">env</td><td>The storage location of the computational environment information (valid until the AILIANetwork instance is destroyed) </td></tr>
-    <tr><td class="paramname">env_idx</td><td>The index of the computational environment information (0 to <a class="el" href="ailia__llm_8h.html#ae8bb41111905ea567116efdf438b412e" title="Gets the number of available computational environments (CPU, GPU).">ailiaLLMGetBackendCount()</a> -1) </td></tr>
+    <tr><td class="paramname">env</td><td>Storage for the environment name (valid while the library remains loaded) </td></tr>
+    <tr><td class="paramname">env_idx</td><td>The index of the computational environment information (0 to <a class="el" href="ailia__llm_8h.html#ae8bb41111905ea567116efdf438b412e" title="Gets the number of available computational environments (CPU, GPU, HTP (QNN)).">ailiaLLMGetBackendCount()</a> -1) </td></tr>
   </table>
   </dd>
 </dl>
@@ -765,6 +847,28 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae5f87aa3627ae05d78c5d1050db5ee0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5f87aa3627ae05d78c5d1050db5ee0f">&#9670;&nbsp;</a></span>ailiaLLMGetErrorDetail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> const char* ailiaLLMGetErrorDetail </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns details of the last model-open, prompt-setup or generation error. </p>
+<dl class="section return"><dt>Returns</dt><dd>Object-owned UTF-8 string, empty after a successful operation. </dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>Valid until the next model-open, prompt-setup, generation call or Destroy. QNN failures include the original code, failing API and object name when available. Concurrent calls on the same object are not supported. A null handle returns a static diagnostic string. This getter does not load the QNN plug-in. </dd></dl>
+
+</div>
+</div>
 <a id="acae43f3347fdd12df1a30d9302ff169d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acae43f3347fdd12df1a30d9302ff169d">&#9670;&nbsp;</a></span>ailiaLLMGetGeneratedTokenCount()</h2>
 
@@ -840,8 +944,8 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">llm</td><td>A LLM instance pointer </td></tr>
-    <tr><td class="paramname">vision_support</td><td>Whether image processing is supported </td></tr>
-    <tr><td class="paramname">audio_support</td><td>Whether audio processing is supported </td></tr>
+    <tr><td class="paramname">vision_support</td><td>Whether image input (VLM) is supported </td></tr>
+    <tr><td class="paramname">audio_support</td><td>Whether audio input (ALM) is supported </td></tr>
   </table>
   </dd>
 </dl>
@@ -886,6 +990,117 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
 <p>It can be called after calling ailiaLLMSetPrompt. </p>
+
+</div>
+</div>
+<a id="a2a381755d8e0881fe58eb1e3ee40796e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a381755d8e0881fe58eb1e3ee40796e">&#9670;&nbsp;</a></span>ailiaLLMGetQNNModelName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMGetQNNModelName </td>
+          <td>(</td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>model_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the QNN model name for the current device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model_name</td><td>Storage for the QNN model name (for example, "sm8475"). The library owns the returned string; the caller must not free it. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a>, or an error code otherwise.</dd></dl>
+<p>The returned name matches the text model filename emitted by ailia_llm_compile_c, excluding <code>.qnn</code>. The image-input (VLM) / audio-input (ALM) projector uses the same name followed by <code>-mmproj.qnn</code>. QNN is supported on Android arm64 and Windows ARM64. This call lazily loads the QNN plug-in. An unsupported SoC returns <a class="el" href="ailia__llm_8h.html#af163e0259421bae206477575f5c90338">AILIA_LLM_STATUS_OTHER_ERROR</a>. A missing plug-in or a non-BUILD_QNN library returns <a class="el" href="ailia__llm_8h.html#ab57dfcb2f409a6dbd07bb8423f2addfa">AILIA_LLM_STATUS_UNIMPLEMENTED</a>. </p>
+
+</div>
+</div>
+<a id="a47c6e1ae9cf3088c4de3283cf2291a77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47c6e1ae9cf3088c4de3283cf2291a77">&#9670;&nbsp;</a></span>ailiaLLMGetResponseJson()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMGetResponseJson </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>json</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>buf_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets structured assistant JSON from output accumulated inside the SDK. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLM instance </td></tr>
+    <tr><td class="paramname">json</td><td>UTF-8 output buffer </td></tr>
+    <tr><td class="paramname">buf_size</td><td>Buffer size</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>No GetDeltaText calls or application-side concatenation are required. Append the returned object to SetPromptJson history. A new prompt resets accumulated output. Call after generation completes. Unfinished calls/thinking return PARSE_ERROR without repair. An unset prompt or changed tools/thinking returns INVALID_STATE. Before generation, returns an empty assistant. Null arguments or insufficient buffers return INVALID_ARGUMENT. Reading does not consume the output. </p>
+
+</div>
+</div>
+<a id="a2467553fdc75b0c0a91851b42f4c4aa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2467553fdc75b0c0a91851b42f4c4aa7">&#9670;&nbsp;</a></span>ailiaLLMGetResponseJsonSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMGetResponseJsonSize </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>buf_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the buffered assistant JSON size, including the terminating null. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLM instance </td></tr>
+    <tr><td class="paramname">buf_size</td><td>Required buffer size</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Same parsing rules and errors as ailiaLLMGetResponseJson. </p>
 
 </div>
 </div>
@@ -970,13 +1185,13 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">llm</td><td>A pointer to the LLM instance pointer </td></tr>
-    <tr><td class="paramname">path</td><td>Path for GGUF </td></tr>
+    <tr><td class="paramname">path</td><td>Path to a GGUF or self-contained .qnn model </td></tr>
     <tr><td class="paramname">n_ctx</td><td>Context length for model (0 is model default） </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>Open a model file for GGUF. </p>
+<p>Opens a GGUF or self-contained ailia QNN model. Without an explicit backend selection, .qnn selects HTP and GGUF selects CPU/GPU automatically. An explicit selection must match the model format. For .qnn, n_ctx=0 selects its compiled static context and no external GGUF/context is needed. </p>
 
 </div>
 </div>
@@ -1044,12 +1259,12 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">llm</td><td>A LLM instance pointer </td></tr>
-    <tr><td class="paramname">mmproj_path</td><td>Path to the MMPROJ file (GGUF format) </td></tr>
+    <tr><td class="paramname">mmproj_path</td><td>Path to an MMPROJ GGUF or self-contained ailia QNN projector (.qnn) </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>To use multimodal features, you must first load the text model with ailiaLLMOpenModelFile, then load the multimodal projector with this function. </p>
+<p>To use multimodal features, you must first load the text model with ailiaLLMOpenModelFile, then load the multimodal projector with this function. A .qnn projector includes its device-specific context and needs no separate GGUF. Image input (VLM) requires a vision-capable projector, while audio input (ALM) requires an audio-capable projector. Existing VLM-only packages do not support ALM. </p>
 
 </div>
 </div>
@@ -1078,6 +1293,45 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2966a202d63034ae417bef30ecf9df57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2966a202d63034ae417bef30ecf9df57">&#9670;&nbsp;</a></span>ailiaLLMSetBackend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMSetBackend </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>backend_idx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Selects the backend for this instance before opening a model. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLM instance </td></tr>
+    <tr><td class="paramname">backend_idx</td><td>Device index returned by ailiaLLMGetBackendCount/Name </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>AILIA_LLM_STATUS_SUCCESS on success, or AILIA_LLM_STATUS_INVALID_STATE after a model is opened.</dd></dl>
+<p>Without a selection, the model format selects the backend automatically. HTP (QNN) accepts only .qnn; an explicit CPU/GPU selection rejects .qnn. Reopen the model in a new instance to switch. </p>
 
 </div>
 </div>
@@ -1123,7 +1377,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>Set multimodal prompt. Include &lt;<b>media</b>&gt; placeholders in message content, and set corresponding media data in media_data. Example: "Describe this image: &lt;__media__&gt;" The content of message is copied internally, so it can be freed after the call. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. </p>
+<p>Set multimodal prompt. Include &lt;<b>media</b>&gt; placeholders in message content, and set corresponding media data in media_data. Example: "Describe this image: &lt;__media__&gt;" The content of message is copied internally, so it can be freed after the call. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Audio accepts WAV/MP3/FLAC file paths or encoded buffers, with width/height=0. KV cache reuse identifies file media by path and buffer media by content. </p><dl class="section note"><dt>Note</dt><dd>With tools configured, returns INVALID_STATE. Use ailiaLLMSetPromptJson for tool use with media. </dd></dl>
 
 </div>
 </div>
@@ -1169,7 +1423,45 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>Set the prompt to query the LLM. Please include ChatHistory in the message as well. The contents of the message are copied internally, so you can free them after the call. </p>
+<p>Set the prompt to query the LLM. Please include ChatHistory in the message as well. Returns INVALID_STATE while tools are configured. Use ailiaLLMSetPromptJson from the first user message. Clear tools with ailiaLLMSetTools to use this API again. The contents of the message are copied internally, so you can free them after the call. </p>
+
+</div>
+</div>
+<a id="a51de94ebe6684eb3aa9ba9a68a0ae717"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51de94ebe6684eb3aa9ba9a68a0ae717">&#9670;&nbsp;</a></span>ailiaLLMSetPromptJson()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMSetPromptJson </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>messages_json</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a prompt from structured JSON conversation history. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>A LLM instance pointer </td></tr>
+    <tr><td class="paramname">messages_json</td><td>Nonempty UTF-8 JSON message array (null terminated)</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Roles are system/user/assistant/tool; content is a string or null. User content also accepts arrays. Parts are {"type":"text","text":"..."}, or type image/audio with exactly one of file_path (local file) and data (standard padded Base64 encoded file). JPEG/PNG and WAV/MP3/FLAC are supported by the decoder. Media requires a compatible loaded projector. URLs, raw PCM/RGB and video are unsupported. Parts retain input order; media history is re-evaluated on each prompt. Assistant content is not reparsed as model-specific syntax. Supply reasoning_content and tool_calls explicitly. Append the assistant JSON returned by ailiaLLMGetResponseJson directly to the array. Each tool call requires type="function", nonempty id and function.name, and function.arguments as a JSON-object string. IDs must be unique within an assistant message but may be reused in later turns. Tool results require string content and tool_call_id matching the preceding assistant. Consecutive results are matched by ID, not position; names are filled in. Duplicate/unmatched results are rejected. Incomplete arguments are rejected, never repaired or discarded. If GetResponseJson returns PARSE_ERROR, do not append the failed assistant; append a retry user message to the existing history. Historical tool calls/results remain accepted after SetTools(NULL). Retrieve response JSON before clearing tools. Input can be freed after the call. On success, generate with ailiaLLMGenerate. </p><dl class="section return"><dt>Returns</dt><dd>SUCCESS on success; INVALID_ARGUMENT for invalid JSON, types, ID associations or arguments; INVALID_STATE if no model is loaded. Other prompt preparation errors are the same as ailiaLLMSetPrompt. </dd></dl>
 
 </div>
 </div>
@@ -1269,6 +1561,44 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
 <p>Controls whether thinking models (e.g. Gemma4) output their reasoning process. Must be called before ailiaLLMSetPrompt. </p>
+
+</div>
+</div>
+<a id="a687e4bd51ae3544952d71cb7a95185e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a687e4bd51ae3544952d71cb7a95185e8">&#9670;&nbsp;</a></span>ailiaLLMSetTools()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMSetTools </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>tools_json</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets OpenAI-compatible tool definitions. NULL, empty string or array clears tools. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLM instance </td></tr>
+    <tr><td class="paramname">tools_json</td><td>UTF-8 tool definition array</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>SetPrompt/SetMultimodalPrompt return INVALID_STATE while tools are configured. Use SetPromptJson from the first user input, generate, then retrieve assistant JSON with GetResponseJson. Deltas are optional previews; no concatenation is required. Return results using tool_call_id. Set a new prompt after changing tools. Invalid definitions return INVALID_ARGUMENT. </p>
 
 </div>
 </div>

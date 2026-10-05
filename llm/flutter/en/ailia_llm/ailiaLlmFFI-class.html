@@ -11,50 +11,58 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
   <link rel="icon" href="../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ailia_llm</a></li>
-    <li><a href="../ailia_llm/">ailia_llm.dart</a></li>
+    <li><a href="../ailia_llm/ailia_llm-library.html">ailia_llm.dart</a></li>
     <li class="self-crumb">ailiaLlmFFI class</li>
   </ol>
   <div class="self-name">ailiaLlmFFI</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_llm&#47;ailia_llm-library-sidebar.html"
-    data-below-sidebar="ailia_llm&#47;ailiaLlmFFI-class-sidebar.html">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_llm&#47;ailia_llm-library-sidebar.html"
+      data-below-sidebar="ailia_llm&#47;ailiaLlmFFI-class-sidebar.html">
+      <div>
 <h1><span class="kind-class">ailiaLlmFFI</span> class 
  
 </h1></div>
 
     
 <section class="desc markdown">
-  <p>Written for the FFI article</p>
+  <p>Dart FFI bindings for ailia LLM (generated from native/ailia_llm.h)</p>
 </section>
 
 
@@ -62,31 +70,30 @@
     
   <section class="summary offset-anchor" id="constructors">
     <h2>Constructors</h2>
+
     <dl class="constructor-summary-list">
-        <dt id="ailiaLlmFFI.new" class="callable">
-          <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLlmFFI.html">ailiaLlmFFI.new</a></span><span class="signature">(<span class="parameter" id="-param-dynamicLibrary"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/DynamicLibrary-class.html">DynamicLibrary</a></span> <span class="parameter-name">dynamicLibrary</span></span>)</span>
+        <dt id="ailiaLlmFFI" class="callable">
+          <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLlmFFI.html">ailiaLlmFFI</a></span><span class="signature">(<span class="parameter" id="-param-dynamicLibrary"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/DynamicLibrary-class.html">DynamicLibrary</a></span> <span class="parameter-name">dynamicLibrary</span></span>)</span>
         </dt>
         <dd>
           The symbols are looked up in <code>dynamicLibrary</code>.
         </dd>
         <dt id="ailiaLlmFFI.fromLookup" class="callable">
-          <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLlmFFI.fromLookup.html">ailiaLlmFFI.fromLookup</a></span><span class="signature">(<span class="parameter" id="fromLookup-param-lookup"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">lookup</span>&lt;<wbr><span class="type-parameter">T extends NativeType</span>&gt;(<span class="parameter" id="param-symbolName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">symbolName</span></span>)</span>)</span>
+          <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLlmFFI.fromLookup.html">ailiaLlmFFI.fromLookup</a></span><span class="signature">(<span class="parameter" id="fromLookup-param-lookup"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">lookup</span>(<span class="parameter" id="param-symbolName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">symbolName</span></span>)</span>)</span>
         </dt>
         <dd>
           The symbols are looked up with <code>lookup</code>.
         </dd>
     </dl>
   </section>
-    
-  <section
-      class="summary offset-anchor inherited"
-      id="instance-properties">
-    <h2>Properties</h2>
-    <dl class="properties">
+
+    <section class="summary offset-anchor inherited" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
         <dt id="hashCode" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
@@ -97,8 +104,7 @@
 
         <dt id="runtimeType" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
-  
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
 
 </dt>
 <dd class="inherited">
@@ -107,8 +113,8 @@
 
 </dd>
 
-    </dl>
-  </section>
+      </dl>
+    </section>
 
     
   <section
@@ -181,10 +187,27 @@ doneは0か1を取ります。doneが1の場合、生成完了となります。
 </dt>
 <dd>
   ~japanese
-@brief 利用可能な計算環境(CPU, GPU)の数を取得します
+@brief 利用可能な計算環境(CPU, GPU, HTP (QNN))の数を取得します
 @param env_count 計算環境情報の数の格納先
 @return
 成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  
+
+</dd>
+
+        <dt id="ailiaLLMGetBackendDeviceName" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMGetBackendDeviceName.html">ailiaLLMGetBackendDeviceName</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMGetBackendDeviceName-param-name"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">name</span>, </span><span class="parameter" id="ailiaLLMGetBackendDeviceName-param-env_idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">env_idx</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief 指定した計算環境のデバイス名を取得します。
+@param name デバイス名の格納先（ライブラリがロードされている間有効）
+@param env_idx ailiaLLMGetBackendCount() で列挙したインデックス
+@return 成功時は AILIA_LLM_STATUS_SUCCESS。
   
 
 </dd>
@@ -199,7 +222,7 @@ doneは0か1を取ります。doneが1の場合、生成完了となります。
 <dd>
   ~japanese
 @brief 計算環境の一覧を取得します
-@param env 計算環境情報の格納先(AILIANetworkインスタンスを破棄するまで有効)
+@param env 計算環境名の格納先（ライブラリがロードされている間有効）
 @param env_idx 計算環境情報のインデックス(0～ ailiaLLMGetBackendCount() -1)
 @return
 成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
@@ -264,6 +287,31 @@ ailiaLLMGenerate() を一度も実行していない場合は \ref AILIA_LLM_STA
 
 </dd>
 
+        <dt id="ailiaLLMGetErrorDetail" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMGetErrorDetail.html">ailiaLLMGetErrorDetail</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMGetErrorDetail-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief モデル読み込み・プロンプト設定・推論APIの直近のエラー詳細を返します。
+@return オブジェクト所有のUTF-8文字列。成功後は空文字列です。
+@remark 次のモデル読み込み・プロンプト設定・推論API呼び出し、またはDestroyまで有効です。
+QNNのエラーでは元の数値コード、失敗したAPI、取得可能な対象名を含みます。
+同じオブジェクトへの並列API呼び出しはサポートしません。
+~english
+@brief Returns details of the last model-open, prompt-setup or generation error.
+@return Object-owned UTF-8 string, empty after a successful operation.
+@remark Valid until the next model-open, prompt-setup, generation call or Destroy.
+QNN failures include the original code, failing API and object name when available.
+Concurrent calls on the same object are not supported. A null handle returns
+a static diagnostic string. This getter does not load the QNN plug-in.
+  
+
+</dd>
+
         <dt id="ailiaLLMGetGeneratedTokenCount" class="callable">
   <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMGetGeneratedTokenCount.html">ailiaLLMGetGeneratedTokenCount</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMGetGeneratedTokenCount-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMGetGeneratedTokenCount-param-cnt"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span> <span class="parameter-name">cnt</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
@@ -295,8 +343,8 @@ ailiaLLMGenerateを呼び出した後に呼び出し可能です。
   ~japanese
 @brief マルチモーダル機能がサポートされているかを確認します。
 @param llm LLMオブジェクトポインタ
-@param vision_support 画像処理をサポートしているか
-@param audio_support 音声処理をサポートしているか
+@param vision_support 画像入力（VLM）をサポートしているか
+@param audio_support 音声入力（ALM）をサポートしているか
 @return
 成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
 @details
@@ -321,6 +369,86 @@ ailiaLLMOpenMultimodalProjectorFileの後に呼び出し可能です。
 成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
 @details
 ailiaLLMSetPromptを呼び出した後に呼び出し可能です。
+  
+
+</dd>
+
+        <dt id="ailiaLLMGetQNNModelName" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMGetQNNModelName.html">ailiaLLMGetQNNModelName</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMGetQNNModelName-param-model_name"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">model_name</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief 現在の端末に対応するQNNモデル名を取得します。
+@param model_name QNNモデル名の格納先（例: "sm8475"）。返された文字列は
+libraryが所有するため、呼び出し側で解放しないでください。
+@return
+成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+@details
+返される名前はailia_llm_compile_cが生成するtext modelのファイル名から
+<code>.qnn</code>を除いた部分と一致します。画像入力（VLM）／音声入力（ALM）用projectorは
+同じ名前に<code>-mmproj.qnn</code>を付けたファイルです。QNNはAndroid arm64と
+Windows ARM64に対応します。この呼び出しでQNN plug-inを初めて
+遅延loadします。未対応SoCでは \ref AILIA_LLM_STATUS_OTHER_ERROR 、plug-inが
+存在しない場合、およびBUILD_QNN以外では
+\ref AILIA_LLM_STATUS_UNIMPLEMENTED を返します。
+  
+
+</dd>
+
+        <dt id="ailiaLLMGetResponseJson" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMGetResponseJson.html">ailiaLLMGetResponseJson</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMGetResponseJson-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMGetResponseJson-param-json"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">json</span>, </span><span class="parameter" id="ailiaLLMGetResponseJson-param-buf_size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">buf_size</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief SDK内部に蓄積した生成結果を構造化assistant JSONとして取得します。
+@param llm LLMオブジェクト
+@param json UTF-8出力バッファ
+@param buf_size バッファサイズ
+@details Generateで生成した出力をSDKが連結します。GetDeltaTextの取得・連結は不要です。
+成功したJSONをSetPromptJsonの履歴配列に追加できます。新しいプロンプトで蓄積をリセットします。
+生成完了後に呼び出してください。未完了の呼び出し/ThinkingはPARSE_ERRORで、補完しません。
+プロンプト未設定やtools/Thinking変更後はINVALID_STATE。生成前は空のassistantを返します。
+NULL引数や不足したバッファはINVALID_ARGUMENTです。取得しても蓄積は消えません。
+~english
+@brief Gets structured assistant JSON from output accumulated inside the SDK.
+@param llm LLM instance
+@param json UTF-8 output buffer
+@param buf_size Buffer size
+@details No GetDeltaText calls or application-side concatenation are required.
+Append the returned object to SetPromptJson history. A new prompt resets accumulated output.
+Call after generation completes. Unfinished calls/thinking return PARSE_ERROR without repair.
+An unset prompt or changed tools/thinking returns INVALID_STATE. Before generation, returns an empty assistant.
+Null arguments or insufficient buffers return INVALID_ARGUMENT. Reading does not consume the output.
+  
+
+</dd>
+
+        <dt id="ailiaLLMGetResponseJsonSize" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMGetResponseJsonSize.html">ailiaLLMGetResponseJsonSize</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMGetResponseJsonSize-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMGetResponseJsonSize-param-buf_size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span> <span class="parameter-name">buf_size</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief SDK内部に蓄積した生成結果のassistant JSONサイズを取得します（NULL文字含む）。
+@param llm LLMオブジェクト
+@param buf_size 必要なバッファサイズ
+@details ailiaLLMGetResponseJsonと同じ解析条件・エラーを適用します。
+~english
+@brief Gets the buffered assistant JSON size, including the terminating null.
+@param llm LLM instance
+@param buf_size Required buffer size
+@details Same parsing rules and errors as ailiaLLMGetResponseJson.
   
 
 </dd>
@@ -355,12 +483,15 @@ ailiaLLMSetPromptを呼び出した後に呼び出し可能です。
   ~japanese
 @brief モデルファイルを読み込みます。
 @param llm LLMオブジェクトポインタへのポインタ
-@param path GGUFファイルのパス
+@param path GGUFまたはailia QNNモデル（.qnn）のパス
 @param n_ctx コンテキスト長（0でモデルのデフォルト）
 @return
 成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
 @details
-GGUFのモデルファイルを読み込みます。
+GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエンド未選択なら
+.qnnはHTPに、GGUFはCPU/GPUに自動振り分けされます。明示選択した場合は
+バックエンドとモデル形式の一致が必要です。.qnnではn_ctx=0を指定すると
+コンパイル済み固定contextを使用し、外部GGUF/Contextは不要です。
   
 
 </dd>
@@ -389,12 +520,15 @@ GGUFのモデルファイルを読み込みます。
   ~japanese
 @brief マルチモーダルプロジェクタファイルを読み込みます。
 @param llm LLMオブジェクトポインタ
-@param mmproj_path MMPROJファイルのパス（GGUF形式）
+@param mmproj_path MMPROJ GGUFまたは自己完結ailia QNN projector（.qnn）のパス
 @return
 成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
 @details
 マルチモーダル機能を使用するには、先にailiaLLMOpenModelFileでテキストモデルを読み込み、
 その後でこの関数でマルチモーダルプロジェクタを読み込む必要があります。
+画像入力（VLM）には画像対応、音声入力（ALM）には音声対応のmmproj GGUF、
+または各入力用コンテキストを含む.qnnが必要です。画像入力（VLM）のみに対応する
+既存.qnnは音声入力（ALM）に対応しません。
   
 
 </dd>
@@ -408,6 +542,24 @@ GGUFのモデルファイルを読み込みます。
 </dt>
 <dd>
   
+  
+
+</dd>
+
+        <dt id="ailiaLLMSetBackend" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMSetBackend.html">ailiaLLMSetBackend</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMSetBackend-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMSetBackend-param-backend_idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">backend_idx</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief モデルを開く前に、このインスタンスが使用するバックエンドを選択します。
+@param llm LLMインスタンス
+@param backend_idx ailiaLLMGetBackendCount/Nameで列挙したデバイスのインデックス
+@return 成功時はAILIA_LLM_STATUS_SUCCESS。モデルを開いた後はAILIA_LLM_STATUS_INVALID_STATE。
+@details 未指定の場合はモデル形式から自動選択します。HTP (QNN)は.qnn専用です。CPU/GPUを明示選択した場合は.qnnを開けません。切り替えるには新しいインスタンスでモデルを開き直してください。
   
 
 </dd>
@@ -431,7 +583,10 @@ GGUFのモデルファイルを読み込みます。
 マルチモーダル対応のプロンプトを設定します。メッセージのcontentに&lt;<strong>media</strong>&gt;プレースホルダーを含め、
 対応するメディアデータをmedia_dataに設定してください。
 例: "この画像について説明してください: &lt;<strong>media</strong>&gt;"
-messageの内容は内部でコピーされるため、呼び出し後に開放することができます。raw_data入力は現在未サポートです。
+messageの内容は内部でコピーされるため、呼び出し後に開放することができます。
+画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。
+音声はWAV/MP3/FLACのファイルパスまたはエンコード済みバッファから読み込み可能です。
+KVキャッシュの再利用では、ファイル入力はパス、バッファ入力は内容で同一性を判定します。
   
 
 </dd>
@@ -454,7 +609,67 @@ messageの内容は内部でコピーされるため、呼び出し後に開放�
 @details
 LLMに問い合わせるプロンプトを設定します。
 ChatHistoryもmessageに含めてください。
+ツール設定中はINVALID_STATEを返します。最初のuserメッセージからailiaLLMSetPromptJsonを使用してください。
+ailiaLLMSetToolsでツールを解除すると本APIを再び使用できます。
 messageの内容は内部でコピーされるため、呼び出し後に開放することができます。
+  
+
+</dd>
+
+        <dt id="ailiaLLMSetPromptJson" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMSetPromptJson.html">ailiaLLMSetPromptJson</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMSetPromptJson-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMSetPromptJson-param-messages_json"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">messages_json</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief 構造化されたJSON会話履歴からプロンプトを設定します。
+@param llm LLMオブジェクトポインタ
+@param messages_json UTF-8の空でないメッセージJSON配列（NULL終端）
+@details
+roleはsystem/user/assistant/tool、contentは文字列またはnullです。userはcontent配列にも対応します。
+配列要素は{"type":"text","text":"..."}、またはtypeがimage/audioでfile_path（ローカルファイル）か
+data（標準Base64のエンコード済みファイル）を1つ指定します。JPEG/PNG、WAV/MP3/FLAC等に対応します。
+メディアは対応projectorの読込が必要です。URL取得・生PCM/RGB・動画には対応しません。
+配列順に入力し、画像/音声を含む履歴は毎回評価します。
+assistantのcontentをモデル固有構文として再解析しません。reasoning_contentとtool_callsを明示してください。
+ailiaLLMGetResponseJsonの結果をassistantメッセージとしてそのまま追加できます。
+tool_callsはtype="function"、空でないidとfunction.name、JSONオブジェクトを表す文字列function.argumentsを必要とします。
+idはassistant内で一意とし、後続ターンでは再利用できます。
+tool結果のcontentは文字列、tool_call_idは直前のassistantの呼び出しIDです。
+連続するtool結果は順序ではなくIDで対応付け、ツール名を補います。重複・不一致の結果は拒否します。
+不完全なargumentsは補完・破棄せずエラーとします。GetResponseJsonがPARSE_ERRORの場合は、
+失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加してください。
+SetTools(NULL)後も過去のtool_callsとtool結果を入力できます。結果JSONはツール解除前に取得してください。
+入力は呼び出し後に解放できます。成功後はailiaLLMGenerateで生成します。
+@return 成功時SUCCESS。不正なJSON・型・ID対応・引数はINVALID_ARGUMENT。
+モデル未読込の場合はINVALID_STATE。
+その他の生成準備エラーはailiaLLMSetPromptと同じです。
+~english
+@brief Sets a prompt from structured JSON conversation history.
+@param llm A LLM instance pointer
+@param messages_json Nonempty UTF-8 JSON message array (null terminated)
+@details
+Roles are system/user/assistant/tool; content is a string or null. User content also accepts arrays.
+Parts are {"type":"text","text":"..."}, or type image/audio with exactly one of file_path (local file)
+and data (standard padded Base64 encoded file). JPEG/PNG and WAV/MP3/FLAC are supported by the decoder.
+Media requires a compatible loaded projector. URLs, raw PCM/RGB and video are unsupported.
+Parts retain input order; media history is re-evaluated on each prompt.
+Assistant content is not reparsed as model-specific syntax. Supply reasoning_content and tool_calls explicitly.
+Append the assistant JSON returned by ailiaLLMGetResponseJson directly to the array.
+Each tool call requires type="function", nonempty id and function.name, and function.arguments as a JSON-object string.
+IDs must be unique within an assistant message but may be reused in later turns.
+Tool results require string content and tool_call_id matching the preceding assistant.
+Consecutive results are matched by ID, not position; names are filled in. Duplicate/unmatched results are rejected.
+Incomplete arguments are rejected, never repaired or discarded. If GetResponseJson returns PARSE_ERROR,
+do not append the failed assistant; append a retry user message to the existing history.
+Historical tool calls/results remain accepted after SetTools(NULL). Retrieve response JSON before clearing tools.
+Input can be freed after the call. On success, generate with ailiaLLMGenerate.
+@return SUCCESS on success; INVALID_ARGUMENT for invalid JSON, types, ID associations or arguments;
+INVALID_STATE if no model is loaded.
+Other prompt preparation errors are the same as ailiaLLMSetPrompt.
   
 
 </dd>
@@ -491,9 +706,9 @@ LLMのサンプリングの設定を行います。ailiaLLMSetPromptの前に実
 </dt>
 <dd>
   ~japanese
-@brief Thinkingモデル（Gemma4等）の推論過程の出力を制御します。
+@brief Thinking（推論過程の出力）を有効または無効にします。
 @param llm LLMオブジェクトポインタへのポインタ
-@param enable 0で無効、0以外で有効（デフォルト: 無効）
+@param enable 0で無効、0以外で有効（デフォルト：無効）
 @return
 成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
 @details
@@ -502,470 +717,30 @@ Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ail
 
 </dd>
 
-        <dt id="btowc" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/btowc.html">btowc</a></span><span class="signature">(<wbr><span class="parameter" id="btowc-param-_Ch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Ch</span></span>)
+        <dt id="ailiaLLMSetTools" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMSetTools.html">ailiaLLMSetTools</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMSetTools-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMSetTools-param-tools_json"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">tools_json</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
   </span>
   
 
 </dt>
 <dd>
-  
-  
-
-</dd>
-
-        <dt id="calloc" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/calloc.html">calloc</a></span><span class="signature">(<wbr><span class="parameter" id="calloc-param-_Count"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Count</span>, </span><span class="parameter" id="calloc-param-_Size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Size</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="fgetwc" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/fgetwc.html">fgetwc</a></span><span class="signature">(<wbr><span class="parameter" id="fgetwc-param-_Stream"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/FILE.html">FILE</a></span>&gt;</span></span> <span class="parameter-name">_Stream</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="fgetws" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/fgetws.html">fgetws</a></span><span class="signature">(<wbr><span class="parameter" id="fgetws-param-_Buffer"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Buffer</span>, </span><span class="parameter" id="fgetws-param-_BufferCount"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_BufferCount</span>, </span><span class="parameter" id="fgetws-param-_Stream"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/FILE.html">FILE</a></span>&gt;</span></span> <span class="parameter-name">_Stream</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="fputwc" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/fputwc.html">fputwc</a></span><span class="signature">(<wbr><span class="parameter" id="fputwc-param-_Character"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Character</span>, </span><span class="parameter" id="fputwc-param-_Stream"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/FILE.html">FILE</a></span>&gt;</span></span> <span class="parameter-name">_Stream</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="fputws" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/fputws.html">fputws</a></span><span class="signature">(<wbr><span class="parameter" id="fputws-param-_Buffer"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Buffer</span>, </span><span class="parameter" id="fputws-param-_Stream"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/FILE.html">FILE</a></span>&gt;</span></span> <span class="parameter-name">_Stream</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="free" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/free.html">free</a></span><span class="signature">(<wbr><span class="parameter" id="free-param-_Block"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">_Block</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="getwc" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/getwc.html">getwc</a></span><span class="signature">(<wbr><span class="parameter" id="getwc-param-_Stream"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/FILE.html">FILE</a></span>&gt;</span></span> <span class="parameter-name">_Stream</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="getwchar" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/getwchar.html">getwchar</a></span><span class="signature">(<wbr>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="is_wctype" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/is_wctype.html">is_wctype</a></span><span class="signature">(<wbr><span class="parameter" id="is_wctype-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span>, </span><span class="parameter" id="is_wctype-param-_Type"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Type</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="isleadbyte" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/isleadbyte.html">isleadbyte</a></span><span class="signature">(<wbr><span class="parameter" id="isleadbyte-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswalnum" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswalnum.html">iswalnum</a></span><span class="signature">(<wbr><span class="parameter" id="iswalnum-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswalpha" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswalpha.html">iswalpha</a></span><span class="signature">(<wbr><span class="parameter" id="iswalpha-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswascii" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswascii.html">iswascii</a></span><span class="signature">(<wbr><span class="parameter" id="iswascii-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswblank" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswblank.html">iswblank</a></span><span class="signature">(<wbr><span class="parameter" id="iswblank-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswcntrl" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswcntrl.html">iswcntrl</a></span><span class="signature">(<wbr><span class="parameter" id="iswcntrl-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswctype" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswctype.html">iswctype</a></span><span class="signature">(<wbr><span class="parameter" id="iswctype-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span>, </span><span class="parameter" id="iswctype-param-_Type"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Type</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswdigit" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswdigit.html">iswdigit</a></span><span class="signature">(<wbr><span class="parameter" id="iswdigit-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswgraph" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswgraph.html">iswgraph</a></span><span class="signature">(<wbr><span class="parameter" id="iswgraph-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswlower" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswlower.html">iswlower</a></span><span class="signature">(<wbr><span class="parameter" id="iswlower-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswprint" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswprint.html">iswprint</a></span><span class="signature">(<wbr><span class="parameter" id="iswprint-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswpunct" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswpunct.html">iswpunct</a></span><span class="signature">(<wbr><span class="parameter" id="iswpunct-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswspace" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswspace.html">iswspace</a></span><span class="signature">(<wbr><span class="parameter" id="iswspace-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswupper" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswupper.html">iswupper</a></span><span class="signature">(<wbr><span class="parameter" id="iswupper-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="iswxdigit" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/iswxdigit.html">iswxdigit</a></span><span class="signature">(<wbr><span class="parameter" id="iswxdigit-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="longjmp" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/longjmp.html">longjmp</a></span><span class="signature">(<wbr><span class="parameter" id="longjmp-param-_Buf"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter">_JBTYPE</span>&gt;</span></span> <span class="parameter-name">_Buf</span>, </span><span class="parameter" id="longjmp-param-_Value"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Value</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="malloc" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/malloc.html">malloc</a></span><span class="signature">(<wbr><span class="parameter" id="malloc-param-_Size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Size</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="mbrlen" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/mbrlen.html">mbrlen</a></span><span class="signature">(<wbr><span class="parameter" id="mbrlen-param-_Ch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">_Ch</span>, </span><span class="parameter" id="mbrlen-param-_SizeInBytes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_SizeInBytes</span>, </span><span class="parameter" id="mbrlen-param-_State"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">_State</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="mbrtowc" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/mbrtowc.html">mbrtowc</a></span><span class="signature">(<wbr><span class="parameter" id="mbrtowc-param-_DstCh"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_DstCh</span>, </span><span class="parameter" id="mbrtowc-param-_SrcCh"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">_SrcCh</span>, </span><span class="parameter" id="mbrtowc-param-_SizeInBytes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_SizeInBytes</span>, </span><span class="parameter" id="mbrtowc-param-_State"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">_State</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="mbsrtowcs" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/mbsrtowcs.html">mbsrtowcs</a></span><span class="signature">(<wbr><span class="parameter" id="mbsrtowcs-param-_Dest"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Dest</span>, </span><span class="parameter" id="mbsrtowcs-param-_PSrc"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_PSrc</span>, </span><span class="parameter" id="mbsrtowcs-param-_Count"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Count</span>, </span><span class="parameter" id="mbsrtowcs-param-_State"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">_State</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="mbsrtowcs_s" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/mbsrtowcs_s.html">mbsrtowcs_s</a></span><span class="signature">(<wbr><span class="parameter" id="mbsrtowcs_s-param-_Retval"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Size-class.html">Size</a></span>&gt;</span></span> <span class="parameter-name">_Retval</span>, </span><span class="parameter" id="mbsrtowcs_s-param-_Dst"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Dst</span>, </span><span class="parameter" id="mbsrtowcs_s-param-_Size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Size</span>, </span><span class="parameter" id="mbsrtowcs_s-param-_PSrc"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_PSrc</span>, </span><span class="parameter" id="mbsrtowcs_s-param-_N"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_N</span>, </span><span class="parameter" id="mbsrtowcs_s-param-_State"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">_State</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="memchr" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/memchr.html">memchr</a></span><span class="signature">(<wbr><span class="parameter" id="memchr-param-_Buf"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">_Buf</span>, </span><span class="parameter" id="memchr-param-_Val"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Val</span>, </span><span class="parameter" id="memchr-param-_MaxCount"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_MaxCount</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="memcmp" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/memcmp.html">memcmp</a></span><span class="signature">(<wbr><span class="parameter" id="memcmp-param-_Buf1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">_Buf1</span>, </span><span class="parameter" id="memcmp-param-_Buf2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">_Buf2</span>, </span><span class="parameter" id="memcmp-param-_Size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Size</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="memcpy" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/memcpy.html">memcpy</a></span><span class="signature">(<wbr><span class="parameter" id="memcpy-param-_Dst"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">_Dst</span>, </span><span class="parameter" id="memcpy-param-_Src"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">_Src</span>, </span><span class="parameter" id="memcpy-param-_Size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Size</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="memmove" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/memmove.html">memmove</a></span><span class="signature">(<wbr><span class="parameter" id="memmove-param-_Dst"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">_Dst</span>, </span><span class="parameter" id="memmove-param-_Src"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">_Src</span>, </span><span class="parameter" id="memmove-param-_Size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Size</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="memset" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/memset.html">memset</a></span><span class="signature">(<wbr><span class="parameter" id="memset-param-_Dst"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">_Dst</span>, </span><span class="parameter" id="memset-param-_Val"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Val</span>, </span><span class="parameter" id="memset-param-_Size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Size</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
+  ~japanese
+@brief OpenAI互換のツール定義JSON配列を設定します。NULL/空文字列/空配列で解除します。
+@param llm LLMオブジェクト
+@param tools_json UTF-8のツール定義
+@details tools設定中はSetPrompt/SetMultimodalPromptがINVALID_STATEを返します。
+最初のuser入力からSetPromptJsonを使用し、Generateで生成後、GetResponseJsonでassistant JSONを取得します。
+deltaはプレビュー用です。アプリ側で連結する必要はありません。結果はtool_call_idで返します。
+設定変更後は新しいプロンプトを設定してください。不正な定義はINVALID_ARGUMENTです。
+~english
+@brief Sets OpenAI-compatible tool definitions. NULL, empty string or array clears tools.
+@param llm LLM instance
+@param tools_json UTF-8 tool definition array
+@details SetPrompt/SetMultimodalPrompt return INVALID_STATE while tools are configured.
+Use SetPromptJson from the first user input, generate, then retrieve assistant JSON with GetResponseJson.
+Deltas are optional previews; no concatenation is required. Return results using tool_call_id.
+Set a new prompt after changing tools. Invalid definitions return INVALID_ARGUMENT.
   
 
 </dd>
@@ -983,84 +758,6 @@ Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ail
 
 </dd>
 
-        <dt id="putwc" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/putwc.html">putwc</a></span><span class="signature">(<wbr><span class="parameter" id="putwc-param-_Character"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Character</span>, </span><span class="parameter" id="putwc-param-_Stream"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/FILE.html">FILE</a></span>&gt;</span></span> <span class="parameter-name">_Stream</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="putwchar" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/putwchar.html">putwchar</a></span><span class="signature">(<wbr><span class="parameter" id="putwchar-param-_Character"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Character</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="realloc" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/realloc.html">realloc</a></span><span class="signature">(<wbr><span class="parameter" id="realloc-param-_Block"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">_Block</span>, </span><span class="parameter" id="realloc-param-_Size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Size</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="strchr" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/strchr.html">strchr</a></span><span class="signature">(<wbr><span class="parameter" id="strchr-param-_Str"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">_Str</span>, </span><span class="parameter" id="strchr-param-_Val"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Val</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="strrchr" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/strrchr.html">strrchr</a></span><span class="signature">(<wbr><span class="parameter" id="strrchr-param-_Str"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">_Str</span>, </span><span class="parameter" id="strrchr-param-_Ch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Ch</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="strstr" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/strstr.html">strstr</a></span><span class="signature">(<wbr><span class="parameter" id="strstr-param-_Str"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">_Str</span>, </span><span class="parameter" id="strstr-param-_SubStr"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">_SubStr</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
         <dt id="toString" class="callable inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
@@ -1071,630 +768,6 @@ Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ail
 <dd class="inherited">
   A string representation of this object.
   <div class="features"><span class="feature">inherited</span></div>
-
-</dd>
-
-        <dt id="towlower" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/towlower.html">towlower</a></span><span class="signature">(<wbr><span class="parameter" id="towlower-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="towupper" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/towupper.html">towupper</a></span><span class="signature">(<wbr><span class="parameter" id="towupper-param-_C"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_C</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="ungetwc" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ungetwc.html">ungetwc</a></span><span class="signature">(<wbr><span class="parameter" id="ungetwc-param-_Character"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Character</span>, </span><span class="parameter" id="ungetwc-param-_Stream"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/FILE.html">FILE</a></span>&gt;</span></span> <span class="parameter-name">_Stream</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcrtomb" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcrtomb.html">wcrtomb</a></span><span class="signature">(<wbr><span class="parameter" id="wcrtomb-param-_Dest"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">_Dest</span>, </span><span class="parameter" id="wcrtomb-param-_Source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Source</span>, </span><span class="parameter" id="wcrtomb-param-_State"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">_State</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcrtomb_s" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcrtomb_s.html">wcrtomb_s</a></span><span class="signature">(<wbr><span class="parameter" id="wcrtomb_s-param-_Retval"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Size-class.html">Size</a></span>&gt;</span></span> <span class="parameter-name">_Retval</span>, </span><span class="parameter" id="wcrtomb_s-param-_Dst"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">_Dst</span>, </span><span class="parameter" id="wcrtomb_s-param-_SizeInBytes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_SizeInBytes</span>, </span><span class="parameter" id="wcrtomb_s-param-_Ch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Ch</span>, </span><span class="parameter" id="wcrtomb_s-param-_State"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">_State</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcscat" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcscat.html">wcscat</a></span><span class="signature">(<wbr><span class="parameter" id="wcscat-param-_Destination"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Destination</span>, </span><span class="parameter" id="wcscat-param-_Source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Source</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcscat_s" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcscat_s.html">wcscat_s</a></span><span class="signature">(<wbr><span class="parameter" id="wcscat_s-param-_Destination"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Destination</span>, </span><span class="parameter" id="wcscat_s-param-_SizeInWords"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_SizeInWords</span>, </span><span class="parameter" id="wcscat_s-param-_Source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Source</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcschr" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcschr.html">wcschr</a></span><span class="signature">(<wbr><span class="parameter" id="wcschr-param-_Str"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Str</span>, </span><span class="parameter" id="wcschr-param-_Ch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Ch</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedShort-class.html">UnsignedShort</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcscmp" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcscmp.html">wcscmp</a></span><span class="signature">(<wbr><span class="parameter" id="wcscmp-param-_String1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String1</span>, </span><span class="parameter" id="wcscmp-param-_String2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String2</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcscoll" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcscoll.html">wcscoll</a></span><span class="signature">(<wbr><span class="parameter" id="wcscoll-param-_String1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String1</span>, </span><span class="parameter" id="wcscoll-param-_String2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String2</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcscpy" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcscpy.html">wcscpy</a></span><span class="signature">(<wbr><span class="parameter" id="wcscpy-param-_Destination"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Destination</span>, </span><span class="parameter" id="wcscpy-param-_Source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Source</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcscpy_s" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcscpy_s.html">wcscpy_s</a></span><span class="signature">(<wbr><span class="parameter" id="wcscpy_s-param-_Destination"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Destination</span>, </span><span class="parameter" id="wcscpy_s-param-_SizeInWords"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_SizeInWords</span>, </span><span class="parameter" id="wcscpy_s-param-_Source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Source</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcscspn" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcscspn.html">wcscspn</a></span><span class="signature">(<wbr><span class="parameter" id="wcscspn-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcscspn-param-_Control"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Control</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsdup" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsdup.html">wcsdup</a></span><span class="signature">(<wbr><span class="parameter" id="wcsdup-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsftime" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsftime.html">wcsftime</a></span><span class="signature">(<wbr><span class="parameter" id="wcsftime-param-_Buffer"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Buffer</span>, </span><span class="parameter" id="wcsftime-param-_SizeInWords"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_SizeInWords</span>, </span><span class="parameter" id="wcsftime-param-_Format"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Format</span>, </span><span class="parameter" id="wcsftime-param-_Tm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/tm-class.html">tm</a></span>&gt;</span></span> <span class="parameter-name">_Tm</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsicmp" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsicmp.html">wcsicmp</a></span><span class="signature">(<wbr><span class="parameter" id="wcsicmp-param-_String1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String1</span>, </span><span class="parameter" id="wcsicmp-param-_String2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String2</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsicoll" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsicoll.html">wcsicoll</a></span><span class="signature">(<wbr><span class="parameter" id="wcsicoll-param-_String1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String1</span>, </span><span class="parameter" id="wcsicoll-param-_String2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String2</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcslen" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcslen.html">wcslen</a></span><span class="signature">(<wbr><span class="parameter" id="wcslen-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcslwr" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcslwr.html">wcslwr</a></span><span class="signature">(<wbr><span class="parameter" id="wcslwr-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsncat" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsncat.html">wcsncat</a></span><span class="signature">(<wbr><span class="parameter" id="wcsncat-param-_Destination"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Destination</span>, </span><span class="parameter" id="wcsncat-param-_Source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Source</span>, </span><span class="parameter" id="wcsncat-param-_Count"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Count</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsncat_s" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsncat_s.html">wcsncat_s</a></span><span class="signature">(<wbr><span class="parameter" id="wcsncat_s-param-_Destination"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Destination</span>, </span><span class="parameter" id="wcsncat_s-param-_SizeInWords"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_SizeInWords</span>, </span><span class="parameter" id="wcsncat_s-param-_Source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Source</span>, </span><span class="parameter" id="wcsncat_s-param-_MaxCount"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_MaxCount</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsncmp" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsncmp.html">wcsncmp</a></span><span class="signature">(<wbr><span class="parameter" id="wcsncmp-param-_String1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String1</span>, </span><span class="parameter" id="wcsncmp-param-_String2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String2</span>, </span><span class="parameter" id="wcsncmp-param-_MaxCount"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_MaxCount</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsncpy" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsncpy.html">wcsncpy</a></span><span class="signature">(<wbr><span class="parameter" id="wcsncpy-param-_Destination"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Destination</span>, </span><span class="parameter" id="wcsncpy-param-_Source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Source</span>, </span><span class="parameter" id="wcsncpy-param-_Count"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Count</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsncpy_s" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsncpy_s.html">wcsncpy_s</a></span><span class="signature">(<wbr><span class="parameter" id="wcsncpy_s-param-_Destination"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Destination</span>, </span><span class="parameter" id="wcsncpy_s-param-_SizeInWords"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_SizeInWords</span>, </span><span class="parameter" id="wcsncpy_s-param-_Source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Source</span>, </span><span class="parameter" id="wcsncpy_s-param-_MaxCount"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_MaxCount</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsnicmp" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsnicmp.html">wcsnicmp</a></span><span class="signature">(<wbr><span class="parameter" id="wcsnicmp-param-_String1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String1</span>, </span><span class="parameter" id="wcsnicmp-param-_String2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String2</span>, </span><span class="parameter" id="wcsnicmp-param-_MaxCount"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_MaxCount</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsnlen" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsnlen.html">wcsnlen</a></span><span class="signature">(<wbr><span class="parameter" id="wcsnlen-param-_Source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Source</span>, </span><span class="parameter" id="wcsnlen-param-_MaxCount"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_MaxCount</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsnset" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsnset.html">wcsnset</a></span><span class="signature">(<wbr><span class="parameter" id="wcsnset-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcsnset-param-_Value"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Value</span>, </span><span class="parameter" id="wcsnset-param-_MaxCount"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_MaxCount</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcspbrk" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcspbrk.html">wcspbrk</a></span><span class="signature">(<wbr><span class="parameter" id="wcspbrk-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcspbrk-param-_Control"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Control</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsrchr" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsrchr.html">wcsrchr</a></span><span class="signature">(<wbr><span class="parameter" id="wcsrchr-param-_Str"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Str</span>, </span><span class="parameter" id="wcsrchr-param-_Ch"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Ch</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsrev" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsrev.html">wcsrev</a></span><span class="signature">(<wbr><span class="parameter" id="wcsrev-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsrtombs" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsrtombs.html">wcsrtombs</a></span><span class="signature">(<wbr><span class="parameter" id="wcsrtombs-param-_Dest"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">_Dest</span>, </span><span class="parameter" id="wcsrtombs-param-_PSource"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_PSource</span>, </span><span class="parameter" id="wcsrtombs-param-_Count"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Count</span>, </span><span class="parameter" id="wcsrtombs-param-_State"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">_State</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsrtombs_s" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsrtombs_s.html">wcsrtombs_s</a></span><span class="signature">(<wbr><span class="parameter" id="wcsrtombs_s-param-_Retval"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Size-class.html">Size</a></span>&gt;</span></span> <span class="parameter-name">_Retval</span>, </span><span class="parameter" id="wcsrtombs_s-param-_Dst"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">_Dst</span>, </span><span class="parameter" id="wcsrtombs_s-param-_SizeInBytes"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_SizeInBytes</span>, </span><span class="parameter" id="wcsrtombs_s-param-_Src"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_Src</span>, </span><span class="parameter" id="wcsrtombs_s-param-_Size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Size</span>, </span><span class="parameter" id="wcsrtombs_s-param-_State"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/mbstate_t.html">mbstate_t</a></span>&gt;</span></span> <span class="parameter-name">_State</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsset" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsset.html">wcsset</a></span><span class="signature">(<wbr><span class="parameter" id="wcsset-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcsset-param-_Value"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Value</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsspn" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsspn.html">wcsspn</a></span><span class="signature">(<wbr><span class="parameter" id="wcsspn-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcsspn-param-_Control"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Control</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsstr" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsstr.html">wcsstr</a></span><span class="signature">(<wbr><span class="parameter" id="wcsstr-param-_Str"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Str</span>, </span><span class="parameter" id="wcsstr-param-_SubStr"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_SubStr</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcstod" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcstod.html">wcstod</a></span><span class="signature">(<wbr><span class="parameter" id="wcstod-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcstod-param-_EndPtr"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_EndPtr</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcstof" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcstof.html">wcstof</a></span><span class="signature">(<wbr><span class="parameter" id="wcstof-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcstof-param-_EndPtr"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_EndPtr</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcstok" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcstok.html">wcstok</a></span><span class="signature">(<wbr><span class="parameter" id="wcstok-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcstok-param-_Delimiter"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Delimiter</span>, </span><span class="parameter" id="wcstok-param-_Context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_Context</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcstok_s" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcstok_s.html">wcstok_s</a></span><span class="signature">(<wbr><span class="parameter" id="wcstok_s-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcstok_s-param-_Delimiter"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Delimiter</span>, </span><span class="parameter" id="wcstok_s-param-_Context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_Context</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcstol" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcstol.html">wcstol</a></span><span class="signature">(<wbr><span class="parameter" id="wcstol-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcstol-param-_EndPtr"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_EndPtr</span>, </span><span class="parameter" id="wcstol-param-_Radix"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Radix</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcstoll" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcstoll.html">wcstoll</a></span><span class="signature">(<wbr><span class="parameter" id="wcstoll-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcstoll-param-_EndPtr"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_EndPtr</span>, </span><span class="parameter" id="wcstoll-param-_Radix"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Radix</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcstoul" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcstoul.html">wcstoul</a></span><span class="signature">(<wbr><span class="parameter" id="wcstoul-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcstoul-param-_EndPtr"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_EndPtr</span>, </span><span class="parameter" id="wcstoul-param-_Radix"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Radix</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcstoull" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcstoull.html">wcstoull</a></span><span class="signature">(<wbr><span class="parameter" id="wcstoull-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span>, </span><span class="parameter" id="wcstoull-param-_EndPtr"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">_EndPtr</span>, </span><span class="parameter" id="wcstoull-param-_Radix"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_Radix</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsupr" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsupr.html">wcsupr</a></span><span class="signature">(<wbr><span class="parameter" id="wcsupr-param-_String"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_String</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wcsxfrm" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wcsxfrm.html">wcsxfrm</a></span><span class="signature">(<wbr><span class="parameter" id="wcsxfrm-param-_Destination"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Destination</span>, </span><span class="parameter" id="wcsxfrm-param-_Source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_Source</span>, </span><span class="parameter" id="wcsxfrm-param-_MaxCount"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_MaxCount</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wctob" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wctob.html">wctob</a></span><span class="signature">(<wbr><span class="parameter" id="wctob-param-_WCh"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_WCh</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wmemcpy_s" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wmemcpy_s.html">wmemcpy_s</a></span><span class="signature">(<wbr><span class="parameter" id="wmemcpy_s-param-_S1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_S1</span>, </span><span class="parameter" id="wmemcpy_s-param-_N1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_N1</span>, </span><span class="parameter" id="wmemcpy_s-param-_S2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_S2</span>, </span><span class="parameter" id="wmemcpy_s-param-_N"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_N</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
-
-</dd>
-
-        <dt id="wmemmove_s" class="callable">
-  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/wmemmove_s.html">wmemmove_s</a></span><span class="signature">(<wbr><span class="parameter" id="wmemmove_s-param-_S1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_S1</span>, </span><span class="parameter" id="wmemmove_s-param-_N1"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_N1</span>, </span><span class="parameter" id="wmemmove_s-param-_S2"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">_S2</span>, </span><span class="parameter" id="wmemmove_s-param-_N"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">_N</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  
-  
 
 </dd>
 
@@ -1725,7 +798,9 @@ Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ail
     
     
 
+
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -1733,30 +808,40 @@ Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ail
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">ailia_llm</a></li>
-    <li><a href="../ailia_llm/">ailia_llm</a></li>
+    <li><a href="../ailia_llm/ailia_llm-library.html">ailia_llm</a></li>
     <li class="self-crumb">ailiaLlmFFI class</li>
 </ol>
+
 
     <h5>ailia_llm library</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div>
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_llm
-      1.4.1
+      1.5.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
 <script src="../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 

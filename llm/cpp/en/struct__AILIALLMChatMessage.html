@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -75,10 +75,10 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a657ea086dd1a07ed3ef23b0602b157ff"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff">role</a></td></tr>
-<tr class="memdesc:a657ea086dd1a07ed3ef23b0602b157ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent the role. (system, user, assistant)  <a href="struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff">More...</a><br /></td></tr>
+<tr class="memdesc:a657ea086dd1a07ed3ef23b0602b157ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent the role. (system, user, assistant, tool) "tool" holds a tool result for tool use, see ailiaLLMSetTools.  <a href="struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff">More...</a><br /></td></tr>
 <tr class="separator:a657ea086dd1a07ed3ef23b0602b157ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ffec73b21e26a677fbb8ae8576f79c9"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMChatMessage.html#a0ffec73b21e26a677fbb8ae8576f79c9">content</a></td></tr>
-<tr class="memdesc:a0ffec73b21e26a677fbb8ae8576f79c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent the content of the message.  <a href="struct__AILIALLMChatMessage.html#a0ffec73b21e26a677fbb8ae8576f79c9">More...</a><br /></td></tr>
+<tr class="memdesc:a0ffec73b21e26a677fbb8ae8576f79c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent the content of the message. For role "tool" the content is the tool result, see ailiaLLMSetTools.  <a href="struct__AILIALLMChatMessage.html#a0ffec73b21e26a677fbb8ae8576f79c9">More...</a><br /></td></tr>
 <tr class="separator:a0ffec73b21e26a677fbb8ae8576f79c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -94,7 +94,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Represent the content of the message. </p>
+<p>Represent the content of the message. For role "tool" the content is the tool result, see ailiaLLMSetTools. </p>
 
 </div>
 </div>
@@ -110,7 +110,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Represent the role. (system, user, assistant) </p>
+<p>Represent the role. (system, user, assistant, tool) "tool" holds a tool result for tool use, see ailiaLLMSetTools. </p>
 
 </div>
 </div>

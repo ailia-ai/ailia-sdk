@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.4.1.0</span>
+   &#160;<span id="projectnumber">1.5.0.0</span>
    </div>
   </td>
  </tr>
@@ -70,7 +70,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>マルチモーダル用のメディアデータ構造体。オーディオは現在未サポートで、将来的な実装のために予約されています。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エンコード済みバッファの対応フォーマットはJPG、PNG、TGA、BMP、PSD、GIF、HDR、PICです。  
+<p>マルチモーダル用の画像・音声データ構造体。音声には音声対応プロジェクタが必要です。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エンコード済みバッファの対応フォーマットはJPG、PNG、TGA、BMP、PSD、GIF、HDR、PICです。  
  <a href="struct__AILIALLMMediaData.html#details">[詳解]</a></p>
 
 <p><code>#include &lt;<a class="el" href="ailia__llm_8h_source.html">ailia_llm.h</a>&gt;</code></p>
@@ -78,13 +78,13 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 公開変数類</h2></td></tr>
 <tr class="memitem:a43e8d23c34220d44836c17655a3072cf"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">media_type</a></td></tr>
-<tr class="memdesc:a43e8d23c34220d44836c17655a3072cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">メディアタイプ（image, audio）。"audio"は将来の実装のために予約されており、現在はサポートされていません。  <a href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">[詳解]</a><br /></td></tr>
+<tr class="memdesc:a43e8d23c34220d44836c17655a3072cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">メディアタイプ（image, audio）。audioには音声対応mmprojが必要です。  <a href="struct__AILIALLMMediaData.html#a43e8d23c34220d44836c17655a3072cf">[詳解]</a><br /></td></tr>
 <tr class="separator:a43e8d23c34220d44836c17655a3072cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27a3d02da0966de614e862e96a61e73e"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">file_path</a></td></tr>
 <tr class="memdesc:a27a3d02da0966de614e862e96a61e73e"><td class="mdescLeft">&#160;</td><td class="mdescRight">メディアファイルへのパス（UTF-8）。dataが指定されている場合は無視されます。  <a href="struct__AILIALLMMediaData.html#a27a3d02da0966de614e862e96a61e73e">[詳解]</a><br /></td></tr>
 <tr class="separator:a27a3d02da0966de614e862e96a61e73e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1c38eb55c25fd6988c05c55e4198d91"><td class="memItemLeft" align="right" valign="top">const unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#aa1c38eb55c25fd6988c05c55e4198d91">data</a></td></tr>
-<tr class="memdesc:aa1c38eb55c25fd6988c05c55e4198d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプション：バッファからの画像データ（file_pathの代替）。 width/heightが0の場合はエンコード済みファイルバッファ（JPG、PNG等）として扱われます。 width/heightが指定されている場合はRaw RGBデータ（width * height * 3バイト）として扱われます。  <a href="struct__AILIALLMMediaData.html#aa1c38eb55c25fd6988c05c55e4198d91">[詳解]</a><br /></td></tr>
+<tr class="memdesc:aa1c38eb55c25fd6988c05c55e4198d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">オプション：バッファからのメディアデータ（file_pathの代替）。 width/heightが0の場合はエンコード済みファイルバッファ（JPG、PNG等）として扱われます。 width/heightが指定されている場合はRaw RGBデータ（width * height * 3バイト）として扱われます。 audioではWAV/MP3/FLACファイルバッファを指定し、width/heightは0にします。Raw PCMは未対応です。  <a href="struct__AILIALLMMediaData.html#aa1c38eb55c25fd6988c05c55e4198d91">[詳解]</a><br /></td></tr>
 <tr class="separator:aa1c38eb55c25fd6988c05c55e4198d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a012017da38c61ff839def6195ff07bf3"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__AILIALLMMediaData.html#a012017da38c61ff839def6195ff07bf3">data_size</a></td></tr>
 <tr class="memdesc:a012017da38c61ff839def6195ff07bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">バッファのサイズ（dataパラメータと共に使用）  <a href="struct__AILIALLMMediaData.html#a012017da38c61ff839def6195ff07bf3">[詳解]</a><br /></td></tr>
@@ -97,7 +97,7 @@ $(function() {
 <tr class="separator:a9b749d1571956d676066b6ce49c274ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
-<div class="textblock"><p>マルチモーダル用のメディアデータ構造体。オーディオは現在未サポートで、将来的な実装のために予約されています。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エンコード済みバッファの対応フォーマットはJPG、PNG、TGA、BMP、PSD、GIF、HDR、PICです。 </p>
+<div class="textblock"><p>マルチモーダル用の画像・音声データ構造体。音声には音声対応プロジェクタが必要です。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 エンコード済みバッファの対応フォーマットはJPG、PNG、TGA、BMP、PSD、GIF、HDR、PICです。 </p>
 </div><h2 class="groupheader">メンバ詳解</h2>
 <a id="aa1c38eb55c25fd6988c05c55e4198d91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa1c38eb55c25fd6988c05c55e4198d91">&#9670;&nbsp;</a></span>data</h2>
@@ -111,7 +111,7 @@ $(function() {
       </table>
 </div><div class="memdoc">
 
-<p>オプション：バッファからの画像データ（file_pathの代替）。 width/heightが0の場合はエンコード済みファイルバッファ（JPG、PNG等）として扱われます。 width/heightが指定されている場合はRaw RGBデータ（width * height * 3バイト）として扱われます。 </p>
+<p>オプション：バッファからのメディアデータ（file_pathの代替）。 width/heightが0の場合はエンコード済みファイルバッファ（JPG、PNG等）として扱われます。 width/heightが指定されている場合はRaw RGBデータ（width * height * 3バイト）として扱われます。 audioではWAV/MP3/FLACファイルバッファを指定し、width/heightは0にします。Raw PCMは未対応です。 </p>
 
 </div>
 </div>
@@ -175,7 +175,7 @@ $(function() {
       </table>
 </div><div class="memdoc">
 
-<p>メディアタイプ（image, audio）。"audio"は将来の実装のために予約されており、現在はサポートされていません。 </p>
+<p>メディアタイプ（image, audio）。audioには音声対応mmprojが必要です。 </p>
 
 </div>
 </div>

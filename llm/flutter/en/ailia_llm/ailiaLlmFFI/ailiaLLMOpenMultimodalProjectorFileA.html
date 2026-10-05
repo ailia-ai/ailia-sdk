@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_llm</a></li>
-    <li><a href="../../ailia_llm/">ailia_llm.dart</a></li>
+    <li><a href="../../ailia_llm/ailia_llm-library.html">ailia_llm.dart</a></li>
     <li><a href="../../ailia_llm/ailiaLlmFFI-class.html">ailiaLlmFFI</a></li>
     <li class="self-crumb">ailiaLLMOpenMultimodalProjectorFileA method</li>
   </ol>
@@ -33,29 +37,34 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_llm&#47;ailiaLlmFFI-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_llm&#47;ailiaLlmFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">ailiaLLMOpenMultimodalProjectorFileA</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">ailiaLLMOpenMultimodalProjectorFileA</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="ailiaLLMOpenMultimodalProjectorFileA-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span></li>
+<span class="name ">ailiaLLMOpenMultimodalProjectorFileA</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaLLMOpenMultimodalProjectorFileA-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span></li>
 <li><span class="parameter" id="ailiaLLMOpenMultimodalProjectorFileA-param-mmproj_path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">mmproj_path</span></span></li>
 </ol>)
 
@@ -67,21 +76,27 @@
   <p>~japanese
 @brief マルチモーダルプロジェクタファイルを読み込みます。
 @param llm LLMオブジェクトポインタ
-@param mmproj_path MMPROJファイルのパス（GGUF形式）
+@param mmproj_path MMPROJ GGUFまたは自己完結ailia QNN projector（.qnn）のパス
 @return
 成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
 @details
 マルチモーダル機能を使用するには、先にailiaLLMOpenModelFileでテキストモデルを読み込み、
-その後でこの関数でマルチモーダルプロジェクタを読み込む必要があります。</p>
+その後でこの関数でマルチモーダルプロジェクタを読み込む必要があります。
+画像入力（VLM）には画像対応、音声入力（ALM）には音声対応のmmproj GGUF、
+または各入力用コンテキストを含む.qnnが必要です。画像入力（VLM）のみに対応する
+既存.qnnは音声入力（ALM）に対応しません。</p>
 <p>~english
 @brief Load multimodal projector file.
 @param llm A LLM instance pointer
-@param mmproj_path Path to the MMPROJ file (GGUF format)
+@param mmproj_path Path to an MMPROJ GGUF or self-contained ailia QNN projector (.qnn)
 @return
 If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
 @details
 To use multimodal features, you must first load the text model with ailiaLLMOpenModelFile,
-then load the multimodal projector with this function.</p>
+then load the multimodal projector with this function. A .qnn projector
+includes its device-specific context and needs no separate GGUF. Image input
+(VLM) requires a vision-capable projector, while audio input (ALM) requires
+an audio-capable projector. Existing VLM-only packages do not support ALM.</p>
 </section>
 
 
@@ -101,6 +116,7 @@ then load the multimodal projector with this function.</p>
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -108,31 +124,41 @@ then load the multimodal projector with this function.</p>
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_llm</a></li>
-    <li><a href="../../ailia_llm/">ailia_llm</a></li>
+    <li><a href="../../ailia_llm/ailia_llm-library.html">ailia_llm</a></li>
     <li><a href="../../ailia_llm/ailiaLlmFFI-class.html">ailiaLlmFFI</a></li>
     <li class="self-crumb">ailiaLLMOpenMultimodalProjectorFileA method</li>
 </ol>
 
+
     <h5>ailiaLlmFFI class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_llm
-      1.4.1
+      1.5.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 
