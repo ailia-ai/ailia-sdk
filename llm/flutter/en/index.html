@@ -62,53 +62,6 @@ As long as user complies with the conditions stated in <a href="https://ailia.ai
 <p>If a security error occurs with a downloaded file on macOS, please execute the following command to remove the download attribute.</p>
 <pre class="language-dart"><code>xattr -d com.apple.quarantine macos/libailia_llm.dylib
 </code></pre>
-<h2 id="tool-use-json-api">Tool Use (JSON API)</h2>
-<p>Use <code>ailiaLLMSetPromptJson</code> from the first user message while tools are configured.
-The legacy <code>ailiaLLMSetPrompt</code> and <code>ailiaLLMSetMultimodalPrompt</code> return INVALID_STATE until tools are cleared.
-Define tools with <code>ailiaLLMSetTools</code>, set the JSON messages array, and call <code>ailiaLLMGenerate</code> until done.
-Deltas remain available through <code>ailiaLLMGetDeltaText</code> for previews; retrieving or concatenating them is optional.
-Retrieve assistant JSON with <code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code>, append the object to history,
-execute complete calls, and append tool results with matching <code>tool_call_id</code>. Set the next JSON prompt to continue.</p>
-<p>The SDK accumulates generated output. Reads do not consume it; a new prompt resets it.</p>
-<h3 id="structured-history">Structured history</h3>
-<pre class="language-json"><code class="language-json">[
- {"role":"user","content":"Weather in Tokyo?"},
- {"role":"assistant","content":"","tool_calls":[
-  {"id":"call_0","type":"function","function":{"name":"get_weather","arguments":"{\"city\":\"Tokyo\"}"}}
- ]},
- {"role":"tool","tool_call_id":"call_0","content":"Snow, -3 C"}
-]
-</code></pre>
-<p>Content is not reparsed as tool syntax. Supply assistant thinking in <code>reasoning_content</code>.
-Arguments must be a string containing a JSON object. Call IDs/names must be nonempty; IDs are unique per assistant,
-but may be reused in later turns. Consecutive tool results match the preceding assistant by ID, not order.
-Unknown IDs, duplicate results and conflicting names are rejected. Tool content must be a string; serialize objects first.</p>
-<h3 id="images-and-audio">Images and audio</h3>
-<p>Load a compatible projector with <code>ailiaLLMOpenMultimodalProjectorFileA</code> and use ordered user content parts:</p>
-<pre class="language-json"><code class="language-json">[{"role":"user","content":[
- {"type":"text","text":"Describe this image."},
- {"type":"image","file_path":"/path/to/image.jpg"}
-]}]
-</code></pre>
-<p>For audio, use a separate prompt with an <code>audio</code> part and an audio-capable
-projector. Image and audio cannot be mixed in one prompt.</p>
-<p>Each image/audio part specifies exactly one of <code>file_path</code> or <code>data</code>. Data is standard padded Base64 containing
-encoded file bytes (JPEG/PNG, WAV/MP3/FLAC, etc.). No URL fetching, video or raw RGB/PCM is supported.
-Media works with or without tools and is re-evaluated each prompt. An unloaded/incompatible projector returns INVALID_STATE.
-Query image/audio support with <code>ailiaLLMGetMultimodalCapabilities</code>.</p>
-<h3 id="incomplete-output-and-errors">Incomplete output and errors</h3>
-<p>GetResponseJson rejects unfinished calls/thinking with PARSE_ERROR. It never repairs arguments or returns executable partial results.
-SetPromptJson rejects incomplete arguments, invalid JSON/types/ID associations and empty arrays with INVALID_ARGUMENT.
-If GetResponseJson returns PARSE_ERROR, do not append the failed assistant. Append a retry user message to the existing history; no partial content/reasoning retrieval is needed. Do not invent tool results.</p>
-<p>After clearing tools with SetTools(NULL), SetPromptJson still accepts historical tool calls and results for summaries or final answers. Retrieve response JSON before clearing tools, which invalidates the output parser. Use finally to clear tools even when an exception occurs.
-An unset prompt or changed tools/thinking returns INVALID_STATE; before generation an initialized prompt returns an empty assistant.
-File failures return ERROR_FILE_API, invalid Base64 returns INVALID_ARGUMENT, and undecodable media buffers return ERROR_BUFFER_API.</p>
-<pre class="language-dart"><code class="language-dart">llm.setPromptJson(messages); // structured List&lt;Map&lt;String, dynamic&gt;&gt;
-while (llm.generate() != null) { /* optional streaming preview */ }
-final response = llm.getResponseJson();
-messages.add(response);
-// Execute response['tool_calls']; append string content with tool_call_id.
-</code></pre>
 <h2 id="api-specification">API specification</h2>
 <p><a href="https://github.com/ailia-ai/ailia-sdk">https://github.com/ailia-ai/ailia-sdk</a></p>
 </section>
