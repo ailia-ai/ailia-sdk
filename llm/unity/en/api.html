@@ -76,7 +76,7 @@ High Level API</h1>
 <div class="line">string model_path = &quot;gemma-2-2b-it-Q4_K_M.gguf&quot;;</div>
 <div class="line"> </div>
 <div class="line">llm.Create();</div>
-<div class="line">llm.Open(asset_path + &quot;/&quot; + model_path);</div>
+<div class="line">llm.Open(asset_path + &quot;/&quot; + model_path, 8192);</div>
 <div class="line"> </div>
 <div class="line">AiliaLLMChatMessage message = new AiliaLLMChatMessage();</div>
 <div class="line">message.role = &quot;system&quot;;</div>
@@ -113,7 +113,7 @@ Image (VLM) and audio (ALM) input</h2>
 <div class="line">using System.Collections.Generic;</div>
 <div class="line"> </div>
 <div class="line">var llm = new AiliaLLMModel();</div>
-<div class="line">if (!llm.Create() || !llm.Open(textModelPath) ||</div>
+<div class="line">if (!llm.Create() || !llm.Open(textModelPath, 8192) ||</div>
 <div class="line">    !llm.OpenMultimodalProjector(projectorPath)) return;</div>
 <div class="line">bool vision = false, audio = false;</div>
 <div class="line">if (!llm.GetMultimodalCapabilities(ref vision, ref audio)) return;</div>
