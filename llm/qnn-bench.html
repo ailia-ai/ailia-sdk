@@ -72,12 +72,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <p>QNN バックエンドの使い方は <a href="qnn.html">ailia LLM NPU（QNN）ガイド</a> を参照してください。</p>
+    <ul>
+      <li><a href="#android">Android（Snapdragon 8+ Gen 1 / SM8475、Snapdragon 7s Gen 3 / SM7635）</a></li>
+      <li><a href="#windows">Windows（Snapdragon X Plus / SC8380XP、QCS6490）</a></li>
+    </ul>
 
-    <h2>測定条件</h2>
+    <h2 id="android">Android</h2>
+
+    <h3>測定条件</h3>
     <p>Gemma 4 を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）は E2B の FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は E2B / E4B の Int16 モデルを使用しています。いずれも QAIRT 2.47、コンテキスト長 8192、AR-256 / AR-1 構成です。</p>
     <p>CPU は同じ端末上で、同一の Q4_0 GGUF を標準の llama.cpp 経路で実行した値です（デコーダワーカー 8、コンテキスト 8192）。出荷構成は OpenMP 無効のビルドで、表の「CPU」がこれにあたります。「CPU（OpenMP）」は <code>GGML_OPENMP=ON</code> / <code>OMP_NUM_THREADS=2</code> でビルドした比較用の構成です。</p>
 
-    <h2>Decode スループット</h2>
+    <h3>Decode スループット</h3>
     <p>81 トークン入力・1,000 トークン生成時のスループットです。</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -102,7 +108,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <figcaption>SM7635（E4B / Int16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
     </figure>
 
-    <h2>Prefill スループット</h2>
+    <h3>Prefill スループット</h3>
     <p>入力トークン数を 64〜2,048 まで変えたときのスループット（tokens/s）です。2 トークンのウォームアップ後、評価を伴わない <code>SetPrompt</code> を 2 回呼んで KV キャッシュを消去し、各入力長で 1 トークンだけ生成しています。</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -137,7 +143,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <figcaption>SM7635（E4B / Int16）の Prefill スループット（左）と 2,048 トークン Prefill 中のホストプロセス CPU 使用率（右）</figcaption>
     </figure>
 
-    <h2>Prefill 中の CPU 使用率</h2>
+    <h3>Prefill 中の CPU 使用率</h3>
     <p>2,048 トークン Prefill における、最初の生成呼び出し前後のプロセス CPU 時間です。8 コアすべてを使い切った状態を 100% として表しています。アプリケーションプロセスの使用率であり、端末全体の使用率ではありません。</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -149,7 +155,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>NPU では Prefill 中の CPU 使用率が 3% 前後に収まるため、アプリケーション側の処理に CPU を残せます。CPU 実行では 8 コアをほぼ使い切るため、発熱と他処理への影響が大きくなります。</p>
 
-    <h2>VLM（画像入力）の応答時間</h2>
+    <h3>VLM（画像入力）の応答時間</h3>
     <p>同一の 768x768 画像 10 枚、各 100 トークン出力での中央値です。TTFT は画像エンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -167,7 +173,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>画像入力の TTFT は、SM8475 の E2B で約 12.7 倍、SM7635 の E2B で約 11.4 倍、E4B で約 7.7 倍高速です。CPU と NPU はいずれも同じ 768x768 の画素と 256 個の画像埋め込みを処理しています。</p>
 
-    <h2>音声入力の応答時間</h2>
+    <h3>音声入力の応答時間</h3>
     <p>FLEURS の 10 録音（5 言語 各 2 件、自然な EOS まで生成し上限 256 トークン）の中央値です。TTFT は音声エンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -198,7 +204,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <figcaption>SM7635（E4B / Int16）の VLM / 音声入力の TTFT 内訳（エンコーダ処理と、デコーダの Prefill + 最初のトークン）</figcaption>
     </figure>
 
-    <h2>メモリ使用量</h2>
+    <h3>メモリ使用量</h3>
     <p>E2B は SM7635（Hexagon v73）で、LLM / VLM / ALM の各構成を 8 トークン生成で実行したときのメモリ使用量です（単位 MiB、コンテキスト長 8192）。CPU は Q4_0 GGUF と BF16 の mmproj、NPU は Int16 の QNN Model を使用しています。モデルは mmap で読み込むため、実際に確保した作業メモリである匿名メモリ（<code>RssAnon</code>）と、ページキャッシュとして再利用できるファイルマッピング（<code>RssFile</code>）を分けて記載します。ピークはプロセスの最大常駐サイズ（<code>VmHWM</code>）です。</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -228,6 +234,117 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </table>
     </div>
     <p>E4B でも NPU のピークは CPU の約 3 分の 1 です。この測定は端末が Thermal Status 1 の状態で、Android のページ回収の影響を受けています。</p>
+
+    <h2 id="windows">Windows</h2>
+
+    <h3>測定条件</h3>
+    <p>Gemma 4 を 2 機種で測定した結果です。Snapdragon X Plus（SC8380XP / Hexagon v73）は Windows 11 Pro 上で E2B / E4B の FP16 モデル、QCS6490（Hexagon v68）は Windows 11 IoT Enterprise LTSC 上の ailia LLM 1.5.0.1 で E2B の Int16 モデルを使用しています。いずれも 8 コアの端末で、QAIRT 2.47、コンテキスト長 8192、AR-256 / AR-1 構成です。</p>
+    <p>CPU は同じ端末上で、Q4_0 GGUF を標準の llama.cpp 経路で実行した値です（OpenMP 無効、4 つの高性能コアをワーカーとして使用）。GPU は Snapdragon X Plus の Adreno X1-45 で、同じ GGUF を llama.cpp の OpenCL バックエンドで実行した値です。QCS6490 の GPU は測定していません。</p>
+
+    <h3>Decode スループット</h3>
+    <p>81 トークン入力・1,000 トークン生成時のスループットです。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末</th><th>モデル</th><th>CPU</th><th>GPU</th><th>NPU（QNN）</th><th>NPU の効果</th></tr>
+      <tr><td>SC8380XP（Hexagon v73）</td><td>E2B / FP16</td><td class="num">32.505 tokens/s</td><td class="num">12.590 tokens/s</td><td class="num">7.988 tokens/s</td><td class="num">0.25 倍</td></tr>
+      <tr><td>SC8380XP（Hexagon v73）</td><td>E4B / FP16</td><td class="num">15.230 tokens/s</td><td class="num">7.161 tokens/s</td><td class="num">4.651 tokens/s</td><td class="num">0.31 倍</td></tr>
+      <tr><td>QCS6490（Hexagon v68）</td><td>E2B / Int16</td><td class="num">7.983 tokens/s</td><td class="num">—</td><td class="num">4.405 tokens/s</td><td class="num">0.55 倍</td></tr>
+    </table>
+    </div>
+    <p>Decode は NPU が CPU の 0.25〜0.55 倍で、CPU を下回りますが、安定した性能です。</p>
+
+    <figure class="bench-figure">
+      <img src="benchmark/tps_sc8380xp.png" alt="Snapdragon X Plus E2B の Decode のトークンごとのスループット（1000 トークン生成、CPU / GPU / NPU）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の Decode のトークンごとのスループット（1000 トークン生成、CPU / GPU / NPU）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/tps_qcs6490.png" alt="QCS6490 E2B の Decode のトークンごとのスループット（1000 トークン生成、CPU / NPU）" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
+    </figure>
+
+    <h3>Prefill スループット</h3>
+    <p>入力トークン数を 64〜2,048 まで変えたときのスループット（tokens/s）です。測定方法は Android と同じです。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・モデル・経路</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>SC8380XP E2B CPU</td><td class="num">249.314</td><td class="num">205.403</td><td class="num">214.986</td><td class="num">194.638</td><td class="num">176.262</td><td class="num">155.627</td></tr>
+      <tr><td>SC8380XP E2B GPU</td><td class="num">152.814</td><td class="num">184.829</td><td class="num">201.471</td><td class="num">190.109</td><td class="num">168.583</td><td class="num">149.012</td></tr>
+      <tr><td>SC8380XP E2B NPU（FP16）</td><td class="num">116.418</td><td class="num">229.981</td><td class="num">443.136</td><td class="num">467.341</td><td class="num">461.637</td><td class="num">460.136</td></tr>
+      <tr><td>SC8380XP E4B CPU</td><td class="num">83.793</td><td class="num">98.738</td><td class="num">115.542</td><td class="num">106.402</td><td class="num">97.419</td><td class="num">80.109</td></tr>
+      <tr><td>SC8380XP E4B GPU</td><td class="num">80.661</td><td class="num">102.021</td><td class="num">111.457</td><td class="num">110.693</td><td class="num">101.195</td><td class="num">93.148</td></tr>
+      <tr><td>SC8380XP E4B NPU（FP16）</td><td class="num">60.101</td><td class="num">119.511</td><td class="num">254.001</td><td class="num">262.182</td><td class="num">257.062</td><td class="num">258.672</td></tr>
+      <tr><td>QCS6490 E2B CPU</td><td class="num">63.773</td><td class="num">73.745</td><td class="num">68.787</td><td class="num">59.803</td><td class="num">50.623</td><td class="num">51.408</td></tr>
+      <tr><td>QCS6490 E2B NPU（Int16）</td><td class="num">49.211</td><td class="num">104.323</td><td class="num">203.224</td><td class="num">208.770</td><td class="num">181.354</td><td class="num">201.447</td></tr>
+    </table>
+    </div>
+    <p>2,048 トークン入力では、NPU が CPU より SC8380XP の E2B で約 2.96 倍、E4B で約 3.23 倍、QCS6490 の E2B で約 3.92 倍高速です。64 トークンでは AR-256 グラフのパディングが大きくなるため、CPU を下回ります。</p>
+
+    <figure class="bench-figure">
+      <img src="benchmark/pps_sc8380xp.png" alt="Snapdragon X Plus E2B の Prefill スループットと Prefill 中の CPU 使用率（CPU / GPU / NPU）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の Prefill スループット（左）と 2,048 トークン Prefill 中のホストプロセス CPU 使用率（右）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の Prefill スループットと Prefill 中の CPU 使用率（CPU / GPU / NPU）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の Prefill スループット（左）と 2,048 トークン Prefill 中のホストプロセス CPU 使用率（右）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/pps_qcs6490.png" alt="QCS6490 E2B の Prefill スループットと Prefill 中の CPU 使用率（CPU / NPU）" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）の Prefill スループット（左）と 2,048 トークン Prefill 中のホストプロセス CPU 使用率（右）</figcaption>
+    </figure>
+
+    <h3>Prefill 中の CPU 使用率</h3>
+    <p>2,048 トークン Prefill における、最初の生成呼び出し中のプロセス CPU 時間です。8 コアすべてを使い切った状態を 100% として表しています。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・モデル</th><th>CPU</th><th>GPU</th><th>NPU（QNN）</th></tr>
+      <tr><td>SC8380XP E2B</td><td class="num">49.6%</td><td class="num">10.8%</td><td class="num">2.9%</td></tr>
+      <tr><td>SC8380XP E4B</td><td class="num">48.9%</td><td class="num">6.9%</td><td class="num">2.3%</td></tr>
+      <tr><td>QCS6490 E2B</td><td class="num">49.2%</td><td class="num">—</td><td class="num">3.1%</td></tr>
+    </table>
+    </div>
+    <p>CPU は高性能コアの 4 ワーカーで実行しているため 50% 前後です。NPU では 3% 前後に収まります。</p>
+
+    <h3>VLM（画像入力）・音声入力の応答時間</h3>
+    <p>画像は 768x768 の 1 枚で 100 トークン出力、音声は英語音声 1 件（16kHz モノラル）の書き起こしで、いずれも 1 回の測定値です。TTFT はエンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。CPU と GPU の経路では、画像・音声エンコーダは CPU で実行されます。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・モデル</th><th>入力</th><th>経路</th><th>TTFT</th><th>Decode</th><th>出力トークン数</th></tr>
+      <tr><td>SC8380XP E2B</td><td>画像</td><td>CPU</td><td class="num">55.48 秒</td><td class="num">37.546 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E2B</td><td>画像</td><td>GPU</td><td class="num">57.74 秒</td><td class="num">12.770 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E2B</td><td>画像</td><td>NPU（FP16）</td><td class="num">7.06 秒</td><td class="num">7.961 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E2B</td><td>音声</td><td>CPU</td><td class="num">28.13 秒</td><td class="num">37.924 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>SC8380XP E2B</td><td>音声</td><td>GPU</td><td class="num">27.86 秒</td><td class="num">13.064 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>SC8380XP E2B</td><td>音声</td><td>NPU（FP16）</td><td class="num">4.55 秒</td><td class="num">8.162 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>SC8380XP E4B</td><td>画像</td><td>CPU</td><td class="num">54.09 秒</td><td class="num">20.161 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E4B</td><td>画像</td><td>GPU</td><td class="num">57.98 秒</td><td class="num">7.230 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E4B</td><td>画像</td><td>NPU（FP16）</td><td class="num">10.22 秒</td><td class="num">4.644 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E4B</td><td>音声</td><td>CPU</td><td class="num">27.67 秒</td><td class="num">19.444 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>SC8380XP E4B</td><td>音声</td><td>GPU</td><td class="num">33.24 秒</td><td class="num">7.094 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>SC8380XP E4B</td><td>音声</td><td>NPU（FP16）</td><td class="num">7.11 秒</td><td class="num">4.606 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>QCS6490 E2B</td><td>画像</td><td>CPU</td><td class="num">73.81 秒</td><td class="num">8.603 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>QCS6490 E2B</td><td>画像</td><td>NPU（Int16）</td><td class="num">9.13 秒</td><td class="num">4.361 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>QCS6490 E2B</td><td>音声</td><td>CPU</td><td class="num">34.85 秒</td><td class="num">9.081 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>QCS6490 E2B</td><td>音声</td><td>NPU（Int16）</td><td class="num">7.08 秒</td><td class="num">4.373 tokens/s</td><td class="num">33</td></tr>
+    </table>
+    </div>
+    <p>NPU の TTFT は CPU と比べて、画像入力では SC8380XP の E2B で約 7.9 倍、E4B で約 5.3 倍、QCS6490 の E2B で約 8.1 倍、音声入力ではそれぞれ約 6.2 倍、約 3.9 倍、約 4.9 倍高速です。</p>
+
+    <figure class="bench-figure">
+      <img src="benchmark/media_ttft_sc8380xp.png" alt="Snapdragon X Plus E2B の VLM / 音声入力の TTFT 内訳（CPU / GPU / NPU）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の VLM / 音声入力の TTFT 内訳（プロンプト設定と最初の生成呼び出し）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/media_ttft_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の VLM / 音声入力の TTFT 内訳（CPU / GPU / NPU）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の VLM / 音声入力の TTFT 内訳（プロンプト設定と最初の生成呼び出し）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/media_ttft_qcs6490.png" alt="QCS6490 E2B の VLM / 音声入力の TTFT 内訳（CPU / NPU）" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）の VLM / 音声入力の TTFT 内訳（プロンプト設定と最初の生成呼び出し）</figcaption>
+    </figure>
 
   </div>
 

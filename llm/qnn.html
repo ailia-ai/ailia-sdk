@@ -109,9 +109,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <ul>
       <li>Android（Hexagon v69 以降。Snapdragon 8 Gen 1 / 8+ Gen 1、7s Gen 3、8 Gen 2 以降など）</li>
       <li>Windows on Arm（Snapdragon X Plus / sc8380xp、Hexagon v73）</li>
-      <li>Experimental: QCS6490（Hexagon v68、E2B のみ）</li>
+      <li>QCS6490（Windows、Hexagon v68、E2B のみ。ailia LLM 1.5.0.1 以降）</li>
     </ul>
-    <p>Windows on Arm では QNN 対応の ailia LLM ARM64 ビルドと、端末の SoC に一致する <code>.qnn</code> を使用します。Snapdragon X Plus 実機で E2B のテキスト・画像・音声パッケージの動作を確認しています。異なる SoC 向けのモデルは流用できません。</p>
+    <p>Windows on Arm では QNN 対応の ailia LLM ARM64 ビルドと、端末の SoC に一致する <code>.qnn</code> を使用します。Snapdragon X Plus 実機と QCS6490 実機（Windows 11 IoT Enterprise）で E2B のテキスト・画像・音声パッケージの動作を確認しています。異なる SoC 向けのモデルは流用できません。</p>
     <div class="note">
       <strong>注意:</strong> QNN（QAIRT）の対応バージョンは ailia SDK と同じ 2.47.0.260601 です。QNN Model は QNN SDK のバージョンにも依存するため、異なるバージョンの QNN ランタイムと組み合わせないでください。
     </div>
@@ -121,7 +121,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Hexagon バージョン</th><th>SoC の例</th><th>対応モデル</th><th>コンテキスト長</th></tr>
-      <tr><td>v68（Experimental）</td><td>QCS6490</td><td>Gemma 4 E2B</td><td>8K</td></tr>
+      <tr><td>v68</td><td>QCS6490</td><td>Gemma 4 E2B</td><td>8K</td></tr>
       <tr><td>v69</td><td>Snapdragon 8 Gen 1 / 8+ Gen 1</td><td>Gemma 4 E2B</td><td>8K</td></tr>
       <tr><td>v73 以降</td><td>Snapdragon 7s Gen 3、8 Gen 2 以降</td><td>Gemma 4 E2B / E4B</td><td>8K</td></tr>
     </table>
@@ -152,16 +152,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-sc8380xp-mmproj.qnn">gemma4-e2b-sc8380xp-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">1.09 GB</td></tr>
       <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e4b-sc8380xp.qnn">gemma4-e4b-sc8380xp.qnn</a></td><td>テキストモデル（Prefill + Decode）</td><td class="num">5.58 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e4b-sc8380xp-mmproj.qnn">gemma4-e4b-sc8380xp-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">1.10 GB</td></tr>
-      <tr><td rowspan="2">qcs6490<br>（Hexagon v68 / Int16）<br><strong>Experimental</strong></td><td rowspan="2">QCS6490</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-qcs6490.qnn">gemma4-e2b-qcs6490.qnn</a></td><td>テキストモデル（Prefill + Decode）</td><td class="num">3.60 GB</td></tr>
+      <tr><td rowspan="2">qcs6490<br>（Hexagon v68 / Int16）</td><td rowspan="2">QCS6490</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-qcs6490.qnn">gemma4-e2b-qcs6490.qnn</a></td><td>テキストモデル（Prefill + Decode）</td><td class="num">3.60 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.0/gemma4-e2b-qcs6490-mmproj.qnn">gemma4-e2b-qcs6490-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">0.63 GB</td></tr>
     </table>
     </div>
     <p>いずれも ailia LLM 1.5.0（QAIRT 2.47.0.260601）向けで、コンテキスト長は 8192、AR-256 / AR-1 構成です。</p>
     <div class="note">
-      <strong>Experimental:</strong> qcs6490 向けのモデルは実機での動作・精度・速度を検証していません。PC 上での構造検査と数値照合のみ行っています。
-    </div>
-    <div class="note">
-      <strong>その他の SoC について:</strong> 現在モデルファイルを公開しているのは sm8475、sm7635、sc8380xp（および Experimental の qcs6490）です。その他の SoC 向けの変換については、対象の SoC（<code>ailiaLLMGetQNNModelName</code> API で取得できる名称）を添えて <a href="https://ailia.ai/">ailia</a> までお問い合わせください。
+      <strong>その他の SoC について:</strong> 現在モデルファイルを公開しているのは sm8475、sm7635、sc8380xp、qcs6490 です。その他の SoC 向けの変換については、対象の SoC（<code>ailiaLLMGetQNNModelName</code> API で取得できる名称）を添えて <a href="https://ailia.ai/">ailia</a> までお問い合わせください。
     </div>
 
     <div class="note">
@@ -189,6 +186,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h3>評価版アプリ</h3>
     <p>Android 向けの評価版 APK は <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927">ailia-models-kotlin-qnn.apk</a> です。</p>
+    <p>Windows on Arm 向けの評価版アプリは <a href="https://github.com/ailia-ai/ailia-models-flutter/releases/tag/v261008">ailia-models-flutter-qnn-v261008.zip</a> です。Snapdragon X Plus と QCS6490 で動作します。</p>
 
     <h2>コードサンプル：SoC 名の取得とモデルのオープン</h2>
     <p>まず SoC 名（例: <code>sm7635</code>）を取得し、同じ SoC 用にコンパイルした <code>gemma4-e2b-&lt;soc&gt;.qnn</code> などのテキストモデルを選びます。返る文字列はファイル名全体ではなく SoC 名です。<code>n_ctx=0</code> はパッケージに埋め込まれたコンテキスト長を選択します。モデル未公開の SoC に別 SoC 用のファイルを流用しないでください。画像・音声入力には、テキストモデルを開いた後、同じモデル・SoC の <code>-mmproj.qnn</code> を通常のプロジェクタ API で追加します。</p>
@@ -290,7 +288,7 @@ if (!llm.Open(modelPath, 0)) throw new Exception(llm.GetErrorDetail());
     </div>
 
     <h2>ベンチマーク</h2>
-    <p>Snapdragon 8+ Gen 1（SM8475）と Snapdragon 7s Gen 3（SM7635）で Gemma 4 E2B / E4B を測定した Decode / Prefill スループット、Prefill 中の CPU 使用率、VLM・音声入力の応答時間、メモリ使用量は <a href="qnn-bench.html">ailia LLM NPU（QNN）ベンチマーク</a> を参照してください。</p>
+    <p>Snapdragon 8+ Gen 1（SM8475）、Snapdragon 7s Gen 3（SM7635）、Snapdragon X Plus（SC8380XP）、QCS6490 で Gemma 4 E2B / E4B を測定した Decode / Prefill スループット、Prefill 中の CPU 使用率、VLM・音声入力の応答時間、メモリ使用量は <a href="qnn-bench.html">ailia LLM NPU（QNN）ベンチマーク</a> を参照してください。</p>
 
     <h2>制約</h2>
     <ul>

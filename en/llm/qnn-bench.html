@@ -72,12 +72,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <p>For how to use the QNN backend, see the <a href="qnn.html">ailia LLM NPU (QNN) Guide</a>.</p>
+    <ul>
+      <li><a href="#android">Android (Snapdragon 8+ Gen 1 / SM8475, Snapdragon 7s Gen 3 / SM7635)</a></li>
+      <li><a href="#windows">Windows (Snapdragon X Plus / SC8380XP, QCS6490)</a></li>
+    </ul>
 
-    <h2>Test Conditions</h2>
+    <h2 id="android">Android</h2>
+
+    <h3>Test Conditions</h3>
     <p>The following results were measured with Gemma 4 on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B and E4B Int16 models. All were measured with QAIRT 2.47, a context length of 8192 and the AR-256 / AR-1 configuration.</p>
     <p>The CPU numbers run the same Q4_0 GGUF through the standard llama.cpp path on the same device (8 decoder workers, context 8192). The shipping configuration is the build with OpenMP disabled, which is the "CPU" column. "CPU (OpenMP)" is a comparison build made with <code>GGML_OPENMP=ON</code> and <code>OMP_NUM_THREADS=2</code>.</p>
 
-    <h2>Decode throughput</h2>
+    <h3>Decode throughput</h3>
     <p>Throughput with 81 input tokens and 1,000 generated tokens.</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -102,7 +108,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <figcaption>SM7635 (E4B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
     </figure>
 
-    <h2>Prefill throughput</h2>
+    <h3>Prefill throughput</h3>
     <p>Throughput (tokens/s) for input lengths from 64 to 2,048 tokens. After a two-token warmup, <code>SetPrompt</code> is called twice without evaluation to clear the KV cache, and exactly one token is generated at each input length.</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -137,7 +143,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <figcaption>SM7635 (E4B / Int16) prefill throughput (left) and host process CPU use during a 2,048-token prefill (right)</figcaption>
     </figure>
 
-    <h2>CPU use during prefill</h2>
+    <h3>CPU use during prefill</h3>
     <p>Process CPU time measured around the first generate call of a 2,048-token prefill, expressed as a share of all 8 cores fully occupied (8 cores = 100%). This is the utilization of the application process, not of the whole device.</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -149,7 +155,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>On the NPU, CPU use during prefill stays around 3%, leaving the CPU available for the rest of the application. Running on the CPU occupies nearly all 8 cores, which raises heat and interferes with other work.</p>
 
-    <h2>VLM (image input) latency</h2>
+    <h3>VLM (image input) latency</h3>
     <p>Medians over the same 10 images at 768x768 with 100 output tokens each. TTFT is the prompt setup including the image encoder plus the first generate call, excluding model opening.</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -167,7 +173,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>Image TTFT is about 12.7x faster for E2B on SM8475, about 11.4x faster for E2B on SM7635 and about 7.7x faster for E4B. Both the CPU and the NPU consume the same 768x768 pixels and the same 256 image embeddings.</p>
 
-    <h2>Audio input latency</h2>
+    <h3>Audio input latency</h3>
     <p>Medians over 10 FLEURS recordings (2 each in 5 languages, generated to natural EOS with a 256-token cap). TTFT is the prompt setup including the audio encoder plus the first generate call, excluding model opening.</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -198,7 +204,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <figcaption>SM7635 (E4B / Int16) VLM and audio TTFT breakdown (encoder, and decoder prefill plus the first token)</figcaption>
     </figure>
 
-    <h2>Memory usage</h2>
+    <h3>Memory usage</h3>
     <p>E2B: memory usage on SM7635 (Hexagon v73) while running the LLM, VLM and ALM configurations with 8 generated tokens (in MiB, context length 8192). The CPU path uses the Q4_0 GGUF with the BF16 mmproj, and the NPU path uses the Int16 QNN Model. Models are loaded with mmap, so anonymous memory (<code>RssAnon</code>, the working memory actually allocated) and file-backed mappings (<code>RssFile</code>, reusable page cache) are listed separately. Peak is the peak resident size of the process (<code>VmHWM</code>).</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -228,6 +234,117 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </table>
     </div>
     <p>With E4B as well, the NPU peak is about a third of the CPU path. This measurement was taken with the device at Thermal Status 1 and is affected by Android page reclamation.</p>
+
+    <h2 id="windows">Windows</h2>
+
+    <h3>Test Conditions</h3>
+    <p>The following results were measured with Gemma 4 on two devices. Snapdragon X Plus (SC8380XP / Hexagon v73) uses the E2B and E4B FP16 models on Windows 11 Pro, and QCS6490 (Hexagon v68) uses the E2B Int16 model with ailia LLM 1.5.0.1 on Windows 11 IoT Enterprise LTSC. Both are 8-core devices, measured with QAIRT 2.47, a context length of 8192 and the AR-256 / AR-1 configuration.</p>
+    <p>The CPU numbers run the Q4_0 GGUF through the standard llama.cpp path on the same device (OpenMP disabled, with the 4 performance cores as workers). The GPU numbers run the same GGUF on the Snapdragon X Plus Adreno X1-45 with the llama.cpp OpenCL backend. The GPU on QCS6490 was not measured.</p>
+
+    <h3>Decode throughput</h3>
+    <p>Throughput with 81 input tokens and 1,000 generated tokens.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device</th><th>Model</th><th>CPU</th><th>GPU</th><th>NPU (QNN)</th><th>Effect of the NPU</th></tr>
+      <tr><td>SC8380XP (Hexagon v73)</td><td>E2B / FP16</td><td class="num">32.505 tokens/s</td><td class="num">12.590 tokens/s</td><td class="num">7.988 tokens/s</td><td class="num">0.25x</td></tr>
+      <tr><td>SC8380XP (Hexagon v73)</td><td>E4B / FP16</td><td class="num">15.230 tokens/s</td><td class="num">7.161 tokens/s</td><td class="num">4.651 tokens/s</td><td class="num">0.31x</td></tr>
+      <tr><td>QCS6490 (Hexagon v68)</td><td>E2B / Int16</td><td class="num">7.983 tokens/s</td><td class="num">—</td><td class="num">4.405 tokens/s</td><td class="num">0.55x</td></tr>
+    </table>
+    </div>
+    <p>NPU decode runs at 0.25x to 0.55x of the CPU, so it is slower than the CPU, but its throughput is stable.</p>
+
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_sc8380xp.png" alt="Snapdragon X Plus E2B per-token decode throughput over 1000 generated tokens (CPU / GPU / NPU)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B per-token decode throughput over 1000 generated tokens (CPU / GPU / NPU)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_qcs6490.png" alt="QCS6490 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU)" loading="lazy">
+      <figcaption>QCS6490 (E2B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+
+    <h3>Prefill throughput</h3>
+    <p>Throughput (tokens/s) as the input length varies from 64 to 2,048 tokens, measured the same way as on Android.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device / model / path</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>SC8380XP E2B CPU</td><td class="num">249.314</td><td class="num">205.403</td><td class="num">214.986</td><td class="num">194.638</td><td class="num">176.262</td><td class="num">155.627</td></tr>
+      <tr><td>SC8380XP E2B GPU</td><td class="num">152.814</td><td class="num">184.829</td><td class="num">201.471</td><td class="num">190.109</td><td class="num">168.583</td><td class="num">149.012</td></tr>
+      <tr><td>SC8380XP E2B NPU (FP16)</td><td class="num">116.418</td><td class="num">229.981</td><td class="num">443.136</td><td class="num">467.341</td><td class="num">461.637</td><td class="num">460.136</td></tr>
+      <tr><td>SC8380XP E4B CPU</td><td class="num">83.793</td><td class="num">98.738</td><td class="num">115.542</td><td class="num">106.402</td><td class="num">97.419</td><td class="num">80.109</td></tr>
+      <tr><td>SC8380XP E4B GPU</td><td class="num">80.661</td><td class="num">102.021</td><td class="num">111.457</td><td class="num">110.693</td><td class="num">101.195</td><td class="num">93.148</td></tr>
+      <tr><td>SC8380XP E4B NPU (FP16)</td><td class="num">60.101</td><td class="num">119.511</td><td class="num">254.001</td><td class="num">262.182</td><td class="num">257.062</td><td class="num">258.672</td></tr>
+      <tr><td>QCS6490 E2B CPU</td><td class="num">63.773</td><td class="num">73.745</td><td class="num">68.787</td><td class="num">59.803</td><td class="num">50.623</td><td class="num">51.408</td></tr>
+      <tr><td>QCS6490 E2B NPU (Int16)</td><td class="num">49.211</td><td class="num">104.323</td><td class="num">203.224</td><td class="num">208.770</td><td class="num">181.354</td><td class="num">201.447</td></tr>
+    </table>
+    </div>
+    <p>With a 2,048-token input, the NPU is about 2.96x faster than the CPU for E2B on SC8380XP, about 3.23x faster for E4B, and about 3.92x faster for E2B on QCS6490. At 64 tokens the NPU is slower than the CPU, because the fixed-length AR-256 graph is mostly padding.</p>
+
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/pps_sc8380xp.png" alt="Snapdragon X Plus E2B prefill throughput and host CPU use during prefill (CPU / GPU / NPU)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) prefill throughput (left) and host process CPU use during a 2,048-token prefill (right)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput and host CPU use during prefill (CPU / GPU / NPU)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) prefill throughput (left) and host process CPU use during a 2,048-token prefill (right)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/pps_qcs6490.png" alt="QCS6490 E2B prefill throughput and host CPU use during prefill (CPU / NPU)" loading="lazy">
+      <figcaption>QCS6490 (E2B / Int16) prefill throughput (left) and host process CPU use during a 2,048-token prefill (right)</figcaption>
+    </figure>
+
+    <h3>CPU use during prefill</h3>
+    <p>Process CPU time during the first generate call of a 2,048-token prefill, expressed as a share of all 8 cores fully occupied (8 cores = 100%).</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device / model</th><th>CPU</th><th>GPU</th><th>NPU (QNN)</th></tr>
+      <tr><td>SC8380XP E2B</td><td class="num">49.6%</td><td class="num">10.8%</td><td class="num">2.9%</td></tr>
+      <tr><td>SC8380XP E4B</td><td class="num">48.9%</td><td class="num">6.9%</td><td class="num">2.3%</td></tr>
+      <tr><td>QCS6490 E2B</td><td class="num">49.2%</td><td class="num">—</td><td class="num">3.1%</td></tr>
+    </table>
+    </div>
+    <p>The CPU path runs 4 workers on the performance cores, so it stays around 50%. On the NPU, CPU use stays around 3%.</p>
+
+    <h3>VLM (image input) and audio input latency</h3>
+    <p>The image input is one 768x768 image with 100 output tokens, and the audio input is a transcription of one English recording (16 kHz mono). Each is a single run. TTFT is the prompt setup including the encoder plus the first generate call, excluding model opening. On the CPU and GPU paths, the image and audio encoders run on the CPU.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device / model</th><th>Input</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Output tokens</th></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>CPU</td><td class="num">55.48 s</td><td class="num">37.546 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>GPU</td><td class="num">57.74 s</td><td class="num">12.770 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>NPU (FP16)</td><td class="num">7.06 s</td><td class="num">7.961 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>CPU</td><td class="num">28.13 s</td><td class="num">37.924 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>GPU</td><td class="num">27.86 s</td><td class="num">13.064 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>NPU (FP16)</td><td class="num">4.55 s</td><td class="num">8.162 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>CPU</td><td class="num">54.09 s</td><td class="num">20.161 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>GPU</td><td class="num">57.98 s</td><td class="num">7.230 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>NPU (FP16)</td><td class="num">10.22 s</td><td class="num">4.644 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>CPU</td><td class="num">27.67 s</td><td class="num">19.444 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>GPU</td><td class="num">33.24 s</td><td class="num">7.094 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>NPU (FP16)</td><td class="num">7.11 s</td><td class="num">4.606 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>QCS6490 E2B</td><td>Image</td><td>CPU</td><td class="num">73.81 s</td><td class="num">8.603 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>QCS6490 E2B</td><td>Image</td><td>NPU (Int16)</td><td class="num">9.13 s</td><td class="num">4.361 tokens/s</td><td class="num">100</td></tr>
+      <tr><td>QCS6490 E2B</td><td>Audio</td><td>CPU</td><td class="num">34.85 s</td><td class="num">9.081 tokens/s</td><td class="num">33</td></tr>
+      <tr><td>QCS6490 E2B</td><td>Audio</td><td>NPU (Int16)</td><td class="num">7.08 s</td><td class="num">4.373 tokens/s</td><td class="num">33</td></tr>
+    </table>
+    </div>
+    <p>Compared with the CPU, NPU TTFT for image input is about 7.9x faster for E2B on SC8380XP, about 5.3x faster for E4B and about 8.1x faster for E2B on QCS6490. For audio input it is about 6.2x, 3.9x and 4.9x faster, respectively.</p>
+
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/media_ttft_sc8380xp.png" alt="Snapdragon X Plus E2B VLM and audio TTFT breakdown (CPU / GPU / NPU)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) VLM and audio TTFT breakdown (prompt setup and the first generate call)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/media_ttft_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B VLM and audio TTFT breakdown (CPU / GPU / NPU)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) VLM and audio TTFT breakdown (prompt setup and the first generate call)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/media_ttft_qcs6490.png" alt="QCS6490 E2B VLM and audio TTFT breakdown (CPU / NPU)" loading="lazy">
+      <figcaption>QCS6490 (E2B / Int16) VLM and audio TTFT breakdown (prompt setup and the first generate call)</figcaption>
+    </figure>
 
   </div>
 
