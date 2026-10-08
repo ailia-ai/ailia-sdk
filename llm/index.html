@@ -90,12 +90,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">2</div>
             <h3>サンプルを実行</h3>
-            <p><code>ailia-models</code> から <code>example_ailia_llm.py</code> をダウンロードして実行します。初回実行時に Gemma 3 4B の GGUF ファイルをダウンロードし、チャット応答をストリーミング生成します。マルチモーダル (画像対応) 版を試すには同じフォルダの <code>example_ailia_llm_mtmd.py</code> を取得してください。</p>
-            <pre><code class="language-bash">wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/large_language_model/gemma3/example_ailia_llm.py
-python3 example_ailia_llm.py</code></pre>
+            <p><code>ailia-models</code> から <code>example.py</code> をダウンロードして実行します。初回実行時に Gemma 4 E2B の GGUF ファイルをダウンロードし、チャット応答をストリーミング生成します。画像入力は <code>example_vlm.py</code>、音声入力は <code>example_alm.py</code>、Function Calling は <code>example_tool_use.py</code> を同じフォルダから取得してください。</p>
+            <pre><code class="language-bash">wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/large_language_model/gemma4/example.py
+python3 example.py</code></pre>
             <p>Windows の場合は <code>python3</code> の代わりに <code>python</code> を使用してください。</p>
-            <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma3/example_ailia_llm.py" target="_blank" class="card-link">example_ailia_llm.py</a>
-            <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma3/example_ailia_llm_mtmd.py" target="_blank" class="card-link">example_ailia_llm_mtmd.py (multimodal)</a>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma4/example.py" target="_blank" class="card-link">example.py</a>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma4/example_vlm.py" target="_blank" class="card-link">example_vlm.py (画像入力)</a>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma4/example_alm.py" target="_blank" class="card-link">example_alm.py (音声入力)</a>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma4/example_tool_use.py" target="_blank" class="card-link">example_tool_use.py (Function Calling)</a>
           </div>
         </div>
       </div>
