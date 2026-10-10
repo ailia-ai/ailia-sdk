@@ -92,10 +92,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Throughput for an 81-token input and 1,000 generated tokens. CPU values are from running the same Q4_0 GGUF via the standard llama.cpp path (without MTP) on the same device. The acceptance rate is the fraction of candidates proposed by the assistant that were accepted by the main model's verification.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device</th><th>Model</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>MTP speedup</th><th>vs. CPU (without → with MTP)</th><th>Acceptance</th></tr>
-      <tr><td>SM8475 (Hexagon v69)</td><td>E2B / FP16</td><td class="num">9.971 tokens/s</td><td class="num">6.947 tokens/s</td><td class="num">10.024 tokens/s</td><td class="num"><strong>1.44x faster</strong></td><td class="num">0.70x → <strong>1.01x</strong></td><td class="num">33.7%</td></tr>
-      <tr><td>SM7635 (Hexagon v73)</td><td>E2B / Int16</td><td class="num">6.045 tokens/s</td><td class="num">6.393 tokens/s</td><td class="num">9.877 tokens/s</td><td class="num"><strong>1.55x faster</strong></td><td class="num">1.06x → <strong>1.63x</strong></td><td class="num">35.6%</td></tr>
-      <tr><td>SM7635 (Hexagon v73)</td><td>E4B / Int16</td><td class="num">3.351 tokens/s</td><td class="num">3.127 tokens/s</td><td class="num">3.189 tokens/s</td><td class="num">1.02x</td><td class="num">0.93x → 0.95x</td><td class="num">39.1%</td></tr>
+      <tr><th>Device</th><th>Model</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>MTP speedup</th><th>Acceptance</th></tr>
+      <tr><td>SM8475 (Hexagon v69)</td><td>E2B / FP16</td><td class="num">9.971 tokens/s</td><td class="num">6.947 tokens/s</td><td class="num">10.024 tokens/s</td><td class="num"><strong>1.44x faster</strong></td><td class="num">33.7%</td></tr>
+      <tr><td>SM7635 (Hexagon v73)</td><td>E2B / Int16</td><td class="num">6.045 tokens/s</td><td class="num">6.393 tokens/s</td><td class="num">9.877 tokens/s</td><td class="num"><strong>1.55x faster</strong></td><td class="num">35.6%</td></tr>
+      <tr><td>SM7635 (Hexagon v73)</td><td>E4B / Int16</td><td class="num">3.351 tokens/s</td><td class="num">3.127 tokens/s</td><td class="num">3.189 tokens/s</td><td class="num">1.02x</td><td class="num">39.1%</td></tr>
     </table>
     </div>
     <p>For E2B, both SM8475 and SM7635 improved by 1.4x to 1.6x. The acceptance rate is around 35%, but because the 3 assistant candidates and the 4-row verification by the main model are processed in a single AR-4 run, more tokens are committed per main-model run. E4B on SM7635 reached only 1.02x for text generation (1.76x for audio input).</p>
@@ -118,13 +118,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Image input uses one 768x768 image with 100 output tokens, and audio input transcribes one English recording with 32 output tokens. The image and audio encoders run on the NPU.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device / model</th><th>Input</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>MTP speedup</th><th>vs. CPU (without → with MTP)</th><th>Acceptance</th></tr>
-      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>Image</td><td class="num">12.213 tokens/s</td><td class="num">7.293 tokens/s</td><td class="num">9.936 tokens/s</td><td class="num"><strong>1.36x faster</strong></td><td class="num">0.60x → 0.81x</td><td class="num">36.1%</td></tr>
-      <tr><td>Audio</td><td class="num">10.531 tokens/s</td><td class="num">7.023 tokens/s</td><td class="num">17.476 tokens/s</td><td class="num"><strong>2.49x faster</strong></td><td class="num">0.67x → <strong>1.66x</strong></td><td class="num">100.0%</td></tr>
-      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>Image</td><td class="num">5.945 tokens/s</td><td class="num">6.071 tokens/s</td><td class="num">9.136 tokens/s</td><td class="num"><strong>1.50x faster</strong></td><td class="num">1.02x → <strong>1.54x</strong></td><td class="num">33.3%</td></tr>
-      <tr><td>Audio</td><td class="num">5.418 tokens/s</td><td class="num">5.912 tokens/s</td><td class="num">15.433 tokens/s</td><td class="num"><strong>2.61x faster</strong></td><td class="num">1.09x → <strong>2.85x</strong></td><td class="num">92.6%</td></tr>
-      <tr><td rowspan="2">SM7635 E4B / Int16</td><td>Image</td><td class="num">3.266 tokens/s</td><td class="num">3.117 tokens/s</td><td class="num">3.030 tokens/s</td><td class="num">0.97x</td><td class="num">0.95x → 0.93x</td><td class="num">36.9%</td></tr>
-      <tr><td>Audio</td><td class="num">3.442 tokens/s</td><td class="num">3.044 tokens/s</td><td class="num">5.344 tokens/s</td><td class="num"><strong>1.76x faster</strong></td><td class="num">0.88x → <strong>1.55x</strong></td><td class="num">100.0%</td></tr>
+      <tr><th>Device / model</th><th>Input</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>MTP speedup</th><th>Acceptance</th></tr>
+      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>Image</td><td class="num">12.213 tokens/s</td><td class="num">7.293 tokens/s</td><td class="num">9.936 tokens/s</td><td class="num"><strong>1.36x faster</strong></td><td class="num">36.1%</td></tr>
+      <tr><td>Audio</td><td class="num">10.531 tokens/s</td><td class="num">7.023 tokens/s</td><td class="num">17.476 tokens/s</td><td class="num"><strong>2.49x faster</strong></td><td class="num">100.0%</td></tr>
+      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>Image</td><td class="num">5.945 tokens/s</td><td class="num">6.071 tokens/s</td><td class="num">9.136 tokens/s</td><td class="num"><strong>1.50x faster</strong></td><td class="num">33.3%</td></tr>
+      <tr><td>Audio</td><td class="num">5.418 tokens/s</td><td class="num">5.912 tokens/s</td><td class="num">15.433 tokens/s</td><td class="num"><strong>2.61x faster</strong></td><td class="num">92.6%</td></tr>
+      <tr><td rowspan="2">SM7635 E4B / Int16</td><td>Image</td><td class="num">3.266 tokens/s</td><td class="num">3.117 tokens/s</td><td class="num">3.030 tokens/s</td><td class="num">0.97x</td><td class="num">36.9%</td></tr>
+      <tr><td>Audio</td><td class="num">3.442 tokens/s</td><td class="num">3.044 tokens/s</td><td class="num">5.344 tokens/s</td><td class="num"><strong>1.76x faster</strong></td><td class="num">100.0%</td></tr>
     </table>
     </div>
     <p>In audio transcription, the output is largely determined by the input audio, so almost all assistant candidates are accepted and the speedup is large, around 2.5x. This is a measurement on a single recording and is not a general speedup ratio.</p>
@@ -176,7 +176,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Prefill is processed with AR-256 regardless of MTP, so TTFT is roughly the same. For image input, the assistant is released before running the encoder and recreated after prefill, which adds some work. Each trial measures the first generation on a new instance and does not include KV reuse in multi-turn conversations.</p>
 
     <h3 id="cpu">Comparison with the CPU</h3>
-    <p>In the <a href="qnn-bench.html">QNN Benchmark</a>, the NPU was up to 4.2x faster than the CPU in prefill, but in decode, which processes one token at a time, weight loading dominated and the NPU was equal to or slower than the CPU. With MTP, multiple tokens can be committed per main-model run, so NPU decode outperforms the CPU (see "vs. CPU" in the tables above).</p>
+    <p>In the <a href="qnn-bench.html">QNN Benchmark</a>, the NPU was up to 4.2x faster than the CPU in prefill, but in decode, which processes one token at a time, weight loading dominated and the NPU was equal to or slower than the CPU. With MTP, multiple tokens can be committed per main-model run, so NPU decode outperforms the CPU.</p>
     <ul>
       <li>For E2B on SM7635, the NPU outperforms the CPU for text, image and audio input alike: 1.63x for text generation and 2.85x for audio input.</li>
       <li>For E2B on SM8475, text generation, which was 0.70x the CPU without MTP, became on par with the CPU (1.01x) with MTP. Audio input is 1.66x.</li>
