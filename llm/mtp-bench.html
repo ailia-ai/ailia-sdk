@@ -176,6 +176,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Prefill は MTP の有無にかかわらず AR-256 で処理するため、TTFT はおおむね同程度です。画像入力では、エンコーダ実行前に Assistant を解放し、Prefill 後に再生成する処理が加わります。各試行は新しいインスタンスで初回の生成を測定しており、マルチターンでの KV 再利用は含みません。</p>
     <p>画像・音声入力の TTFT は、NPU（MTP あり）で CPU の 5.7〜10.6 分の 1 です。</p>
 
+    <h3>Prefill</h3>
+    <p>81 トークン入力を位置 0 から Prefill し、最初のトークンを得るまでの時間（TTFT）を 3 構成で比較した結果です。「初回」はモデルを開いた直後の最初の生成で、本体の QNN コンテキストの復元を含みます。「常駐後」は予備生成でコンテキストと Assistant を初期化した後、KV キャッシュを消去してから測定した値で、Prefill そのものの時間に相当します。段階別のタイマーを追加した診断ビルドで、81 トークン入力・8 トークン出力を各 2 回測定した中央値です。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・モデル</th><th>条件</th><th>従来モデル（v1.5.0）</th><th>MTP 対応本体のみ</th><th>MTP 対応本体 + Assistant</th></tr>
+      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>初回</td><td class="num">3.03 秒</td><td class="num">2.52 秒</td><td class="num">2.52 秒</td></tr>
+      <tr><td>常駐後</td><td class="num">0.84 秒</td><td class="num">0.77 秒</td><td class="num">0.77 秒</td></tr>
+      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>初回</td><td class="num">3.69 秒</td><td class="num">3.37 秒</td><td class="num">3.69 秒</td></tr>
+      <tr><td>常駐後</td><td class="num">1.92 秒</td><td class="num">1.94 秒</td><td class="num">1.93 秒</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>MTP を有効にしても Prefill は従来どおり AR-256 で処理するため、Prefill の時間は MTP の有無でほぼ変わりません。</li>
+      <li>Prefill 後に Assistant へ hidden state と KV を引き継ぐ処理は 0.14〜0.28 ms で、TTFT への影響は無視できる大きさです。</li>
+      <li>初回の TTFT の多くは本体の QNN コンテキストの復元（約 1.4 秒）です。同じインスタンスを使い続ける 2 回目以降の生成では、この時間はかかりません。</li>
+    </ul>
+    <p>入力トークン数を 64〜2,048 まで変えたときの Prefill スループットは、同じ AR-256 グラフを使用するため <a href="qnn-bench.html#android">QNN ベンチマーク</a> の NPU の値を参照してください（SM8475 E2B で 2,048 トークン入力時 299.827 tokens/s など）。Windows の測定では、MTP の有無で 64〜2,048 トークンのすべての入力長の Prefill スループットが同等であることを確認しています（<a href="#windows">後述</a>）。</p>
+
     <h3 id="cpu">CPU との比較</h3>
     <p><a href="qnn-bench.html">QNN ベンチマーク</a>では、NPU は Prefill で CPU の最大 4.2 倍高速でしたが、1 トークンずつ処理する Decode では重みの読み出しが支配的になり、CPU と同等か下回っていました。MTP では本体の 1 回の実行で複数トークンを確定できるため、NPU の Decode が CPU を上回ります。</p>
     <ul>

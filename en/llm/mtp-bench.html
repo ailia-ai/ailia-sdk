@@ -176,6 +176,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Prefill is processed with AR-256 regardless of MTP, so TTFT is roughly the same. For image input, the assistant is released before running the encoder and recreated after prefill, which adds some work. Each trial measures the first generation on a new instance and does not include KV reuse in multi-turn conversations.</p>
     <p>For image and audio input, TTFT on the NPU (with MTP) is 1/5.7 to 1/10.6 of the CPU.</p>
 
+    <h3>Prefill</h3>
+    <p>Time to the first token (TTFT) when prefilling an 81-token input from position 0, compared across three configurations. "First run" is the first generation right after opening the model and includes restoring the main model's QNN context. "Resident" is measured after a warm-up generation has initialized the context and the assistant and the KV cache has been cleared, and corresponds to the prefill time itself. Measured with a diagnostic build with per-stage timers, using an 81-token input and 8 output tokens; values are the median of two runs.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device / model</th><th>Condition</th><th>Conventional model (v1.5.0)</th><th>MTP-capable main model only</th><th>MTP-capable main model + assistant</th></tr>
+      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>First run</td><td class="num">3.03 s</td><td class="num">2.52 s</td><td class="num">2.52 s</td></tr>
+      <tr><td>Resident</td><td class="num">0.84 s</td><td class="num">0.77 s</td><td class="num">0.77 s</td></tr>
+      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>First run</td><td class="num">3.69 s</td><td class="num">3.37 s</td><td class="num">3.69 s</td></tr>
+      <tr><td>Resident</td><td class="num">1.92 s</td><td class="num">1.94 s</td><td class="num">1.93 s</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>Even with MTP enabled, prefill is processed with AR-256 as before, so prefill time is almost the same with and without MTP.</li>
+      <li>Handing the hidden state and KV over to the assistant after prefill takes 0.14 to 0.28 ms, which is negligible for TTFT.</li>
+      <li>Most of the first-run TTFT is restoring the main model's QNN context (about 1.4 s). Subsequent generations on the same instance do not incur this time.</li>
+    </ul>
+    <p>For prefill throughput with 64 to 2,048 input tokens, the same AR-256 graph is used, so refer to the NPU values in the <a href="qnn-bench.html#android">QNN Benchmark</a> (for example, 299.827 tokens/s for a 2,048-token input with E2B on SM8475). The Windows measurements confirm that prefill throughput is equivalent with and without MTP at every input length from 64 to 2,048 tokens (<a href="#windows">see below</a>).</p>
+
     <h3 id="cpu">Comparison with the CPU</h3>
     <p>In the <a href="qnn-bench.html">QNN Benchmark</a>, the NPU was up to 4.2x faster than the CPU in prefill, but in decode, which processes one token at a time, weight loading dominated and the NPU was equal to or slower than the CPU. With MTP, multiple tokens can be committed per main-model run, so NPU decode outperforms the CPU.</p>
     <ul>
