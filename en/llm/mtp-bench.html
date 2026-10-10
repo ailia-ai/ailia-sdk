@@ -88,8 +88,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2 id="android">Android</h2>
 
+    <h3>Test Conditions</h3>
+    <p>Results for Gemma 4 on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B / E4B Int16 models. Both the main model and the assistant are the v1.5.1 MTP models (W4), with QAIRT 2.47, a context length of 8192 and the AR-256 (prefill) / AR-4 (verification) / AR-1 configuration.</p>
+    <p>"NPU (without MTP)" runs the same MTP-capable main model without the assistant (generating one token at a time with AR-1), and "NPU (with MTP)" opens the assistant with <code>ailiaLLMOpenMtpModel</code>. Each condition was measured twice in the order off → on → on → off, and the median is shown. Each trial uses a new instance, with a 20-second gap between trials. TPS is computed from the time excluding the first output token. Sampling is greedy (temperature 0, top-k 1, top-p 1, seed 1234); results with temperature are shown separately. MTP and AR-1 generate different token sequences, so this is not a comparison on identical token sequences.</p>
+    <p>CPU values are earlier measurements on the same devices running the same Q4_0 GGUF via the standard llama.cpp path (OpenMP disabled, without MTP). Text was measured twice and image/audio once each, and on the CPU path the image and audio encoders also run on the CPU. The CPU and NPU were measured at different times and produced different token sequences, and clocks and temperatures were not fixed, so treat these as reference values.</p>
+
     <h3>Decode throughput</h3>
-    <p>Throughput for an 81-token input and 1,000 generated tokens. CPU values are from running the same Q4_0 GGUF via the standard llama.cpp path (without MTP) on the same device. The acceptance rate is the fraction of candidates proposed by the assistant that were accepted by the main model's verification.</p>
+    <p>Throughput for an 81-token input and 1,000 generated tokens. The acceptance rate is the fraction of candidates proposed by the assistant that were accepted by the main model's verification.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Device</th><th>Model</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>MTP speedup</th><th>Acceptance</th></tr>
@@ -98,19 +103,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>SM7635 (Hexagon v73)</td><td>E4B / Int16</td><td class="num">3.351 tokens/s</td><td class="num">3.127 tokens/s</td><td class="num">3.189 tokens/s</td><td class="num">1.02x</td><td class="num">39.1%</td></tr>
     </table>
     </div>
-    <p>For E2B, both SM8475 and SM7635 improved by 1.4x to 1.6x. The acceptance rate is around 35%, but because the 3 assistant candidates and the 4-row verification by the main model are processed in a single AR-4 run, more tokens are committed per main-model run. E4B on SM7635 reached only 1.02x for text generation (1.76x for audio input).</p>
+    <p>For E2B, both SM8475 and SM7635 improved by 1.4x to 1.6x. The acceptance rate is around 35%, but because the 3 assistant candidates and the 4-row verification by the main model are processed in a single AR-4 run, more tokens are committed per main-model run. E2B on SM8475, which was 0.70x the CPU without MTP, became on par with the CPU (1.01x), and E2B on SM7635 reached 1.63x the CPU. E4B on SM7635 reached only 1.02x for text generation (1.76x for audio input).</p>
 
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_text_tps_sm8475.png" alt="SM8475 E2B per-token text generation throughput over 1000 generated tokens (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
-      <figcaption>Per-token text generation throughput on SM8475 (E2B / FP16) over 1000 generated tokens</figcaption>
+      <figcaption>Per-token decode throughput on SM8475 (E2B / FP16) over 1000 generated tokens</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B per-token text generation throughput over 1000 generated tokens (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
-      <figcaption>Per-token text generation throughput on SM7635 (E2B / Int16) over 1000 generated tokens</figcaption>
+      <figcaption>Per-token decode throughput on SM7635 (E2B / Int16) over 1000 generated tokens</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_text_tps_e4b_sm7635.png" alt="SM7635 E4B per-token text generation throughput over 1000 generated tokens (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
-      <figcaption>Per-token text generation throughput on SM7635 (E4B / Int16) over 1000 generated tokens</figcaption>
+      <figcaption>Per-token decode throughput on SM7635 (E4B / Int16) over 1000 generated tokens</figcaption>
     </figure>
     <p>In the MTP curves, the time of each main-model run (round) is divided evenly among the tokens committed in that round. Rounds where many candidates are accepted show high TPS and rounds where all candidates are rejected show low TPS, so the values swing up and down. The TPS in the legend is computed from the total time.</p>
 
@@ -130,10 +135,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>Handing the hidden state and KV over to the assistant after prefill takes 0.14 to 0.28 ms, which is negligible for TTFT.</li>
       <li>Most of the first-run TTFT is restoring the main model's QNN context (about 1.4 s). Subsequent generations on the same instance do not incur this time.</li>
     </ul>
-    <p>Text generation TTFT in the final measurements (81-token input, 1,000 generated tokens, median of two runs, each trial on a new instance) is shown below. Because it is the first generation right after opening the model, it includes restoring the main model's QNN context.</p>
+    <p>Text generation TTFT in the decode throughput measurements (81-token input, each trial on a new instance) is shown below. Because it is the first generation right after opening the model, it includes restoring the main model's QNN context.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device / model</th><th>Without MTP</th><th>With MTP</th></tr>
+      <tr><th>Device / model</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
       <tr><td>SM8475 E2B / FP16</td><td class="num">3.15 s</td><td class="num">3.44 s</td></tr>
       <tr><td>SM7635 E2B / Int16</td><td class="num">3.92 s</td><td class="num">3.68 s</td></tr>
       <tr><td>SM7635 E4B / Int16</td><td class="num">8.47 s</td><td class="num">7.60 s</td></tr>
@@ -141,69 +146,72 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>For prefill throughput with 64 to 2,048 input tokens, the same AR-256 graph is used, so refer to the NPU values in the <a href="qnn-bench.html#android">QNN Benchmark</a> (for example, 299.827 tokens/s for a 2,048-token input with E2B on SM8475). The Windows measurements confirm that prefill throughput is equivalent with and without MTP at every input length from 64 to 2,048 tokens (<a href="#windows">see below</a>).</p>
 
-    <h3>VLM (image input) and audio input latency</h3>
-    <p>Image input uses one 768x768 image with 100 output tokens, and audio input transcribes one English recording with 32 output tokens. The image and audio encoders run on the NPU.</p>
-    <p><strong>TTFT (time to first token)</strong></p>
-    <p>TTFT is the sum of prompt setup and the first generate call, and does not include model opening. NPU values are the median of two greedy runs; CPU values are single runs on the same image and audio (on the CPU path, the image and audio encoders also run on the CPU).</p>
+    <h3>VLM (image input) latency</h3>
+    <p>Values for one 768x768 image with 100 output tokens. TTFT is the sum of prompt setup including the image encoder and the first generate call, and does not include model opening. On the NPU, the image encoder also runs on the NPU.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device / model</th><th>Input</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
-      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>Image</td><td class="num">83.74 s</td><td class="num">8.20 s</td><td class="num">8.11 s</td></tr>
-      <tr><td>Audio</td><td class="num">45.55 s</td><td class="num">6.07 s</td><td class="num">5.89 s</td></tr>
-      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>Image</td><td class="num">99.75 s</td><td class="num">8.66 s</td><td class="num">9.75 s</td></tr>
-      <tr><td>Audio</td><td class="num">84.08 s</td><td class="num">7.78 s</td><td class="num">7.94 s</td></tr>
-      <tr><td rowspan="2">SM7635 E4B / Int16</td><td>Image</td><td class="num">108.49 s</td><td class="num">14.93 s</td><td class="num">19.07 s</td></tr>
-      <tr><td>Audio</td><td class="num">95.39 s</td><td class="num">13.03 s</td><td class="num">13.23 s</td></tr>
+      <tr><th>Device / model / path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
+      <tr><td>SM8475 E2B CPU</td><td class="num">83.74 s</td><td class="num">12.213 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM8475 E2B NPU (without MTP)</td><td class="num">8.20 s</td><td class="num">7.293 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM8475 E2B NPU (with MTP)</td><td class="num">8.11 s</td><td class="num"><strong>9.936 tokens/s</strong></td><td class="num">36.1%</td></tr>
+      <tr><td>SM7635 E2B CPU</td><td class="num">99.75 s</td><td class="num">5.945 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM7635 E2B NPU (without MTP)</td><td class="num">8.66 s</td><td class="num">6.071 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM7635 E2B NPU (with MTP)</td><td class="num">9.75 s</td><td class="num"><strong>9.136 tokens/s</strong></td><td class="num">33.3%</td></tr>
+      <tr><td>SM7635 E4B CPU</td><td class="num">108.49 s</td><td class="num">3.266 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM7635 E4B NPU (without MTP)</td><td class="num">14.93 s</td><td class="num">3.117 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM7635 E4B NPU (with MTP)</td><td class="num">19.07 s</td><td class="num">3.030 tokens/s</td><td class="num">36.9%</td></tr>
     </table>
     </div>
-    <p>Prefill is processed with AR-256 regardless of MTP, so TTFT is roughly the same. For image input, the assistant is released before running the encoder and recreated after prefill, which adds some work. Each trial measures the first generation on a new instance and does not include KV reuse in multi-turn conversations.</p>
-    <p>For image and audio input, TTFT on the NPU (with MTP) is 1/5.7 to 1/10.6 of the CPU.</p>
+    <p>With MTP, image-input decode is 1.36x faster for E2B on SM8475 and 1.50x for E2B on SM7635 (0.97x for E4B). TTFT is roughly the same with and without MTP, at 1/5.7 to 1/10.3 of the CPU. For image input, the assistant is released before running the encoder and recreated after prefill, which adds some work.</p>
+
+    <h3>Audio input latency</h3>
+    <p>Values for transcribing one English recording with 32 output tokens. TTFT is the sum of prompt setup including the audio encoder and the first generate call, and does not include model opening. The CPU decode value is recomputed from the timing of the first 32 tokens of a 33-token run.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device / model / path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
+      <tr><td>SM8475 E2B CPU</td><td class="num">45.55 s</td><td class="num">10.531 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM8475 E2B NPU (without MTP)</td><td class="num">6.07 s</td><td class="num">7.023 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM8475 E2B NPU (with MTP)</td><td class="num">5.89 s</td><td class="num"><strong>17.476 tokens/s</strong></td><td class="num">100.0%</td></tr>
+      <tr><td>SM7635 E2B CPU</td><td class="num">84.08 s</td><td class="num">5.418 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM7635 E2B NPU (without MTP)</td><td class="num">7.78 s</td><td class="num">5.912 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM7635 E2B NPU (with MTP)</td><td class="num">7.94 s</td><td class="num"><strong>15.433 tokens/s</strong></td><td class="num">92.6%</td></tr>
+      <tr><td>SM7635 E4B CPU</td><td class="num">95.39 s</td><td class="num">3.442 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM7635 E4B NPU (without MTP)</td><td class="num">13.03 s</td><td class="num">3.044 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SM7635 E4B NPU (with MTP)</td><td class="num">13.23 s</td><td class="num"><strong>5.344 tokens/s</strong></td><td class="num">100.0%</td></tr>
+    </table>
+    </div>
+    <p>With MTP, audio-input decode is 2.49x faster for E2B on SM8475, 2.61x for E2B on SM7635 and 1.76x for E4B, outperforming the CPU in every case (1.55x to 2.85x the CPU). In audio transcription, the output is largely determined by the input audio, so almost all assistant candidates are accepted. This is a measurement on a single recording and is not a general speedup ratio. TTFT is 1/7.2 to 1/10.6 of the CPU.</p>
 
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_ttft_sm8475.png" alt="SM8475 E2B VLM / audio input TTFT breakdown (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
-      <figcaption>VLM (left) / audio input (right) TTFT breakdown on SM8475 (E2B / FP16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
+      <figcaption>VLM / audio input TTFT breakdown on SM8475 (E2B / FP16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_ttft_sm7635.png" alt="SM7635 E2B VLM / audio input TTFT breakdown (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
-      <figcaption>VLM (left) / audio input (right) TTFT breakdown on SM7635 (E2B / Int16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
+      <figcaption>VLM / audio input TTFT breakdown on SM7635 (E2B / Int16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_ttft_e4b_sm7635.png" alt="SM7635 E4B VLM / audio input TTFT breakdown (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
-      <figcaption>VLM (left) / audio input (right) TTFT breakdown on SM7635 (E4B / Int16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
+      <figcaption>VLM / audio input TTFT breakdown on SM7635 (E4B / Int16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
     </figure>
-
-    <p><strong>Decode throughput</strong></p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Device / model</th><th>Input</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>MTP speedup</th><th>Acceptance</th></tr>
-      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>Image</td><td class="num">12.213 tokens/s</td><td class="num">7.293 tokens/s</td><td class="num">9.936 tokens/s</td><td class="num"><strong>1.36x faster</strong></td><td class="num">36.1%</td></tr>
-      <tr><td>Audio</td><td class="num">10.531 tokens/s</td><td class="num">7.023 tokens/s</td><td class="num">17.476 tokens/s</td><td class="num"><strong>2.49x faster</strong></td><td class="num">100.0%</td></tr>
-      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>Image</td><td class="num">5.945 tokens/s</td><td class="num">6.071 tokens/s</td><td class="num">9.136 tokens/s</td><td class="num"><strong>1.50x faster</strong></td><td class="num">33.3%</td></tr>
-      <tr><td>Audio</td><td class="num">5.418 tokens/s</td><td class="num">5.912 tokens/s</td><td class="num">15.433 tokens/s</td><td class="num"><strong>2.61x faster</strong></td><td class="num">92.6%</td></tr>
-      <tr><td rowspan="2">SM7635 E4B / Int16</td><td>Image</td><td class="num">3.266 tokens/s</td><td class="num">3.117 tokens/s</td><td class="num">3.030 tokens/s</td><td class="num">0.97x</td><td class="num">36.9%</td></tr>
-      <tr><td>Audio</td><td class="num">3.442 tokens/s</td><td class="num">3.044 tokens/s</td><td class="num">5.344 tokens/s</td><td class="num"><strong>1.76x faster</strong></td><td class="num">100.0%</td></tr>
-    </table>
-    </div>
-    <p>In audio transcription, the output is largely determined by the input audio, so almost all assistant candidates are accepted and the speedup is large, around 2.5x. This is a measurement on a single recording and is not a general speedup ratio.</p>
-
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_tps_sm8475.png" alt="SM8475 E2B VLM / audio input decode throughput (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
-      <figcaption>VLM (left) / audio input (right) decode throughput on SM8475 (E2B / FP16)</figcaption>
+      <figcaption>VLM / audio input decode throughput on SM8475 (E2B / FP16)</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_tps_sm7635.png" alt="SM7635 E2B VLM / audio input decode throughput (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
-      <figcaption>VLM (left) / audio input (right) decode throughput on SM7635 (E2B / Int16)</figcaption>
+      <figcaption>VLM / audio input decode throughput on SM7635 (E2B / Int16)</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_tps_e4b_sm7635.png" alt="SM7635 E4B VLM / audio input decode throughput (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
-      <figcaption>VLM (left) / audio input (right) decode throughput on SM7635 (E4B / Int16)</figcaption>
+      <figcaption>VLM / audio input decode throughput on SM7635 (E4B / Int16)</figcaption>
     </figure>
 
     <h3>Sampling with temperature</h3>
     <p>Results for E2B with temperature 0.8, top-k 40, top-p 0.95 and seed 1234. With MTP, speculative sampling accepts candidates based on the probability ratio between the main model and the assistant.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device / model</th><th>Input</th><th>Without MTP</th><th>With MTP</th><th>MTP speedup</th><th>Acceptance</th></tr>
+      <tr><th>Device / model</th><th>Input</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>MTP speedup</th><th>Acceptance</th></tr>
       <tr><td rowspan="3">SM8475 E2B / FP16</td><td>Text</td><td class="num">6.931 tokens/s</td><td class="num">9.885 tokens/s</td><td class="num"><strong>1.43x faster</strong></td><td class="num">34.8%</td></tr>
       <tr><td>Image</td><td class="num">7.158 tokens/s</td><td class="num">10.113 tokens/s</td><td class="num"><strong>1.41x faster</strong></td><td class="num">37.6%</td></tr>
       <tr><td>Audio</td><td class="num">7.146 tokens/s</td><td class="num">17.302 tokens/s</td><td class="num"><strong>2.42x faster</strong></td><td class="num">100.0%</td></tr>
@@ -223,15 +231,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>Image input with E2B on SM8475 and text/image input with E4B on SM7635 remain slightly slower than the CPU even with MTP.</li>
       <li>The NPU is much faster than the CPU in prefill and keeps CPU usage during prefill at around 3%, so in overall performance including TTFT, heat and impact on other processing, the NPU has the advantage.</li>
     </ul>
-    <p>The CPU values are earlier measurements on the same devices running the same Q4_0 GGUF via the standard llama.cpp path (OpenMP disabled, without MTP); text was measured twice and image/audio once each. The CPU audio value is recomputed from the timing of the first 32 tokens of a 33-token run. The CPU and NPU were measured at different times and produced different token sequences, and clocks and temperatures were not fixed, so treat these as reference values.</p>
     <div class="note">
       <strong>About MTP on the CPU:</strong> MTP can also be used on the CPU, but in text generation measured on the SM7635 CPU it was 5.830 tokens/s without MTP and 5.341 tokens/s with MTP (0.92x), so it did not speed up. On the CPU, the main model verified 1,960 rows and the assistant ran 1,470 times for 1,000 output tokens, and the extra compute could not be recovered. MTP is most effective on the NPU, which efficiently parallelizes multi-row processing.
     </div>
-
-    <h3>Test Conditions</h3>
-    <p>Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B / E4B Int16 models. Both the main model and the assistant are the v1.5.1 MTP models (W4), with QAIRT 2.47, a context length of 8192 and the AR-256 (prefill) / AR-4 (verification) / AR-1 configuration.</p>
-    <p>"Without MTP" runs the same MTP-capable main model without the assistant (generating one token at a time with AR-1), and "with MTP" opens the assistant with <code>ailiaLLMOpenMtpModel</code>. Each condition was measured twice in the order off → on → on → off, and the median is shown. Each trial uses a new instance, with a 20-second gap between trials. TPS is computed from the time excluding the first output token.</p>
-    <p>Sampling is greedy (temperature 0, top-k 1, top-p 1, seed 1234). For results with temperature, see "Sampling with temperature". MTP and AR-1 generate different token sequences, so this is not a comparison on identical token sequences.</p>
 
     <h2 id="windows">Windows</h2>
 
@@ -242,7 +244,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>Without MTP: the v1.5.1 MTP-capable main model without the assistant (AR-256 / AR-1)</li>
       <li>With MTP: the v1.5.1 MTP-capable main model + assistant (AR-256 / AR-4)</li>
     </ul>
-    <p>Each configuration was measured once, with a 60-second wait before each trial. The device was on AC power with the Balanced power plan, used 4 performance cores as workers, and had background apps running.</p>
+    <p>Each configuration was measured once, with a 60-second wait before each trial. The device was on AC power with the Balanced power plan, used 4 performance cores as workers, and had background apps running. The QCS6490 MTP models have only been confirmed by an offline build, and performance has not been evaluated on a real device.</p>
 
     <h3>Decode throughput</h3>
     <p>Throughput for an 81-token input and 1,000 generated tokens.</p>
@@ -254,6 +256,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </table>
     </div>
     <p>Without MTP, the speed is almost the same as the conventional model, so the speedup comes from the assistant and AR-4 verification. Unlike on Android, E4B also improved substantially, by 1.70x.</p>
+    <div class="note">
+      <strong>Comparison with the CPU:</strong> Snapdragon X Plus has a high-performance CPU. Compared with the CPU decode in the <a href="qnn-bench.html#windows">QNN Benchmark</a> (E2B 32.505 tokens/s, E4B 15.230 tokens/s), the NPU with MTP is 0.35x for E2B and 0.50x for E4B. On Windows on Arm PCs, the main benefits of the NPU are faster prefill and reduced CPU load.
+    </div>
 
     <h3>Prefill throughput</h3>
     <p>Throughput (tokens/s) when the number of input tokens varies from 64 to 2,048.</p>
@@ -269,25 +274,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </table>
     </div>
     <p>Prefill is equivalent across all three configurations, so using the MTP-capable model does not reduce prefill performance.</p>
-    <div class="note">
-      <strong>Comparison with the CPU:</strong> Snapdragon X Plus has a high-performance CPU. Compared with the CPU decode in the <a href="qnn-bench.html#windows">QNN Benchmark</a> (E2B 32.505 tokens/s, E4B 15.230 tokens/s), the NPU with MTP is 0.35x for E2B and 0.50x for E4B. On Windows on Arm PCs, the main benefits of the NPU are faster prefill and reduced CPU load.
-    </div>
-    <p>The QCS6490 MTP models have only been confirmed by an offline build, and performance has not been evaluated on a real device.</p>
 
     <h3>VLM (image input) and audio input latency</h3>
-    <p>Image input uses one 768x768 image with 100 output tokens, and audio input transcribes one English recording with 33 output tokens. TTFT is shown in parentheses.</p>
+    <p>Image input uses one 768x768 image with 100 output tokens, and audio input transcribes one English recording with 33 output tokens; each is a single measurement. TTFT is the sum of prompt setup including the encoder and the first generate call, and does not include model opening.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Model</th><th>Configuration</th><th>Image</th><th>Audio</th></tr>
-      <tr><td rowspan="3">E2B / FP16</td><td>Non-MTP (v1.5.0)</td><td class="num">7.617 tokens/s (7.31 s)</td><td class="num">7.219 tokens/s (5.40 s)</td></tr>
-      <tr><td>Without MTP</td><td class="num">7.608 tokens/s (7.13 s)</td><td class="num">7.513 tokens/s (5.28 s)</td></tr>
-      <tr><td>With MTP</td><td class="num"><strong>10.689 tokens/s</strong> (6.75 s)</td><td class="num"><strong>17.777 tokens/s</strong> (5.14 s)</td></tr>
-      <tr><td rowspan="3">E4B / FP16</td><td>Non-MTP (v1.5.0)</td><td class="num">4.426 tokens/s (10.94 s)</td><td class="num">4.331 tokens/s (8.13 s)</td></tr>
-      <tr><td>Without MTP</td><td class="num">4.445 tokens/s (10.81 s)</td><td class="num">4.478 tokens/s (7.68 s)</td></tr>
-      <tr><td>With MTP</td><td class="num"><strong>7.918 tokens/s</strong> (9.30 s)</td><td class="num"><strong>12.288 tokens/s</strong> (7.38 s)</td></tr>
+      <tr><th>Device / model</th><th>Input</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>Non-MTP (v1.5.0)</td><td class="num">7.31 s</td><td class="num">7.617 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>Without MTP</td><td class="num">7.13 s</td><td class="num">7.608 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>With MTP</td><td class="num">6.75 s</td><td class="num"><strong>10.689 tokens/s</strong></td><td class="num">32.0%</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>Non-MTP (v1.5.0)</td><td class="num">5.40 s</td><td class="num">7.219 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>Without MTP</td><td class="num">5.28 s</td><td class="num">7.513 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>With MTP</td><td class="num">5.14 s</td><td class="num"><strong>17.777 tokens/s</strong></td><td class="num">92.6%</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>Non-MTP (v1.5.0)</td><td class="num">10.94 s</td><td class="num">4.426 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>Without MTP</td><td class="num">10.81 s</td><td class="num">4.445 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>With MTP</td><td class="num">9.30 s</td><td class="num"><strong>7.918 tokens/s</strong></td><td class="num">43.2%</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>Non-MTP (v1.5.0)</td><td class="num">8.13 s</td><td class="num">4.331 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>Without MTP</td><td class="num">7.68 s</td><td class="num">4.478 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>With MTP</td><td class="num">7.38 s</td><td class="num"><strong>12.288 tokens/s</strong></td><td class="num">92.6%</td></tr>
     </table>
     </div>
-    <p>Compared with non-MTP, image input is 1.40x faster for E2B and 1.79x for E4B, and audio input is 2.46x for E2B and 2.84x for E4B. The acceptance rate is 32.0% (E2B) / 43.2% (E4B) for image input and 92.6% for audio input.</p>
+    <p>Compared with non-MTP, image-input decode is 1.40x faster for E2B and 1.79x for E4B, and audio input is 2.46x for E2B and 2.84x for E4B. TTFT does not change much across the three configurations.</p>
 
   </div>
 
