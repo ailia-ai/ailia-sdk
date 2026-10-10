@@ -158,22 +158,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>temperature ありでも greedy とほぼ同じ高速化が得られます。</p>
 
     <h3>TTFT（最初のトークンまでの時間）</h3>
-    <p>TTFT はプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません（greedy、中央値）。</p>
+    <p>TTFT はプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。NPU は greedy での 2 回の中央値、CPU は同じ画像・音声での 1 回の測定値です（CPU 側では画像・音声エンコーダも CPU で実行）。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>端末・モデル</th><th>入力</th><th>MTP なし</th><th>MTP あり</th></tr>
-      <tr><td rowspan="3">SM8475 E2B / FP16</td><td>テキスト</td><td class="num">3.15 秒</td><td class="num">3.44 秒</td></tr>
-      <tr><td>画像</td><td class="num">8.20 秒</td><td class="num">8.11 秒</td></tr>
-      <tr><td>音声</td><td class="num">6.07 秒</td><td class="num">5.89 秒</td></tr>
-      <tr><td rowspan="3">SM7635 E2B / Int16</td><td>テキスト</td><td class="num">3.92 秒</td><td class="num">3.68 秒</td></tr>
-      <tr><td>画像</td><td class="num">8.66 秒</td><td class="num">9.75 秒</td></tr>
-      <tr><td>音声</td><td class="num">7.78 秒</td><td class="num">7.94 秒</td></tr>
-      <tr><td rowspan="3">SM7635 E4B / Int16</td><td>テキスト</td><td class="num">8.47 秒</td><td class="num">7.60 秒</td></tr>
-      <tr><td>画像</td><td class="num">14.93 秒</td><td class="num">19.07 秒</td></tr>
-      <tr><td>音声</td><td class="num">13.03 秒</td><td class="num">13.23 秒</td></tr>
+      <tr><th>端末・モデル</th><th>入力</th><th>CPU</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
+      <tr><td rowspan="3">SM8475 E2B / FP16</td><td>テキスト</td><td class="num">—</td><td class="num">3.15 秒</td><td class="num">3.44 秒</td></tr>
+      <tr><td>画像</td><td class="num">83.74 秒</td><td class="num">8.20 秒</td><td class="num">8.11 秒</td></tr>
+      <tr><td>音声</td><td class="num">45.55 秒</td><td class="num">6.07 秒</td><td class="num">5.89 秒</td></tr>
+      <tr><td rowspan="3">SM7635 E2B / Int16</td><td>テキスト</td><td class="num">—</td><td class="num">3.92 秒</td><td class="num">3.68 秒</td></tr>
+      <tr><td>画像</td><td class="num">99.75 秒</td><td class="num">8.66 秒</td><td class="num">9.75 秒</td></tr>
+      <tr><td>音声</td><td class="num">84.08 秒</td><td class="num">7.78 秒</td><td class="num">7.94 秒</td></tr>
+      <tr><td rowspan="3">SM7635 E4B / Int16</td><td>テキスト</td><td class="num">—</td><td class="num">8.47 秒</td><td class="num">7.60 秒</td></tr>
+      <tr><td>画像</td><td class="num">108.49 秒</td><td class="num">14.93 秒</td><td class="num">19.07 秒</td></tr>
+      <tr><td>音声</td><td class="num">95.39 秒</td><td class="num">13.03 秒</td><td class="num">13.23 秒</td></tr>
     </table>
     </div>
     <p>Prefill は MTP の有無にかかわらず AR-256 で処理するため、TTFT はおおむね同程度です。画像入力では、エンコーダ実行前に Assistant を解放し、Prefill 後に再生成する処理が加わります。各試行は新しいインスタンスで初回の生成を測定しており、マルチターンでの KV 再利用は含みません。</p>
+    <p>画像・音声入力の TTFT は、NPU（MTP あり）で CPU の 5.7〜10.6 分の 1 です。</p>
 
     <h3 id="cpu">CPU との比較</h3>
     <p><a href="qnn-bench.html">QNN ベンチマーク</a>では、NPU は Prefill で CPU の最大 4.2 倍高速でしたが、1 トークンずつ処理する Decode では重みの読み出しが支配的になり、CPU と同等か下回っていました。MTP では本体の 1 回の実行で複数トークンを確定できるため、NPU の Decode が CPU を上回ります。</p>

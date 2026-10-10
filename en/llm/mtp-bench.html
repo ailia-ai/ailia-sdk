@@ -158,22 +158,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>With temperature, the speedup is almost the same as with greedy decoding.</p>
 
     <h3>TTFT (Time to First Token)</h3>
-    <p>TTFT is the sum of prompt setup and the first generate call, and does not include model opening (greedy, median).</p>
+    <p>TTFT is the sum of prompt setup and the first generate call, and does not include model opening. NPU values are the median of two greedy runs; CPU values are single runs on the same image and audio (on the CPU path, the image and audio encoders also run on the CPU).</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device / model</th><th>Input</th><th>Without MTP</th><th>With MTP</th></tr>
-      <tr><td rowspan="3">SM8475 E2B / FP16</td><td>Text</td><td class="num">3.15 s</td><td class="num">3.44 s</td></tr>
-      <tr><td>Image</td><td class="num">8.20 s</td><td class="num">8.11 s</td></tr>
-      <tr><td>Audio</td><td class="num">6.07 s</td><td class="num">5.89 s</td></tr>
-      <tr><td rowspan="3">SM7635 E2B / Int16</td><td>Text</td><td class="num">3.92 s</td><td class="num">3.68 s</td></tr>
-      <tr><td>Image</td><td class="num">8.66 s</td><td class="num">9.75 s</td></tr>
-      <tr><td>Audio</td><td class="num">7.78 s</td><td class="num">7.94 s</td></tr>
-      <tr><td rowspan="3">SM7635 E4B / Int16</td><td>Text</td><td class="num">8.47 s</td><td class="num">7.60 s</td></tr>
-      <tr><td>Image</td><td class="num">14.93 s</td><td class="num">19.07 s</td></tr>
-      <tr><td>Audio</td><td class="num">13.03 s</td><td class="num">13.23 s</td></tr>
+      <tr><th>Device / model</th><th>Input</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
+      <tr><td rowspan="3">SM8475 E2B / FP16</td><td>Text</td><td class="num">—</td><td class="num">3.15 s</td><td class="num">3.44 s</td></tr>
+      <tr><td>Image</td><td class="num">83.74 s</td><td class="num">8.20 s</td><td class="num">8.11 s</td></tr>
+      <tr><td>Audio</td><td class="num">45.55 s</td><td class="num">6.07 s</td><td class="num">5.89 s</td></tr>
+      <tr><td rowspan="3">SM7635 E2B / Int16</td><td>Text</td><td class="num">—</td><td class="num">3.92 s</td><td class="num">3.68 s</td></tr>
+      <tr><td>Image</td><td class="num">99.75 s</td><td class="num">8.66 s</td><td class="num">9.75 s</td></tr>
+      <tr><td>Audio</td><td class="num">84.08 s</td><td class="num">7.78 s</td><td class="num">7.94 s</td></tr>
+      <tr><td rowspan="3">SM7635 E4B / Int16</td><td>Text</td><td class="num">—</td><td class="num">8.47 s</td><td class="num">7.60 s</td></tr>
+      <tr><td>Image</td><td class="num">108.49 s</td><td class="num">14.93 s</td><td class="num">19.07 s</td></tr>
+      <tr><td>Audio</td><td class="num">95.39 s</td><td class="num">13.03 s</td><td class="num">13.23 s</td></tr>
     </table>
     </div>
     <p>Prefill is processed with AR-256 regardless of MTP, so TTFT is roughly the same. For image input, the assistant is released before running the encoder and recreated after prefill, which adds some work. Each trial measures the first generation on a new instance and does not include KV reuse in multi-turn conversations.</p>
+    <p>For image and audio input, TTFT on the NPU (with MTP) is 1/5.7 to 1/10.6 of the CPU.</p>
 
     <h3 id="cpu">Comparison with the CPU</h3>
     <p>In the <a href="qnn-bench.html">QNN Benchmark</a>, the NPU was up to 4.2x faster than the CPU in prefill, but in decode, which processes one token at a time, weight loading dominated and the NPU was equal to or slower than the CPU. With MTP, multiple tokens can be committed per main-model run, so NPU decode outperforms the CPU.</p>
