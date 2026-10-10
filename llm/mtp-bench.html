@@ -114,6 +114,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </figure>
     <p>MTP ありのグラフは、本体 1 回の実行（ラウンド）の所要時間を、そのラウンドで確定したトークン数で均等に割り当てて描いています。候補が多く受理されたラウンドでは TPS が高く、すべて外れたラウンドでは低くなるため、値が上下に振れます。凡例の TPS は全体の合計時間から計算した値です。</p>
 
+    <h3>Prefill</h3>
+    <p>81 トークン入力を位置 0 から Prefill し、最初のトークンを得るまでの時間（TTFT）を 3 構成で比較した結果です。「初回」はモデルを開いた直後の最初の生成で、本体の QNN コンテキストの復元を含みます。「常駐後」は予備生成でコンテキストと Assistant を初期化した後、KV キャッシュを消去してから測定した値で、Prefill そのものの時間に相当します。段階別のタイマーを追加した診断ビルドで、81 トークン入力・8 トークン出力を各 2 回測定した中央値です。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・モデル</th><th>条件</th><th>従来モデル（v1.5.0）</th><th>MTP 対応本体のみ</th><th>MTP 対応本体 + Assistant</th></tr>
+      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>初回</td><td class="num">3.03 秒</td><td class="num">2.52 秒</td><td class="num">2.52 秒</td></tr>
+      <tr><td>常駐後</td><td class="num">0.84 秒</td><td class="num">0.77 秒</td><td class="num">0.77 秒</td></tr>
+      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>初回</td><td class="num">3.69 秒</td><td class="num">3.37 秒</td><td class="num">3.69 秒</td></tr>
+      <tr><td>常駐後</td><td class="num">1.92 秒</td><td class="num">1.94 秒</td><td class="num">1.93 秒</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>MTP を有効にしても Prefill は従来どおり AR-256 で処理するため、Prefill の時間は MTP の有無でほぼ変わりません。</li>
+      <li>Prefill 後に Assistant へ hidden state と KV を引き継ぐ処理は 0.14〜0.28 ms で、TTFT への影響は無視できる大きさです。</li>
+      <li>初回の TTFT の多くは本体の QNN コンテキストの復元（約 1.4 秒）です。同じインスタンスを使い続ける 2 回目以降の生成では、この時間はかかりません。</li>
+    </ul>
+    <p>入力トークン数を 64〜2,048 まで変えたときの Prefill スループットは、同じ AR-256 グラフを使用するため <a href="qnn-bench.html#android">QNN ベンチマーク</a> の NPU の値を参照してください（SM8475 E2B で 2,048 トークン入力時 299.827 tokens/s など）。Windows の測定では、MTP の有無で 64〜2,048 トークンのすべての入力長の Prefill スループットが同等であることを確認しています（<a href="#windows">後述</a>）。</p>
+
     <h3>VLM（画像入力）・音声入力の Decode スループット</h3>
     <p>画像は 768x768 の 1 枚で 100 トークン出力、音声は英語音声 1 件の書き起こしで 32 トークン出力です。画像・音声エンコーダは NPU で実行しています。</p>
     <div class="table-wrap">
@@ -141,21 +159,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="benchmark/mtp_media_tps_e4b_sm7635.png" alt="SM7635 E4B の VLM / 音声入力の Decode スループット（CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
       <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
     </figure>
-
-    <h3>temperature ありのサンプリング</h3>
-    <p>temperature 0.8、top-k 40、top-p 0.95、seed 1234 で E2B を測定した結果です。MTP では、本体と Assistant の確率比で候補を受理する Speculative Sampling を使用します。</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>端末・モデル</th><th>入力</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果</th><th>受理率</th></tr>
-      <tr><td rowspan="3">SM8475 E2B / FP16</td><td>テキスト</td><td class="num">6.931 tokens/s</td><td class="num">9.885 tokens/s</td><td class="num"><strong>1.43 倍高速</strong></td><td class="num">34.8%</td></tr>
-      <tr><td>画像</td><td class="num">7.158 tokens/s</td><td class="num">10.113 tokens/s</td><td class="num"><strong>1.41 倍高速</strong></td><td class="num">37.6%</td></tr>
-      <tr><td>音声</td><td class="num">7.146 tokens/s</td><td class="num">17.302 tokens/s</td><td class="num"><strong>2.42 倍高速</strong></td><td class="num">100.0%</td></tr>
-      <tr><td rowspan="3">SM7635 E2B / Int16</td><td>テキスト</td><td class="num">6.369 tokens/s</td><td class="num">9.617 tokens/s</td><td class="num"><strong>1.51 倍高速</strong></td><td class="num">34.7%</td></tr>
-      <tr><td>画像</td><td class="num">6.426 tokens/s</td><td class="num">10.206 tokens/s</td><td class="num"><strong>1.59 倍高速</strong></td><td class="num">40.7%</td></tr>
-      <tr><td>音声</td><td class="num">5.848 tokens/s</td><td class="num">15.372 tokens/s</td><td class="num"><strong>2.63 倍高速</strong></td><td class="num">92.6%</td></tr>
-    </table>
-    </div>
-    <p>temperature ありでも greedy とほぼ同じ高速化が得られます。</p>
 
     <h3>TTFT（最初のトークンまでの時間）</h3>
     <p>TTFT はプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。NPU は greedy での 2 回の中央値、CPU は同じ画像・音声での 1 回の測定値です（CPU 側では画像・音声エンコーダも CPU で実行）。</p>
@@ -189,23 +192,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
     </figure>
 
-    <h3>Prefill</h3>
-    <p>81 トークン入力を位置 0 から Prefill し、最初のトークンを得るまでの時間（TTFT）を 3 構成で比較した結果です。「初回」はモデルを開いた直後の最初の生成で、本体の QNN コンテキストの復元を含みます。「常駐後」は予備生成でコンテキストと Assistant を初期化した後、KV キャッシュを消去してから測定した値で、Prefill そのものの時間に相当します。段階別のタイマーを追加した診断ビルドで、81 トークン入力・8 トークン出力を各 2 回測定した中央値です。</p>
+    <h3>temperature ありのサンプリング</h3>
+    <p>temperature 0.8、top-k 40、top-p 0.95、seed 1234 で E2B を測定した結果です。MTP では、本体と Assistant の確率比で候補を受理する Speculative Sampling を使用します。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>端末・モデル</th><th>条件</th><th>従来モデル（v1.5.0）</th><th>MTP 対応本体のみ</th><th>MTP 対応本体 + Assistant</th></tr>
-      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>初回</td><td class="num">3.03 秒</td><td class="num">2.52 秒</td><td class="num">2.52 秒</td></tr>
-      <tr><td>常駐後</td><td class="num">0.84 秒</td><td class="num">0.77 秒</td><td class="num">0.77 秒</td></tr>
-      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>初回</td><td class="num">3.69 秒</td><td class="num">3.37 秒</td><td class="num">3.69 秒</td></tr>
-      <tr><td>常駐後</td><td class="num">1.92 秒</td><td class="num">1.94 秒</td><td class="num">1.93 秒</td></tr>
+      <tr><th>端末・モデル</th><th>入力</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果</th><th>受理率</th></tr>
+      <tr><td rowspan="3">SM8475 E2B / FP16</td><td>テキスト</td><td class="num">6.931 tokens/s</td><td class="num">9.885 tokens/s</td><td class="num"><strong>1.43 倍高速</strong></td><td class="num">34.8%</td></tr>
+      <tr><td>画像</td><td class="num">7.158 tokens/s</td><td class="num">10.113 tokens/s</td><td class="num"><strong>1.41 倍高速</strong></td><td class="num">37.6%</td></tr>
+      <tr><td>音声</td><td class="num">7.146 tokens/s</td><td class="num">17.302 tokens/s</td><td class="num"><strong>2.42 倍高速</strong></td><td class="num">100.0%</td></tr>
+      <tr><td rowspan="3">SM7635 E2B / Int16</td><td>テキスト</td><td class="num">6.369 tokens/s</td><td class="num">9.617 tokens/s</td><td class="num"><strong>1.51 倍高速</strong></td><td class="num">34.7%</td></tr>
+      <tr><td>画像</td><td class="num">6.426 tokens/s</td><td class="num">10.206 tokens/s</td><td class="num"><strong>1.59 倍高速</strong></td><td class="num">40.7%</td></tr>
+      <tr><td>音声</td><td class="num">5.848 tokens/s</td><td class="num">15.372 tokens/s</td><td class="num"><strong>2.63 倍高速</strong></td><td class="num">92.6%</td></tr>
     </table>
     </div>
-    <ul>
-      <li>MTP を有効にしても Prefill は従来どおり AR-256 で処理するため、Prefill の時間は MTP の有無でほぼ変わりません。</li>
-      <li>Prefill 後に Assistant へ hidden state と KV を引き継ぐ処理は 0.14〜0.28 ms で、TTFT への影響は無視できる大きさです。</li>
-      <li>初回の TTFT の多くは本体の QNN コンテキストの復元（約 1.4 秒）です。同じインスタンスを使い続ける 2 回目以降の生成では、この時間はかかりません。</li>
-    </ul>
-    <p>入力トークン数を 64〜2,048 まで変えたときの Prefill スループットは、同じ AR-256 グラフを使用するため <a href="qnn-bench.html#android">QNN ベンチマーク</a> の NPU の値を参照してください（SM8475 E2B で 2,048 トークン入力時 299.827 tokens/s など）。Windows の測定では、MTP の有無で 64〜2,048 トークンのすべての入力長の Prefill スループットが同等であることを確認しています（<a href="#windows">後述</a>）。</p>
+    <p>temperature ありでも greedy とほぼ同じ高速化が得られます。</p>
 
     <h3 id="cpu">CPU との比較</h3>
     <p><a href="qnn-bench.html">QNN ベンチマーク</a>では、NPU は Prefill で CPU の最大 4.2 倍高速でしたが、1 トークンずつ処理する Decode では重みの読み出しが支配的になり、CPU と同等か下回っていました。MTP では本体の 1 回の実行で複数トークンを確定できるため、NPU の Decode が CPU を上回ります。</p>
@@ -248,21 +248,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>MTP なしは従来モデルとほぼ同じ速度で、速度向上は Assistant と AR-4 による検証によるものです。Android と異なり、E4B でも 1.70 倍と大きく向上しました。</p>
 
-    <h3>VLM（画像入力）・音声入力の Decode スループット</h3>
-    <p>画像は 768x768 の 1 枚で 100 トークン出力、音声は英語音声 1 件の書き起こしで 33 トークン出力です。括弧内は TTFT です。</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>モデル</th><th>構成</th><th>画像</th><th>音声</th></tr>
-      <tr><td rowspan="3">E2B / FP16</td><td>非 MTP（v1.5.0）</td><td class="num">7.617 tokens/s（7.31 秒）</td><td class="num">7.219 tokens/s（5.40 秒）</td></tr>
-      <tr><td>MTP なし</td><td class="num">7.608 tokens/s（7.13 秒）</td><td class="num">7.513 tokens/s（5.28 秒）</td></tr>
-      <tr><td>MTP あり</td><td class="num"><strong>10.689 tokens/s</strong>（6.75 秒）</td><td class="num"><strong>17.777 tokens/s</strong>（5.14 秒）</td></tr>
-      <tr><td rowspan="3">E4B / FP16</td><td>非 MTP（v1.5.0）</td><td class="num">4.426 tokens/s（10.94 秒）</td><td class="num">4.331 tokens/s（8.13 秒）</td></tr>
-      <tr><td>MTP なし</td><td class="num">4.445 tokens/s（10.81 秒）</td><td class="num">4.478 tokens/s（7.68 秒）</td></tr>
-      <tr><td>MTP あり</td><td class="num"><strong>7.918 tokens/s</strong>（9.30 秒）</td><td class="num"><strong>12.288 tokens/s</strong>（7.38 秒）</td></tr>
-    </table>
-    </div>
-    <p>非 MTP 比で、画像入力は E2B で 1.40 倍、E4B で 1.79 倍、音声入力は E2B で 2.46 倍、E4B で 2.84 倍です。受理率は画像入力で 32.0%（E2B）/ 43.2%（E4B）、音声入力で 92.6% です。</p>
-
     <h3>Prefill スループット</h3>
     <p>入力トークン数を 64〜2,048 まで変えたときのスループット（tokens/s）です。</p>
     <div class="table-wrap">
@@ -281,6 +266,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <strong>CPU との比較:</strong> Snapdragon X Plus は CPU の性能が高く、<a href="qnn-bench.html#windows">QNN ベンチマーク</a>の CPU の Decode（E2B 32.505 tokens/s、E4B 15.230 tokens/s）に対し、MTP ありの NPU は E2B で 0.35 倍、E4B で 0.50 倍です。Windows on Arm の PC では、Prefill の高速化と CPU 負荷の削減が NPU の主な利点です。
     </div>
     <p>QCS6490 向けの MTP モデルはオフラインでのビルド確認のみで、実機での性能評価は未実施です。</p>
+
+    <h3>VLM（画像入力）・音声入力の Decode スループット</h3>
+    <p>画像は 768x768 の 1 枚で 100 トークン出力、音声は英語音声 1 件の書き起こしで 33 トークン出力です。括弧内は TTFT です。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>モデル</th><th>構成</th><th>画像</th><th>音声</th></tr>
+      <tr><td rowspan="3">E2B / FP16</td><td>非 MTP（v1.5.0）</td><td class="num">7.617 tokens/s（7.31 秒）</td><td class="num">7.219 tokens/s（5.40 秒）</td></tr>
+      <tr><td>MTP なし</td><td class="num">7.608 tokens/s（7.13 秒）</td><td class="num">7.513 tokens/s（5.28 秒）</td></tr>
+      <tr><td>MTP あり</td><td class="num"><strong>10.689 tokens/s</strong>（6.75 秒）</td><td class="num"><strong>17.777 tokens/s</strong>（5.14 秒）</td></tr>
+      <tr><td rowspan="3">E4B / FP16</td><td>非 MTP（v1.5.0）</td><td class="num">4.426 tokens/s（10.94 秒）</td><td class="num">4.331 tokens/s（8.13 秒）</td></tr>
+      <tr><td>MTP なし</td><td class="num">4.445 tokens/s（10.81 秒）</td><td class="num">4.478 tokens/s（7.68 秒）</td></tr>
+      <tr><td>MTP あり</td><td class="num"><strong>7.918 tokens/s</strong>（9.30 秒）</td><td class="num"><strong>12.288 tokens/s</strong>（7.38 秒）</td></tr>
+    </table>
+    </div>
+    <p>非 MTP 比で、画像入力は E2B で 1.40 倍、E4B で 1.79 倍、音声入力は E2B で 2.46 倍、E4B で 2.84 倍です。受理率は画像入力で 32.0%（E2B）/ 43.2%（E4B）、音声入力で 92.6% です。</p>
 
   </div>
 
