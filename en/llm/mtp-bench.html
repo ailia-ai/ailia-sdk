@@ -88,7 +88,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2 id="android">Android</h2>
 
-    <h3>Text Generation Decode Throughput</h3>
+    <h3>Decode throughput</h3>
     <p>Throughput for an 81-token input and 1,000 generated tokens. CPU values are from running the same Q4_0 GGUF via the standard llama.cpp path (without MTP) on the same device. The acceptance rate is the fraction of candidates proposed by the assistant that were accepted by the main model's verification.</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -141,7 +141,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>For prefill throughput with 64 to 2,048 input tokens, the same AR-256 graph is used, so refer to the NPU values in the <a href="qnn-bench.html#android">QNN Benchmark</a> (for example, 299.827 tokens/s for a 2,048-token input with E2B on SM8475). The Windows measurements confirm that prefill throughput is equivalent with and without MTP at every input length from 64 to 2,048 tokens (<a href="#windows">see below</a>).</p>
 
-    <h3>VLM (Image Input) and Audio Input Response Time</h3>
+    <h3>VLM (image input) and audio input latency</h3>
     <p>Image input uses one 768x768 image with 100 output tokens, and audio input transcribes one English recording with 32 output tokens. The image and audio encoders run on the NPU.</p>
     <p><strong>Decode throughput</strong></p>
     <div class="table-wrap">
@@ -199,7 +199,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <figcaption>VLM (left) / audio input (right) TTFT breakdown on SM7635 (E4B / Int16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
     </figure>
 
-    <h3>Sampling with Temperature</h3>
+    <h3>Sampling with temperature</h3>
     <p>Results for E2B with temperature 0.8, top-k 40, top-p 0.95 and seed 1234. With MTP, speculative sampling accepts candidates based on the probability ratio between the main model and the assistant.</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -231,7 +231,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h3>Test Conditions</h3>
     <p>Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B / E4B Int16 models. Both the main model and the assistant are the v1.5.1 MTP models (W4), with QAIRT 2.47, a context length of 8192 and the AR-256 (prefill) / AR-4 (verification) / AR-1 configuration.</p>
     <p>"Without MTP" runs the same MTP-capable main model without the assistant (generating one token at a time with AR-1), and "with MTP" opens the assistant with <code>ailiaLLMOpenMtpModel</code>. Each condition was measured twice in the order off → on → on → off, and the median is shown. Each trial uses a new instance, with a 20-second gap between trials. TPS is computed from the time excluding the first output token.</p>
-    <p>Sampling is greedy (temperature 0, top-k 1, top-p 1, seed 1234). For results with temperature, see "Sampling with Temperature". MTP and AR-1 generate different token sequences, so this is not a comparison on identical token sequences.</p>
+    <p>Sampling is greedy (temperature 0, top-k 1, top-p 1, seed 1234). For results with temperature, see "Sampling with temperature". MTP and AR-1 generate different token sequences, so this is not a comparison on identical token sequences.</p>
 
     <h2 id="windows">Windows</h2>
 
@@ -244,7 +244,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </ul>
     <p>Each configuration was measured once, with a 60-second wait before each trial. The device was on AC power with the Balanced power plan, used 4 performance cores as workers, and had background apps running.</p>
 
-    <h3>Text Generation Decode Throughput</h3>
+    <h3>Decode throughput</h3>
     <p>Throughput for an 81-token input and 1,000 generated tokens.</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -255,7 +255,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>Without MTP, the speed is almost the same as the conventional model, so the speedup comes from the assistant and AR-4 verification. Unlike on Android, E4B also improved substantially, by 1.70x.</p>
 
-    <h3>Prefill Throughput</h3>
+    <h3>Prefill throughput</h3>
     <p>Throughput (tokens/s) when the number of input tokens varies from 64 to 2,048.</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -274,7 +274,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>The QCS6490 MTP models have only been confirmed by an offline build, and performance has not been evaluated on a real device.</p>
 
-    <h3>VLM (Image Input) and Audio Input Response Time</h3>
+    <h3>VLM (image input) and audio input latency</h3>
     <p>Image input uses one 768x768 image with 100 output tokens, and audio input transcribes one English recording with 33 output tokens. TTFT is shown in parentheses.</p>
     <div class="table-wrap">
     <table class="version-table">
