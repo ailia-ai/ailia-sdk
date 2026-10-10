@@ -124,20 +124,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>画像・音声入力の mmproj（<code>-mmproj.qnn</code>）は ailia LLM 1.5.0 向けのファイルをそのまま使用できます。</li>
     </ul>
 
-    <h2>対応環境</h2>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>実行環境</th><th>テキスト</th><th>画像・音声入力</th><th>Assistant の形式</th></tr>
-      <tr><td>NPU（QNN）</td><td>○</td><td>○</td><td>QNN Model（<code>-mtp-assistant.qnn</code>）</td></tr>
-      <tr><td>CPU</td><td>○</td><td>×（<code>UNIMPLEMENTED</code>）</td><td>GGUF（<code>mtp-gemma-4-*.gguf</code>）</td></tr>
-      <tr><td>GPU</td><td>×（<code>UNIMPLEMENTED</code>）</td><td>×</td><td>—</td></tr>
-    </table>
-    </div>
-    <p>対応モデルは Gemma 4 E2B / E4B です。NPU の本体に CPU 用の GGUF Assistant を組み合わせることはできません。API は C、Python、Unity（C#）で利用できます。</p>
-    <div class="note">
-      <strong>注意:</strong> NPU の実機性能は SM8475（Snapdragon 8+ Gen 1）、SM7635（Snapdragon 7s Gen 3）、SC8380XP（Snapdragon X Plus）で確認しています。QCS6490 向けのモデルはオフラインでのビルド確認のみで、実機での MTP の性能評価は未実施です。
-    </div>
-
     <h2>モデルのダウンロード</h2>
     <h3>NPU（QNN）</h3>
     <p>本体と Assistant は必ず同じ SoC・モデル・精度の組み合わせで使用してください。いずれも ailia LLM 1.5.1（QAIRT 2.47.0.260601）向けで、コンテキスト長は 8192 です。重みは本体・Assistant とも 4bit（W4）で、FP16 / Int16 は活性値の精度です。</p>
@@ -196,7 +182,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>失敗した場合はエラーコードを返し、MTP は有効になりません。同じインスタンスで通常の生成は継続できます。</li>
       <li>MTP 非対応の本体（AR-4 を含まない従来の <code>.qnn</code>）に Assistant を開くと、エラーになります。</li>
       <li>一度有効にした Assistant を外したり差し替えたりする場合は、インスタンスを破棄（<code>ailiaLLMDestroy</code>）して作り直します。2 回目の呼び出しは <code>INVALID_STATE</code> になります。</li>
-      <li>GPU バックエンド、および CPU での画像・音声入力では <code>UNIMPLEMENTED</code> を返します。</li>
       <li>NPU の MTP では検証用に 4 トークン分の余裕を確保するため、入力がコンテキスト長 − 4 を超えると、プロンプト設定時に <code>CONTEXT_FULL</code> を返します。</li>
     </ul>
 
@@ -288,7 +273,6 @@ ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
     <ul>
       <li>本体と Assistant は同じ SoC・モデル・精度の組み合わせで使用してください。他の組み合わせは動作しません。</li>
       <li>NPU の本体に CPU 用の GGUF Assistant は組み合わせられません。</li>
-      <li>GPU バックエンドの MTP、および CPU の画像・音声入力での MTP は未対応です。</li>
       <li>MTP は Decode（トークン生成）を高速化する手法です。Prefill（プロンプト処理）と TTFT はほぼ変わりません。</li>
       <li>高速化の度合いは入力の内容とモデルに依存します。音声の書き起こしのように出力が予想しやすい場合は大きく高速化し、E2B の自由な文章生成では 1.4〜1.6 倍程度です。SM7635 の E4B のテキスト・画像入力のように、ほとんど高速化しない場合もあります。</li>
       <li>CPU の MTP は、モバイル SoC の CPU では Assistant と検証の演算追加に見合う高速化が得られない場合があります（SM7635 の CPU で 0.92 倍）。高速化の効果が大きいのは NPU です。</li>

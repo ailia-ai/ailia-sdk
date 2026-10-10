@@ -124,20 +124,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>The mmproj (<code>-mmproj.qnn</code>) for image and audio input from ailia LLM 1.5.0 can be used as is.</li>
     </ul>
 
-    <h2>Supported Environments</h2>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Backend</th><th>Text</th><th>Image / audio input</th><th>Assistant format</th></tr>
-      <tr><td>NPU (QNN)</td><td>Yes</td><td>Yes</td><td>QNN Model (<code>-mtp-assistant.qnn</code>)</td></tr>
-      <tr><td>CPU</td><td>Yes</td><td>No (<code>UNIMPLEMENTED</code>)</td><td>GGUF (<code>mtp-gemma-4-*.gguf</code>)</td></tr>
-      <tr><td>GPU</td><td>No (<code>UNIMPLEMENTED</code>)</td><td>No</td><td>—</td></tr>
-    </table>
-    </div>
-    <p>Supported models are Gemma 4 E2B / E4B. A CPU GGUF assistant cannot be combined with an NPU main model. The API is available from C, Python and Unity (C#).</p>
-    <div class="note">
-      <strong>Note:</strong> NPU performance on real devices has been verified on SM8475 (Snapdragon 8+ Gen 1), SM7635 (Snapdragon 7s Gen 3) and SC8380XP (Snapdragon X Plus). The QCS6490 models have only been confirmed by an offline build, and MTP performance has not been evaluated on a real device.
-    </div>
-
     <h2>Model Download</h2>
     <h3>NPU (QNN)</h3>
     <p>Always use the main model and assistant as a pair for the same SoC, model and precision. All files target ailia LLM 1.5.1 (QAIRT 2.47.0.260601) with a context length of 8192. Both the main model and the assistant use 4-bit weights (W4); FP16 / Int16 refers to the activation precision.</p>
@@ -196,7 +182,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>On failure, an error code is returned and MTP is not enabled. Normal generation can continue with the same instance.</li>
       <li>Opening an assistant on a main model without MTP support (a conventional <code>.qnn</code> without AR-4) returns an error.</li>
       <li>To remove or replace an enabled assistant, destroy the instance (<code>ailiaLLMDestroy</code>) and create a new one. A second call returns <code>INVALID_STATE</code>.</li>
-      <li>The GPU backend and image/audio input on the CPU return <code>UNIMPLEMENTED</code>.</li>
       <li>NPU MTP reserves 4 tokens of headroom for verification, so if the input exceeds the context length minus 4, setting the prompt returns <code>CONTEXT_FULL</code>.</li>
     </ul>
 
@@ -288,7 +273,6 @@ ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
     <ul>
       <li>Use the main model and assistant as a pair for the same SoC, model and precision. Other combinations do not work.</li>
       <li>A CPU GGUF assistant cannot be combined with an NPU main model.</li>
-      <li>MTP on the GPU backend and MTP with image/audio input on the CPU are not supported.</li>
       <li>MTP speeds up decode (token generation). Prefill (prompt processing) and TTFT are largely unchanged.</li>
       <li>The speedup depends on the input and model. When output is easy to predict, as in audio transcription, the speedup is large; for free-form E2B text generation it is around 1.4x to 1.6x. In some cases, such as text and image input with E4B on SM7635, there is almost no speedup.</li>
       <li>On mobile SoC CPUs, CPU MTP may not gain enough to offset the extra assistant and verification compute (0.92x on the SM7635 CPU). The NPU is where MTP is most effective.</li>
