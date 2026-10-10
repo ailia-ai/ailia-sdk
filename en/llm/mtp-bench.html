@@ -176,6 +176,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Prefill is processed with AR-256 regardless of MTP, so TTFT is roughly the same. For image input, the assistant is released before running the encoder and recreated after prefill, which adds some work. Each trial measures the first generation on a new instance and does not include KV reuse in multi-turn conversations.</p>
     <p>For image and audio input, TTFT on the NPU (with MTP) is 1/5.7 to 1/10.6 of the CPU.</p>
 
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_ttft_sm8475.png" alt="SM8475 E2B VLM / audio input TTFT breakdown (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
+      <figcaption>VLM (left) / audio input (right) TTFT breakdown on SM8475 (E2B / FP16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_ttft_sm7635.png" alt="SM7635 E2B VLM / audio input TTFT breakdown (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
+      <figcaption>VLM (left) / audio input (right) TTFT breakdown on SM7635 (E2B / Int16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_ttft_e4b_sm7635.png" alt="SM7635 E4B VLM / audio input TTFT breakdown (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
+      <figcaption>VLM (left) / audio input (right) TTFT breakdown on SM7635 (E4B / Int16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
+    </figure>
+
     <h3>Prefill</h3>
     <p>Time to the first token (TTFT) when prefilling an 81-token input from position 0, compared across three configurations. "First run" is the first generation right after opening the model and includes restoring the main model's QNN context. "Resident" is measured after a warm-up generation has initialized the context and the assistant and the KV cache has been cleared, and corresponds to the prefill time itself. Measured with a diagnostic build with per-stage timers, using an 81-token input and 8 output tokens; values are the median of two runs.</p>
     <div class="table-wrap">

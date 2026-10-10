@@ -176,6 +176,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Prefill は MTP の有無にかかわらず AR-256 で処理するため、TTFT はおおむね同程度です。画像入力では、エンコーダ実行前に Assistant を解放し、Prefill 後に再生成する処理が加わります。各試行は新しいインスタンスで初回の生成を測定しており、マルチターンでの KV 再利用は含みません。</p>
     <p>画像・音声入力の TTFT は、NPU（MTP あり）で CPU の 5.7〜10.6 分の 1 です。</p>
 
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_ttft_sm8475.png" alt="SM8475 E2B の VLM / 音声入力の TTFT 内訳（CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_ttft_sm7635.png" alt="SM7635 E2B の VLM / 音声入力の TTFT 内訳（CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_ttft_e4b_sm7635.png" alt="SM7635 E4B の VLM / 音声入力の TTFT 内訳（CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+    </figure>
+
     <h3>Prefill</h3>
     <p>81 トークン入力を位置 0 から Prefill し、最初のトークンを得るまでの時間（TTFT）を 3 構成で比較した結果です。「初回」はモデルを開いた直後の最初の生成で、本体の QNN コンテキストの復元を含みます。「常駐後」は予備生成でコンテキストと Assistant を初期化した後、KV キャッシュを消去してから測定した値で、Prefill そのものの時間に相当します。段階別のタイマーを追加した診断ビルドで、81 トークン入力・8 トークン出力を各 2 回測定した中央値です。</p>
     <div class="table-wrap">
