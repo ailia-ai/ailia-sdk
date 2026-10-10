@@ -130,10 +130,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>Handing the hidden state and KV over to the assistant after prefill takes 0.14 to 0.28 ms, which is negligible for TTFT.</li>
       <li>Most of the first-run TTFT is restoring the main model's QNN context (about 1.4 s). Subsequent generations on the same instance do not incur this time.</li>
     </ul>
+    <p>Text generation TTFT in the final measurements (81-token input, 1,000 generated tokens, median of two runs, each trial on a new instance) is shown below. Because it is the first generation right after opening the model, it includes restoring the main model's QNN context.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device / model</th><th>Without MTP</th><th>With MTP</th></tr>
+      <tr><td>SM8475 E2B / FP16</td><td class="num">3.15 s</td><td class="num">3.44 s</td></tr>
+      <tr><td>SM7635 E2B / Int16</td><td class="num">3.92 s</td><td class="num">3.68 s</td></tr>
+      <tr><td>SM7635 E4B / Int16</td><td class="num">8.47 s</td><td class="num">7.60 s</td></tr>
+    </table>
+    </div>
     <p>For prefill throughput with 64 to 2,048 input tokens, the same AR-256 graph is used, so refer to the NPU values in the <a href="qnn-bench.html#android">QNN Benchmark</a> (for example, 299.827 tokens/s for a 2,048-token input with E2B on SM8475). The Windows measurements confirm that prefill throughput is equivalent with and without MTP at every input length from 64 to 2,048 tokens (<a href="#windows">see below</a>).</p>
 
-    <h3>VLM (Image Input) and Audio Input Decode Throughput</h3>
+    <h3>VLM (Image Input) and Audio Input Response Time</h3>
     <p>Image input uses one 768x768 image with 100 output tokens, and audio input transcribes one English recording with 32 output tokens. The image and audio encoders run on the NPU.</p>
+    <p><strong>Decode throughput</strong></p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Device / model</th><th>Input</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>MTP speedup</th><th>Acceptance</th></tr>
@@ -160,19 +170,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <figcaption>VLM (left) / audio input (right) decode throughput on SM7635 (E4B / Int16)</figcaption>
     </figure>
 
-    <h3>TTFT (Time to First Token)</h3>
+    <p><strong>TTFT (time to first token)</strong></p>
     <p>TTFT is the sum of prompt setup and the first generate call, and does not include model opening. NPU values are the median of two greedy runs; CPU values are single runs on the same image and audio (on the CPU path, the image and audio encoders also run on the CPU).</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Device / model</th><th>Input</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
-      <tr><td rowspan="3">SM8475 E2B / FP16</td><td>Text</td><td class="num">—</td><td class="num">3.15 s</td><td class="num">3.44 s</td></tr>
-      <tr><td>Image</td><td class="num">83.74 s</td><td class="num">8.20 s</td><td class="num">8.11 s</td></tr>
+      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>Image</td><td class="num">83.74 s</td><td class="num">8.20 s</td><td class="num">8.11 s</td></tr>
       <tr><td>Audio</td><td class="num">45.55 s</td><td class="num">6.07 s</td><td class="num">5.89 s</td></tr>
-      <tr><td rowspan="3">SM7635 E2B / Int16</td><td>Text</td><td class="num">—</td><td class="num">3.92 s</td><td class="num">3.68 s</td></tr>
-      <tr><td>Image</td><td class="num">99.75 s</td><td class="num">8.66 s</td><td class="num">9.75 s</td></tr>
+      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>Image</td><td class="num">99.75 s</td><td class="num">8.66 s</td><td class="num">9.75 s</td></tr>
       <tr><td>Audio</td><td class="num">84.08 s</td><td class="num">7.78 s</td><td class="num">7.94 s</td></tr>
-      <tr><td rowspan="3">SM7635 E4B / Int16</td><td>Text</td><td class="num">—</td><td class="num">8.47 s</td><td class="num">7.60 s</td></tr>
-      <tr><td>Image</td><td class="num">108.49 s</td><td class="num">14.93 s</td><td class="num">19.07 s</td></tr>
+      <tr><td rowspan="2">SM7635 E4B / Int16</td><td>Image</td><td class="num">108.49 s</td><td class="num">14.93 s</td><td class="num">19.07 s</td></tr>
       <tr><td>Audio</td><td class="num">95.39 s</td><td class="num">13.03 s</td><td class="num">13.23 s</td></tr>
     </table>
     </div>
@@ -267,7 +274,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>The QCS6490 MTP models have only been confirmed by an offline build, and performance has not been evaluated on a real device.</p>
 
-    <h3>VLM (Image Input) and Audio Input Decode Throughput</h3>
+    <h3>VLM (Image Input) and Audio Input Response Time</h3>
     <p>Image input uses one 768x768 image with 100 output tokens, and audio input transcribes one English recording with 33 output tokens. TTFT is shown in parentheses.</p>
     <div class="table-wrap">
     <table class="version-table">

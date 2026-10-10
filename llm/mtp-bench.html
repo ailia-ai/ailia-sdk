@@ -130,10 +130,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>Prefill 後に Assistant へ hidden state と KV を引き継ぐ処理は 0.14〜0.28 ms で、TTFT への影響は無視できる大きさです。</li>
       <li>初回の TTFT の多くは本体の QNN コンテキストの復元（約 1.4 秒）です。同じインスタンスを使い続ける 2 回目以降の生成では、この時間はかかりません。</li>
     </ul>
+    <p>最終測定（81 トークン入力・1,000 トークン生成、各 2 回の中央値、各試行は新しいインスタンス）のテキスト生成の TTFT は次のとおりです。モデルを開いた直後の初回の生成のため、本体の QNN コンテキストの復元を含みます。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・モデル</th><th>MTP なし</th><th>MTP あり</th></tr>
+      <tr><td>SM8475 E2B / FP16</td><td class="num">3.15 秒</td><td class="num">3.44 秒</td></tr>
+      <tr><td>SM7635 E2B / Int16</td><td class="num">3.92 秒</td><td class="num">3.68 秒</td></tr>
+      <tr><td>SM7635 E4B / Int16</td><td class="num">8.47 秒</td><td class="num">7.60 秒</td></tr>
+    </table>
+    </div>
     <p>入力トークン数を 64〜2,048 まで変えたときの Prefill スループットは、同じ AR-256 グラフを使用するため <a href="qnn-bench.html#android">QNN ベンチマーク</a> の NPU の値を参照してください（SM8475 E2B で 2,048 トークン入力時 299.827 tokens/s など）。Windows の測定では、MTP の有無で 64〜2,048 トークンのすべての入力長の Prefill スループットが同等であることを確認しています（<a href="#windows">後述</a>）。</p>
 
-    <h3>VLM（画像入力）・音声入力の Decode スループット</h3>
+    <h3>VLM（画像入力）・音声入力の応答時間</h3>
     <p>画像は 768x768 の 1 枚で 100 トークン出力、音声は英語音声 1 件の書き起こしで 32 トークン出力です。画像・音声エンコーダは NPU で実行しています。</p>
+    <p><strong>Decode スループット</strong></p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>端末・モデル</th><th>入力</th><th>CPU</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th><th>MTP の効果</th><th>受理率</th></tr>
@@ -160,19 +170,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
     </figure>
 
-    <h3>TTFT（最初のトークンまでの時間）</h3>
+    <p><strong>TTFT（最初のトークンまでの時間）</strong></p>
     <p>TTFT はプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。NPU は greedy での 2 回の中央値、CPU は同じ画像・音声での 1 回の測定値です（CPU 側では画像・音声エンコーダも CPU で実行）。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>端末・モデル</th><th>入力</th><th>CPU</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
-      <tr><td rowspan="3">SM8475 E2B / FP16</td><td>テキスト</td><td class="num">—</td><td class="num">3.15 秒</td><td class="num">3.44 秒</td></tr>
-      <tr><td>画像</td><td class="num">83.74 秒</td><td class="num">8.20 秒</td><td class="num">8.11 秒</td></tr>
+      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>画像</td><td class="num">83.74 秒</td><td class="num">8.20 秒</td><td class="num">8.11 秒</td></tr>
       <tr><td>音声</td><td class="num">45.55 秒</td><td class="num">6.07 秒</td><td class="num">5.89 秒</td></tr>
-      <tr><td rowspan="3">SM7635 E2B / Int16</td><td>テキスト</td><td class="num">—</td><td class="num">3.92 秒</td><td class="num">3.68 秒</td></tr>
-      <tr><td>画像</td><td class="num">99.75 秒</td><td class="num">8.66 秒</td><td class="num">9.75 秒</td></tr>
+      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>画像</td><td class="num">99.75 秒</td><td class="num">8.66 秒</td><td class="num">9.75 秒</td></tr>
       <tr><td>音声</td><td class="num">84.08 秒</td><td class="num">7.78 秒</td><td class="num">7.94 秒</td></tr>
-      <tr><td rowspan="3">SM7635 E4B / Int16</td><td>テキスト</td><td class="num">—</td><td class="num">8.47 秒</td><td class="num">7.60 秒</td></tr>
-      <tr><td>画像</td><td class="num">108.49 秒</td><td class="num">14.93 秒</td><td class="num">19.07 秒</td></tr>
+      <tr><td rowspan="2">SM7635 E4B / Int16</td><td>画像</td><td class="num">108.49 秒</td><td class="num">14.93 秒</td><td class="num">19.07 秒</td></tr>
       <tr><td>音声</td><td class="num">95.39 秒</td><td class="num">13.03 秒</td><td class="num">13.23 秒</td></tr>
     </table>
     </div>
@@ -267,7 +274,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>QCS6490 向けの MTP モデルはオフラインでのビルド確認のみで、実機での性能評価は未実施です。</p>
 
-    <h3>VLM（画像入力）・音声入力の Decode スループット</h3>
+    <h3>VLM（画像入力）・音声入力の応答時間</h3>
     <p>画像は 768x768 の 1 枚で 100 トークン出力、音声は英語音声 1 件の書き起こしで 33 トークン出力です。括弧内は TTFT です。</p>
     <div class="table-wrap">
     <table class="version-table">
