@@ -88,11 +88,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2 id="android">Android</h2>
 
-    <h3>Test Conditions</h3>
-    <p>Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B / E4B Int16 models. Both the main model and the assistant are the v1.5.1 MTP models (W4), with QAIRT 2.47, a context length of 8192 and the AR-256 (prefill) / AR-4 (verification) / AR-1 configuration.</p>
-    <p>"Without MTP" runs the same MTP-capable main model without the assistant (generating one token at a time with AR-1), and "with MTP" opens the assistant with <code>ailiaLLMOpenMtpModel</code>. Each condition was measured twice in the order off → on → on → off, and the median is shown. Each trial uses a new instance, with a 20-second gap between trials. TPS is computed from the time excluding the first output token.</p>
-    <p>Sampling is greedy (temperature 0, top-k 1, top-p 1, seed 1234). Results with temperature are shown later. MTP and AR-1 generate different token sequences, so this is not a comparison on identical token sequences.</p>
-
     <h3>Text Generation Decode Throughput</h3>
     <p>Throughput for an 81-token input and 1,000 generated tokens. CPU values are from running the same Q4_0 GGUF via the standard llama.cpp path (without MTP) on the same device. The acceptance rate is the fraction of candidates proposed by the assistant that were accepted by the main model's verification.</p>
     <div class="table-wrap">
@@ -193,6 +188,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="note">
       <strong>About MTP on the CPU:</strong> MTP can also be used on the CPU, but in text generation measured on the SM7635 CPU it was 5.830 tokens/s without MTP and 5.341 tokens/s with MTP (0.92x), so it did not speed up. On the CPU, the main model verified 1,960 rows and the assistant ran 1,470 times for 1,000 output tokens, and the extra compute could not be recovered. MTP is most effective on the NPU, which efficiently parallelizes multi-row processing.
     </div>
+
+    <h3>Test Conditions</h3>
+    <p>Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B / E4B Int16 models. Both the main model and the assistant are the v1.5.1 MTP models (W4), with QAIRT 2.47, a context length of 8192 and the AR-256 (prefill) / AR-4 (verification) / AR-1 configuration.</p>
+    <p>"Without MTP" runs the same MTP-capable main model without the assistant (generating one token at a time with AR-1), and "with MTP" opens the assistant with <code>ailiaLLMOpenMtpModel</code>. Each condition was measured twice in the order off → on → on → off, and the median is shown. Each trial uses a new instance, with a 20-second gap between trials. TPS is computed from the time excluding the first output token.</p>
+    <p>Sampling is greedy (temperature 0, top-k 1, top-p 1, seed 1234). For results with temperature, see "Sampling with Temperature". MTP and AR-1 generate different token sequences, so this is not a comparison on identical token sequences.</p>
 
     <h2 id="windows">Windows</h2>
 

@@ -88,11 +88,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2 id="android">Android</h2>
 
-    <h3>測定条件</h3>
-    <p>Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）は E2B の FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は E2B / E4B の Int16 モデルを使用しています。本体・Assistant とも v1.5.1 の MTP 対応モデル（W4）で、QAIRT 2.47、コンテキスト長 8192、AR-256（Prefill）/ AR-4（検証）/ AR-1 構成です。</p>
-    <p>「MTP なし」は同じ MTP 対応の本体を Assistant なしで実行した値（AR-1 で 1 トークンずつ生成）、「MTP あり」は Assistant を <code>ailiaLLMOpenMtpModel</code> で開いた値です。各条件は off → on → on → off の順に 2 回ずつ測定し、中央値を示します。各試行は新しいインスタンスで実行し、試行間に 20 秒の間隔を置いています。TPS は最初の出力トークンを除いた時間から計算しています。</p>
-    <p>サンプリングは greedy（temperature 0、top-k 1、top-p 1、seed 1234）です。temperature ありの結果は後述します。MTP と AR-1 では生成されるトークン列が異なるため、同一トークン列での比較ではありません。</p>
-
     <h3>テキスト生成の Decode スループット</h3>
     <p>81 トークン入力・1,000 トークン生成時のスループットです。CPU は同じ端末で同一の Q4_0 GGUF を標準の llama.cpp 経路（MTP なし）で実行した値です。受理率は、Assistant が提案した候補のうち本体の検証で採用された割合です。</p>
     <div class="table-wrap">
@@ -193,6 +188,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="note">
       <strong>CPU での MTP について:</strong> MTP は CPU でも利用できますが、SM7635 の CPU で測定したテキスト生成では MTP なし 5.830 tokens/s に対し MTP あり 5.341 tokens/s（0.92 倍）で、高速化しませんでした。CPU では 1,000 トークンの出力に対して本体で 1,960 行を検証し、Assistant も 1,470 回実行するため、追加の演算を回収できませんでした。MTP の効果が大きいのは、複数行の処理を効率よく並列化できる NPU です。
     </div>
+
+    <h3>測定条件</h3>
+    <p>Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）は E2B の FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は E2B / E4B の Int16 モデルを使用しています。本体・Assistant とも v1.5.1 の MTP 対応モデル（W4）で、QAIRT 2.47、コンテキスト長 8192、AR-256（Prefill）/ AR-4（検証）/ AR-1 構成です。</p>
+    <p>「MTP なし」は同じ MTP 対応の本体を Assistant なしで実行した値（AR-1 で 1 トークンずつ生成）、「MTP あり」は Assistant を <code>ailiaLLMOpenMtpModel</code> で開いた値です。各条件は off → on → on → off の順に 2 回ずつ測定し、中央値を示します。各試行は新しいインスタンスで実行し、試行間に 20 秒の間隔を置いています。TPS は最初の出力トークンを除いた時間から計算しています。</p>
+    <p>サンプリングは greedy（temperature 0、top-k 1、top-p 1、seed 1234）です。temperature ありの結果は「temperature ありのサンプリング」を参照してください。MTP と AR-1 では生成されるトークン列が異なるため、同一トークン列での比較ではありません。</p>
 
     <h2 id="windows">Windows</h2>
 
