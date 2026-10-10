@@ -143,33 +143,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h3>VLM（画像入力）・音声入力の応答時間</h3>
     <p>画像は 768x768 の 1 枚で 100 トークン出力、音声は英語音声 1 件の書き起こしで 32 トークン出力です。画像・音声エンコーダは NPU で実行しています。</p>
-    <p><strong>Decode スループット</strong></p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>端末・モデル</th><th>入力</th><th>CPU</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th><th>MTP の効果</th><th>受理率</th></tr>
-      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>画像</td><td class="num">12.213 tokens/s</td><td class="num">7.293 tokens/s</td><td class="num">9.936 tokens/s</td><td class="num"><strong>1.36 倍高速</strong></td><td class="num">36.1%</td></tr>
-      <tr><td>音声</td><td class="num">10.531 tokens/s</td><td class="num">7.023 tokens/s</td><td class="num">17.476 tokens/s</td><td class="num"><strong>2.49 倍高速</strong></td><td class="num">100.0%</td></tr>
-      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>画像</td><td class="num">5.945 tokens/s</td><td class="num">6.071 tokens/s</td><td class="num">9.136 tokens/s</td><td class="num"><strong>1.50 倍高速</strong></td><td class="num">33.3%</td></tr>
-      <tr><td>音声</td><td class="num">5.418 tokens/s</td><td class="num">5.912 tokens/s</td><td class="num">15.433 tokens/s</td><td class="num"><strong>2.61 倍高速</strong></td><td class="num">92.6%</td></tr>
-      <tr><td rowspan="2">SM7635 E4B / Int16</td><td>画像</td><td class="num">3.266 tokens/s</td><td class="num">3.117 tokens/s</td><td class="num">3.030 tokens/s</td><td class="num">0.97 倍</td><td class="num">36.9%</td></tr>
-      <tr><td>音声</td><td class="num">3.442 tokens/s</td><td class="num">3.044 tokens/s</td><td class="num">5.344 tokens/s</td><td class="num"><strong>1.76 倍高速</strong></td><td class="num">100.0%</td></tr>
-    </table>
-    </div>
-    <p>音声の書き起こしは出力が入力音声から一意に決まりやすく、Assistant の候補がほぼすべて受理されるため、2.5 倍前後と大きく高速化します。単一の音声での測定であり、一般的な速度比ではありません。</p>
-
-    <figure class="bench-figure">
-      <img src="benchmark/mtp_media_tps_sm8475.png" alt="SM8475 E2B の VLM / 音声入力の Decode スループット（CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
-      <figcaption>SM8475（E2B / FP16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="benchmark/mtp_media_tps_sm7635.png" alt="SM7635 E2B の VLM / 音声入力の Decode スループット（CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
-      <figcaption>SM7635（E2B / Int16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="benchmark/mtp_media_tps_e4b_sm7635.png" alt="SM7635 E4B の VLM / 音声入力の Decode スループット（CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
-      <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
-    </figure>
-
     <p><strong>TTFT（最初のトークンまでの時間）</strong></p>
     <p>TTFT はプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。NPU は greedy での 2 回の中央値、CPU は同じ画像・音声での 1 回の測定値です（CPU 側では画像・音声エンコーダも CPU で実行）。</p>
     <div class="table-wrap">
@@ -197,6 +170,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_ttft_e4b_sm7635.png" alt="SM7635 E4B の VLM / 音声入力の TTFT 内訳（CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
       <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+    </figure>
+
+    <p><strong>Decode スループット</strong></p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・モデル</th><th>入力</th><th>CPU</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th><th>MTP の効果</th><th>受理率</th></tr>
+      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>画像</td><td class="num">12.213 tokens/s</td><td class="num">7.293 tokens/s</td><td class="num">9.936 tokens/s</td><td class="num"><strong>1.36 倍高速</strong></td><td class="num">36.1%</td></tr>
+      <tr><td>音声</td><td class="num">10.531 tokens/s</td><td class="num">7.023 tokens/s</td><td class="num">17.476 tokens/s</td><td class="num"><strong>2.49 倍高速</strong></td><td class="num">100.0%</td></tr>
+      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>画像</td><td class="num">5.945 tokens/s</td><td class="num">6.071 tokens/s</td><td class="num">9.136 tokens/s</td><td class="num"><strong>1.50 倍高速</strong></td><td class="num">33.3%</td></tr>
+      <tr><td>音声</td><td class="num">5.418 tokens/s</td><td class="num">5.912 tokens/s</td><td class="num">15.433 tokens/s</td><td class="num"><strong>2.61 倍高速</strong></td><td class="num">92.6%</td></tr>
+      <tr><td rowspan="2">SM7635 E4B / Int16</td><td>画像</td><td class="num">3.266 tokens/s</td><td class="num">3.117 tokens/s</td><td class="num">3.030 tokens/s</td><td class="num">0.97 倍</td><td class="num">36.9%</td></tr>
+      <tr><td>音声</td><td class="num">3.442 tokens/s</td><td class="num">3.044 tokens/s</td><td class="num">5.344 tokens/s</td><td class="num"><strong>1.76 倍高速</strong></td><td class="num">100.0%</td></tr>
+    </table>
+    </div>
+    <p>音声の書き起こしは出力が入力音声から一意に決まりやすく、Assistant の候補がほぼすべて受理されるため、2.5 倍前後と大きく高速化します。単一の音声での測定であり、一般的な速度比ではありません。</p>
+
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_tps_sm8475.png" alt="SM8475 E2B の VLM / 音声入力の Decode スループット（CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_tps_sm7635.png" alt="SM7635 E2B の VLM / 音声入力の Decode スループット（CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_tps_e4b_sm7635.png" alt="SM7635 E4B の VLM / 音声入力の Decode スループット（CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
     </figure>
 
     <h3>temperature ありのサンプリング</h3>
