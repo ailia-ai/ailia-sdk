@@ -130,6 +130,38 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/qnn-bench.html"/>
   </url>
   <url>
+    <loc>https://docs.ailia.ai/llm/mtp.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/mtp.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/mtp.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/llm/mtp.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/mtp.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/mtp.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/llm/mtp-bench.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/mtp-bench.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/mtp-bench.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/llm/mtp-bench.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/mtp-bench.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/mtp-bench.html"/>
+  </url>
+  <url>
     <loc>https://docs.ailia.ai/llm/tool_use.html</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>

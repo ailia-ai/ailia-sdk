@@ -72,6 +72,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <p>QNN バックエンドの使い方は <a href="qnn.html">ailia LLM NPU（QNN）ガイド</a> を参照してください。</p>
+    <div class="note">
+      <strong>MTP:</strong> このページは MTP を使用しない場合の結果です。ailia LLM 1.5.1 の MTP を使用すると NPU の Decode が 1.4〜2.6 倍に高速化し、Android では CPU と同等以上の Decode 性能になります。<a href="mtp-bench.html">ailia LLM MTP ベンチマーク</a> を参照してください。
+    </div>
     <ul>
       <li><a href="#android">Android（Snapdragon 8+ Gen 1 / SM8475、Snapdragon 7s Gen 3 / SM7635）</a></li>
       <li><a href="#windows">Windows（Snapdragon X Plus / SC8380XP、QCS6490）</a></li>
@@ -93,7 +96,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>SM7635（Hexagon v73）</td><td>E4B / Int16</td><td class="num">3.351 tokens/s</td><td class="num">3.203 tokens/s</td><td class="num">3.128 tokens/s</td><td class="num">0.93 倍</td></tr>
     </table>
     </div>
-    <p>SM7635 の E2B では NPU の Decode が CPU より 1.10 倍（OpenMP ビルド比では 1.53 倍）高速です。一方、SM8475 の E2B（0.81 倍）と SM7635 の E4B（0.93 倍）では CPU を下回ります。Decode は 1 トークンずつ処理するため重みの読み出しが支配的になり、NPU の並列演算性能を活かしにくいためです。</p>
+    <p>SM7635 の E2B では NPU の Decode が CPU より 1.10 倍（OpenMP ビルド比では 1.53 倍）高速です。一方、SM8475 の E2B（0.81 倍）と SM7635 の E4B（0.93 倍）では CPU を下回ります。Decode は 1 トークンずつ処理するため重みの読み出しが支配的になり、NPU の並列演算性能を活かしにくいためです。MTP を使用すると、SM8475 の E2B で CPU の 1.01 倍、SM7635 の E2B で 1.63 倍になります（<a href="mtp-bench.html#cpu">MTP ベンチマーク</a>）。</p>
 
     <figure class="bench-figure">
       <img src="benchmark/tps_sm8475.png" alt="SM8475 E2B の Decode のトークンごとのスループット（1000 トークン生成、CPU / CPU OpenMP / NPU）" loading="lazy">

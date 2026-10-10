@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia LLM MTP（Multi-Token Prediction）ガイド</title>
+  <meta name="description" content="ailia LLM 1.5.1 で対応した MTP（Multi-Token Prediction）を使用して、Gemma 4 のトークン生成を高速化する方法を解説します。">
+  <link rel="canonical" href="https://docs.ailia.ai/llm/mtp.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/mtp.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/mtp.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/llm/mtp.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/llm/mtp.html">
+  <meta property="og:title" content="ailia LLM MTP（Multi-Token Prediction）ガイド">
+  <meta property="og:description" content="ailia LLM 1.5.1 で対応した MTP（Multi-Token Prediction）を使用して、Gemma 4 のトークン生成を高速化する方法を解説します。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia LLM MTP（Multi-Token Prediction）ガイド">
+  <meta name="twitter:description" content="ailia LLM 1.5.1 で対応した MTP（Multi-Token Prediction）を使用して、Gemma 4 のトークン生成を高速化する方法を解説します。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
+    .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; max-width: 520px; }
+    .arch-box .arch-name { font-weight: 600; color: var(--primary); }
+    .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
+    .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .token-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 6px 0; }
+    .token { display: inline-block; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--white); font-family: monospace; font-size: 14px; }
+    .token.ok { border-color: #3a8a4f; background: #e9f6ec; color: #23602f; }
+    .token.ng { border-color: #b23a3a; background: #fbeaea; color: #8a2323; text-decoration: line-through; }
+    .token.fix { border-color: #7a52b3; background: #f1ebfa; color: #55308a; }
+    .token-label { font-size: 13px; color: var(--text-light); text-align: center; }
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia LLM Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../en/llm/mtp.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia LLM MTP（Multi-Token Prediction）ガイド</h1>
+    <p>ailia LLM 1.5.1 で対応した MTP を使用して、Gemma 4 のトークン生成を高速化する方法を説明します。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <p>このページは <a href="qnn.html">ailia LLM NPU（QNN）ガイド</a> からの差分として、MTP に必要なモデルと API を説明します。NPU のセットアップ（QNN ランタイムの配置、Android の設定、SoC 名の取得）は QNN ガイドと共通です。測定結果は <a href="mtp-bench.html">ailia LLM MTP ベンチマーク</a> を参照してください。</p>
+
+    <h2>MTP とは</h2>
+    <p>LLM は通常、1 回の推論で 1 トークンずつ文章を生成します。次のトークンは直前までのトークンに依存するため、1,000 トークンを生成するには大きな本体モデルを 1,000 回、順番に実行する必要があります。NPU は多くの行を同時に計算するのが得意ですが、1 トークンずつの処理では重みの読み出しが支配的になり、その性能を活かしにくくなります。</p>
+    <p>MTP（Multi-Token Prediction）は、小さな <strong>Assistant（ドラフトモデル）</strong> で次の数トークンを先に予想し、大きな本体モデルでその予想をまとめて検証する仕組みです。ailia LLM では、Assistant が 3 トークンの候補を作り、本体は「確定済みの 1 トークン + 候補 3 トークン」の 4 行を 1 回の推論（AR-4 グラフ）で評価します。本体の予測と一致した候補はそのまま採用し、最初に食い違った位置では本体の予測したトークンを採用します。</p>
+    <div class="arch-diagram">
+      <div class="arch-box">
+        <div class="arch-name">① Assistant が 3 トークンを予想</div>
+        <div class="token-row"><span class="token">今日</span><span class="token">は</span><span class="token">雨</span></div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box">
+        <div class="arch-name">② 本体が 4 行をまとめて検証（AR-4 を 1 回実行）</div>
+        <div class="token-row"><span class="token ok">今日</span><span class="token ok">は</span><span class="token ng">雨</span><span class="token fix">晴れ</span></div>
+        <div class="token-label">緑: 本体の予測と一致して採用 / 赤: 不一致で破棄 / 紫: 本体が予測したトークン</div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box">
+        <div class="arch-name">③ 本体 1 回の実行で 1〜4 トークンが確定</div>
+        <div class="arch-desc">「今日」「は」「晴れ」の 3 トークンが確定し、続きから再び予想します</div>
+      </div>
+    </div>
+    <p>候補がすべて外れても、本体が予測した 1 トークンは必ず確定します。予想が当たるほど本体の実行回数が減り、生成が速くなります。生成されるトークンは本体の予測に基づいて決まるため、MTP は出力の品質を落とさずに速度を上げる手法です（ただし、AR-4 と AR-1 の数値誤差により、通常生成と完全に同じトークン列になるとは限りません）。temperature を設定したサンプリングでは、本体と Assistant の確率比で候補を受理する方式（Speculative Sampling）を使用し、本体の確率分布に従った出力になります。</p>
+    <p>実測では、Gemma 4 E2B のテキスト生成で NPU の Decode が Snapdragon 8+ Gen 1 で 1.44 倍、Snapdragon 7s Gen 3 で 1.55 倍、Snapdragon X Plus で 1.50 倍（E4B は 1.70 倍）に向上しました。予想が当たりやすい音声の書き起こしでは 2.5 倍前後になります。</p>
+    <h3>NPU の Decode が CPU を上回る</h3>
+    <p>QNN 単体（AR-1 による 1 トークンずつの生成）では、NPU の Decode は Prefill ほど速くならず、Android 端末でも CPU と同等か下回っていました。MTP では本体の 1 回の実行で複数トークンを確定でき、NPU の並列演算性能を Decode にも活かせるため、Android 端末では CPU と同等以上の速度でトークンを生成できます。Snapdragon 7s Gen 3 の E2B では CPU の 1.63 倍です。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・モデル（テキスト生成）</th><th>CPU</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th><th>CPU 比</th></tr>
+      <tr><td>SM8475（Snapdragon 8+ Gen 1）E2B / FP16</td><td class="num">9.971 tokens/s</td><td class="num">6.947 tokens/s</td><td class="num"><strong>10.024 tokens/s</strong></td><td class="num">0.70 倍 → <strong>1.01 倍</strong></td></tr>
+      <tr><td>SM7635（Snapdragon 7s Gen 3）E2B / Int16</td><td class="num">6.045 tokens/s</td><td class="num">6.393 tokens/s</td><td class="num"><strong>9.877 tokens/s</strong></td><td class="num">1.06 倍 → <strong>1.63 倍</strong></td></tr>
+    </table>
+    </div>
+    <p>音声入力の書き起こしでは、Android の全構成（SM8475 E2B、SM7635 E2B / E4B）で NPU が CPU の 1.55〜2.85 倍の速度になります。NPU は Prefill でも CPU より大幅に高速で、Prefill 中の CPU 使用率も 3% 前後に抑えられるため、MTP と組み合わせることで Prefill・Decode の両方で NPU が有利になります。Snapdragon X Plus のように CPU が高性能な PC では、Decode は依然として CPU の方が高速です。詳細は <a href="mtp-bench.html#cpu">ベンチマーク</a> を参照してください。</p>
+
+    <h2>QNN ガイドからの差分</h2>
+    <ul>
+      <li>ailia LLM 1.5.1 以降が必要です。<code>libailia_llm.so</code> と <code>libailia_llm_qnn.so</code>（Windows では <code>ailia_llm.dll</code> と <code>ailia_llm_qnn.dll</code>）は同じバージョンを組み合わせて配置してください。</li>
+      <li>本体モデルは MTP 対応版（<code>-mtp.qnn</code>）を使用します。MTP 対応版は従来の AR-256 / AR-1 グラフに加えて、検証用の AR-4 グラフを含みます。</li>
+      <li>本体を開いた後に、<code>ailiaLLMOpenMtpModel</code> で同じ SoC・モデル・精度の Assistant（<code>-mtp-assistant.qnn</code>）を開きます。</li>
+      <li>その後のプロンプト設定（<code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code>）と <code>ailiaLLMGenerate</code> の使い方は変わりません。<code>ailiaLLMGenerate</code> は MTP でも 1 回の呼び出しで 1 トークンを返し、内部で確定済みのトークンを順に返します。</li>
+      <li>画像・音声入力の mmproj（<code>-mmproj.qnn</code>）は ailia LLM 1.5.0 向けのファイルをそのまま使用できます。</li>
+    </ul>
+
+    <h2>対応環境</h2>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>実行環境</th><th>テキスト</th><th>画像・音声入力</th><th>Assistant の形式</th></tr>
+      <tr><td>NPU（QNN）</td><td>○</td><td>○</td><td>QNN Model（<code>-mtp-assistant.qnn</code>）</td></tr>
+      <tr><td>CPU</td><td>○</td><td>×（<code>UNIMPLEMENTED</code>）</td><td>GGUF（<code>mtp-gemma-4-*.gguf</code>）</td></tr>
+      <tr><td>GPU</td><td>×（<code>UNIMPLEMENTED</code>）</td><td>×</td><td>—</td></tr>
+    </table>
+    </div>
+    <p>対応モデルは Gemma 4 E2B / E4B です。NPU の本体に CPU 用の GGUF Assistant を組み合わせることはできません。API は C、Python、Unity（C#）で利用できます。</p>
+    <div class="note">
+      <strong>注意:</strong> NPU の実機性能は SM8475（Snapdragon 8+ Gen 1）、SM7635（Snapdragon 7s Gen 3）、SC8380XP（Snapdragon X Plus）で確認しています。QCS6490 向けのモデルはオフラインでのビルド確認のみで、実機での MTP の性能評価は未実施です。
+    </div>
+
+    <h2>モデルのダウンロード</h2>
+    <h3>NPU（QNN）</h3>
+    <p>本体と Assistant は必ず同じ SoC・モデル・精度の組み合わせで使用してください。いずれも ailia LLM 1.5.1（QAIRT 2.47.0.260601）向けで、コンテキスト長は 8192 です。重みは本体・Assistant とも 4bit（W4）で、FP16 / Int16 は活性値の精度です。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>SoC</th><th>端末の例</th><th>モデル</th><th>ファイル</th><th>内容</th><th>サイズ</th></tr>
+      <tr><td rowspan="2">sm8475<br>（Hexagon v69 / FP16）</td><td rowspan="2">Snapdragon 8+ Gen 1</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mtp.qnn">gemma4-e2b-sm8475-fp16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mtp-assistant.qnn">gemma4-e2b-sm8475-fp16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">44.6 MB</td></tr>
+      <tr><td rowspan="4">sm7635<br>（Hexagon v73 / Int16）</td><td rowspan="4">Snapdragon 7s Gen 3</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mtp.qnn">gemma4-e2b-sm7635-int16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.61 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mtp-assistant.qnn">gemma4-e2b-sm7635-int16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">46.8 MB</td></tr>
+      <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mtp.qnn">gemma4-e4b-sm7635-int16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">5.56 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mtp-assistant.qnn">gemma4-e4b-sm7635-int16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">47.5 MB</td></tr>
+      <tr><td rowspan="4">sc8380xp<br>（Hexagon v73 / FP16）</td><td rowspan="4">Surface（Snapdragon X Plus）</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mtp.qnn">gemma4-e2b-sc8380xp-fp16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.63 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mtp-assistant.qnn">gemma4-e2b-sc8380xp-fp16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">46.6 MB</td></tr>
+      <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mtp.qnn">gemma4-e4b-sc8380xp-fp16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">5.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mtp-assistant.qnn">gemma4-e4b-sc8380xp-fp16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">47.0 MB</td></tr>
+      <tr><td rowspan="2">qcs6490<br>（Hexagon v68 / Int16）</td><td rowspan="2">QCS6490</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp.qnn">gemma4-e2b-qcs6490-int16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp-assistant.qnn">gemma4-e2b-qcs6490-int16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">44.7 MB</td></tr>
+    </table>
+    </div>
+    <p>ファイル名は <code>gemma4-&lt;model&gt;-&lt;soc&gt;-&lt;precision&gt;-mtp.qnn</code>（本体）と <code>gemma4-&lt;model&gt;-&lt;soc&gt;-&lt;precision&gt;-mtp-assistant.qnn</code>（Assistant）です。画像・音声入力には、<a href="qnn.html">QNN ガイド</a>に掲載している同じ SoC・モデルの <code>-mmproj.qnn</code>（v1.5.0）を使用します。</p>
+    <p>MTP 対応の本体は、Assistant を開かなければ従来どおり AR-1 で 1 トークンずつ生成します。MTP の有無を切り替える場合でも、本体ファイルは MTP 対応版の 1 つで済みます。</p>
+
+    <h3>CPU</h3>
+    <p>CPU では、本体に通常の Gemma 4 の GGUF、Assistant に MTP 用の GGUF を使用します。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>モデル</th><th>ファイル</th><th>内容</th><th>サイズ</th></tr>
+      <tr><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/gemma-4-E2B-it-qat-Q4_0.gguf">gemma-4-E2B-it-qat-Q4_0.gguf</a></td><td>本体（例）</td><td class="num">3.35 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/mtp-gemma-4-E2B-it-Q4_0.gguf">mtp-gemma-4-E2B-it-Q4_0.gguf</a></td><td>Assistant（ドラフトモデル）</td><td class="num">59.2 MB</td></tr>
+      <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/gemma-4-E4B-it-qat-Q4_0.gguf">gemma-4-E4B-it-qat-Q4_0.gguf</a></td><td>本体（例）</td><td class="num">5.15 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/mtp-gemma-4-E4B-it-Q4_0.gguf">mtp-gemma-4-E4B-it-Q4_0.gguf</a></td><td>Assistant（ドラフトモデル）</td><td class="num">59.7 MB</td></tr>
+    </table>
+    </div>
+    <p>Assistant は本体と語彙・hidden サイズが一致している必要があります。E2B の本体には E2B の Assistant、E4B の本体には E4B の Assistant を組み合わせてください。</p>
+
+    <h2>ドラフトモデル（Assistant）を開く API</h2>
+    <p>Assistant は <code>ailiaLLMOpenMtpModel</code> で開きます。</p>
+    <pre><code class="language-c">int ailiaLLMOpenMtpModel(struct AILIALLM *llm, const char *path);</code></pre>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>引数</th><th>内容</th></tr>
+      <tr><td><code>llm</code></td><td>本体モデルを開いた <code>AILIALLM</code> インスタンス</td></tr>
+      <tr><td><code>path</code></td><td>Assistant のパス（UTF-8）。NPU の本体には <code>-mtp-assistant.qnn</code>、CPU の本体には <code>mtp-gemma-4-*.gguf</code> を指定します。Windows でも UTF-8 文字列を渡します（<code>W</code> 版はありません）。</td></tr>
+    </table>
+    </div>
+    <p>呼び出し順は次のとおりです。</p>
+    <ol>
+      <li><code>ailiaLLMCreate</code></li>
+      <li><code>ailiaLLMOpenModelFileA</code> / <code>W</code> で本体を開く（NPU では <code>-mtp.qnn</code>）</li>
+      <li><strong><code>ailiaLLMOpenMtpModel</code> で Assistant を開く</strong>（最初のプロンプト設定より前に 1 回だけ）</li>
+      <li>画像・音声入力を使う場合は <code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code> で mmproj を開く</li>
+      <li><code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code> と <code>ailiaLLMGenerate</code> で通常どおり生成</li>
+    </ol>
+    <ul>
+      <li>失敗した場合はエラーコードを返し、MTP は有効になりません。同じインスタンスで通常の生成は継続できます。</li>
+      <li>MTP 非対応の本体（AR-4 を含まない従来の <code>.qnn</code>）に Assistant を開くと、エラーになります。</li>
+      <li>一度有効にした Assistant を外したり差し替えたりする場合は、インスタンスを破棄（<code>ailiaLLMDestroy</code>）して作り直します。2 回目の呼び出しは <code>INVALID_STATE</code> になります。</li>
+      <li>GPU バックエンド、および CPU での画像・音声入力では <code>UNIMPLEMENTED</code> を返します。</li>
+      <li>NPU の MTP では検証用に 4 トークン分の余裕を確保するため、入力がコンテキスト長 − 4 を超えると、プロンプト設定時に <code>CONTEXT_FULL</code> を返します。</li>
+    </ul>
+
+    <h2>コードサンプル</h2>
+    <p>NPU で SoC 名を取得し、MTP 対応の本体と Assistant を開く例です。モデルファイルはアプリのプライベートストレージにあるものとします。精度（<code>fp16</code> / <code>int16</code>）は SoC によって異なるため、上記の表に従って選択してください。</p>
+
+    <h3>C</h3>
+    <pre><code class="language-c">#include "ailia_llm.h"
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+/* model_dir: アプリのプライベートストレージ。成功時は呼び出し側が Destroy する。 */
+int open_qnn_mtp_model(const char *model_dir, struct AILIALLM **out) {
+    if (model_dir == NULL || out == NULL) return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+    *out = NULL;
+    const char *soc = NULL; /* ライブラリ所有。解放しない */
+    int status = ailiaLLMGetQNNModelName(&amp;soc);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    /* sm8475 / sc8380xp は FP16、sm7635 / qcs6490 は Int16 */
+    const char *precision =
+        (strcmp(soc, "sm8475") == 0 || strcmp(soc, "sc8380xp") == 0) ? "fp16" : "int16";
+    char target[512], assistant[512];
+    int n1 = snprintf(target, sizeof(target), "%s/gemma4-e2b-%s-%s-mtp.qnn", model_dir, soc, precision);
+    int n2 = snprintf(assistant, sizeof(assistant), "%s/gemma4-e2b-%s-%s-mtp-assistant.qnn", model_dir, soc, precision);
+    if (n1 &lt; 0 || (size_t)n1 &gt;= sizeof(target) || n2 &lt; 0 || (size_t)n2 &gt;= sizeof(assistant))
+        return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+
+    struct AILIALLM *llm = NULL;
+    status = ailiaLLMCreate(&amp;llm);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    status = ailiaLLMOpenModelFileA(llm, target, 0);           /* 本体 */
+    if (status == AILIA_LLM_STATUS_SUCCESS)
+        status = ailiaLLMOpenMtpModel(llm, assistant);         /* ドラフトモデル */
+    if (status != AILIA_LLM_STATUS_SUCCESS) { ailiaLLMDestroy(llm); return status; }
+    *out = llm;
+    return AILIA_LLM_STATUS_SUCCESS;
+}</code></pre>
+    <p>CPU の場合は、本体に GGUF、Assistant に MTP 用 GGUF を指定します。</p>
+    <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma-4-E2B-it-qat-Q4_0.gguf", 4096);
+ailiaLLMOpenMtpModel(llm, "mtp-gemma-4-E2B-it-Q4_0.gguf");</code></pre>
+
+    <h3>Python</h3>
+    <pre><code class="language-python">from pathlib import Path
+import ailia_llm
+
+soc = ailia_llm.AiliaLLM.get_qnn_model_name()
+precision = "fp16" if soc in ("sm8475", "sc8380xp") else "int16"
+model_dir = Path("/data/user/0/your.package/files")
+
+llm = ailia_llm.AiliaLLM()
+llm.open(str(model_dir / f"gemma4-e2b-{soc}-{precision}-mtp.qnn"), n_ctx=0)
+llm.open_mtp_model(str(model_dir / f"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn"))
+
+for delta in llm.generate([{"role": "user", "content": "自己紹介してください。"}]):
+    print(delta, end="", flush=True)</code></pre>
+    <p>CPU の場合は <code>llm.open("gemma-4-E2B-it-qat-Q4_0.gguf")</code> の後に <code>llm.open_mtp_model("mtp-gemma-4-E2B-it-Q4_0.gguf")</code> を呼び出します。失敗時は <code>AiliaLLMError</code> が送出されます。</p>
+
+    <h3>Unity（C#）</h3>
+    <pre><code class="language-csharp">using System;
+using System.IO;
+using UnityEngine;
+using ailiaLLM;
+
+string soc = AiliaLLMModel.GetQNNModelName();
+string precision = (soc == "sm8475" || soc == "sc8380xp") ? "fp16" : "int16";
+string dir = Application.persistentDataPath;
+
+var llm = new AiliaLLMModel();
+if (!llm.Create()) throw new Exception("ailiaLLMCreate failed");
+if (!llm.Open(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp.qnn"), 0))
+    throw new Exception(llm.GetErrorDetail());
+if (!llm.OpenMtpModel(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn")))
+    throw new Exception(llm.GetErrorDetail());
+// 使用後は llm.Dispose();</code></pre>
+
+    <h3>画像・音声入力と組み合わせる場合</h3>
+    <p>Assistant を開いた後に、同じ SoC・モデルの mmproj を開きます。プロンプトの設定方法は通常の <a href="multimodal.html">マルチモーダル ガイド</a> と同じです。</p>
+    <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);
+ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn");
+ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
+/* 以降は ailiaLLMSetMultimodalPrompt / ailiaLLMGenerate */</code></pre>
+
+    <h2>アーキテクチャ詳細</h2>
+    <p>MTP 対応の本体 <code>.qnn</code> は、Prefill 用の AR-256、検証用の AR-4、通常生成用の AR-1 の 3 つのグラフを 1 つの QNN Context に格納し、重みと KV キャッシュを共有します。Assistant は本体の KV キャッシュと最終層の hidden state を直接参照して候補を生成するため、Assistant 側で KV キャッシュを別に持つ必要がなく、ファイルサイズは 50 MB 未満です。埋め込みテーブルも本体から参照します。</p>
+    <p>Prefill は従来どおり AR-256 で処理し、最後の hidden state と最初のトークン、KV キャッシュを Assistant に渡します。以降は「Assistant が 3 候補を生成 → AR-4 で 4 行を一括検証 → 受理された分の logits・hidden・KV をそのまま採用」を繰り返します。受理されたトークンの再計算は行いません。確定したトークンは内部のキューに入り、<code>ailiaLLMGenerate</code> の呼び出しごとに 1 トークンずつ返します。</p>
+    <p>マルチターンで新しいテキストプロンプトを設定すると、未返却の候補を破棄し、安全に再利用できる KV の共通部分を残して続きから Prefill します。画像・音声の切り替え時は、エンコーダ実行前に Assistant を一旦解放し、本体の Prefill 後に再生成します。</p>
+
+    <h2>制約</h2>
+    <ul>
+      <li>本体と Assistant は同じ SoC・モデル・精度の組み合わせで使用してください。他の組み合わせは動作しません。</li>
+      <li>NPU の本体に CPU 用の GGUF Assistant は組み合わせられません。</li>
+      <li>GPU バックエンドの MTP、および CPU の画像・音声入力での MTP は未対応です。</li>
+      <li>MTP は Decode（トークン生成）を高速化する手法です。Prefill（プロンプト処理）と TTFT はほぼ変わりません。</li>
+      <li>高速化の度合いは入力の内容とモデルに依存します。音声の書き起こしのように出力が予想しやすい場合は大きく高速化し、E2B の自由な文章生成では 1.4〜1.6 倍程度です。SM7635 の E4B のテキスト・画像入力のように、ほとんど高速化しない場合もあります。</li>
+      <li>CPU の MTP は、モバイル SoC の CPU では Assistant と検証の演算追加に見合う高速化が得られない場合があります（SM7635 の CPU で 0.92 倍）。高速化の効果が大きいのは NPU です。</li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
