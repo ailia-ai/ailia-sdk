@@ -104,6 +104,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="note">
       <strong>注意:</strong> QNN バックエンドは ailia LLM 1.5.0 以降で利用できます。
     </div>
+    <div class="note">
+      <strong>MTP:</strong> ailia LLM 1.5.1 以降は MTP（Multi-Token Prediction）に対応し、NPU の Decode を 1.4〜2.6 倍に高速化できます。使い方は <a href="mtp.html">ailia LLM MTP ガイド</a>、測定結果は <a href="mtp-bench.html">ailia LLM MTP ベンチマーク</a> を参照してください。
+    </div>
 
     <h2>対応プラットフォーム</h2>
     <ul>
@@ -289,6 +292,9 @@ if (!llm.Open(modelPath, 0)) throw new Exception(llm.GetErrorDetail());
 
     <h2>ベンチマーク</h2>
     <p>Snapdragon 8+ Gen 1（SM8475）、Snapdragon 7s Gen 3（SM7635）、Snapdragon X Plus（SC8380XP）、QCS6490 で Gemma 4 E2B / E4B を測定した Decode / Prefill スループット、Prefill 中の CPU 使用率、VLM・音声入力の応答時間、メモリ使用量は <a href="qnn-bench.html">ailia LLM NPU（QNN）ベンチマーク</a> を参照してください。</p>
+
+    <h2>MTP による Decode の高速化</h2>
+    <p>Decode は 1 トークンずつ処理するため、NPU では重みの読み出しが支配的になり、CPU と同等か下回る場合があります。ailia LLM 1.5.1 以降では、小さな Assistant（ドラフトモデル）で次の数トークンを予想し、本体でまとめて検証する MTP（Multi-Token Prediction）を使用できます。MTP 対応の本体（<code>-mtp.qnn</code>）と Assistant（<code>-mtp-assistant.qnn</code>）を使用し、本体を開いた後に <code>ailiaLLMOpenMtpModel</code> を呼び出すだけで有効になります。詳しくは <a href="mtp.html">ailia LLM MTP ガイド</a> と <a href="mtp-bench.html">ailia LLM MTP ベンチマーク</a> を参照してください。</p>
 
     <h2>制約</h2>
     <ul>

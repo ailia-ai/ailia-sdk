@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia LLM MTP (Multi-Token Prediction) Guide</title>
+  <meta name="description" content="How to speed up Gemma 4 token generation with MTP (Multi-Token Prediction), supported in ailia LLM 1.5.1.">
+  <link rel="canonical" href="https://docs.ailia.ai/en/llm/mtp.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/mtp.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/mtp.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/llm/mtp.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/llm/mtp.html">
+  <meta property="og:title" content="ailia LLM MTP (Multi-Token Prediction) Guide">
+  <meta property="og:description" content="How to speed up Gemma 4 token generation with MTP (Multi-Token Prediction), supported in ailia LLM 1.5.1.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia LLM MTP (Multi-Token Prediction) Guide">
+  <meta name="twitter:description" content="How to speed up Gemma 4 token generation with MTP (Multi-Token Prediction), supported in ailia LLM 1.5.1.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
+    .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; max-width: 520px; }
+    .arch-box .arch-name { font-weight: 600; color: var(--primary); }
+    .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
+    .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .token-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 6px 0; }
+    .token { display: inline-block; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--white); font-family: monospace; font-size: 14px; }
+    .token.ok { border-color: #3a8a4f; background: #e9f6ec; color: #23602f; }
+    .token.ng { border-color: #b23a3a; background: #fbeaea; color: #8a2323; text-decoration: line-through; }
+    .token.fix { border-color: #7a52b3; background: #f1ebfa; color: #55308a; }
+    .token-label { font-size: 13px; color: var(--text-light); text-align: center; }
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia LLM Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../../llm/mtp.html" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia LLM MTP (Multi-Token Prediction) Guide</h1>
+    <p>How to speed up Gemma 4 token generation with MTP, supported in ailia LLM 1.5.1.</p>
+  </section>
+
+  <div class="guide-content">
+
+    <p>This page describes the models and API needed for MTP as a delta from the <a href="qnn.html">ailia LLM NPU (QNN) Guide</a>. NPU setup (deploying the QNN runtime, Android configuration, getting the SoC name) is the same as in the QNN Guide. For measurements, see the <a href="mtp-bench.html">ailia LLM MTP Benchmark</a>.</p>
+
+    <h2>What is MTP?</h2>
+    <p>An LLM normally generates text one token per inference. Because each token depends on all the tokens before it, generating 1,000 tokens means running the large main model 1,000 times in sequence. NPUs are good at computing many rows at once, but when processing one token at a time, weight loading dominates and the NPU's compute cannot be used effectively.</p>
+    <p>MTP (Multi-Token Prediction) uses a small <strong>assistant (draft model)</strong> to guess the next few tokens ahead of time, and then has the large main model verify those guesses all at once. In ailia LLM, the assistant proposes 3 candidate tokens, and the main model evaluates 4 rows ("1 committed token + 3 candidates") in a single inference (the AR-4 graph). Candidates that match the main model's prediction are accepted as is, and at the first mismatch the token predicted by the main model is used instead.</p>
+    <div class="arch-diagram">
+      <div class="arch-box">
+        <div class="arch-name">① The assistant guesses 3 tokens</div>
+        <div class="token-row"><span class="token">The</span><span class="token">sky</span><span class="token">looks</span></div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box">
+        <div class="arch-name">② The main model verifies 4 rows at once (one AR-4 run)</div>
+        <div class="token-row"><span class="token ok">The</span><span class="token ok">sky</span><span class="token ng">looks</span><span class="token fix">is</span></div>
+        <div class="token-label">Green: matches the main model and accepted / Red: mismatch, discarded / Purple: token predicted by the main model</div>
+      </div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box">
+        <div class="arch-name">③ 1 to 4 tokens are committed per main-model run</div>
+        <div class="arch-desc">"The", "sky", "is" are committed, and guessing continues from there</div>
+      </div>
+    </div>
+    <p>Even if every candidate is rejected, the one token predicted by the main model is always committed. The more guesses hit, the fewer times the main model runs and the faster generation becomes. Because the output tokens are determined by the main model's predictions, MTP increases speed without degrading output quality (however, due to numerical differences between AR-4 and AR-1, the token sequence is not guaranteed to be identical to normal generation). For sampling with temperature, candidates are accepted based on the probability ratio between the main model and the assistant (speculative sampling), so the output follows the main model's probability distribution.</p>
+    <p>In measurements of Gemma 4 E2B text generation, NPU decode improved by 1.44x on Snapdragon 8+ Gen 1, 1.55x on Snapdragon 7s Gen 3 and 1.50x on Snapdragon X Plus (1.70x for E4B). For audio transcription, where guesses hit easily, the speedup is around 2.5x.</p>
+    <h3>NPU decode outperforms the CPU</h3>
+    <p>With QNN alone (one-token-at-a-time generation with AR-1), NPU decode does not speed up as much as prefill, and even on Android devices it was equal to or slower than the CPU. With MTP, multiple tokens can be committed per main-model run, so the NPU's parallel compute benefits decode as well, and on Android devices tokens are generated as fast as or faster than on the CPU. For E2B on Snapdragon 7s Gen 3, decode is 1.63x the CPU.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device / model (text generation)</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>vs. CPU</th></tr>
+      <tr><td>SM8475 (Snapdragon 8+ Gen 1) E2B / FP16</td><td class="num">9.971 tokens/s</td><td class="num">6.947 tokens/s</td><td class="num"><strong>10.024 tokens/s</strong></td><td class="num">0.70x → <strong>1.01x</strong></td></tr>
+      <tr><td>SM7635 (Snapdragon 7s Gen 3) E2B / Int16</td><td class="num">6.045 tokens/s</td><td class="num">6.393 tokens/s</td><td class="num"><strong>9.877 tokens/s</strong></td><td class="num">1.06x → <strong>1.63x</strong></td></tr>
+    </table>
+    </div>
+    <p>For audio transcription, the NPU runs at 1.55x to 2.85x the CPU on all Android configurations (SM8475 E2B, SM7635 E2B / E4B). The NPU is also much faster than the CPU in prefill and keeps CPU usage during prefill at around 3%, so combined with MTP, the NPU has the advantage in both prefill and decode. On PCs with a high-performance CPU such as Snapdragon X Plus, decode is still faster on the CPU. See the <a href="mtp-bench.html#cpu">benchmark</a> for details.</p>
+
+    <h2>Differences from the QNN Guide</h2>
+    <ul>
+      <li>ailia LLM 1.5.1 or later is required. Deploy <code>libailia_llm.so</code> and <code>libailia_llm_qnn.so</code> (<code>ailia_llm.dll</code> and <code>ailia_llm_qnn.dll</code> on Windows) from the same version.</li>
+      <li>Use the MTP-capable main model (<code>-mtp.qnn</code>). In addition to the AR-256 / AR-1 graphs, it contains an AR-4 graph for verification.</li>
+      <li>After opening the main model, open the assistant (<code>-mtp-assistant.qnn</code>) for the same SoC, model and precision with <code>ailiaLLMOpenMtpModel</code>.</li>
+      <li>Setting prompts (<code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code>) and calling <code>ailiaLLMGenerate</code> work the same as before. Even with MTP, each <code>ailiaLLMGenerate</code> call returns one token, delivering committed tokens in order from an internal queue.</li>
+      <li>The mmproj (<code>-mmproj.qnn</code>) for image and audio input from ailia LLM 1.5.0 can be used as is.</li>
+    </ul>
+
+    <h2>Model Download</h2>
+    <h3>NPU (QNN)</h3>
+    <p>Always use the main model and assistant as a pair for the same SoC, model and precision. All files target ailia LLM 1.5.1 (QAIRT 2.47.0.260601) with a context length of 8192. Both the main model and the assistant use 4-bit weights (W4); FP16 / Int16 refers to the activation precision.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>SoC</th><th>Example device</th><th>Model</th><th>File</th><th>Contents</th><th>Size</th></tr>
+      <tr><td rowspan="2">sm8475<br>(Hexagon v69 / FP16)</td><td rowspan="2">Snapdragon 8+ Gen 1</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mtp.qnn">gemma4-e2b-sm8475-fp16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mtp-assistant.qnn">gemma4-e2b-sm8475-fp16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">44.6 MB</td></tr>
+      <tr><td rowspan="4">sm7635<br>(Hexagon v73 / Int16)</td><td rowspan="4">Snapdragon 7s Gen 3</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mtp.qnn">gemma4-e2b-sm7635-int16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.61 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mtp-assistant.qnn">gemma4-e2b-sm7635-int16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">46.8 MB</td></tr>
+      <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mtp.qnn">gemma4-e4b-sm7635-int16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">5.56 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mtp-assistant.qnn">gemma4-e4b-sm7635-int16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">47.5 MB</td></tr>
+      <tr><td rowspan="4">sc8380xp<br>(Hexagon v73 / FP16)</td><td rowspan="4">Surface (Snapdragon X Plus)</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mtp.qnn">gemma4-e2b-sc8380xp-fp16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.63 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mtp-assistant.qnn">gemma4-e2b-sc8380xp-fp16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">46.6 MB</td></tr>
+      <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mtp.qnn">gemma4-e4b-sc8380xp-fp16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">5.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mtp-assistant.qnn">gemma4-e4b-sc8380xp-fp16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">47.0 MB</td></tr>
+      <tr><td rowspan="2">qcs6490<br>(Hexagon v68 / Int16)</td><td rowspan="2">QCS6490</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp.qnn">gemma4-e2b-qcs6490-int16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp-assistant.qnn">gemma4-e2b-qcs6490-int16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">44.7 MB</td></tr>
+    </table>
+    </div>
+    <p>File names are <code>gemma4-&lt;model&gt;-&lt;soc&gt;-&lt;precision&gt;-mtp.qnn</code> (main model) and <code>gemma4-&lt;model&gt;-&lt;soc&gt;-&lt;precision&gt;-mtp-assistant.qnn</code> (assistant). For image and audio input, use the <code>-mmproj.qnn</code> (v1.5.0) for the same SoC and model listed in the <a href="qnn.html">QNN Guide</a>.</p>
+    <p>If the assistant is not opened, the MTP-capable main model generates one token at a time with AR-1 as before. A single MTP-capable main model file is enough even if you switch MTP on and off.</p>
+
+    <h3>CPU</h3>
+    <p>On the CPU, use a regular Gemma 4 GGUF for the main model and the MTP GGUF for the assistant.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Model</th><th>File</th><th>Contents</th><th>Size</th></tr>
+      <tr><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/gemma-4-E2B-it-qat-Q4_0.gguf">gemma-4-E2B-it-qat-Q4_0.gguf</a></td><td>Main model (example)</td><td class="num">3.35 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/mtp-gemma-4-E2B-it-Q4_0.gguf">mtp-gemma-4-E2B-it-Q4_0.gguf</a></td><td>Assistant (draft model)</td><td class="num">59.2 MB</td></tr>
+      <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/gemma-4-E4B-it-qat-Q4_0.gguf">gemma-4-E4B-it-qat-Q4_0.gguf</a></td><td>Main model (example)</td><td class="num">5.15 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/mtp-gemma-4-E4B-it-Q4_0.gguf">mtp-gemma-4-E4B-it-Q4_0.gguf</a></td><td>Assistant (draft model)</td><td class="num">59.7 MB</td></tr>
+    </table>
+    </div>
+    <p>The assistant must match the main model's vocabulary and hidden size. Pair an E2B main model with the E2B assistant, and an E4B main model with the E4B assistant.</p>
+
+    <h2>API for Opening the Draft Model (Assistant)</h2>
+    <p>Open the assistant with <code>ailiaLLMOpenMtpModel</code>.</p>
+    <pre><code class="language-c">int ailiaLLMOpenMtpModel(struct AILIALLM *llm, const char *path);</code></pre>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Argument</th><th>Description</th></tr>
+      <tr><td><code>llm</code></td><td>The <code>AILIALLM</code> instance in which the main model has been opened</td></tr>
+      <tr><td><code>path</code></td><td>Path to the assistant (UTF-8). Specify <code>-mtp-assistant.qnn</code> for an NPU main model, or <code>mtp-gemma-4-*.gguf</code> for a CPU main model. Pass a UTF-8 string on Windows as well (there is no <code>W</code> variant).</td></tr>
+    </table>
+    </div>
+    <p>Call the APIs in the following order.</p>
+    <ol>
+      <li><code>ailiaLLMCreate</code></li>
+      <li>Open the main model with <code>ailiaLLMOpenModelFileA</code> / <code>W</code> (<code>-mtp.qnn</code> on the NPU)</li>
+      <li><strong>Open the assistant with <code>ailiaLLMOpenMtpModel</code></strong> (only once, before setting the first prompt)</li>
+      <li>For image or audio input, open the mmproj with <code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code></li>
+      <li>Generate as usual with <code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code> and <code>ailiaLLMGenerate</code></li>
+    </ol>
+    <ul>
+      <li>On failure, an error code is returned and MTP is not enabled. Normal generation can continue with the same instance.</li>
+      <li>Opening an assistant on a main model without MTP support (a conventional <code>.qnn</code> without AR-4) returns an error.</li>
+      <li>To remove or replace an enabled assistant, destroy the instance (<code>ailiaLLMDestroy</code>) and create a new one. A second call returns <code>INVALID_STATE</code>.</li>
+      <li>NPU MTP reserves 4 tokens of headroom for verification, so if the input exceeds the context length minus 4, setting the prompt returns <code>CONTEXT_FULL</code>.</li>
+    </ul>
+
+    <h2>Code Samples</h2>
+    <p>These examples get the SoC name on the NPU and open the MTP-capable main model and assistant. The model files are assumed to be in the app's private storage. The precision (<code>fp16</code> / <code>int16</code>) depends on the SoC; choose it according to the table above.</p>
+
+    <h3>C</h3>
+    <pre><code class="language-c">#include "ailia_llm.h"
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+/* model_dir: the app's private storage. On success, the caller must Destroy. */
+int open_qnn_mtp_model(const char *model_dir, struct AILIALLM **out) {
+    if (model_dir == NULL || out == NULL) return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+    *out = NULL;
+    const char *soc = NULL; /* owned by the library; do not free */
+    int status = ailiaLLMGetQNNModelName(&amp;soc);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    /* sm8475 / sc8380xp use FP16, sm7635 / qcs6490 use Int16 */
+    const char *precision =
+        (strcmp(soc, "sm8475") == 0 || strcmp(soc, "sc8380xp") == 0) ? "fp16" : "int16";
+    char target[512], assistant[512];
+    int n1 = snprintf(target, sizeof(target), "%s/gemma4-e2b-%s-%s-mtp.qnn", model_dir, soc, precision);
+    int n2 = snprintf(assistant, sizeof(assistant), "%s/gemma4-e2b-%s-%s-mtp-assistant.qnn", model_dir, soc, precision);
+    if (n1 &lt; 0 || (size_t)n1 &gt;= sizeof(target) || n2 &lt; 0 || (size_t)n2 &gt;= sizeof(assistant))
+        return AILIA_LLM_STATUS_INVALID_ARGUMENT;
+
+    struct AILIALLM *llm = NULL;
+    status = ailiaLLMCreate(&amp;llm);
+    if (status != AILIA_LLM_STATUS_SUCCESS) return status;
+    status = ailiaLLMOpenModelFileA(llm, target, 0);           /* main model */
+    if (status == AILIA_LLM_STATUS_SUCCESS)
+        status = ailiaLLMOpenMtpModel(llm, assistant);         /* draft model */
+    if (status != AILIA_LLM_STATUS_SUCCESS) { ailiaLLMDestroy(llm); return status; }
+    *out = llm;
+    return AILIA_LLM_STATUS_SUCCESS;
+}</code></pre>
+    <p>On the CPU, specify a GGUF for the main model and the MTP GGUF for the assistant.</p>
+    <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma-4-E2B-it-qat-Q4_0.gguf", 4096);
+ailiaLLMOpenMtpModel(llm, "mtp-gemma-4-E2B-it-Q4_0.gguf");</code></pre>
+
+    <h3>Python</h3>
+    <pre><code class="language-python">from pathlib import Path
+import ailia_llm
+
+soc = ailia_llm.AiliaLLM.get_qnn_model_name()
+precision = "fp16" if soc in ("sm8475", "sc8380xp") else "int16"
+model_dir = Path("/data/user/0/your.package/files")
+
+llm = ailia_llm.AiliaLLM()
+llm.open(str(model_dir / f"gemma4-e2b-{soc}-{precision}-mtp.qnn"), n_ctx=0)
+llm.open_mtp_model(str(model_dir / f"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn"))
+
+for delta in llm.generate([{"role": "user", "content": "Introduce yourself."}]):
+    print(delta, end="", flush=True)</code></pre>
+    <p>On the CPU, call <code>llm.open_mtp_model("mtp-gemma-4-E2B-it-Q4_0.gguf")</code> after <code>llm.open("gemma-4-E2B-it-qat-Q4_0.gguf")</code>. On failure, <code>AiliaLLMError</code> is raised.</p>
+
+    <h3>Unity (C#)</h3>
+    <pre><code class="language-csharp">using System;
+using System.IO;
+using UnityEngine;
+using ailiaLLM;
+
+string soc = AiliaLLMModel.GetQNNModelName();
+string precision = (soc == "sm8475" || soc == "sc8380xp") ? "fp16" : "int16";
+string dir = Application.persistentDataPath;
+
+var llm = new AiliaLLMModel();
+if (!llm.Create()) throw new Exception("ailiaLLMCreate failed");
+if (!llm.Open(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp.qnn"), 0))
+    throw new Exception(llm.GetErrorDetail());
+if (!llm.OpenMtpModel(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn")))
+    throw new Exception(llm.GetErrorDetail());
+// Call llm.Dispose() when done</code></pre>
+
+    <h3>Combining with image and audio input</h3>
+    <p>Open the mmproj for the same SoC and model after opening the assistant. Prompts are set in the same way as in the <a href="multimodal.html">Multimodal Guide</a>.</p>
+    <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);
+ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn");
+ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
+/* then ailiaLLMSetMultimodalPrompt / ailiaLLMGenerate */</code></pre>
+
+    <h2>Architecture Details</h2>
+    <p>The MTP-capable main <code>.qnn</code> stores three graphs in a single QNN context — AR-256 for prefill, AR-4 for verification and AR-1 for normal generation — sharing the weights and the KV cache. The assistant generates candidates by directly referencing the main model's KV cache and final-layer hidden state, so it does not need its own KV cache and its file size is under 50 MB. The embedding table is also referenced from the main model.</p>
+    <p>Prefill is processed with AR-256 as before, and the last hidden state, the first token and the KV cache are passed to the assistant. After that, the cycle "the assistant generates 3 candidates → AR-4 verifies 4 rows at once → the logits, hidden states and KV for the accepted part are adopted as is" repeats. Accepted tokens are not recomputed. Committed tokens enter an internal queue, and each <code>ailiaLLMGenerate</code> call returns one token.</p>
+    <p>When a new text prompt is set in a multi-turn conversation, pending candidates are discarded, the common KV prefix that can be safely reused is kept, and prefill continues from there. When switching between image and audio, the assistant is released before running the encoder and recreated after the main model's prefill.</p>
+
+    <h2>Limitations</h2>
+    <ul>
+      <li>Use the main model and assistant as a pair for the same SoC, model and precision. Other combinations do not work.</li>
+      <li>A CPU GGUF assistant cannot be combined with an NPU main model.</li>
+      <li>MTP speeds up decode (token generation). Prefill (prompt processing) and TTFT are largely unchanged.</li>
+      <li>The speedup depends on the input and model. When output is easy to predict, as in audio transcription, the speedup is large; for free-form E2B text generation it is around 1.4x to 1.6x. In some cases, such as text and image input with E4B on SM7635, there is almost no speedup.</li>
+      <li>On mobile SoC CPUs, CPU MTP may not gain enough to offset the extra assistant and verification compute (0.92x on the SM7635 CPU). The NPU is where MTP is most effective.</li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
