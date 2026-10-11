@@ -168,7 +168,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>引数</th><th>内容</th></tr>
       <tr><td><code>llm</code></td><td>本体モデルを開いた <code>AILIALLM</code> インスタンス</td></tr>
       <tr><td><code>path</code></td><td>Assistant のパス（UTF-8）。NPU の本体には <code>-mtp-assistant.qnn</code>、CPU の本体には <code>mtp-gemma-4-*.gguf</code> を指定します。Windows でも UTF-8 文字列を渡します（<code>W</code> 版はありません）。</td></tr>
-      <tr><td><code>n_draft</code></td><td>Assistant が 1 回に生成する候補（ドラフト）トークン数です。本体はこの候補と自身の 1 トークンをまとめて検証します。通常は <code>3</code> を指定します。NPU（QNN）では最大 3 です。<code>0</code> を指定すると MTP は無効になり、<code>path</code> は使用されません。</td></tr>
+      <tr><td><code>n_draft</code></td><td>Assistant が 1 回に生成する候補（ドラフト）トークン数です。本体はこの候補と自身の 1 トークンをまとめて検証します。1 以上の値を指定し、通常は <code>3</code> を指定します。NPU（QNN）では 1〜3 です。<code>0</code> を指定するとエラーになります。MTP を使用しない場合は、<code>ailiaLLMOpenMtpModel</code> を呼び出さないでください。</td></tr>
     </table>
     </div>
     <p>呼び出し順は次のとおりです。</p>

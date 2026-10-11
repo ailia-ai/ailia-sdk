@@ -168,7 +168,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>Argument</th><th>Description</th></tr>
       <tr><td><code>llm</code></td><td>The <code>AILIALLM</code> instance in which the main model has been opened</td></tr>
       <tr><td><code>path</code></td><td>Path to the assistant (UTF-8). Specify <code>-mtp-assistant.qnn</code> for an NPU main model, or <code>mtp-gemma-4-*.gguf</code> for a CPU main model. Pass a UTF-8 string on Windows as well (there is no <code>W</code> variant).</td></tr>
-      <tr><td><code>n_draft</code></td><td>Number of candidate (draft) tokens the assistant generates per round. The main model verifies these candidates together with one token of its own. Normally specify <code>3</code>. The maximum on the NPU (QNN) is 3. Specifying <code>0</code> disables MTP, and <code>path</code> is not used.</td></tr>
+      <tr><td><code>n_draft</code></td><td>Number of candidate (draft) tokens the assistant generates per round. The main model verifies these candidates together with one token of its own. Specify 1 or more; normally specify <code>3</code>. On the NPU (QNN), the range is 1 to 3. Specifying <code>0</code> returns an error. If you do not use MTP, do not call <code>ailiaLLMOpenMtpModel</code>.</td></tr>
     </table>
     </div>
     <p>Call the APIs in the following order.</p>
