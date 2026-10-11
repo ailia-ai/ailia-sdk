@@ -75,7 +75,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM MTP（Multi-Token Prediction）ガイド</h1>
-    <p>QNN の唯一の弱点だった Decode（トークン生成）を、ailia LLM 1.5.1 の MTP で克服しました。NPU のトークン生成が高速になり、Android では CPU を上回ります。</p>
+    <p>QNN の唯一の弱点だった Decode（トークン生成）を、ailia LLM 1.5.1 の MTP で改善しました。NPU のトークン生成が高速になり、Android では CPU を上回ります。</p>
     <div class="stat-grid">
       <div class="stat-card"><div class="stat-value">1.55<small>倍</small></div><div class="stat-label">Decode の高速化</div><div class="stat-note">MTP なし比・Snapdragon 7s Gen 3・E2B</div></div>
       <div class="stat-card"><div class="stat-value">1.63<small>倍</small></div><div class="stat-label">CPU を上回る Decode</div><div class="stat-note">CPU 比・Snapdragon 7s Gen 3・E2B</div></div>
@@ -88,7 +88,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <p>このページは <a href="qnn.html">ailia LLM NPU（QNN）ガイド</a> からの差分として、MTP に必要なモデルと API を説明します。NPU のセットアップ（QNN ランタイムの配置、Android の設定、SoC 名の取得）は QNN ガイドと共通です。測定結果は <a href="mtp-bench.html">ailia LLM MTP ベンチマーク</a> を参照してください。</p>
 
-    <h2>QNN の弱点だった Decode を克服</h2>
+    <h2>QNN の弱点だった Decode を改善</h2>
     <p>実測では、Gemma 4 E2B のテキスト生成で NPU の Decode が Snapdragon 8+ Gen 1 で 1.44 倍、Snapdragon 7s Gen 3 で 1.55 倍、Snapdragon X Plus で 1.50 倍（E4B は 1.70 倍）に向上しました。予想が当たりやすい音声の書き起こしでは 2.5 倍前後になります。</p>
     <p>QNN 単体（AR-1 による 1 トークンずつの生成）では、NPU の Decode は Prefill ほど速くならず、Android 端末でも CPU と同等か下回っていました。MTP では本体の 1 回の実行で複数トークンを確定でき、NPU の並列演算性能を Decode にも活かせるため、Android 端末では CPU と同等以上の速度でトークンを生成できます。Snapdragon 7s Gen 3 の E2B では CPU の 1.63 倍です。</p>
     <div class="hbar-chart">
