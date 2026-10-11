@@ -264,20 +264,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>MTP なし：v1.5.1 の MTP 対応本体を Assistant なしで実行（AR-256 / AR-1）</li>
       <li>MTP あり：v1.5.1 の MTP 対応本体 + Assistant（AR-256 / AR-4）</li>
     </ul>
-    <p>各構成 1 回の測定で、各試行の前に 60 秒待機しています。AC 接続、バランス電源プラン、4 つの高性能コアをワーカーとして使用し、背景アプリが動作している状態での測定です。CPU は同じ端末上で Q4_0 GGUF を標準の llama.cpp 経路（OpenMP 無効、4 つの高性能コアをワーカーとして使用、MTP なし）で実行した過去の測定値です。QCS6490 向けの MTP モデルはオフラインでのビルド確認のみで、実機での性能評価は未実施です。</p>
+    <p>各構成 1 回の測定で、各試行の前に 60 秒待機しています。AC 接続、バランス電源プラン、4 つの高性能コアをワーカーとして使用し、背景アプリが動作している状態での測定です。CPU は同じ端末上で Q4_0 GGUF を標準の llama.cpp 経路（OpenMP 無効、4 つの高性能コアをワーカーとして使用、MTP なし）で実行した過去の測定値です。GPU は Adreno X1-45 で、同じ Q4_0 GGUF を llama.cpp の OpenCL バックエンド（MTP なし）で実行した値です。GPU 実行時の性能を改善したランタイムで 2026-10-11 に測定しており、<a href="qnn-bench.html#windows">QNN ベンチマーク</a>の GPU の値より高速です。QCS6490 向けの MTP モデルはオフラインでのビルド確認のみで、実機での性能評価は未実施です。</p>
 
     <h3>Decode スループット</h3>
     <p>81 トークン入力・1,000 トークン生成時のスループットです。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>モデル</th><th>CPU</th><th>非 MTP（v1.5.0）</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果（非 MTP 比）</th><th>受理率</th></tr>
-      <tr><td>E2B / FP16</td><td class="num">32.505 tokens/s</td><td class="num">7.581 tokens/s</td><td class="num">7.681 tokens/s</td><td class="num">11.361 tokens/s</td><td class="num"><strong>1.50 倍高速</strong></td><td class="num">35.2%</td></tr>
-      <tr><td>E4B / FP16</td><td class="num">15.230 tokens/s</td><td class="num">4.477 tokens/s</td><td class="num">4.403 tokens/s</td><td class="num">7.614 tokens/s</td><td class="num"><strong>1.70 倍高速</strong></td><td class="num">39.4%</td></tr>
+      <tr><th>モデル</th><th>CPU</th><th>GPU</th><th>非 MTP（v1.5.0）</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果（非 MTP 比）</th><th>受理率</th></tr>
+      <tr><td>E2B / FP16</td><td class="num">32.505 tokens/s</td><td class="num">16.996 tokens/s</td><td class="num">7.581 tokens/s</td><td class="num">7.681 tokens/s</td><td class="num">11.361 tokens/s</td><td class="num"><strong>1.50 倍高速</strong></td><td class="num">35.2%</td></tr>
+      <tr><td>E4B / FP16</td><td class="num">15.230 tokens/s</td><td class="num">8.399 tokens/s</td><td class="num">4.477 tokens/s</td><td class="num">4.403 tokens/s</td><td class="num">7.614 tokens/s</td><td class="num"><strong>1.70 倍高速</strong></td><td class="num">39.4%</td></tr>
     </table>
     </div>
     <p>MTP なしは従来モデルとほぼ同じ速度で、速度向上は Assistant と AR-4 による検証によるものです。Android と異なり、E4B でも 1.70 倍と大きく向上しました。</p>
     <div class="note">
-      <strong>CPU との比較:</strong> Snapdragon X Plus は CPU の性能が高く、<a href="qnn-bench.html#windows">QNN ベンチマーク</a>の CPU の Decode（E2B 32.505 tokens/s、E4B 15.230 tokens/s）に対し、MTP ありの NPU は E2B で 0.35 倍、E4B で 0.50 倍です。Windows on Arm の PC では、Prefill の高速化と CPU 負荷の削減が NPU の主な利点です。
+      <strong>CPU・GPU との比較:</strong> Snapdragon X Plus は CPU の性能が高く、テキスト生成の Decode は MTP ありの NPU でも CPU の 0.35 倍（E2B）/ 0.50 倍（E4B）、GPU の 0.67 倍（E2B）/ 0.91 倍（E4B）です。Windows on Arm の PC では、Prefill の高速化と CPU 負荷の削減が NPU の主な利点です。
     </div>
 
     <figure class="bench-figure">
@@ -295,65 +295,71 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <table class="version-table">
       <tr><th>モデル・構成</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
       <tr><td>E2B CPU</td><td class="num">249.314</td><td class="num">205.403</td><td class="num">214.986</td><td class="num">194.638</td><td class="num">176.262</td><td class="num">155.627</td></tr>
+      <tr><td>E2B GPU</td><td class="num">190.718</td><td class="num">208.584</td><td class="num">220.448</td><td class="num">205.558</td><td class="num">181.273</td><td class="num">151.935</td></tr>
       <tr><td>E2B 非 MTP（v1.5.0）</td><td class="num">101.982</td><td class="num">225.254</td><td class="num">424.934</td><td class="num">420.052</td><td class="num">407.490</td><td class="num">420.639</td></tr>
       <tr><td>E2B MTP なし</td><td class="num">113.151</td><td class="num">226.424</td><td class="num">448.660</td><td class="num">440.496</td><td class="num">426.759</td><td class="num">418.778</td></tr>
       <tr><td>E2B MTP あり</td><td class="num">111.217</td><td class="num">223.184</td><td class="num">431.739</td><td class="num">419.928</td><td class="num">431.036</td><td class="num">430.899</td></tr>
       <tr><td>E4B CPU</td><td class="num">83.793</td><td class="num">98.738</td><td class="num">115.542</td><td class="num">106.402</td><td class="num">97.419</td><td class="num">80.109</td></tr>
+      <tr><td>E4B GPU</td><td class="num">100.750</td><td class="num">114.198</td><td class="num">122.105</td><td class="num">118.442</td><td class="num">108.468</td><td class="num">95.985</td></tr>
       <tr><td>E4B 非 MTP（v1.5.0）</td><td class="num">62.413</td><td class="num">124.979</td><td class="num">245.360</td><td class="num">257.128</td><td class="num">253.727</td><td class="num">247.997</td></tr>
       <tr><td>E4B MTP なし</td><td class="num">62.896</td><td class="num">114.516</td><td class="num">227.997</td><td class="num">253.767</td><td class="num">249.950</td><td class="num">243.701</td></tr>
       <tr><td>E4B MTP あり</td><td class="num">63.008</td><td class="num">114.917</td><td class="num">229.531</td><td class="num">254.648</td><td class="num">248.715</td><td class="num">248.864</td></tr>
     </table>
     </div>
-    <p>Prefill は 3 構成とも同等で、MTP 対応モデルを使用しても Prefill 性能は低下しません。2,048 トークン入力では、NPU（MTP あり）は CPU より E2B で約 2.77 倍、E4B で約 3.11 倍高速です。</p>
+    <p>Prefill は 3 構成とも同等で、MTP 対応モデルを使用しても Prefill 性能は低下しません。2,048 トークン入力では、NPU（MTP あり）は CPU より E2B で約 2.77 倍、E4B で約 3.11 倍、GPU より E2B で約 2.84 倍、E4B で約 2.59 倍高速です。</p>
 
     <figure class="bench-figure">
-      <img src="benchmark/mtp_pps_sc8380xp.png" alt="Snapdragon X Plus E2B の Prefill スループット（CPU / MTP なし / MTP あり）" loading="lazy">
+      <img src="benchmark/mtp_pps_sc8380xp.png" alt="Snapdragon X Plus E2B の Prefill スループット（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
       <figcaption>SC8380XP（E2B / FP16）の Prefill スループット</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の Prefill スループット（CPU / MTP なし / MTP あり）" loading="lazy">
+      <img src="benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の Prefill スループット（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
       <figcaption>SC8380XP（E4B / FP16）の Prefill スループット</figcaption>
     </figure>
 
     <h3>VLM（画像入力）・音声入力の応答時間</h3>
-    <p>画像は 768x768 の 1 枚で 100 トークン出力、音声は英語音声 1 件の書き起こしで 33 トークン出力で、いずれも 1 回の測定値です。TTFT はエンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。CPU の経路では、画像・音声エンコーダも CPU で実行しています。</p>
+    <p>画像は 768x768 の 1 枚で 100 トークン出力、音声は英語音声 1 件の書き起こしで 33 トークン出力で、いずれも 1 回の測定値です。TTFT はエンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。CPU と GPU の経路では、画像・音声エンコーダは CPU で実行しています。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>端末・モデル</th><th>入力</th><th>経路</th><th>TTFT</th><th>Decode</th><th>受理率</th></tr>
       <tr><td>SC8380XP E2B</td><td>画像</td><td>CPU</td><td class="num">55.48 秒</td><td class="num">37.546 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>画像</td><td>GPU</td><td class="num">40.75 秒</td><td class="num">17.380 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E2B</td><td>画像</td><td>非 MTP（v1.5.0）</td><td class="num">7.31 秒</td><td class="num">7.617 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E2B</td><td>画像</td><td>MTP なし</td><td class="num">7.13 秒</td><td class="num">7.608 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E2B</td><td>画像</td><td>MTP あり</td><td class="num">6.75 秒</td><td class="num"><strong>10.689 tokens/s</strong></td><td class="num">32.0%</td></tr>
       <tr><td>SC8380XP E2B</td><td>音声</td><td>CPU</td><td class="num">28.13 秒</td><td class="num">37.924 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>音声</td><td>GPU</td><td class="num">16.92 秒</td><td class="num">17.247 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E2B</td><td>音声</td><td>非 MTP（v1.5.0）</td><td class="num">5.40 秒</td><td class="num">7.219 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E2B</td><td>音声</td><td>MTP なし</td><td class="num">5.28 秒</td><td class="num">7.513 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E2B</td><td>音声</td><td>MTP あり</td><td class="num">5.14 秒</td><td class="num"><strong>17.777 tokens/s</strong></td><td class="num">92.6%</td></tr>
       <tr><td>SC8380XP E4B</td><td>画像</td><td>CPU</td><td class="num">54.09 秒</td><td class="num">20.161 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>画像</td><td>GPU</td><td class="num">42.44 秒</td><td class="num">9.323 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E4B</td><td>画像</td><td>非 MTP（v1.5.0）</td><td class="num">10.94 秒</td><td class="num">4.426 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E4B</td><td>画像</td><td>MTP なし</td><td class="num">10.81 秒</td><td class="num">4.445 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E4B</td><td>画像</td><td>MTP あり</td><td class="num">9.30 秒</td><td class="num"><strong>7.918 tokens/s</strong></td><td class="num">43.2%</td></tr>
       <tr><td>SC8380XP E4B</td><td>音声</td><td>CPU</td><td class="num">27.67 秒</td><td class="num">19.444 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>音声</td><td>GPU</td><td class="num">19.39 秒</td><td class="num">9.366 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E4B</td><td>音声</td><td>非 MTP（v1.5.0）</td><td class="num">8.13 秒</td><td class="num">4.331 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E4B</td><td>音声</td><td>MTP なし</td><td class="num">7.68 秒</td><td class="num">4.478 tokens/s</td><td class="num">—</td></tr>
       <tr><td>SC8380XP E4B</td><td>音声</td><td>MTP あり</td><td class="num">7.38 秒</td><td class="num"><strong>12.288 tokens/s</strong></td><td class="num">92.6%</td></tr>
     </table>
     </div>
-    <p>非 MTP 比で、画像入力の Decode は E2B で 1.40 倍、E4B で 1.79 倍、音声入力は E2B で 2.46 倍、E4B で 2.84 倍高速です。TTFT は 3 構成で大きく変わらず、CPU の 3.7〜8.2 分の 1 です。</p>
+    <p>非 MTP 比で、画像入力の Decode は E2B で 1.40 倍、E4B で 1.79 倍、音声入力は E2B で 2.46 倍、E4B で 2.84 倍高速です。TTFT は 3 構成で大きく変わらず、CPU の 3.7〜8.2 分の 1、GPU の 2.6〜6.0 分の 1 です。音声入力の Decode は、MTP ありの NPU が GPU を上回ります（E2B で 1.03 倍、E4B で 1.31 倍）。</p>
 
     <figure class="bench-figure">
-      <img src="benchmark/mtp_media_ttft_sc8380xp.png" alt="Snapdragon X Plus E2B の VLM / 音声入力の TTFT 内訳（CPU / MTP なし / MTP あり）" loading="lazy">
+      <img src="benchmark/mtp_media_ttft_sc8380xp.png" alt="Snapdragon X Plus E2B の VLM / 音声入力の TTFT 内訳（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
       <figcaption>SC8380XP（E2B / FP16）の VLM / 音声入力の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/mtp_media_ttft_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の VLM / 音声入力の TTFT 内訳（CPU / MTP なし / MTP あり）" loading="lazy">
+      <img src="benchmark/mtp_media_ttft_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の VLM / 音声入力の TTFT 内訳（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
       <figcaption>SC8380XP（E4B / FP16）の VLM / 音声入力の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/mtp_media_tps_sc8380xp.png" alt="Snapdragon X Plus E2B の VLM / 音声入力の Decode スループット（CPU / MTP なし / MTP あり）" loading="lazy">
+      <img src="benchmark/mtp_media_tps_sc8380xp.png" alt="Snapdragon X Plus E2B の VLM / 音声入力の Decode スループット（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
       <figcaption>SC8380XP（E2B / FP16）の VLM / 音声入力の Decode スループット</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/mtp_media_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の VLM / 音声入力の Decode スループット（CPU / MTP なし / MTP あり）" loading="lazy">
+      <img src="benchmark/mtp_media_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の VLM / 音声入力の Decode スループット（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
       <figcaption>SC8380XP（E4B / FP16）の VLM / 音声入力の Decode スループット</figcaption>
     </figure>
 
