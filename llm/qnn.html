@@ -82,7 +82,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM NPU（QNN）ガイド</h1>
-    <p>ailia LLM の QNN バックエンドを使用して、Qualcomm SoC の NPU で LLM / VLM を高速に推論する方法を説明します。</p>
+    <p>Snapdragon の NPU で Gemma 4 を高速・低負荷に実行します。プロンプト処理を大幅に高速化し、CPU 使用率を抑えたまま、画像・音声入力も NPU で高速に処理します。ailia LLM の QNN バックエンドを使用した推論方法を説明します。</p>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-value">4.2<small>倍</small></div><div class="stat-label">Prefill（プロンプト処理）</div><div class="stat-note">CPU 比・2,048 トークン入力・Snapdragon 8+ Gen 1</div></div>
+      <div class="stat-card"><div class="stat-value">3<small>%</small></div><div class="stat-label">Prefill 中の CPU 使用率</div><div class="stat-note">CPU 実行時は 98.7%・Snapdragon 8+ Gen 1</div></div>
+      <div class="stat-card"><div class="stat-value">12.7<small>倍</small></div><div class="stat-label">画像入力の応答（TTFT）</div><div class="stat-note">CPU 比・Snapdragon 8+ Gen 1・E2B</div></div>
+      <div class="stat-card"><div class="stat-value">9.2<small>倍</small></div><div class="stat-label">音声入力の応答（TTFT）</div><div class="stat-note">CPU 比・Snapdragon 8+ Gen 1・E2B</div></div>
+    </div>
   </section>
 
   <div class="guide-content">

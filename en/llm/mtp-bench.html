@@ -66,7 +66,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM MTP Benchmark</h1>
-    <p>How much MTP (Multi-Token Prediction) in ailia LLM 1.5.1 improves Gemma 4 decode throughput (TPS) on the NPU of Qualcomm SoCs.</p>
+    <p>How much MTP improves decode (token generation), the one weakness of QNN. On Android, NPU token generation outperforms the CPU, and for E2B with image and audio input, the time to a complete answer is 1/5 to 1/9 of the CPU.</p>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-value">1.55<small>x</small></div><div class="stat-label">Faster decode</div><div class="stat-note">vs. without MTP, Snapdragon 7s Gen 3, E2B</div></div>
+      <div class="stat-card"><div class="stat-value">1.63<small>x</small></div><div class="stat-label">Decode faster than the CPU</div><div class="stat-note">vs. CPU, Snapdragon 7s Gen 3, E2B</div></div>
+      <div class="stat-card"><div class="stat-value">2.61<small>x</small></div><div class="stat-label">Audio transcription</div><div class="stat-note">vs. without MTP, Snapdragon 7s Gen 3, E2B</div></div>
+      <div class="stat-card"><div class="stat-value">9.0<small>x</small></div><div class="stat-label">Time to complete answer (audio input)</div><div class="stat-note">vs. CPU, estimate, Snapdragon 7s Gen 3, E2B</div></div>
+    </div>
   </section>
 
   <div class="guide-content">
@@ -74,6 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>For how MTP works and how to use it, see the <a href="mtp.html">ailia LLM MTP Guide</a>. For QNN measurements without MTP, see the <a href="qnn-bench.html">ailia LLM NPU (QNN) Benchmark</a>.</p>
     <ul>
       <li><a href="#summary">Summary</a></li>
+      <li><a href="#e2e">Time from input to complete answer (estimate)</a></li>
       <li><a href="#android">Android (Snapdragon 8+ Gen 1 / SM8475, Snapdragon 7s Gen 3 / SM7635)</a></li>
       <li><a href="#windows">Windows (Snapdragon X Plus / SC8380XP)</a></li>
     </ul>
@@ -85,6 +92,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>NPU decode, which was sometimes slower than the CPU with QNN alone, became <strong>equal to or faster than the CPU</strong> on Android with MTP. For E2B on Snapdragon 7s Gen 3, it is 1.63x the CPU for text generation and 2.85x for audio input.</li>
       <li>Prefill (prompt processing) and TTFT are largely the same with and without MTP, and the MTP-capable model does not reduce prefill performance.</li>
     </ul>
+
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B per-token text generation throughput over 1000 generated tokens (CPU / CPU OpenMP / without MTP / with MTP)" loading="lazy">
+      <figcaption>Text generation on Snapdragon 7s Gen 3 (SM7635 / E2B / Int16). With MTP (purple), the NPU outperforms the CPU (blue).</figcaption>
+    </figure>
+
+    <h2 id="e2e">Time from input to complete answer (estimate)</h2>
+    <p>Estimated time from image or audio input until the answer finishes generating, computed from the TTFT and decode throughput below (<code>TTFT + (output tokens − 1) / decode throughput</code>). Image input outputs 100 tokens and audio input 32 tokens. Both QNN's faster prefill and encoders and MTP's faster decode contribute.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device / model</th><th>Input</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>vs. CPU</th></tr>
+      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>Image</td><td class="num">91.8 s</td><td class="num">21.8 s</td><td class="num"><strong>18.1 s</strong></td><td class="num"><strong>5.1x</strong></td></tr>
+      <tr><td>Audio</td><td class="num">48.5 s</td><td class="num">10.5 s</td><td class="num"><strong>7.7 s</strong></td><td class="num"><strong>6.3x</strong></td></tr>
+      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>Image</td><td class="num">116.4 s</td><td class="num">25.0 s</td><td class="num"><strong>20.6 s</strong></td><td class="num"><strong>5.7x</strong></td></tr>
+      <tr><td>Audio</td><td class="num">89.8 s</td><td class="num">13.0 s</td><td class="num"><strong>9.9 s</strong></td><td class="num"><strong>9.0x</strong></td></tr>
+      <tr><td rowspan="2">SM7635 E4B / Int16</td><td>Image</td><td class="num">138.8 s</td><td class="num">46.7 s</td><td class="num"><strong>51.7 s</strong></td><td class="num"><strong>2.7x</strong></td></tr>
+      <tr><td>Audio</td><td class="num">104.4 s</td><td class="num">23.2 s</td><td class="num"><strong>19.0 s</strong></td><td class="num"><strong>5.5x</strong></td></tr>
+    </table>
+    </div>
+    <p>With MTP, the NPU takes 1/2.7 to 1/9.0 of the CPU's time to a complete answer. For E2B, it is a further 1.2x to 1.4x shorter than without MTP. For image input with E4B on SM7635, the TTFT with MTP was longer, so the total is 1.1x longer than without MTP. These are not end-to-end measurements, so treat them as reference values.</p>
 
     <h2 id="android">Android</h2>
 

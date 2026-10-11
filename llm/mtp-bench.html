@@ -66,7 +66,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM MTP ベンチマーク</h1>
-    <p>ailia LLM 1.5.1 の MTP（Multi-Token Prediction）で、Qualcomm SoC の NPU における Gemma 4 の Decode スループット（TPS）がどれだけ改善するかを示します。</p>
+    <p>QNN の唯一の弱点だった Decode（トークン生成）が、MTP でどれだけ改善したかを示します。Android では NPU のトークン生成が CPU を上回り、E2B の画像・音声入力では、回答完了までの時間が CPU の 5〜9 分の 1 になります。</p>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-value">1.55<small>倍</small></div><div class="stat-label">Decode の高速化</div><div class="stat-note">MTP なし比・Snapdragon 7s Gen 3・E2B</div></div>
+      <div class="stat-card"><div class="stat-value">1.63<small>倍</small></div><div class="stat-label">CPU を上回る Decode</div><div class="stat-note">CPU 比・Snapdragon 7s Gen 3・E2B</div></div>
+      <div class="stat-card"><div class="stat-value">2.61<small>倍</small></div><div class="stat-label">音声の書き起こし</div><div class="stat-note">MTP なし比・Snapdragon 7s Gen 3・E2B</div></div>
+      <div class="stat-card"><div class="stat-value">9.0<small>倍</small></div><div class="stat-label">回答完了までの時間（音声入力）</div><div class="stat-note">CPU 比・概算・Snapdragon 7s Gen 3・E2B</div></div>
+    </div>
   </section>
 
   <div class="guide-content">
@@ -74,6 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>MTP の仕組みと使い方は <a href="mtp.html">ailia LLM MTP ガイド</a>、MTP を使わない QNN の測定結果は <a href="qnn-bench.html">ailia LLM NPU（QNN）ベンチマーク</a> を参照してください。</p>
     <ul>
       <li><a href="#summary">結果の概要</a></li>
+      <li><a href="#e2e">入力から回答完了までの時間（概算）</a></li>
       <li><a href="#android">Android（Snapdragon 8+ Gen 1 / SM8475、Snapdragon 7s Gen 3 / SM7635）</a></li>
       <li><a href="#windows">Windows（Snapdragon X Plus / SC8380XP）</a></li>
     </ul>
@@ -85,6 +92,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>QNN 単体では CPU を下回ることがあった NPU の Decode が、MTP により Android で <strong>CPU と同等以上</strong> になりました。Snapdragon 7s Gen 3 の E2B ではテキスト生成で CPU の 1.63 倍、音声入力で 2.85 倍です。</li>
       <li>Prefill（プロンプト処理）と TTFT は MTP の有無でほぼ変わらず、MTP 対応モデルでも Prefill の性能は低下しません。</li>
     </ul>
+
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B のテキスト生成のトークンごとのスループット（1000 トークン生成、CPU / CPU OpenMP / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>Snapdragon 7s Gen 3（SM7635 / E2B / Int16）のテキスト生成。MTP あり（紫）が CPU（青）を上回ります。</figcaption>
+    </figure>
+
+    <h2 id="e2e">入力から回答完了までの時間（概算）</h2>
+    <p>画像・音声を入力してから回答の生成が終わるまでの時間を、後述の TTFT と Decode スループットから概算した値です（<code>TTFT + (出力トークン数 − 1) / Decode スループット</code>）。画像は 100 トークン、音声は 32 トークンの出力です。QNN による Prefill・エンコーダの高速化と、MTP による Decode の高速化の両方が効いています。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末・モデル</th><th>入力</th><th>CPU</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th><th>CPU 比</th></tr>
+      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>画像</td><td class="num">91.8 秒</td><td class="num">21.8 秒</td><td class="num"><strong>18.1 秒</strong></td><td class="num"><strong>5.1 倍</strong></td></tr>
+      <tr><td>音声</td><td class="num">48.5 秒</td><td class="num">10.5 秒</td><td class="num"><strong>7.7 秒</strong></td><td class="num"><strong>6.3 倍</strong></td></tr>
+      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>画像</td><td class="num">116.4 秒</td><td class="num">25.0 秒</td><td class="num"><strong>20.6 秒</strong></td><td class="num"><strong>5.7 倍</strong></td></tr>
+      <tr><td>音声</td><td class="num">89.8 秒</td><td class="num">13.0 秒</td><td class="num"><strong>9.9 秒</strong></td><td class="num"><strong>9.0 倍</strong></td></tr>
+      <tr><td rowspan="2">SM7635 E4B / Int16</td><td>画像</td><td class="num">138.8 秒</td><td class="num">46.7 秒</td><td class="num"><strong>51.7 秒</strong></td><td class="num"><strong>2.7 倍</strong></td></tr>
+      <tr><td>音声</td><td class="num">104.4 秒</td><td class="num">23.2 秒</td><td class="num"><strong>19.0 秒</strong></td><td class="num"><strong>5.5 倍</strong></td></tr>
+    </table>
+    </div>
+    <p>回答完了までの時間は、NPU（MTP あり）で CPU の 2.7〜9.0 分の 1 です。E2B では MTP なしと比べてさらに 1.2〜1.4 倍短くなります。SM7635 の E4B の画像入力は、MTP ありの TTFT が長かったため、MTP なしより 1.1 倍長くなりました。実際に通しで測定した値ではないため、目安として参照してください。</p>
 
     <h2 id="android">Android</h2>
 

@@ -66,7 +66,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM NPU (QNN) Benchmark</h1>
-    <p>Measured results of running Gemma 4 on the Qualcomm SoC NPU with the ailia LLM QNN backend, compared with CPU execution on the same device.</p>
+    <p>Measured results of running Gemma 4 on the Qualcomm SoC NPU with the ailia LLM QNN backend, compared with CPU execution on the same device. The NPU accelerates prompt processing by up to 4.2x and keeps CPU usage at around 3%. On Android, image and audio input respond 6.8x to 12.7x faster than on the CPU.</p>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-value">4.2<small>x</small></div><div class="stat-label">Prefill (prompt processing)</div><div class="stat-note">vs. CPU, 2,048-token input, Snapdragon 8+ Gen 1</div></div>
+      <div class="stat-card"><div class="stat-value">3<small>%</small></div><div class="stat-label">CPU use during prefill</div><div class="stat-note">98.7% on the CPU, Snapdragon 8+ Gen 1</div></div>
+      <div class="stat-card"><div class="stat-value">12.7<small>x</small></div><div class="stat-label">Image input response (TTFT)</div><div class="stat-note">vs. CPU, Snapdragon 8+ Gen 1, E2B</div></div>
+      <div class="stat-card"><div class="stat-value">1/4<small></small></div><div class="stat-label">Working memory (anonymous memory)</div><div class="stat-note">vs. CPU, Snapdragon 7s Gen 3, E2B</div></div>
+    </div>
   </section>
 
   <div class="guide-content">
@@ -85,31 +91,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h3>Test Conditions</h3>
     <p>The following results were measured with Gemma 4 on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B and E4B Int16 models. All were measured with QAIRT 2.47, a context length of 8192 and the AR-256 / AR-1 configuration.</p>
     <p>The CPU numbers run the same Q4_0 GGUF through the standard llama.cpp path on the same device (8 decoder workers, context 8192). The shipping configuration is the build with OpenMP disabled, which is the "CPU" column. "CPU (OpenMP)" is a comparison build made with <code>GGML_OPENMP=ON</code> and <code>OMP_NUM_THREADS=2</code>.</p>
-
-    <h3>Decode throughput</h3>
-    <p>Throughput with 81 input tokens and 1,000 generated tokens.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Device</th><th>Model</th><th>CPU</th><th>CPU (OpenMP)</th><th>NPU (QNN)</th><th>Effect of the NPU</th></tr>
-      <tr><td>SM8475 (Hexagon v69)</td><td>E2B / FP16</td><td class="num">9.971 tokens/s</td><td class="num">8.482 tokens/s</td><td class="num">8.062 tokens/s</td><td class="num">0.81x</td></tr>
-      <tr><td>SM7635 (Hexagon v73)</td><td>E2B / Int16</td><td class="num">5.805 tokens/s</td><td class="num">4.195 tokens/s</td><td class="num">6.410 tokens/s</td><td class="num">1.10x faster</td></tr>
-      <tr><td>SM7635 (Hexagon v73)</td><td>E4B / Int16</td><td class="num">3.351 tokens/s</td><td class="num">3.203 tokens/s</td><td class="num">3.128 tokens/s</td><td class="num">0.93x</td></tr>
-    </table>
-    </div>
-    <p>With E2B on SM7635, NPU decode is 1.10x faster than the CPU (1.53x faster than the OpenMP build). On the other hand, E2B on SM8475 (0.81x) and E4B on SM7635 (0.93x) are slower than the CPU. Decode processes one token at a time, so it is dominated by weight loading and does not benefit much from the parallel compute of the NPU. With MTP, NPU decode reaches 1.01x the CPU for E2B on SM8475 and 1.63x for E2B on SM7635 (<a href="mtp-bench.html#cpu">MTP Benchmark</a>).</p>
-
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/tps_sm8475.png" alt="SM8475 E2B per-token decode throughput over 1000 generated tokens (CPU / CPU OpenMP / NPU)" loading="lazy">
-      <figcaption>SM8475 (E2B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/tps_sm7635.png" alt="SM7635 E2B per-token decode throughput over 1000 generated tokens (CPU / CPU OpenMP / NPU)" loading="lazy">
-      <figcaption>SM7635 (E2B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/tps_e4b_sm7635.png" alt="SM7635 E4B per-token decode throughput over 1000 generated tokens (CPU / CPU OpenMP / NPU)" loading="lazy">
-      <figcaption>SM7635 (E4B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
-    </figure>
 
     <h3>Prefill throughput</h3>
     <p>Throughput (tokens/s) for input lengths from 64 to 2,048 tokens. After a two-token warmup, <code>SetPrompt</code> is called twice without evaluation to clear the KV cache, and exactly one token is generated at each input length.</p>
@@ -238,36 +219,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>With E4B as well, the NPU peak is about a third of the CPU path. This measurement was taken with the device at Thermal Status 1 and is affected by Android page reclamation.</p>
 
+    <h3>Decode throughput</h3>
+    <p>Throughput with 81 input tokens and 1,000 generated tokens.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device</th><th>Model</th><th>CPU</th><th>CPU (OpenMP)</th><th>NPU (QNN)</th><th>Effect of the NPU</th></tr>
+      <tr><td>SM8475 (Hexagon v69)</td><td>E2B / FP16</td><td class="num">9.971 tokens/s</td><td class="num">8.482 tokens/s</td><td class="num">8.062 tokens/s</td><td class="num">0.81x</td></tr>
+      <tr><td>SM7635 (Hexagon v73)</td><td>E2B / Int16</td><td class="num">5.805 tokens/s</td><td class="num">4.195 tokens/s</td><td class="num">6.410 tokens/s</td><td class="num">1.10x faster</td></tr>
+      <tr><td>SM7635 (Hexagon v73)</td><td>E4B / Int16</td><td class="num">3.351 tokens/s</td><td class="num">3.203 tokens/s</td><td class="num">3.128 tokens/s</td><td class="num">0.93x</td></tr>
+    </table>
+    </div>
+    <p>With E2B on SM7635, NPU decode is 1.10x faster than the CPU (1.53x faster than the OpenMP build). On the other hand, E2B on SM8475 (0.81x) and E4B on SM7635 (0.93x) are slower than the CPU. Decode processes one token at a time, so it is dominated by weight loading and does not benefit much from the parallel compute of the NPU. With MTP, NPU decode reaches 1.01x the CPU for E2B on SM8475 and 1.63x for E2B on SM7635 (<a href="mtp-bench.html#cpu">MTP Benchmark</a>).</p>
+
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_sm8475.png" alt="SM8475 E2B per-token decode throughput over 1000 generated tokens (CPU / CPU OpenMP / NPU)" loading="lazy">
+      <figcaption>SM8475 (E2B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_sm7635.png" alt="SM7635 E2B per-token decode throughput over 1000 generated tokens (CPU / CPU OpenMP / NPU)" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_e4b_sm7635.png" alt="SM7635 E4B per-token decode throughput over 1000 generated tokens (CPU / CPU OpenMP / NPU)" loading="lazy">
+      <figcaption>SM7635 (E4B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+
     <h2 id="windows">Windows</h2>
 
     <h3>Test Conditions</h3>
     <p>The following results were measured with Gemma 4 on two devices. Snapdragon X Plus (SC8380XP / Hexagon v73) uses the E2B and E4B FP16 models on Windows 11 Pro, and QCS6490 (Hexagon v68) uses the E2B Int16 model with ailia LLM 1.5.0.1 on Windows 11 IoT Enterprise LTSC. Both are 8-core devices, measured with QAIRT 2.47, a context length of 8192 and the AR-256 / AR-1 configuration.</p>
     <p>The CPU numbers run the Q4_0 GGUF through the standard llama.cpp path on the same device (OpenMP disabled, with the 4 performance cores as workers). The GPU numbers run the same GGUF on the Snapdragon X Plus Adreno X1-45 with the llama.cpp OpenCL backend. The GPU on QCS6490 was not measured.</p>
-
-    <h3>Decode throughput</h3>
-    <p>Throughput with 81 input tokens and 1,000 generated tokens.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Device</th><th>Model</th><th>CPU</th><th>GPU</th><th>NPU (QNN)</th><th>Effect of the NPU</th></tr>
-      <tr><td>SC8380XP (Hexagon v73)</td><td>E2B / FP16</td><td class="num">32.505 tokens/s</td><td class="num">12.590 tokens/s</td><td class="num">7.988 tokens/s</td><td class="num">0.25x</td></tr>
-      <tr><td>SC8380XP (Hexagon v73)</td><td>E4B / FP16</td><td class="num">15.230 tokens/s</td><td class="num">7.161 tokens/s</td><td class="num">4.651 tokens/s</td><td class="num">0.31x</td></tr>
-      <tr><td>QCS6490 (Hexagon v68)</td><td>E2B / Int16</td><td class="num">7.983 tokens/s</td><td class="num">—</td><td class="num">4.405 tokens/s</td><td class="num">0.55x</td></tr>
-    </table>
-    </div>
-    <p>NPU decode runs at 0.25x to 0.55x of the CPU, so it is slower than the CPU, but its throughput is stable.</p>
-
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/tps_sc8380xp.png" alt="Snapdragon X Plus E2B per-token decode throughput over 1000 generated tokens (CPU / GPU / NPU)" loading="lazy">
-      <figcaption>SC8380XP (E2B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B per-token decode throughput over 1000 generated tokens (CPU / GPU / NPU)" loading="lazy">
-      <figcaption>SC8380XP (E4B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/tps_qcs6490.png" alt="QCS6490 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU)" loading="lazy">
-      <figcaption>QCS6490 (E2B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
-    </figure>
 
     <h3>Prefill throughput</h3>
     <p>Throughput (tokens/s) as the input length varies from 64 to 2,048 tokens, measured the same way as on Android.</p>
@@ -347,6 +328,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <figure class="bench-figure">
       <img src="../../llm/benchmark/media_ttft_qcs6490.png" alt="QCS6490 E2B VLM and audio TTFT breakdown (CPU / NPU)" loading="lazy">
       <figcaption>QCS6490 (E2B / Int16) VLM and audio TTFT breakdown (prompt setup and the first generate call)</figcaption>
+    </figure>
+
+    <h3>Decode throughput</h3>
+    <p>Throughput with 81 input tokens and 1,000 generated tokens.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device</th><th>Model</th><th>CPU</th><th>GPU</th><th>NPU (QNN)</th><th>Effect of the NPU</th></tr>
+      <tr><td>SC8380XP (Hexagon v73)</td><td>E2B / FP16</td><td class="num">32.505 tokens/s</td><td class="num">12.590 tokens/s</td><td class="num">7.988 tokens/s</td><td class="num">0.25x</td></tr>
+      <tr><td>SC8380XP (Hexagon v73)</td><td>E4B / FP16</td><td class="num">15.230 tokens/s</td><td class="num">7.161 tokens/s</td><td class="num">4.651 tokens/s</td><td class="num">0.31x</td></tr>
+      <tr><td>QCS6490 (Hexagon v68)</td><td>E2B / Int16</td><td class="num">7.983 tokens/s</td><td class="num">—</td><td class="num">4.405 tokens/s</td><td class="num">0.55x</td></tr>
+    </table>
+    </div>
+    <p>NPU decode runs at 0.25x to 0.55x of the CPU, so it is slower than the CPU, but its throughput is stable.</p>
+
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_sc8380xp.png" alt="Snapdragon X Plus E2B per-token decode throughput over 1000 generated tokens (CPU / GPU / NPU)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B per-token decode throughput over 1000 generated tokens (CPU / GPU / NPU)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/tps_qcs6490.png" alt="QCS6490 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU)" loading="lazy">
+      <figcaption>QCS6490 (E2B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
     </figure>
 
   </div>
