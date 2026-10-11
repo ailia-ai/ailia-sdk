@@ -162,12 +162,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>ドラフトモデル（Assistant）を開く API</h2>
     <p>Assistant は <code>ailiaLLMOpenMtpModel</code> で開きます。</p>
-    <pre><code class="language-c">int ailiaLLMOpenMtpModel(struct AILIALLM *llm, const char *path);</code></pre>
+    <pre><code class="language-c">int ailiaLLMOpenMtpModel(struct AILIALLM *llm, const char *path, unsigned int n_draft);</code></pre>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>引数</th><th>内容</th></tr>
       <tr><td><code>llm</code></td><td>本体モデルを開いた <code>AILIALLM</code> インスタンス</td></tr>
       <tr><td><code>path</code></td><td>Assistant のパス（UTF-8）。NPU の本体には <code>-mtp-assistant.qnn</code>、CPU の本体には <code>mtp-gemma-4-*.gguf</code> を指定します。Windows でも UTF-8 文字列を渡します（<code>W</code> 版はありません）。</td></tr>
+      <tr><td><code>n_draft</code></td><td>Assistant が 1 回に生成する候補（ドラフト）トークン数です。本体はこの候補と自身の 1 トークンをまとめて検証します。通常は <code>3</code> を指定します。NPU（QNN）では最大 3 です。<code>0</code> を指定すると MTP は無効になり、<code>path</code> は使用されません。</td></tr>
     </table>
     </div>
     <p>呼び出し順は次のとおりです。</p>
@@ -214,14 +215,14 @@ int open_qnn_mtp_model(const char *model_dir, struct AILIALLM **out) {
     if (status != AILIA_LLM_STATUS_SUCCESS) return status;
     status = ailiaLLMOpenModelFileA(llm, target, 0);           /* 本体 */
     if (status == AILIA_LLM_STATUS_SUCCESS)
-        status = ailiaLLMOpenMtpModel(llm, assistant);         /* ドラフトモデル */
+        status = ailiaLLMOpenMtpModel(llm, assistant, 3);      /* ドラフトモデル */
     if (status != AILIA_LLM_STATUS_SUCCESS) { ailiaLLMDestroy(llm); return status; }
     *out = llm;
     return AILIA_LLM_STATUS_SUCCESS;
 }</code></pre>
     <p>CPU の場合は、本体に GGUF、Assistant に MTP 用 GGUF を指定します。</p>
     <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma-4-E2B-it-qat-Q4_0.gguf", 4096);
-ailiaLLMOpenMtpModel(llm, "mtp-gemma-4-E2B-it-Q4_0.gguf");</code></pre>
+ailiaLLMOpenMtpModel(llm, "mtp-gemma-4-E2B-it-Q4_0.gguf", 3);</code></pre>
 
     <h3>Python</h3>
     <pre><code class="language-python">from pathlib import Path
@@ -233,11 +234,11 @@ model_dir = Path("/data/user/0/your.package/files")
 
 llm = ailia_llm.AiliaLLM()
 llm.open(str(model_dir / f"gemma4-e2b-{soc}-{precision}-mtp.qnn"), n_ctx=0)
-llm.open_mtp_model(str(model_dir / f"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn"))
+llm.open_mtp_model(str(model_dir / f"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn"), n_draft=3)
 
 for delta in llm.generate([{"role": "user", "content": "自己紹介してください。"}]):
     print(delta, end="", flush=True)</code></pre>
-    <p>CPU の場合は <code>llm.open("gemma-4-E2B-it-qat-Q4_0.gguf")</code> の後に <code>llm.open_mtp_model("mtp-gemma-4-E2B-it-Q4_0.gguf")</code> を呼び出します。失敗時は <code>AiliaLLMError</code> が送出されます。</p>
+    <p>CPU の場合は <code>llm.open("gemma-4-E2B-it-qat-Q4_0.gguf")</code> の後に <code>llm.open_mtp_model("mtp-gemma-4-E2B-it-Q4_0.gguf", n_draft=3)</code> を呼び出します。失敗時は <code>AiliaLLMError</code> が送出されます。</p>
 
     <h3>Flutter</h3>
     <pre><code class="language-dart">import 'package:ailia_llm/ailia_llm_model.dart';
@@ -248,9 +249,9 @@ const dir = '/data/user/0/your.package/files';
 
 final model = AiliaLLMModel();
 model.open('$dir/gemma4-e2b-$soc-$precision-mtp.qnn', 0);
-model.openMtpModel('$dir/gemma4-e2b-$soc-$precision-mtp-assistant.qnn');
+model.openMtpModel('$dir/gemma4-e2b-$soc-$precision-mtp-assistant.qnn', 3);
 // 使用後は model.close();</code></pre>
-    <p>CPU の場合は <code>model.open('gemma-4-E2B-it-qat-Q4_0.gguf', 4096)</code> の後に <code>model.openMtpModel('mtp-gemma-4-E2B-it-Q4_0.gguf')</code> を呼び出します。失敗時は <code>Exception</code> が送出され、本体は開いたまま MTP は有効になりません。</p>
+    <p>CPU の場合は <code>model.open('gemma-4-E2B-it-qat-Q4_0.gguf', 4096)</code> の後に <code>model.openMtpModel('mtp-gemma-4-E2B-it-Q4_0.gguf', 3)</code> を呼び出します。失敗時は <code>Exception</code> が送出され、本体は開いたまま MTP は有効になりません。</p>
 
     <h3>JNI（Kotlin）</h3>
     <p><code>context</code> は Android の Activity または Application の Context です。</p>
@@ -262,9 +263,9 @@ val dir = context.filesDir
 
 val llm = AiliaLLM()
 llm.openModelFile("$dir/gemma4-e2b-$soc-$precision-mtp.qnn", 0)
-llm.openMtpModel("$dir/gemma4-e2b-$soc-$precision-mtp-assistant.qnn")
+llm.openMtpModel("$dir/gemma4-e2b-$soc-$precision-mtp-assistant.qnn", 3)
 // 使用後は llm.close()</code></pre>
-    <p>CPU の場合は <code>llm.openModelFile("gemma-4-E2B-it-qat-Q4_0.gguf", 4096)</code> の後に <code>llm.openMtpModel("mtp-gemma-4-E2B-it-Q4_0.gguf")</code> を呼び出します。失敗時は <code>RuntimeException</code> が送出されます。</p>
+    <p>CPU の場合は <code>llm.openModelFile("gemma-4-E2B-it-qat-Q4_0.gguf", 4096)</code> の後に <code>llm.openMtpModel("mtp-gemma-4-E2B-it-Q4_0.gguf", 3)</code> を呼び出します。失敗時は <code>RuntimeException</code> が送出されます。</p>
 
     <h3>Unity（C#）</h3>
     <pre><code class="language-csharp">using System;
@@ -280,14 +281,14 @@ var llm = new AiliaLLMModel();
 if (!llm.Create()) throw new Exception("ailiaLLMCreate failed");
 if (!llm.Open(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp.qnn"), 0))
     throw new Exception(llm.GetErrorDetail());
-if (!llm.OpenMtpModel(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn")))
+if (!llm.OpenMtpModel(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn"), 3))
     throw new Exception(llm.GetErrorDetail());
 // 使用後は llm.Dispose();</code></pre>
 
     <h3>画像・音声入力と組み合わせる場合</h3>
     <p>Assistant を開いた後に、同じ SoC・モデルの mmproj を開きます。プロンプトの設定方法は通常の <a href="multimodal.html">マルチモーダル ガイド</a> と同じです。</p>
     <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);
-ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn");
+ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);
 ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
 /* 以降は ailiaLLMSetMultimodalPrompt / ailiaLLMGenerate */</code></pre>
 

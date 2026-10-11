@@ -162,12 +162,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>API for Opening the Draft Model (Assistant)</h2>
     <p>Open the assistant with <code>ailiaLLMOpenMtpModel</code>.</p>
-    <pre><code class="language-c">int ailiaLLMOpenMtpModel(struct AILIALLM *llm, const char *path);</code></pre>
+    <pre><code class="language-c">int ailiaLLMOpenMtpModel(struct AILIALLM *llm, const char *path, unsigned int n_draft);</code></pre>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Argument</th><th>Description</th></tr>
       <tr><td><code>llm</code></td><td>The <code>AILIALLM</code> instance in which the main model has been opened</td></tr>
       <tr><td><code>path</code></td><td>Path to the assistant (UTF-8). Specify <code>-mtp-assistant.qnn</code> for an NPU main model, or <code>mtp-gemma-4-*.gguf</code> for a CPU main model. Pass a UTF-8 string on Windows as well (there is no <code>W</code> variant).</td></tr>
+      <tr><td><code>n_draft</code></td><td>Number of candidate (draft) tokens the assistant generates per round. The main model verifies these candidates together with one token of its own. Normally specify <code>3</code>. The maximum on the NPU (QNN) is 3. Specifying <code>0</code> disables MTP, and <code>path</code> is not used.</td></tr>
     </table>
     </div>
     <p>Call the APIs in the following order.</p>
@@ -214,14 +215,14 @@ int open_qnn_mtp_model(const char *model_dir, struct AILIALLM **out) {
     if (status != AILIA_LLM_STATUS_SUCCESS) return status;
     status = ailiaLLMOpenModelFileA(llm, target, 0);           /* main model */
     if (status == AILIA_LLM_STATUS_SUCCESS)
-        status = ailiaLLMOpenMtpModel(llm, assistant);         /* draft model */
+        status = ailiaLLMOpenMtpModel(llm, assistant, 3);      /* draft model */
     if (status != AILIA_LLM_STATUS_SUCCESS) { ailiaLLMDestroy(llm); return status; }
     *out = llm;
     return AILIA_LLM_STATUS_SUCCESS;
 }</code></pre>
     <p>On the CPU, specify a GGUF for the main model and the MTP GGUF for the assistant.</p>
     <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma-4-E2B-it-qat-Q4_0.gguf", 4096);
-ailiaLLMOpenMtpModel(llm, "mtp-gemma-4-E2B-it-Q4_0.gguf");</code></pre>
+ailiaLLMOpenMtpModel(llm, "mtp-gemma-4-E2B-it-Q4_0.gguf", 3);</code></pre>
 
     <h3>Python</h3>
     <pre><code class="language-python">from pathlib import Path
@@ -233,11 +234,11 @@ model_dir = Path("/data/user/0/your.package/files")
 
 llm = ailia_llm.AiliaLLM()
 llm.open(str(model_dir / f"gemma4-e2b-{soc}-{precision}-mtp.qnn"), n_ctx=0)
-llm.open_mtp_model(str(model_dir / f"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn"))
+llm.open_mtp_model(str(model_dir / f"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn"), n_draft=3)
 
 for delta in llm.generate([{"role": "user", "content": "Introduce yourself."}]):
     print(delta, end="", flush=True)</code></pre>
-    <p>On the CPU, call <code>llm.open_mtp_model("mtp-gemma-4-E2B-it-Q4_0.gguf")</code> after <code>llm.open("gemma-4-E2B-it-qat-Q4_0.gguf")</code>. On failure, <code>AiliaLLMError</code> is raised.</p>
+    <p>On the CPU, call <code>llm.open_mtp_model("mtp-gemma-4-E2B-it-Q4_0.gguf", n_draft=3)</code> after <code>llm.open("gemma-4-E2B-it-qat-Q4_0.gguf")</code>. On failure, <code>AiliaLLMError</code> is raised.</p>
 
     <h3>Flutter</h3>
     <pre><code class="language-dart">import 'package:ailia_llm/ailia_llm_model.dart';
@@ -248,9 +249,9 @@ const dir = '/data/user/0/your.package/files';
 
 final model = AiliaLLMModel();
 model.open('$dir/gemma4-e2b-$soc-$precision-mtp.qnn', 0);
-model.openMtpModel('$dir/gemma4-e2b-$soc-$precision-mtp-assistant.qnn');
+model.openMtpModel('$dir/gemma4-e2b-$soc-$precision-mtp-assistant.qnn', 3);
 // Call model.close() when done</code></pre>
-    <p>On the CPU, call <code>model.openMtpModel('mtp-gemma-4-E2B-it-Q4_0.gguf')</code> after <code>model.open('gemma-4-E2B-it-qat-Q4_0.gguf', 4096)</code>. On failure, an <code>Exception</code> is thrown; the main model stays open and MTP is not enabled.</p>
+    <p>On the CPU, call <code>model.openMtpModel('mtp-gemma-4-E2B-it-Q4_0.gguf', 3)</code> after <code>model.open('gemma-4-E2B-it-qat-Q4_0.gguf', 4096)</code>. On failure, an <code>Exception</code> is thrown; the main model stays open and MTP is not enabled.</p>
 
     <h3>JNI (Kotlin)</h3>
     <p><code>context</code> is the Android Activity or Application Context.</p>
@@ -262,9 +263,9 @@ val dir = context.filesDir
 
 val llm = AiliaLLM()
 llm.openModelFile("$dir/gemma4-e2b-$soc-$precision-mtp.qnn", 0)
-llm.openMtpModel("$dir/gemma4-e2b-$soc-$precision-mtp-assistant.qnn")
+llm.openMtpModel("$dir/gemma4-e2b-$soc-$precision-mtp-assistant.qnn", 3)
 // Call llm.close() when done</code></pre>
-    <p>On the CPU, call <code>llm.openMtpModel("mtp-gemma-4-E2B-it-Q4_0.gguf")</code> after <code>llm.openModelFile("gemma-4-E2B-it-qat-Q4_0.gguf", 4096)</code>. On failure, a <code>RuntimeException</code> is thrown.</p>
+    <p>On the CPU, call <code>llm.openMtpModel("mtp-gemma-4-E2B-it-Q4_0.gguf", 3)</code> after <code>llm.openModelFile("gemma-4-E2B-it-qat-Q4_0.gguf", 4096)</code>. On failure, a <code>RuntimeException</code> is thrown.</p>
 
     <h3>Unity (C#)</h3>
     <pre><code class="language-csharp">using System;
@@ -280,14 +281,14 @@ var llm = new AiliaLLMModel();
 if (!llm.Create()) throw new Exception("ailiaLLMCreate failed");
 if (!llm.Open(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp.qnn"), 0))
     throw new Exception(llm.GetErrorDetail());
-if (!llm.OpenMtpModel(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn")))
+if (!llm.OpenMtpModel(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp-assistant.qnn"), 3))
     throw new Exception(llm.GetErrorDetail());
 // Call llm.Dispose() when done</code></pre>
 
     <h3>Combining with image and audio input</h3>
     <p>Open the mmproj for the same SoC and model after opening the assistant. Prompts are set in the same way as in the <a href="multimodal.html">Multimodal Guide</a>.</p>
     <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);
-ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn");
+ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);
 ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
 /* then ailiaLLMSetMultimodalPrompt / ailiaLLMGenerate */</code></pre>
 
