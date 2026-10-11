@@ -239,6 +239,33 @@ for delta in llm.generate([{"role": "user", "content": "Introduce yourself."}]):
     print(delta, end="", flush=True)</code></pre>
     <p>On the CPU, call <code>llm.open_mtp_model("mtp-gemma-4-E2B-it-Q4_0.gguf")</code> after <code>llm.open("gemma-4-E2B-it-qat-Q4_0.gguf")</code>. On failure, <code>AiliaLLMError</code> is raised.</p>
 
+    <h3>Flutter</h3>
+    <pre><code class="language-dart">import 'package:ailia_llm/ailia_llm_model.dart';
+
+final soc = AiliaLLMModel.getQNNModelName();
+final precision = (soc == 'sm8475' || soc == 'sc8380xp') ? 'fp16' : 'int16';
+const dir = '/data/user/0/your.package/files';
+
+final model = AiliaLLMModel();
+model.open('$dir/gemma4-e2b-$soc-$precision-mtp.qnn', 0);
+model.openMtpModel('$dir/gemma4-e2b-$soc-$precision-mtp-assistant.qnn');
+// Call model.close() when done</code></pre>
+    <p>On the CPU, call <code>model.openMtpModel('mtp-gemma-4-E2B-it-Q4_0.gguf')</code> after <code>model.open('gemma-4-E2B-it-qat-Q4_0.gguf', 4096)</code>. On failure, an <code>Exception</code> is thrown; the main model stays open and MTP is not enabled.</p>
+
+    <h3>JNI (Kotlin)</h3>
+    <p><code>context</code> is the Android Activity or Application Context.</p>
+    <pre><code class="language-kotlin">import axip.ailia_llm.AiliaLLM
+
+val soc = AiliaLLM.getQNNModelName()
+val precision = if (soc == "sm8475" || soc == "sc8380xp") "fp16" else "int16"
+val dir = context.filesDir
+
+val llm = AiliaLLM()
+llm.openModelFile("$dir/gemma4-e2b-$soc-$precision-mtp.qnn", 0)
+llm.openMtpModel("$dir/gemma4-e2b-$soc-$precision-mtp-assistant.qnn")
+// Call llm.close() when done</code></pre>
+    <p>On the CPU, call <code>llm.openMtpModel("mtp-gemma-4-E2B-it-Q4_0.gguf")</code> after <code>llm.openModelFile("gemma-4-E2B-it-qat-Q4_0.gguf", 4096)</code>. On failure, a <code>RuntimeException</code> is thrown.</p>
+
     <h3>Unity (C#)</h3>
     <pre><code class="language-csharp">using System;
 using System.IO;
@@ -288,6 +315,8 @@ ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
