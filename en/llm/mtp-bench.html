@@ -66,12 +66,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM MTP Benchmark</h1>
-    <p>How much MTP improves decode (token generation), the one weakness of QNN. On Android, NPU token generation outperforms the CPU, and for E2B with image and audio input, the time to a complete answer is 1/5 to 1/9 of the CPU.</p>
+    <p>How much MTP improves decode (token generation), a challenge for QNN. On Android, NPU token generation outperforms the CPU, and for E2B with image and audio input, the response time (TTFT) is 1/7.7 to 1/10.6 of the CPU.</p>
     <div class="stat-grid">
       <div class="stat-card"><div class="stat-value">1.55<small>x</small></div><div class="stat-label">Faster decode</div><div class="stat-note">vs. without MTP, Snapdragon 7s Gen 3, E2B</div></div>
       <div class="stat-card"><div class="stat-value">1.63<small>x</small></div><div class="stat-label">Decode faster than the CPU</div><div class="stat-note">vs. CPU, Snapdragon 7s Gen 3, E2B</div></div>
-      <div class="stat-card"><div class="stat-value">2.61<small>x</small></div><div class="stat-label">Audio transcription</div><div class="stat-note">vs. without MTP, Snapdragon 7s Gen 3, E2B</div></div>
-      <div class="stat-card"><div class="stat-value">9.0<small>x</small></div><div class="stat-label">Time to complete answer (audio input)</div><div class="stat-note">vs. CPU, estimate, Snapdragon 7s Gen 3, E2B</div></div>
+      <div class="stat-card"><div class="stat-value">1.70<small>x</small></div><div class="stat-label">Faster decode (Windows)</div><div class="stat-note">vs. non-MTP, Snapdragon X Plus, E4B</div></div>
+      <div class="stat-card"><div class="stat-value">10.2<small>x</small></div><div class="stat-label">Image input response (TTFT)</div><div class="stat-note">vs. CPU, Snapdragon 7s Gen 3, E2B</div></div>
     </div>
   </section>
 
