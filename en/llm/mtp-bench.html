@@ -89,8 +89,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </ul>
 
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B per-token text generation throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>Per-token text generation throughput on Snapdragon 7s Gen 3 (SM7635 / E2B / Int16) over 1000 generated tokens</figcaption>
+      <img src="../../llm/benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B text generation decode throughput, 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>Text generation decode throughput on Snapdragon 7s Gen 3 (SM7635 / E2B / Int16), 1000 generated tokens</figcaption>
     </figure>
 
     <h2 id="e2e">Time from input to complete answer (estimate)</h2>
@@ -129,15 +129,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>With MTP, NPU decode is 1.81x for E2B on SM8475, 1.55x for E2B on SM7635 and 1.01x for E4B. MTP can also be used on the CPU (4 threads): 1.35x for E2B on SM7635, 1.65x for E4B and 0.94x for E2B on SM8475. Comparing both with MTP, the NPU is 1.12x (SM8475 E2B), 0.87x (SM7635 E2B) and 0.46x (SM7635 E4B) the CPU. Process CPU use during decode is 42% to 49% on the CPU and 1.6% to 5.0% on the NPU (<a href="#android-cpu">CPU usage</a>).</p>
 
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_sm8475.png" alt="SM8475 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
+      <img src="../../llm/benchmark/mtp_text_tps_sm8475.png" alt="SM8475 E2B decode throughput (1000 generated tokens) (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM8475 (E2B / FP16) decode throughput (1000 generated tokens)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_by_output_sm8475.png" alt="SM8475 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SM8475 (E2B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
+      <img src="../../llm/benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B decode throughput (1000 generated tokens) (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) decode throughput (1000 generated tokens)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_by_output_sm7635.png" alt="SM7635 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SM7635 (E2B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_e4b_sm7635.png" alt="SM7635 E4B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
+      <img src="../../llm/benchmark/mtp_text_tps_e4b_sm7635.png" alt="SM7635 E4B decode throughput (1000 generated tokens) (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E4B / Int16) decode throughput (1000 generated tokens)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_by_output_e4b_sm7635.png" alt="SM7635 E4B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SM7635 (E4B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
     </figure>
     <p>In the MTP curves, the time of each main-model run (round) is divided evenly among the tokens committed in that round. Rounds where many candidates are accepted show high TPS and rounds where all candidates are rejected show low TPS, so the values swing up and down. The TPS in the legend is computed from the total time.</p>
@@ -170,16 +182,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </ul>
 
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_sm8475.png" alt="SM8475 E2B prefill throughput (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SM8475 (E2B / FP16) prefill throughput</figcaption>
+      <img src="../../llm/benchmark/mtp_pps_sm8475.png" alt="SM8475 E2B prefill throughput (2,048-token input) (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM8475 (E2B / FP16) prefill throughput (2,048-token input)</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_sm7635.png" alt="SM7635 E2B prefill throughput (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SM7635 (E2B / Int16) prefill throughput</figcaption>
+      <img src="../../llm/benchmark/mtp_pps_by_input_sm8475.png" alt="SM8475 E2B prefill throughput by input length (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM8475 (E2B / FP16) prefill throughput by input length</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_e4b_sm7635.png" alt="SM7635 E4B prefill throughput (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SM7635 (E4B / Int16) prefill throughput</figcaption>
+      <img src="../../llm/benchmark/mtp_pps_sm7635.png" alt="SM7635 E2B prefill throughput (2,048-token input) (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) prefill throughput (2,048-token input)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_by_input_sm7635.png" alt="SM7635 E2B prefill throughput by input length (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) prefill throughput by input length</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_e4b_sm7635.png" alt="SM7635 E4B prefill throughput (2,048-token input) (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E4B / Int16) prefill throughput (2,048-token input)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_by_input_e4b_sm7635.png" alt="SM7635 E4B prefill throughput by input length (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E4B / Int16) prefill throughput by input length</figcaption>
     </figure>
     <p>Text generation TTFT in the decode throughput measurements (81-token input, each trial on a new instance) is shown below. On the NPU, the first generation right after opening the model restores the main model's QNN context, and this time is included.</p>
     <div class="table-wrap">
@@ -376,11 +400,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_sc8380xp.png" alt="Snapdragon X Plus E2B per-token text generation throughput over 1000 generated tokens (CPU / GPU / without MTP / with MTP)" loading="lazy">
+      <img src="../../llm/benchmark/mtp_text_tps_sc8380xp.png" alt="Snapdragon X Plus E2B text generation decode throughput (1000 generated tokens) (CPU / GPU / without MTP / with MTP)" loading="lazy">
+      <figcaption>Decode throughput on SC8380XP (E2B / FP16) (1000 generated tokens)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_by_output_sc8380xp.png" alt="Snapdragon X Plus E2B per-token text generation throughput over 1000 generated tokens (CPU / GPU / without MTP / with MTP)" loading="lazy">
       <figcaption>Per-token decode throughput on SC8380XP (E2B / FP16) over 1000 generated tokens</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B per-token text generation throughput over 1000 generated tokens (CPU / GPU / without MTP / with MTP)" loading="lazy">
+      <img src="../../llm/benchmark/mtp_text_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B text generation decode throughput (1000 generated tokens) (CPU / GPU / without MTP / with MTP)" loading="lazy">
+      <figcaption>Decode throughput on SC8380XP (E4B / FP16) (1000 generated tokens)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_by_output_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B per-token text generation throughput over 1000 generated tokens (CPU / GPU / without MTP / with MTP)" loading="lazy">
       <figcaption>Per-token decode throughput on SC8380XP (E4B / FP16) over 1000 generated tokens</figcaption>
     </figure>
 
@@ -404,12 +436,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Prefill is equivalent across all three configurations, so using the MTP-capable model does not reduce prefill performance. For a 2,048-token input, the NPU (with MTP) is about 2.77x faster than the CPU for E2B and about 3.11x for E4B, and about 2.84x faster than the GPU for E2B and about 2.59x for E4B.</p>
 
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_sc8380xp.png" alt="Snapdragon X Plus E2B prefill throughput (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>Prefill throughput on SC8380XP (E2B / FP16)</figcaption>
+      <img src="../../llm/benchmark/mtp_pps_sc8380xp.png" alt="Snapdragon X Plus E2B prefill throughput (2,048-token input) (CPU / GPU / without MTP / with MTP)" loading="lazy">
+      <figcaption>Prefill throughput on SC8380XP (E2B / FP16) (2,048-token input)</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>Prefill throughput on SC8380XP (E4B / FP16)</figcaption>
+      <img src="../../llm/benchmark/mtp_pps_by_input_sc8380xp.png" alt="Snapdragon X Plus E2B prefill throughput by input length (CPU / GPU / without MTP / with MTP)" loading="lazy">
+      <figcaption>Prefill throughput by input length on SC8380XP (E2B / FP16)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput (2,048-token input) (CPU / GPU / without MTP / with MTP)" loading="lazy">
+      <figcaption>Prefill throughput on SC8380XP (E4B / FP16) (2,048-token input)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_by_input_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput by input length (CPU / GPU / without MTP / with MTP)" loading="lazy">
+      <figcaption>Prefill throughput by input length on SC8380XP (E4B / FP16)</figcaption>
     </figure>
 
     <h3>VLM (image input) and audio input latency</h3>

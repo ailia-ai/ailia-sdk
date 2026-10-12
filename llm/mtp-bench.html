@@ -89,8 +89,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </ul>
 
     <figure class="bench-figure">
-      <img src="benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B のテキスト生成のトークンごとのスループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
-      <figcaption>Snapdragon 7s Gen 3（SM7635 / E2B / Int16）のテキスト生成のトークンごとのスループット（1000 トークン生成）</figcaption>
+      <img src="benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B のテキスト生成の Decode スループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>Snapdragon 7s Gen 3（SM7635 / E2B / Int16）のテキスト生成の Decode スループット（1000 トークン生成）</figcaption>
     </figure>
 
     <h2 id="e2e">入力から回答完了までの時間（概算）</h2>
@@ -129,15 +129,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>NPU の Decode は、MTP により SM8475 の E2B で 1.81 倍、SM7635 の E2B で 1.55 倍、E4B で 1.01 倍になりました。CPU（4 スレッド）でも MTP を使用でき、SM7635 の E2B で 1.35 倍、E4B で 1.65 倍、SM8475 の E2B で 0.94 倍でした。MTP あり同士の比較では、NPU は CPU の 1.12 倍（SM8475 E2B）、0.87 倍（SM7635 E2B）、0.46 倍（SM7635 E4B）です。Decode 中のプロセス CPU 使用率は、CPU 実行で 42〜49%、NPU で 1.6〜5.0% です（<a href="#android-cpu">CPU 使用率</a>）。</p>
 
     <figure class="bench-figure">
-      <img src="benchmark/mtp_text_tps_sm8475.png" alt="SM8475 E2Bの Decode のトークンごとのスループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <img src="benchmark/mtp_text_tps_sm8475.png" alt="SM8475 E2Bの Decode スループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の Decode スループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_by_output_sm8475.png" alt="SM8475 E2Bの Decode のトークンごとのスループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
       <figcaption>SM8475（E2B / FP16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2Bの Decode のトークンごとのスループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <img src="benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2Bの Decode スループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の Decode スループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_by_output_sm7635.png" alt="SM7635 E2Bの Decode のトークンごとのスループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
       <figcaption>SM7635（E2B / Int16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/mtp_text_tps_e4b_sm7635.png" alt="SM7635 E4Bの Decode のトークンごとのスループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <img src="benchmark/mtp_text_tps_e4b_sm7635.png" alt="SM7635 E4Bの Decode スループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の Decode スループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_by_output_e4b_sm7635.png" alt="SM7635 E4Bの Decode のトークンごとのスループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
       <figcaption>SM7635（E4B / Int16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
     </figure>
     <p>MTP ありのグラフは、本体 1 回の実行（ラウンド）の所要時間を、そのラウンドで確定したトークン数で均等に割り当てて描いています。候補が多く受理されたラウンドでは TPS が高く、すべて外れたラウンドでは低くなるため、値が上下に振れます。凡例の TPS は全体の合計時間から計算した値です。</p>
@@ -170,16 +182,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </ul>
 
     <figure class="bench-figure">
-      <img src="benchmark/mtp_pps_sm8475.png" alt="SM8475 E2B の Prefill スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
-      <figcaption>SM8475（E2B / FP16） の Prefill スループット</figcaption>
+      <img src="benchmark/mtp_pps_sm8475.png" alt="SM8475 E2B の Prefill スループット（2,048 トークン入力）（2,048 トークン入力）（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の Prefill スループット（2,048 トークン入力）</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/mtp_pps_sm7635.png" alt="SM7635 E2B の Prefill スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
-      <figcaption>SM7635（E2B / Int16） の Prefill スループット</figcaption>
+      <img src="benchmark/mtp_pps_by_input_sm8475.png" alt="SM8475 E2B の入力トークン数別の Prefill スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の入力トークン数別の Prefill スループット</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/mtp_pps_e4b_sm7635.png" alt="SM7635 E4B の Prefill スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
-      <figcaption>SM7635（E4B / Int16） の Prefill スループット</figcaption>
+      <img src="benchmark/mtp_pps_sm7635.png" alt="SM7635 E2B の Prefill スループット（2,048 トークン入力）（2,048 トークン入力）（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の Prefill スループット（2,048 トークン入力）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_by_input_sm7635.png" alt="SM7635 E2B の入力トークン数別の Prefill スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の入力トークン数別の Prefill スループット</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_e4b_sm7635.png" alt="SM7635 E4B の Prefill スループット（2,048 トークン入力）（2,048 トークン入力）（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の Prefill スループット（2,048 トークン入力）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_by_input_e4b_sm7635.png" alt="SM7635 E4B の入力トークン数別の Prefill スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の入力トークン数別の Prefill スループット</figcaption>
     </figure>
     <p>Decode スループットの測定（81 トークン入力、各試行は新しいインスタンス）でのテキスト生成の TTFT は次のとおりです。NPU はモデルを開いた直後の初回の生成で本体の QNN コンテキストを復元するため、その時間を含みます。</p>
     <div class="table-wrap">
@@ -211,27 +235,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <figure class="bench-figure">
       <img src="benchmark/mtp_cpu_sm8475.png" alt="SM8475 E2B の Decode 中の CPU 使用率（テキスト / 画像 / 音声）" loading="lazy">
-      <figcaption>SM8475（E2B / FP16） の Decode 中のプロセス CPU 使用率</figcaption>
+      <figcaption>SM8475（E2B / FP16）の Decode 中のプロセス CPU 使用率</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_cpu_sm7635.png" alt="SM7635 E2B の Decode 中の CPU 使用率（テキスト / 画像 / 音声）" loading="lazy">
-      <figcaption>SM7635（E2B / Int16） の Decode 中のプロセス CPU 使用率</figcaption>
+      <figcaption>SM7635（E2B / Int16）の Decode 中のプロセス CPU 使用率</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_cpu_e4b_sm7635.png" alt="SM7635 E4B の Decode 中の CPU 使用率（テキスト / 画像 / 音声）" loading="lazy">
-      <figcaption>SM7635（E4B / Int16） の Decode 中のプロセス CPU 使用率</figcaption>
+      <figcaption>SM7635（E4B / Int16）の Decode 中のプロセス CPU 使用率</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_pps_cpu_sm8475.png" alt="SM8475 E2B の Prefill 中の CPU 使用率" loading="lazy">
-      <figcaption>SM8475（E2B / FP16） の Prefill 中のプロセス CPU 使用率（入力トークン数別）</figcaption>
+      <figcaption>SM8475（E2B / FP16）の Prefill 中のプロセス CPU 使用率（入力トークン数別）</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_pps_cpu_sm7635.png" alt="SM7635 E2B の Prefill 中の CPU 使用率" loading="lazy">
-      <figcaption>SM7635（E2B / Int16） の Prefill 中のプロセス CPU 使用率（入力トークン数別）</figcaption>
+      <figcaption>SM7635（E2B / Int16）の Prefill 中のプロセス CPU 使用率（入力トークン数別）</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_pps_cpu_e4b_sm7635.png" alt="SM7635 E4B の Prefill 中の CPU 使用率" loading="lazy">
-      <figcaption>SM7635（E4B / Int16） の Prefill 中のプロセス CPU 使用率（入力トークン数別）</figcaption>
+      <figcaption>SM7635（E4B / Int16）の Prefill 中のプロセス CPU 使用率（入力トークン数別）</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_cpu_sm8475.png" alt="SM8475 E2B の画像 / 音声入力の TTFT 中の CPU 使用率" loading="lazy">
@@ -290,27 +314,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_ttft_sm8475.png" alt="SM8475 E2B の VLM / 音声入力の TTFT 内訳（CPU / NPU、MTP なし / あり）" loading="lazy">
-      <figcaption>SM8475（E2B / FP16） の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+      <figcaption>SM8475（E2B / FP16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_ttft_sm7635.png" alt="SM7635 E2B の VLM / 音声入力の TTFT 内訳（CPU / NPU、MTP なし / あり）" loading="lazy">
-      <figcaption>SM7635（E2B / Int16） の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+      <figcaption>SM7635（E2B / Int16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_ttft_e4b_sm7635.png" alt="SM7635 E4B の VLM / 音声入力の TTFT 内訳（CPU / NPU、MTP なし / あり）" loading="lazy">
-      <figcaption>SM7635（E4B / Int16） の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+      <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_tps_sm8475.png" alt="SM8475 E2B の VLM / 音声入力の Decode スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
-      <figcaption>SM8475（E2B / FP16） の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
+      <figcaption>SM8475（E2B / FP16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_tps_sm7635.png" alt="SM7635 E2B の VLM / 音声入力の Decode スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
-      <figcaption>SM7635（E2B / Int16） の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
+      <figcaption>SM7635（E2B / Int16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_tps_e4b_sm7635.png" alt="SM7635 E4B の VLM / 音声入力の Decode スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
-      <figcaption>SM7635（E4B / Int16） の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
+      <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
     </figure>
 
     <h3>temperature ありのサンプリング</h3>
@@ -377,10 +401,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <figure class="bench-figure">
       <img src="benchmark/mtp_text_tps_sc8380xp.png" alt="Snapdragon X Plus E2B のテキスト生成のトークンごとのスループット（1000 トークン生成、CPU / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の Decode スループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_by_output_sc8380xp.png" alt="Snapdragon X Plus E2B のテキスト生成のトークンごとのスループット（1000 トークン生成、CPU / MTP なし / MTP あり）" loading="lazy">
       <figcaption>SC8380XP（E2B / FP16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="benchmark/mtp_text_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B のテキスト生成のトークンごとのスループット（1000 トークン生成、CPU / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の Decode スループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_by_output_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B のテキスト生成のトークンごとのスループット（1000 トークン生成、CPU / MTP なし / MTP あり）" loading="lazy">
       <figcaption>SC8380XP（E4B / FP16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
     </figure>
 
@@ -404,12 +436,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Prefill は 3 構成とも同等で、MTP 対応モデルを使用しても Prefill 性能は低下しません。2,048 トークン入力では、NPU（MTP あり）は CPU より E2B で約 2.77 倍、E4B で約 3.11 倍、GPU より E2B で約 2.84 倍、E4B で約 2.59 倍高速です。</p>
 
     <figure class="bench-figure">
-      <img src="benchmark/mtp_pps_sc8380xp.png" alt="Snapdragon X Plus E2B の Prefill スループット（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
-      <figcaption>SC8380XP（E2B / FP16）の Prefill スループット</figcaption>
+      <img src="benchmark/mtp_pps_sc8380xp.png" alt="Snapdragon X Plus E2B の Prefill スループット（2,048 トークン入力）（2,048 トークン入力）（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の Prefill スループット（2,048 トークン入力）</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の Prefill スループット（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
-      <figcaption>SC8380XP（E4B / FP16）の Prefill スループット</figcaption>
+      <img src="benchmark/mtp_pps_by_input_sc8380xp.png" alt="Snapdragon X Plus E2B の入力トークン数別の Prefill スループット（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の入力トークン数別の Prefill スループット</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の Prefill スループット（2,048 トークン入力）（2,048 トークン入力）（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の Prefill スループット（2,048 トークン入力）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_by_input_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の入力トークン数別の Prefill スループット（CPU / GPU / MTP なし / MTP あり）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の入力トークン数別の Prefill スループット</figcaption>
     </figure>
 
     <h3>VLM（画像入力）・音声入力の応答時間</h3>
