@@ -111,7 +111,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h3>測定条件</h3>
     <p>Gemma 4 を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）は E2B の FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は E2B / E4B の Int16 モデルを使用しています。本体・Assistant とも v1.5.1 の MTP 対応モデル（W4）で、QAIRT 2.47、コンテキスト長 8192、AR-256（Prefill）/ AR-4（検証）/ AR-1 構成です。</p>
-    <p>「NPU（MTP なし）」は同じ MTP 対応の本体を Assistant なしで実行した値（AR-1 で 1 トークンずつ生成）、「NPU（MTP あり）」は Assistant を <code>ailiaLLMOpenMtpModel</code> で開いた値です。各条件は off → on → on → off の順に 2 回ずつ測定し、中央値を示します。各試行は新しいインスタンスで実行し、試行間に 20 秒の間隔を置いています。TPS は最初の出力トークンを除いた時間から計算しています。サンプリングは greedy（temperature 0、top-k 1、top-p 1、seed 1234）で、temperature ありの結果は別途示します。MTP と AR-1 では生成されるトークン列が異なるため、同一トークン列での比較ではありません。</p>
+    <p>「NPU（MTP なし）」は同じ MTP 対応の本体を Assistant なしで実行した値（AR-1 で 1 トークンずつ生成）、「NPU（MTP あり）」は Assistant を <code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code> で開いた値です。各条件は off → on → on → off の順に 2 回ずつ測定し、中央値を示します。各試行は新しいインスタンスで実行し、試行間に 20 秒の間隔を置いています。TPS は最初の出力トークンを除いた時間から計算しています。サンプリングは greedy（temperature 0、top-k 1、top-p 1、seed 1234）で、temperature ありの結果は別途示します。MTP と AR-1 では生成されるトークン列が異なるため、同一トークン列での比較ではありません。</p>
     <p>CPU は同じ端末上で、同一の Q4_0 GGUF を標準の llama.cpp 経路（OpenMP 無効、MTP なし）で実行した過去の測定値です。テキストは 2 回、画像・音声は各 1 回の測定で、CPU 側では画像・音声エンコーダも CPU で実行しています。CPU と NPU は測定時期と生成されたトークン列が異なり、クロック・温度も固定していないため、目安として参照してください。</p>
 
     <h3>Decode スループット</h3>

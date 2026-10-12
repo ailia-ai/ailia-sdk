@@ -75,7 +75,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM MTP（Multi-Token Prediction）ガイド</h1>
-    <p>ailia LLM 1.5.1 で対応した MTP を使用して、Gemma 4 のトークン生成（Decode）を高速化する方法を説明します。Snapdragon 7s Gen 3 の E2B では、テキスト生成の Decode が MTP なしの 1.55 倍、同じ端末の CPU 実行の 1.63 倍です。Snapdragon X Plus の E4B では、非 MTP モデルの 1.70 倍です。MTP を使用するには、MTP 対応モデルへの差し替えと <code>ailiaLLMOpenMtpModel</code> の呼び出しが必要です。</p>
+    <p>ailia LLM 1.5.1 で対応した MTP を使用して、Gemma 4 のトークン生成（Decode）を高速化する方法を説明します。Snapdragon 7s Gen 3 の E2B では、テキスト生成の Decode が MTP なしの 1.55 倍、同じ端末の CPU 実行の 1.63 倍です。Snapdragon X Plus の E4B では、非 MTP モデルの 1.70 倍です。MTP を使用するには、MTP 対応モデルへの差し替えと <code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code> の呼び出しが必要です。</p>
   </section>
 
   <div class="guide-content">
@@ -132,15 +132,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>候補がすべて外れても、本体が予測した 1 トークンは必ず確定します。予想が当たるほど本体の実行回数が減り、生成が速くなります。生成されるトークンは本体の予測に基づいて決まるため、MTP は出力の品質を落とさずに速度を上げる手法です（ただし、AR-4 と AR-1 の数値誤差により、通常生成と完全に同じトークン列になるとは限りません）。temperature を設定したサンプリングでは、本体と Assistant の確率比で候補を受理する方式（Speculative Sampling）を使用し、本体の確率分布に従った出力になります。</p>
     <h2>MTP の有効化</h2>
     <p>本体を MTP 対応版（<code>-mtp.qnn</code>）に差し替え、Assistant（<code>-mtp-assistant.qnn</code>、50 MB 未満）を配置したうえで、本体を開いた後に Assistant を開く 1 行を追加します。プロンプトの設定と生成のコードは変更不要です。</p>
-    <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);          /* 本体（MTP 対応版） */
-ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);  /* 追加 */
+    <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);               /* 本体（MTP 対応版） */
+ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);  /* 追加 */
 /* 以降の ailiaLLMSetPrompt / ailiaLLMGenerate は変更なし */</code></pre>
 
     <h3>QNN ガイドからの差分</h3>
     <ul>
       <li>ailia LLM 1.5.1 以降が必要です。<code>libailia_llm.so</code> と <code>libailia_llm_qnn.so</code>（Windows では <code>ailia_llm.dll</code> と <code>ailia_llm_qnn.dll</code>）は同じバージョンを組み合わせて配置してください。</li>
       <li>本体モデルは MTP 対応版（<code>-mtp.qnn</code>）を使用します。MTP 対応版は従来の AR-256 / AR-1 グラフに加えて、検証用の AR-4 グラフを含みます。</li>
-      <li>本体を開いた後に、<code>ailiaLLMOpenMtpModel</code> で同じ SoC・モデル・精度の Assistant（<code>-mtp-assistant.qnn</code>）を開きます。</li>
+      <li>本体を開いた後に、<code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code> で同じ SoC・モデル・精度の Assistant（<code>-mtp-assistant.qnn</code>）を開きます。</li>
       <li>その後のプロンプト設定（<code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code>）と <code>ailiaLLMGenerate</code> の使い方は変わりません。<code>ailiaLLMGenerate</code> は MTP でも 1 回の呼び出しで 1 トークンを返し、内部で確定済みのトークンを順に返します。</li>
       <li>画像・音声入力の mmproj（<code>-mmproj.qnn</code>）は ailia LLM 1.5.0 向けのファイルをそのまま使用できます。</li>
     </ul>
@@ -182,21 +182,22 @@ ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);  /* �
     <p>Assistant は本体と語彙・hidden サイズが一致している必要があります。E2B の本体には E2B の Assistant、E4B の本体には E4B の Assistant を組み合わせてください。</p>
 
     <h2>ドラフトモデル（Assistant）を開く API</h2>
-    <p>Assistant は <code>ailiaLLMOpenMtpModel</code> で開きます。</p>
-    <pre><code class="language-c">int ailiaLLMOpenMtpModel(struct AILIALLM *llm, const char *path, unsigned int n_draft);</code></pre>
+    <p>Assistant は <code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code> で開きます。本体の <code>ailiaLLMOpenModelFileA</code> / <code>W</code> と同様に、パスの文字列の種類に応じて使い分けます。</p>
+    <pre><code class="language-c">int ailiaLLMOpenMtpModelFileA(struct AILIALLM *llm, const char *path, unsigned int n_draft);
+int ailiaLLMOpenMtpModelFileW(struct AILIALLM *llm, const wchar_t *path, unsigned int n_draft);</code></pre>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>引数</th><th>内容</th></tr>
       <tr><td><code>llm</code></td><td>本体モデルを開いた <code>AILIALLM</code> インスタンス</td></tr>
-      <tr><td><code>path</code></td><td>Assistant のパス（UTF-8）。NPU の本体には <code>-mtp-assistant.qnn</code>、CPU の本体には <code>mtp-gemma-4-*.gguf</code> を指定します。Windows でも UTF-8 文字列を渡します（<code>W</code> 版はありません）。</td></tr>
-      <tr><td><code>n_draft</code></td><td>Assistant が 1 回に生成する候補（ドラフト）トークン数です。本体はこの候補と自身の 1 トークンをまとめて検証します。1 以上の値を指定し、通常は <code>3</code> を指定します。NPU（QNN）では 1〜3 です。<code>0</code> を指定するとエラーになります。MTP を使用しない場合は、<code>ailiaLLMOpenMtpModel</code> を呼び出さないでください。</td></tr>
+      <tr><td><code>path</code></td><td>Assistant のパス。A 版は UTF-8、W 版はワイド文字列（Windows では UTF-16）で指定します。NPU の本体には <code>-mtp-assistant.qnn</code>、CPU の本体には <code>mtp-gemma-4-*.gguf</code> を指定します。</td></tr>
+      <tr><td><code>n_draft</code></td><td>Assistant が 1 回に生成する候補（ドラフト）トークン数です。本体はこの候補と自身の 1 トークンをまとめて検証します。1 以上の値を指定し、通常は <code>3</code> を指定します。NPU（QNN）では 1〜3 です。<code>0</code> を指定するとエラーになります。MTP を使用しない場合は、<code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code> を呼び出さないでください。</td></tr>
     </table>
     </div>
     <p>呼び出し順は次のとおりです。</p>
     <ol>
       <li><code>ailiaLLMCreate</code></li>
       <li><code>ailiaLLMOpenModelFileA</code> / <code>W</code> で本体を開く（NPU では <code>-mtp.qnn</code>）</li>
-      <li><strong><code>ailiaLLMOpenMtpModel</code> で Assistant を開く</strong>（最初のプロンプト設定より前に 1 回だけ）</li>
+      <li><strong><code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code> で Assistant を開く</strong>（最初のプロンプト設定より前に 1 回だけ）</li>
       <li>画像・音声入力を使う場合は <code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code> で mmproj を開く</li>
       <li><code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code> と <code>ailiaLLMGenerate</code> で通常どおり生成</li>
     </ol>
@@ -219,7 +220,7 @@ ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);  /* �
 int open_qnn_mtp_model(const char *model_dir, struct AILIALLM **out) {
     if (model_dir == NULL || out == NULL) return AILIA_LLM_STATUS_INVALID_ARGUMENT;
     *out = NULL;
-    const char *soc = NULL; /* ライブラリ所有。解放しない */
+    const char *soc = NULL;                                     /* ライブラリ所有。解放しない */
     int status = ailiaLLMGetQNNModelName(&amp;soc);
     if (status != AILIA_LLM_STATUS_SUCCESS) return status;
     /* sm8475 / sc8380xp は FP16、sm7635 / qcs6490 は Int16 */
@@ -234,16 +235,16 @@ int open_qnn_mtp_model(const char *model_dir, struct AILIALLM **out) {
     struct AILIALLM *llm = NULL;
     status = ailiaLLMCreate(&amp;llm);
     if (status != AILIA_LLM_STATUS_SUCCESS) return status;
-    status = ailiaLLMOpenModelFileA(llm, target, 0);           /* 本体 */
+    status = ailiaLLMOpenModelFileA(llm, target, 0);            /* 本体 */
     if (status == AILIA_LLM_STATUS_SUCCESS)
-        status = ailiaLLMOpenMtpModel(llm, assistant, 3);      /* ドラフトモデル */
+        status = ailiaLLMOpenMtpModelFileA(llm, assistant, 3);  /* ドラフトモデル */
     if (status != AILIA_LLM_STATUS_SUCCESS) { ailiaLLMDestroy(llm); return status; }
     *out = llm;
     return AILIA_LLM_STATUS_SUCCESS;
 }</code></pre>
     <p>CPU の場合は、本体に GGUF、Assistant に MTP 用 GGUF を指定します。</p>
     <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma-4-E2B-it-qat-Q4_0.gguf", 4096);
-ailiaLLMOpenMtpModel(llm, "mtp-gemma-4-E2B-it-Q4_0.gguf", 3);</code></pre>
+ailiaLLMOpenMtpModelFileA(llm, "mtp-gemma-4-E2B-it-Q4_0.gguf", 3);</code></pre>
 
     <h3>Python</h3>
     <pre><code class="language-python">from pathlib import Path
@@ -309,7 +310,7 @@ if (!llm.OpenMtpModel(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp-assis
     <h3>画像・音声入力と組み合わせる場合</h3>
     <p>Assistant を開いた後に、同じ SoC・モデルの mmproj を開きます。プロンプトの設定方法は通常の <a href="multimodal.html">マルチモーダル ガイド</a> と同じです。</p>
     <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);
-ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);
+ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);
 ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
 /* 以降は ailiaLLMSetMultimodalPrompt / ailiaLLMGenerate */</code></pre>
 
