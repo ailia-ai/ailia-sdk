@@ -66,12 +66,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM MTP ベンチマーク</h1>
-    <p>ailia LLM 1.5.1 の MTP（Multi-Token Prediction）を使用した、Qualcomm SoC の NPU と CPU における Gemma 4 の測定結果です。NPU のテキスト生成の Decode は、MTP により Snapdragon 8+ Gen 1 の E2B で 1.81 倍、Snapdragon 7s Gen 3 の E2B で 1.55 倍です。CPU（4 スレッド）では、Snapdragon 7s Gen 3 の E2B で 1.35 倍です。Decode 中のプロセス CPU 使用率は、NPU で 1.6〜5.0%、CPU 実行で 42〜49% です。</p>
+    <p>ailia LLM 1.5.1 の MTP（Multi-Token Prediction）を使用した、Qualcomm SoC の NPU と CPU における Gemma 4 の測定結果です。</p>
   </section>
 
   <div class="guide-content">
 
-    <p>MTP の仕組みと使い方は <a href="mtp.html">ailia LLM MTP ガイド</a>、MTP を使わない QNN の測定結果は <a href="qnn-bench.html">ailia LLM NPU（QNN）ベンチマーク</a> を参照してください。このページは ailia LLM 1.5.1 で、CPU をスレッド数 4 として測定した結果です。QNN ベンチマークは ailia LLM 1.5.0 で、Android の CPU をスレッド数 8 として測定しているため、CPU の値は一致しません。</p>
+    <p>MTP の仕組みと使い方は <a href="mtp.html">ailia LLM MTP ガイド</a>、MTP を使わない QNN の測定結果は <a href="qnn-bench.html">ailia LLM NPU（QNN）ベンチマーク</a> を参照してください。</p>
     <ul>
       <li><a href="#summary">結果の概要</a></li>
       <li><a href="#e2e">入力から回答完了までの時間（概算）</a></li>
@@ -112,7 +112,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h3>測定条件</h3>
     <p>ailia LLM 1.5.1 で、Gemma 4 を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）は E2B の FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は E2B / E4B の Int16 モデルを使用しています。NPU の本体・Assistant は v1.5.1 の MTP 対応モデル（W4）で、QAIRT 2.47、コンテキスト長 8192、AR-256（Prefill）/ AR-4（検証）/ AR-1 構成です。2026-10-12 に測定しました。</p>
-    <p>CPU は同じ端末上で llama.cpp 経路を使用し、本体は GGUF（E2B は Q4_K_M、E4B は QAT Q4_0）、Assistant は Q4_0 の GGUF です。本体・Assistant・画像 / 音声エンコーダとも、スレッド数 4 で実行しています。</p>
+    <p>CPU は同じ端末上で llama.cpp 経路を使用し、本体は GGUF（E2B は Q4_K_M、E4B は QAT Q4_0）、Assistant は Q4_0 の GGUF です。本体・Assistant・画像 / 音声エンコーダとも、スレッド数 4 で実行しています。<a href="qnn-bench.html">QNN ベンチマーク</a>は ailia LLM 1.5.0 で、Android の CPU をスレッド数 8 として測定しているため、CPU の値は一致しません。</p>
     <p>CPU・NPU とも、「MTP なし」は Assistant を開かずに実行した値、「MTP あり」は同じ本体に Assistant を開いた値（ドラフト長 3）です。各条件は off → on → on → off の順に 2 回ずつ測定し、所要時間の中央値を示します。各試行は新しいインスタンスで実行し、試行間に 20 秒の間隔を置いています。TPS は最初の出力トークンを除いた時間から計算しています。サンプリングは greedy（temperature 0、top-k 1、top-p 1、seed 1234）です。MTP の有無で生成されるトークン列は異なります。</p>
     <p>CPU 使用率は、プロセスの CPU 時間を経過時間と 8 コアで割った値で、8 コアすべてを使い切った状態を 100% とします。温度・クロックは固定していません。</p>
 
