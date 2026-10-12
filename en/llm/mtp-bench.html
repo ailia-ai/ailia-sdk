@@ -335,24 +335,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>With temperature, the speedup is almost the same as with greedy decoding.</p>
 
-    <h3 id="cpu">Comparison with the CPU</h3>
-    <p>Ratios of NPU (with MTP) decode to the CPU for text, image and audio input. The CPU was also measured without and with MTP using 4 threads.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Device / model</th><th>Input</th><th>vs. CPU (without MTP)</th><th>vs. CPU (with MTP)</th></tr>
-      <tr><td rowspan="3">SM8475 E2B</td><td>Text</td><td class="num">1.05x</td><td class="num">1.12x</td></tr>
-      <tr><td>Image</td><td class="num">1.08x</td><td class="num">1.23x</td></tr>
-      <tr><td>Audio</td><td class="num">1.77x</td><td class="num">1.27x</td></tr>
-      <tr><td rowspan="3">SM7635 E2B</td><td>Text</td><td class="num">1.18x</td><td class="num">0.87x</td></tr>
-      <tr><td>Image</td><td class="num">1.24x</td><td class="num">0.90x</td></tr>
-      <tr><td>Audio</td><td class="num">2.01x</td><td class="num">0.98x</td></tr>
-      <tr><td rowspan="3">SM7635 E4B</td><td>Text</td><td class="num">0.75x</td><td class="num">0.46x</td></tr>
-      <tr><td>Image</td><td class="num">0.68x</td><td class="num">0.46x</td></tr>
-      <tr><td>Audio</td><td class="num">1.24x</td><td class="num">0.67x</td></tr>
-    </table>
-    </div>
-    <p>For decode speed, the NPU (with MTP) is faster than the CPU for E2B on SM8475, and the CPU (with MTP) is faster than the NPU on SM7635.</p>
-
     <h2 id="windows">Windows</h2>
 
     <h3>Test Conditions</h3>

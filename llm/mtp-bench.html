@@ -335,24 +335,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>temperature ありでも greedy とほぼ同じ高速化が得られます。</p>
 
-    <h3 id="cpu">CPU との比較</h3>
-    <p>テキスト・画像・音声入力の Decode について、NPU（MTP あり）を CPU と比べた倍率です。CPU も 4 スレッドで MTP なし / あり を測定しています。</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>端末・モデル</th><th>入力</th><th>CPU（MTP なし）比</th><th>CPU（MTP あり）比</th></tr>
-      <tr><td rowspan="3">SM8475 E2B</td><td>テキスト</td><td class="num">1.05 倍</td><td class="num">1.12 倍</td></tr>
-      <tr><td>画像</td><td class="num">1.08 倍</td><td class="num">1.23 倍</td></tr>
-      <tr><td>音声</td><td class="num">1.77 倍</td><td class="num">1.27 倍</td></tr>
-      <tr><td rowspan="3">SM7635 E2B</td><td>テキスト</td><td class="num">1.18 倍</td><td class="num">0.87 倍</td></tr>
-      <tr><td>画像</td><td class="num">1.24 倍</td><td class="num">0.90 倍</td></tr>
-      <tr><td>音声</td><td class="num">2.01 倍</td><td class="num">0.98 倍</td></tr>
-      <tr><td rowspan="3">SM7635 E4B</td><td>テキスト</td><td class="num">0.75 倍</td><td class="num">0.46 倍</td></tr>
-      <tr><td>画像</td><td class="num">0.68 倍</td><td class="num">0.46 倍</td></tr>
-      <tr><td>音声</td><td class="num">1.24 倍</td><td class="num">0.67 倍</td></tr>
-    </table>
-    </div>
-    <p>Decode の速度は、SM8475 の E2B では NPU（MTP あり）が CPU を上回り、SM7635 では CPU（MTP あり）が NPU を上回ります。</p>
-
     <h2 id="windows">Windows</h2>
 
     <h3>測定条件</h3>
