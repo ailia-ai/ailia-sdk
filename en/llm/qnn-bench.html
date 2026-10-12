@@ -73,7 +73,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <p>For how to use the QNN backend, see the <a href="qnn.html">ailia LLM NPU (QNN) Guide</a>.</p>
     <div class="note">
-      <strong>MTP:</strong> This page shows results without MTP. With MTP in ailia LLM 1.5.1, NPU decode is 1.44x to 1.55x for Gemma 4 E2B, and 1.63x the CPU for E2B on Snapdragon 7s Gen 3. See the <a href="mtp-bench.html">ailia LLM MTP Benchmark</a>.
+      <strong>MTP:</strong> This page shows results without MTP. With MTP in ailia LLM 1.5.1, NPU decode is 1.50x to 1.81x for Gemma 4 E2B. MTP can also be used on the CPU, and the MTP Benchmark compares the CPU and NPU each without and with MTP. See the <a href="mtp-bench.html">ailia LLM MTP Benchmark</a>.
     </div>
     <ul>
       <li><a href="#android">Android (Snapdragon 8+ Gen 1 / SM8475, Snapdragon 7s Gen 3 / SM7635)</a></li>
@@ -223,7 +223,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>SM7635 (Hexagon v73)</td><td>E4B / Int16</td><td class="num">3.351 tokens/s</td><td class="num">3.203 tokens/s</td><td class="num">3.128 tokens/s</td><td class="num">0.93x</td></tr>
     </table>
     </div>
-    <p>With E2B on SM7635, NPU decode is 1.10x faster than the CPU (1.53x faster than the OpenMP build). On the other hand, E2B on SM8475 (0.81x) and E4B on SM7635 (0.93x) are slower than the CPU. Decode processes one token at a time, so it is dominated by weight loading and does not benefit much from the parallel compute of the NPU. With MTP, NPU decode reaches 1.01x the CPU for E2B on SM8475 and 1.63x for E2B on SM7635 (<a href="mtp-bench.html#cpu">MTP Benchmark</a>).</p>
+    <p>With E2B on SM7635, NPU decode is 1.10x faster than the CPU (1.53x faster than the OpenMP build). On the other hand, E2B on SM8475 (0.81x) and E4B on SM7635 (0.93x) are slower than the CPU. Decode processes one token at a time, so it is dominated by weight loading and does not benefit much from the parallel compute of the NPU. With MTP, NPU decode becomes 1.81x for E2B on SM8475 and 1.55x for E2B on SM7635 (<a href="mtp-bench.html#cpu">MTP Benchmark</a>).</p>
 
     <figure class="bench-figure">
       <img src="../../llm/benchmark/tps_sm8475.png" alt="SM8475 E2B per-token decode throughput over 1000 generated tokens (CPU / CPU OpenMP / NPU)" loading="lazy">
