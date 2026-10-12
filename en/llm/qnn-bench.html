@@ -84,7 +84,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h3>Test Conditions</h3>
     <p>The following results were measured with ailia LLM 1.5.0 and Gemma 4 on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B and E4B Int16 models. All were measured with QAIRT 2.47, a context length of 8192 and the AR-256 / AR-1 configuration.</p>
-    <p>The CPU numbers run the same Q4_0 GGUF through the standard llama.cpp path on the same device (8 threads, context 8192). The <a href="mtp-bench.html">MTP Benchmark</a> was measured with ailia LLM 1.5.1 and 4 CPU threads, so the CPU values differ. The shipping configuration is the build with OpenMP disabled, which is the "CPU" column. "CPU (OpenMP)" is a comparison build made with <code>GGML_OPENMP=ON</code> and <code>OMP_NUM_THREADS=2</code>.</p>
+    <p>The CPU numbers run the same Q4_0 GGUF through the standard llama.cpp path on the same device (8 threads, context 8192). The shipping configuration is the build with OpenMP disabled, which is the "CPU" column. "CPU (OpenMP)" is a comparison build made with <code>GGML_OPENMP=ON</code> and <code>OMP_NUM_THREADS=2</code>.</p>
 
     <h3>Prefill throughput</h3>
     <p>Throughput (tokens/s) for input lengths from 64 to 2,048 tokens. After a two-token warmup, <code>SetPrompt</code> is called twice without evaluation to clear the KV cache, and exactly one token is generated at each input length.</p>
