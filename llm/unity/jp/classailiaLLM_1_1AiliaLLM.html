@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.0.0</span>
+   &#160;<span id="projectnumber">1.5.1.0</span>
    </div>
   </td>
  </tr>
@@ -69,6 +69,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">クラス</a> &#124;
 <a href="#pub-methods">公開メンバ関数</a> &#124;
+<a href="#pub-static-methods">静的公開メンバ関数</a> &#124;
 <a href="#pub-static-attribs">静的公開変数類</a> &#124;
 <a href="classailiaLLM_1_1AiliaLLM-members.html">全メンバ一覧</a>  </div>
   <div class="headertitle">
@@ -162,6 +163,12 @@ $(function() {
 <tr class="memitem:a614b26a66843953f48adee164e140018"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a614b26a66843953f48adee164e140018">ailiaLLMGetErrorDetail</a> (IntPtr llm)</td></tr>
 <tr class="memdesc:a614b26a66843953f48adee164e140018"><td class="mdescLeft">&#160;</td><td class="mdescRight">モデルのエラー詳細をUTF-8文字列で取得します。返された文字列は解放しないでください。  <a href="classailiaLLM_1_1AiliaLLM.html#a614b26a66843953f48adee164e140018">[詳解]</a><br /></td></tr>
 <tr class="separator:a614b26a66843953f48adee164e140018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+静的公開メンバ関数</h2></td></tr>
+<tr class="memitem:a4da723a3251ebe39fc4b96053accff69"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a4da723a3251ebe39fc4b96053accff69">ailiaLLMOpenMtpModel</a> (IntPtr llm, string path, uint n_draft)</td></tr>
+<tr class="memdesc:a4da723a3251ebe39fc4b96053accff69"><td class="mdescLeft">&#160;</td><td class="mdescRight">MTPドラフトモデルを開き、生成をドラフト・本体検証経路に切り替えます。  <a href="classailiaLLM_1_1AiliaLLM.html#a4da723a3251ebe39fc4b96053accff69">[詳解]</a><br /></td></tr>
+<tr class="separator:a4da723a3251ebe39fc4b96053accff69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 静的公開変数類</h2></td></tr>
@@ -833,6 +840,70 @@ $(function() {
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
 <p>バックエンド未選択ならGGUFはCPU/GPU、.qnnはHTPを自動選択します。 明示選択したバックエンドと異なるモデル形式は拒否します。 </p>
 
+</div>
+</div>
+<a id="a4da723a3251ebe39fc4b96053accff69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4da723a3251ebe39fc4b96053accff69">&#9670;&nbsp;</a></span>ailiaLLMOpenMtpModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMOpenMtpModel </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>n_draft</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>MTPドラフトモデルを開き、生成をドラフト・本体検証経路に切り替えます。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLMオブジェクト </td></tr>
+    <tr><td class="paramname">path</td><td>対応するGemma 4 assistant GGUF、またはQNN本体用assistant .qnnのUTF-8パス </td></tr>
+    <tr><td class="paramname">n_draft</td><td>ドラフトトークン数（1以上）。QNNでは最大3。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>本体を開いた後、プロンプト設定前に一度呼び出します。 CPU/GPU Gemma 4 GGUFとQNNのテキスト生成に対応します。 指定数のドラフトと本体の1トークンを合わせて検証します。 </p>
+<div class="fragment"><div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                                                                                  {</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="keywordflow">if</span> (path == <span class="keyword">null</span>) <span class="keywordflow">return</span> ailiaLLMOpenMtpModelNative(llm, IntPtr.Zero, n_draft);</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        <span class="keywordtype">byte</span>[] utf8 = System.Text.Encoding.UTF8.GetBytes(path + <span class="stringliteral">&quot;\0&quot;</span>);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        IntPtr buffer = Marshal.AllocHGlobal(utf8.Length);</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            Marshal.Copy(utf8, 0, buffer, utf8.Length);</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            <span class="keywordflow">return</span> ailiaLLMOpenMtpModelNative(llm, buffer, n_draft);</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        } <span class="keywordflow">finally</span> {</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            Marshal.FreeHGlobal(buffer);</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        }</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ab4b15e5f0cf6582a8f8884f297829198"></a>

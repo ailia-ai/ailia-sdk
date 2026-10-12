@@ -509,6 +509,34 @@ GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエ�
 
 </dd>
 
+        <dt id="ailiaLLMOpenMtpModel" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMOpenMtpModel.html">ailiaLLMOpenMtpModel</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMOpenMtpModel-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMOpenMtpModel-param-path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">path</span>, </span><span class="parameter" id="ailiaLLMOpenMtpModel-param-n_draft"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">n_draft</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  ~japanese
+@brief MTPドラフトモデルを開き、生成をドラフト・本体検証経路に切り替えます。
+@param llm LLMオブジェクト
+@param path 対応するGemma 4 assistant GGUF、またはQNN本体用assistant .qnnのUTF-8パス
+@param n_draft ドラフトトークン数（1以上）。QNNでは最大3。
+@details 本体を開いた後、プロンプト設定前に一度呼び出します。
+CPU/GPU Gemma 4 GGUFとQNNのテキスト生成に対応します。
+指定数のドラフトと本体の1トークンを合わせて検証します。
+~english
+@brief Open an MTP assistant and enable draft/target verification decoding.
+@param llm LLM instance
+@param path UTF-8 path to a matching Gemma 4 assistant GGUF, or assistant .qnn for a QNN target
+@param n_draft Number of draft tokens (at least 1). QNN supports up to 3.
+@details Call once after opening the target and before setting a prompt.
+Supports text generation with CPU/GPU Gemma 4 GGUF and QNN models.
+Verify the requested draft tokens together with one target token.
+  
+
+</dd>
+
         <dt id="ailiaLLMOpenMultimodalProjectorFileA" class="callable">
   <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMOpenMultimodalProjectorFileA.html">ailiaLLMOpenMultimodalProjectorFileA</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMOpenMultimodalProjectorFileA-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMOpenMultimodalProjectorFileA-param-mmproj_path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">mmproj_path</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
@@ -586,7 +614,7 @@ GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエ�
 messageの内容は内部でコピーされるため、呼び出し後に開放することができます。
 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。
 音声はWAV/MP3/FLACのファイルパスまたはエンコード済みバッファから読み込み可能です。
-KVキャッシュの再利用では、ファイル入力はパス、バッファ入力は内容で同一性を判定します。
+KVキャッシュの再利用では、ファイル入力とバッファ入力は内容のハッシュで同一性を判定します。
   
 
 </dd>
@@ -828,7 +856,7 @@ Set a new prompt after changing tools. Invalid definitions return INVALID_ARGUME
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

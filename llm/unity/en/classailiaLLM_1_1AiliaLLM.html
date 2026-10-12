@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.0.0</span>
+   &#160;<span id="projectnumber">1.5.1.0</span>
    </div>
   </td>
  </tr>
@@ -69,6 +69,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classailiaLLM_1_1AiliaLLM-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -162,6 +163,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a614b26a66843953f48adee164e140018"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a614b26a66843953f48adee164e140018">ailiaLLMGetErrorDetail</a> (IntPtr llm)</td></tr>
 <tr class="memdesc:a614b26a66843953f48adee164e140018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the model's error detail as a library-owned UTF-8 string; do not free it.  <a href="classailiaLLM_1_1AiliaLLM.html#a614b26a66843953f48adee164e140018">More...</a><br /></td></tr>
 <tr class="separator:a614b26a66843953f48adee164e140018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a4da723a3251ebe39fc4b96053accff69"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a4da723a3251ebe39fc4b96053accff69">ailiaLLMOpenMtpModel</a> (IntPtr llm, string path, uint n_draft)</td></tr>
+<tr class="memdesc:a4da723a3251ebe39fc4b96053accff69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open an MTP assistant and enable draft/target verification decoding.  <a href="classailiaLLM_1_1AiliaLLM.html#a4da723a3251ebe39fc4b96053accff69">More...</a><br /></td></tr>
+<tr class="separator:a4da723a3251ebe39fc4b96053accff69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -833,6 +840,70 @@ Static Public Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
 <p>Without an explicit backend selection, GGUF selects CPU/GPU and .qnn selects HTP. A model format mismatching an explicit selection is rejected. </p>
 
+</div>
+</div>
+<a id="a4da723a3251ebe39fc4b96053accff69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4da723a3251ebe39fc4b96053accff69">&#9670;&nbsp;</a></span>ailiaLLMOpenMtpModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMOpenMtpModel </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>n_draft</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Open an MTP assistant and enable draft/target verification decoding. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLM instance </td></tr>
+    <tr><td class="paramname">path</td><td>UTF-8 path to a matching Gemma 4 assistant GGUF, or assistant .qnn for a QNN target </td></tr>
+    <tr><td class="paramname">n_draft</td><td>Number of draft tokens (at least 1). QNN supports up to 3.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Call once after opening the target and before setting a prompt. Supports text generation with CPU/GPU Gemma 4 GGUF and QNN models. Verify the requested draft tokens together with one target token. </p>
+<div class="fragment"><div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                                                                                  {</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="keywordflow">if</span> (path == <span class="keyword">null</span>) <span class="keywordflow">return</span> ailiaLLMOpenMtpModelNative(llm, IntPtr.Zero, n_draft);</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        <span class="keywordtype">byte</span>[] utf8 = System.Text.Encoding.UTF8.GetBytes(path + <span class="stringliteral">&quot;\0&quot;</span>);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        IntPtr buffer = Marshal.AllocHGlobal(utf8.Length);</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            Marshal.Copy(utf8, 0, buffer, utf8.Length);</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            <span class="keywordflow">return</span> ailiaLLMOpenMtpModelNative(llm, buffer, n_draft);</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        } <span class="keywordflow">finally</span> {</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            Marshal.FreeHGlobal(buffer);</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        }</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="ab4b15e5f0cf6582a8f8884f297829198"></a>

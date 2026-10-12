@@ -88,7 +88,7 @@
 messageの内容は内部でコピーされるため、呼び出し後に開放することができます。
 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。
 音声はWAV/MP3/FLACのファイルパスまたはエンコード済みバッファから読み込み可能です。
-KVキャッシュの再利用では、ファイル入力はパス、バッファ入力は内容で同一性を判定します。</p>
+KVキャッシュの再利用では、ファイル入力とバッファ入力は内容のハッシュで同一性を判定します。</p>
 <p>~english
 @brief Set multimodal prompt.
 @param llm A LLM instance pointer
@@ -103,7 +103,7 @@ Example: "Describe this image: &lt;<strong>media</strong>&gt;"
 The content of message is copied internally, so it can be freed after the call.
 Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data.
 Audio accepts WAV/MP3/FLAC file paths or encoded buffers, with width/height=0.
-KV cache reuse identifies file media by path and buffer media by content.
+KV cache reuse identifies file and buffer media by their content hashes.
 @note With tools configured, returns INVALID_STATE. Use ailiaLLMSetPromptJson for tool use with media.</p>
 </section>
 
@@ -155,7 +155,7 @@ KV cache reuse identifies file media by path and buffer media by content.
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

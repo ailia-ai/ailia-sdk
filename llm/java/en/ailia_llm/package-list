@@ -32,6 +32,7 @@ $dokka.location:axip.ailia_llm/AiliaLLM/getPromptTokenCount/#/PointingToDeclarat
 $dokka.location:axip.ailia_llm/AiliaLLM/getResponseJson/#/PointingToDeclaration/ailia_llm/axip.ailia_llm/-ailia-l-l-m/get-response-json.html
 $dokka.location:axip.ailia_llm/AiliaLLM/getTokenCount/#kotlin.String/PointingToDeclaration/ailia_llm/axip.ailia_llm/-ailia-l-l-m/get-token-count.html
 $dokka.location:axip.ailia_llm/AiliaLLM/openModelFile/#kotlin.String#kotlin.Int/PointingToDeclaration/ailia_llm/axip.ailia_llm/-ailia-l-l-m/open-model-file.html
+$dokka.location:axip.ailia_llm/AiliaLLM/openMtpModel/#kotlin.String#kotlin.Int/PointingToDeclaration/ailia_llm/axip.ailia_llm/-ailia-l-l-m/open-mtp-model.html
 $dokka.location:axip.ailia_llm/AiliaLLM/openMultimodalProjectorFile/#kotlin.String/PointingToDeclaration/ailia_llm/axip.ailia_llm/-ailia-l-l-m/open-multimodal-projector-file.html
 $dokka.location:axip.ailia_llm/AiliaLLM/setBackend/#kotlin.Int/PointingToDeclaration/ailia_llm/axip.ailia_llm/-ailia-l-l-m/set-backend.html
 $dokka.location:axip.ailia_llm/AiliaLLM/setPrompt/#kotlin.Array[axip.ailia_llm.AiliaLLMChatMessage]/PointingToDeclaration/ailia_llm/axip.ailia_llm/-ailia-l-l-m/set-prompt.html

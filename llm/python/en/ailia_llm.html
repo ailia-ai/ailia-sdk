@@ -55,6 +55,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.get_qnn_model_name"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.get_qnn_model_name()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.get_response_json"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.get_response_json()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.open"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.open_mtp_model"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open_mtp_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.open_multimodal_projector"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open_multimodal_projector()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.prompt_token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.prompt_token_count()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_backend"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_backend()</span></code></a></li>
@@ -376,6 +377,16 @@ When 0, the default context size of the model is used.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">llm</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;path/to/model.gguf&quot;</span><span class="p">,</span> <span class="n">n_ctx</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.open_mtp_model">
+<span class="sig-name descname"><span class="pre">open_mtp_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_draft</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.open_mtp_model" title="Link to this definition">¶</a></dt>
+<dd><p>Open an MTP assistant and enable draft/target verification decoding.</p>
+<p>Use a matching Gemma 4 assistant GGUF, or assistant .qnn for a QNN target.
+Call once after opening the target and before setting a prompt.
+Supports text generation with CPU/GPU Gemma 4 GGUF and QNN models.
+n_draft is required: must be at least 1; QNN supports up to 3 draft tokens.</p>
 </dd></dl>
 
 <dl class="py method">

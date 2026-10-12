@@ -64,6 +64,16 @@ As long as user complies with the conditions stated in <a href="https://ailia.ai
 </code></pre>
 <h2 id="api-specification">API specification</h2>
 <p><a href="https://github.com/ailia-ai/ailia-sdk">https://github.com/ailia-ai/ailia-sdk</a></p>
+<h2 id="mtp-decoding">MTP decoding</h2>
+<p>Open the target first, then its matching assistant before setting a prompt:</p>
+<pre class="language-dart"><code class="language-dart">final model = AiliaLLMModel();
+model.open('path/to/gemma4.gguf', 8192);
+model.openMtpModel('path/to/mtp-gemma4.gguf', 3);
+// Set the prompt and generate as usual.
+</code></pre>
+<p>For QNN, use an MTP target <code>.qnn</code> containing an AR-4 verification graph and
+its matching shared-native KV <code>mtp-assistant.qnn</code>. Generation still returns
+one token per call. Requires the ailia LLM 1.5.1 native library or later.</p>
 </section>
 
 
@@ -119,7 +129,7 @@ As long as user complies with the conditions stated in <a href="https://ailia.ai
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

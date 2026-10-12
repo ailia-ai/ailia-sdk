@@ -259,6 +259,23 @@ A context size of zero selects the package/model default.
 
 </dd>
 
+        <dt id="openMtpModel" class="callable">
+  <span class="name"><a href="../ailia_llm_model/AiliaLLMModel/openMtpModel.html">openMtpModel</a></span><span class="signature">(<wbr><span class="parameter" id="openMtpModel-param-assistantPath"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">assistantPath</span>, </span><span class="parameter" id="openMtpModel-param-nDraft"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">nDraft</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Open an MTP assistant and enable draft/target verification decoding.
+Use a matching Gemma 4 assistant GGUF, or assistant .qnn for a QNN target.
+Call once after <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a> and before setting a prompt.
+Supports text generation with CPU/GPU Gemma 4 GGUF and QNN models.
+<code>nDraft</code> is required: must be at least 1; QNN supports up to 3 draft tokens.
+  
+
+</dd>
+
         <dt id="openMultimodalProjectorFile" class="callable">
   <span class="name"><a href="../ailia_llm_model/AiliaLLMModel/openMultimodalProjectorFile.html">openMultimodalProjectorFile</a></span><span class="signature">(<wbr><span class="parameter" id="openMultimodalProjectorFile-param-mmprojPath"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">mmprojPath</span></span>)
     <span class="returntype parameter">&#8594; void</span>
@@ -470,7 +487,7 @@ a model. Throws if QNN is unavailable or the device is unsupported.
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   
