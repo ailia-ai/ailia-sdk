@@ -82,9 +82,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <p>This page describes the models and API needed for MTP as a delta from the <a href="qnn.html">ailia LLM NPU (QNN) Guide</a>. NPU setup (deploying the QNN runtime, Android configuration, getting the SoC name) is the same as in the QNN Guide. For measurements, see the <a href="mtp-bench.html">ailia LLM MTP Benchmark</a>.</p>
 
-    <h2>Improving decode, a challenge for QNN</h2>
-    <p>In measurements of Gemma 4 E2B text generation, NPU decode improved by 1.44x on Snapdragon 8+ Gen 1, 1.55x on Snapdragon 7s Gen 3 and 1.50x on Snapdragon X Plus (1.70x for E4B). For audio transcription, where guesses hit easily, the speedup is around 2.5x.</p>
-    <p>With QNN alone (one-token-at-a-time generation with AR-1), NPU decode does not speed up as much as prefill, and even on Android devices it was equal to or slower than the CPU. With MTP, multiple tokens can be committed per main-model run, so the NPU's parallel compute benefits decode as well, and on Android devices tokens are generated as fast as or faster than on the CPU. For E2B on Snapdragon 7s Gen 3, decode is 1.63x the CPU.</p>
+    <h2>Faster decode with MTP</h2>
+    <p>For Gemma 4 E2B text generation, MTP made NPU decode 1.44x on Snapdragon 8+ Gen 1, 1.55x on Snapdragon 7s Gen 3 and 1.50x on Snapdragon X Plus (1.70x for E4B). For audio transcription it is around 2.5x.</p>
+    <p>With QNN alone (one-token-at-a-time generation with AR-1), NPU decode does not speed up as much as prefill, and even on Android devices it was equal to or slower than the CPU. With MTP, multiple tokens can be committed per main-model run, so decode can also use the NPU's parallel compute. Relative to the CPU, decode is 1.63x for E2B on Snapdragon 7s Gen 3 and 1.01x for E2B on Snapdragon 8+ Gen 1.</p>
     <div class="hbar-chart">
       <div class="hbar-title">Snapdragon 7s Gen 3 (SM7635) E2B / Int16: text generation decode</div>
       <div class="hbar-row"><span class="hbar-label">CPU</span><span class="hbar-track"><span class="hbar-fill" style="width: 61.2%"></span></span><span class="hbar-value">6.045 tokens/s</span></div>
@@ -97,16 +97,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="hbar-row"><span class="hbar-label">CPU</span><span class="hbar-track"><span class="hbar-fill" style="width: 99.5%"></span></span><span class="hbar-value">9.971 tokens/s</span></div>
       <div class="hbar-row"><span class="hbar-label">NPU (without MTP)</span><span class="hbar-track"><span class="hbar-fill" style="width: 69.3%"></span></span><span class="hbar-value">6.947 tokens/s</span></div>
       <div class="hbar-row is-accent"><span class="hbar-label">NPU (with MTP)</span><span class="hbar-track"><span class="hbar-fill is-accent" style="width: 100.0%"></span></span><span class="hbar-value">10.024 tokens/s</span></div>
-      <div class="hbar-caption">Without MTP the NPU was 0.70x the CPU; with MTP it is on par with the CPU.</div>
+      <div class="hbar-caption">Relative to the CPU: 0.70x without MTP, 1.01x with MTP.</div>
     </div>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Device / model (text generation)</th><th>CPU</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>vs. CPU</th></tr>
-      <tr><td>SM8475 (Snapdragon 8+ Gen 1) E2B / FP16</td><td class="num">9.971 tokens/s</td><td class="num">6.947 tokens/s</td><td class="num"><strong>10.024 tokens/s</strong></td><td class="num">0.70x → <strong>1.01x</strong></td></tr>
-      <tr><td>SM7635 (Snapdragon 7s Gen 3) E2B / Int16</td><td class="num">6.045 tokens/s</td><td class="num">6.393 tokens/s</td><td class="num"><strong>9.877 tokens/s</strong></td><td class="num">1.06x → <strong>1.63x</strong></td></tr>
+      <tr><td>SM8475 (Snapdragon 8+ Gen 1) E2B / FP16</td><td class="num">9.971 tokens/s</td><td class="num">6.947 tokens/s</td><td class="num">10.024 tokens/s</td><td class="num">0.70x → 1.01x</td></tr>
+      <tr><td>SM7635 (Snapdragon 7s Gen 3) E2B / Int16</td><td class="num">6.045 tokens/s</td><td class="num">6.393 tokens/s</td><td class="num">9.877 tokens/s</td><td class="num">1.06x → 1.63x</td></tr>
     </table>
     </div>
-    <p>For audio transcription, the NPU runs at 1.55x to 2.85x the CPU on all Android configurations (SM8475 E2B, SM7635 E2B / E4B). The NPU is also much faster than the CPU in prefill and keeps CPU usage during prefill at around 3%, so combined with MTP, the NPU has the advantage in both prefill and decode. On PCs with a high-performance CPU such as Snapdragon X Plus, decode is still faster on the CPU. See the <a href="mtp-bench.html#cpu">benchmark</a> for details.</p>
+    <p>For audio transcription, NPU decode is 1.55x to 2.85x the CPU on all Android configurations (SM8475 E2B, SM7635 E2B / E4B). On Snapdragon X Plus (Windows), decode with MTP is 0.35x (E2B) / 0.50x (E4B) the CPU. See the <a href="mtp-bench.html#cpu">benchmark</a> for details.</p>
 
 
     <h2>What is MTP?</h2>
@@ -130,10 +130,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </div>
     </div>
     <p>Even if every candidate is rejected, the one token predicted by the main model is always committed. The more guesses hit, the fewer times the main model runs and the faster generation becomes. Because the output tokens are determined by the main model's predictions, MTP increases speed without degrading output quality (however, due to numerical differences between AR-4 and AR-1, the token sequence is not guaranteed to be identical to normal generation). For sampling with temperature, candidates are accepted based on the probability ratio between the main model and the assistant (speculative sampling), so the output follows the main model's probability distribution.</p>
-    <h2>One line of API to add</h2>
+    <h2>Enabling MTP</h2>
     <p>Switch the main model to the MTP-capable version (<code>-mtp.qnn</code>), deploy the assistant (<code>-mtp-assistant.qnn</code>, under 50 MB), and add one line that opens the assistant after opening the main model. No changes are needed to the code that sets prompts and generates.</p>
     <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);          /* main model (MTP-capable) */
-ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);  /* the one added line */
+ailiaLLMOpenMtpModel(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);  /* added */
 /* ailiaLLMSetPrompt / ailiaLLMGenerate stay unchanged */</code></pre>
 
     <h3>Differences from the QNN Guide</h3>
@@ -323,7 +323,7 @@ ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
       <li>Use the main model and assistant as a pair for the same SoC, model and precision. Other combinations do not work.</li>
       <li>A CPU GGUF assistant cannot be combined with an NPU main model.</li>
       <li>MTP speeds up decode (token generation). Prefill (prompt processing) and TTFT are largely unchanged.</li>
-      <li>The speedup depends on the input and model. When output is easy to predict, as in audio transcription, the speedup is large; for free-form E2B text generation it is around 1.4x to 1.6x. In some cases, such as text and image input with E4B on SM7635, there is almost no speedup.</li>
+      <li>The speedup depends on the input and model. It was 2.4x to 2.6x for audio transcription and 1.4x to 1.6x for E2B text generation. For text and image input with E4B on SM7635 it was 0.97x to 1.02x.</li>
       <li>On mobile SoC CPUs, CPU MTP may not gain enough to offset the extra assistant and verification compute (0.92x on the SM7635 CPU). The NPU is where MTP is most effective.</li>
     </ul>
 
