@@ -109,8 +109,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>SM7635 (Snapdragon 7s Gen 3) E4B / Int16</td><td class="num">4.217 tokens/s</td><td class="num">6.944 tokens/s</td><td class="num">3.122 tokens/s</td><td class="num">3.164 tokens/s</td></tr>
     </table>
     </div>
-    <p>Comparing both with MTP, decode on the NPU is 1.12x the CPU for E2B on SM8475, 0.87x for E2B on SM7635 and 0.46x for E4B. Process CPU use during decode is 1.6% to 5.0% on the NPU and 42% to 49% on the CPU. Prefill on the NPU is 3.0x to 10.4x the CPU (2,048-token input). On Snapdragon X Plus (Windows), NPU decode with MTP is 0.35x (E2B) / 0.50x (E4B) the CPU. See the <a href="mtp-bench.html#cpu">benchmark</a> for details.</p>
-
+    <p>See the <a href="mtp-bench.html">ailia LLM MTP Benchmark</a> for details.</p>
 
     <h2>What is MTP?</h2>
     <p>An LLM normally generates text one token per inference. Because each token depends on all the tokens before it, generating 1,000 tokens means running the large main model 1,000 times in sequence. NPUs are good at computing many rows at once, but when processing one token at a time, weight loading dominates and the NPU's compute cannot be used effectively.</p>
@@ -134,7 +133,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>Even if every candidate is rejected, the one token predicted by the main model is always committed. The more guesses hit, the fewer times the main model runs and the faster generation becomes. Because the output tokens are determined by the main model's predictions, MTP increases speed without degrading output quality (however, due to numerical differences between AR-4 and AR-1, the token sequence is not guaranteed to be identical to normal generation). For sampling with temperature, candidates are accepted based on the probability ratio between the main model and the assistant (speculative sampling), so the output follows the main model's probability distribution.</p>
     <h2>Enabling MTP</h2>
-    <p>Switch the main model to the MTP-capable version (<code>-mtp.qnn</code>), deploy the assistant (<code>-mtp-assistant.qnn</code>, under 50 MB), and add one line that opens the assistant after opening the main model. No changes are needed to the code that sets prompts and generates.</p>
+    <p>Switch the main model to the MTP-capable version (<code>-mtp.qnn</code>), deploy the assistant (<code>-mtp-assistant.qnn</code>), and add one line that opens the assistant after opening the main model. No changes are needed to the code that sets prompts and generates.</p>
     <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);               /* main model (MTP-capable) */
 ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);  /* added */
 /* ailiaLLMSetPrompt / ailiaLLMGenerate stay unchanged */</code></pre>
@@ -142,8 +141,6 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3); 
     <h3>Differences from the QNN Guide</h3>
     <ul>
       <li>ailia LLM 1.5.1 or later is required. Deploy <code>libailia_llm.so</code> and <code>libailia_llm_qnn.so</code> (<code>ailia_llm.dll</code> and <code>ailia_llm_qnn.dll</code> on Windows) from the same version.</li>
-      <li>Use the MTP-capable main model (<code>-mtp.qnn</code>). In addition to the AR-256 / AR-1 graphs, it contains an AR-4 graph for verification.</li>
-      <li>After opening the main model, open the assistant (<code>-mtp-assistant.qnn</code>) for the same SoC, model and precision with <code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code>.</li>
       <li>Setting prompts (<code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code>) and calling <code>ailiaLLMGenerate</code> work the same as before. Even with MTP, each <code>ailiaLLMGenerate</code> call returns one token, delivering committed tokens in order from an internal queue.</li>
       <li>The mmproj (<code>-mmproj.qnn</code>) for image and audio input from ailia LLM 1.5.0 can be used as is.</li>
     </ul>
@@ -168,7 +165,7 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3); 
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp-assistant.qnn">gemma4-e2b-qcs6490-int16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">44.7 MB</td></tr>
     </table>
     </div>
-    <p>File names are <code>gemma4-&lt;model&gt;-&lt;soc&gt;-&lt;precision&gt;-mtp.qnn</code> (main model) and <code>gemma4-&lt;model&gt;-&lt;soc&gt;-&lt;precision&gt;-mtp-assistant.qnn</code> (assistant). For image and audio input, use the <code>-mmproj.qnn</code> (v1.5.0) for the same SoC and model listed in the <a href="qnn.html">QNN Guide</a>.</p>
+    <p>For image and audio input, use the <code>-mmproj.qnn</code> (v1.5.0) for the same SoC and model listed in the <a href="qnn.html">QNN Guide</a>.</p>
     <p>If the assistant is not opened, the MTP-capable main model generates one token at a time with AR-1 as before. A single MTP-capable main model file is enough even if you switch MTP on and off.</p>
 
     <h3>CPU</h3>
@@ -324,11 +321,9 @@ ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
 
     <h2>Limitations</h2>
     <ul>
-      <li>Use the main model and assistant as a pair for the same SoC, model and precision. Other combinations do not work.</li>
       <li>A CPU GGUF assistant cannot be combined with an NPU main model.</li>
       <li>MTP speeds up decode (token generation). Prefill (prompt processing) and TTFT are largely unchanged.</li>
-      <li>The speedup depends on the input and model. On the NPU it was 1.66x to 2.91x for audio transcription, 1.50x to 1.81x for E2B text generation, and 0.96x to 1.01x for text and image input with E4B on SM7635.</li>
-      <li>CPU (4 threads) MTP for text generation was 1.35x for E2B on SM7635, 1.65x for E4B and 0.94x for E2B on SM8475.</li>
+      <li>The speedup depends on the input and model. See the <a href="mtp-bench.html">ailia LLM MTP Benchmark</a> for measurements.</li>
     </ul>
 
   </div>

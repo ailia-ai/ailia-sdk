@@ -109,8 +109,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>SM7635（Snapdragon 7s Gen 3）E4B / Int16</td><td class="num">4.217 tokens/s</td><td class="num">6.944 tokens/s</td><td class="num">3.122 tokens/s</td><td class="num">3.164 tokens/s</td></tr>
     </table>
     </div>
-    <p>MTP あり同士の Decode は、SM8475 の E2B で NPU が CPU の 1.12 倍、SM7635 の E2B で 0.87 倍、E4B で 0.46 倍です。Decode 中のプロセス CPU 使用率は、NPU で 1.6〜5.0%、CPU 実行で 42〜49% です。Prefill は NPU が CPU の 3.0〜10.4 倍（2,048 トークン入力）です。Snapdragon X Plus（Windows）では、MTP ありでも NPU の Decode は CPU の 0.35 倍（E2B）/ 0.50 倍（E4B）です。詳細は <a href="mtp-bench.html#cpu">ベンチマーク</a> を参照してください。</p>
-
+    <p>詳細は <a href="mtp-bench.html">ailia LLM MTP ベンチマーク</a> を参照してください。</p>
 
     <h2>MTP とは</h2>
     <p>LLM は通常、1 回の推論で 1 トークンずつ文章を生成します。次のトークンは直前までのトークンに依存するため、1,000 トークンを生成するには大きな本体モデルを 1,000 回、順番に実行する必要があります。NPU は多くの行を同時に計算するのが得意ですが、1 トークンずつの処理では重みの読み出しが支配的になり、その性能を活かしにくくなります。</p>
@@ -134,7 +133,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p>候補がすべて外れても、本体が予測した 1 トークンは必ず確定します。予想が当たるほど本体の実行回数が減り、生成が速くなります。生成されるトークンは本体の予測に基づいて決まるため、MTP は出力の品質を落とさずに速度を上げる手法です（ただし、AR-4 と AR-1 の数値誤差により、通常生成と完全に同じトークン列になるとは限りません）。temperature を設定したサンプリングでは、本体と Assistant の確率比で候補を受理する方式（Speculative Sampling）を使用し、本体の確率分布に従った出力になります。</p>
     <h2>MTP の有効化</h2>
-    <p>本体を MTP 対応版（<code>-mtp.qnn</code>）に差し替え、Assistant（<code>-mtp-assistant.qnn</code>、50 MB 未満）を配置したうえで、本体を開いた後に Assistant を開く 1 行を追加します。プロンプトの設定と生成のコードは変更不要です。</p>
+    <p>本体を MTP 対応版（<code>-mtp.qnn</code>）に差し替え、Assistant（<code>-mtp-assistant.qnn</code>）を配置したうえで、本体を開いた後に Assistant を開く 1 行を追加します。プロンプトの設定と生成のコードは変更不要です。</p>
     <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);               /* 本体（MTP 対応版） */
 ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);  /* 追加 */
 /* 以降の ailiaLLMSetPrompt / ailiaLLMGenerate は変更なし */</code></pre>
@@ -142,9 +141,7 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3); 
     <h3>QNN ガイドからの差分</h3>
     <ul>
       <li>ailia LLM 1.5.1 以降が必要です。<code>libailia_llm.so</code> と <code>libailia_llm_qnn.so</code>（Windows では <code>ailia_llm.dll</code> と <code>ailia_llm_qnn.dll</code>）は同じバージョンを組み合わせて配置してください。</li>
-      <li>本体モデルは MTP 対応版（<code>-mtp.qnn</code>）を使用します。MTP 対応版は従来の AR-256 / AR-1 グラフに加えて、検証用の AR-4 グラフを含みます。</li>
-      <li>本体を開いた後に、<code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code> で同じ SoC・モデル・精度の Assistant（<code>-mtp-assistant.qnn</code>）を開きます。</li>
-      <li>その後のプロンプト設定（<code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code>）と <code>ailiaLLMGenerate</code> の使い方は変わりません。<code>ailiaLLMGenerate</code> は MTP でも 1 回の呼び出しで 1 トークンを返し、内部で確定済みのトークンを順に返します。</li>
+      <li>プロンプト設定（<code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code>）と <code>ailiaLLMGenerate</code> の使い方は変わりません。<code>ailiaLLMGenerate</code> は MTP でも 1 回の呼び出しで 1 トークンを返し、内部で確定済みのトークンを順に返します。</li>
       <li>画像・音声入力の mmproj（<code>-mmproj.qnn</code>）は ailia LLM 1.5.0 向けのファイルをそのまま使用できます。</li>
     </ul>
 
@@ -168,7 +165,7 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3); 
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp-assistant.qnn">gemma4-e2b-qcs6490-int16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">44.7 MB</td></tr>
     </table>
     </div>
-    <p>ファイル名は <code>gemma4-&lt;model&gt;-&lt;soc&gt;-&lt;precision&gt;-mtp.qnn</code>（本体）と <code>gemma4-&lt;model&gt;-&lt;soc&gt;-&lt;precision&gt;-mtp-assistant.qnn</code>（Assistant）です。画像・音声入力には、<a href="qnn.html">QNN ガイド</a>に掲載している同じ SoC・モデルの <code>-mmproj.qnn</code>（v1.5.0）を使用します。</p>
+    <p>画像・音声入力には、<a href="qnn.html">QNN ガイド</a>に掲載している同じ SoC・モデルの <code>-mmproj.qnn</code>（v1.5.0）を使用します。</p>
     <p>MTP 対応の本体は、Assistant を開かなければ従来どおり AR-1 で 1 トークンずつ生成します。MTP の有無を切り替える場合でも、本体ファイルは MTP 対応版の 1 つで済みます。</p>
 
     <h3>CPU</h3>
@@ -324,11 +321,9 @@ ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
 
     <h2>制約</h2>
     <ul>
-      <li>本体と Assistant は同じ SoC・モデル・精度の組み合わせで使用してください。他の組み合わせは動作しません。</li>
       <li>NPU の本体に CPU 用の GGUF Assistant は組み合わせられません。</li>
       <li>MTP は Decode（トークン生成）を高速化する手法です。Prefill（プロンプト処理）と TTFT はほぼ変わりません。</li>
-      <li>高速化の度合いは入力の内容とモデルに依存します。NPU では、音声の書き起こしで 1.66〜2.91 倍、E2B のテキスト生成で 1.50〜1.81 倍、SM7635 の E4B のテキスト・画像入力で 0.96〜1.01 倍でした。</li>
-      <li>CPU（4 スレッド）の MTP は、テキスト生成で SM7635 の E2B が 1.35 倍、E4B が 1.65 倍、SM8475 の E2B が 0.94 倍でした。</li>
+      <li>高速化の度合いは入力の内容とモデルに依存します。測定結果は <a href="mtp-bench.html">ailia LLM MTP ベンチマーク</a> を参照してください。</li>
     </ul>
 
   </div>

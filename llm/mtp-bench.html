@@ -88,13 +88,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>Prefill と TTFT は MTP の有無でほぼ同じです。</li>
     </ul>
 
-    <figure class="bench-figure">
-      <img src="benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B のテキスト生成の Decode スループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
-      <figcaption>Snapdragon 7s Gen 3（SM7635 / E2B / Int16）のテキスト生成の Decode スループット（1000 トークン生成）</figcaption>
-    </figure>
-
     <h2 id="e2e">入力から回答完了までの時間（概算）</h2>
-    <p>画像・音声を入力してから回答の生成が終わるまでの時間を、後述の TTFT と Decode スループットから概算した値です（<code>TTFT + (出力トークン数 − 1) / Decode スループット</code>）。画像は 100 トークン、音声は 32 トークンの出力です。Prefill・エンコーダの処理時間と Decode の処理時間の両方を含みます。</p>
+    <p>画像・音声を入力してから回答の生成が終わるまでの時間を、後述の TTFT と Decode スループットから概算した値です（<code>TTFT + (出力トークン数 − 1) / Decode スループット</code>）。画像は 100 トークン、音声は 32 トークンの出力です。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>端末・モデル</th><th>入力</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
@@ -126,8 +121,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>SM7635（Hexagon v73）</td><td>E4B / Int16</td><td class="num">4.217 tokens/s</td><td class="num">6.944 tokens/s</td><td class="num">3.122 tokens/s</td><td class="num">3.164 tokens/s</td><td class="num">1.65 倍 / 1.01 倍</td><td class="num">37.1% / 39.1%</td></tr>
     </table>
     </div>
-    <p>NPU の Decode は、MTP により SM8475 の E2B で 1.81 倍、SM7635 の E2B で 1.55 倍、E4B で 1.01 倍になりました。CPU（4 スレッド）でも MTP を使用でき、SM7635 の E2B で 1.35 倍、E4B で 1.65 倍、SM8475 の E2B で 0.94 倍でした。MTP あり同士の比較では、NPU は CPU の 1.12 倍（SM8475 E2B）、0.87 倍（SM7635 E2B）、0.46 倍（SM7635 E4B）です。Decode 中のプロセス CPU 使用率は、CPU 実行で 42〜49%、NPU で 1.6〜5.0% です（<a href="#android-cpu">CPU 使用率</a>）。</p>
-
     <figure class="bench-figure">
       <img src="benchmark/mtp_text_tps_sm8475.png" alt="SM8475 E2Bの Decode スループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
       <figcaption>SM8475（E2B / FP16）の Decode スループット（1000 トークン生成）</figcaption>
@@ -176,7 +169,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <ul>
       <li>Prefill のスループットは <code>実入力トークン数 / 最初の生成呼び出し時間</code> です。モデルのオープンは含みません。</li>
       <li>MTP を有効にしても Prefill は AR-256（NPU）で処理するため、MTP の有無で Prefill のスループットはほぼ同じです。</li>
-      <li>2,048 トークン入力では、NPU（MTP あり）は CPU（MTP なし）の SM8475 の E2B で約 10.4 倍、SM7635 の E2B で約 3.87 倍、E4B で約 3.03 倍です。</li>
       <li>64 トークンのような短い入力では、固定長の AR-256 グラフでパディングが大きくなるため NPU が不利になります。</li>
       <li>Prefill 後に Assistant へ hidden state と KV を引き継ぐ処理は 0.14〜0.28 ms です（NPU）。</li>
     </ul>
@@ -205,15 +197,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="benchmark/mtp_pps_by_input_e4b_sm7635.png" alt="SM7635 E4B の入力トークン数別の Prefill スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
       <figcaption>SM7635（E4B / Int16）の入力トークン数別の Prefill スループット</figcaption>
     </figure>
-    <p>Decode スループットの測定（81 トークン入力、各試行は新しいインスタンス）でのテキスト生成の TTFT は次のとおりです。NPU はモデルを開いた直後の初回の生成で本体の QNN コンテキストを復元するため、その時間を含みます。</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>端末・モデル</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
-      <tr><td>SM8475 E2B / FP16</td><td class="num">3.56 秒</td><td class="num">2.80 秒</td><td class="num">3.41 秒</td><td class="num">3.25 秒</td></tr>
-      <tr><td>SM7635 E2B / Int16</td><td class="num">1.81 秒</td><td class="num">1.72 秒</td><td class="num">3.76 秒</td><td class="num">3.50 秒</td></tr>
-      <tr><td>SM7635 E4B / Int16</td><td class="num">7.89 秒</td><td class="num">6.20 秒</td><td class="num">8.43 秒</td><td class="num">8.29 秒</td></tr>
-    </table>
-    </div>
 
     <h3 id="android-cpu">CPU 使用率</h3>
     <p>Decode（81 トークン入力・1,000 トークン生成、最初の出力を除く）中のプロセス CPU 使用率です。8 コアすべてを使い切った状態を 100% として表しています。アプリケーションプロセスの使用率であり、端末全体の使用率ではありません。</p>
@@ -231,7 +214,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>音声</td><td class="num">48.1%</td><td class="num">42.5%</td><td class="num">2.0%</td><td class="num">2.6%</td></tr>
     </table>
     </div>
-    <p>CPU 実行は 4 スレッドのため 50% 前後になります。NPU の使用率は 1.6〜5.0% です。2,048 トークン Prefill 中は、CPU 実行で 49.5〜49.8%、NPU で 2.4〜4.7% です。画像・音声入力の TTFT（エンコーダを含むプロンプト設定と最初の生成呼び出し）中は、CPU 実行で 44〜49%、NPU で 3.6〜9.4% です。</p>
+    <p>2,048 トークン Prefill 中は、CPU 実行で 49.5〜49.8%、NPU で 2.4〜4.7% です。画像・音声入力の TTFT（エンコーダを含むプロンプト設定と最初の生成呼び出し）中は、CPU 実行で 44〜49%、NPU で 3.6〜9.4% です。</p>
 
     <figure class="bench-figure">
       <img src="benchmark/mtp_cpu_sm8475.png" alt="SM8475 E2B の Decode 中の CPU 使用率（テキスト / 画像 / 音声）" loading="lazy">
@@ -289,7 +272,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>SM7635 E4B NPU（MTP あり）</td><td class="num">14.32 秒</td><td class="num">2.972 tokens/s</td><td class="num">35.4%</td></tr>
     </table>
     </div>
-    <p>NPU（MTP あり）の TTFT は、CPU（MTP なし）の SM8475 の E2B で 1/4.2、SM7635 の E2B で 1/2.3、E4B で 1/6.9 です。NPU の Decode は、MTP により SM8475 の E2B で 1.79 倍、SM7635 の E2B で 1.60 倍、E4B で 0.96 倍になりました。CPU の Decode は MTP により 0.88 倍（SM8475 E2B）、1.37 倍（SM7635 E2B）、1.46 倍（E4B）です。</p>
+    <p>NPU（MTP あり）の TTFT は、CPU（MTP なし）の SM8475 の E2B で 1/4.2、SM7635 の E2B で 1/2.3、E4B で 1/6.9 です。NPU の Decode は、MTP により SM8475 の E2B で 1.79 倍、SM7635 の E2B で 1.60 倍、E4B で 0.96 倍になりました。</p>
 
     <h3>音声入力の応答時間</h3>
     <p>英語音声 1 件の書き起こし、32 トークン出力での値です。TTFT は音声エンコーダを含むプロンプト設定と最初の生成呼び出しの合計で、モデルのオープンは含みません。</p>
@@ -310,7 +293,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>SM7635 E4B NPU（MTP あり）</td><td class="num">12.97 秒</td><td class="num">5.037 tokens/s</td><td class="num">100.0%</td></tr>
     </table>
     </div>
-    <p>NPU（MTP あり）の TTFT は、CPU（MTP なし）の SM8475 の E2B で 1/3.4、SM7635 の E2B で 1/1.9、E4B で 1/4.1 です。NPU の Decode は、MTP により SM8475 の E2B で 2.91 倍、SM7635 の E2B で 2.49 倍、E4B で 1.66 倍、CPU の Decode は 1.39 倍、2.05 倍、1.85 倍になりました。音声の書き起こしは出力が入力音声から一意に決まりやすく、Assistant の候補の受理率が高くなります。単一の音声での測定であり、一般的な速度比ではありません。</p>
+    <p>NPU（MTP あり）の TTFT は、CPU（MTP なし）の SM8475 の E2B で 1/3.4、SM7635 の E2B で 1/1.9、E4B で 1/4.1 です。NPU の Decode は、MTP により SM8475 の E2B で 2.91 倍、SM7635 の E2B で 2.49 倍、E4B で 1.66 倍になりました。音声の書き起こしは出力が入力音声から一意に決まりやすく、Assistant の候補の受理率が高くなります。単一の音声での測定であり、一般的な速度比ではありません。</p>
 
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_ttft_sm8475.png" alt="SM8475 E2B の VLM / 音声入力の TTFT 内訳（CPU / NPU、MTP なし / あり）" loading="lazy">
@@ -368,11 +351,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>音声</td><td class="num">1.24 倍</td><td class="num">0.67 倍</td></tr>
     </table>
     </div>
-    <ul>
-      <li>Decode の速度は、SM8475 の E2B では NPU（MTP あり）が CPU を上回り、SM7635 では CPU（MTP あり）が NPU を上回ります。</li>
-      <li>Prefill は、2,048 トークン入力で NPU が CPU の 3.0〜10.4 倍です。画像・音声入力の TTFT は、NPU が CPU の 1/1.9〜1/6.9 です。</li>
-      <li>プロセス CPU 使用率は、Decode・Prefill とも CPU 実行で 42〜50%、NPU で 1.6〜5.0% です。</li>
-    </ul>
+    <p>Decode の速度は、SM8475 の E2B では NPU（MTP あり）が CPU を上回り、SM7635 では CPU（MTP あり）が NPU を上回ります。</p>
 
     <h2 id="windows">Windows</h2>
 
@@ -383,7 +362,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>MTP なし：v1.5.1 の MTP 対応本体を Assistant なしで実行（AR-256 / AR-1）</li>
       <li>MTP あり：v1.5.1 の MTP 対応本体 + Assistant（AR-256 / AR-4）</li>
     </ul>
-    <p>各構成 1 回の測定で、各試行の前に 60 秒待機しています。AC 接続、バランス電源プラン、4 つの高性能コアをワーカーとして使用し、背景アプリが動作している状態での測定です。CPU は同じ端末上で Q4_0 GGUF を標準の llama.cpp 経路（OpenMP 無効、4 つの高性能コアをワーカーとして使用、MTP なし）で実行した過去の測定値で、QNN ベンチマークと同じ測定です。GPU は Adreno X1-45 で、同じ Q4_0 GGUF を llama.cpp の OpenCL バックエンド（MTP なし）で実行した値です。GPU 実行時の性能を改善したランタイムで 2026-10-11 に測定しており、<a href="qnn-bench.html#windows">QNN ベンチマーク</a>の GPU の値より高速です。QCS6490 向けの MTP モデルはオフラインでのビルド確認のみで、実機での性能評価は未実施です。</p>
+    <p>各構成 1 回の測定で、各試行の前に 60 秒待機しています。AC 接続、バランス電源プランで、背景アプリが動作している状態での測定です。CPU は同じ端末上で Q4_0 GGUF を標準の llama.cpp 経路（OpenMP 無効、4 つの高性能コアをワーカーとして使用、MTP なし）で実行した過去の測定値で、QNN ベンチマークと同じ測定です。GPU は Adreno X1-45 で、同じ Q4_0 GGUF を llama.cpp の OpenCL バックエンド（MTP なし）で実行した値です。GPU 実行時の性能を改善したランタイムで 2026-10-11 に測定しており、<a href="qnn-bench.html#windows">QNN ベンチマーク</a>の GPU の値より高速です。QCS6490 向けの MTP モデルはオフラインでのビルド確認のみで、実機での性能評価は未実施です。</p>
 
     <h3>Decode スループット</h3>
     <p>81 トークン入力・1,000 トークン生成時のスループットです。</p>
