@@ -74,7 +74,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>MTP の仕組みと使い方は <a href="mtp.html">ailia LLM MTP ガイド</a>、MTP を使わない QNN の測定結果は <a href="qnn-bench.html">ailia LLM NPU（QNN）ベンチマーク</a> を参照してください。</p>
     <ul>
       <li><a href="#summary">結果の概要</a></li>
-      <li><a href="#e2e">入力から回答完了までの時間（概算）</a></li>
       <li><a href="#android">Android（Snapdragon 8+ Gen 1 / SM8475、Snapdragon 7s Gen 3 / SM7635）</a></li>
       <li><a href="#windows">Windows（Snapdragon X Plus / SC8380XP）</a></li>
     </ul>
@@ -87,21 +86,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>MTP あり同士の Decode は、SM8475 の E2B で NPU が CPU の 1.12 倍、SM7635 の E2B で 0.87 倍です。Prefill は NPU が CPU の 3.0〜10.4 倍（2,048 トークン入力）、画像・音声入力の TTFT は NPU が CPU の 1/1.9〜1/6.9 です。</li>
       <li>Prefill と TTFT は MTP の有無でほぼ同じです。</li>
     </ul>
-
-    <h2 id="e2e">入力から回答完了までの時間（概算）</h2>
-    <p>画像・音声を入力してから回答の生成が終わるまでの時間を、後述の TTFT と Decode スループットから概算した値です（<code>TTFT + (出力トークン数 − 1) / Decode スループット</code>）。画像は 100 トークン、音声は 32 トークンの出力です。</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>端末・モデル</th><th>入力</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
-      <tr><td rowspan="2">SM8475 E2B / FP16</td><td>画像</td><td class="num">44.7 秒</td><td class="num">46.9 秒</td><td class="num">27.8 秒</td><td class="num">18.5 秒</td></tr>
-      <tr><td>音声</td><td class="num">25.2 秒</td><td class="num">24.1 秒</td><td class="num">11.8 秒</td><td class="num">8.3 秒</td></tr>
-      <tr><td rowspan="2">SM7635 E2B / Int16</td><td>画像</td><td class="num">30.3 秒</td><td class="num">26.7 秒</td><td class="num">24.8 秒</td><td class="num">17.9 秒</td></tr>
-      <tr><td>音声</td><td class="num">18.0 秒</td><td class="num">16.0 秒</td><td class="num">12.4 秒</td><td class="num">9.5 秒</td></tr>
-      <tr><td rowspan="2">SM7635 E4B / Int16</td><td>画像</td><td class="num">121.5 秒</td><td class="num">119.2 秒</td><td class="num">47.5 秒</td><td class="num">47.6 秒</td></tr>
-      <tr><td>音声</td><td class="num">60.4 秒</td><td class="num">54.5 秒</td><td class="num">23.1 秒</td><td class="num">19.1 秒</td></tr>
-    </table>
-    </div>
-    <p>NPU（MTP あり）は、CPU の短い方の構成と比べて 1/1.5〜1/2.9 の時間です。E2B では MTP なしと比べて 1.3〜1.5 倍短くなります。SM7635 の E4B の画像入力は、MTP の有無でほぼ同じです。実際に通しで測定した値ではないため、目安として参照してください。</p>
 
     <h2 id="android">Android</h2>
 
