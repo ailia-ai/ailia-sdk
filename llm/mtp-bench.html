@@ -71,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <div class="guide-content">
 
-    <p>MTP の仕組みと使い方は <a href="mtp.html">ailia LLM MTP ガイド</a>、MTP を使わない QNN の測定結果は <a href="qnn-bench.html">ailia LLM NPU（QNN）ベンチマーク</a> を参照してください。</p>
+    <p>MTP の仕組みと使い方は <a href="mtp.html">ailia LLM MTP ガイド</a>、MTP を使わない QNN の測定結果は <a href="qnn-bench.html">ailia LLM NPU（QNN）ベンチマーク</a> を参照してください。このページは ailia LLM 1.5.1 で、CPU をスレッド数 4 として測定した結果です。QNN ベンチマークは ailia LLM 1.5.0 で、Android の CPU をスレッド数 8 として測定しているため、CPU の値は一致しません。</p>
     <ul>
       <li><a href="#summary">結果の概要</a></li>
       <li><a href="#e2e">入力から回答完了までの時間（概算）</a></li>
@@ -111,8 +111,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="android">Android</h2>
 
     <h3>測定条件</h3>
-    <p>Gemma 4 を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）は E2B の FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は E2B / E4B の Int16 モデルを使用しています。NPU の本体・Assistant は v1.5.1 の MTP 対応モデル（W4）で、QAIRT 2.47、コンテキスト長 8192、AR-256（Prefill）/ AR-4（検証）/ AR-1 構成です。2026-10-12 に測定しました。</p>
-    <p>CPU は同じ端末上で llama.cpp 経路を使用し、本体は GGUF（E2B は Q4_K_M、E4B は QAT Q4_0）、Assistant は Q4_0 の GGUF です。本体・Assistant・画像 / 音声エンコーダとも 4 スレッドで実行しています。</p>
+    <p>ailia LLM 1.5.1 で、Gemma 4 を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）は E2B の FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は E2B / E4B の Int16 モデルを使用しています。NPU の本体・Assistant は v1.5.1 の MTP 対応モデル（W4）で、QAIRT 2.47、コンテキスト長 8192、AR-256（Prefill）/ AR-4（検証）/ AR-1 構成です。2026-10-12 に測定しました。</p>
+    <p>CPU は同じ端末上で llama.cpp 経路を使用し、本体は GGUF（E2B は Q4_K_M、E4B は QAT Q4_0）、Assistant は Q4_0 の GGUF です。本体・Assistant・画像 / 音声エンコーダとも、スレッド数 4 で実行しています。</p>
     <p>CPU・NPU とも、「MTP なし」は Assistant を開かずに実行した値、「MTP あり」は同じ本体に Assistant を開いた値（ドラフト長 3）です。各条件は off → on → on → off の順に 2 回ずつ測定し、所要時間の中央値を示します。各試行は新しいインスタンスで実行し、試行間に 20 秒の間隔を置いています。TPS は最初の出力トークンを除いた時間から計算しています。サンプリングは greedy（temperature 0、top-k 1、top-p 1、seed 1234）です。MTP の有無で生成されるトークン列は異なります。</p>
     <p>CPU 使用率は、プロセスの CPU 時間を経過時間と 8 コアで割った値で、8 コアすべてを使い切った状態を 100% とします。温度・クロックは固定していません。</p>
 
@@ -353,13 +353,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="windows">Windows</h2>
 
     <h3>測定条件</h3>
-    <p>Snapdragon X Plus（SC8380XP / Hexagon v73、8 コア）の Windows 11 Pro 上で、E2B / E4B の FP16 モデルを測定しました。同じ端末・同じビルドで、次の 3 構成を比較しています。</p>
+    <p>Snapdragon X Plus（SC8380XP / Hexagon v73、8 コア）の Windows 11 Pro 上で、ailia LLM 1.5.1 を使用して E2B / E4B の FP16 モデルを測定しました。同じ端末・同じビルドで、次の 3 構成を比較しています。</p>
     <ul>
       <li>非 MTP：v1.5.0 の従来モデル（<code>gemma4-&lt;model&gt;-sc8380xp.qnn</code>）</li>
       <li>MTP なし：v1.5.1 の MTP 対応本体を Assistant なしで実行（AR-256 / AR-1）</li>
       <li>MTP あり：v1.5.1 の MTP 対応本体 + Assistant（AR-256 / AR-4）</li>
     </ul>
-    <p>各構成 1 回の測定で、各試行の前に 60 秒待機しています。AC 接続、バランス電源プラン、4 つの高性能コアをワーカーとして使用し、背景アプリが動作している状態での測定です。CPU は同じ端末上で Q4_0 GGUF を標準の llama.cpp 経路（OpenMP 無効、4 つの高性能コアをワーカーとして使用、MTP なし）で実行した過去の測定値です。GPU は Adreno X1-45 で、同じ Q4_0 GGUF を llama.cpp の OpenCL バックエンド（MTP なし）で実行した値です。GPU 実行時の性能を改善したランタイムで 2026-10-11 に測定しており、<a href="qnn-bench.html#windows">QNN ベンチマーク</a>の GPU の値より高速です。QCS6490 向けの MTP モデルはオフラインでのビルド確認のみで、実機での性能評価は未実施です。</p>
+    <p>各構成 1 回の測定で、各試行の前に 60 秒待機しています。AC 接続、バランス電源プラン、4 つの高性能コアをワーカーとして使用し、背景アプリが動作している状態での測定です。CPU は同じ端末上で Q4_0 GGUF を標準の llama.cpp 経路（OpenMP 無効、4 つの高性能コアをワーカーとして使用、MTP なし）で実行した過去の測定値で、QNN ベンチマークと同じ ailia LLM 1.5.0 での測定です。GPU は Adreno X1-45 で、同じ Q4_0 GGUF を llama.cpp の OpenCL バックエンド（MTP なし）で実行した値です。GPU 実行時の性能を改善したランタイムで 2026-10-11 に測定しており、<a href="qnn-bench.html#windows">QNN ベンチマーク</a>の GPU の値より高速です。QCS6490 向けの MTP モデルはオフラインでのビルド確認のみで、実機での性能評価は未実施です。</p>
 
     <h3>Decode スループット</h3>
     <p>81 トークン入力・1,000 トークン生成時のスループットです。</p>
