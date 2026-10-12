@@ -83,7 +83,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="android">Android</h2>
 
     <h3>Test Conditions</h3>
-    <p>The following results were measured with ailia LLM 1.5.0 and Gemma 4 on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B and E4B Int16 models. All were measured with QAIRT 2.47, a context length of 8192 and the AR-256 / AR-1 configuration.</p>
+    <p>The following results were measured with Gemma 4 on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B and E4B Int16 models. All were measured with QAIRT 2.47, a context length of 8192 and the AR-256 / AR-1 configuration.</p>
     <p>The CPU numbers run the same Q4_0 GGUF through the standard llama.cpp path on the same device (8 threads, context 8192). The shipping configuration is the build with OpenMP disabled, which is the "CPU" column. "CPU (OpenMP)" is a comparison build made with <code>GGML_OPENMP=ON</code> and <code>OMP_NUM_THREADS=2</code>.</p>
 
     <h3>Prefill throughput</h3>
@@ -241,7 +241,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="windows">Windows</h2>
 
     <h3>Test Conditions</h3>
-    <p>The following results were measured with ailia LLM 1.5.0 and Gemma 4 on two devices. Snapdragon X Plus (SC8380XP / Hexagon v73) uses the E2B and E4B FP16 models on Windows 11 Pro, and QCS6490 (Hexagon v68) uses the E2B Int16 model with ailia LLM 1.5.0.1 on Windows 11 IoT Enterprise LTSC. Both are 8-core devices, measured with QAIRT 2.47, a context length of 8192 and the AR-256 / AR-1 configuration.</p>
+    <p>The following results were measured with Gemma 4 on two devices. Snapdragon X Plus (SC8380XP / Hexagon v73) uses the E2B and E4B FP16 models on Windows 11 Pro, and QCS6490 (Hexagon v68) uses the E2B Int16 model with ailia LLM 1.5.0.1 on Windows 11 IoT Enterprise LTSC. Both are 8-core devices, measured with QAIRT 2.47, a context length of 8192 and the AR-256 / AR-1 configuration.</p>
     <p>The CPU numbers run the Q4_0 GGUF through the standard llama.cpp path on the same device (OpenMP disabled, with the 4 performance cores as workers). The GPU numbers run the same GGUF on the Snapdragon X Plus Adreno X1-45 with the llama.cpp OpenCL backend. The GPU on QCS6490 was not measured.</p>
 
     <h3>Prefill throughput</h3>

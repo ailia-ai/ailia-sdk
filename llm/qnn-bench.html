@@ -83,7 +83,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="android">Android</h2>
 
     <h3>測定条件</h3>
-    <p>ailia LLM 1.5.0 で、Gemma 4 を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）は E2B の FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は E2B / E4B の Int16 モデルを使用しています。いずれも QAIRT 2.47、コンテキスト長 8192、AR-256 / AR-1 構成です。</p>
+    <p>Gemma 4 を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）は E2B の FP16 モデル、Snapdragon 7s Gen 3（SM7635 / Hexagon v73）は E2B / E4B の Int16 モデルを使用しています。いずれも QAIRT 2.47、コンテキスト長 8192、AR-256 / AR-1 構成です。</p>
     <p>CPU は同じ端末上で、同一の Q4_0 GGUF を標準の llama.cpp 経路で実行した値です（スレッド数 8、コンテキスト 8192）。出荷構成は OpenMP 無効のビルドで、表の「CPU」がこれにあたります。「CPU（OpenMP）」は <code>GGML_OPENMP=ON</code> / <code>OMP_NUM_THREADS=2</code> でビルドした比較用の構成です。</p>
 
     <h3>Prefill スループット</h3>
@@ -241,7 +241,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="windows">Windows</h2>
 
     <h3>測定条件</h3>
-    <p>ailia LLM 1.5.0 で、Gemma 4 を 2 機種で測定した結果です。Snapdragon X Plus（SC8380XP / Hexagon v73）は Windows 11 Pro 上で E2B / E4B の FP16 モデル、QCS6490（Hexagon v68）は Windows 11 IoT Enterprise LTSC 上の ailia LLM 1.5.0.1 で E2B の Int16 モデルを使用しています。いずれも 8 コアの端末で、QAIRT 2.47、コンテキスト長 8192、AR-256 / AR-1 構成です。</p>
+    <p>Gemma 4 を 2 機種で測定した結果です。Snapdragon X Plus（SC8380XP / Hexagon v73）は Windows 11 Pro 上で E2B / E4B の FP16 モデル、QCS6490（Hexagon v68）は Windows 11 IoT Enterprise LTSC 上の ailia LLM 1.5.0.1 で E2B の Int16 モデルを使用しています。いずれも 8 コアの端末で、QAIRT 2.47、コンテキスト長 8192、AR-256 / AR-1 構成です。</p>
     <p>CPU は同じ端末上で、Q4_0 GGUF を標準の llama.cpp 経路で実行した値です（OpenMP 無効、4 つの高性能コアをワーカーとして使用）。GPU は Snapdragon X Plus の Adreno X1-45 で、同じ GGUF を llama.cpp の OpenCL バックエンドで実行した値です。QCS6490 の GPU は測定していません。</p>
 
     <h3>Prefill スループット</h3>

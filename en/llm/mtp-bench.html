@@ -111,8 +111,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="android">Android</h2>
 
     <h3>Test Conditions</h3>
-    <p>Results for Gemma 4 on two devices, measured with ailia LLM 1.5.1. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B / E4B Int16 models. The NPU main model and assistant are the v1.5.1 MTP models (W4), with QAIRT 2.47, a context length of 8192 and the AR-256 (prefill) / AR-4 (verification) / AR-1 configuration. Measured on 2026-10-12.</p>
-    <p>The CPU uses the llama.cpp path on the same device, with a GGUF main model (Q4_K_M for E2B, QAT Q4_0 for E4B) and a Q4_0 GGUF assistant. The main model, assistant and image / audio encoders all run with 4 threads. The <a href="qnn-bench.html">QNN Benchmark</a> was measured with ailia LLM 1.5.0 and 8 CPU threads on Android, so the CPU values differ.</p>
+    <p>Results for Gemma 4 on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B / E4B Int16 models. The NPU main model and assistant are the v1.5.1 MTP models (W4), with QAIRT 2.47, a context length of 8192 and the AR-256 (prefill) / AR-4 (verification) / AR-1 configuration. Measured on 2026-10-12.</p>
+    <p>The CPU uses the llama.cpp path on the same device, with a GGUF main model (Q4_K_M for E2B, QAT Q4_0 for E4B) and a Q4_0 GGUF assistant. The main model, assistant and image / audio encoders all run with 4 threads. The <a href="qnn-bench.html">QNN Benchmark</a> was measured with 8 CPU threads on Android, so the CPU values differ.</p>
     <p>For both CPU and NPU, "without MTP" runs without opening the assistant, and "with MTP" opens the assistant on the same main model (draft length 3). Each condition was measured twice in the order off → on → on → off, and the median time is shown. Each trial uses a new instance, with a 20-second gap between trials. TPS is computed from the time excluding the first output token. Sampling is greedy (temperature 0, top-k 1, top-p 1, seed 1234). The generated token sequences differ with and without MTP.</p>
     <p>CPU usage is the process CPU time divided by the elapsed time and 8 cores, with all 8 cores fully used as 100%. Temperature and clocks were not fixed.</p>
 
@@ -377,13 +377,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="windows">Windows</h2>
 
     <h3>Test Conditions</h3>
-    <p>The E2B / E4B FP16 models were measured on Snapdragon X Plus (SC8380XP / Hexagon v73, 8 cores) running Windows 11 Pro with ailia LLM 1.5.1. The following three configurations were compared on the same device with the same build.</p>
+    <p>The E2B / E4B FP16 models were measured on Snapdragon X Plus (SC8380XP / Hexagon v73, 8 cores) running Windows 11 Pro. The following three configurations were compared on the same device with the same build.</p>
     <ul>
       <li>Non-MTP: the conventional v1.5.0 model (<code>gemma4-&lt;model&gt;-sc8380xp.qnn</code>)</li>
       <li>Without MTP: the v1.5.1 MTP-capable main model without the assistant (AR-256 / AR-1)</li>
       <li>With MTP: the v1.5.1 MTP-capable main model + assistant (AR-256 / AR-4)</li>
     </ul>
-    <p>Each configuration was measured once, with a 60-second wait before each trial. The device was on AC power with the Balanced power plan, used 4 performance cores as workers, and had background apps running. CPU values are earlier measurements on the same device running the Q4_0 GGUF via the standard llama.cpp path (OpenMP disabled, 4 performance cores as workers, without MTP), measured with ailia LLM 1.5.0 as in the QNN Benchmark. GPU values are from running the same Q4_0 GGUF on the Adreno X1-45 via the llama.cpp OpenCL backend (without MTP). They were measured on 2026-10-11 with a runtime that improves GPU performance, and are faster than the GPU values in the <a href="qnn-bench.html#windows">QNN Benchmark</a>. The QCS6490 MTP models have only been confirmed by an offline build, and performance has not been evaluated on a real device.</p>
+    <p>Each configuration was measured once, with a 60-second wait before each trial. The device was on AC power with the Balanced power plan, used 4 performance cores as workers, and had background apps running. CPU values are earlier measurements on the same device running the Q4_0 GGUF via the standard llama.cpp path (OpenMP disabled, 4 performance cores as workers, without MTP), the same measurements as in the QNN Benchmark. GPU values are from running the same Q4_0 GGUF on the Adreno X1-45 via the llama.cpp OpenCL backend (without MTP). They were measured on 2026-10-11 with a runtime that improves GPU performance, and are faster than the GPU values in the <a href="qnn-bench.html#windows">QNN Benchmark</a>. The QCS6490 MTP models have only been confirmed by an offline build, and performance has not been evaluated on a real device.</p>
 
     <h3>Decode throughput</h3>
     <p>Throughput for an 81-token input and 1,000 generated tokens.</p>
