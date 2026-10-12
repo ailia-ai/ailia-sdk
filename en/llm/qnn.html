@@ -82,13 +82,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM NPU (QNN) Guide</h1>
-    <p>Run Gemma 4 fast and with low load on the Snapdragon NPU. Prompt processing is greatly accelerated, CPU usage stays low, and image and audio input are also processed quickly on the NPU. This guide explains how to run inference with the QNN backend of ailia LLM.</p>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="stat-value">4.2<small>x</small></div><div class="stat-label">Prefill (prompt processing)</div><div class="stat-note">vs. CPU, 2,048-token input, Snapdragon 8+ Gen 1</div></div>
-      <div class="stat-card"><div class="stat-value">3<small>%</small></div><div class="stat-label">CPU use during prefill</div><div class="stat-note">98.7% on the CPU, Snapdragon 8+ Gen 1</div></div>
-      <div class="stat-card"><div class="stat-value">12.7<small>x</small></div><div class="stat-label">Image input response (TTFT)</div><div class="stat-note">vs. CPU, Snapdragon 8+ Gen 1, E2B</div></div>
-      <div class="stat-card"><div class="stat-value">9.2<small>x</small></div><div class="stat-label">Audio input response (TTFT)</div><div class="stat-note">vs. CPU, Snapdragon 8+ Gen 1, E2B</div></div>
-    </div>
+    <p>How to run LLM / VLM inference on the NPU of Qualcomm SoCs using the QNN backend of ailia LLM. For Gemma 4 E2B on Snapdragon 8+ Gen 1, compared with CPU execution on the same device, prefill is 4.2x faster (2,048-token input), image input TTFT is 12.7x faster and audio input TTFT is 9.2x faster. Process CPU use during prefill is 3.0% (98.7% on the CPU).</p>
   </section>
 
   <div class="guide-content">

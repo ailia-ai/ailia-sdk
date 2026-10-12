@@ -66,13 +66,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM NPU (QNN) Benchmark</h1>
-    <p>Measured results of running Gemma 4 on the Qualcomm SoC NPU with the ailia LLM QNN backend, compared with CPU execution on the same device. The NPU accelerates prompt processing by up to 4.2x and keeps CPU usage at around 3%. On Android, image and audio input respond 6.8x to 12.7x faster than on the CPU.</p>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="stat-value">4.2<small>x</small></div><div class="stat-label">Prefill (prompt processing)</div><div class="stat-note">vs. CPU, 2,048-token input, Snapdragon 8+ Gen 1</div></div>
-      <div class="stat-card"><div class="stat-value">3<small>%</small></div><div class="stat-label">CPU use during prefill</div><div class="stat-note">98.7% on the CPU, Snapdragon 8+ Gen 1</div></div>
-      <div class="stat-card"><div class="stat-value">12.7<small>x</small></div><div class="stat-label">Image input response (TTFT)</div><div class="stat-note">vs. CPU, Snapdragon 8+ Gen 1, E2B</div></div>
-      <div class="stat-card"><div class="stat-value">1/4<small></small></div><div class="stat-label">Working memory (anonymous memory)</div><div class="stat-note">vs. CPU, Snapdragon 7s Gen 3, E2B</div></div>
-    </div>
+    <p>Measured results of running Gemma 4 on the Qualcomm SoC NPU with the ailia LLM QNN backend, compared with CPU execution on the same device. For E2B on Snapdragon 8+ Gen 1, prefill is 4.2x faster than the CPU (2,048-token input), image input TTFT is 12.7x faster, and process CPU use during prefill is 3.0%. For E2B on Snapdragon 7s Gen 3, anonymous memory (<code>RssAnon</code>) is about 1/4 of CPU execution.</p>
   </section>
 
   <div class="guide-content">

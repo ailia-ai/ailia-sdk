@@ -66,13 +66,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM MTP Benchmark</h1>
-    <p>How much MTP improves decode (token generation), a challenge for QNN. On Android, NPU token generation outperforms the CPU, and for E2B with image and audio input, the response time (TTFT) is 1/7.7 to 1/10.6 of the CPU.</p>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="stat-value">1.55<small>x</small></div><div class="stat-label">Faster decode</div><div class="stat-note">vs. without MTP, Snapdragon 7s Gen 3, E2B</div></div>
-      <div class="stat-card"><div class="stat-value">1.63<small>x</small></div><div class="stat-label">Decode faster than the CPU</div><div class="stat-note">vs. CPU, Snapdragon 7s Gen 3, E2B</div></div>
-      <div class="stat-card"><div class="stat-value">1.70<small>x</small></div><div class="stat-label">Faster decode (Windows)</div><div class="stat-note">vs. non-MTP, Snapdragon X Plus, E4B</div></div>
-      <div class="stat-card"><div class="stat-value">10.2<small>x</small></div><div class="stat-label">Image input response (TTFT)</div><div class="stat-note">vs. CPU, Snapdragon 7s Gen 3, E2B</div></div>
-    </div>
+    <p>Measured results for Gemma 4 on the NPU of Qualcomm SoCs with MTP (Multi-Token Prediction) in ailia LLM 1.5.1. For E2B on Snapdragon 7s Gen 3, text generation decode is 1.55x that without MTP and 1.63x CPU execution on the same device. For E4B on Snapdragon X Plus, it is 1.70x the non-MTP model. Image input TTFT for E2B on Snapdragon 7s Gen 3 is 1/10.2 of CPU execution.</p>
   </section>
 
   <div class="guide-content">

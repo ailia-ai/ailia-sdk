@@ -75,13 +75,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM MTP (Multi-Token Prediction) Guide</h1>
-    <p>MTP in ailia LLM 1.5.1 improves decode (token generation), a challenge for QNN. NPU token generation gets faster, and on Android it outperforms the CPU.</p>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="stat-value">1.55<small>x</small></div><div class="stat-label">Faster decode</div><div class="stat-note">vs. without MTP, Snapdragon 7s Gen 3, E2B</div></div>
-      <div class="stat-card"><div class="stat-value">1.63<small>x</small></div><div class="stat-label">Decode faster than the CPU</div><div class="stat-note">vs. CPU, Snapdragon 7s Gen 3, E2B</div></div>
-      <div class="stat-card"><div class="stat-value">1.70<small>x</small></div><div class="stat-label">Faster decode (Windows)</div><div class="stat-note">vs. non-MTP, Snapdragon X Plus, E4B</div></div>
-      <div class="stat-card"><div class="stat-value">1<small> line</small></div><div class="stat-label">API to add</div><div class="stat-note">ailiaLLMOpenMtpModel; requires switching to the MTP models</div></div>
-    </div>
+    <p>How to speed up Gemma 4 token generation (decode) with MTP, supported in ailia LLM 1.5.1. For E2B on Snapdragon 7s Gen 3, text generation decode is 1.55x that without MTP and 1.63x CPU execution on the same device. For E4B on Snapdragon X Plus, it is 1.70x the non-MTP model. Using MTP requires switching to the MTP models and calling <code>ailiaLLMOpenMtpModel</code>.</p>
   </section>
 
   <div class="guide-content">

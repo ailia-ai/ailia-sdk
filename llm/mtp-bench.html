@@ -66,13 +66,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM MTP ベンチマーク</h1>
-    <p>QNN の課題だった Decode（トークン生成）が、MTP でどれだけ改善したかを示します。Android では NPU のトークン生成が CPU を上回り、E2B の画像・音声入力では、応答時間（TTFT）が CPU の 7.7〜10.6 分の 1 です。</p>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="stat-value">1.55<small>倍</small></div><div class="stat-label">Decode の高速化</div><div class="stat-note">MTP なし比・Snapdragon 7s Gen 3・E2B</div></div>
-      <div class="stat-card"><div class="stat-value">1.63<small>倍</small></div><div class="stat-label">CPU を上回る Decode</div><div class="stat-note">CPU 比・Snapdragon 7s Gen 3・E2B</div></div>
-      <div class="stat-card"><div class="stat-value">1.70<small>倍</small></div><div class="stat-label">Decode の高速化（Windows）</div><div class="stat-note">非 MTP 比・Snapdragon X Plus・E4B</div></div>
-      <div class="stat-card"><div class="stat-value">10.2<small>倍</small></div><div class="stat-label">画像入力の応答（TTFT）</div><div class="stat-note">CPU 比・Snapdragon 7s Gen 3・E2B</div></div>
-    </div>
+    <p>ailia LLM 1.5.1 の MTP（Multi-Token Prediction）を使用した、Qualcomm SoC の NPU における Gemma 4 の測定結果です。Snapdragon 7s Gen 3 の E2B では、テキスト生成の Decode が MTP なしの 1.55 倍、同じ端末の CPU 実行の 1.63 倍です。Snapdragon X Plus の E4B では、非 MTP モデルの 1.70 倍です。画像入力の TTFT は、Snapdragon 7s Gen 3 の E2B で CPU 実行の 1/10.2 です。</p>
   </section>
 
   <div class="guide-content">

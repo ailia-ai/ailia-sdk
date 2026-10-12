@@ -75,13 +75,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM MTP（Multi-Token Prediction）ガイド</h1>
-    <p>QNN の課題だった Decode（トークン生成）を、ailia LLM 1.5.1 の MTP で改善しました。NPU のトークン生成が高速になり、Android では CPU を上回ります。</p>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="stat-value">1.55<small>倍</small></div><div class="stat-label">Decode の高速化</div><div class="stat-note">MTP なし比・Snapdragon 7s Gen 3・E2B</div></div>
-      <div class="stat-card"><div class="stat-value">1.63<small>倍</small></div><div class="stat-label">CPU を上回る Decode</div><div class="stat-note">CPU 比・Snapdragon 7s Gen 3・E2B</div></div>
-      <div class="stat-card"><div class="stat-value">1.70<small>倍</small></div><div class="stat-label">Decode の高速化（Windows）</div><div class="stat-note">非 MTP 比・Snapdragon X Plus・E4B</div></div>
-      <div class="stat-card"><div class="stat-value">1<small>行</small></div><div class="stat-label">追加する API</div><div class="stat-note">ailiaLLMOpenMtpModel。MTP 対応モデルへの差し替えが必要</div></div>
-    </div>
+    <p>ailia LLM 1.5.1 で対応した MTP を使用して、Gemma 4 のトークン生成（Decode）を高速化する方法を説明します。Snapdragon 7s Gen 3 の E2B では、テキスト生成の Decode が MTP なしの 1.55 倍、同じ端末の CPU 実行の 1.63 倍です。Snapdragon X Plus の E4B では、非 MTP モデルの 1.70 倍です。MTP を使用するには、MTP 対応モデルへの差し替えと <code>ailiaLLMOpenMtpModel</code> の呼び出しが必要です。</p>
   </section>
 
   <div class="guide-content">

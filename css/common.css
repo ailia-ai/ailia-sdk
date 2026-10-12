@@ -536,56 +536,6 @@ code { overflow-wrap: anywhere; }
   background: var(--white);
 }
 
-/* Key figures (stat cards) */
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 16px;
-  margin: 24px 0;
-}
-
-.hero .stat-grid {
-  max-width: 900px;
-  margin: 32px auto 0;
-}
-
-.stat-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 20px 16px;
-  text-align: center;
-}
-
-.stat-card .stat-value {
-  font-size: 34px;
-  font-weight: 800;
-  line-height: 1.2;
-  color: var(--accent);
-}
-
-.stat-card .stat-value small {
-  font-size: 18px;
-  font-weight: 700;
-  margin-left: 2px;
-}
-
-.stat-card .stat-label {
-  margin-top: 6px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--primary);
-  line-height: 1.5;
-}
-
-.stat-card .stat-note {
-  margin-top: 4px;
-  font-size: 12px;
-  color: var(--text-light);
-  line-height: 1.5;
-}
-
 /* Horizontal bar comparison */
 .hbar-chart {
   background: var(--white);
@@ -654,10 +604,6 @@ code { overflow-wrap: anywhere; }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .stat-card { padding: 14px 10px; }
-  .stat-card .stat-value { font-size: 26px; }
-  .stat-card .stat-label { font-size: 13px; }
   .hbar-row { grid-template-columns: 96px 1fr 84px; gap: 8px; font-size: 13px; }
   .hero h1 { font-size: 26px; }
   .menu-toggle { display: flex; }
