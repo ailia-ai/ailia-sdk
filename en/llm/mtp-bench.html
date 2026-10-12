@@ -201,16 +201,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>During a 2,048-token prefill, usage is 49.5% to 49.8% on the CPU and 2.4% to 4.7% on the NPU. During image and audio input TTFT (prompt setup including the encoder and the first generate call), it is 44% to 49% on the CPU and 3.6% to 9.4% on the NPU.</p>
 
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_cpu_sm8475.png" alt="SM8475 E2B CPU usage during decode (text / image / audio)" loading="lazy">
-      <figcaption>SM8475 (E2B / FP16) process CPU usage during decode</figcaption>
+      <img src="../../llm/benchmark/mtp_cpu_sm8475.png" alt="SM8475 E2B CPU usage during text generation decode" loading="lazy">
+      <figcaption>SM8475 (E2B / FP16) process CPU usage during text generation decode</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_cpu_sm7635.png" alt="SM7635 E2B CPU usage during decode (text / image / audio)" loading="lazy">
-      <figcaption>SM7635 (E2B / Int16) process CPU usage during decode</figcaption>
+      <img src="../../llm/benchmark/mtp_cpu_sm7635.png" alt="SM7635 E2B CPU usage during text generation decode" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) process CPU usage during text generation decode</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_cpu_e4b_sm7635.png" alt="SM7635 E4B CPU usage during decode (text / image / audio)" loading="lazy">
-      <figcaption>SM7635 (E4B / Int16) process CPU usage during decode</figcaption>
+      <img src="../../llm/benchmark/mtp_cpu_e4b_sm7635.png" alt="SM7635 E4B CPU usage during text generation decode" loading="lazy">
+      <figcaption>SM7635 (E4B / Int16) process CPU usage during text generation decode</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_pps_cpu_sm8475.png" alt="SM8475 E2B average CPU usage during prefill (mean of 64 to 2,048-token inputs)" loading="lazy">
