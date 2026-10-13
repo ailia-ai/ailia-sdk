@@ -139,7 +139,46 @@ While tools are set with <code>ailiaLLMSetTools</code>, the conventional <code>a
 <p>The SDK buffers the generated response, so the application does not have to carry the raw output around.
 GetResponseJson is a read and does not clear the buffer. It is reset by a new prompt.
 </p>
-<h3>JSON history</h3>
+<h2>API for each language</h2>
+<div class="table-wrap"><table class="version-table">
+<thead>
+<tr>
+<th>Language</th>
+<th>Set the JSON history and generate</th>
+<th>Get the response buffered in the SDK</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C / C++</td>
+<td><code>ailiaLLMSetPromptJson</code> &rarr; <code>ailiaLLMGenerate</code></td>
+<td><code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code></td>
+</tr>
+<tr>
+<td>Python</td>
+<td><code>generate_json(messages)</code></td>
+<td><code>get_response_json()</code> (dict)</td>
+</tr>
+<tr>
+<td>Unity</td>
+<td><code>SetPromptJson(messagesJson)</code> &rarr; <code>Generate</code></td>
+<td><code>GetResponseJson()</code> (JSON string, empty string on failure)</td>
+</tr>
+<tr>
+<td>Flutter</td>
+<td><code>setPromptJson(messages)</code> &rarr; <code>generate</code></td>
+<td><code>getResponseJson()</code> (Map)</td>
+</tr>
+<tr>
+<td>Kotlin</td>
+<td><code>setPromptJson(messagesJson)</code> &rarr; <code>generate</code></td>
+<td><code>getResponseJson()</code> (JSON string)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Python, Flutter and Kotlin raise exceptions on error. SetPromptJson in Unity returns a bool.
+For tool use, use the JSON history from the very first turn.</p>
+<h2>JSON history</h2>
 <pre><code class="language-json">[
   {&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;What is the weather in Tokyo?&quot;},
   {&quot;role&quot;:&quot;assistant&quot;,&quot;content&quot;:&quot;&quot;,&quot;tool_calls&quot;:[
@@ -155,9 +194,9 @@ IDs may be reused in a different turn. Consecutive tool results are matched to t
 The order of the results does not matter. An unknown ID, a duplicated result or a conflicting tool name is INVALID_ARGUMENT.
 The content of a tool result must be a string; convert objects into a JSON string.</p>
 <p>After clearing the tools with <code>setTools(null)</code>, past tool_calls and tool results can still be passed to <code>setPromptJson</code> to generate a summary or a final answer. ID matching is still validated. Clearing the tools disables the output parser, so retrieve the response JSON before clearing them.</p>
-<h3>Images and audio</h3>
+<h2>Images and audio</h2>
 <p>The content array of a user message can also contain images and audio. See the <a href="multimodal.html">Multimodal Guide</a> for details.</p>
-<h3>Incomplete output and errors</h3>
+<h2>Incomplete output and errors</h2>
 <ul>
 <li>GetResponseJson: call it after generation completes. An incomplete tool call or thinking is PARSE_ERROR. Partial results are never executed and arguments are never completed.</li>
 <li>SetPromptJson: incomplete arguments, invalid JSON, invalid types, broken ID matching and an empty array are INVALID_ARGUMENT. Nothing is truncated automatically.</li>
@@ -272,45 +311,6 @@ int main() {
     return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
 }
 </code></pre>
-<h2>API for each language</h2>
-<div class="table-wrap"><table class="version-table">
-<thead>
-<tr>
-<th>Language</th>
-<th>Set the JSON history and generate</th>
-<th>Get the response buffered in the SDK</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>C / C++</td>
-<td><code>ailiaLLMSetPromptJson</code> &rarr; <code>ailiaLLMGenerate</code></td>
-<td><code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code></td>
-</tr>
-<tr>
-<td>Python</td>
-<td><code>generate_json(messages)</code></td>
-<td><code>get_response_json()</code> (dict)</td>
-</tr>
-<tr>
-<td>Unity</td>
-<td><code>SetPromptJson(messagesJson)</code> &rarr; <code>Generate</code></td>
-<td><code>GetResponseJson()</code> (JSON string, empty string on failure)</td>
-</tr>
-<tr>
-<td>Flutter</td>
-<td><code>setPromptJson(messages)</code> &rarr; <code>generate</code></td>
-<td><code>getResponseJson()</code> (Map)</td>
-</tr>
-<tr>
-<td>Kotlin</td>
-<td><code>setPromptJson(messagesJson)</code> &rarr; <code>generate</code></td>
-<td><code>getResponseJson()</code> (JSON string)</td>
-</tr>
-</tbody>
-</table></div>
-<p>Python, Flutter and Kotlin raise exceptions on error. SetPromptJson in Unity returns a bool.
-For tool use, use the JSON history from the very first turn.</p>
 <h2>Kotlin sample</h2>
 <p>Pass an <code>AiliaLLM</code> instance with the model already loaded. The sample uses <code>org.json</code> from Android. On JVM environments other than Android, add an equivalent JSON library.</p>
 <pre><code class="language-kotlin">import axip.ailia_llm.AiliaLLM

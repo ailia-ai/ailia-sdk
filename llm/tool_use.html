@@ -139,7 +139,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>SDKが生成結果を蓄積するので、生の出力をアプリ側で引き回す必要はありません。
 GetResponseJsonは読み取りで蓄積を消去しません。新しいプロンプトでリセットします。
 </p>
-<h3>JSON履歴</h3>
+<h2>各言語のAPI</h2>
+<div class="table-wrap"><table class="version-table">
+<thead>
+<tr>
+<th>言語</th>
+<th>JSON履歴の設定・生成</th>
+<th>SDK内の生成結果を取得</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C / C++</td>
+<td><code>ailiaLLMSetPromptJson</code> → <code>ailiaLLMGenerate</code></td>
+<td><code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code></td>
+</tr>
+<tr>
+<td>Python</td>
+<td><code>generate_json(messages)</code></td>
+<td><code>get_response_json()</code>（dict）</td>
+</tr>
+<tr>
+<td>Unity</td>
+<td><code>SetPromptJson(messagesJson)</code> → <code>Generate</code></td>
+<td><code>GetResponseJson()</code>（JSON文字列、失敗時は空文字列）</td>
+</tr>
+<tr>
+<td>Flutter</td>
+<td><code>setPromptJson(messages)</code> → <code>generate</code></td>
+<td><code>getResponseJson()</code>（Map）</td>
+</tr>
+<tr>
+<td>Kotlin</td>
+<td><code>setPromptJson(messagesJson)</code> → <code>generate</code></td>
+<td><code>getResponseJson()</code>（JSON文字列）</td>
+</tr>
+</tbody>
+</table></div>
+<p>Python・Flutter・Kotlinはエラー時に例外を返します。UnityのSetPromptJsonはboolを返します。
+Tool Useでは、最初のターンからJSON履歴を使用してください。</p>
+<h2>JSON履歴</h2>
 <pre><code class="language-json">[
   {&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;東京の天気は？&quot;},
   {&quot;role&quot;:&quot;assistant&quot;,&quot;content&quot;:&quot;&quot;,&quot;tool_calls&quot;:[
@@ -155,9 +194,9 @@ GetResponseJsonは読み取りで蓄積を消去しません。新しいプロ�
 結果の順序は問いません。不明なID、重複結果、矛盾するツール名はINVALID_ARGUMENTです。
 ツール結果のcontentには文字列を指定し、オブジェクトはJSON文字列に変換してください。</p>
 <p><code>setTools(null)</code>でツールを解除した後も、過去のtool_callsとtool結果を<code>setPromptJson</code>へ渡して要約・最終回答を生成できます。ID対応の検証は引き続き行います。解除すると出力パーサーが無効になるため、生成結果のJSONは解除前に取得してください。</p>
-<h3>画像・音声</h3>
+<h2>画像・音声</h2>
 <p>userのcontent配列には画像・音声も指定できます。詳しくは<a href="multimodal.html">マルチモーダル ガイド</a>を参照してください。</p>
-<h3>不完全な出力・エラー</h3>
+<h2>不完全な出力・エラー</h2>
 <ul>
 <li>GetResponseJson：生成完了後に呼び出してください。未完了tool call/ThinkingはPARSE_ERRORです。部分結果を実行したり、引数を補完したりしません。</li>
 <li>SetPromptJson：不完全なarguments、不正なJSON・型・ID対応、空配列はINVALID_ARGUMENTです。自動切り捨ては行いません。</li>
@@ -272,45 +311,6 @@ int main() {
     return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
 }
 </code></pre>
-<h2>各言語のAPI</h2>
-<div class="table-wrap"><table class="version-table">
-<thead>
-<tr>
-<th>言語</th>
-<th>JSON履歴の設定・生成</th>
-<th>SDK内の生成結果を取得</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>C / C++</td>
-<td><code>ailiaLLMSetPromptJson</code> → <code>ailiaLLMGenerate</code></td>
-<td><code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code></td>
-</tr>
-<tr>
-<td>Python</td>
-<td><code>generate_json(messages)</code></td>
-<td><code>get_response_json()</code>（dict）</td>
-</tr>
-<tr>
-<td>Unity</td>
-<td><code>SetPromptJson(messagesJson)</code> → <code>Generate</code></td>
-<td><code>GetResponseJson()</code>（JSON文字列、失敗時は空文字列）</td>
-</tr>
-<tr>
-<td>Flutter</td>
-<td><code>setPromptJson(messages)</code> → <code>generate</code></td>
-<td><code>getResponseJson()</code>（Map）</td>
-</tr>
-<tr>
-<td>Kotlin</td>
-<td><code>setPromptJson(messagesJson)</code> → <code>generate</code></td>
-<td><code>getResponseJson()</code>（JSON文字列）</td>
-</tr>
-</tbody>
-</table></div>
-<p>Python・Flutter・Kotlinはエラー時に例外を返します。UnityのSetPromptJsonはboolを返します。
-Tool Useでは、最初のターンからJSON履歴を使用してください。</p>
 <h2>Kotlinサンプル</h2>
 <p>モデル読込済みの <code>AiliaLLM</code> を渡します。Androidの <code>org.json</code> を使用します。Android以外のJVM環境では対応するJSONライブラリを追加してください。</p>
 <pre><code class="language-kotlin">import axip.ailia_llm.AiliaLLM
