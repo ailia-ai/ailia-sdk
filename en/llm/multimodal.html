@@ -92,6 +92,19 @@ Image and audio support can be checked with <code>vision_support</code> / <code>
 </table></div>
 <p>Either method can be used to input images and audio. Use <code>ailiaLLMSetMultimodalPrompt</code> to pass raw RGB, and <code>ailiaLLMSetPromptJson</code> to combine media with Tool Use.
 See the <a href="tool_use.html">Tool Use Guide</a> for details on Tool Use.</p>
+<h2>API for each language</h2>
+<div class="table-wrap"><table class="version-table">
+<thead>
+<tr><th>Language</th><th>Load the projector</th><th>Check support</th><th>Input with structs</th><th>Input with JSON history</th></tr>
+</thead>
+<tbody>
+<tr><td>C / C++</td><td><code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code></td><td><code>ailiaLLMGetMultimodalCapabilities</code></td><td><code>ailiaLLMSetMultimodalPrompt</code></td><td><code>ailiaLLMSetPromptJson</code></td></tr>
+<tr><td>Kotlin</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code></td><td><code>setPrompt(Array&lt;AiliaLLMMultimodalChatMessage&gt;)</code></td><td><code>setPromptJson(messagesJson)</code></td></tr>
+<tr><td>Flutter</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code> (Map)</td><td><code>setPrompt(messages)</code> (with <code>media_data</code>)</td><td><code>setPromptJson(messages)</code></td></tr>
+<tr><td>Python</td><td><code>open_multimodal_projector(path)</code></td><td><code>get_multimodal_capabilities()</code> (dict)</td><td><code>generate(messages)</code> (with <code>media_data</code>)</td><td><code>generate_json(messages)</code></td></tr>
+<tr><td>Unity</td><td><code>OpenMultimodalProjector(path)</code></td><td><code>GetMultimodalCapabilities(ref, ref)</code></td><td><code>SetMultimodalPrompt(messages)</code></td><td><code>SetPromptJson(messagesJson)</code></td></tr>
+</tbody>
+</table></div>
 <h2>SetMultimodalPrompt (structs)</h2>
 <p>Include <code>&lt;__media__&gt;</code> placeholders in the content of a message, set the corresponding media in order in <code>media_data</code>, and set their number in <code>media_count</code>.
 The content of the messages is copied internally, so it can be freed after the call.</p>
@@ -236,20 +249,7 @@ int main() {
     return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
 }
 </code></pre>
-<h2>API for each language</h2>
-<div class="table-wrap"><table class="version-table">
-<thead>
-<tr><th>Language</th><th>Load the projector</th><th>Check support</th><th>Input with structs</th><th>Input with JSON history</th></tr>
-</thead>
-<tbody>
-<tr><td>C / C++</td><td><code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code></td><td><code>ailiaLLMGetMultimodalCapabilities</code></td><td><code>ailiaLLMSetMultimodalPrompt</code></td><td><code>ailiaLLMSetPromptJson</code></td></tr>
-<tr><td>Kotlin</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code></td><td><code>setPrompt(Array&lt;AiliaLLMMultimodalChatMessage&gt;)</code></td><td><code>setPromptJson(messagesJson)</code></td></tr>
-<tr><td>Flutter</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code> (Map)</td><td><code>setPrompt(messages)</code> (with <code>media_data</code>)</td><td><code>setPromptJson(messages)</code></td></tr>
-<tr><td>Python</td><td><code>open_multimodal_projector(path)</code></td><td><code>get_multimodal_capabilities()</code> (dict)</td><td><code>generate(messages)</code> (with <code>media_data</code>)</td><td><code>generate_json(messages)</code></td></tr>
-<tr><td>Unity</td><td><code>OpenMultimodalProjector(path)</code></td><td><code>GetMultimodalCapabilities(ref, ref)</code></td><td><code>SetMultimodalPrompt(messages)</code></td><td><code>SetPromptJson(messagesJson)</code></td></tr>
-</tbody>
-</table></div>
-<p>The samples below input one image file with structs. The media is placed at the <code>&lt;__media__&gt;</code> position in content. To input audio, set <code>media_type</code> to <code>&quot;audio&quot;</code>. In Python, specify <code>media_data</code> with <code>file_path</code>.</p>
+<p>The Kotlin, Flutter, Python and Unity samples below input one image file with structs. The media is placed at the <code>&lt;__media__&gt;</code> position in content. To input audio, set <code>media_type</code> to <code>&quot;audio&quot;</code>. In Python, specify <code>media_data</code> with <code>file_path</code>.</p>
 <h2>Kotlin sample</h2>
 <pre><code class="language-kotlin">import axip.ailia_llm.AiliaLLM
 import axip.ailia_llm.AiliaLLMMediaData

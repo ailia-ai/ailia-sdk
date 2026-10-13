@@ -92,6 +92,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </table></div>
 <p>画像・音声を入力するだけであればどちらの方法でも使用できます。Raw RGBを渡す場合は<code>ailiaLLMSetMultimodalPrompt</code>を、Tool Useと組み合わせる場合は<code>ailiaLLMSetPromptJson</code>を使用してください。
 Tool Useの詳細は<a href="tool_use.html">Tool Use ガイド</a>を参照してください。</p>
+<h2>各言語のAPI</h2>
+<div class="table-wrap"><table class="version-table">
+<thead>
+<tr><th>言語</th><th>プロジェクタの読み込み</th><th>対応状況の確認</th><th>構造体で入力</th><th>JSON履歴で入力</th></tr>
+</thead>
+<tbody>
+<tr><td>C / C++</td><td><code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code></td><td><code>ailiaLLMGetMultimodalCapabilities</code></td><td><code>ailiaLLMSetMultimodalPrompt</code></td><td><code>ailiaLLMSetPromptJson</code></td></tr>
+<tr><td>Kotlin</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code></td><td><code>setPrompt(Array&lt;AiliaLLMMultimodalChatMessage&gt;)</code></td><td><code>setPromptJson(messagesJson)</code></td></tr>
+<tr><td>Flutter</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code>（Map）</td><td><code>setPrompt(messages)</code>（<code>media_data</code>付き）</td><td><code>setPromptJson(messages)</code></td></tr>
+<tr><td>Python</td><td><code>open_multimodal_projector(path)</code></td><td><code>get_multimodal_capabilities()</code>（dict）</td><td><code>generate(messages)</code>（<code>media_data</code>付き）</td><td><code>generate_json(messages)</code></td></tr>
+<tr><td>Unity</td><td><code>OpenMultimodalProjector(path)</code></td><td><code>GetMultimodalCapabilities(ref, ref)</code></td><td><code>SetMultimodalPrompt(messages)</code></td><td><code>SetPromptJson(messagesJson)</code></td></tr>
+</tbody>
+</table></div>
 <h2>SetMultimodalPrompt（構造体）</h2>
 <p>メッセージのcontentに<code>&lt;__media__&gt;</code>プレースホルダーを含め、対応するメディアを<code>media_data</code>に順番に設定し、<code>media_count</code>に個数を指定します。
 メッセージの内容は内部でコピーされるため、呼び出し後に解放できます。</p>
@@ -236,20 +249,7 @@ int main() {
     return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
 }
 </code></pre>
-<h2>各言語のAPI</h2>
-<div class="table-wrap"><table class="version-table">
-<thead>
-<tr><th>言語</th><th>プロジェクタの読み込み</th><th>対応状況の確認</th><th>構造体で入力</th><th>JSON履歴で入力</th></tr>
-</thead>
-<tbody>
-<tr><td>C / C++</td><td><code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code></td><td><code>ailiaLLMGetMultimodalCapabilities</code></td><td><code>ailiaLLMSetMultimodalPrompt</code></td><td><code>ailiaLLMSetPromptJson</code></td></tr>
-<tr><td>Kotlin</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code></td><td><code>setPrompt(Array&lt;AiliaLLMMultimodalChatMessage&gt;)</code></td><td><code>setPromptJson(messagesJson)</code></td></tr>
-<tr><td>Flutter</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code>（Map）</td><td><code>setPrompt(messages)</code>（<code>media_data</code>付き）</td><td><code>setPromptJson(messages)</code></td></tr>
-<tr><td>Python</td><td><code>open_multimodal_projector(path)</code></td><td><code>get_multimodal_capabilities()</code>（dict）</td><td><code>generate(messages)</code>（<code>media_data</code>付き）</td><td><code>generate_json(messages)</code></td></tr>
-<tr><td>Unity</td><td><code>OpenMultimodalProjector(path)</code></td><td><code>GetMultimodalCapabilities(ref, ref)</code></td><td><code>SetMultimodalPrompt(messages)</code></td><td><code>SetPromptJson(messagesJson)</code></td></tr>
-</tbody>
-</table></div>
-<p>以下のサンプルは、構造体で画像ファイルを1枚入力します。contentの<code>&lt;__media__&gt;</code>の位置にメディアが入ります。音声を入力する場合は<code>media_type</code>を<code>&quot;audio&quot;</code>にします。Pythonの<code>media_data</code>は<code>file_path</code>で指定します。</p>
+<p>以下のKotlin・Flutter・Python・Unityのサンプルは、構造体で画像ファイルを1枚入力します。contentの<code>&lt;__media__&gt;</code>の位置にメディアが入ります。音声を入力する場合は<code>media_type</code>を<code>&quot;audio&quot;</code>にします。Pythonの<code>media_data</code>は<code>file_path</code>で指定します。</p>
 <h2>Kotlinサンプル</h2>
 <pre><code class="language-kotlin">import axip.ailia_llm.AiliaLLM
 import axip.ailia_llm.AiliaLLMMediaData
