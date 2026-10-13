@@ -80,10 +80,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2 id="summary">Summary</h2>
     <ul>
-      <li>With MTP, NPU text generation decode is 1.81x (SM8475), 1.55x (SM7635) and 1.50x (SC8380XP) for E2B, 1.70x for E4B on SC8380XP (vs. the non-MTP model) and 1.01x for E4B on SM7635.</li>
-      <li>With MTP, CPU (4 threads) text generation decode is 0.94x (SM8475 E2B), 1.35x (SM7635 E2B) and 1.65x (SM7635 E4B).</li>
+      <li>With MTP, NPU text generation decode is 1.81x (SM8475), 1.55x (SM7635) and 1.71x (SC8380XP) for E2B, and 1.85x (SC8380XP) and 1.01x (SM7635) for E4B.</li>
+      <li>With MTP, CPU (4 threads) text generation decode is 0.94x (SM8475 E2B), 1.35x (SM7635 E2B), 1.65x (SM7635 E4B), 1.27x (SC8380XP E2B) and 1.68x (SC8380XP E4B).</li>
       <li>For audio transcription, NPU decode with MTP is 1.66x to 2.91x.</li>
-      <li>Comparing both with MTP, decode on the NPU is 1.12x the CPU for E2B on SM8475 and 0.87x for E2B on SM7635. Prefill on the NPU is 3.0x to 10.4x the CPU (2,048-token input), and image and audio input TTFT on the NPU is 1/1.9 to 1/6.9 of the CPU.</li>
+      <li>On Android, comparing both with MTP, decode on the NPU is 1.12x the CPU for E2B on SM8475 and 0.87x for E2B on SM7635. Prefill on the NPU is 3.0x to 10.4x the CPU (2,048-token input), and image and audio input TTFT on the NPU is 1/1.9 to 1/6.9 of the CPU.</li>
+      <li>On SC8380XP, decode is fastest on the CPU, and the GPU drops to 0.50x to 0.59x with MTP. Prefill for inputs of 256 tokens or more is fastest on the NPU.</li>
       <li>Prefill and TTFT are almost the same with and without MTP.</li>
     </ul>
 
@@ -322,43 +323,40 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="windows">Windows</h2>
 
     <h3>Test Conditions</h3>
-    <p>The E2B / E4B FP16 models were measured on Snapdragon X Plus (SC8380XP / Hexagon v73, 8 cores) running Windows 11 Pro. The following three configurations were compared on the same device with the same build.</p>
-    <ul>
-      <li>Non-MTP: the conventional v1.5.0 model (<code>gemma4-&lt;model&gt;-sc8380xp.qnn</code>)</li>
-      <li>Without MTP: the v1.5.1 MTP-capable main model without the assistant (AR-256 / AR-1)</li>
-      <li>With MTP: the v1.5.1 MTP-capable main model + assistant (AR-256 / AR-4)</li>
-    </ul>
-    <p>Each configuration was measured once, with a 60-second wait before each trial. The device was on AC power with the Balanced power plan and had background apps running. CPU values are earlier measurements on the same device running the Q4_0 GGUF via the standard llama.cpp path (OpenMP disabled, 4 performance cores as workers, without MTP), the same measurements as in the QNN Benchmark. GPU values are from running the same Q4_0 GGUF on the Adreno X1-45 via the llama.cpp OpenCL backend (without MTP). They were measured on 2026-10-11 with a runtime that improves GPU performance, and are faster than the GPU values in the <a href="qnn-bench.html#windows">QNN Benchmark</a>. The QCS6490 MTP models have only been confirmed by an offline build, and performance has not been evaluated on a real device.</p>
+    <p>Results for Gemma 4 E2B / E4B on Snapdragon X Plus (SC8380XP / Hexagon v73, 8 cores) running Windows 11 Pro, measured in six configurations: CPU, GPU and NPU, each without and with MTP. Measured on 2026-10-13.</p>
+    <p>The CPU uses the llama.cpp path (OpenMP disabled, 4 threads), and the GPU uses the llama.cpp OpenCL backend on the Adreno X1-45, both with a QAT Q4_0 main model and a Q4_0 GGUF assistant (on the GPU, the assistant also runs on the GPU). The NPU uses the v1.5.1 MTP models (FP16 / W4). The image and audio encoders run on the CPU (BF16 mmproj GGUF) in the CPU and GPU configurations, and on the NPU in the NPU configurations.</p>
+    <p>Each configuration was measured once, with a 60-second wait before each trial. Context length 8192, greedy. The device was on AC power with the Balanced power plan and had background apps running. CPU usage is the process CPU time divided by the elapsed time and 8 cores. The QCS6490 MTP models have only been confirmed by an offline build, and performance has not been evaluated on a real device.</p>
 
     <h3>Decode throughput</h3>
-    <p>Throughput for an 81-token input and 1,000 generated tokens.</p>
+    <p>Throughput for an 81-token input and 1,000 generated tokens. Values in parentheses are relative to the same backend without MTP.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Model</th><th>CPU</th><th>GPU</th><th>Non-MTP (v1.5.0)</th><th>Without MTP</th><th>With MTP</th><th>MTP speedup (vs. non-MTP)</th><th>Acceptance</th></tr>
-      <tr><td>E2B / FP16</td><td class="num">32.505 tokens/s</td><td class="num">16.996 tokens/s</td><td class="num">7.581 tokens/s</td><td class="num">7.681 tokens/s</td><td class="num">11.361 tokens/s</td><td class="num">1.50x faster</td><td class="num">35.2%</td></tr>
-      <tr><td>E4B / FP16</td><td class="num">15.230 tokens/s</td><td class="num">8.399 tokens/s</td><td class="num">4.477 tokens/s</td><td class="num">4.403 tokens/s</td><td class="num">7.614 tokens/s</td><td class="num">1.70x faster</td><td class="num">39.4%</td></tr>
+      <tr><th>Configuration</th><th>E2B</th><th>E2B Acceptance</th><th>E4B</th><th>E4B Acceptance</th></tr>
+      <tr><td>CPU (without MTP)</td><td class="num">36.097 tokens/s</td><td class="num">—</td><td class="num">20.209 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>CPU (with MTP)</td><td class="num">45.952 tokens/s (1.27x)</td><td class="num">31.1%</td><td class="num">34.010 tokens/s (1.68x)</td><td class="num">43.3%</td></tr>
+      <tr><td>GPU (without MTP)</td><td class="num">15.789 tokens/s</td><td class="num">—</td><td class="num">8.434 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>GPU (with MTP)</td><td class="num">7.956 tokens/s (0.50x)</td><td class="num">39.0%</td><td class="num">4.962 tokens/s (0.59x)</td><td class="num">38.2%</td></tr>
+      <tr><td>NPU (without MTP)</td><td class="num">7.488 tokens/s</td><td class="num">—</td><td class="num">4.311 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>NPU (with MTP)</td><td class="num">12.830 tokens/s (1.71x)</td><td class="num">35.2%</td><td class="num">7.996 tokens/s (1.85x)</td><td class="num">39.4%</td></tr>
     </table>
     </div>
-    <p>Without MTP, the speed is almost the same as the conventional model, so the speedup comes from the assistant and AR-4 verification. E4B is 1.70x (1.01x for SM7635 E4B on Android).</p>
-    <div class="note">
-      <strong>Comparison with the CPU and GPU:</strong> Snapdragon X Plus has a high-performance CPU. Even with MTP, NPU text generation decode is 0.35x (E2B) / 0.50x (E4B) the CPU and 0.67x (E2B) / 0.91x (E4B) the GPU. On Windows on Arm PCs, the main benefits of the NPU are faster prefill and reduced CPU load.
-    </div>
+    <p>Decode is fastest on the CPU. On the GPU, decode became slower with MTP.</p>
 
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_sc8380xp.png" alt="Snapdragon X Plus E2B text generation decode throughput (1000 generated tokens) (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>Decode throughput on SC8380XP (E2B / FP16) (1000 generated tokens)</figcaption>
+      <img src="../../llm/benchmark/mtp_text_tps_sc8380xp.png" alt="Snapdragon X Plus E2B decode throughput (1000 generated tokens, CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) decode throughput (1000 generated tokens)</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_by_output_sc8380xp.png" alt="Snapdragon X Plus E2B per-token text generation throughput over 1000 generated tokens (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>Per-token decode throughput on SC8380XP (E2B / FP16) over 1000 generated tokens</figcaption>
+      <img src="../../llm/benchmark/mtp_text_tps_by_output_sc8380xp.png" alt="Snapdragon X Plus E2B per-token decode throughput over 1000 generated tokens (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B text generation decode throughput (1000 generated tokens) (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>Decode throughput on SC8380XP (E4B / FP16) (1000 generated tokens)</figcaption>
+      <img src="../../llm/benchmark/mtp_text_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B decode throughput (1000 generated tokens, CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) decode throughput (1000 generated tokens)</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_by_output_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B per-token text generation throughput over 1000 generated tokens (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>Per-token decode throughput on SC8380XP (E4B / FP16) over 1000 generated tokens</figcaption>
+      <img src="../../llm/benchmark/mtp_text_tps_by_output_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B per-token decode throughput over 1000 generated tokens (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
     </figure>
 
     <h3>Prefill throughput</h3>
@@ -366,81 +364,127 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Model / configuration</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
-      <tr><td>E2B CPU</td><td class="num">249.314</td><td class="num">205.403</td><td class="num">214.986</td><td class="num">194.638</td><td class="num">176.262</td><td class="num">155.627</td></tr>
-      <tr><td>E2B GPU</td><td class="num">190.718</td><td class="num">208.584</td><td class="num">220.448</td><td class="num">205.558</td><td class="num">181.273</td><td class="num">151.935</td></tr>
-      <tr><td>E2B non-MTP (v1.5.0)</td><td class="num">101.982</td><td class="num">225.254</td><td class="num">424.934</td><td class="num">420.052</td><td class="num">407.490</td><td class="num">420.639</td></tr>
-      <tr><td>E2B without MTP</td><td class="num">113.151</td><td class="num">226.424</td><td class="num">448.660</td><td class="num">440.496</td><td class="num">426.759</td><td class="num">418.778</td></tr>
-      <tr><td>E2B with MTP</td><td class="num">111.217</td><td class="num">223.184</td><td class="num">431.739</td><td class="num">419.928</td><td class="num">431.036</td><td class="num">430.899</td></tr>
-      <tr><td>E4B CPU</td><td class="num">83.793</td><td class="num">98.738</td><td class="num">115.542</td><td class="num">106.402</td><td class="num">97.419</td><td class="num">80.109</td></tr>
-      <tr><td>E4B GPU</td><td class="num">100.750</td><td class="num">114.198</td><td class="num">122.105</td><td class="num">118.442</td><td class="num">108.468</td><td class="num">95.985</td></tr>
-      <tr><td>E4B non-MTP (v1.5.0)</td><td class="num">62.413</td><td class="num">124.979</td><td class="num">245.360</td><td class="num">257.128</td><td class="num">253.727</td><td class="num">247.997</td></tr>
-      <tr><td>E4B without MTP</td><td class="num">62.896</td><td class="num">114.516</td><td class="num">227.997</td><td class="num">253.767</td><td class="num">249.950</td><td class="num">243.701</td></tr>
-      <tr><td>E4B with MTP</td><td class="num">63.008</td><td class="num">114.917</td><td class="num">229.531</td><td class="num">254.648</td><td class="num">248.715</td><td class="num">248.864</td></tr>
+      <tr><td>E2B CPU (without MTP)</td><td class="num">261.792</td><td class="num">243.510</td><td class="num">228.444</td><td class="num">203.791</td><td class="num">180.420</td><td class="num">162.898</td></tr>
+      <tr><td>E2B CPU (with MTP)</td><td class="num">226.239</td><td class="num">209.196</td><td class="num">212.324</td><td class="num">198.671</td><td class="num">179.041</td><td class="num">159.733</td></tr>
+      <tr><td>E2B GPU (without MTP)</td><td class="num">191.567</td><td class="num">211.200</td><td class="num">226.293</td><td class="num">210.324</td><td class="num">185.268</td><td class="num">155.789</td></tr>
+      <tr><td>E2B GPU (with MTP)</td><td class="num">110.794</td><td class="num">150.182</td><td class="num">181.306</td><td class="num">187.165</td><td class="num">173.085</td><td class="num">149.692</td></tr>
+      <tr><td>E2B NPU (without MTP)</td><td class="num">111.367</td><td class="num">218.215</td><td class="num">427.649</td><td class="num">429.607</td><td class="num">416.812</td><td class="num">417.205</td></tr>
+      <tr><td>E2B NPU (with MTP)</td><td class="num">109.650</td><td class="num">224.799</td><td class="num">436.772</td><td class="num">431.751</td><td class="num">423.681</td><td class="num">415.362</td></tr>
+      <tr><td>E4B CPU (without MTP)</td><td class="num">129.117</td><td class="num">124.315</td><td class="num">119.669</td><td class="num">112.318</td><td class="num">106.239</td><td class="num">99.274</td></tr>
+      <tr><td>E4B CPU (with MTP)</td><td class="num">114.588</td><td class="num">115.837</td><td class="num">117.360</td><td class="num">112.383</td><td class="num">104.566</td><td class="num">97.730</td></tr>
+      <tr><td>E4B GPU (without MTP)</td><td class="num">101.494</td><td class="num">115.771</td><td class="num">122.735</td><td class="num">118.920</td><td class="num">108.919</td><td class="num">96.327</td></tr>
+      <tr><td>E4B GPU (with MTP)</td><td class="num">64.261</td><td class="num">87.397</td><td class="num">102.919</td><td class="num">107.840</td><td class="num">102.897</td><td class="num">92.966</td></tr>
+      <tr><td>E4B NPU (without MTP)</td><td class="num">63.030</td><td class="num">127.516</td><td class="num">244.569</td><td class="num">254.622</td><td class="num">249.404</td><td class="num">248.349</td></tr>
+      <tr><td>E4B NPU (with MTP)</td><td class="num">63.413</td><td class="num">129.878</td><td class="num">254.998</td><td class="num">253.348</td><td class="num">250.169</td><td class="num">248.072</td></tr>
     </table>
     </div>
-    <p>Prefill is equivalent across all three configurations, so using the MTP-capable model does not reduce prefill performance. For a 2,048-token input, the NPU (with MTP) is about 2.77x faster than the CPU for E2B and about 3.11x for E4B, and about 2.84x faster than the GPU for E2B and about 2.59x for E4B.</p>
+    <p>For inputs of 256 tokens or more, the NPU is the fastest; for a 2,048-token input it is 2.55x (E2B) / 2.50x (E4B) the CPU (without MTP). NPU prefill is almost the same with and without MTP.</p>
 
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_sc8380xp.png" alt="Snapdragon X Plus E2B prefill throughput (2,048-token input) (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>Prefill throughput on SC8380XP (E2B / FP16) (2,048-token input)</figcaption>
+      <img src="../../llm/benchmark/mtp_pps_sc8380xp.png" alt="Snapdragon X Plus E2B prefill throughput (2,048-token input, CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) prefill throughput (2,048-token input)</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_by_input_sc8380xp.png" alt="Snapdragon X Plus E2B prefill throughput by input length (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>Prefill throughput by input length on SC8380XP (E2B / FP16)</figcaption>
+      <img src="../../llm/benchmark/mtp_pps_by_input_sc8380xp.png" alt="Snapdragon X Plus E2B prefill throughput by input length (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) prefill throughput by input length</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput (2,048-token input) (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>Prefill throughput on SC8380XP (E4B / FP16) (2,048-token input)</figcaption>
+      <img src="../../llm/benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput (2,048-token input, CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) prefill throughput (2,048-token input)</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_by_input_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput by input length (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>Prefill throughput by input length on SC8380XP (E4B / FP16)</figcaption>
+      <img src="../../llm/benchmark/mtp_pps_by_input_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput by input length (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) prefill throughput by input length</figcaption>
+    </figure>
+
+    <h3>CPU usage</h3>
+    <p>Process CPU usage during decode (excluding the first output). All 8 cores fully used is shown as 100%.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Model</th><th>Input</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>GPU (without MTP)</th><th>GPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
+      <tr><td rowspan="3">E2B</td><td>Text</td><td class="num">48.0%</td><td class="num">46.1%</td><td class="num">6.6%</td><td class="num">1.4%</td><td class="num">2.7%</td><td class="num">4.3%</td></tr>
+      <tr><td>Image</td><td class="num">48.5%</td><td class="num">47.7%</td><td class="num">6.2%</td><td class="num">2.8%</td><td class="num">3.0%</td><td class="num">5.1%</td></tr>
+      <tr><td>Audio</td><td class="num">49.1%</td><td class="num">46.6%</td><td class="num">7.4%</td><td class="num">1.2%</td><td class="num">2.2%</td><td class="num">6.2%</td></tr>
+      <tr><td rowspan="3">E4B</td><td>Text</td><td class="num">48.7%</td><td class="num">48.1%</td><td class="num">4.6%</td><td class="num">2.1%</td><td class="num">1.9%</td><td class="num">3.2%</td></tr>
+      <tr><td>Image</td><td class="num">49.0%</td><td class="num">47.9%</td><td class="num">5.4%</td><td class="num">2.6%</td><td class="num">1.9%</td><td class="num">3.7%</td></tr>
+      <tr><td>Audio</td><td class="num">48.9%</td><td class="num">46.0%</td><td class="num">5.6%</td><td class="num">2.3%</td><td class="num">2.0%</td><td class="num">3.7%</td></tr>
+    </table>
+    </div>
+    <p>The average during prefill over 64 to 2,048-token inputs is 48.6% to 49.8% on the CPU, 0.3% to 0.9% on the GPU and 2.5% to 3.3% on the NPU. During image and audio input TTFT, it is 49.3% to 49.7% on the CPU, 42.8% to 48.6% on the GPU (the encoders run on the CPU) and 4.6% to 7.3% on the NPU.</p>
+
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B CPU usage during text generation decode" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) process CPU usage during text generation decode</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B CPU usage during text generation decode" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) process CPU usage during text generation decode</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B average CPU usage during prefill (mean of 64 to 2,048-token inputs)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) average process CPU usage during prefill (mean of 64 to 2,048-token inputs)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B average CPU usage during prefill (mean of 64 to 2,048-token inputs)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) average process CPU usage during prefill (mean of 64 to 2,048-token inputs)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B CPU usage during image / audio input TTFT" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) process CPU usage during image (left) / audio input (right) TTFT</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B CPU usage during image / audio input TTFT" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) process CPU usage during image (left) / audio input (right) TTFT</figcaption>
     </figure>
 
     <h3>VLM (image input) and audio input latency</h3>
-    <p>Image input uses one 768x768 image with 100 output tokens, and audio input transcribes one English recording with 33 output tokens; each is a single measurement. TTFT is the sum of prompt setup including the encoder and the first generate call, and does not include model opening. On the CPU and GPU paths, the image and audio encoders run on the CPU.</p>
+    <p>Image input uses one 768x768 image with 100 output tokens, and audio input transcribes one English recording with 33 output tokens. TTFT is the sum of prompt setup including the encoder and the first generate call, and does not include model opening.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device / model</th><th>Input</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
-      <tr><td>SC8380XP E2B</td><td>Image</td><td>CPU</td><td class="num">55.48 s</td><td class="num">37.546 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E2B</td><td>Image</td><td>GPU</td><td class="num">40.75 s</td><td class="num">17.380 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E2B</td><td>Image</td><td>Non-MTP (v1.5.0)</td><td class="num">7.31 s</td><td class="num">7.617 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E2B</td><td>Image</td><td>Without MTP</td><td class="num">7.13 s</td><td class="num">7.608 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E2B</td><td>Image</td><td>With MTP</td><td class="num">6.75 s</td><td class="num">10.689 tokens/s</td><td class="num">32.0%</td></tr>
-      <tr><td>SC8380XP E2B</td><td>Audio</td><td>CPU</td><td class="num">28.13 s</td><td class="num">37.924 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E2B</td><td>Audio</td><td>GPU</td><td class="num">16.92 s</td><td class="num">17.247 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E2B</td><td>Audio</td><td>Non-MTP (v1.5.0)</td><td class="num">5.40 s</td><td class="num">7.219 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E2B</td><td>Audio</td><td>Without MTP</td><td class="num">5.28 s</td><td class="num">7.513 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E2B</td><td>Audio</td><td>With MTP</td><td class="num">5.14 s</td><td class="num">17.777 tokens/s</td><td class="num">92.6%</td></tr>
-      <tr><td>SC8380XP E4B</td><td>Image</td><td>CPU</td><td class="num">54.09 s</td><td class="num">20.161 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E4B</td><td>Image</td><td>GPU</td><td class="num">42.44 s</td><td class="num">9.323 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E4B</td><td>Image</td><td>Non-MTP (v1.5.0)</td><td class="num">10.94 s</td><td class="num">4.426 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E4B</td><td>Image</td><td>Without MTP</td><td class="num">10.81 s</td><td class="num">4.445 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E4B</td><td>Image</td><td>With MTP</td><td class="num">9.30 s</td><td class="num">7.918 tokens/s</td><td class="num">43.2%</td></tr>
-      <tr><td>SC8380XP E4B</td><td>Audio</td><td>CPU</td><td class="num">27.67 s</td><td class="num">19.444 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E4B</td><td>Audio</td><td>GPU</td><td class="num">19.39 s</td><td class="num">9.366 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E4B</td><td>Audio</td><td>Non-MTP (v1.5.0)</td><td class="num">8.13 s</td><td class="num">4.331 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E4B</td><td>Audio</td><td>Without MTP</td><td class="num">7.68 s</td><td class="num">4.478 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SC8380XP E4B</td><td>Audio</td><td>With MTP</td><td class="num">7.38 s</td><td class="num">12.288 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><th>Model</th><th>Input</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>CPU (without MTP)</td><td class="num">77.44 s</td><td class="num">38.097 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>CPU (with MTP)</td><td class="num">77.44 s</td><td class="num">61.421 tokens/s</td><td class="num">43.2%</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>GPU (without MTP)</td><td class="num">77.83 s</td><td class="num">17.383 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>GPU (with MTP)</td><td class="num">77.82 s</td><td class="num">8.451 tokens/s</td><td class="num">41.7%</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>NPU (without MTP)</td><td class="num">7.42 s</td><td class="num">7.603 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Image</td><td>NPU (with MTP)</td><td class="num">6.79 s</td><td class="num">10.305 tokens/s</td><td class="num">32.0%</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>CPU (without MTP)</td><td class="num">30.93 s</td><td class="num">39.247 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>CPU (with MTP)</td><td class="num">30.75 s</td><td class="num">103.169 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>GPU (without MTP)</td><td class="num">30.77 s</td><td class="num">16.935 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>GPU (with MTP)</td><td class="num">30.80 s</td><td class="num">15.584 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>NPU (without MTP)</td><td class="num">5.03 s</td><td class="num">8.088 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E2B</td><td>Audio</td><td>NPU (with MTP)</td><td class="num">5.03 s</td><td class="num">16.327 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>CPU (without MTP)</td><td class="num">79.04 s</td><td class="num">21.437 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>CPU (with MTP)</td><td class="num">78.75 s</td><td class="num">33.824 tokens/s</td><td class="num">37.6%</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>GPU (without MTP)</td><td class="num">79.38 s</td><td class="num">9.423 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>GPU (with MTP)</td><td class="num">80.72 s</td><td class="num">5.596 tokens/s</td><td class="num">41.7%</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>NPU (without MTP)</td><td class="num">10.69 s</td><td class="num">4.337 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Image</td><td>NPU (with MTP)</td><td class="num">9.11 s</td><td class="num">7.592 tokens/s</td><td class="num">43.2%</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>CPU (without MTP)</td><td class="num">33.37 s</td><td class="num">21.364 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>CPU (with MTP)</td><td class="num">33.17 s</td><td class="num">58.900 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>GPU (without MTP)</td><td class="num">33.04 s</td><td class="num">9.406 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>GPU (with MTP)</td><td class="num">33.07 s</td><td class="num">9.795 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>NPU (without MTP)</td><td class="num">7.78 s</td><td class="num">4.219 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>SC8380XP E4B</td><td>Audio</td><td>NPU (with MTP)</td><td class="num">7.39 s</td><td class="num">11.986 tokens/s</td><td class="num">92.6%</td></tr>
     </table>
     </div>
-    <p>Compared with non-MTP, image-input decode is 1.40x faster for E2B and 1.79x for E4B, and audio input is 2.46x for E2B and 2.84x for E4B. TTFT does not change much across the three configurations and is 1/3.7 to 1/8.2 of the CPU and 1/2.6 to 1/6.0 of the GPU. For audio input decode, the NPU with MTP outperforms the GPU (1.03x for E2B, 1.31x for E4B).</p>
+    <p>NPU TTFT is 1/11.4 (E2B, image), 1/6.1 (E2B, audio), 1/8.7 (E4B, image) and 1/4.5 (E4B, audio) of the CPU (without MTP). With MTP, NPU decode is 1.36x (E2B) / 1.75x (E4B) for image input and 2.02x / 2.84x for audio input. The audio result is a measurement on a single recording and is not a general speedup ratio.</p>
 
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_ttft_sc8380xp.png" alt="Snapdragon X Plus E2B VLM / audio input TTFT breakdown (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>VLM / audio input TTFT breakdown on SC8380XP (E2B / FP16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
+      <img src="../../llm/benchmark/mtp_media_ttft_sc8380xp.png" alt="Snapdragon X Plus E2B VLM / audio input TTFT breakdown (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) VLM (left) / audio input (right) TTFT breakdown: prompt setup including the encoder, and decoder prefill + first token</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_ttft_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B VLM / audio input TTFT breakdown (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>VLM / audio input TTFT breakdown on SC8380XP (E4B / FP16): prompt setup including the encoder, and decoder prefill + first token</figcaption>
+      <img src="../../llm/benchmark/mtp_media_ttft_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B VLM / audio input TTFT breakdown (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) VLM (left) / audio input (right) TTFT breakdown: prompt setup including the encoder, and decoder prefill + first token</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_tps_sc8380xp.png" alt="Snapdragon X Plus E2B VLM / audio input decode throughput (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>VLM / audio input decode throughput on SC8380XP (E2B / FP16)</figcaption>
+      <img src="../../llm/benchmark/mtp_media_tps_sc8380xp.png" alt="Snapdragon X Plus E2B VLM / audio input decode throughput (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) VLM (left) / audio input (right) decode throughput</figcaption>
     </figure>
     <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B VLM / audio input decode throughput (CPU / GPU / without MTP / with MTP)" loading="lazy">
-      <figcaption>VLM / audio input decode throughput on SC8380XP (E4B / FP16)</figcaption>
+      <img src="../../llm/benchmark/mtp_media_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B VLM / audio input decode throughput (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) VLM (left) / audio input (right) decode throughput</figcaption>
     </figure>
 
   </div>
