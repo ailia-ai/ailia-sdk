@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ailia LLM Multimodal Guide</title>
-  <meta name="description" content="How to input images and audio in ailia LLM: loading the multimodal projector, checking support, the two input methods ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson, error handling, and C++ samples.">
+  <meta name="description" content="How to input images and audio in ailia LLM: loading the multimodal projector, checking support, the two input methods ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson, error handling, and samples for C++, Kotlin, Flutter, Python and Unity.">
   <link rel="canonical" href="https://docs.ailia.ai/en/llm/multimodal.html">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/multimodal.html">
   <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/multimodal.html">
@@ -22,11 +22,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/en/llm/multimodal.html">
   <meta property="og:title" content="ailia LLM Multimodal Guide">
-  <meta property="og:description" content="How to input images and audio in ailia LLM: loading the multimodal projector, checking support, the two input methods ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson, error handling, and C++ samples.">
+  <meta property="og:description" content="How to input images and audio in ailia LLM: loading the multimodal projector, checking support, the two input methods ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson, error handling, and samples for C++, Kotlin, Flutter, Python and Unity.">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="ailia LLM Multimodal Guide">
-  <meta name="twitter:description" content="How to input images and audio in ailia LLM: loading the multimodal projector, checking support, the two input methods ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson, error handling, and C++ samples.">
+  <meta name="twitter:description" content="How to input images and audio in ailia LLM: loading the multimodal projector, checking support, the two input methods ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson, error handling, and samples for C++, Kotlin, Flutter, Python and Unity.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../../favicon.png">
   <link rel="stylesheet" href="../../css/common.css">
@@ -70,55 +70,70 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM Multimodal Guide</h1>
-    <p>How to load a multimodal projector in ailia LLM and input images and audio. There are two methods: <code>ailiaLLMSetMultimodalPrompt</code>, which takes structs, and <code>ailiaLLMSetPromptJson</code>, which takes a JSON history.</p>
+    <p>How to load a multimodal projector in ailia LLM and input images and audio. There are two methods: input with message structs, and input with a JSON history.</p>
   </section>
 
   <div class="guide-content">
-<h2>Loading the projector</h2>
-<p>After opening the model, load the corresponding projector with <code>ailiaLLMOpenMultimodalProjectorFileA</code>.
-Image and audio support can be checked with <code>vision_support</code> / <code>audio_support</code> of <code>ailiaLLMGetMultimodalCapabilities</code>. Specifying images or audio with a model or projector without media support, or before the projector is loaded, is INVALID_STATE.</p>
+<h2>Overview and flow</h2>
+<p>In ailia LLM, images and audio can be input by loading a multimodal projector (mmproj), which contains the image and audio encoders, together with the model. The flow is the same in every language.</p>
+<div class="arch-diagram">
+  <div class="arch-box"><div class="arch-name">Open the model</div><div class="arch-desc">GGUF or QNN Model</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">Open the projector (mmproj)</div><div class="arch-desc">Image and audio encoders matching the model</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">Check support</div><div class="arch-desc">Whether image and audio input are supported</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">Input messages with images and audio</div><div class="arch-desc">Message structs, or a JSON history</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">Generate</div><div class="arch-desc">The same generation API as text input</div></div>
+</div>
+<p>Use a projector that matches the model. Inputting media before the projector is opened, or a media type it does not support, results in an error.</p>
 <h2>Input methods</h2>
+<p>There are two ways to input images and audio.</p>
 <div class="table-wrap"><table class="version-table">
 <thead>
-<tr><th></th><th><code>ailiaLLMSetMultimodalPrompt</code></th><th><code>ailiaLLMSetPromptJson</code></th></tr>
+<tr><th></th><th>Input with message structs</th><th>Input with JSON history</th></tr>
 </thead>
 <tbody>
-<tr><td>Messages</td><td>Array of <code>AILIALLMMultimodalChatMessage</code></td><td>JSON messages array (UTF-8)</td></tr>
-<tr><td>Media position</td><td><code>&lt;__media__&gt;</code> placeholder in content</td><td>Order in the content array</td></tr>
-<tr><td>Input formats</td><td>File path, encoded buffer, raw RGB</td><td>File path, Base64 (encoded file)</td></tr>
-<tr><td>Response</td><td>Concatenate <code>ailiaLLMGetDeltaText</code></td><td>Retrieve with <code>ailiaLLMGetResponseJson</code></td></tr>
-<tr><td>Tool Use</td><td>INVALID_STATE while tools are set</td><td>Available whether or not tools are set</td></tr>
+<tr><td>Messages</td><td>role and content, plus a list of media</td><td>JSON messages array (UTF-8)</td></tr>
+<tr><td>Media position</td><td>The <code>&lt;__media__&gt;</code> position in content</td><td>Order in the content array</td></tr>
+<tr><td>Media formats</td><td>File path, encoded data, raw RGB (images only)</td><td>File path, Base64 (encoded file)</td></tr>
+<tr><td>Response</td><td>Concatenate the generated deltas</td><td>Retrieve the response as JSON after generation</td></tr>
+<tr><td>Tool Use</td><td>Cannot be combined</td><td>Can be combined</td></tr>
 </tbody>
 </table></div>
-<p>Either method can be used to input images and audio. Use <code>ailiaLLMSetMultimodalPrompt</code> to pass raw RGB, and <code>ailiaLLMSetPromptJson</code> to combine media with Tool Use.
-See the <a href="tool_use.html">Tool Use Guide</a> for details on Tool Use.</p>
-<h2>SetMultimodalPrompt (structs)</h2>
-<p>Include <code>&lt;__media__&gt;</code> placeholders in the content of a message, set the corresponding media in order in <code>media_data</code>, and set their number in <code>media_count</code>.
-The content of the messages is copied internally, so it can be freed after the call.</p>
-<p>Set <code>media_type</code> of <code>AILIALLMMediaData</code> to <code>&quot;image&quot;</code> or <code>&quot;audio&quot;</code>. Both images and audio can be used. Media is given in one of the following ways.</p>
-<ul>
-<li>File: <code>file_path</code> (UTF-8). Ignored when <code>data</code> is set.</li>
-<li>Encoded buffer: set <code>data</code> and <code>data_size</code>, with <code>width</code> / <code>height</code> set to 0. Images can be JPG, PNG, TGA, BMP, PSD, GIF, HDR or PIC, and audio can be WAV, MP3, FLAC and similar formats.</li>
-<li>Raw RGB: set <code>width * height * 3</code> bytes of RGB data in <code>data</code>, and set <code>width</code> / <code>height</code>. Images only.</li>
-</ul>
-<h2>SetPromptJson (JSON)</h2>
-<p>Specify images and audio in order inside the content array of a user message, alongside text entries.</p>
+<p>Either method can be used to input images and audio. To pass raw RGB, input with message structs; to combine media with Tool Use, input with a JSON history.
+See the <a href="tool_use.html">Tool Use Guide</a> for details on Tool Use. Image files can be JPG, PNG, TGA, BMP, PSD, GIF, HDR or PIC, and audio files can be WAV, MP3, FLAC and similar formats.</p>
+<h3>Input with message structs</h3>
+<p>Write <code>&lt;__media__&gt;</code> in the content of a message, and specify the images and audio to place there in the message's media list, in the same order. The media type is <code>&quot;image&quot;</code> or <code>&quot;audio&quot;</code>.</p>
+<pre><code class="language-json">{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Describe this image. &lt;__media__&gt;&quot;,
+ &quot;media_data&quot;: [{&quot;media_type&quot;: &quot;image&quot;, &quot;file_path&quot;: &quot;/path/to/image.jpg&quot;}]}
+</code></pre>
+<p>The example above shows the concept. See the samples below for how to write it in each language.</p>
+<h3>Input with JSON history</h3>
+<p>Specify images and audio in order inside the content array of a user message, alongside text entries. Every language passes this JSON (or the equivalent arrays and dictionaries).</p>
 <pre><code class="language-json">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[
   {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;Describe this image and audio.&quot;},
   {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},
   {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}
 ]}]
 </code></pre>
-<p>An image or audio entry must specify exactly one of <code>file_path</code> or <code>data</code>. <code>data</code> is the file content encoded in
-standard Base64 (with padding). JPEG/PNG, WAV/MP3/FLAC and similar formats can be used. Fetching from a URL, video, and raw RGB/PCM are not supported.
-A history that contains images or audio is re-evaluated every time.</p>
-<h2>Errors</h2>
-<ul>
-<li>A file read failure is ERROR_FILE_API, and a failure to load a buffer (including media decoded from Base64) is ERROR_BUFFER_API.</li>
-<li>Invalid Base64 passed to SetPromptJson is INVALID_ARGUMENT.</li>
-</ul>
+<p>An image or audio entry specifies exactly one of <code>file_path</code> or <code>data</code> (Base64).</p>
+<h2>API for each language</h2>
+<div class="table-wrap"><table class="version-table">
+<thead>
+<tr><th>Language</th><th>Load the projector</th><th>Check support</th><th>Input with message structs</th><th>Input with JSON history</th></tr>
+</thead>
+<tbody>
+<tr><td>C / C++</td><td><code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code></td><td><code>ailiaLLMGetMultimodalCapabilities</code></td><td><code>ailiaLLMSetMultimodalPrompt</code></td><td><code>ailiaLLMSetPromptJson</code></td></tr>
+<tr><td>Kotlin</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code></td><td><code>setPrompt(Array&lt;AiliaLLMMultimodalChatMessage&gt;)</code></td><td><code>setPromptJson(messagesJson)</code></td></tr>
+<tr><td>Flutter</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code> (Map)</td><td><code>setPrompt(messages)</code> (with <code>media_data</code>)</td><td><code>setPromptJson(messages)</code></td></tr>
+<tr><td>Python</td><td><code>open_multimodal_projector(path)</code></td><td><code>get_multimodal_capabilities()</code> (dict)</td><td><code>generate(messages)</code> (with <code>media_data</code>)</td><td><code>generate_json(messages)</code></td></tr>
+<tr><td>Unity</td><td><code>OpenMultimodalProjector(path)</code></td><td><code>GetMultimodalCapabilities(ref, ref)</code></td><td><code>SetMultimodalPrompt(messages)</code></td><td><code>SetPromptJson(messagesJson)</code></td></tr>
+</tbody>
+</table></div>
 <h2>C++ sample (SetMultimodalPrompt)</h2>
-<p>Opens the model and the projector, passes an image with structs, and generates a response. The response is built by concatenating GetDeltaText.</p>
+<p>Opens the model and the projector, passes an image with message structs, and generates a response. The response is built by concatenating GetDeltaText.</p>
 <pre><code class="language-cpp">#include &quot;ailia_llm.h&quot;
 #include &lt;cstdio&gt;
 #include &lt;string&gt;
@@ -236,6 +251,156 @@ int main() {
     return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
 }
 </code></pre>
+<p>The Kotlin, Flutter, Python and Unity samples below input one image file with message structs. The media is placed at the <code>&lt;__media__&gt;</code> position in content. To input audio, set <code>media_type</code> to <code>&quot;audio&quot;</code>.</p>
+<h2>Kotlin sample</h2>
+<p>Attach <code>AiliaLLMMediaData</code> to an <code>AiliaLLMMultimodalChatMessage</code>, input it with <code>setPrompt</code>, and concatenate <code>getDeltaText()</code> until <code>generate()</code> returns true.</p>
+<pre><code class="language-kotlin">import axip.ailia_llm.AiliaLLM
+import axip.ailia_llm.AiliaLLMMediaData
+import axip.ailia_llm.AiliaLLMMultimodalChatMessage
+
+fun describeImage(modelPath: String, mmprojPath: String, imagePath: String): String {
+    AiliaLLM().use { llm -&gt;
+        llm.openModelFile(modelPath, 4096)
+        llm.openMultimodalProjectorFile(mmprojPath)
+        check(llm.getMultimodalCapabilities().visionSupport) { &quot;Image input is not supported&quot; }
+        val message = AiliaLLMMultimodalChatMessage(
+            &quot;user&quot;,
+            &quot;Describe this image. &lt;__media__&gt;&quot;,
+            AiliaLLMMediaData(&quot;image&quot;, filePath = imagePath) // use &quot;audio&quot; for audio
+        )
+        llm.setPrompt(arrayOf(message))
+        val text = StringBuilder()
+        while (!llm.generate()) {
+            text.append(llm.getDeltaText())
+        }
+        return text.toString()
+    }
+}
+</code></pre>
+<h2>Flutter sample</h2>
+<p>Add <code>media_data</code> (<code>List&lt;Map&lt;String, dynamic&gt;&gt;</code>) to the message Map, input it with <code>setPrompt</code>, and concatenate the deltas until <code>generate()</code> returns null.</p>
+<pre><code class="language-dart">import &#x27;package:ailia_llm/ailia_llm_model.dart&#x27;;
+
+String describeImage(String modelPath, String mmprojPath, String imagePath) {
+  final llm = AiliaLLMModel();
+  try {
+    llm.open(modelPath, 4096);
+    llm.openMultimodalProjectorFile(mmprojPath);
+    if (llm.getMultimodalCapabilities()[&#x27;vision&#x27;] != true) {
+      throw StateError(&#x27;Image input is not supported&#x27;);
+    }
+    llm.setPrompt([
+      {
+        &#x27;role&#x27;: &#x27;user&#x27;,
+        &#x27;content&#x27;: &#x27;Describe this image. &lt;__media__&gt;&#x27;,
+        &#x27;media_data&#x27;: &lt;Map&lt;String, dynamic&gt;&gt;[
+          {&#x27;media_type&#x27;: &#x27;image&#x27;, &#x27;file_path&#x27;: imagePath}, // use &#x27;audio&#x27; for audio
+        ],
+      },
+    ]);
+    final text = StringBuffer();
+    String? delta;
+    while ((delta = llm.generate()) != null) {
+      text.write(delta);
+    }
+    return text.toString();
+  } finally {
+    llm.close();
+  }
+}
+</code></pre>
+<h2>Python sample</h2>
+<p>Passing message dicts with <code>media_data</code> to <code>generate</code> uses input with message structs. Specify <code>media_data</code> with <code>file_path</code>.</p>
+<pre><code class="language-python">import ailia_llm
+
+model = ailia_llm.AiliaLLM()
+model.open(&quot;gemma-4-E2B-it-Q4_K_M.gguf&quot;, n_ctx=4096)
+model.open_multimodal_projector(&quot;/path/to/mmproj.gguf&quot;)
+if not model.get_multimodal_capabilities()[&quot;vision&quot;]:
+    raise RuntimeError(&quot;Image input is not supported&quot;)
+
+messages = [{
+    &quot;role&quot;: &quot;user&quot;,
+    &quot;content&quot;: &quot;Describe this image. &lt;__media__&gt;&quot;,
+    &quot;media_data&quot;: [{&quot;media_type&quot;: &quot;image&quot;, &quot;file_path&quot;: &quot;/path/to/image.jpg&quot;}],  # use &quot;audio&quot; for audio
+}]
+for delta in model.generate(messages):
+    print(delta, end=&quot;&quot;, flush=True)
+print()
+</code></pre>
+<h2>Unity sample</h2>
+<p>Set a list of <code>AiliaLLMMediaData</code> on an <code>AiliaLLMMultimodalChatMessage</code> and input it with <code>SetMultimodalPrompt</code>. It returns false on failure, so get the details with <code>GetErrorDetail()</code>.</p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Text;
+using ailiaLLM;
+
+public static class MultimodalSample
+{
+    public static string DescribeImage(string modelPath, string mmprojPath, string imagePath)
+    {
+        var llm = new AiliaLLMModel();
+        try
+        {
+            if (!llm.Create()) throw new Exception(&quot;ailiaLLMCreate failed&quot;);
+            if (!llm.Open(modelPath, 4096)) throw new Exception(llm.GetErrorDetail());
+            if (!llm.OpenMultimodalProjector(mmprojPath)) throw new Exception(llm.GetErrorDetail());
+            bool vision = false, audio = false;
+            if (!llm.GetMultimodalCapabilities(ref vision, ref audio) || !vision)
+                throw new Exception(&quot;Image input is not supported&quot;);
+            var messages = new List&lt;AiliaLLMMultimodalChatMessage&gt;
+            {
+                new AiliaLLMMultimodalChatMessage
+                {
+                    role = &quot;user&quot;,
+                    content = &quot;Describe this image. &lt;__media__&gt;&quot;,
+                    media_data = new List&lt;AiliaLLMMediaData&gt;
+                    {
+                        new AiliaLLMMediaData { media_type = &quot;image&quot;, file_path = imagePath } // use &quot;audio&quot; for audio
+                    }
+                }
+            };
+            if (!llm.SetMultimodalPrompt(messages)) throw new Exception(llm.GetErrorDetail());
+            var text = new StringBuilder();
+            bool done = false;
+            while (true)
+            {
+                if (!llm.Generate(ref done)) throw new Exception(llm.GetErrorDetail());
+                if (done) break;
+                text.Append(llm.GetDeltaText());
+            }
+            return text.ToString();
+        }
+        finally
+        {
+            llm.Dispose();
+        }
+    }
+}
+</code></pre>
+<h2>C API details</h2>
+<p>Structs, JSON rules and error statuses used in C / C++. In Kotlin, Flutter and Python, errors raise exceptions; in Unity, the methods return false (or an empty string), so get the details with <code>GetErrorDetail()</code>.</p>
+<h3>Projector and support</h3>
+<p>After opening the model, load the corresponding projector with <code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code>. Image and audio support can be checked with <code>vision_support</code> / <code>audio_support</code> of <code>ailiaLLMGetMultimodalCapabilities</code>.</p>
+<h3>ailiaLLMSetMultimodalPrompt (message structs)</h3>
+<p>Include <code>&lt;__media__&gt;</code> in the content of an <code>AILIALLMMultimodalChatMessage</code>, set the corresponding media in order in <code>media_data</code>, and set their number in <code>media_count</code>.
+The content of the messages is copied internally, so it can be freed after the call. The response is built by concatenating <code>ailiaLLMGetDeltaText</code>.</p>
+<p>Set <code>media_type</code> of <code>AILIALLMMediaData</code> to <code>&quot;image&quot;</code> or <code>&quot;audio&quot;</code>. Media is given in one of the following ways.</p>
+<ul>
+<li>File: <code>file_path</code> (UTF-8). Ignored when <code>data</code> is set.</li>
+<li>Encoded buffer: set <code>data</code> and <code>data_size</code>, with <code>width</code> / <code>height</code> set to 0.</li>
+<li>Raw RGB: set <code>width * height * 3</code> bytes of RGB data in <code>data</code>, and set <code>width</code> / <code>height</code>. Images only.</li>
+</ul>
+<h3>ailiaLLMSetPromptJson (JSON history)</h3>
+<p>An image or audio entry must specify exactly one of <code>file_path</code> or <code>data</code>. <code>data</code> is the file content encoded in standard Base64 (with padding). Fetching from a URL, video, and raw RGB/PCM are not supported.
+A history that contains images or audio is re-evaluated every time. The response is retrieved with <code>ailiaLLMGetResponseJson</code>.</p>
+<h3>Errors</h3>
+<ul>
+<li>Specifying images or audio with a model or projector without media support, or before the projector is loaded, is INVALID_STATE.</li>
+<li>Calling <code>ailiaLLMSetMultimodalPrompt</code> while tools are set is INVALID_STATE.</li>
+<li>A file read failure is ERROR_FILE_API, and a failure to load a buffer (including media decoded from Base64) is ERROR_BUFFER_API.</li>
+<li>Invalid Base64 passed to <code>ailiaLLMSetPromptJson</code> is INVALID_ARGUMENT.</li>
+</ul>
   </div>
 
   <footer>
@@ -246,6 +411,10 @@ int main() {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {
