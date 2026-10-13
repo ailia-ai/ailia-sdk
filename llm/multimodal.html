@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ailia LLM マルチモーダル ガイド</title>
-  <meta name="description" content="ailia LLM で画像・音声を入力する方法を解説します。マルチモーダルプロジェクタの読み込み、対応状況の確認、ailiaLLMSetMultimodalPrompt と ailiaLLMSetPromptJson の2つの入力方法、エラーの扱いと C++ サンプルをまとめます。">
+  <meta name="description" content="ailia LLM で画像・音声を入力する方法を解説します。マルチモーダルプロジェクタの読み込み、対応状況の確認、ailiaLLMSetMultimodalPrompt と ailiaLLMSetPromptJson の2つの入力方法、エラーの扱いと、C++・Kotlin・Flutter・Python・Unity のサンプルをまとめます。">
   <link rel="canonical" href="https://docs.ailia.ai/llm/multimodal.html">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/multimodal.html">
   <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/multimodal.html">
@@ -22,11 +22,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/llm/multimodal.html">
   <meta property="og:title" content="ailia LLM マルチモーダル ガイド">
-  <meta property="og:description" content="ailia LLM で画像・音声を入力する方法を解説します。マルチモーダルプロジェクタの読み込み、対応状況の確認、ailiaLLMSetMultimodalPrompt と ailiaLLMSetPromptJson の2つの入力方法、エラーの扱いと C++ サンプルをまとめます。">
+  <meta property="og:description" content="ailia LLM で画像・音声を入力する方法を解説します。マルチモーダルプロジェクタの読み込み、対応状況の確認、ailiaLLMSetMultimodalPrompt と ailiaLLMSetPromptJson の2つの入力方法、エラーの扱いと、C++・Kotlin・Flutter・Python・Unity のサンプルをまとめます。">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="ailia LLM マルチモーダル ガイド">
-  <meta name="twitter:description" content="ailia LLM で画像・音声を入力する方法を解説します。マルチモーダルプロジェクタの読み込み、対応状況の確認、ailiaLLMSetMultimodalPrompt と ailiaLLMSetPromptJson の2つの入力方法、エラーの扱いと C++ サンプルをまとめます。">
+  <meta name="twitter:description" content="ailia LLM で画像・音声を入力する方法を解説します。マルチモーダルプロジェクタの読み込み、対応状況の確認、ailiaLLMSetMultimodalPrompt と ailiaLLMSetPromptJson の2つの入力方法、エラーの扱いと、C++・Kotlin・Flutter・Python・Unity のサンプルをまとめます。">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="stylesheet" href="../css/common.css">
@@ -236,6 +236,142 @@ int main() {
     return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
 }
 </code></pre>
+<h2>各言語のAPI</h2>
+<div class="table-wrap"><table class="version-table">
+<thead>
+<tr><th>言語</th><th>プロジェクタの読み込み</th><th>対応状況の確認</th><th>構造体で入力</th><th>JSON履歴で入力</th></tr>
+</thead>
+<tbody>
+<tr><td>C / C++</td><td><code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code></td><td><code>ailiaLLMGetMultimodalCapabilities</code></td><td><code>ailiaLLMSetMultimodalPrompt</code></td><td><code>ailiaLLMSetPromptJson</code></td></tr>
+<tr><td>Kotlin</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code></td><td><code>setPrompt(Array&lt;AiliaLLMMultimodalChatMessage&gt;)</code></td><td><code>setPromptJson(messagesJson)</code></td></tr>
+<tr><td>Flutter</td><td><code>openMultimodalProjectorFile(path)</code></td><td><code>getMultimodalCapabilities()</code>（Map）</td><td><code>setPrompt(messages)</code>（<code>media_data</code>付き）</td><td><code>setPromptJson(messages)</code></td></tr>
+<tr><td>Python</td><td><code>open_multimodal_projector(path)</code></td><td><code>get_multimodal_capabilities()</code>（dict）</td><td><code>generate(messages)</code>（<code>media_data</code>付き）</td><td><code>generate_json(messages)</code></td></tr>
+<tr><td>Unity</td><td><code>OpenMultimodalProjector(path)</code></td><td><code>GetMultimodalCapabilities(ref, ref)</code></td><td><code>SetMultimodalPrompt(messages)</code></td><td><code>SetPromptJson(messagesJson)</code></td></tr>
+</tbody>
+</table></div>
+<p>以下のサンプルは、構造体で画像ファイルを1枚入力します。contentの<code>&lt;__media__&gt;</code>の位置にメディアが入ります。音声を入力する場合は<code>media_type</code>を<code>&quot;audio&quot;</code>にします。Pythonの<code>media_data</code>は<code>file_path</code>で指定します。</p>
+<h2>Kotlinサンプル</h2>
+<pre><code class="language-kotlin">import axip.ailia_llm.AiliaLLM
+import axip.ailia_llm.AiliaLLMMediaData
+import axip.ailia_llm.AiliaLLMMultimodalChatMessage
+
+fun describeImage(modelPath: String, mmprojPath: String, imagePath: String): String {
+    AiliaLLM().use { llm -&gt;
+        llm.openModelFile(modelPath, 4096)
+        llm.openMultimodalProjectorFile(mmprojPath)
+        check(llm.getMultimodalCapabilities().visionSupport) { &quot;画像入力に対応していません&quot; }
+        val message = AiliaLLMMultimodalChatMessage(
+            &quot;user&quot;,
+            &quot;この画像について説明してください。 &lt;__media__&gt;&quot;,
+            AiliaLLMMediaData(&quot;image&quot;, filePath = imagePath) // 音声は &quot;audio&quot;
+        )
+        llm.setPrompt(arrayOf(message))
+        val text = StringBuilder()
+        while (!llm.generate()) {
+            text.append(llm.getDeltaText())
+        }
+        return text.toString()
+    }
+}
+</code></pre>
+<h2>Flutterサンプル</h2>
+<pre><code class="language-dart">import &#x27;package:ailia_llm/ailia_llm_model.dart&#x27;;
+
+String describeImage(String modelPath, String mmprojPath, String imagePath) {
+  final llm = AiliaLLMModel();
+  try {
+    llm.open(modelPath, 4096);
+    llm.openMultimodalProjectorFile(mmprojPath);
+    if (llm.getMultimodalCapabilities()[&#x27;vision&#x27;] != true) {
+      throw StateError(&#x27;画像入力に対応していません&#x27;);
+    }
+    llm.setPrompt([
+      {
+        &#x27;role&#x27;: &#x27;user&#x27;,
+        &#x27;content&#x27;: &#x27;この画像について説明してください。 &lt;__media__&gt;&#x27;,
+        &#x27;media_data&#x27;: &lt;Map&lt;String, dynamic&gt;&gt;[
+          {&#x27;media_type&#x27;: &#x27;image&#x27;, &#x27;file_path&#x27;: imagePath}, // 音声は &#x27;audio&#x27;
+        ],
+      },
+    ]);
+    final text = StringBuffer();
+    String? delta;
+    while ((delta = llm.generate()) != null) {
+      text.write(delta);
+    }
+    return text.toString();
+  } finally {
+    llm.close();
+  }
+}
+</code></pre>
+<h2>Pythonサンプル</h2>
+<pre><code class="language-python">import ailia_llm
+
+model = ailia_llm.AiliaLLM()
+model.open(&quot;gemma-4-E2B-it-Q4_K_M.gguf&quot;, n_ctx=4096)
+model.open_multimodal_projector(&quot;/path/to/mmproj.gguf&quot;)
+if not model.get_multimodal_capabilities()[&quot;vision&quot;]:
+    raise RuntimeError(&quot;画像入力に対応していません&quot;)
+
+messages = [{
+    &quot;role&quot;: &quot;user&quot;,
+    &quot;content&quot;: &quot;この画像について説明してください。 &lt;__media__&gt;&quot;,
+    &quot;media_data&quot;: [{&quot;media_type&quot;: &quot;image&quot;, &quot;file_path&quot;: &quot;/path/to/image.jpg&quot;}],  # 音声は &quot;audio&quot;
+}]
+for delta in model.generate(messages):
+    print(delta, end=&quot;&quot;, flush=True)
+print()
+</code></pre>
+<h2>Unityサンプル</h2>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Text;
+using ailiaLLM;
+
+public static class MultimodalSample
+{
+    public static string DescribeImage(string modelPath, string mmprojPath, string imagePath)
+    {
+        var llm = new AiliaLLMModel();
+        try
+        {
+            if (!llm.Create()) throw new Exception(&quot;ailiaLLMCreate failed&quot;);
+            if (!llm.Open(modelPath, 4096)) throw new Exception(llm.GetErrorDetail());
+            if (!llm.OpenMultimodalProjector(mmprojPath)) throw new Exception(llm.GetErrorDetail());
+            bool vision = false, audio = false;
+            if (!llm.GetMultimodalCapabilities(ref vision, ref audio) || !vision)
+                throw new Exception(&quot;画像入力に対応していません&quot;);
+            var messages = new List&lt;AiliaLLMMultimodalChatMessage&gt;
+            {
+                new AiliaLLMMultimodalChatMessage
+                {
+                    role = &quot;user&quot;,
+                    content = &quot;この画像について説明してください。 &lt;__media__&gt;&quot;,
+                    media_data = new List&lt;AiliaLLMMediaData&gt;
+                    {
+                        new AiliaLLMMediaData { media_type = &quot;image&quot;, file_path = imagePath } // 音声は &quot;audio&quot;
+                    }
+                }
+            };
+            if (!llm.SetMultimodalPrompt(messages)) throw new Exception(llm.GetErrorDetail());
+            var text = new StringBuilder();
+            bool done = false;
+            while (true)
+            {
+                if (!llm.Generate(ref done)) throw new Exception(llm.GetErrorDetail());
+                if (done) break;
+                text.Append(llm.GetDeltaText());
+            }
+            return text.ToString();
+        }
+        finally
+        {
+            llm.Dispose();
+        }
+    }
+}
+</code></pre>
   </div>
 
   <footer>
@@ -246,6 +382,10 @@ int main() {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {

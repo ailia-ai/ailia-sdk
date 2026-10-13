@@ -467,6 +467,83 @@ try:
 finally:
     model.set_tools(None)
 </code></pre>
+<h2>Unityサンプル</h2>
+<p>モデル読込済みの <code>AiliaLLMModel</code> を渡します。JSONの操作にはNewtonsoft.Json（Unityパッケージ <code>com.unity.nuget.newtonsoft-json</code>）を使用します。UnityのAPIは失敗時にfalseまたは空文字列を返すため、<code>GetErrorDetail()</code> で詳細を取得します。</p>
+<pre><code class="language-csharp">using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using ailiaLLM;
+
+public static class ToolUseSample
+{
+    // llmはモデル読込済み。JSON操作にはNewtonsoft.Jsonを使用します。
+    public static string RunToolUse(AiliaLLMModel llm)
+    {
+        try
+        {
+            var tools = new JArray(new JObject
+            {
+                [&quot;type&quot;] = &quot;function&quot;,
+                [&quot;function&quot;] = new JObject
+                {
+                    [&quot;name&quot;] = &quot;get_weather&quot;,
+                    [&quot;description&quot;] = &quot;現在の天気を取得します。&quot;,
+                    [&quot;parameters&quot;] = new JObject
+                    {
+                        [&quot;type&quot;] = &quot;object&quot;,
+                        [&quot;properties&quot;] = new JObject { [&quot;city&quot;] = new JObject { [&quot;type&quot;] = &quot;string&quot; } },
+                        [&quot;required&quot;] = new JArray(&quot;city&quot;)
+                    }
+                }
+            });
+            if (!llm.SetTools(tools.ToString(Formatting.None))) throw new Exception(llm.GetErrorDetail());
+            var messages = new JArray(new JObject { [&quot;role&quot;] = &quot;user&quot;, [&quot;content&quot;] = &quot;東京の天気は？&quot; });
+            for (int turn = 0; turn &lt; 8; turn++)
+            {
+                if (!llm.SetPromptJson(messages.ToString(Formatting.None))) throw new Exception(llm.GetErrorDetail());
+                bool done = false;
+                while (true)
+                {
+                    if (!llm.Generate(ref done)) throw new Exception(llm.GetErrorDetail());
+                    if (done) break;
+                    // GetDeltaText()で途中経過を表示できます（任意）。連結は不要。
+                }
+                // 不完全な出力などのエラー時は空文字列。ツールを実行せず再試行を判断します。
+                string responseJson = llm.GetResponseJson();
+                if (string.IsNullOrEmpty(responseJson)) throw new Exception(llm.GetErrorDetail());
+                var response = JObject.Parse(responseJson);
+                messages.Add(response);
+                var calls = response[&quot;tool_calls&quot;] as JArray;
+                if (calls == null || calls.Count == 0)
+                {
+                    return (string)response[&quot;content&quot;];
+                }
+                foreach (JObject call in calls)
+                {
+                    var function = (JObject)call[&quot;function&quot;];
+                    if ((string)function[&quot;name&quot;] != &quot;get_weather&quot;) throw new Exception(&quot;Unknown tool&quot;);
+                    var args = JObject.Parse((string)function[&quot;arguments&quot;]);
+                    string city = (string)args[&quot;city&quot;];
+                    if (string.IsNullOrEmpty(city)) throw new Exception(&quot;Invalid city argument&quot;);
+                    // 実際には引数を検証してツールを実行します。以下はモック結果。
+                    var result = new JObject { [&quot;city&quot;] = city, [&quot;weather&quot;] = &quot;sunny&quot; };
+                    messages.Add(new JObject
+                    {
+                        [&quot;role&quot;] = &quot;tool&quot;,
+                        [&quot;tool_call_id&quot;] = (string)call[&quot;id&quot;],
+                        [&quot;content&quot;] = result.ToString(Formatting.None) // 結果はJSON文字列
+                    });
+                }
+            }
+            throw new Exception(&quot;8ターン以内に最終回答が得られませんでした&quot;);
+        }
+        finally
+        {
+            llm.SetTools(null);
+        }
+    }
+}
+</code></pre>
   </div>
 
   <footer>
@@ -480,6 +557,7 @@ finally:
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {
