@@ -85,16 +85,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <div class="guide-content">
 <h2>Tool Use Flow</h2>
-<p>With tool use, <code>ailiaLLMSetPromptJson</code> is used from the very first user message.
-While tools are set with <code>ailiaLLMSetTools</code>, the conventional <code>ailiaLLMSetPrompt</code> and <code>ailiaLLMSetMultimodalPrompt</code> return
-<code>AILIA_LLM_STATUS_INVALID_STATE</code>. They become available again once the tools are cleared.</p>
-<ol>
-<li>Pass an OpenAI-compatible array of tool definitions to <code>ailiaLLMSetTools</code>.</li>
-<li>Pass the messages array itself (UTF-8 JSON) to <code>ailiaLLMSetPromptJson</code>.</li>
-<li>Call <code>ailiaLLMGenerate</code> until it completes. Deltas can be previewed with <code>ailiaLLMGetDeltaText</code>, but retrieving and concatenating them is not required.</li>
-<li>Get the structured assistant JSON with <code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code>.</li>
-<li>Append the successful object to the history as is, execute the tool_calls if present, append the tool results with their IDs, and set the next prompt.</li>
-</ol>
+<p>Set the tools, input a JSON history and generate. After generation, retrieve the response as JSON; if it has <code>tool_calls</code>, execute the tools, append the results to the history and generate the next turn. Clear the tools once the final answer is obtained. The function names in the diagram are C API names; see "API for each language" below for the names in each language.</p>
 <div class="arch-diagram" role="img" aria-label="Call flow of the Tool Use API">
   <div class="arch-box"><div class="arch-name">ailiaLLMSetTools</div><div class="arch-desc">Set OpenAI-compatible tool definitions</div></div>
   <div class="arch-arrow">↓</div>
@@ -136,9 +127,7 @@ While tools are set with <code>ailiaLLMSetTools</code>, the conventional <code>a
   <div class="arch-arrow">↓</div>
   <div class="arch-box"><div class="arch-name">ailiaLLMSetTools(NULL)</div><div class="arch-desc">Clear the tools (also on errors)</div></div>
 </div>
-<p>The SDK buffers the generated response, so the application does not have to carry the raw output around.
-GetResponseJson is a read and does not clear the buffer. It is reset by a new prompt.
-</p>
+<p>The response is buffered in the SDK, so the application does not need to concatenate the deltas during generation. Retrieving it with <code>ailiaLLMGetResponseJson</code> does not clear the buffer; it is reset when a new prompt is set.</p>
 <h2>API for each language</h2>
 <div class="table-wrap"><table class="version-table">
 <thead>
@@ -188,21 +177,28 @@ For tool use, use the JSON history from the very first turn.</p>
   {&quot;role&quot;:&quot;tool&quot;,&quot;tool_call_id&quot;:&quot;call_0&quot;,&quot;content&quot;:&quot;Snow, -3 C&quot;}
 ]
 </code></pre>
-<p>The content itself is never re-parsed as tool syntax. Assistant thinking is given in <code>reasoning_content</code>.
-<code>arguments</code> is a <strong>string</strong> that holds a JSON object. The id and name of a call cannot be empty, and IDs are unique within an assistant message.
-IDs may be reused in a different turn. Consecutive tool results are matched to the calls of the immediately preceding assistant message by ID.
-The order of the results does not matter. An unknown ID, a duplicated result or a conflicting tool name is INVALID_ARGUMENT.
-The content of a tool result must be a string; convert objects into a JSON string.</p>
-<p>After clearing the tools with <code>setTools(null)</code>, past tool_calls and tool results can still be passed to <code>setPromptJson</code> to generate a summary or a final answer. ID matching is still validated. Clearing the tools disables the output parser, so retrieve the response JSON before clearing them.</p>
-<h2>Images and audio</h2>
-<p>The content array of a user message can also contain images and audio. See the <a href="multimodal.html">Multimodal Guide</a> for details.</p>
-<h2>Incomplete output and errors</h2>
+<p>The messages array uses the OpenAI-compatible format. Append the assistant message with <code>tool_calls</code> and the resulting tool messages to the history.</p>
 <ul>
-<li>GetResponseJson: call it after generation completes. An incomplete tool call or thinking is PARSE_ERROR. Partial results are never executed and arguments are never completed.</li>
-<li>SetPromptJson: incomplete arguments, invalid JSON, invalid types, broken ID matching and an empty array are INVALID_ARGUMENT. Nothing is truncated automatically.</li>
-<li>Retries: when GetResponseJson returns PARSE_ERROR, do not append the failed assistant message; append a user message asking for a retry to the existing history instead. There is no need to retrieve the partial content or thinking, and no tool result is created for an incomplete call.</li>
-<li>GetResponseJson returns INVALID_STATE when no prompt has been set, or after the tools or the thinking setting have been changed. Empty output after setting a prompt and before generating is an empty assistant message.</li>
+<li>Assistant messages: append the object retrieved with <code>ailiaLLMGetResponseJson</code> as is. Thinking is given in <code>reasoning_content</code>. The content text is not re-parsed as tool calls, so specify tool calls in <code>tool_calls</code>.</li>
+<li>tool_calls: <code>id</code> and <code>function.name</code> cannot be empty. <code>function.arguments</code> is a <strong>string</strong> that holds a JSON object. IDs are unique within an assistant message; the same ID can be reused in a different turn.</li>
+<li>Tool results: match each result to a call of the immediately preceding assistant message with <code>tool_call_id</code>. The order of the results does not matter. <code>content</code> is a string; convert objects into a JSON string.</li>
+<li>After clearing the tools: after clearing the tools with <code>ailiaLLMSetTools</code>, a history that contains past <code>tool_calls</code> and tool results can still be passed to <code>ailiaLLMSetPromptJson</code> to generate a summary or a final answer. ID matching is still validated. Clearing the tools disables the output parser, so retrieve the response JSON before clearing them.</li>
 </ul>
+<h2>Images and audio</h2>
+<p>The content array of a user message can contain images and audio alongside text. While tools are set, <code>ailiaLLMSetMultimodalPrompt</code> cannot be used, so images and audio are also passed in the JSON history. See the <a href="multimodal.html">Multimodal Guide</a> for how to specify them.</p>
+<h2>Incomplete output and errors</h2>
+<div class="table-wrap"><table class="version-table">
+<thead>
+<tr><th>Situation</th><th>Result</th><th>What to do</th></tr>
+</thead>
+<tbody>
+<tr><td>Calling <code>ailiaLLMGetResponseJson</code> when the output contains an incomplete tool call or thinking</td><td>PARSE_ERROR</td><td>Do not append the failed assistant message or any tool result to the history; append a user message asking for a retry and generate again. Partial results are never executed.</td></tr>
+<tr><td>Passing incomplete arguments, invalid JSON or types, broken ID matching (an unknown ID, a duplicated result or a conflicting tool name) or an empty array to <code>ailiaLLMSetPromptJson</code></td><td>INVALID_ARGUMENT</td><td>Fix the history. The SDK does not truncate or complete anything automatically.</td></tr>
+<tr><td>Calling <code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code> while tools are set</td><td>INVALID_STATE</td><td>Use <code>ailiaLLMSetPromptJson</code>. They become available again once the tools are cleared.</td></tr>
+<tr><td>Calling <code>ailiaLLMGetResponseJson</code> before a prompt is set, or after the tools or the thinking setting have been changed</td><td>INVALID_STATE</td><td>Set the prompt again with <code>ailiaLLMSetPromptJson</code> and then generate.</td></tr>
+</tbody>
+</table></div>
+<p>Calling <code>ailiaLLMGetResponseJson</code> after setting a prompt and before generating returns an empty assistant message.</p>
 <h2>C++ sample</h2>
 <p>The full flow: opening the model, setting the tools with <code>ailiaLLMSetTools</code>, generating, returning tool results, and clearing the tools. The history is edited with nlohmann/json. Weather values are mock data, not live weather information.</p>
 <pre><code class="language-cpp">#include &quot;ailia_llm.h&quot;
@@ -249,12 +245,7 @@ static int run_tool_use(AILIALLM* llm) {
     for (int turn = 0; turn &lt; 8; turn++) {
         json response;
         status = generate_turn(llm, messages, response);
-        if (status == AILIA_LLM_STATUS_PARSE_ERROR) {
-            // Keep the existing history; never append the failed assistant or a tool result.
-            messages.push_back({{&quot;role&quot;, &quot;user&quot;},
-                                {&quot;content&quot;, &quot;Please retry with a complete response or tool call.&quot;}});
-            continue;
-        }
+        // Returns PARSE_ERROR on incomplete output. Decide on a retry without running tools.
         if (status != AILIA_LLM_STATUS_SUCCESS) return status;
         try {
             if (!response.is_object() || response.at(&quot;role&quot;) != &quot;assistant&quot;) {
@@ -424,48 +415,42 @@ void runToolUse(AiliaLLMModel llm) {
 }
 </code></pre>
 <h2>Python sample</h2>
-<p>Only PARSE_ERROR is retried. The failed assistant message is not appended to the history; a user message asking for a retry is appended to the existing history instead. Every sample clears the tools in a finally block, including on exceptions.</p>
-<pre><code class="language-python"># Tool Use with SDK-buffered responses. Deltas are optional previews.
-import json
-import ailia_llm
+<p>Pass an <code>AiliaLLM</code> instance with the model already loaded. Every sample clears the tools in a <code>finally</code> block, including on exceptions.</p>
+<pre><code class="language-python">import json
 
-model = ailia_llm.AiliaLLM()
-model.open(&quot;gemma-4-E2B-it-Q4_K_M.gguf&quot;, n_ctx=4096)
-try:
-    model.set_tools([{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{
-        &quot;name&quot;:&quot;get_weather&quot;, &quot;description&quot;:&quot;Get the current weather.&quot;,
-        &quot;parameters&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;}},&quot;required&quot;:[&quot;city&quot;]}
-    }}])
-    messages = [{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;What is the weather in Tokyo?&quot;}]
-    for turn in range(8):
-        for delta in model.generate_json(messages):
-            print(delta, end=&quot;&quot;, flush=True)  # optional preview; no accumulation
-        try:
+# model is an ailia_llm.AiliaLLM with the model already loaded.
+def run_tool_use(model):
+    try:
+        model.set_tools([{&quot;type&quot;: &quot;function&quot;, &quot;function&quot;: {
+            &quot;name&quot;: &quot;get_weather&quot;, &quot;description&quot;: &quot;Get the current weather.&quot;,
+            &quot;parameters&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;city&quot;: {&quot;type&quot;: &quot;string&quot;}},
+                           &quot;required&quot;: [&quot;city&quot;]}}}])
+        messages = [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;What is the weather in Tokyo?&quot;}]
+        for turn in range(8):
+            for delta in model.generate_json(messages):
+                print(delta, end=&quot;&quot;, flush=True)  # Optional preview; no accumulation is needed.
+            # Raises on incomplete output. Decide on a retry without running tools.
             response = model.get_response_json()
-        except ailia_llm.AiliaLLMError as error:
-            if error.code != ailia_llm.AILIA_LLM_STATUS_PARSE_ERROR:
-                raise
-            # Keep existing history; never append the failed assistant or a tool result.
-            messages.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Please retry with a complete response or tool call.&quot;})
-            continue
-        messages.append(response)
-        if not response.get(&quot;tool_calls&quot;):
-            print(response[&quot;content&quot;])
-            break
-        for call in response[&quot;tool_calls&quot;]:
-            if call[&quot;function&quot;][&quot;name&quot;] != &quot;get_weather&quot;:
-                raise ValueError(&quot;Unknown tool&quot;)
-            args = json.loads(call[&quot;function&quot;][&quot;arguments&quot;])
-            if not isinstance(args, dict) or not isinstance(args.get(&quot;city&quot;), str) or not args[&quot;city&quot;]:
-                raise ValueError(&quot;Invalid city argument&quot;)
-            # Validate and execute the tool in the application. Mock result here.
-            result = {&quot;city&quot;: args[&quot;city&quot;], &quot;weather&quot;: &quot;sunny&quot;}
-            messages.append({&quot;role&quot;:&quot;tool&quot;, &quot;tool_call_id&quot;:call[&quot;id&quot;],
-                             &quot;content&quot;:json.dumps(result)})
-    else:
+            messages.append(response)
+            calls = response.get(&quot;tool_calls&quot;) or []
+            if not calls:
+                print(response[&quot;content&quot;])
+                return
+            for call in calls:
+                function = call[&quot;function&quot;]
+                if function[&quot;name&quot;] != &quot;get_weather&quot;:
+                    raise ValueError(&quot;Unknown tool: &quot; + function[&quot;name&quot;])
+                args = json.loads(function[&quot;arguments&quot;])
+                city = args.get(&quot;city&quot;) if isinstance(args, dict) else None
+                if not isinstance(city, str) or not city:
+                    raise ValueError(&quot;Invalid city argument&quot;)
+                # Validate and execute the tool in the application. Mock result here.
+                result = {&quot;city&quot;: city, &quot;weather&quot;: &quot;sunny&quot;}
+                messages.append({&quot;role&quot;: &quot;tool&quot;, &quot;tool_call_id&quot;: call[&quot;id&quot;],
+                                 &quot;content&quot;: json.dumps(result)})  # The result is a JSON string
         raise RuntimeError(&quot;No final answer within 8 turns&quot;)
-finally:
-    model.set_tools(None)
+    finally:
+        model.set_tools(None)
 </code></pre>
 <h2>Unity sample</h2>
 <p>Pass an <code>AiliaLLMModel</code> with a model loaded. Newtonsoft.Json (Unity package <code>com.unity.nuget.newtonsoft-json</code>) is used for JSON. The Unity API returns false or an empty string on failure, so get the details with <code>GetErrorDetail()</code>.</p>

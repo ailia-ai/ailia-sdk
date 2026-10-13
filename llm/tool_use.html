@@ -85,16 +85,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <div class="guide-content">
 <h2>Tool Useの流れ</h2>
-<p>Tool Useでは最初のuserメッセージから<code>ailiaLLMSetPromptJson</code>を使用します。
-<code>ailiaLLMSetTools</code>でツールが設定されている間、従来の<code>ailiaLLMSetPrompt</code>と<code>ailiaLLMSetMultimodalPrompt</code>は
-<code>AILIA_LLM_STATUS_INVALID_STATE</code>を返します。ツールを解除すると再び利用できます。</p>
-<ol>
-<li><code>ailiaLLMSetTools</code>にOpenAI互換のツール定義配列を渡します。</li>
-<li><code>ailiaLLMSetPromptJson</code>にmessages配列そのもの（UTF-8 JSON）を渡します。</li>
-<li><code>ailiaLLMGenerate</code>を完了まで呼び出します。deltaは<code>ailiaLLMGetDeltaText</code>でプレビューできますが、取得・連結は必須ではありません。</li>
-<li><code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code>で構造化assistant JSONを取得します。</li>
-<li>成功したオブジェクトをそのまま履歴に追加し、tool_callsがあれば実行して、ID付きのtool結果を追加し、次のプロンプトを設定します。</li>
-</ol>
+<p>ツールを設定し、JSON履歴を入力して生成します。生成後に応答をJSONで取得し、<code>tool_calls</code>があればツールを実行して結果を履歴に追加し、次のターンを生成します。最終回答が得られたらツールを解除します。図の関数名はC APIの名前です。各言語での名前は次の「各言語のAPI」を参照してください。</p>
 <div class="arch-diagram" role="img" aria-label="Tool Use APIの呼び出しの流れ">
   <div class="arch-box"><div class="arch-name">ailiaLLMSetTools</div><div class="arch-desc">OpenAI互換のツール定義を設定</div></div>
   <div class="arch-arrow">↓</div>
@@ -136,9 +127,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="arch-arrow">↓</div>
   <div class="arch-box"><div class="arch-name">ailiaLLMSetTools(NULL)</div><div class="arch-desc">ツールを解除（エラー時も実行）</div></div>
 </div>
-<p>SDKが生成結果を蓄積するので、生の出力をアプリ側で引き回す必要はありません。
-GetResponseJsonは読み取りで蓄積を消去しません。新しいプロンプトでリセットします。
-</p>
+<p>生成結果はSDK内に蓄積されるため、生成中の差分テキストをアプリ側で連結する必要はありません。<code>ailiaLLMGetResponseJson</code>で取得しても蓄積は消去されず、新しいプロンプトを設定するとリセットされます。</p>
 <h2>各言語のAPI</h2>
 <div class="table-wrap"><table class="version-table">
 <thead>
@@ -188,21 +177,28 @@ Tool Useでは、最初のターンからJSON履歴を使用してください�
   {&quot;role&quot;:&quot;tool&quot;,&quot;tool_call_id&quot;:&quot;call_0&quot;,&quot;content&quot;:&quot;雪、-3度&quot;}
 ]
 </code></pre>
-<p>本文をツール構文として再解析しません。assistantのThinkingは<code>reasoning_content</code>に指定します。
-<code>arguments</code>はJSONオブジェクトを表す<strong>文字列</strong>です。呼び出しのid/nameは空にできず、IDはassistant内で一意です。
-別ターンではIDを再利用できます。連続するtool結果は直前のassistantの呼び出しにIDで対応付けます。
-結果の順序は問いません。不明なID、重複結果、矛盾するツール名はINVALID_ARGUMENTです。
-ツール結果のcontentには文字列を指定し、オブジェクトはJSON文字列に変換してください。</p>
-<p><code>setTools(null)</code>でツールを解除した後も、過去のtool_callsとtool結果を<code>setPromptJson</code>へ渡して要約・最終回答を生成できます。ID対応の検証は引き続き行います。解除すると出力パーサーが無効になるため、生成結果のJSONは解除前に取得してください。</p>
-<h2>画像・音声</h2>
-<p>userのcontent配列には画像・音声も指定できます。詳しくは<a href="multimodal.html">マルチモーダル ガイド</a>を参照してください。</p>
-<h2>不完全な出力・エラー</h2>
+<p>messages配列はOpenAI互換の形式です。<code>tool_calls</code>を含むassistantと、その結果のtoolメッセージを履歴に追加していきます。</p>
 <ul>
-<li>GetResponseJson：生成完了後に呼び出してください。未完了tool call/ThinkingはPARSE_ERRORです。部分結果を実行したり、引数を補完したりしません。</li>
-<li>SetPromptJson：不完全なarguments、不正なJSON・型・ID対応、空配列はINVALID_ARGUMENTです。自動切り捨ては行いません。</li>
-<li>再試行：GetResponseJsonがPARSE_ERRORの場合、失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加します。部分的な本文・Thinkingの取得は不要です。不完全な呼び出しのtool結果は作りません。</li>
-<li>GetResponseJsonはプロンプト未設定、tools/Thinking変更後にINVALID_STATEを返します。プロンプト設定後・生成前の空出力は空のassistantです。</li>
+<li>assistantメッセージ：<code>ailiaLLMGetResponseJson</code>で取得したオブジェクトをそのまま追加します。Thinkingは<code>reasoning_content</code>に指定します。contentの本文はツール呼び出しとして解析し直されないため、ツール呼び出しは<code>tool_calls</code>に指定します。</li>
+<li>tool_calls：<code>id</code>と<code>function.name</code>は空にできません。<code>function.arguments</code>はJSONオブジェクトを表す<strong>文字列</strong>です。IDは同じassistant内で一意にします。別のターンでは同じIDを再利用できます。</li>
+<li>toolの結果：<code>tool_call_id</code>で直前のassistantの呼び出しに対応付けます。結果の順序は問いません。<code>content</code>は文字列で指定し、オブジェクトはJSON文字列に変換します。</li>
+<li>ツールの解除後：<code>ailiaLLMSetTools</code>でツールを解除した後も、過去の<code>tool_calls</code>とtoolの結果を含む履歴を<code>ailiaLLMSetPromptJson</code>に渡して、要約や最終回答を生成できます。IDの対応は引き続き検証されます。解除すると出力パーサーが無効になるため、応答のJSONは解除前に取得してください。</li>
 </ul>
+<h2>画像・音声</h2>
+<p>userのcontent配列に、textと並べて画像・音声を指定できます。ツールの設定中は<code>ailiaLLMSetMultimodalPrompt</code>を使用できないため、画像・音声もJSON履歴で渡します。指定方法は<a href="multimodal.html">マルチモーダル ガイド</a>を参照してください。</p>
+<h2>不完全な出力・エラー</h2>
+<div class="table-wrap"><table class="version-table">
+<thead>
+<tr><th>状況</th><th>結果</th><th>対処</th></tr>
+</thead>
+<tbody>
+<tr><td>出力に未完了のツール呼び出しやThinkingが含まれる状態で<code>ailiaLLMGetResponseJson</code>を呼ぶ</td><td>PARSE_ERROR</td><td>失敗したassistantもtoolの結果も履歴に追加せず、再試行を指示するuserメッセージを追加して再生成します。部分的な結果は実行しません。</td></tr>
+<tr><td><code>ailiaLLMSetPromptJson</code>に不完全なarguments、不正なJSONや型、IDの対応の誤り（不明なID、重複した結果、矛盾するツール名）、空の配列を渡す</td><td>INVALID_ARGUMENT</td><td>履歴を修正します。SDKは自動で切り捨てや補完を行いません。</td></tr>
+<tr><td>ツールの設定中に<code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code>を呼ぶ</td><td>INVALID_STATE</td><td><code>ailiaLLMSetPromptJson</code>を使用します。ツールを解除すると再び利用できます。</td></tr>
+<tr><td>プロンプトの設定前、またはツールやThinkingの設定を変更した後に<code>ailiaLLMGetResponseJson</code>を呼ぶ</td><td>INVALID_STATE</td><td><code>ailiaLLMSetPromptJson</code>でプロンプトを設定し直してから生成します。</td></tr>
+</tbody>
+</table></div>
+<p>プロンプトの設定後、生成前に<code>ailiaLLMGetResponseJson</code>を呼んだ場合は、空のassistantが返ります。</p>
 <h2>C++サンプル</h2>
 <p>モデルの読み込み、<code>ailiaLLMSetTools</code>によるツール設定から、生成、ツール結果の返却、ツールの解除までの一連の流れです。履歴の編集にはnlohmann/jsonを使用します。天気は動作例のモック値で、実際の天気情報ではありません。</p>
 <pre><code class="language-cpp">#include &quot;ailia_llm.h&quot;
@@ -249,12 +245,7 @@ static int run_tool_use(AILIALLM* llm) {
     for (int turn = 0; turn &lt; 8; turn++) {
         json response;
         status = generate_turn(llm, messages, response);
-        if (status == AILIA_LLM_STATUS_PARSE_ERROR) {
-            // 失敗したassistantもtool結果も追加せず、既存履歴に再試行の指示を追加します。
-            messages.push_back({{&quot;role&quot;, &quot;user&quot;},
-                                {&quot;content&quot;, &quot;完全な応答またはツール呼び出しで再試行してください。&quot;}});
-            continue;
-        }
+        // 不完全な出力の場合はPARSE_ERROR。ツールを実行せず再試行を判断します。
         if (status != AILIA_LLM_STATUS_SUCCESS) return status;
         try {
             if (!response.is_object() || response.at(&quot;role&quot;) != &quot;assistant&quot;) {
@@ -424,48 +415,42 @@ void runToolUse(AiliaLLMModel llm) {
 }
 </code></pre>
 <h2>Pythonサンプル</h2>
-<p>PARSE_ERRORだけを再試行します。失敗したassistantは履歴に追加せず、既存履歴にuserの再試行指示を追加します。各サンプルでは例外時もfinallyでツール設定を解除します。</p>
-<pre><code class="language-python"># Tool Use with SDK-buffered responses. Deltas are optional previews.
-import json
-import ailia_llm
+<p>モデル読込済みの <code>AiliaLLM</code> を渡します。各サンプルでは、例外時も<code>finally</code>でツール設定を解除します。</p>
+<pre><code class="language-python">import json
 
-model = ailia_llm.AiliaLLM()
-model.open(&quot;gemma-4-E2B-it-Q4_K_M.gguf&quot;, n_ctx=4096)
-try:
-    model.set_tools([{&quot;type&quot;:&quot;function&quot;,&quot;function&quot;:{
-        &quot;name&quot;:&quot;get_weather&quot;, &quot;description&quot;:&quot;Get the current weather.&quot;,
-        &quot;parameters&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;city&quot;:{&quot;type&quot;:&quot;string&quot;}},&quot;required&quot;:[&quot;city&quot;]}
-    }}])
-    messages = [{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;What is the weather in Tokyo?&quot;}]
-    for turn in range(8):
-        for delta in model.generate_json(messages):
-            print(delta, end=&quot;&quot;, flush=True)  # optional preview; no accumulation
-        try:
+# modelはモデル読込済みのailia_llm.AiliaLLM。
+def run_tool_use(model):
+    try:
+        model.set_tools([{&quot;type&quot;: &quot;function&quot;, &quot;function&quot;: {
+            &quot;name&quot;: &quot;get_weather&quot;, &quot;description&quot;: &quot;現在の天気を取得します。&quot;,
+            &quot;parameters&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;properties&quot;: {&quot;city&quot;: {&quot;type&quot;: &quot;string&quot;}},
+                           &quot;required&quot;: [&quot;city&quot;]}}}])
+        messages = [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;東京の天気は？&quot;}]
+        for turn in range(8):
+            for delta in model.generate_json(messages):
+                print(delta, end=&quot;&quot;, flush=True)  # 任意のプレビュー。連結は不要。
+            # 不完全な出力の場合は例外。ツールを実行せず再試行を判断します。
             response = model.get_response_json()
-        except ailia_llm.AiliaLLMError as error:
-            if error.code != ailia_llm.AILIA_LLM_STATUS_PARSE_ERROR:
-                raise
-            # Keep existing history; never append the failed assistant or a tool result.
-            messages.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Please retry with a complete response or tool call.&quot;})
-            continue
-        messages.append(response)
-        if not response.get(&quot;tool_calls&quot;):
-            print(response[&quot;content&quot;])
-            break
-        for call in response[&quot;tool_calls&quot;]:
-            if call[&quot;function&quot;][&quot;name&quot;] != &quot;get_weather&quot;:
-                raise ValueError(&quot;Unknown tool&quot;)
-            args = json.loads(call[&quot;function&quot;][&quot;arguments&quot;])
-            if not isinstance(args, dict) or not isinstance(args.get(&quot;city&quot;), str) or not args[&quot;city&quot;]:
-                raise ValueError(&quot;Invalid city argument&quot;)
-            # Validate and execute the tool in the application. Mock result here.
-            result = {&quot;city&quot;: args[&quot;city&quot;], &quot;weather&quot;: &quot;sunny&quot;}
-            messages.append({&quot;role&quot;:&quot;tool&quot;, &quot;tool_call_id&quot;:call[&quot;id&quot;],
-                             &quot;content&quot;:json.dumps(result)})
-    else:
-        raise RuntimeError(&quot;No final answer within 8 turns&quot;)
-finally:
-    model.set_tools(None)
+            messages.append(response)
+            calls = response.get(&quot;tool_calls&quot;) or []
+            if not calls:
+                print(response[&quot;content&quot;])
+                return
+            for call in calls:
+                function = call[&quot;function&quot;]
+                if function[&quot;name&quot;] != &quot;get_weather&quot;:
+                    raise ValueError(&quot;Unknown tool: &quot; + function[&quot;name&quot;])
+                args = json.loads(function[&quot;arguments&quot;])
+                city = args.get(&quot;city&quot;) if isinstance(args, dict) else None
+                if not isinstance(city, str) or not city:
+                    raise ValueError(&quot;Invalid city argument&quot;)
+                # 実際には引数を検証してツールを実行します。以下はモック結果。
+                result = {&quot;city&quot;: city, &quot;weather&quot;: &quot;sunny&quot;}
+                messages.append({&quot;role&quot;: &quot;tool&quot;, &quot;tool_call_id&quot;: call[&quot;id&quot;],
+                                 &quot;content&quot;: json.dumps(result)})  # 結果はJSON文字列
+        raise RuntimeError(&quot;8ターン以内に最終回答が得られませんでした&quot;)
+    finally:
+        model.set_tools(None)
 </code></pre>
 <h2>Unityサンプル</h2>
 <p>モデル読込済みの <code>AiliaLLMModel</code> を渡します。JSONの操作にはNewtonsoft.Json（Unityパッケージ <code>com.unity.nuget.newtonsoft-json</code>）を使用します。UnityのAPIは失敗時にfalseまたは空文字列を返すため、<code>GetErrorDetail()</code> で詳細を取得します。</p>
