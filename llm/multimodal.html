@@ -392,7 +392,7 @@ public static class MultimodalSample
 <li>Raw RGB：<code>data</code>に<code>width * height * 3</code>バイトのRGBデータを指定し、<code>width</code> / <code>height</code>を設定します。画像のみ使用できます。</li>
 </ul>
 <h3>ailiaLLMSetPromptJson（JSON履歴）</h3>
-<p>image/audioは<code>file_path</code>または<code>data</code>をちょうど1つ指定します。<code>data</code>は標準Base64（パディング付き）でエンコードしたファイル内容です。URL取得、動画、生RGB/PCMには対応しません。
+<p>image/audioは<code>file_path</code>または<code>data</code>を1つ指定します。<code>data</code>は標準Base64（パディング付き）でエンコードしたファイル内容です。URL取得、動画、生RGB/PCMには対応しません。
 画像・音声を含む履歴は毎回再評価します。生成結果は<code>ailiaLLMGetResponseJson</code>で取得します。</p>
 <h3>エラー</h3>
 <ul>
