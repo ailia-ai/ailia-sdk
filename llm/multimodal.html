@@ -70,32 +70,59 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM マルチモーダル ガイド</h1>
-    <p>ailia LLM でマルチモーダルプロジェクタを読み込み、画像・音声を入力する方法を説明します。構造体で渡す<code>ailiaLLMSetMultimodalPrompt</code>と、JSON履歴で渡す<code>ailiaLLMSetPromptJson</code>の2つの方法があります。</p>
+    <p>ailia LLM でマルチモーダルプロジェクタを読み込み、画像・音声を入力する方法を説明します。メッセージとメディアで入力する方法と、JSON履歴で入力する方法の2つがあります。</p>
   </section>
 
   <div class="guide-content">
-<h2>プロジェクタの読み込み</h2>
-<p>モデルを読み込んだ後、対応するprojectorを<code>ailiaLLMOpenMultimodalProjectorFileA</code>で読み込みます。
-画像と音声の対応状況は<code>ailiaLLMGetMultimodalCapabilities</code>の<code>vision_support</code> / <code>audio_support</code>で確認できます。メディア非対応のモデル/projectorや未読込の状態で画像・音声を指定するとINVALID_STATEです。</p>
+<h2>概要と流れ</h2>
+<p>ailia LLM では、画像・音声のエンコーダを含むマルチモーダルプロジェクタ（mmproj）をモデルと一緒に読み込むことで、画像・音声を入力できます。どの言語でも次の流れで使用します。</p>
+<div class="arch-diagram">
+  <div class="arch-box"><div class="arch-name">モデルを開く</div><div class="arch-desc">GGUF または QNN Model</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">プロジェクタ（mmproj）を開く</div><div class="arch-desc">モデルに対応する画像・音声エンコーダ</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">対応状況を確認する</div><div class="arch-desc">画像入力・音声入力に対応しているか</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">画像・音声を含むメッセージを入力する</div><div class="arch-desc">メッセージとメディア、または JSON 履歴</div></div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box"><div class="arch-name">生成する</div><div class="arch-desc">テキスト入力と同じ生成 API</div></div>
+</div>
+<p>プロジェクタは、使用するモデルに対応したものを指定してください。プロジェクタを開いていない状態や、対応していない種類のメディアを入力するとエラーになります。</p>
 <h2>入力方法</h2>
+<p>画像・音声の入力方法は2つあります。</p>
 <div class="table-wrap"><table class="version-table">
 <thead>
-<tr><th></th><th><code>ailiaLLMSetMultimodalPrompt</code></th><th><code>ailiaLLMSetPromptJson</code></th></tr>
+<tr><th></th><th>メッセージとメディアで入力</th><th>JSON履歴で入力</th></tr>
 </thead>
 <tbody>
-<tr><td>メッセージ</td><td><code>AILIALLMMultimodalChatMessage</code>の配列</td><td>messages配列のJSON（UTF-8）</td></tr>
-<tr><td>メディアの位置</td><td>contentの<code>&lt;__media__&gt;</code>プレースホルダー</td><td>content配列の順序</td></tr>
-<tr><td>入力形式</td><td>ファイルパス、エンコード済みバッファ、Raw RGB</td><td>ファイルパス、Base64（エンコード済みファイル）</td></tr>
-<tr><td>生成結果</td><td><code>ailiaLLMGetDeltaText</code>を連結</td><td><code>ailiaLLMGetResponseJson</code>で取得</td></tr>
-<tr><td>Tool Use</td><td>ツール設定中はINVALID_STATE</td><td>toolsの有無にかかわらず使用可</td></tr>
+<tr><td>メッセージ</td><td>role・contentと、メディアの一覧</td><td>messages配列のJSON（UTF-8）</td></tr>
+<tr><td>メディアの位置</td><td>contentの<code>&lt;__media__&gt;</code>の位置</td><td>content配列での順序</td></tr>
+<tr><td>メディアの指定</td><td>ファイルパス、エンコード済みデータ、Raw RGB（画像のみ）</td><td>ファイルパス、Base64（エンコード済みファイル）</td></tr>
+<tr><td>生成結果</td><td>生成の差分テキストを連結</td><td>生成後に応答をJSONで取得</td></tr>
+<tr><td>Tool Use</td><td>併用できません</td><td>併用できます</td></tr>
 </tbody>
 </table></div>
-<p>画像・音声を入力するだけであればどちらの方法でも使用できます。Raw RGBを渡す場合は<code>ailiaLLMSetMultimodalPrompt</code>を、Tool Useと組み合わせる場合は<code>ailiaLLMSetPromptJson</code>を使用してください。
-Tool Useの詳細は<a href="tool_use.html">Tool Use ガイド</a>を参照してください。</p>
+<p>画像・音声を入力するだけであればどちらの方法でも使用できます。Raw RGBを渡す場合はメッセージとメディアで入力し、Tool Useと組み合わせる場合はJSON履歴で入力してください。
+Tool Useの詳細は<a href="tool_use.html">Tool Use ガイド</a>を参照してください。画像はJPG、PNG、TGA、BMP、PSD、GIF、HDR、PIC、音声はWAV、MP3、FLAC等のファイルに対応します。</p>
+<h3>メッセージとメディアで入力</h3>
+<p>メッセージのcontentに<code>&lt;__media__&gt;</code>を書き、その位置に入れる画像・音声を、メッセージのメディア一覧に同じ順番で指定します。メディアの種類は<code>&quot;image&quot;</code>または<code>&quot;audio&quot;</code>です。</p>
+<pre><code class="language-json">{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;この画像について説明してください。 &lt;__media__&gt;&quot;,
+ &quot;media_data&quot;: [{&quot;media_type&quot;: &quot;image&quot;, &quot;file_path&quot;: &quot;/path/to/image.jpg&quot;}]}
+</code></pre>
+<p>上記は概念を示す例です。各言語での書き方は、下のサンプルを参照してください。</p>
+<h3>JSON履歴で入力</h3>
+<p>画像・音声は、userのcontent配列にtextと並べて順番に指定します。各言語とも、このJSON（またはそれに相当する配列・辞書）を渡します。</p>
+<pre><code class="language-json">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[
+  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;この画像と音声について説明してください。&quot;},
+  {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},
+  {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}
+]}]
+</code></pre>
+<p>image・audioには、<code>file_path</code>または<code>data</code>（Base64）のどちらか一方を指定します。</p>
 <h2>各言語のAPI</h2>
 <div class="table-wrap"><table class="version-table">
 <thead>
-<tr><th>言語</th><th>プロジェクタの読み込み</th><th>対応状況の確認</th><th>構造体で入力</th><th>JSON履歴で入力</th></tr>
+<tr><th>言語</th><th>プロジェクタの読み込み</th><th>対応状況の確認</th><th>メッセージとメディアで入力</th><th>JSON履歴で入力</th></tr>
 </thead>
 <tbody>
 <tr><td>C / C++</td><td><code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code></td><td><code>ailiaLLMGetMultimodalCapabilities</code></td><td><code>ailiaLLMSetMultimodalPrompt</code></td><td><code>ailiaLLMSetPromptJson</code></td></tr>
@@ -105,33 +132,8 @@ Tool Useの詳細は<a href="tool_use.html">Tool Use ガイド</a>を参照し�
 <tr><td>Unity</td><td><code>OpenMultimodalProjector(path)</code></td><td><code>GetMultimodalCapabilities(ref, ref)</code></td><td><code>SetMultimodalPrompt(messages)</code></td><td><code>SetPromptJson(messagesJson)</code></td></tr>
 </tbody>
 </table></div>
-<h2>SetMultimodalPrompt（構造体）</h2>
-<p>メッセージのcontentに<code>&lt;__media__&gt;</code>プレースホルダーを含め、対応するメディアを<code>media_data</code>に順番に設定し、<code>media_count</code>に個数を指定します。
-メッセージの内容は内部でコピーされるため、呼び出し後に解放できます。</p>
-<p><code>AILIALLMMediaData</code>の<code>media_type</code>には<code>&quot;image&quot;</code>または<code>&quot;audio&quot;</code>を指定します。画像と音声のどちらも使用できます。メディアは次のいずれかで指定します。</p>
-<ul>
-<li>ファイル：<code>file_path</code>（UTF-8）。<code>data</code>を指定した場合は無視されます。</li>
-<li>エンコード済みバッファ：<code>data</code>と<code>data_size</code>を指定し、<code>width</code> / <code>height</code>は0にします。画像はJPG、PNG、TGA、BMP、PSD、GIF、HDR、PIC、音声はWAV、MP3、FLAC等に対応します。</li>
-<li>Raw RGB：<code>data</code>に<code>width * height * 3</code>バイトのRGBデータを指定し、<code>width</code> / <code>height</code>を設定します。画像のみ使用できます。</li>
-</ul>
-<h2>SetPromptJson（JSON）</h2>
-<p>画像・音声はuserのcontent配列に、textと並べて順番に指定します。</p>
-<pre><code class="language-json">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[
-  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;この画像と音声について説明してください。&quot;},
-  {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},
-  {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}
-]}]
-</code></pre>
-<p>image/audioは<code>file_path</code>または<code>data</code>をちょうど1つ指定します。<code>data</code>は標準Base64（パディング付き）で
-エンコードしたファイル内容です。JPEG/PNG、WAV/MP3/FLAC等を使用できます。URL取得、動画、生RGB/PCMには対応しません。
-画像・音声を含む履歴は毎回再評価します。</p>
-<h2>エラー</h2>
-<ul>
-<li>ファイル読込失敗はERROR_FILE_API、バッファ（Base64からのデコード済みメディアを含む）の読込失敗はERROR_BUFFER_APIです。</li>
-<li>SetPromptJsonで不正なBase64はINVALID_ARGUMENTです。</li>
-</ul>
 <h2>C++サンプル（SetMultimodalPrompt）</h2>
-<p>モデルとprojectorを読み込み、構造体で画像を渡して応答を生成します。生成結果はGetDeltaTextで連結します。</p>
+<p>モデルとprojectorを読み込み、メッセージとメディアで画像を渡して応答を生成します。生成結果はGetDeltaTextで連結します。</p>
 <pre><code class="language-cpp">#include &quot;ailia_llm.h&quot;
 #include &lt;cstdio&gt;
 #include &lt;string&gt;
@@ -249,7 +251,7 @@ int main() {
     return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
 }
 </code></pre>
-<p>以下のKotlin・Flutter・Python・Unityのサンプルは、構造体で画像ファイルを1枚入力します。contentの<code>&lt;__media__&gt;</code>の位置にメディアが入ります。音声を入力する場合は<code>media_type</code>を<code>&quot;audio&quot;</code>にします。</p>
+<p>以下のKotlin・Flutter・Python・Unityのサンプルは、メッセージとメディアで画像ファイルを1枚入力します。contentの<code>&lt;__media__&gt;</code>の位置にメディアが入ります。音声を入力する場合は<code>media_type</code>を<code>&quot;audio&quot;</code>にします。</p>
 <h2>Kotlinサンプル</h2>
 <p><code>AiliaLLMMultimodalChatMessage</code>に<code>AiliaLLMMediaData</code>を添えて<code>setPrompt</code>で入力し、<code>generate()</code>がtrueを返すまで<code>getDeltaText()</code>を連結します。</p>
 <pre><code class="language-kotlin">import axip.ailia_llm.AiliaLLM
@@ -308,7 +310,7 @@ String describeImage(String modelPath, String mmprojPath, String imagePath) {
 }
 </code></pre>
 <h2>Pythonサンプル</h2>
-<p>メッセージのdictに<code>media_data</code>を付けて<code>generate</code>に渡すと、構造体での入力（<code>ailiaLLMSetMultimodalPrompt</code>）が使われます。<code>media_data</code>は<code>file_path</code>で指定します。</p>
+<p>メッセージのdictに<code>media_data</code>を付けて<code>generate</code>に渡すと、メッセージとメディアでの入力になります。<code>media_data</code>は<code>file_path</code>で指定します。</p>
 <pre><code class="language-python">import ailia_llm
 
 model = ailia_llm.AiliaLLM()
@@ -376,6 +378,29 @@ public static class MultimodalSample
     }
 }
 </code></pre>
+<h2>C APIの詳細</h2>
+<p>C / C++で使用する構造体とJSONの規則、エラーのステータスです。Kotlin・Flutter・Pythonではエラー時に例外が発生し、Unityではfalse（または空文字列）が返るため、<code>GetErrorDetail()</code>で詳細を取得します。</p>
+<h3>プロジェクタと対応状況</h3>
+<p>モデルを読み込んだ後、対応するprojectorを<code>ailiaLLMOpenMultimodalProjectorFileA</code> / <code>W</code>で読み込みます。画像と音声の対応状況は<code>ailiaLLMGetMultimodalCapabilities</code>の<code>vision_support</code> / <code>audio_support</code>で確認できます。</p>
+<h3>ailiaLLMSetMultimodalPrompt（メッセージとメディア）</h3>
+<p><code>AILIALLMMultimodalChatMessage</code>のcontentに<code>&lt;__media__&gt;</code>を含め、対応するメディアを<code>media_data</code>に順番に設定し、<code>media_count</code>に個数を指定します。
+メッセージの内容は内部でコピーされるため、呼び出し後に解放できます。生成結果は<code>ailiaLLMGetDeltaText</code>を連結します。</p>
+<p><code>AILIALLMMediaData</code>の<code>media_type</code>には<code>&quot;image&quot;</code>または<code>&quot;audio&quot;</code>を指定します。メディアは次のいずれかで指定します。</p>
+<ul>
+<li>ファイル：<code>file_path</code>（UTF-8）。<code>data</code>を指定した場合は無視されます。</li>
+<li>エンコード済みバッファ：<code>data</code>と<code>data_size</code>を指定し、<code>width</code> / <code>height</code>は0にします。</li>
+<li>Raw RGB：<code>data</code>に<code>width * height * 3</code>バイトのRGBデータを指定し、<code>width</code> / <code>height</code>を設定します。画像のみ使用できます。</li>
+</ul>
+<h3>ailiaLLMSetPromptJson（JSON履歴）</h3>
+<p>image/audioは<code>file_path</code>または<code>data</code>をちょうど1つ指定します。<code>data</code>は標準Base64（パディング付き）でエンコードしたファイル内容です。URL取得、動画、生RGB/PCMには対応しません。
+画像・音声を含む履歴は毎回再評価します。生成結果は<code>ailiaLLMGetResponseJson</code>で取得します。</p>
+<h3>エラー</h3>
+<ul>
+<li>メディア非対応のモデル/projector、またはprojector未読込の状態で画像・音声を指定するとINVALID_STATEです。</li>
+<li>ツールの設定中に<code>ailiaLLMSetMultimodalPrompt</code>を呼ぶとINVALID_STATEです。</li>
+<li>ファイル読込失敗はERROR_FILE_API、バッファ（Base64からのデコード済みメディアを含む）の読込失敗はERROR_BUFFER_APIです。</li>
+<li><code>ailiaLLMSetPromptJson</code>で不正なBase64はINVALID_ARGUMENTです。</li>
+</ul>
   </div>
 
   <footer>
