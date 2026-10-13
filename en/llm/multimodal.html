@@ -249,8 +249,9 @@ int main() {
     return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
 }
 </code></pre>
-<p>The Kotlin, Flutter, Python and Unity samples below input one image file with structs. The media is placed at the <code>&lt;__media__&gt;</code> position in content. To input audio, set <code>media_type</code> to <code>&quot;audio&quot;</code>. In Python, specify <code>media_data</code> with <code>file_path</code>.</p>
+<p>The Kotlin, Flutter, Python and Unity samples below input one image file with structs. The media is placed at the <code>&lt;__media__&gt;</code> position in content. To input audio, set <code>media_type</code> to <code>&quot;audio&quot;</code>.</p>
 <h2>Kotlin sample</h2>
+<p>Attach <code>AiliaLLMMediaData</code> to an <code>AiliaLLMMultimodalChatMessage</code>, input it with <code>setPrompt</code>, and concatenate <code>getDeltaText()</code> until <code>generate()</code> returns true.</p>
 <pre><code class="language-kotlin">import axip.ailia_llm.AiliaLLM
 import axip.ailia_llm.AiliaLLMMediaData
 import axip.ailia_llm.AiliaLLMMultimodalChatMessage
@@ -275,6 +276,7 @@ fun describeImage(modelPath: String, mmprojPath: String, imagePath: String): Str
 }
 </code></pre>
 <h2>Flutter sample</h2>
+<p>Add <code>media_data</code> (<code>List&lt;Map&lt;String, dynamic&gt;&gt;</code>) to the message Map, input it with <code>setPrompt</code>, and concatenate the deltas until <code>generate()</code> returns null.</p>
 <pre><code class="language-dart">import &#x27;package:ailia_llm/ailia_llm_model.dart&#x27;;
 
 String describeImage(String modelPath, String mmprojPath, String imagePath) {
@@ -306,6 +308,7 @@ String describeImage(String modelPath, String mmprojPath, String imagePath) {
 }
 </code></pre>
 <h2>Python sample</h2>
+<p>Passing message dicts with <code>media_data</code> to <code>generate</code> uses struct input (<code>ailiaLLMSetMultimodalPrompt</code>). Specify <code>media_data</code> with <code>file_path</code>.</p>
 <pre><code class="language-python">import ailia_llm
 
 model = ailia_llm.AiliaLLM()
@@ -324,6 +327,7 @@ for delta in model.generate(messages):
 print()
 </code></pre>
 <h2>Unity sample</h2>
+<p>Set a list of <code>AiliaLLMMediaData</code> on an <code>AiliaLLMMultimodalChatMessage</code> and input it with <code>SetMultimodalPrompt</code>. It returns false on failure, so get the details with <code>GetErrorDetail()</code>.</p>
 <pre><code class="language-csharp">using System;
 using System.Collections.Generic;
 using System.Text;

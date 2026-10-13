@@ -249,8 +249,9 @@ int main() {
     return status == AILIA_LLM_STATUS_SUCCESS ? 0 : 1;
 }
 </code></pre>
-<p>以下のKotlin・Flutter・Python・Unityのサンプルは、構造体で画像ファイルを1枚入力します。contentの<code>&lt;__media__&gt;</code>の位置にメディアが入ります。音声を入力する場合は<code>media_type</code>を<code>&quot;audio&quot;</code>にします。Pythonの<code>media_data</code>は<code>file_path</code>で指定します。</p>
+<p>以下のKotlin・Flutter・Python・Unityのサンプルは、構造体で画像ファイルを1枚入力します。contentの<code>&lt;__media__&gt;</code>の位置にメディアが入ります。音声を入力する場合は<code>media_type</code>を<code>&quot;audio&quot;</code>にします。</p>
 <h2>Kotlinサンプル</h2>
+<p><code>AiliaLLMMultimodalChatMessage</code>に<code>AiliaLLMMediaData</code>を添えて<code>setPrompt</code>で入力し、<code>generate()</code>がtrueを返すまで<code>getDeltaText()</code>を連結します。</p>
 <pre><code class="language-kotlin">import axip.ailia_llm.AiliaLLM
 import axip.ailia_llm.AiliaLLMMediaData
 import axip.ailia_llm.AiliaLLMMultimodalChatMessage
@@ -275,6 +276,7 @@ fun describeImage(modelPath: String, mmprojPath: String, imagePath: String): Str
 }
 </code></pre>
 <h2>Flutterサンプル</h2>
+<p>メッセージのMapに<code>media_data</code>（<code>List&lt;Map&lt;String, dynamic&gt;&gt;</code>）を付けて<code>setPrompt</code>で入力し、<code>generate()</code>がnullを返すまで差分を連結します。</p>
 <pre><code class="language-dart">import &#x27;package:ailia_llm/ailia_llm_model.dart&#x27;;
 
 String describeImage(String modelPath, String mmprojPath, String imagePath) {
@@ -306,6 +308,7 @@ String describeImage(String modelPath, String mmprojPath, String imagePath) {
 }
 </code></pre>
 <h2>Pythonサンプル</h2>
+<p>メッセージのdictに<code>media_data</code>を付けて<code>generate</code>に渡すと、構造体での入力（<code>ailiaLLMSetMultimodalPrompt</code>）が使われます。<code>media_data</code>は<code>file_path</code>で指定します。</p>
 <pre><code class="language-python">import ailia_llm
 
 model = ailia_llm.AiliaLLM()
@@ -324,6 +327,7 @@ for delta in model.generate(messages):
 print()
 </code></pre>
 <h2>Unityサンプル</h2>
+<p><code>AiliaLLMMultimodalChatMessage</code>に<code>AiliaLLMMediaData</code>のリストを設定して<code>SetMultimodalPrompt</code>で入力します。失敗時はfalseを返すため、<code>GetErrorDetail()</code>で詳細を取得します。</p>
 <pre><code class="language-csharp">using System;
 using System.Collections.Generic;
 using System.Text;
