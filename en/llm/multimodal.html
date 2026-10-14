@@ -104,6 +104,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </table></div>
 <p>Either method can be used to input images and audio. To pass raw RGB, input with message structs; to combine media with Tool Use, input with a JSON history.
 See the <a href="tool_use.html">Tool Use Guide</a> for details on Tool Use. Image files can be JPG, PNG, TGA, BMP, PSD, GIF, HDR or PIC, and audio files can be WAV, MP3, FLAC and similar formats.</p>
+<h3>Order of images and audio (Gemma 4)</h3>
+<p>For optimal performance with Gemma 4, place image content before the text and audio content after the text in your prompt. See "Modality order" in the <a href="https://huggingface.co/google/gemma-4-E2B">Gemma 4 model card</a> for details.</p>
 <h3>Input with message structs</h3>
 <p>Write <code>&lt;__media__&gt;</code> in the content of a message, and specify the images and audio to place there in the message's media list, in the same order. The media type is <code>&quot;image&quot;</code> or <code>&quot;audio&quot;</code>.</p>
 <pre><code class="language-json">{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Describe this image. &lt;__media__&gt;&quot;,

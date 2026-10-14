@@ -104,6 +104,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </table></div>
 <p>画像・音声を入力するだけであればどちらの方法でも使用できます。Raw RGBを渡す場合はメッセージ構造体で入力し、Tool Useと組み合わせる場合はJSON履歴で入力してください。
 Tool Useの詳細は<a href="tool_use.html">Tool Use ガイド</a>を参照してください。画像はJPG、PNG、TGA、BMP、PSD、GIF、HDR、PIC、音声はWAV、MP3、FLAC等のファイルに対応します。</p>
+<h3>画像・音声の配置順（Gemma 4）</h3>
+<p>Gemma 4で最適な性能を得るには、プロンプト内で画像はテキストの前に、音声はテキストの後に配置してください。詳しくは<a href="https://huggingface.co/google/gemma-4-E2B">Gemma 4のモデルカード</a>の「Modality order」を参照してください。</p>
 <h3>メッセージ構造体で入力</h3>
 <p>メッセージのcontentに<code>&lt;__media__&gt;</code>を書き、その位置に入れる画像・音声を、メッセージのメディア一覧に同じ順番で指定します。メディアの種類は<code>&quot;image&quot;</code>または<code>&quot;audio&quot;</code>です。</p>
 <pre><code class="language-json">{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;この画像について説明してください。 &lt;__media__&gt;&quot;,
