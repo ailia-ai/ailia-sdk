@@ -74,28 +74,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief プロンプトを設定します。
-@param llm LLMオブジェクトポインタへのポインタ
-@param message メッセージの配列
-@param message_cnt メッセージの数
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-LLMに問い合わせるプロンプトを設定します。
-ChatHistoryもmessageに含めてください。
-ツール設定中はINVALID_STATEを返します。最初のuserメッセージからailiaLLMSetPromptJsonを使用してください。
-ailiaLLMSetToolsでツールを解除すると本APIを再び使用できます。
-messageの内容は内部でコピーされるため、呼び出し後に開放することができます。</p>
-<p>~english
-@brief Set the prompt.
-@param llm A pointer to the LLM instance pointer
-@param message Array of messages
-@param message_cnt Number of messages
-@return
-If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
-@details
-Set the prompt to query the LLM.
+  <p>Set the prompt.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: A pointer to the LLM instance pointer</li>
+<li><code>message</code>: Array of messages</li>
+<li><code>message_cnt</code>: Number of messages</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Set the prompt to query the LLM.
 Please include ChatHistory in the message as well.
 Returns INVALID_STATE while tools are configured. Use ailiaLLMSetPromptJson from the first user message.
 Clear tools with ailiaLLMSetTools to use this API again.

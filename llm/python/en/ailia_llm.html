@@ -59,6 +59,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.open_multimodal_projector"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open_multimodal_projector()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.prompt_token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.prompt_token_count()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_backend"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_num_threads"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_num_threads()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_thinking"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_thinking()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_tools"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_tools()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.token_count()</span></code></a></li>
@@ -443,6 +444,14 @@ such as image or audio understanding.</p>
 <dd><p>Select a backend before <a class="reference internal" href="#ailia_llm.AiliaLLM.open" title="ailia_llm.AiliaLLM.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a> (GPU, CPU, or HTP (QNN)).</p>
 <p>With no selection, model format selects the backend automatically.
 Explicit CPU/GPU rejects .qnn and explicit HTP (QNN) rejects GGUF.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.set_num_threads">
+<span class="sig-name descname"><span class="pre">set_num_threads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_threads</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.set_num_threads" title="Link to this definition">¶</a></dt>
+<dd><p>Set shared CPU threads before open; default/0 selects automatically.</p>
+<p>Android uses performance (big/prime) cores when topology is available.
+Applies to target decode/prefill, assistant and VLM/ALM CPU processing.</p>
 </dd></dl>
 
 <dl class="py method">

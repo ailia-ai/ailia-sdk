@@ -74,7 +74,12 @@
 <section class="desc markdown">
   <p>Sets structured JSON history, required with tools. User content arrays
 support text and image or audio with file_path or base64 data. Load a
-matching projector first; submit image and audio in separate prompts.</p>
+matching projector first; submit image and audio in separate prompts.
+<code>messages</code> is the complete conversation history, including assistant tool
+calls and tool results with matching <code>tool_call_id</code> values when applicable.
+Resets streaming text on success. Throws if the model is unopened, JSON
+encoding fails, or the native operation fails (including context overflow).
+Use <a href="../../ailia_llm_model/AiliaLLMModel/contextFull.html">contextFull</a> to inspect whether the prompt exceeded the context.</p>
 </section>
 
 

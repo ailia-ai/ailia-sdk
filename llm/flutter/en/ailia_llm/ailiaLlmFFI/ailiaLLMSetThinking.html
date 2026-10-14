@@ -73,22 +73,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief Thinking（推論過程の出力）を有効または無効にします。
-@param llm LLMオブジェクトポインタへのポインタ
-@param enable 0で無効、0以外で有効（デフォルト：無効）
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ailiaLLMSetPromptの前に実行する必要があります。</p>
-<p>~english
-@brief Enable or disable thinking (reasoning output).
-@param llm A pointer to the LLM instance pointer
-@param enable 0 to disable, non-zero to enable (default: disabled)
-@return
-If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
-@details
-Controls whether thinking models (e.g. Gemma4) output their reasoning process.
+  <p>Enable or disable thinking (reasoning output).</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: A pointer to the LLM instance pointer</li>
+<li><code>enable</code>: 0 to disable, non-zero to enable (default: disabled)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Controls whether thinking models (e.g. Gemma4) output their reasoning process.
 Must be called before ailiaLLMSetPrompt.</p>
 </section>
 

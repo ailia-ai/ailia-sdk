@@ -74,22 +74,14 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief SDK内部に蓄積した生成結果を構造化assistant JSONとして取得します。
-@param llm LLMオブジェクト
-@param json UTF-8出力バッファ
-@param buf_size バッファサイズ
-@details Generateで生成した出力をSDKが連結します。GetDeltaTextの取得・連結は不要です。
-成功したJSONをSetPromptJsonの履歴配列に追加できます。新しいプロンプトで蓄積をリセットします。
-生成完了後に呼び出してください。未完了の呼び出し/ThinkingはPARSE_ERRORで、補完しません。
-プロンプト未設定やtools/Thinking変更後はINVALID_STATE。生成前は空のassistantを返します。
-NULL引数や不足したバッファはINVALID_ARGUMENTです。取得しても蓄積は消えません。
-~english
-@brief Gets structured assistant JSON from output accumulated inside the SDK.
-@param llm LLM instance
-@param json UTF-8 output buffer
-@param buf_size Buffer size
-@details No GetDeltaText calls or application-side concatenation are required.
+  <p>Gets structured assistant JSON from output accumulated inside the SDK.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: LLM instance</li>
+<li><code>json</code>: UTF-8 output buffer</li>
+<li><code>buf_size</code>: Buffer size</li>
+</ul>
+<p>No GetDeltaText calls or application-side concatenation are required.
 Append the returned object to SetPromptJson history. A new prompt resets accumulated output.
 Call after generation completes. Unfinished calls/thinking return PARSE_ERROR without repair.
 An unset prompt or changed tools/thinking returns INVALID_STATE. Before generation, returns an empty assistant.

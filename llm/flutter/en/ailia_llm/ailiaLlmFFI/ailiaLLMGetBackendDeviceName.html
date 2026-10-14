@@ -73,16 +73,14 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 指定した計算環境のデバイス名を取得します。
-@param name デバイス名の格納先（ライブラリがロードされている間有効）
-@param env_idx ailiaLLMGetBackendCount() で列挙したインデックス
-@return 成功時は AILIA_LLM_STATUS_SUCCESS。</p>
-<p>~english
-@brief Gets the device name for a computational environment.
-@param name Storage for the device name (valid while the library remains loaded)
-@param env_idx Index enumerated by ailiaLLMGetBackendCount()
-@return AILIA_LLM_STATUS_SUCCESS on success.</p>
+  <p>Gets the device name for a computational environment.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>name</code>: Storage for the device name (valid while the library remains loaded)</li>
+<li><code>env_idx</code>: Index enumerated by ailiaLLMGetBackendCount()</li>
+</ul>
+<p>Returns:</p>
+<p>AILIA_LLM_STATUS_SUCCESS on success.</p>
 </section>
 
 

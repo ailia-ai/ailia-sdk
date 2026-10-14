@@ -73,7 +73,10 @@
     
 <section class="desc markdown">
   <p>Opens a matching vision/audio projector after <a href="../../ailia_llm_model/AiliaLLMModel/open.html">open</a>. Accepts a GGUF
-projector or a self-contained, SoC-specific QNN projector package.</p>
+projector or a self-contained, SoC-specific QNN projector package.
+<code>mmprojPath</code> is the projector file path. Load it before submitting media
+with <a href="../../ailia_llm_model/AiliaLLMModel/setPrompt.html">setPrompt</a> or <a href="../../ailia_llm_model/AiliaLLMModel/setPromptJson.html">setPromptJson</a>.
+Throws if the model is unopened or projector loading fails.</p>
 </section>
 
 

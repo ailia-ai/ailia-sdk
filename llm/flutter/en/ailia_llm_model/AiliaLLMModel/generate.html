@@ -71,8 +71,13 @@
     </section>
     
 <section class="desc markdown">
-  <p>Ask the model to generate the next token.
-This function properly handle incomplete multi-byte utf8 character.</p>
+  <p>Advances generation and returns the newly decoded text fragment.</p>
+<p>Call after <a href="../../ailia_llm_model/AiliaLLMModel/setPrompt.html">setPrompt</a> or <a href="../../ailia_llm_model/AiliaLLMModel/setPromptJson.html">setPromptJson</a> and repeat until null is returned.
+Returns an empty string when no complete UTF-8 text is available yet;
+incomplete multibyte characters are buffered for later calls.
+Returns null when generation finishes or the context is full; inspect
+<a href="../../ailia_llm_model/AiliaLLMModel/contextFull.html">contextFull</a> to distinguish context overflow.
+Throws if the model is unopened or generation fails for another reason.</p>
 </section>
 
 

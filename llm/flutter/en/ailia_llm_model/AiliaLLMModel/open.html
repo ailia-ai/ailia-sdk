@@ -80,7 +80,12 @@ fallback, while .qnn selects HTP (QNN). Explicit Metal/GPU selection
 still fits layers to available memory, but requires some GPU offload.
 CPU/GPU for .qnn or HTP for GGUF is rejected.
 Use <a href="../../ailia_llm_model/AiliaLLMModel/openMultimodalProjectorFile.html">openMultimodalProjectorFile</a> afterwards for vision or audio.
-A context size of zero selects the package/model default.</p>
+<code>modelPath</code> is the model file path; <code>nCtx</code> is the context size in tokens.
+A context size of zero selects the package/model default.
+<code>backend</code> accepts a name from <a href="../../ailia_llm_model/AiliaLLMModel/getBackendList.html">getBackendList</a> or a backend constant;
+a constant selects the first matching device, and an empty string selects
+automatically. Any existing instance is closed before opening the model.
+Throws if the backend is unavailable or native initialization fails.</p>
 </section>
 
 
@@ -118,6 +123,12 @@ A context size of zero selects the package/model default.</p>
   if (status != 0) {
     close();
     throw Exception(&quot;ailiaLLMCreate returned an error status $status&quot;);
+  }
+
+  status = dllHandle.ailiaLLMSetNumThreads(pLLm.value, _numThreads);
+  if (status != 0) {
+    close();
+    throw Exception(&#39;ailiaLLMSetNumThreads returned an error status $status&#39;);
   }
 
   if (!automatic) {

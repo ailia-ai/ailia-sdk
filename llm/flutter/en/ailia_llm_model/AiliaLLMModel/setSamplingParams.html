@@ -74,6 +74,13 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Sets token sampling parameters after <a href="../../ailia_llm_model/AiliaLLMModel/open.html">open</a> and before setting a prompt.</p>
+<p><code>top_k</code> limits the number of candidate tokens; <code>top_p</code> controls their
+cumulative probability threshold; <code>temp</code> is the sampling temperature;
+<code>dist</code> is the random seed. Native defaults are 40, 0.9, 0.4 and 1234.
+Throws if the model is unopened or the native operation fails.</p>
+</section>
 
 
     

@@ -72,35 +72,22 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 現在の端末に対応するQNNモデル名を取得します。
-@param model_name QNNモデル名の格納先（例: "sm8475"）。返された文字列は
-libraryが所有するため、呼び出し側で解放しないでください。
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-返される名前はailia_llm_compile_cが生成するtext modelのファイル名から
-<code>.qnn</code>を除いた部分と一致します。画像入力（VLM）／音声入力（ALM）用projectorは
-同じ名前に<code>-mmproj.qnn</code>を付けたファイルです。QNNはAndroid arm64と
-Windows ARM64に対応します。この呼び出しでQNN plug-inを初めて
-遅延loadします。未対応SoCでは \ref AILIA_LLM_STATUS_OTHER_ERROR 、plug-inが
-存在しない場合、およびBUILD_QNN以外では
-\ref AILIA_LLM_STATUS_UNIMPLEMENTED を返します。</p>
-<p>~english
-@brief Gets the QNN model name for the current device.
-@param model_name Storage for the QNN model name (for example, "sm8475").
-The library owns the returned string; the caller must not free it.
-@return
-If this function is successful, it returns \ref AILIA_LLM_STATUS_SUCCESS,
-or an error code otherwise.
-@details
-The returned name matches the text model filename emitted by
+  <p>Gets the QNN model name for the current device.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>model_name</code>: Storage for the QNN model name (for example, "sm8475").
+The library owns the returned string; the caller must not free it.</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a>,
+or an error code otherwise.</p>
+<p>The returned name matches the text model filename emitted by
 ailia_llm_compile_c, excluding <code>.qnn</code>. The image-input (VLM) / audio-input
 (ALM) projector uses the same name followed by <code>-mmproj.qnn</code>. QNN is
 supported on Android arm64 and Windows ARM64. This call lazily loads the QNN plug-in.
-An unsupported SoC returns \ref AILIA_LLM_STATUS_OTHER_ERROR. A missing
+An unsupported SoC returns <a href="../../ailia_llm/AILIA_LLM_STATUS_OTHER_ERROR-constant.html">AILIA_LLM_STATUS_OTHER_ERROR</a>. A missing
 plug-in or a non-BUILD_QNN library returns
-\ref AILIA_LLM_STATUS_UNIMPLEMENTED.</p>
+<a href="../../ailia_llm/AILIA_LLM_STATUS_UNIMPLEMENTED-constant.html">AILIA_LLM_STATUS_UNIMPLEMENTED</a>.</p>
 </section>
 
 

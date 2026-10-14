@@ -77,7 +77,10 @@
 Use a matching Gemma 4 assistant GGUF, or assistant .qnn for a QNN target.
 Call once after <a href="../../ailia_llm_model/AiliaLLMModel/open.html">open</a> and before setting a prompt.
 Supports text generation with CPU/GPU Gemma 4 GGUF and QNN models.
-<code>nDraft</code> is required: must be at least 1; QNN supports up to 3 draft tokens.</p>
+<code>assistantPath</code> is the assistant model file path.
+<code>nDraft</code> is required: must be at least 1; QNN supports up to 3 draft tokens.
+Throws an <a href="https://api.flutter.dev/flutter/dart-core/ArgumentError-class.html">ArgumentError</a> if <code>nDraft</code> is not a positive unsigned 32-bit
+integer, or an <a href="https://api.flutter.dev/flutter/dart-core/Exception-class.html">Exception</a> if the target is unopened or loading fails.</p>
 </section>
 
 
@@ -91,12 +94,16 @@ Supports text generation with CPU/GPU Gemma 4 GGUF and QNN models.
   if (nDraft &lt;= 0 || nDraft &gt; 0xffffffff) {
     throw ArgumentError.value(nDraft, &#39;nDraft&#39;, &#39;must be a positive unsigned 32-bit integer&#39;);
   }
-  final path = assistantPath.toNativeUtf8().cast&lt;Char&gt;();
+  final Pointer path = Platform.isWindows
+      ? assistantPath.toNativeUtf16().cast&lt;WChar&gt;()
+      : assistantPath.toNativeUtf8().cast&lt;Char&gt;();
   try {
-    final status = dllHandle.ailiaLLMOpenMtpModel(pLLm.value, path, nDraft);
+    final status = Platform.isWindows
+        ? dllHandle.ailiaLLMOpenMtpModelFileW(pLLm.value, path.cast&lt;WChar&gt;(), nDraft)
+        : dllHandle.ailiaLLMOpenMtpModelFileA(pLLm.value, path.cast&lt;Char&gt;(), nDraft);
     if (status != ailia_llm_dart.AILIA_LLM_STATUS_SUCCESS) {
       throw Exception(
-          &quot;ailiaLLMOpenMtpModel returned an error status $status&quot;);
+          &quot;ailiaLLMOpenMtpModelFile returned an error status $status&quot;);
     }
   } finally {
     malloc.free(path);

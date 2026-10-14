@@ -64,6 +64,14 @@ As long as user complies with the conditions stated in <a href="https://ailia.ai
 </code></pre>
 <h2 id="api-specification">API specification</h2>
 <p><a href="https://github.com/ailia-ai/ailia-sdk">https://github.com/ailia-ai/ailia-sdk</a></p>
+<h2 id="regenerating-ffi-bindings-and-documentation">Regenerating FFI bindings and documentation</h2>
+<p>Run from the <code>flutter</code> directory after updating <code>native/ailia_llm.h</code>:</p>
+<pre class="language-sh"><code class="language-sh">fvm dart run ffigen --config ffigen_ailia_llm.yaml
+python3 tool/normalize_dartdoc.py
+fvm dart doc
+</code></pre>
+<p>The normalization step converts the native Doxygen comments to English
+Dartdoc Markdown. Release packaging runs this step automatically.</p>
 <h2 id="mtp-decoding">MTP decoding</h2>
 <p>Open the target first, then its matching assistant before setting a prompt:</p>
 <pre class="language-dart"><code class="language-dart">final model = AiliaLLMModel();

@@ -73,18 +73,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief モデルを開く前に、このインスタンスが使用するバックエンドを選択します。
-@param llm LLMインスタンス
-@param backend_idx ailiaLLMGetBackendCount/Nameで列挙したデバイスのインデックス
-@return 成功時はAILIA_LLM_STATUS_SUCCESS。モデルを開いた後はAILIA_LLM_STATUS_INVALID_STATE。
-@details 未指定の場合はモデル形式から自動選択します。HTP (QNN)は.qnn専用です。CPU/GPUを明示選択した場合は.qnnを開けません。切り替えるには新しいインスタンスでモデルを開き直してください。</p>
-<p>~english
-@brief Selects the backend for this instance before opening a model.
-@param llm LLM instance
-@param backend_idx Device index returned by ailiaLLMGetBackendCount/Name
-@return AILIA_LLM_STATUS_SUCCESS on success, or AILIA_LLM_STATUS_INVALID_STATE after a model is opened.
-@details Without a selection, the model format selects the backend automatically. HTP (QNN) accepts only .qnn; an explicit CPU/GPU selection rejects .qnn. Reopen the model in a new instance to switch.</p>
+  <p>Selects the backend for this instance before opening a model.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: LLM instance</li>
+<li><code>backend_idx</code>: Device index returned by ailiaLLMGetBackendCount/Name</li>
+</ul>
+<p>Returns:</p>
+<p>AILIA_LLM_STATUS_SUCCESS on success, or AILIA_LLM_STATUS_INVALID_STATE after a model is opened.</p>
+<p>Without a selection, the model format selects the backend automatically. HTP (QNN) accepts only .qnn; an explicit CPU/GPU selection rejects .qnn. Reopen the model in a new instance to switch.</p>
 </section>
 
 

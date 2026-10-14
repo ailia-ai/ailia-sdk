@@ -171,6 +171,9 @@ ailia_llm.h の依存先関係図:</div>
 <tr class="memitem:a2966a202d63034ae417bef30ecf9df57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a2966a202d63034ae417bef30ecf9df57">ailiaLLMSetBackend</a> (struct AILIALLM *llm, unsigned int backend_idx)</td></tr>
 <tr class="memdesc:a2966a202d63034ae417bef30ecf9df57"><td class="mdescLeft">&#160;</td><td class="mdescRight">モデルを開く前に、このインスタンスが使用するバックエンドを選択します。  <a href="ailia__llm_8h.html#a2966a202d63034ae417bef30ecf9df57">[詳解]</a><br /></td></tr>
 <tr class="separator:a2966a202d63034ae417bef30ecf9df57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8bcdf034911713ccc33b5dda7118b5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#af8bcdf034911713ccc33b5dda7118b5e">ailiaLLMSetNumThreads</a> (struct AILIALLM *llm, unsigned int n_threads)</td></tr>
+<tr class="memdesc:af8bcdf034911713ccc33b5dda7118b5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">モデルを開く前にCPUスレッド数を設定します。  <a href="ailia__llm_8h.html#af8bcdf034911713ccc33b5dda7118b5e">[詳解]</a><br /></td></tr>
+<tr class="separator:af8bcdf034911713ccc33b5dda7118b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ddba82a4cda99e783cb59ff4e30ca2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a9ddba82a4cda99e783cb59ff4e30ca2b">ailiaLLMCreate</a> (struct AILIALLM **llm)</td></tr>
 <tr class="memdesc:a9ddba82a4cda99e783cb59ff4e30ca2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">LLMオブジェクトを作成します。  <a href="ailia__llm_8h.html#a9ddba82a4cda99e783cb59ff4e30ca2b">[詳解]</a><br /></td></tr>
 <tr class="separator:a9ddba82a4cda99e783cb59ff4e30ca2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,9 +182,11 @@ ailia_llm.h の依存先関係図:</div>
 <tr class="separator:a884a746fb28b8f71fdd846ae50150c3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a625f994626a8fc23a183c0f173184d6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a625f994626a8fc23a183c0f173184d6e">ailiaLLMOpenModelFileW</a> (struct AILIALLM *llm, const wchar_t *path, unsigned int n_ctx)</td></tr>
 <tr class="separator:a625f994626a8fc23a183c0f173184d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a588d4f8c157609320425b962d5ef4b9a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a588d4f8c157609320425b962d5ef4b9a">ailiaLLMOpenMtpModel</a> (struct AILIALLM *llm, const char *path, unsigned int n_draft)</td></tr>
-<tr class="memdesc:a588d4f8c157609320425b962d5ef4b9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">MTPドラフトモデルを開き、生成をドラフト・本体検証経路に切り替えます。  <a href="ailia__llm_8h.html#a588d4f8c157609320425b962d5ef4b9a">[詳解]</a><br /></td></tr>
-<tr class="separator:a588d4f8c157609320425b962d5ef4b9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa04975c8c250bb364e58045c5db8a62a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#aa04975c8c250bb364e58045c5db8a62a">ailiaLLMOpenMtpModelFileA</a> (struct AILIALLM *llm, const char *path, unsigned int n_draft)</td></tr>
+<tr class="memdesc:aa04975c8c250bb364e58045c5db8a62a"><td class="mdescLeft">&#160;</td><td class="mdescRight">MTPドラフトモデルを開き、生成をドラフト・本体検証経路に切り替えます。  <a href="ailia__llm_8h.html#aa04975c8c250bb364e58045c5db8a62a">[詳解]</a><br /></td></tr>
+<tr class="separator:aa04975c8c250bb364e58045c5db8a62a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4fd1ea850916c00dffa81c7f8f3ea1b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#ac4fd1ea850916c00dffa81c7f8f3ea1b">ailiaLLMOpenMtpModelFileW</a> (struct AILIALLM *llm, const wchar_t *path, unsigned int n_draft)</td></tr>
+<tr class="separator:ac4fd1ea850916c00dffa81c7f8f3ea1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad15a0c90e5070fadd7dc2196c80e7641"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#ad15a0c90e5070fadd7dc2196c80e7641">ailiaLLMGetContextSize</a> (struct AILIALLM *llm, unsigned int *context_size)</td></tr>
 <tr class="memdesc:ad15a0c90e5070fadd7dc2196c80e7641"><td class="mdescLeft">&#160;</td><td class="mdescRight">コンテキストの長さを取得します。  <a href="ailia__llm_8h.html#ad15a0c90e5070fadd7dc2196c80e7641">[詳解]</a><br /></td></tr>
 <tr class="separator:ad15a0c90e5070fadd7dc2196c80e7641"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1232,14 +1237,14 @@ ailia_llm.h の依存先関係図:</div>
 
 </div>
 </div>
-<a id="a588d4f8c157609320425b962d5ef4b9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a588d4f8c157609320425b962d5ef4b9a">&#9670;&nbsp;</a></span>ailiaLLMOpenMtpModel()</h2>
+<a id="aa04975c8c250bb364e58045c5db8a62a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa04975c8c250bb364e58045c5db8a62a">&#9670;&nbsp;</a></span>ailiaLLMOpenMtpModelFileA()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMOpenMtpModel </td>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMOpenMtpModelFileA </td>
           <td>(</td>
           <td class="paramtype">struct AILIALLM *&#160;</td>
           <td class="paramname"><em>llm</em>, </td>
@@ -1268,12 +1273,46 @@ ailia_llm.h の依存先関係図:</div>
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">llm</td><td>LLMオブジェクト </td></tr>
-    <tr><td class="paramname">path</td><td>対応するGemma 4 assistant GGUF、またはQNN本体用assistant .qnnのUTF-8パス </td></tr>
+    <tr><td class="paramname">path</td><td>対応するGemma 4 assistant GGUF、またはQNN本体用assistant .qnnのパス（A: UTF-8、W: UTF-16） </td></tr>
     <tr><td class="paramname">n_draft</td><td>ドラフトトークン数（1以上）。QNNでは最大3。</td></tr>
   </table>
   </dd>
 </dl>
 <p>本体を開いた後、プロンプト設定前に一度呼び出します。 CPU/GPU Gemma 4 GGUFとQNNのテキスト生成に対応します。 指定数のドラフトと本体の1トークンを合わせて検証します。 </p>
+
+</div>
+</div>
+<a id="ac4fd1ea850916c00dffa81c7f8f3ea1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4fd1ea850916c00dffa81c7f8f3ea1b">&#9670;&nbsp;</a></span>ailiaLLMOpenMtpModelFileW()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMOpenMtpModelFileW </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const wchar_t *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>n_draft</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1425,7 +1464,46 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>マルチモーダル対応のプロンプトを設定します。メッセージのcontentに&lt;<b>media</b>&gt;プレースホルダーを含め、 対応するメディアデータをmedia_dataに設定してください。 例: "この画像について説明してください: &lt;__media__&gt;" messageの内容は内部でコピーされるため、呼び出し後に開放することができます。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 音声はWAV/MP3/FLACのファイルパスまたはエンコード済みバッファから読み込み可能です。 KVキャッシュの再利用では、ファイル入力とバッファ入力は内容のハッシュで同一性を判定します。 </p>
+<p>マルチモーダル対応のプロンプトを設定します。メッセージのcontentに&lt;<b>media</b>&gt;プレースホルダーを含め、 対応するメディアデータをmedia_dataに設定してください。 例: "この画像について説明してください: &lt;__media__&gt;" messageの内容は内部でコピーされるため、呼び出し後に開放することができます。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 音声はWAV/MP3/FLACのファイルパスまたはエンコード済みバッファから読み込み可能です。 KVキャッシュの再利用では、ファイル入力とバッファ入力は内容のハッシュで同一性を判定します。 エンコーダー出力は現在のプロンプトに含まれるメディアの分だけ保持し、履歴から外れた分は解放します。 デコード済みの画像・音声は設定処理の終了時に解放します。 メディアを含まないプロンプトへの切り替えが成功すると、メディアのキャッシュを解放します。 </p>
+
+</div>
+</div>
+<a id="af8bcdf034911713ccc33b5dda7118b5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8bcdf034911713ccc33b5dda7118b5e">&#9670;&nbsp;</a></span>ailiaLLMSetNumThreads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMSetNumThreads </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>n_threads</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>モデルを開く前にCPUスレッド数を設定します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLMインスタンス </td></tr>
+    <tr><td class="paramname">n_threads</td><td>スレッド数（0は自動設定）。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功時はAILIA_LLM_STATUS_SUCCESS。モデルを開いた後はAILIA_LLM_STATUS_INVALID_STATE。</dd></dl>
+<p>未指定の場合も0として扱います。Androidでは高効率コア（高性能側のbig/prime）の数を使用します。 取得できない場合は既存のコア数判定を使用します。本体のDecode/Prefill、assistant、VLM/ALMのCPU推論スレッド数に同じ値を使用します。 </p>
 
 </div>
 </div>
@@ -1509,7 +1587,7 @@ ailia_llm.h の依存先関係図:</div>
   </table>
   </dd>
 </dl>
-<p>roleはsystem/user/assistant/tool、contentは文字列またはnullです。userはcontent配列にも対応します。 配列要素は{"type":"text","text":"..."}、またはtypeがimage/audioでfile_path（ローカルファイル）か data（標準Base64のエンコード済みファイル）を1つ指定します。JPEG/PNG、WAV/MP3/FLAC等に対応します。 メディアは対応projectorの読込が必要です。URL取得・生PCM/RGB・動画には対応しません。 配列順に入力し、画像/音声を含む履歴は毎回評価します。 assistantのcontentをモデル固有構文として再解析しません。reasoning_contentとtool_callsを明示してください。 ailiaLLMGetResponseJsonの結果をassistantメッセージとしてそのまま追加できます。 tool_callsはtype="function"、空でないidとfunction.name、JSONオブジェクトを表す文字列function.argumentsを必要とします。 idはassistant内で一意とし、後続ターンでは再利用できます。 tool結果のcontentは文字列、tool_call_idは直前のassistantの呼び出しIDです。 連続するtool結果は順序ではなくIDで対応付け、ツール名を補います。重複・不一致の結果は拒否します。 不完全なargumentsは補完・破棄せずエラーとします。GetResponseJsonがPARSE_ERRORの場合は、 失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加してください。 SetTools(NULL)後も過去のtool_callsとtool結果を入力できます。結果JSONはツール解除前に取得してください。 入力は呼び出し後に解放できます。成功後はailiaLLMGenerateで生成します。 </p><dl class="section return"><dt>戻り値</dt><dd>成功時SUCCESS。不正なJSON・型・ID対応・引数はINVALID_ARGUMENT。 モデル未読込の場合はINVALID_STATE。 その他の生成準備エラーはailiaLLMSetPromptと同じです。 </dd></dl>
+<p>roleはsystem/user/assistant/tool、contentは文字列またはnullです。userはcontent配列にも対応します。 配列要素は{"type":"text","text":"..."}、またはtypeがimage/audioでfile_path（ローカルファイル）か data（標準Base64のエンコード済みファイル）を1つ指定します。 画像はJPEG/PNG等、音声はWAV/MP3/FLACに対応します。 メディアは対応projectorの読込が必要です。URL取得・生PCM/RGB・動画には対応しません。 配列順に入力します。メディア入力の内容・順序・個数と履歴の接頭部が一致し、 必要なKV位置が残っている場合はKVキャッシュを再利用します。 エンコード結果はバックエンドのキャッシュ条件に従って再利用します。 GGUF・QNNともにKVの再構築が必要な場合も、保持中のメディアのエンコーダー出力を再利用できます。 ファイルの内容ハッシュは毎回確認し、メディアの内容が変更された場合は再評価します。 エンコーダー出力は現在のプロンプトに含まれるメディアの分だけ保持し、履歴から外れた分は解放します。 デコード済みの画像・音声は設定処理の終了時に解放します。 メディアを含まないプロンプトへの切り替えが成功すると、メディアのキャッシュを解放します。 assistantのcontentをモデル固有構文として再解析しません。reasoning_contentとtool_callsを明示してください。 ailiaLLMGetResponseJsonの結果をassistantメッセージとしてそのまま追加できます。 tool_callsはtype="function"、空でないidとfunction.name、JSONオブジェクトを表す文字列function.argumentsを必要とします。 idはassistant内で一意とし、後続ターンでは再利用できます。 tool結果のcontentは文字列、tool_call_idは直前のassistantの呼び出しIDです。 連続するtool結果は順序ではなくIDで対応付け、ツール名を補います。重複・不一致の結果は拒否します。 不完全なargumentsは補完・破棄せずエラーとします。GetResponseJsonがPARSE_ERRORの場合は、 失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加してください。 SetTools(NULL)後も過去のtool_callsとtool結果を入力できます。結果JSONはツール解除前に取得してください。 入力は呼び出し後に解放できます。成功後はailiaLLMGenerateで生成します。 </p><dl class="section return"><dt>戻り値</dt><dd>成功時SUCCESS。不正なJSON・型・ID対応・引数はINVALID_ARGUMENT。 モデル未読込の場合はINVALID_STATE。 その他の生成準備エラーはailiaLLMSetPromptと同じです。 </dd></dl>
 
 </div>
 </div>

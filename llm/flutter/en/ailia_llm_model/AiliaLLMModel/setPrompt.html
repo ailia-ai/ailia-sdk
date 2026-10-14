@@ -71,6 +71,20 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Sets the complete conversation history for text or multimodal generation.</p>
+<p>Each entry in <code>messages</code> requires string <code>role</code> and <code>content</code> fields.
+Media entries use a non-empty <code>media_data</code> list and <code>&lt;__media__&gt;</code> content
+placeholders. Each attachment requires <code>media_type</code> (<code>image</code> or <code>audio</code>)
+and exactly one of a non-empty <code>file_path</code> or a non-empty <code>data</code> byte list
+(<a href="https://api.flutter.dev/flutter/dart-typed_data/Uint8List-class.html">Uint8List</a> or <code>List&lt;int&gt;</code>); optional <code>width</code> and <code>height</code> default to zero.
+Load a matching projector with <a href="../../ailia_llm_model/AiliaLLMModel/openMultimodalProjectorFile.html">openMultimodalProjectorFile</a> before
+submitting media. Missing, null or empty media lists use the text-only API.</p>
+<p>Resets streaming text for the new prompt. If the context is full, sets
+<a href="../../ailia_llm_model/AiliaLLMModel/contextFull.html">contextFull</a> and returns; other failures throw. Throws for an unopened
+model, invalid messages or media without a loaded projector.
+While tools are configured with <a href="../../ailia_llm_model/AiliaLLMModel/setTools.html">setTools</a>, use <a href="../../ailia_llm_model/AiliaLLMModel/setPromptJson.html">setPromptJson</a> instead.</p>
+</section>
 
 
     

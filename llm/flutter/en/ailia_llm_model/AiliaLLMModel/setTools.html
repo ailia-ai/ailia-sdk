@@ -95,7 +95,9 @@ next <a href="../../ailia_llm_model/AiliaLLMModel/setPromptJson.html">setPromptJ
 and the buffered output can be retrieved with <a href="../../ailia_llm_model/AiliaLLMModel/getResponseJson.html">getResponseJson</a>.</p>
 <p>While tools are set, setPrompt fails with INVALID_STATE. Use setPromptJson
 and getResponseJson. Deltas remain available for streaming previews.</p>
-<p>Available for models whose chat template supports tool calling (e.g. Gemma 4).</p>
+<p>Available for models whose chat template supports tool calling (e.g. Gemma 4).
+Call after <a href="../../ailia_llm_model/AiliaLLMModel/open.html">open</a>; throws if the instance is unopened, the definitions
+cannot be serialized to JSON, or the native operation fails.</p>
 </section>
 
 

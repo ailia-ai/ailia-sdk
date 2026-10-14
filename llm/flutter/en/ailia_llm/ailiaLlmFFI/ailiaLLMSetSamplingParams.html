@@ -76,28 +76,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief サンプリングのパラメータを設定します。
-@param llm LLMオブジェクトポインタへのポインタ
-@param top_k サンプリングする確率値の上位個数、デフォルト40
-@param top_p サンプリングする確率値の範囲、デフォルト0.9（0.9〜1.0）
-@param temp 温度パラメータ、デフォルト0.4
-@param dist シード、デフォルト1234
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-LLMのサンプリングの設定を行います。ailiaLLMSetPromptの前に実行する必要があります。</p>
-<p>~english
-@brief Set the sampling parameter.
-@param llm A pointer to the LLM instance pointer
-@param top_k Sampling probability value's top number, default 40
-@param top_p Sampling probability value range, default 0.9 (0.9 to 1.0)
-@param temp Temperature parameter, default 0.4
-@param dist Seed, default 1234
-@return
-If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
-@details
-Set LLM sampling parameters. Must be run before ailiaLLMSetPrompt.</p>
+  <p>Set the sampling parameter.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: A pointer to the LLM instance pointer</li>
+<li><code>top_k</code>: Sampling probability value's top number, default 40</li>
+<li><code>top_p</code>: Sampling probability value range, default 0.9 (0.9 to 1.0)</li>
+<li><code>temp</code>: Temperature parameter, default 0.4</li>
+<li><code>dist</code>: Seed, default 1234</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Set LLM sampling parameters. Must be run before ailiaLLMSetPrompt.</p>
 </section>
 
 

@@ -74,24 +74,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief テキストを取得します。
-@param llm       LLMオブジェクトポインタ
-@param text      テキスト(UTF8)
-@param buf_size  バッファサイズ
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaLLMGenerate() を一度も実行していない場合は \ref AILIA_LLM_STATUS_INVALID_STATE が返ります。</p>
-<p>~english
-@brief Gets the decoded text.
-@param llm       A LLM instance pointer
-@param text      Text(UTF8)
-@param buf_size  Buffer size
-@return
-If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
-@details
-If  ailiaLLMGenerate()  is not run at all, the function returns  \ref AILIA_LLM_STATUS_INVALID_STATE .</p>
+  <p>Gets the decoded text.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: A LLM instance pointer</li>
+<li><code>text</code>: Text(UTF8)</li>
+<li><code>buf_size</code>: Buffer size</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>If  ailiaLLMGenerate()  is not run at all, the function returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_INVALID_STATE-constant.html">AILIA_LLM_STATUS_INVALID_STATE</a> .</p>
 </section>
 
 
