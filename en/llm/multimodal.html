@@ -108,15 +108,15 @@ See the <a href="tool_use.html">Tool Use Guide</a> for details on Tool Use. Imag
 <p>For optimal performance with Gemma 4, place image content before the text and audio content after the text in your prompt. See "Modality order" in the <a href="https://huggingface.co/google/gemma-4-E2B">Gemma 4 model card</a> for details.</p>
 <h3>Input with message structs</h3>
 <p>Write <code>&lt;__media__&gt;</code> in the content of a message, and specify the images and audio to place there in the message's media list, in the same order. The media type is <code>&quot;image&quot;</code> or <code>&quot;audio&quot;</code>.</p>
-<pre><code class="language-json">{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Describe this image. &lt;__media__&gt;&quot;,
+<pre><code class="language-json">{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;&lt;__media__&gt; Describe this image.&quot;,
  &quot;media_data&quot;: [{&quot;media_type&quot;: &quot;image&quot;, &quot;file_path&quot;: &quot;/path/to/image.jpg&quot;}]}
 </code></pre>
 <p>The example above shows the concept. See the samples below for how to write it in each language.</p>
 <h3>Input with JSON history</h3>
 <p>Specify images and audio in order inside the content array of a user message, alongside text entries. Every language passes this JSON (or the equivalent arrays and dictionaries).</p>
 <pre><code class="language-json">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[
-  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;Describe this image and audio.&quot;},
   {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},
+  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;Describe this image and audio.&quot;},
   {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}
 ]}]
 </code></pre>
@@ -157,7 +157,7 @@ static int describe_image(AILIALLM* llm) {
     media.file_path = &quot;/path/to/image.jpg&quot;; // a buffer can also be given with data and data_size
     AILIALLMMultimodalChatMessage message = {};
     message.role = &quot;user&quot;;
-    message.content = &quot;Describe this image. &lt;__media__&gt;&quot;;
+    message.content = &quot;&lt;__media__&gt; Describe this image.&quot;;
     message.media_data = &amp;media;
     message.media_count = 1;
     int status = ailiaLLMSetMultimodalPrompt(llm, &amp;message, 1);
@@ -214,8 +214,8 @@ static int open_projector(AILIALLM* llm) {
 
 static int describe_image_json(AILIALLM* llm) {
     json messages = json::array({{{&quot;role&quot;, &quot;user&quot;}, {&quot;content&quot;, json::array({
-        {{&quot;type&quot;, &quot;text&quot;}, {&quot;text&quot;, &quot;Describe this image.&quot;}},
-        {{&quot;type&quot;, &quot;image&quot;}, {&quot;file_path&quot;, &quot;/path/to/image.jpg&quot;}}
+        {{&quot;type&quot;, &quot;image&quot;}, {&quot;file_path&quot;, &quot;/path/to/image.jpg&quot;}},
+        {{&quot;type&quot;, &quot;text&quot;}, {&quot;text&quot;, &quot;Describe this image.&quot;}}
     })}}});
     std::string input = messages.dump();
     int status = ailiaLLMSetPromptJson(llm, input.c_str());
@@ -267,7 +267,7 @@ fun describeImage(modelPath: String, mmprojPath: String, imagePath: String): Str
         check(llm.getMultimodalCapabilities().visionSupport) { &quot;Image input is not supported&quot; }
         val message = AiliaLLMMultimodalChatMessage(
             &quot;user&quot;,
-            &quot;Describe this image. &lt;__media__&gt;&quot;,
+            &quot;&lt;__media__&gt; Describe this image.&quot;,
             AiliaLLMMediaData(&quot;image&quot;, filePath = imagePath) // use &quot;audio&quot; for audio
         )
         llm.setPrompt(arrayOf(message))
@@ -294,7 +294,7 @@ String describeImage(String modelPath, String mmprojPath, String imagePath) {
     llm.setPrompt([
       {
         &#x27;role&#x27;: &#x27;user&#x27;,
-        &#x27;content&#x27;: &#x27;Describe this image. &lt;__media__&gt;&#x27;,
+        &#x27;content&#x27;: &#x27;&lt;__media__&gt; Describe this image.&#x27;,
         &#x27;media_data&#x27;: &lt;Map&lt;String, dynamic&gt;&gt;[
           {&#x27;media_type&#x27;: &#x27;image&#x27;, &#x27;file_path&#x27;: imagePath}, // use &#x27;audio&#x27; for audio
         ],
@@ -323,7 +323,7 @@ if not model.get_multimodal_capabilities()[&quot;vision&quot;]:
 
 messages = [{
     &quot;role&quot;: &quot;user&quot;,
-    &quot;content&quot;: &quot;Describe this image. &lt;__media__&gt;&quot;,
+    &quot;content&quot;: &quot;&lt;__media__&gt; Describe this image.&quot;,
     &quot;media_data&quot;: [{&quot;media_type&quot;: &quot;image&quot;, &quot;file_path&quot;: &quot;/path/to/image.jpg&quot;}],  # use &quot;audio&quot; for audio
 }]
 for delta in model.generate(messages):
@@ -355,7 +355,7 @@ public static class MultimodalSample
                 new AiliaLLMMultimodalChatMessage
                 {
                     role = &quot;user&quot;,
-                    content = &quot;Describe this image. &lt;__media__&gt;&quot;,
+                    content = &quot;&lt;__media__&gt; Describe this image.&quot;,
                     media_data = new List&lt;AiliaLLMMediaData&gt;
                     {
                         new AiliaLLMMediaData { media_type = &quot;image&quot;, file_path = imagePath } // use &quot;audio&quot; for audio
