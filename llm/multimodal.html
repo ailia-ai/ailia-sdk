@@ -104,17 +104,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </table></div>
 <p>画像・音声を入力するだけであればどちらの方法でも使用できます。Raw RGBを渡す場合はメッセージ構造体で入力し、Tool Useと組み合わせる場合はJSON履歴で入力してください。
 Tool Useの詳細は<a href="tool_use.html">Tool Use ガイド</a>を参照してください。画像はJPG、PNG、TGA、BMP、PSD、GIF、HDR、PIC、音声はWAV、MP3、FLAC等のファイルに対応します。</p>
+<h3>画像・音声の配置順（Gemma 4）</h3>
+<p>Gemma 4で最適な性能を得るには、プロンプト内で画像はテキストの前に、音声はテキストの後に配置してください。詳しくは<a href="https://huggingface.co/google/gemma-4-E2B">Gemma 4のモデルカード</a>の「Modality order」を参照してください。</p>
 <h3>メッセージ構造体で入力</h3>
 <p>メッセージのcontentに<code>&lt;__media__&gt;</code>を書き、その位置に入れる画像・音声を、メッセージのメディア一覧に同じ順番で指定します。メディアの種類は<code>&quot;image&quot;</code>または<code>&quot;audio&quot;</code>です。</p>
-<pre><code class="language-json">{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;この画像について説明してください。 &lt;__media__&gt;&quot;,
+<pre><code class="language-json">{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;&lt;__media__&gt; この画像について説明してください。&quot;,
  &quot;media_data&quot;: [{&quot;media_type&quot;: &quot;image&quot;, &quot;file_path&quot;: &quot;/path/to/image.jpg&quot;}]}
 </code></pre>
 <p>上記は概念を示す例です。各言語での書き方は、下のサンプルを参照してください。</p>
 <h3>JSON履歴で入力</h3>
 <p>画像・音声は、userのcontent配列にtextと並べて順番に指定します。各言語とも、このJSON（またはそれに相当する配列・辞書）を渡します。</p>
 <pre><code class="language-json">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[
-  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;この画像と音声について説明してください。&quot;},
   {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},
+  {&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;この画像と音声について説明してください。&quot;},
   {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}
 ]}]
 </code></pre>
@@ -155,7 +157,7 @@ static int describe_image(AILIALLM* llm) {
     media.file_path = &quot;/path/to/image.jpg&quot;; // dataとdata_sizeでバッファも指定可
     AILIALLMMultimodalChatMessage message = {};
     message.role = &quot;user&quot;;
-    message.content = &quot;この画像について説明してください。 &lt;__media__&gt;&quot;;
+    message.content = &quot;&lt;__media__&gt; この画像について説明してください。&quot;;
     message.media_data = &amp;media;
     message.media_count = 1;
     int status = ailiaLLMSetMultimodalPrompt(llm, &amp;message, 1);
@@ -212,8 +214,8 @@ static int open_projector(AILIALLM* llm) {
 
 static int describe_image_json(AILIALLM* llm) {
     json messages = json::array({{{&quot;role&quot;, &quot;user&quot;}, {&quot;content&quot;, json::array({
-        {{&quot;type&quot;, &quot;text&quot;}, {&quot;text&quot;, &quot;この画像について説明してください。&quot;}},
-        {{&quot;type&quot;, &quot;image&quot;}, {&quot;file_path&quot;, &quot;/path/to/image.jpg&quot;}}
+        {{&quot;type&quot;, &quot;image&quot;}, {&quot;file_path&quot;, &quot;/path/to/image.jpg&quot;}},
+        {{&quot;type&quot;, &quot;text&quot;}, {&quot;text&quot;, &quot;この画像について説明してください。&quot;}}
     })}}});
     std::string input = messages.dump();
     int status = ailiaLLMSetPromptJson(llm, input.c_str());
@@ -265,7 +267,7 @@ fun describeImage(modelPath: String, mmprojPath: String, imagePath: String): Str
         check(llm.getMultimodalCapabilities().visionSupport) { &quot;画像入力に対応していません&quot; }
         val message = AiliaLLMMultimodalChatMessage(
             &quot;user&quot;,
-            &quot;この画像について説明してください。 &lt;__media__&gt;&quot;,
+            &quot;&lt;__media__&gt; この画像について説明してください。&quot;,
             AiliaLLMMediaData(&quot;image&quot;, filePath = imagePath) // 音声は &quot;audio&quot;
         )
         llm.setPrompt(arrayOf(message))
@@ -292,7 +294,7 @@ String describeImage(String modelPath, String mmprojPath, String imagePath) {
     llm.setPrompt([
       {
         &#x27;role&#x27;: &#x27;user&#x27;,
-        &#x27;content&#x27;: &#x27;この画像について説明してください。 &lt;__media__&gt;&#x27;,
+        &#x27;content&#x27;: &#x27;&lt;__media__&gt; この画像について説明してください。&#x27;,
         &#x27;media_data&#x27;: &lt;Map&lt;String, dynamic&gt;&gt;[
           {&#x27;media_type&#x27;: &#x27;image&#x27;, &#x27;file_path&#x27;: imagePath}, // 音声は &#x27;audio&#x27;
         ],
@@ -321,7 +323,7 @@ if not model.get_multimodal_capabilities()[&quot;vision&quot;]:
 
 messages = [{
     &quot;role&quot;: &quot;user&quot;,
-    &quot;content&quot;: &quot;この画像について説明してください。 &lt;__media__&gt;&quot;,
+    &quot;content&quot;: &quot;&lt;__media__&gt; この画像について説明してください。&quot;,
     &quot;media_data&quot;: [{&quot;media_type&quot;: &quot;image&quot;, &quot;file_path&quot;: &quot;/path/to/image.jpg&quot;}],  # 音声は &quot;audio&quot;
 }]
 for delta in model.generate(messages):
@@ -353,7 +355,7 @@ public static class MultimodalSample
                 new AiliaLLMMultimodalChatMessage
                 {
                     role = &quot;user&quot;,
-                    content = &quot;この画像について説明してください。 &lt;__media__&gt;&quot;,
+                    content = &quot;&lt;__media__&gt; この画像について説明してください。&quot;,
                     media_data = new List&lt;AiliaLLMMediaData&gt;
                     {
                         new AiliaLLMMediaData { media_type = &quot;image&quot;, file_path = imagePath } // 音声は &quot;audio&quot;
