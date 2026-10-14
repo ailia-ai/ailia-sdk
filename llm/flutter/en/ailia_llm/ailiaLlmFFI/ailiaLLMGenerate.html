@@ -73,24 +73,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 生成を行います。
-@param llm LLMオブジェクトポインタ
-@param done 生成が完了したか
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-デコードした結果はailiaLLMGetDeltaText APIで取得します。
-ailiaLLMGenerateを呼び出すたびに1トークンずつデコードします。
-doneは0か1を取ります。doneが1の場合、生成完了となります。</p>
-<p>~english
-@brief Perform generate
-@param llm A LLM instance pointer
-@param done Generation complete?
-@return
-If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
-@details
-The decoded result is obtained through the ailiaLLMGetDeltaText API.
+  <p>Perform generate</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: A LLM instance pointer</li>
+<li><code>done</code>: Generation complete?</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>The decoded result is obtained through the ailiaLLMGetDeltaText API.
 Each call to ailiaLLMGenerate decodes one token at a time.
 The value of done is 0 or 1. If done is 1, the generation is complete.</p>
 </section>
@@ -141,7 +132,7 @@ The value of done is 0 or 1. If done is 1, the generation is complete.</p>
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

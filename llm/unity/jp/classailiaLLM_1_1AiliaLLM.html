@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.0.0</span>
+   &#160;<span id="projectnumber">1.5.1.0</span>
    </div>
   </td>
  </tr>
@@ -95,6 +95,9 @@ $(function() {
 <tr class="memitem:a95e5f66e1c4556c8506bff1197bd05d2"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a95e5f66e1c4556c8506bff1197bd05d2">ailiaLLMOpenModelFile</a> (IntPtr llm, string path, uint n_ctx)</td></tr>
 <tr class="memdesc:a95e5f66e1c4556c8506bff1197bd05d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">モデルファイルを読み込みます。  <a href="classailiaLLM_1_1AiliaLLM.html#a95e5f66e1c4556c8506bff1197bd05d2">[詳解]</a><br /></td></tr>
 <tr class="separator:a95e5f66e1c4556c8506bff1197bd05d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8e0e3835162a45932fba918f8088e42"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#ab8e0e3835162a45932fba918f8088e42">ailiaLLMOpenMtpModelFile</a> (IntPtr llm, string path, uint n_draft)</td></tr>
+<tr class="memdesc:ab8e0e3835162a45932fba918f8088e42"><td class="mdescLeft">&#160;</td><td class="mdescRight">MTPドラフトモデルを開き、生成をドラフト・本体検証経路に切り替えます。  <a href="classailiaLLM_1_1AiliaLLM.html#ab8e0e3835162a45932fba918f8088e42">[詳解]</a><br /></td></tr>
+<tr class="separator:ab8e0e3835162a45932fba918f8088e42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e035d98b06ee69b970aa8a629ff2239"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a1e035d98b06ee69b970aa8a629ff2239">ailiaLLMSetSamplingParams</a> (IntPtr llm, uint top_k, float top_p, float temp, uint dist)</td></tr>
 <tr class="memdesc:a1e035d98b06ee69b970aa8a629ff2239"><td class="mdescLeft">&#160;</td><td class="mdescRight">サンプリングのパラメータを設定します。  <a href="classailiaLLM_1_1AiliaLLM.html#a1e035d98b06ee69b970aa8a629ff2239">[詳解]</a><br /></td></tr>
 <tr class="separator:a1e035d98b06ee69b970aa8a629ff2239"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,6 +156,9 @@ $(function() {
 <tr class="separator:a2f475287fa0438202fced2fed506fa74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11237d0ad99269e220d9e822330d9b35"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a11237d0ad99269e220d9e822330d9b35">ailiaLLMSetBackend</a> (IntPtr llm, uint backend_idx)</td></tr>
 <tr class="separator:a11237d0ad99269e220d9e822330d9b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa589933d546322e5bf2cc3f8363470e3"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#aa589933d546322e5bf2cc3f8363470e3">ailiaLLMSetNumThreads</a> (IntPtr llm, uint n_threads)</td></tr>
+<tr class="memdesc:aa589933d546322e5bf2cc3f8363470e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">モデルを開く前にCPUスレッド数を設定します。  <a href="classailiaLLM_1_1AiliaLLM.html#aa589933d546322e5bf2cc3f8363470e3">[詳解]</a><br /></td></tr>
+<tr class="separator:aa589933d546322e5bf2cc3f8363470e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a7432fef0b41ea6ff5cc889efece1f0f7">ailiaLLMDestroy</a> (IntPtr llm)</td></tr>
 <tr class="memdesc:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">LLMオブジェクトを破棄します。  <a href="classailiaLLM_1_1AiliaLLM.html#a7432fef0b41ea6ff5cc889efece1f0f7">[詳解]</a><br /></td></tr>
 <tr class="separator:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -835,6 +841,51 @@ $(function() {
 
 </div>
 </div>
+<a id="ab8e0e3835162a45932fba918f8088e42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8e0e3835162a45932fba918f8088e42">&#9670;&nbsp;</a></span>ailiaLLMOpenMtpModelFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMOpenMtpModelFile </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>n_draft</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MTPドラフトモデルを開き、生成をドラフト・本体検証経路に切り替えます。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLMオブジェクト </td></tr>
+    <tr><td class="paramname">path</td><td>対応するGemma 4 assistant GGUF、またはQNN本体用assistant .qnnのパス </td></tr>
+    <tr><td class="paramname">n_draft</td><td>ドラフトトークン数（1以上）。QNNでは最大3。</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>本体を開いた後、プロンプト設定前に一度呼び出します。 CPU/GPU Gemma 4 GGUFとQNNのテキスト生成に対応します。 指定数のドラフトと本体の1トークンを合わせて検証します。 </p>
+
+</div>
+</div>
 <a id="ab4b15e5f0cf6582a8f8884f297829198"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab4b15e5f0cf6582a8f8884f297829198">&#9670;&nbsp;</a></span>ailiaLLMOpenMultimodalProjectorFile()</h2>
 
@@ -945,6 +996,45 @@ $(function() {
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
 <p>マルチモーダル対応のプロンプトを設定します。メッセージのcontentに&lt;<b>media</b>&gt;プレースホルダーを含め、 対応するメディアデータをmedia_dataに設定してください。 例: "この画像について説明してください: &lt;__media__&gt;" </p>
+
+</div>
+</div>
+<a id="aa589933d546322e5bf2cc3f8363470e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa589933d546322e5bf2cc3f8363470e3">&#9670;&nbsp;</a></span>ailiaLLMSetNumThreads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMSetNumThreads </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>n_threads</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>モデルを開く前にCPUスレッド数を設定します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLMインスタンス </td></tr>
+    <tr><td class="paramname">n_threads</td><td>スレッド数（0は自動設定）。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功時はAILIA_LLM_STATUS_SUCCESS。モデルを開いた後はAILIA_LLM_STATUS_INVALID_STATE。</dd></dl>
+<p>未指定の場合も0として扱います。Androidでは高効率コア（高性能側のbig/prime）の数を使用します。 取得できない場合は既存のコア数判定を使用します。本体のDecode/Prefill、assistant、VLM/ALMのCPU推論スレッド数に同じ値を使用します。 </p>
 
 </div>
 </div>

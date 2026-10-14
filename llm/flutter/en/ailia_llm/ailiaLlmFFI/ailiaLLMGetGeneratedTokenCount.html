@@ -73,22 +73,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 生成したトークンの数を取得します。
-@param llm   LLMオブジェクトポインタ
-@param cnt   生成したトークンの数
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaLLMGenerateを呼び出した後に呼び出し可能です。</p>
-<p>~english
-@brief Gets the count of prompt token.
-@param llm   A LLM instance pointer
-@param cnt   The count of generated token
-@return
-If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
-@details
-It can be called after calling ailiaLLMGenerate.</p>
+  <p>Gets the count of prompt token.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: A LLM instance pointer</li>
+<li><code>cnt</code>: The count of generated token</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>It can be called after calling ailiaLLMGenerate.</p>
 </section>
 
 
@@ -137,7 +130,7 @@ It can be called after calling ailiaLLMGenerate.</p>
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

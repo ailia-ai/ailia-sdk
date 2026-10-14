@@ -72,16 +72,11 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief モデル読み込み・プロンプト設定・推論APIの直近のエラー詳細を返します。
-@return オブジェクト所有のUTF-8文字列。成功後は空文字列です。
-@remark 次のモデル読み込み・プロンプト設定・推論API呼び出し、またはDestroyまで有効です。
-QNNのエラーでは元の数値コード、失敗したAPI、取得可能な対象名を含みます。
-同じオブジェクトへの並列API呼び出しはサポートしません。
-~english
-@brief Returns details of the last model-open, prompt-setup or generation error.
-@return Object-owned UTF-8 string, empty after a successful operation.
-@remark Valid until the next model-open, prompt-setup, generation call or Destroy.
+  <p>Returns details of the last model-open, prompt-setup or generation error.</p>
+<p>Returns:</p>
+<p>Object-owned UTF-8 string, empty after a successful operation.</p>
+<p>Notes:</p>
+<p>Valid until the next model-open, prompt-setup, generation call or Destroy.
 QNN failures include the original code, failing API and object name when available.
 Concurrent calls on the same object are not supported. A null handle returns
 a static diagnostic string. This getter does not load the QNN plug-in.</p>
@@ -131,7 +126,7 @@ a static diagnostic string. This getter does not load the QNN plug-in.</p>
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

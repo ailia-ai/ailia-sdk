@@ -61,6 +61,11 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>Manages a native LLM instance for text, image, audio and tool generation.</p>
+<p>Call <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a>, set a prompt, then call <a href="../ailia_llm_model/AiliaLLMModel/generate.html">generate</a> until it returns null.
+Release the instance with <a href="../ailia_llm_model/AiliaLLMModel/close.html">close</a> when it is no longer needed.</p>
+</section>
 
 
 
@@ -73,7 +78,7 @@
           <span class="name"><a href="../ailia_llm_model/AiliaLLMModel/AiliaLLMModel.html">AiliaLLMModel</a></span><span class="signature">()</span>
         </dt>
         <dd>
-          
+          Creates an unopened model; call <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a> before setting prompts or generating.
         </dd>
     </dl>
   </section>
@@ -143,7 +148,8 @@
 
 </dt>
 <dd>
-  Free memory allocated natively.
+  Destroys the native model and releases its instance handle and projector.
+Safe to call repeatedly, including before <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a>.
   
 
 </dd>
@@ -156,7 +162,8 @@
 
 </dt>
 <dd>
-  
+  Returns whether the latest prompt submission or generation hit its context
+limit. Initially false; prompt submission and generation update this flag.
   
 
 </dd>
@@ -169,8 +176,7 @@
 
 </dt>
 <dd>
-  Ask the model to generate the next token.
-This function properly handle incomplete multi-byte utf8 character.
+  Advances generation and returns the newly decoded text fragment.
   
 
 </dd>
@@ -183,7 +189,8 @@ This function properly handle incomplete multi-byte utf8 character.
 
 </dt>
 <dd>
-  Detail of the last failed native call on this model.
+  Returns the native error detail for this model.
+Returns an empty string if the instance or its error detail is unavailable.
   
 
 </dd>
@@ -197,6 +204,8 @@ This function properly handle incomplete multi-byte utf8 character.
 </dt>
 <dd>
   Returns <code>vision</code> and <code>audio</code> support flags for the opened projector.
+Call after <a href="../ailia_llm_model/AiliaLLMModel/openMultimodalProjectorFile.html">openMultimodalProjectorFile</a> to discover supported media types.
+Throws if the model is unopened or the native capability query fails.
   
 
 </dd>
@@ -209,7 +218,7 @@ This function properly handle incomplete multi-byte utf8 character.
 
 </dt>
 <dd>
-  Gets buffered assistant JSON after generation; no delta concatenation needed.
+  Returns the buffered assistant message as a decoded JSON object.
   
 
 </dd>
@@ -222,7 +231,8 @@ This function properly handle incomplete multi-byte utf8 character.
 
 </dt>
 <dd>
-  
+  Returns the number of tokens in <code>text</code> using the opened model's tokenizer.
+Call after <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a>; throws if the model is unopened.
   
 
 </dd>
@@ -254,7 +264,32 @@ fallback, while .qnn selects HTP (QNN). Explicit Metal/GPU selection
 still fits layers to available memory, but requires some GPU offload.
 CPU/GPU for .qnn or HTP for GGUF is rejected.
 Use <a href="../ailia_llm_model/AiliaLLMModel/openMultimodalProjectorFile.html">openMultimodalProjectorFile</a> afterwards for vision or audio.
+<code>modelPath</code> is the model file path; <code>nCtx</code> is the context size in tokens.
 A context size of zero selects the package/model default.
+<code>backend</code> accepts a name from <a href="../ailia_llm_model/AiliaLLMModel/getBackendList.html">getBackendList</a> or a backend constant;
+a constant selects the first matching device, and an empty string selects
+automatically. Any existing instance is closed before opening the model.
+Throws if the backend is unavailable or native initialization fails.
+  
+
+</dd>
+
+        <dt id="openMtpModel" class="callable">
+  <span class="name"><a href="../ailia_llm_model/AiliaLLMModel/openMtpModel.html">openMtpModel</a></span><span class="signature">(<wbr><span class="parameter" id="openMtpModel-param-assistantPath"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">assistantPath</span>, </span><span class="parameter" id="openMtpModel-param-nDraft"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">nDraft</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Open an MTP assistant and enable draft/target verification decoding.
+Use a matching Gemma 4 assistant GGUF, or assistant .qnn for a QNN target.
+Call once after <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a> and before setting a prompt.
+Supports text generation with CPU/GPU Gemma 4 GGUF and QNN models.
+<code>assistantPath</code> is the assistant model file path.
+<code>nDraft</code> is required: must be at least 1; QNN supports up to 3 draft tokens.
+Throws an <a href="https://api.flutter.dev/flutter/dart-core/ArgumentError-class.html">ArgumentError</a> if <code>nDraft</code> is not a positive unsigned 32-bit
+integer, or an <a href="https://api.flutter.dev/flutter/dart-core/Exception-class.html">Exception</a> if the target is unopened or loading fails.
   
 
 </dd>
@@ -269,19 +304,28 @@ A context size of zero selects the package/model default.
 <dd>
   Opens a matching vision/audio projector after <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a>. Accepts a GGUF
 projector or a self-contained, SoC-specific QNN projector package.
+<code>mmprojPath</code> is the projector file path. Load it before submitting media
+with <a href="../ailia_llm_model/AiliaLLMModel/setPrompt.html">setPrompt</a> or <a href="../ailia_llm_model/AiliaLLMModel/setPromptJson.html">setPromptJson</a>.
+Throws if the model is unopened or projector loading fails.
   
 
 </dd>
 
-        <dt id="setMultimodalPrompt" class="callable">
-  <span class="name deprecated"><a class="deprecated" href="../ailia_llm_model/AiliaLLMModel/setMultimodalPrompt.html">setMultimodalPrompt</a></span><span class="signature">(<wbr><span class="parameter" id="setMultimodalPrompt-param-messages"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">messages</span></span>)
+        <dt id="setNumThreads" class="callable">
+  <span class="name"><a href="../ailia_llm_model/AiliaLLMModel/setNumThreads.html">setNumThreads</a></span><span class="signature">(<wbr><span class="parameter" id="setNumThreads-param-nThreads"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">nThreads</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
 
 </dt>
 <dd>
-  Set multimodal prompt for generation with media attachments.
+  Sets the CPU thread count before <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a>.
+<code>nThreads</code> is 0 for automatic selection, which is also the default.
+On Android, automatic selection uses performance (big/prime) cores,
+falling back to the existing core-count heuristic if topology is unavailable.
+Target decode/prefill, assistant and VLM/ALM CPU inference threads share this value.
+Throws an <a href="https://api.flutter.dev/flutter/dart-core/ArgumentError-class.html">ArgumentError</a> for values outside 0..INT_MAX, or an <a href="https://api.flutter.dev/flutter/dart-core/Exception-class.html">Exception</a>
+if the model is already open or the native operation fails.
   
 
 </dd>
@@ -294,7 +338,7 @@ projector or a self-contained, SoC-specific QNN projector package.
 
 </dt>
 <dd>
-  
+  Sets the complete conversation history for text or multimodal generation.
   
 
 </dd>
@@ -310,6 +354,11 @@ projector or a self-contained, SoC-specific QNN projector package.
   Sets structured JSON history, required with tools. User content arrays
 support text and image or audio with file_path or base64 data. Load a
 matching projector first; submit image and audio in separate prompts.
+<code>messages</code> is the complete conversation history, including assistant tool
+calls and tool results with matching <code>tool_call_id</code> values when applicable.
+Resets streaming text on success. Throws if the model is unopened, JSON
+encoding fails, or the native operation fails (including context overflow).
+Use <a href="../ailia_llm_model/AiliaLLMModel/contextFull.html">contextFull</a> to inspect whether the prompt exceeded the context.
   
 
 </dd>
@@ -322,7 +371,7 @@ matching projector first; submit image and audio in separate prompts.
 
 </dt>
 <dd>
-  
+  Sets token sampling parameters after <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a> and before setting a prompt.
   
 
 </dd>
@@ -337,7 +386,9 @@ matching projector first; submit image and audio in separate prompts.
 <dd>
   Enable or disable thinking (reasoning output).
 Controls whether thinking models (e.g. Gemma4) output their reasoning process.
-Must be called before setPrompt.
+<code>enable</code> selects whether reasoning output is enabled.
+Call after <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a> and before <a href="../ailia_llm_model/AiliaLLMModel/setPrompt.html">setPrompt</a> or <a href="../ailia_llm_model/AiliaLLMModel/setPromptJson.html">setPromptJson</a>.
+Throws if the model is unopened or the native operation fails.
   
 
 </dd>
@@ -404,7 +455,9 @@ Must be called before setPrompt.
 
 </dt>
 <dd>
-  
+  Returns whether the Vulkan loader reports support for Vulkan 1.1 or later.
+Returns false if the loader or version query is unavailable or fails.
+This checks the loader version, not a particular device's capabilities.
   
 
 </dd>
@@ -417,7 +470,7 @@ Must be called before setPrompt.
 
 </dt>
 <dd>
-  
+  Returns a cached, unmodifiable list of available backend display names.
   
 
 </dd>
@@ -470,7 +523,7 @@ a model. Throws if QNN is unavailable or the device is unsupported.
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

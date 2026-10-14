@@ -73,19 +73,13 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief OpenAI互換のツール定義JSON配列を設定します。NULL/空文字列/空配列で解除します。
-@param llm LLMオブジェクト
-@param tools_json UTF-8のツール定義
-@details tools設定中はSetPrompt/SetMultimodalPromptがINVALID_STATEを返します。
-最初のuser入力からSetPromptJsonを使用し、Generateで生成後、GetResponseJsonでassistant JSONを取得します。
-deltaはプレビュー用です。アプリ側で連結する必要はありません。結果はtool_call_idで返します。
-設定変更後は新しいプロンプトを設定してください。不正な定義はINVALID_ARGUMENTです。
-~english
-@brief Sets OpenAI-compatible tool definitions. NULL, empty string or array clears tools.
-@param llm LLM instance
-@param tools_json UTF-8 tool definition array
-@details SetPrompt/SetMultimodalPrompt return INVALID_STATE while tools are configured.
+  <p>Sets OpenAI-compatible tool definitions. NULL, empty string or array clears tools.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: LLM instance</li>
+<li><code>tools_json</code>: UTF-8 tool definition array</li>
+</ul>
+<p>SetPrompt/SetMultimodalPrompt return INVALID_STATE while tools are configured.
 Use SetPromptJson from the first user input, generate, then retrieve assistant JSON with GetResponseJson.
 Deltas are optional previews; no concatenation is required. Return results using tool_call_id.
 Set a new prompt after changing tools. Invalid definitions return INVALID_ARGUMENT.</p>
@@ -137,7 +131,7 @@ Set a new prompt after changing tools. Invalid definitions return INVALID_ARGUME
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   
