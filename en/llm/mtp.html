@@ -181,6 +181,9 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3); 
     </div>
     <p>The assistant must match the main model's vocabulary and hidden size. Pair an E2B main model with the E2B assistant, and an E4B main model with the E4B assistant.</p>
 
+    <h2>Evaluation App</h2>
+    <p>The MTP-enabled evaluation APK for Android is <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v261014">ailia-models-kotlin-qnn.apk</a>.</p>
+
     <h2>API for Opening the Draft Model (Assistant)</h2>
     <p>Open the assistant with <code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code>. As with <code>ailiaLLMOpenModelFileA</code> / <code>W</code> for the main model, choose the variant according to the path string type.</p>
     <pre><code class="language-c">int ailiaLLMOpenMtpModelFileA(struct AILIALLM *llm, const char *path, unsigned int n_draft);

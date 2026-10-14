@@ -181,6 +181,9 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3); 
     </div>
     <p>Assistant は本体と語彙・hidden サイズが一致している必要があります。E2B の本体には E2B の Assistant、E4B の本体には E4B の Assistant を組み合わせてください。</p>
 
+    <h2>評価版アプリ</h2>
+    <p>MTP に対応した Android 向けの評価版 APK は <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v261014">ailia-models-kotlin-qnn.apk</a> です。</p>
+
     <h2>ドラフトモデル（Assistant）を開く API</h2>
     <p>Assistant は <code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code> で開きます。本体の <code>ailiaLLMOpenModelFileA</code> / <code>W</code> と同様に、パスの文字列の種類に応じて使い分けます。</p>
     <pre><code class="language-c">int ailiaLLMOpenMtpModelFileA(struct AILIALLM *llm, const char *path, unsigned int n_draft);
