@@ -142,7 +142,7 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3); 
     <ul>
       <li>ailia LLM 1.5.1 以降が必要です。<code>libailia_llm.so</code> と <code>libailia_llm_qnn.so</code>（Windows では <code>ailia_llm.dll</code> と <code>ailia_llm_qnn.dll</code>）は同じバージョンを組み合わせて配置してください。</li>
       <li>プロンプト設定（<code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code>）と <code>ailiaLLMGenerate</code> の使い方は変わりません。<code>ailiaLLMGenerate</code> は MTP でも 1 回の呼び出しで 1 トークンを返し、内部で確定済みのトークンを順に返します。</li>
-      <li>画像・音声入力の mmproj（<code>-mmproj.qnn</code>）は ailia LLM 1.5.0 向けのファイルをそのまま使用できます。</li>
+      <li>画像・音声入力には、本体と同じ SoC・モデル・精度の mmproj（<code>-mmproj.qnn</code>）を使用します。</li>
     </ul>
 
     <h2>モデルのダウンロード</h2>
@@ -151,21 +151,27 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3); 
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>SoC</th><th>端末の例</th><th>モデル</th><th>ファイル</th><th>内容</th><th>サイズ</th></tr>
-      <tr><td rowspan="2">sm8475<br>（Hexagon v69 / FP16）</td><td rowspan="2">Snapdragon 8+ Gen 1</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mtp.qnn">gemma4-e2b-sm8475-fp16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.60 GB</td></tr>
+      <tr><td rowspan="3">sm8475<br>（Hexagon v69 / FP16）</td><td rowspan="3">Snapdragon 8+ Gen 1</td><td rowspan="3">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mtp.qnn">gemma4-e2b-sm8475-fp16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.61 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mtp-assistant.qnn">gemma4-e2b-sm8475-fp16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">44.6 MB</td></tr>
-      <tr><td rowspan="4">sm7635<br>（Hexagon v73 / Int16）</td><td rowspan="4">Snapdragon 7s Gen 3</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mtp.qnn">gemma4-e2b-sm7635-int16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.61 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mmproj.qnn">gemma4-e2b-sm8475-fp16-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">1.10 GB</td></tr>
+      <tr><td rowspan="6">sm7635<br>（Hexagon v73 / Int16）</td><td rowspan="6">Snapdragon 7s Gen 3</td><td rowspan="3">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mtp.qnn">gemma4-e2b-sm7635-int16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.61 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mtp-assistant.qnn">gemma4-e2b-sm7635-int16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">46.8 MB</td></tr>
-      <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mtp.qnn">gemma4-e4b-sm7635-int16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">5.56 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mmproj.qnn">gemma4-e2b-sm7635-int16-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">0.63 GB</td></tr>
+      <tr><td rowspan="3">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mtp.qnn">gemma4-e4b-sm7635-int16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">5.56 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mtp-assistant.qnn">gemma4-e4b-sm7635-int16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">47.5 MB</td></tr>
-      <tr><td rowspan="4">sc8380xp<br>（Hexagon v73 / FP16）</td><td rowspan="4">Surface（Snapdragon X Plus）</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mtp.qnn">gemma4-e2b-sc8380xp-fp16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.63 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mmproj.qnn">gemma4-e4b-sm7635-int16-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">0.63 GB</td></tr>
+      <tr><td rowspan="6">sc8380xp<br>（Hexagon v73 / FP16）</td><td rowspan="6">Surface（Snapdragon X Plus）</td><td rowspan="3">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mtp.qnn">gemma4-e2b-sc8380xp-fp16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.63 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mtp-assistant.qnn">gemma4-e2b-sc8380xp-fp16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">46.6 MB</td></tr>
-      <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mtp.qnn">gemma4-e4b-sc8380xp-fp16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">5.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mmproj.qnn">gemma4-e2b-sc8380xp-fp16-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">1.09 GB</td></tr>
+      <tr><td rowspan="3">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mtp.qnn">gemma4-e4b-sc8380xp-fp16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">5.61 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mtp-assistant.qnn">gemma4-e4b-sc8380xp-fp16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">47.0 MB</td></tr>
-      <tr><td rowspan="2">qcs6490<br>（Hexagon v68 / Int16）</td><td rowspan="2">QCS6490</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp.qnn">gemma4-e2b-qcs6490-int16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mmproj.qnn">gemma4-e4b-sc8380xp-fp16-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">1.10 GB</td></tr>
+      <tr><td rowspan="3">qcs6490<br>（Hexagon v68 / Int16）</td><td rowspan="3">QCS6490</td><td rowspan="3">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp.qnn">gemma4-e2b-qcs6490-int16-mtp.qnn</a></td><td>本体（AR-256 / AR-4 / AR-1）</td><td class="num">3.60 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp-assistant.qnn">gemma4-e2b-qcs6490-int16-mtp-assistant.qnn</a></td><td>Assistant（ドラフトモデル）</td><td class="num">44.7 MB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mmproj.qnn">gemma4-e2b-qcs6490-int16-mmproj.qnn</a></td><td>画像 / 音声エンコーダ（mmproj）</td><td class="num">0.63 GB</td></tr>
     </table>
     </div>
-    <p>画像・音声入力には、<a href="qnn.html">QNN ガイド</a>に掲載している同じ SoC・モデルの <code>-mmproj.qnn</code>（v1.5.0）を使用します。</p>
+    <p>画像・音声入力には、本体と同じ SoC・モデル・精度の <code>-mmproj.qnn</code> を使用します。</p>
     <p>MTP 対応の本体は、Assistant を開かなければ従来どおり AR-1 で 1 トークンずつ生成します。MTP の有無を切り替える場合でも、本体ファイルは MTP 対応版の 1 つで済みます。</p>
 
     <h3>CPU</h3>
@@ -312,10 +318,10 @@ if (!llm.OpenMtpModel(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp-assis
 // 使用後は llm.Dispose();</code></pre>
 
     <h3>画像・音声入力と組み合わせる場合</h3>
-    <p>Assistant を開いた後に、同じ SoC・モデルの mmproj を開きます。プロンプトの設定方法は通常の <a href="multimodal.html">マルチモーダル ガイド</a> と同じです。</p>
+    <p>Assistant を開いた後に、同じ SoC・モデル・精度の mmproj を開きます。プロンプトの設定方法は通常の <a href="multimodal.html">マルチモーダル ガイド</a> と同じです。</p>
     <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);
 ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);
-ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
+ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-int16-mmproj.qnn");
 /* 以降は ailiaLLMSetMultimodalPrompt / ailiaLLMGenerate */</code></pre>
 
     <h2>アーキテクチャ詳細</h2>

@@ -142,7 +142,7 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3); 
     <ul>
       <li>ailia LLM 1.5.1 or later is required. Deploy <code>libailia_llm.so</code> and <code>libailia_llm_qnn.so</code> (<code>ailia_llm.dll</code> and <code>ailia_llm_qnn.dll</code> on Windows) from the same version.</li>
       <li>Setting prompts (<code>ailiaLLMSetPrompt</code> / <code>ailiaLLMSetMultimodalPrompt</code>) and calling <code>ailiaLLMGenerate</code> work the same as before. Even with MTP, each <code>ailiaLLMGenerate</code> call returns one token, delivering committed tokens in order from an internal queue.</li>
-      <li>The mmproj (<code>-mmproj.qnn</code>) for image and audio input from ailia LLM 1.5.0 can be used as is.</li>
+      <li>For image and audio input, use the mmproj (<code>-mmproj.qnn</code>) for the same SoC, model and precision as the main model.</li>
     </ul>
 
     <h2>Model Download</h2>
@@ -151,21 +151,27 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3); 
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>SoC</th><th>Example device</th><th>Model</th><th>File</th><th>Contents</th><th>Size</th></tr>
-      <tr><td rowspan="2">sm8475<br>(Hexagon v69 / FP16)</td><td rowspan="2">Snapdragon 8+ Gen 1</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mtp.qnn">gemma4-e2b-sm8475-fp16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.60 GB</td></tr>
+      <tr><td rowspan="3">sm8475<br>(Hexagon v69 / FP16)</td><td rowspan="3">Snapdragon 8+ Gen 1</td><td rowspan="3">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mtp.qnn">gemma4-e2b-sm8475-fp16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.61 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mtp-assistant.qnn">gemma4-e2b-sm8475-fp16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">44.6 MB</td></tr>
-      <tr><td rowspan="4">sm7635<br>(Hexagon v73 / Int16)</td><td rowspan="4">Snapdragon 7s Gen 3</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mtp.qnn">gemma4-e2b-sm7635-int16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.61 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm8475-fp16-mmproj.qnn">gemma4-e2b-sm8475-fp16-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">1.10 GB</td></tr>
+      <tr><td rowspan="6">sm7635<br>(Hexagon v73 / Int16)</td><td rowspan="6">Snapdragon 7s Gen 3</td><td rowspan="3">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mtp.qnn">gemma4-e2b-sm7635-int16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.61 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mtp-assistant.qnn">gemma4-e2b-sm7635-int16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">46.8 MB</td></tr>
-      <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mtp.qnn">gemma4-e4b-sm7635-int16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">5.56 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sm7635-int16-mmproj.qnn">gemma4-e2b-sm7635-int16-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.63 GB</td></tr>
+      <tr><td rowspan="3">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mtp.qnn">gemma4-e4b-sm7635-int16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">5.56 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mtp-assistant.qnn">gemma4-e4b-sm7635-int16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">47.5 MB</td></tr>
-      <tr><td rowspan="4">sc8380xp<br>(Hexagon v73 / FP16)</td><td rowspan="4">Surface (Snapdragon X Plus)</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mtp.qnn">gemma4-e2b-sc8380xp-fp16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.63 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sm7635-int16-mmproj.qnn">gemma4-e4b-sm7635-int16-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.63 GB</td></tr>
+      <tr><td rowspan="6">sc8380xp<br>(Hexagon v73 / FP16)</td><td rowspan="6">Surface (Snapdragon X Plus)</td><td rowspan="3">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mtp.qnn">gemma4-e2b-sc8380xp-fp16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.63 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mtp-assistant.qnn">gemma4-e2b-sc8380xp-fp16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">46.6 MB</td></tr>
-      <tr><td rowspan="2">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mtp.qnn">gemma4-e4b-sc8380xp-fp16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">5.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-sc8380xp-fp16-mmproj.qnn">gemma4-e2b-sc8380xp-fp16-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">1.09 GB</td></tr>
+      <tr><td rowspan="3">E4B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mtp.qnn">gemma4-e4b-sc8380xp-fp16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">5.61 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mtp-assistant.qnn">gemma4-e4b-sc8380xp-fp16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">47.0 MB</td></tr>
-      <tr><td rowspan="2">qcs6490<br>(Hexagon v68 / Int16)</td><td rowspan="2">QCS6490</td><td rowspan="2">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp.qnn">gemma4-e2b-qcs6490-int16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.60 GB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e4b-sc8380xp-fp16-mmproj.qnn">gemma4-e4b-sc8380xp-fp16-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">1.10 GB</td></tr>
+      <tr><td rowspan="3">qcs6490<br>(Hexagon v68 / Int16)</td><td rowspan="3">QCS6490</td><td rowspan="3">E2B</td><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp.qnn">gemma4-e2b-qcs6490-int16-mtp.qnn</a></td><td>Main model (AR-256 / AR-4 / AR-1)</td><td class="num">3.60 GB</td></tr>
       <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mtp-assistant.qnn">gemma4-e2b-qcs6490-int16-mtp-assistant.qnn</a></td><td>Assistant (draft model)</td><td class="num">44.7 MB</td></tr>
+      <tr><td><a href="https://storage.googleapis.com/ailia-models/gemma/qnn/v1.5.1/gemma4-e2b-qcs6490-int16-mmproj.qnn">gemma4-e2b-qcs6490-int16-mmproj.qnn</a></td><td>Image / audio encoder (mmproj)</td><td class="num">0.63 GB</td></tr>
     </table>
     </div>
-    <p>For image and audio input, use the <code>-mmproj.qnn</code> (v1.5.0) for the same SoC and model listed in the <a href="qnn.html">QNN Guide</a>.</p>
+    <p>For image and audio input, use the <code>-mmproj.qnn</code> for the same SoC, model and precision as the main model.</p>
     <p>If the assistant is not opened, the MTP-capable main model generates one token at a time with AR-1 as before. A single MTP-capable main model file is enough even if you switch MTP on and off.</p>
 
     <h3>CPU</h3>
@@ -312,10 +318,10 @@ if (!llm.OpenMtpModel(Path.Combine(dir, $"gemma4-e2b-{soc}-{precision}-mtp-assis
 // Call llm.Dispose() when done</code></pre>
 
     <h3>Combining with image and audio input</h3>
-    <p>Open the mmproj for the same SoC and model after opening the assistant. Prompts are set in the same way as in the <a href="multimodal.html">Multimodal Guide</a>.</p>
+    <p>Open the mmproj for the same SoC, model and precision after opening the assistant. Prompts are set in the same way as in the <a href="multimodal.html">Multimodal Guide</a>.</p>
     <pre><code class="language-c">ailiaLLMOpenModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp.qnn", 0);
 ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);
-ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-mmproj.qnn");
+ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-int16-mmproj.qnn");
 /* then ailiaLLMSetMultimodalPrompt / ailiaLLMGenerate */</code></pre>
 
     <h2>Architecture Details</h2>
