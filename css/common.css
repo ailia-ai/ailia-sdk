@@ -441,6 +441,24 @@ code { overflow-wrap: anywhere; }
   margin-bottom: 12px;
 }
 
+.guide-content h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 28px;
+  margin-bottom: 12px;
+  padding-left: 10px;
+  border-left: 3px solid var(--accent);
+}
+
+.guide-content h5 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
 .guide-content p {
   font-size: 15px;
   color: var(--text);

@@ -71,40 +71,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <div class="guide-content">
 
-    <p>For how MTP works and how to use it, see the <a href="mtp.html">ailia LLM MTP Guide</a>. For QNN measurements without MTP, see the <a href="qnn-bench.html">ailia LLM NPU (QNN) Benchmark</a>.</p>
+    <p>For how MTP works and how to use it, see the <a href="mtp.html">ailia LLM MTP Guide</a>.</p>
     <ul>
-      <li><a href="#summary">Summary</a></li>
-      <li><a href="#android">Android (Snapdragon 8+ Gen 1 / SM8475, Snapdragon 7s Gen 3 / SM7635)</a></li>
-      <li><a href="#windows">Windows (Snapdragon X Plus / SC8380XP, QCS6490)</a></li>
-    </ul>
-
-    <h2 id="summary">Summary</h2>
-    <ul>
-      <li>With MTP, NPU text generation decode is 1.81x (SM8475), 1.55x (SM7635), 1.71x (SC8380XP) and 1.66x (QCS6490) for E2B, and 1.85x (SC8380XP) and 1.01x (SM7635) for E4B.</li>
-      <li>With MTP, CPU (4 threads) text generation decode is 0.94x (SM8475 E2B), 1.35x (SM7635 E2B), 1.65x (SM7635 E4B), 1.27x (SC8380XP E2B), 1.68x (SC8380XP E4B) and 1.52x (QCS6490 E2B).</li>
-      <li>For audio transcription, NPU decode with MTP is 1.66x to 2.91x.</li>
-      <li>On Android, comparing both with MTP, decode on the NPU is 1.12x the CPU for E2B on SM8475 and 0.87x for E2B on SM7635. Prefill on the NPU is 3.0x to 10.4x the CPU (2,048-token input), and image and audio input TTFT on the NPU is 1/1.9 to 1/6.9 of the CPU.</li>
-      <li>On SC8380XP, decode is fastest on the CPU, and the GPU drops to 0.50x to 0.59x with MTP. Prefill for inputs of 256 tokens or more is fastest on the NPU.</li>
-      <li>On QCS6490, decode is fastest on the CPU with MTP, and the NPU with MTP is 0.58x of that. Prefill for inputs of 128 tokens or more is fastest on the NPU, and is 4.0x the CPU for a 2,048-token input.</li>
-      <li>Prefill and TTFT are almost the same with and without MTP.</li>
+      <li><a href="#android">Android</a>
+        <ul>
+          <li><a href="#sm8475">Snapdragon 8+ Gen 1 (SM8475)</a>: <a href="#sm8475-e2b">E2B</a></li>
+          <li><a href="#sm7635">Snapdragon 7s Gen 3 (SM7635)</a>: <a href="#sm7635-e2b">E2B</a> / <a href="#sm7635-e4b">E4B</a></li>
+        </ul>
+      </li>
+      <li><a href="#windows">Windows</a>
+        <ul>
+          <li><a href="#sc8380xp">Snapdragon X Plus (SC8380XP)</a>: <a href="#sc8380xp-e2b">E2B</a> / <a href="#sc8380xp-e4b">E4B</a></li>
+          <li><a href="#qcs6490">QCS6490</a>: <a href="#qcs6490-e2b">E2B</a></li>
+        </ul>
+      </li>
     </ul>
 
     <h2 id="android">Android</h2>
 
     <h3>Test Conditions</h3>
-    <p>Results for Gemma 4 on two devices. Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) uses the E2B FP16 model, and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73) uses the E2B / E4B Int16 models. The NPU main model and assistant are the v1.5.1 MTP models (W4), with QAIRT 2.47, a context length of 8192 and the AR-256 (prefill) / AR-4 (verification) / AR-1 configuration. Measured on 2026-10-12.</p>
-    <p>The CPU uses the llama.cpp path on the same device, with a GGUF main model (Q4_K_M for E2B, QAT Q4_0 for E4B) and a Q4_0 GGUF assistant. The main model, assistant and image / audio encoders all run with 4 threads. The <a href="qnn-bench.html">QNN Benchmark</a> was measured with 8 CPU threads on Android, so the CPU values differ.</p>
-    <p>For both CPU and NPU, "without MTP" runs without opening the assistant, and "with MTP" opens the assistant on the same main model (draft length 3). Each condition was measured twice in the order off → on → on → off, and the median time is shown. Each trial uses a new instance, with a 20-second gap between trials. TPS is computed from the time excluding the first output token. Sampling is greedy (temperature 0, top-k 1, top-p 1, seed 1234). The generated token sequences differ with and without MTP.</p>
-    <p>CPU usage is the process CPU time divided by the elapsed time and 8 cores, with all 8 cores fully used as 100%. Temperature and clocks were not fixed.</p>
+    <ul>
+      <li><strong>NPU</strong>: v1.5.1 MTP models (W4), QAIRT 2.47, context length 8192, AR-256 (prefill) / AR-4 (verification) / AR-1 configuration.</li>
+      <li><strong>CPU</strong>: Runs with llama.cpp (4 threads). The main model is a GGUF (Q4_K_M for E2B, QAT Q4_0 for E4B) and the assistant is a Q4_0 GGUF.</li>
+      <li><strong>MTP</strong>: "With MTP" opens the assistant (draft length 3). The acceptance rate is the fraction of assistant candidates accepted by the main model's verification.</li>
+      <li><strong>Method</strong>: Greedy decoding, median of 2 runs per condition. Decode uses 81 input tokens and 1,000 generated tokens; prefill uses 64 to 2,048 input tokens and generates 1 token. Measured on 2026-10-12.</li>
+      <li><strong>Image / audio input</strong>: One 768x768 image (100 output tokens) and a transcription of one English recording (32 output tokens). TTFT includes the encoder and excludes model opening.</li>
+      <li><strong>CPU usage</strong>: Process CPU usage during decode, with all 8 cores fully used as 100%. The CPU runs 4 threads, so it stays around 50%.</li>
+    </ul>
 
-    <h3>Decode throughput</h3>
-    <p>Throughput for an 81-token input and 1,000 generated tokens. The acceptance rate is the fraction of candidates proposed by the assistant that were accepted by the main model's verification.</p>
+    <h3 id="sm8475">Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69)</h3>
+
+    <h4 id="sm8475-e2b">E2B / FP16</h4>
+
+    <h5>Decode throughput</h5>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device</th><th>Model</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>MTP speedup (CPU / NPU)</th><th>Acceptance (CPU / NPU)</th></tr>
-      <tr><td>SM8475 (Hexagon v69)</td><td>E2B / FP16</td><td class="num">9.189 tokens/s</td><td class="num">8.658 tokens/s</td><td class="num">5.353 tokens/s</td><td class="num">9.675 tokens/s</td><td class="num">0.94x / 1.81x</td><td class="num">31.1% / 33.7%</td></tr>
-      <tr><td>SM7635 (Hexagon v73)</td><td>E2B / Int16</td><td class="num">8.423 tokens/s</td><td class="num">11.336 tokens/s</td><td class="num">6.389 tokens/s</td><td class="num">9.898 tokens/s</td><td class="num">1.35x / 1.55x</td><td class="num">31.1% / 35.6%</td></tr>
-      <tr><td>SM7635 (Hexagon v73)</td><td>E4B / Int16</td><td class="num">4.217 tokens/s</td><td class="num">6.944 tokens/s</td><td class="num">3.122 tokens/s</td><td class="num">3.164 tokens/s</td><td class="num">1.65x / 1.01x</td><td class="num">37.1% / 39.1%</td></tr>
+      <tr><th>Path</th><th>Without MTP</th><th>With MTP</th><th>MTP speedup</th><th>Acceptance</th></tr>
+      <tr><td>CPU</td><td class="num">9.189 tokens/s</td><td class="num">8.658 tokens/s</td><td class="num">0.94x</td><td class="num">31.1%</td></tr>
+      <tr><td>NPU</td><td class="num">5.353 tokens/s</td><td class="num">9.675 tokens/s</td><td class="num">1.81x</td><td class="num">33.7%</td></tr>
     </table>
     </div>
     <figure class="bench-figure">
@@ -115,50 +119,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="../../llm/benchmark/mtp_text_tps_by_output_sm8475.png" alt="SM8475 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SM8475 (E2B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
     </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B decode throughput (1000 generated tokens) (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SM7635 (E2B / Int16) decode throughput (1000 generated tokens)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_by_output_sm7635.png" alt="SM7635 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SM7635 (E2B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_e4b_sm7635.png" alt="SM7635 E4B decode throughput (1000 generated tokens) (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SM7635 (E4B / Int16) decode throughput (1000 generated tokens)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_by_output_e4b_sm7635.png" alt="SM7635 E4B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SM7635 (E4B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
-    </figure>
-    <p>In the MTP curves, the time of each main-model run (round) is divided evenly among the tokens committed in that round. Rounds where many candidates are accepted show high TPS and rounds where all candidates are rejected show low TPS, so the values swing up and down. The TPS in the legend is computed from the total time.</p>
 
-    <h3>Prefill throughput</h3>
-    <p>Throughput (tokens/s) when the number of input tokens varies from 64 to 2,048. For each input length, a 2-token warm-up is run, the KV cache is cleared, and only one token is generated.</p>
+    <h5>Prefill throughput</h5>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device / model / path</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
-      <tr><td>SM8475 E2B CPU (without MTP)</td><td class="num">35.337</td><td class="num">33.201</td><td class="num">32.409</td><td class="num">31.383</td><td class="num">29.327</td><td class="num">27.196</td></tr>
-      <tr><td>SM8475 E2B CPU (with MTP)</td><td class="num">31.128</td><td class="num">31.366</td><td class="num">31.310</td><td class="num">30.978</td><td class="num">29.101</td><td class="num">27.040</td></tr>
-      <tr><td>SM8475 E2B NPU (without MTP)</td><td class="num">69.770</td><td class="num">136.787</td><td class="num">265.156</td><td class="num">287.433</td><td class="num">283.803</td><td class="num">281.277</td></tr>
-      <tr><td>SM8475 E2B NPU (with MTP)</td><td class="num">71.074</td><td class="num">136.212</td><td class="num">266.966</td><td class="num">287.802</td><td class="num">283.944</td><td class="num">282.239</td></tr>
-      <tr><td>SM7635 E2B CPU (without MTP)</td><td class="num">57.466</td><td class="num">54.395</td><td class="num">51.547</td><td class="num">47.661</td><td class="num">37.408</td><td class="num">33.600</td></tr>
-      <tr><td>SM7635 E2B CPU (with MTP)</td><td class="num">50.451</td><td class="num">49.910</td><td class="num">49.452</td><td class="num">46.387</td><td class="num">34.608</td><td class="num">31.654</td></tr>
-      <tr><td>SM7635 E2B NPU (without MTP)</td><td class="num">33.106</td><td class="num">65.713</td><td class="num">130.399</td><td class="num">130.210</td><td class="num">129.942</td><td class="num">128.918</td></tr>
-      <tr><td>SM7635 E2B NPU (with MTP)</td><td class="num">33.688</td><td class="num">67.355</td><td class="num">133.535</td><td class="num">133.397</td><td class="num">131.292</td><td class="num">130.078</td></tr>
-      <tr><td>SM7635 E4B CPU (without MTP)</td><td class="num">34.773</td><td class="num">35.415</td><td class="num">38.182</td><td class="num">36.076</td><td class="num">29.317</td><td class="num">27.488</td></tr>
-      <tr><td>SM7635 E4B CPU (with MTP)</td><td class="num">33.002</td><td class="num">34.064</td><td class="num">32.739</td><td class="num">32.094</td><td class="num">29.620</td><td class="num">26.869</td></tr>
-      <tr><td>SM7635 E4B NPU (without MTP)</td><td class="num">20.944</td><td class="num">40.843</td><td class="num">81.231</td><td class="num">83.990</td><td class="num">81.732</td><td class="num">81.338</td></tr>
-      <tr><td>SM7635 E4B NPU (with MTP)</td><td class="num">20.863</td><td class="num">40.969</td><td class="num">81.235</td><td class="num">84.102</td><td class="num">79.278</td><td class="num">83.247</td></tr>
+      <tr><th>Path</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>CPU (without MTP)</td><td class="num">35.337</td><td class="num">33.201</td><td class="num">32.409</td><td class="num">31.383</td><td class="num">29.327</td><td class="num">27.196</td></tr>
+      <tr><td>CPU (with MTP)</td><td class="num">31.128</td><td class="num">31.366</td><td class="num">31.310</td><td class="num">30.978</td><td class="num">29.101</td><td class="num">27.040</td></tr>
+      <tr><td>NPU (without MTP)</td><td class="num">69.770</td><td class="num">136.787</td><td class="num">265.156</td><td class="num">287.433</td><td class="num">283.803</td><td class="num">281.277</td></tr>
+      <tr><td>NPU (with MTP)</td><td class="num">71.074</td><td class="num">136.212</td><td class="num">266.966</td><td class="num">287.802</td><td class="num">283.944</td><td class="num">282.239</td></tr>
     </table>
     </div>
-    <ul>
-      <li>Prefill throughput is <code>actual input tokens / time of the first generate call</code>. Model opening is not included.</li>
-      <li>Even with MTP enabled, prefill is processed with AR-256 (NPU), so prefill throughput is almost the same with and without MTP.</li>
-      <li>For short inputs such as 64 tokens, the padding of the fixed-length AR-256 graph is large, which puts the NPU at a disadvantage.</li>
-      <li>Handing the hidden state and KV over to the assistant after prefill takes 0.14 to 0.28 ms (NPU).</li>
-    </ul>
-
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_pps_sm8475.png" alt="SM8475 E2B prefill throughput (2,048-token input) (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SM8475 (E2B / FP16) prefill throughput (2,048-token input)</figcaption>
@@ -167,6 +138,84 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="../../llm/benchmark/mtp_pps_by_input_sm8475.png" alt="SM8475 E2B prefill throughput by input length (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SM8475 (E2B / FP16) prefill throughput by input length</figcaption>
     </figure>
+
+    <h5>VLM (image input) and audio input latency</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Input</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
+      <tr><td>Image</td><td>CPU (without MTP)</td><td class="num">33.46 s</td><td class="num">8.784 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Image</td><td>CPU (with MTP)</td><td class="num">34.00 s</td><td class="num">7.701 tokens/s</td><td class="num">28.9%</td></tr>
+      <tr><td>Image</td><td>NPU (without MTP)</td><td class="num">9.12 s</td><td class="num">5.305 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Image</td><td>NPU (with MTP)</td><td class="num">8.04 s</td><td class="num">9.504 tokens/s</td><td class="num">36.1%</td></tr>
+      <tr><td>Audio</td><td>CPU (without MTP)</td><td class="num">21.79 s</td><td class="num">9.138 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Audio</td><td>CPU (with MTP)</td><td class="num">21.65 s</td><td class="num">12.712 tokens/s</td><td class="num">80.0%</td></tr>
+      <tr><td>Audio</td><td>NPU (without MTP)</td><td class="num">6.18 s</td><td class="num">5.562 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">6.38 s</td><td class="num">16.197 tokens/s</td><td class="num">100.0%</td></tr>
+    </table>
+    </div>
+    <p>NPU (with MTP) TTFT is 1/4.2 (image) and 1/3.4 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.79x for image input and 2.91x for audio input.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_ttft_sm8475.png" alt="SM8475 E2B VLM / audio input TTFT breakdown (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM8475 (E2B / FP16) VLM (left) / audio input (right) TTFT breakdown: prompt setup including the encoder, and decoder prefill + first token</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_tps_sm8475.png" alt="SM8475 E2B VLM / audio input decode throughput (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM8475 (E2B / FP16) VLM (left) / audio input (right) decode throughput</figcaption>
+    </figure>
+
+    <h5>CPU usage</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Input</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
+      <tr><td>Text</td><td class="num">48.9%</td><td class="num">48.3%</td><td class="num">3.2%</td><td class="num">4.0%</td></tr>
+      <tr><td>Image</td><td class="num">48.7%</td><td class="num">48.1%</td><td class="num">3.4%</td><td class="num">4.5%</td></tr>
+      <tr><td>Audio</td><td class="num">48.6%</td><td class="num">47.3%</td><td class="num">3.1%</td><td class="num">5.0%</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_cpu_sm8475.png" alt="SM8475 E2B CPU usage during text generation decode" loading="lazy">
+      <figcaption>SM8475 (E2B / FP16) process CPU usage during text generation decode</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_cpu_sm8475.png" alt="SM8475 E2B average CPU usage during prefill (mean of 64 to 2,048-token inputs)" loading="lazy">
+      <figcaption>SM8475 (E2B / FP16) average process CPU usage during prefill (mean of 64 to 2,048-token inputs)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_cpu_sm8475.png" alt="SM8475 E2B CPU usage during image / audio input TTFT" loading="lazy">
+      <figcaption>SM8475 (E2B / FP16) process CPU usage during image (left) / audio input (right) TTFT</figcaption>
+    </figure>
+
+    <h3 id="sm7635">Snapdragon 7s Gen 3 (SM7635 / Hexagon v73)</h3>
+
+    <h4 id="sm7635-e2b">E2B / Int16</h4>
+
+    <h5>Decode throughput</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Path</th><th>Without MTP</th><th>With MTP</th><th>MTP speedup</th><th>Acceptance</th></tr>
+      <tr><td>CPU</td><td class="num">8.423 tokens/s</td><td class="num">11.336 tokens/s</td><td class="num">1.35x</td><td class="num">31.1%</td></tr>
+      <tr><td>NPU</td><td class="num">6.389 tokens/s</td><td class="num">9.898 tokens/s</td><td class="num">1.55x</td><td class="num">35.6%</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2B decode throughput (1000 generated tokens) (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) decode throughput (1000 generated tokens)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_by_output_sm7635.png" alt="SM7635 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+
+    <h5>Prefill throughput</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Path</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>CPU (without MTP)</td><td class="num">57.466</td><td class="num">54.395</td><td class="num">51.547</td><td class="num">47.661</td><td class="num">37.408</td><td class="num">33.600</td></tr>
+      <tr><td>CPU (with MTP)</td><td class="num">50.451</td><td class="num">49.910</td><td class="num">49.452</td><td class="num">46.387</td><td class="num">34.608</td><td class="num">31.654</td></tr>
+      <tr><td>NPU (without MTP)</td><td class="num">33.106</td><td class="num">65.713</td><td class="num">130.399</td><td class="num">130.210</td><td class="num">129.942</td><td class="num">128.918</td></tr>
+      <tr><td>NPU (with MTP)</td><td class="num">33.688</td><td class="num">67.355</td><td class="num">133.535</td><td class="num">133.397</td><td class="num">131.292</td><td class="num">130.078</td></tr>
+    </table>
+    </div>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_pps_sm7635.png" alt="SM7635 E2B prefill throughput (2,048-token input) (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SM7635 (E2B / Int16) prefill throughput (2,048-token input)</figcaption>
@@ -175,6 +224,82 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="../../llm/benchmark/mtp_pps_by_input_sm7635.png" alt="SM7635 E2B prefill throughput by input length (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SM7635 (E2B / Int16) prefill throughput by input length</figcaption>
     </figure>
+
+    <h5>VLM (image input) and audio input latency</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Input</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
+      <tr><td>Image</td><td>CPU (without MTP)</td><td class="num">17.99 s</td><td class="num">8.035 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Image</td><td>CPU (with MTP)</td><td class="num">17.74 s</td><td class="num">11.046 tokens/s</td><td class="num">28.9%</td></tr>
+      <tr><td>Image</td><td>NPU (without MTP)</td><td class="num">8.87 s</td><td class="num">6.210 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Image</td><td>NPU (with MTP)</td><td class="num">7.93 s</td><td class="num">9.947 tokens/s</td><td class="num">37.6%</td></tr>
+      <tr><td>Audio</td><td>CPU (without MTP)</td><td class="num">14.14 s</td><td class="num">7.972 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Audio</td><td>CPU (with MTP)</td><td class="num">14.10 s</td><td class="num">16.313 tokens/s</td><td class="num">80.0%</td></tr>
+      <tr><td>Audio</td><td>NPU (without MTP)</td><td class="num">7.61 s</td><td class="num">6.423 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">7.53 s</td><td class="num">15.992 tokens/s</td><td class="num">92.6%</td></tr>
+    </table>
+    </div>
+    <p>NPU (with MTP) TTFT is 1/2.3 (image) and 1/1.9 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.60x for image input and 2.49x for audio input.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_ttft_sm7635.png" alt="SM7635 E2B VLM / audio input TTFT breakdown (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) VLM (left) / audio input (right) TTFT breakdown: prompt setup including the encoder, and decoder prefill + first token</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_tps_sm7635.png" alt="SM7635 E2B VLM / audio input decode throughput (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) VLM (left) / audio input (right) decode throughput</figcaption>
+    </figure>
+
+    <h5>CPU usage</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Input</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
+      <tr><td>Text</td><td class="num">49.0%</td><td class="num">48.0%</td><td class="num">2.9%</td><td class="num">4.8%</td></tr>
+      <tr><td>Image</td><td class="num">48.7%</td><td class="num">47.7%</td><td class="num">3.1%</td><td class="num">4.8%</td></tr>
+      <tr><td>Audio</td><td class="num">48.7%</td><td class="num">47.0%</td><td class="num">2.8%</td><td class="num">4.9%</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_cpu_sm7635.png" alt="SM7635 E2B CPU usage during text generation decode" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) process CPU usage during text generation decode</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_cpu_sm7635.png" alt="SM7635 E2B average CPU usage during prefill (mean of 64 to 2,048-token inputs)" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) average process CPU usage during prefill (mean of 64 to 2,048-token inputs)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_cpu_sm7635.png" alt="SM7635 E2B CPU usage during image / audio input TTFT" loading="lazy">
+      <figcaption>SM7635 (E2B / Int16) process CPU usage during image (left) / audio input (right) TTFT</figcaption>
+    </figure>
+
+    <h4 id="sm7635-e4b">E4B / Int16</h4>
+
+    <h5>Decode throughput</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Path</th><th>Without MTP</th><th>With MTP</th><th>MTP speedup</th><th>Acceptance</th></tr>
+      <tr><td>CPU</td><td class="num">4.217 tokens/s</td><td class="num">6.944 tokens/s</td><td class="num">1.65x</td><td class="num">37.1%</td></tr>
+      <tr><td>NPU</td><td class="num">3.122 tokens/s</td><td class="num">3.164 tokens/s</td><td class="num">1.01x</td><td class="num">39.1%</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_e4b_sm7635.png" alt="SM7635 E4B decode throughput (1000 generated tokens) (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E4B / Int16) decode throughput (1000 generated tokens)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_by_output_e4b_sm7635.png" alt="SM7635 E4B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SM7635 (E4B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+
+    <h5>Prefill throughput</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Path</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>CPU (without MTP)</td><td class="num">34.773</td><td class="num">35.415</td><td class="num">38.182</td><td class="num">36.076</td><td class="num">29.317</td><td class="num">27.488</td></tr>
+      <tr><td>CPU (with MTP)</td><td class="num">33.002</td><td class="num">34.064</td><td class="num">32.739</td><td class="num">32.094</td><td class="num">29.620</td><td class="num">26.869</td></tr>
+      <tr><td>NPU (without MTP)</td><td class="num">20.944</td><td class="num">40.843</td><td class="num">81.231</td><td class="num">83.990</td><td class="num">81.732</td><td class="num">81.338</td></tr>
+      <tr><td>NPU (with MTP)</td><td class="num">20.863</td><td class="num">40.969</td><td class="num">81.235</td><td class="num">84.102</td><td class="num">79.278</td><td class="num">83.247</td></tr>
+    </table>
+    </div>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_pps_e4b_sm7635.png" alt="SM7635 E4B prefill throughput (2,048-token input) (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SM7635 (E4B / Int16) prefill throughput (2,048-token input)</figcaption>
@@ -184,162 +309,78 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <figcaption>SM7635 (E4B / Int16) prefill throughput by input length</figcaption>
     </figure>
 
-    <h3 id="android-cpu">CPU usage</h3>
-    <p>Process CPU usage during decode (81-token input, 1,000 generated tokens, excluding the first output). All 8 cores fully used is shown as 100%. This is the usage of the application process, not of the whole device.</p>
+    <h5>VLM (image input) and audio input latency</h5>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device / model</th><th>Input</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
-      <tr><td rowspan="3">SM8475 E2B</td><td>Text</td><td class="num">48.9%</td><td class="num">48.3%</td><td class="num">3.2%</td><td class="num">4.0%</td></tr>
-      <tr><td>Image</td><td class="num">48.7%</td><td class="num">48.1%</td><td class="num">3.4%</td><td class="num">4.5%</td></tr>
-      <tr><td>Audio</td><td class="num">48.6%</td><td class="num">47.3%</td><td class="num">3.1%</td><td class="num">5.0%</td></tr>
-      <tr><td rowspan="3">SM7635 E2B</td><td>Text</td><td class="num">49.0%</td><td class="num">48.0%</td><td class="num">2.9%</td><td class="num">4.8%</td></tr>
-      <tr><td>Image</td><td class="num">48.7%</td><td class="num">47.7%</td><td class="num">3.1%</td><td class="num">4.8%</td></tr>
-      <tr><td>Audio</td><td class="num">48.7%</td><td class="num">47.0%</td><td class="num">2.8%</td><td class="num">4.9%</td></tr>
-      <tr><td rowspan="3">SM7635 E4B</td><td>Text</td><td class="num">48.3%</td><td class="num">46.5%</td><td class="num">1.6%</td><td class="num">1.9%</td></tr>
-      <tr><td>Image</td><td class="num">48.5%</td><td class="num">46.8%</td><td class="num">1.7%</td><td class="num">2.0%</td></tr>
-      <tr><td>Audio</td><td class="num">48.1%</td><td class="num">42.5%</td><td class="num">2.0%</td><td class="num">2.6%</td></tr>
+      <tr><th>Input</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
+      <tr><td>Image</td><td>CPU (without MTP)</td><td class="num">99.00 s</td><td class="num">4.401 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Image</td><td>CPU (with MTP)</td><td class="num">103.83 s</td><td class="num">6.446 tokens/s</td><td class="num">37.6%</td></tr>
+      <tr><td>Image</td><td>NPU (without MTP)</td><td class="num">15.71 s</td><td class="num">3.112 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Image</td><td>NPU (with MTP)</td><td class="num">14.32 s</td><td class="num">2.972 tokens/s</td><td class="num">35.4%</td></tr>
+      <tr><td>Audio</td><td>CPU (without MTP)</td><td class="num">52.73 s</td><td class="num">4.055 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Audio</td><td>CPU (with MTP)</td><td class="num">50.40 s</td><td class="num">7.507 tokens/s</td><td class="num">100.0%</td></tr>
+      <tr><td>Audio</td><td>NPU (without MTP)</td><td class="num">12.92 s</td><td class="num">3.040 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">12.97 s</td><td class="num">5.037 tokens/s</td><td class="num">100.0%</td></tr>
     </table>
     </div>
-    <p>During a 2,048-token prefill, usage is 49.5% to 49.8% on the CPU and 2.4% to 4.7% on the NPU. During image and audio input TTFT (prompt setup including the encoder and the first generate call), it is 44% to 49% on the CPU and 3.6% to 9.4% on the NPU.</p>
-
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_cpu_sm8475.png" alt="SM8475 E2B CPU usage during text generation decode" loading="lazy">
-      <figcaption>SM8475 (E2B / FP16) process CPU usage during text generation decode</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_cpu_sm7635.png" alt="SM7635 E2B CPU usage during text generation decode" loading="lazy">
-      <figcaption>SM7635 (E2B / Int16) process CPU usage during text generation decode</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_cpu_e4b_sm7635.png" alt="SM7635 E4B CPU usage during text generation decode" loading="lazy">
-      <figcaption>SM7635 (E4B / Int16) process CPU usage during text generation decode</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_cpu_sm8475.png" alt="SM8475 E2B average CPU usage during prefill (mean of 64 to 2,048-token inputs)" loading="lazy">
-      <figcaption>SM8475 (E2B / FP16) average process CPU usage during prefill (mean of 64 to 2,048-token inputs)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_cpu_sm7635.png" alt="SM7635 E2B average CPU usage during prefill (mean of 64 to 2,048-token inputs)" loading="lazy">
-      <figcaption>SM7635 (E2B / Int16) average process CPU usage during prefill (mean of 64 to 2,048-token inputs)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_cpu_e4b_sm7635.png" alt="SM7635 E4B average CPU usage during prefill (mean of 64 to 2,048-token inputs)" loading="lazy">
-      <figcaption>SM7635 (E4B / Int16) average process CPU usage during prefill (mean of 64 to 2,048-token inputs)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_cpu_sm8475.png" alt="SM8475 E2B CPU usage during image / audio input TTFT" loading="lazy">
-      <figcaption>SM8475 (E2B / FP16) process CPU usage during image (left) / audio input (right) TTFT</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_cpu_sm7635.png" alt="SM7635 E2B CPU usage during image / audio input TTFT" loading="lazy">
-      <figcaption>SM7635 (E2B / Int16) process CPU usage during image (left) / audio input (right) TTFT</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_cpu_e4b_sm7635.png" alt="SM7635 E4B CPU usage during image / audio input TTFT" loading="lazy">
-      <figcaption>SM7635 (E4B / Int16) process CPU usage during image (left) / audio input (right) TTFT</figcaption>
-    </figure>
-
-    <h3>VLM (image input) latency</h3>
-    <p>Values for one 768x768 image with 100 output tokens. TTFT is the sum of prompt setup including the image encoder and the first generate call, and does not include model opening. On the NPU, the image encoder also runs on the NPU.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Device / model / path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
-      <tr><td>SM8475 E2B CPU (without MTP)</td><td class="num">33.46 s</td><td class="num">8.784 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM8475 E2B CPU (with MTP)</td><td class="num">34.00 s</td><td class="num">7.701 tokens/s</td><td class="num">28.9%</td></tr>
-      <tr><td>SM8475 E2B NPU (without MTP)</td><td class="num">9.12 s</td><td class="num">5.305 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM8475 E2B NPU (with MTP)</td><td class="num">8.04 s</td><td class="num">9.504 tokens/s</td><td class="num">36.1%</td></tr>
-      <tr><td>SM7635 E2B CPU (without MTP)</td><td class="num">17.99 s</td><td class="num">8.035 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM7635 E2B CPU (with MTP)</td><td class="num">17.74 s</td><td class="num">11.046 tokens/s</td><td class="num">28.9%</td></tr>
-      <tr><td>SM7635 E2B NPU (without MTP)</td><td class="num">8.87 s</td><td class="num">6.210 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM7635 E2B NPU (with MTP)</td><td class="num">7.93 s</td><td class="num">9.947 tokens/s</td><td class="num">37.6%</td></tr>
-      <tr><td>SM7635 E4B CPU (without MTP)</td><td class="num">99.00 s</td><td class="num">4.401 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM7635 E4B CPU (with MTP)</td><td class="num">103.83 s</td><td class="num">6.446 tokens/s</td><td class="num">37.6%</td></tr>
-      <tr><td>SM7635 E4B NPU (without MTP)</td><td class="num">15.71 s</td><td class="num">3.112 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM7635 E4B NPU (with MTP)</td><td class="num">14.32 s</td><td class="num">2.972 tokens/s</td><td class="num">35.4%</td></tr>
-    </table>
-    </div>
-    <p>NPU (with MTP) TTFT is 1/4.2 of the CPU (without MTP) for E2B on SM8475, 1/2.3 for E2B on SM7635 and 1/6.9 for E4B. With MTP, NPU decode is 1.79x for E2B on SM8475, 1.60x for E2B on SM7635 and 0.96x for E4B.</p>
-
-    <h3>Audio input latency</h3>
-    <p>Values for transcribing one English recording with 32 output tokens. TTFT is the sum of prompt setup including the audio encoder and the first generate call, and does not include model opening.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Device / model / path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
-      <tr><td>SM8475 E2B CPU (without MTP)</td><td class="num">21.79 s</td><td class="num">9.138 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM8475 E2B CPU (with MTP)</td><td class="num">21.65 s</td><td class="num">12.712 tokens/s</td><td class="num">80.0%</td></tr>
-      <tr><td>SM8475 E2B NPU (without MTP)</td><td class="num">6.18 s</td><td class="num">5.562 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM8475 E2B NPU (with MTP)</td><td class="num">6.38 s</td><td class="num">16.197 tokens/s</td><td class="num">100.0%</td></tr>
-      <tr><td>SM7635 E2B CPU (without MTP)</td><td class="num">14.14 s</td><td class="num">7.972 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM7635 E2B CPU (with MTP)</td><td class="num">14.10 s</td><td class="num">16.313 tokens/s</td><td class="num">80.0%</td></tr>
-      <tr><td>SM7635 E2B NPU (without MTP)</td><td class="num">7.61 s</td><td class="num">6.423 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM7635 E2B NPU (with MTP)</td><td class="num">7.53 s</td><td class="num">15.992 tokens/s</td><td class="num">92.6%</td></tr>
-      <tr><td>SM7635 E4B CPU (without MTP)</td><td class="num">52.73 s</td><td class="num">4.055 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM7635 E4B CPU (with MTP)</td><td class="num">50.40 s</td><td class="num">7.507 tokens/s</td><td class="num">100.0%</td></tr>
-      <tr><td>SM7635 E4B NPU (without MTP)</td><td class="num">12.92 s</td><td class="num">3.040 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>SM7635 E4B NPU (with MTP)</td><td class="num">12.97 s</td><td class="num">5.037 tokens/s</td><td class="num">100.0%</td></tr>
-    </table>
-    </div>
-    <p>NPU (with MTP) TTFT is 1/3.4 of the CPU (without MTP) for E2B on SM8475, 1/1.9 for E2B on SM7635 and 1/4.1 for E4B. With MTP, NPU decode is 2.91x for E2B on SM8475, 2.49x for E2B on SM7635 and 1.66x for E4B. In audio transcription, the output is largely determined by the input audio, so the acceptance rate of assistant candidates is high. This is a measurement on a single recording and is not a general speedup ratio.</p>
-
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_ttft_sm8475.png" alt="SM8475 E2B VLM / audio input TTFT breakdown (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SM8475 (E2B / FP16) VLM (left) / audio input (right) TTFT breakdown: prompt setup including the encoder, and decoder prefill + first token</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_ttft_sm7635.png" alt="SM7635 E2B VLM / audio input TTFT breakdown (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SM7635 (E2B / Int16) VLM (left) / audio input (right) TTFT breakdown: prompt setup including the encoder, and decoder prefill + first token</figcaption>
-    </figure>
+    <p>NPU (with MTP) TTFT is 1/6.9 (image) and 1/4.1 (audio) of the CPU (without MTP). With MTP, NPU decode became 0.96x for image input and 1.66x for audio input.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_ttft_e4b_sm7635.png" alt="SM7635 E4B VLM / audio input TTFT breakdown (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SM7635 (E4B / Int16) VLM (left) / audio input (right) TTFT breakdown: prompt setup including the encoder, and decoder prefill + first token</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_tps_sm8475.png" alt="SM8475 E2B VLM / audio input decode throughput (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SM8475 (E2B / FP16) VLM (left) / audio input (right) decode throughput</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_tps_sm7635.png" alt="SM7635 E2B VLM / audio input decode throughput (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SM7635 (E2B / Int16) VLM (left) / audio input (right) decode throughput</figcaption>
     </figure>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_tps_e4b_sm7635.png" alt="SM7635 E4B VLM / audio input decode throughput (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SM7635 (E4B / Int16) VLM (left) / audio input (right) decode throughput</figcaption>
     </figure>
 
-    <h3>Sampling with temperature</h3>
-    <p>Results for the E2B NPU with temperature 0.8, top-k 40, top-p 0.95 and seed 1234. These were measured on 2026-10-10 with the previous runtime, at a different time from the tables above. With MTP, speculative sampling accepts candidates based on the probability ratio between the main model and the assistant.</p>
+    <h5>CPU usage</h5>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device / model</th><th>Input</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>MTP speedup</th><th>Acceptance</th></tr>
-      <tr><td rowspan="3">SM8475 E2B / FP16</td><td>Text</td><td class="num">6.931 tokens/s</td><td class="num">9.885 tokens/s</td><td class="num">1.43x faster</td><td class="num">34.8%</td></tr>
-      <tr><td>Image</td><td class="num">7.158 tokens/s</td><td class="num">10.113 tokens/s</td><td class="num">1.41x faster</td><td class="num">37.6%</td></tr>
-      <tr><td>Audio</td><td class="num">7.146 tokens/s</td><td class="num">17.302 tokens/s</td><td class="num">2.42x faster</td><td class="num">100.0%</td></tr>
-      <tr><td rowspan="3">SM7635 E2B / Int16</td><td>Text</td><td class="num">6.369 tokens/s</td><td class="num">9.617 tokens/s</td><td class="num">1.51x faster</td><td class="num">34.7%</td></tr>
-      <tr><td>Image</td><td class="num">6.426 tokens/s</td><td class="num">10.206 tokens/s</td><td class="num">1.59x faster</td><td class="num">40.7%</td></tr>
-      <tr><td>Audio</td><td class="num">5.848 tokens/s</td><td class="num">15.372 tokens/s</td><td class="num">2.63x faster</td><td class="num">92.6%</td></tr>
+      <tr><th>Input</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
+      <tr><td>Text</td><td class="num">48.3%</td><td class="num">46.5%</td><td class="num">1.6%</td><td class="num">1.9%</td></tr>
+      <tr><td>Image</td><td class="num">48.5%</td><td class="num">46.8%</td><td class="num">1.7%</td><td class="num">2.0%</td></tr>
+      <tr><td>Audio</td><td class="num">48.1%</td><td class="num">42.5%</td><td class="num">2.0%</td><td class="num">2.6%</td></tr>
     </table>
     </div>
-    <p>With temperature, the speedup is almost the same as with greedy decoding.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_cpu_e4b_sm7635.png" alt="SM7635 E4B CPU usage during text generation decode" loading="lazy">
+      <figcaption>SM7635 (E4B / Int16) process CPU usage during text generation decode</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_cpu_e4b_sm7635.png" alt="SM7635 E4B average CPU usage during prefill (mean of 64 to 2,048-token inputs)" loading="lazy">
+      <figcaption>SM7635 (E4B / Int16) average process CPU usage during prefill (mean of 64 to 2,048-token inputs)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_cpu_e4b_sm7635.png" alt="SM7635 E4B CPU usage during image / audio input TTFT" loading="lazy">
+      <figcaption>SM7635 (E4B / Int16) process CPU usage during image (left) / audio input (right) TTFT</figcaption>
+    </figure>
 
     <h2 id="windows">Windows</h2>
 
     <h3>Test Conditions</h3>
-    <p>Results for Gemma 4 on two devices. Snapdragon X Plus (SC8380XP / Hexagon v73, 8 cores) running Windows 11 Pro was measured with E2B / E4B in six configurations (CPU, GPU and NPU, each without and with MTP), and QCS6490 (Hexagon v68, 8 cores) running Windows 11 IoT Enterprise LTSC 10.0.26100 was measured with E2B in four configurations (CPU and NPU, each without and with MTP). SC8380XP was measured on 2026-10-13 and QCS6490 on 2026-10-16. The GPU was not measured on QCS6490 because no OpenCL device was detected.</p>
-    <p>The CPU uses the llama.cpp path (OpenMP disabled, 4 threads), and the GPU uses the llama.cpp OpenCL backend on the Adreno X1-45, both with a QAT Q4_0 main model and a Q4_0 GGUF assistant (on the GPU, the assistant also runs on the GPU). The NPU uses the v1.5.1 MTP models: FP16 / W4 on SC8380XP and Int16 on QCS6490 (QAIRT 2.47.0.260601, HTP v68). The image and audio encoders run on the CPU (BF16 mmproj GGUF) in the CPU and GPU configurations, and on the NPU in the NPU configurations.</p>
-    <p>Each configuration was measured once, with a 60-second wait before each trial. Context length 8192, greedy (temperature 0, top-k 1, top-p 1, seed 1234). The device was on AC power with the Balanced power plan and had background apps running. CPU usage is the process CPU time divided by the elapsed time and 8 cores.</p>
+    <ul>
+      <li><strong>OS</strong>: Windows 11 Pro on SC8380XP, and Windows 11 IoT Enterprise LTSC on QCS6490.</li>
+      <li><strong>NPU</strong>: v1.5.1 MTP models (FP16 / W4 on SC8380XP, Int16 on QCS6490), QAIRT 2.47, context length 8192.</li>
+      <li><strong>CPU / GPU</strong>: The CPU runs with llama.cpp (OpenMP disabled, on the 4 performance cores), with a QAT Q4_0 main model and a Q4_0 GGUF assistant. The GPU uses the llama.cpp OpenCL backend on the SC8380XP Adreno X1-45 (not measured on QCS6490).</li>
+      <li><strong>Method</strong>: Greedy decoding, one run per configuration. Decode, prefill and acceptance rate are defined as on Android. SC8380XP was measured on 2026-10-13 and QCS6490 on 2026-10-16.</li>
+      <li><strong>Image / audio input</strong>: One 768x768 image (100 output tokens) and a transcription of one English recording (33 output tokens). The encoders run on the CPU in the CPU and GPU configurations, and on the NPU in the NPU configurations.</li>
+      <li><strong>CPU usage</strong>: Process CPU usage during decode, with all 8 cores fully used as 100%. The CPU uses only the 4 performance cores, so it stays around 50%.</li>
+    </ul>
 
-    <h3>Decode throughput</h3>
-    <p>Throughput for an 81-token input and 1,000 generated tokens. The acceptance rate is the fraction of candidates proposed by the assistant that were accepted by the main model's verification.</p>
+    <h3 id="sc8380xp">Snapdragon X Plus (SC8380XP / Hexagon v73)</h3>
+
+    <h4 id="sc8380xp-e2b">E2B / FP16</h4>
+
+    <h5>Decode throughput</h5>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Device</th><th>Model</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>GPU (without MTP)</th><th>GPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th><th>MTP speedup (CPU / GPU / NPU)</th><th>Acceptance (CPU / GPU / NPU)</th></tr>
-      <tr><td>SC8380XP (Hexagon v73)</td><td>E2B / FP16</td><td class="num">36.097 tokens/s</td><td class="num">45.952 tokens/s</td><td class="num">15.789 tokens/s</td><td class="num">7.956 tokens/s</td><td class="num">7.488 tokens/s</td><td class="num">12.830 tokens/s</td><td class="num">1.27x / 0.50x / 1.71x</td><td class="num">31.1% / 39.0% / 35.2%</td></tr>
-      <tr><td>SC8380XP (Hexagon v73)</td><td>E4B / FP16</td><td class="num">20.209 tokens/s</td><td class="num">34.010 tokens/s</td><td class="num">8.434 tokens/s</td><td class="num">4.962 tokens/s</td><td class="num">4.311 tokens/s</td><td class="num">7.996 tokens/s</td><td class="num">1.68x / 0.59x / 1.85x</td><td class="num">43.3% / 38.2% / 39.4%</td></tr>
-      <tr><td>QCS6490 (Hexagon v68)</td><td>E2B / Int16</td><td class="num">8.268 tokens/s</td><td class="num">12.551 tokens/s</td><td class="num">—</td><td class="num">—</td><td class="num">4.401 tokens/s</td><td class="num">7.289 tokens/s</td><td class="num">1.52x / — / 1.66x</td><td class="num">32.4% / — / 36.9%</td></tr>
+      <tr><th>Path</th><th>Without MTP</th><th>With MTP</th><th>MTP speedup</th><th>Acceptance</th></tr>
+      <tr><td>CPU</td><td class="num">36.097 tokens/s</td><td class="num">45.952 tokens/s</td><td class="num">1.27x</td><td class="num">31.1%</td></tr>
+      <tr><td>GPU</td><td class="num">15.789 tokens/s</td><td class="num">7.956 tokens/s</td><td class="num">0.50x</td><td class="num">39.0%</td></tr>
+      <tr><td>NPU</td><td class="num">7.488 tokens/s</td><td class="num">12.830 tokens/s</td><td class="num">1.71x</td><td class="num">35.2%</td></tr>
     </table>
     </div>
-    <p>On both SC8380XP and QCS6490, decode is fastest on the CPU. On SC8380XP, decode on the GPU became slower with MTP. On QCS6490, MTP made decode 1.52x on the CPU and 1.66x on the NPU.</p>
-
+    <p>Decode is fastest on the CPU. On the GPU, decode became slower with MTP.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_text_tps_sc8380xp.png" alt="Snapdragon X Plus E2B decode throughput (1000 generated tokens, CPU / GPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SC8380XP (E2B / FP16) decode throughput (1000 generated tokens)</figcaption>
@@ -348,28 +389,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="../../llm/benchmark/mtp_text_tps_by_output_sc8380xp.png" alt="Snapdragon X Plus E2B per-token decode throughput over 1000 generated tokens (CPU / GPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SC8380XP (E2B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
     </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B decode throughput (1000 generated tokens, CPU / GPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SC8380XP (E4B / FP16) decode throughput (1000 generated tokens)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_by_output_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B per-token decode throughput over 1000 generated tokens (CPU / GPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SC8380XP (E4B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_qcs6490.png" alt="QCS6490 E2B decode throughput (1000 generated tokens, CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>QCS6490 (E2B / Int16) decode throughput (1000 generated tokens)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_text_tps_by_output_qcs6490.png" alt="QCS6490 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>QCS6490 (E2B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
-    </figure>
 
-    <h3>Prefill throughput</h3>
-    <p>Throughput (tokens/s) when the number of input tokens varies from 64 to 2,048.</p>
+    <h5>Prefill throughput</h5>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>SC8380XP E2B / FP16</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><th>Path</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
       <tr><td>CPU (without MTP)</td><td class="num">261.792</td><td class="num">243.510</td><td class="num">228.444</td><td class="num">203.791</td><td class="num">180.420</td><td class="num">162.898</td></tr>
       <tr><td>CPU (with MTP)</td><td class="num">226.239</td><td class="num">209.196</td><td class="num">212.324</td><td class="num">198.671</td><td class="num">179.041</td><td class="num">159.733</td></tr>
       <tr><td>GPU (without MTP)</td><td class="num">191.567</td><td class="num">211.200</td><td class="num">226.293</td><td class="num">210.324</td><td class="num">185.268</td><td class="num">155.789</td></tr>
@@ -378,28 +402,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>NPU (with MTP)</td><td class="num">109.650</td><td class="num">224.799</td><td class="num">436.772</td><td class="num">431.751</td><td class="num">423.681</td><td class="num">415.362</td></tr>
     </table>
     </div>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>SC8380XP E4B / FP16</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
-      <tr><td>CPU (without MTP)</td><td class="num">129.117</td><td class="num">124.315</td><td class="num">119.669</td><td class="num">112.318</td><td class="num">106.239</td><td class="num">99.274</td></tr>
-      <tr><td>CPU (with MTP)</td><td class="num">114.588</td><td class="num">115.837</td><td class="num">117.360</td><td class="num">112.383</td><td class="num">104.566</td><td class="num">97.730</td></tr>
-      <tr><td>GPU (without MTP)</td><td class="num">101.494</td><td class="num">115.771</td><td class="num">122.735</td><td class="num">118.920</td><td class="num">108.919</td><td class="num">96.327</td></tr>
-      <tr><td>GPU (with MTP)</td><td class="num">64.261</td><td class="num">87.397</td><td class="num">102.919</td><td class="num">107.840</td><td class="num">102.897</td><td class="num">92.966</td></tr>
-      <tr><td>NPU (without MTP)</td><td class="num">63.030</td><td class="num">127.516</td><td class="num">244.569</td><td class="num">254.622</td><td class="num">249.404</td><td class="num">248.349</td></tr>
-      <tr><td>NPU (with MTP)</td><td class="num">63.413</td><td class="num">129.878</td><td class="num">254.998</td><td class="num">253.348</td><td class="num">250.169</td><td class="num">248.072</td></tr>
-    </table>
-    </div>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>QCS6490 E2B / Int16</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
-      <tr><td>CPU (without MTP)</td><td class="num">69.899</td><td class="num">72.120</td><td class="num">68.605</td><td class="num">64.913</td><td class="num">59.277</td><td class="num">53.487</td></tr>
-      <tr><td>CPU (with MTP)</td><td class="num">64.226</td><td class="num">66.437</td><td class="num">59.173</td><td class="num">63.920</td><td class="num">54.278</td><td class="num">54.221</td></tr>
-      <tr><td>NPU (without MTP)</td><td class="num">53.211</td><td class="num">105.854</td><td class="num">197.664</td><td class="num">211.179</td><td class="num">214.442</td><td class="num">212.110</td></tr>
-      <tr><td>NPU (with MTP)</td><td class="num">45.300</td><td class="num">89.782</td><td class="num">189.393</td><td class="num">189.008</td><td class="num">193.163</td><td class="num">203.766</td></tr>
-    </table>
-    </div>
-    <p>On SC8380XP, the NPU is fastest for inputs of 256 tokens or more; for a 2,048-token input it is 2.55x (E2B) / 2.50x (E4B) the CPU (without MTP). On QCS6490, the NPU is fastest for inputs of 128 tokens or more, and for a 2,048-token input it is 3.97x the CPU (without MTP). NPU prefill is almost the same with and without MTP, although on QCS6490 it is somewhat lower with MTP (0.85x to 0.96x).</p>
-
+    <p>For inputs of 256 tokens or more the NPU is the fastest; for a 2,048-token input it is 2.55x the CPU (without MTP). NPU prefill is almost the same with and without MTP.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_pps_sc8380xp.png" alt="Snapdragon X Plus E2B prefill throughput (2,048-token input, CPU / GPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SC8380XP (E2B / FP16) prefill throughput (2,048-token input)</figcaption>
@@ -408,93 +411,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="../../llm/benchmark/mtp_pps_by_input_sc8380xp.png" alt="Snapdragon X Plus E2B prefill throughput by input length (CPU / GPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SC8380XP (E2B / FP16) prefill throughput by input length</figcaption>
     </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput (2,048-token input, CPU / GPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SC8380XP (E4B / FP16) prefill throughput (2,048-token input)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_by_input_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput by input length (CPU / GPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SC8380XP (E4B / FP16) prefill throughput by input length</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_qcs6490.png" alt="QCS6490 E2B prefill throughput (2,048-token input, CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>QCS6490 (E2B / Int16) prefill throughput (2,048-token input)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_by_input_qcs6490.png" alt="QCS6490 E2B prefill throughput by input length (CPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>QCS6490 (E2B / Int16) prefill throughput by input length</figcaption>
-    </figure>
 
-    <h3>CPU usage</h3>
-    <p>Process CPU usage during decode (excluding the first output). All 8 cores fully used is shown as 100%.</p>
+    <h5>VLM (image input) and audio input latency</h5>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>SC8380XP E2B / FP16</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>GPU (without MTP)</th><th>GPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
-      <tr><td>Text</td><td class="num">48.0%</td><td class="num">46.1%</td><td class="num">6.6%</td><td class="num">1.4%</td><td class="num">2.7%</td><td class="num">4.3%</td></tr>
-      <tr><td>Image</td><td class="num">48.5%</td><td class="num">47.7%</td><td class="num">6.2%</td><td class="num">2.8%</td><td class="num">3.0%</td><td class="num">5.1%</td></tr>
-      <tr><td>Audio</td><td class="num">49.1%</td><td class="num">46.6%</td><td class="num">7.4%</td><td class="num">1.2%</td><td class="num">2.2%</td><td class="num">6.2%</td></tr>
-    </table>
-    </div>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>SC8380XP E4B / FP16</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>GPU (without MTP)</th><th>GPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
-      <tr><td>Text</td><td class="num">48.7%</td><td class="num">48.1%</td><td class="num">4.6%</td><td class="num">2.1%</td><td class="num">1.9%</td><td class="num">3.2%</td></tr>
-      <tr><td>Image</td><td class="num">49.0%</td><td class="num">47.9%</td><td class="num">5.4%</td><td class="num">2.6%</td><td class="num">1.9%</td><td class="num">3.7%</td></tr>
-      <tr><td>Audio</td><td class="num">48.9%</td><td class="num">46.0%</td><td class="num">5.6%</td><td class="num">2.3%</td><td class="num">2.0%</td><td class="num">3.7%</td></tr>
-    </table>
-    </div>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>QCS6490 E2B / Int16</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
-      <tr><td>Text</td><td class="num">47.9%</td><td class="num">47.9%</td><td class="num">0.6%</td><td class="num">1.2%</td></tr>
-      <tr><td>Image</td><td class="num">47.9%</td><td class="num">47.7%</td><td class="num">0.8%</td><td class="num">1.5%</td></tr>
-      <tr><td>Audio</td><td class="num">47.9%</td><td class="num">47.1%</td><td class="num">1.0%</td><td class="num">2.1%</td></tr>
-    </table>
-    </div>
-    <p>On SC8380XP, the average during prefill over 64 to 2,048-token inputs is 48.6% to 49.8% on the CPU, 0.3% to 0.9% on the GPU and 2.5% to 3.3% on the NPU. During image and audio input TTFT, it is 49.3% to 49.7% on the CPU, 42.8% to 48.6% on the GPU (the encoders run on the CPU) and 4.6% to 7.3% on the NPU. On QCS6490, prefill is 48.3% to 49.4% on the CPU and 2.9% to 3.8% on the NPU, and image and audio input TTFT is 49.0% to 49.3% on the CPU and 5.3% to 7.4% on the NPU.</p>
-
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B CPU usage during text generation decode" loading="lazy">
-      <figcaption>SC8380XP (E2B / FP16) process CPU usage during text generation decode</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B CPU usage during text generation decode" loading="lazy">
-      <figcaption>SC8380XP (E4B / FP16) process CPU usage during text generation decode</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B average CPU usage during prefill (average over 64 to 2,048-token inputs)" loading="lazy">
-      <figcaption>SC8380XP (E2B / FP16) average process CPU usage during prefill (average over 64 to 2,048-token inputs)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B average CPU usage during prefill (average over 64 to 2,048-token inputs)" loading="lazy">
-      <figcaption>SC8380XP (E4B / FP16) average process CPU usage during prefill (average over 64 to 2,048-token inputs)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B CPU usage during image / audio input TTFT" loading="lazy">
-      <figcaption>SC8380XP (E2B / FP16) process CPU usage during image (left) and audio input (right) TTFT</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B CPU usage during image / audio input TTFT" loading="lazy">
-      <figcaption>SC8380XP (E4B / FP16) process CPU usage during image (left) and audio input (right) TTFT</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_cpu_qcs6490.png" alt="QCS6490 E2B CPU usage during text generation decode" loading="lazy">
-      <figcaption>QCS6490 (E2B / Int16) process CPU usage during text generation decode</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_pps_cpu_qcs6490.png" alt="QCS6490 E2B average CPU usage during prefill (average over 64 to 2,048-token inputs)" loading="lazy">
-      <figcaption>QCS6490 (E2B / Int16) average process CPU usage during prefill (average over 64 to 2,048-token inputs)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_cpu_qcs6490.png" alt="QCS6490 E2B CPU usage during image / audio input TTFT" loading="lazy">
-      <figcaption>QCS6490 (E2B / Int16) process CPU usage during image (left) and audio input (right) TTFT</figcaption>
-    </figure>
-
-    <h3>VLM (image input) and audio input latency</h3>
-    <p>Image input uses one 768x768 image with 100 output tokens, and audio input transcribes one English recording with 33 output tokens. TTFT is the sum of prompt setup including the encoder and the first generate call, and does not include model opening.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>SC8380XP E2B / FP16</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
+      <tr><th>Input</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
       <tr><td>Image</td><td>CPU (without MTP)</td><td class="num">77.44 s</td><td class="num">38.097 tokens/s</td><td class="num">—</td></tr>
       <tr><td>Image</td><td>CPU (with MTP)</td><td class="num">77.44 s</td><td class="num">61.421 tokens/s</td><td class="num">43.2%</td></tr>
       <tr><td>Image</td><td>GPU (without MTP)</td><td class="num">77.83 s</td><td class="num">17.383 tokens/s</td><td class="num">—</td></tr>
@@ -509,9 +430,86 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">5.03 s</td><td class="num">16.327 tokens/s</td><td class="num">92.6%</td></tr>
     </table>
     </div>
+    <p>NPU TTFT is 1/11.4 (image) and 1/6.1 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.36x for image input and 2.02x for audio input.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_ttft_sc8380xp.png" alt="Snapdragon X Plus E2B VLM / audio input TTFT breakdown (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) VLM (left) and audio input (right) TTFT breakdown (prompt setup including the encoder, and decoder prefill plus the first token)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_tps_sc8380xp.png" alt="Snapdragon X Plus E2B VLM / audio input decode throughput (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) VLM (left) and audio input (right) decode throughput</figcaption>
+    </figure>
+
+    <h5>CPU usage</h5>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>SC8380XP E4B / FP16</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
+      <tr><th>Input</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>GPU (without MTP)</th><th>GPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
+      <tr><td>Text</td><td class="num">48.0%</td><td class="num">46.1%</td><td class="num">6.6%</td><td class="num">1.4%</td><td class="num">2.7%</td><td class="num">4.3%</td></tr>
+      <tr><td>Image</td><td class="num">48.5%</td><td class="num">47.7%</td><td class="num">6.2%</td><td class="num">2.8%</td><td class="num">3.0%</td><td class="num">5.1%</td></tr>
+      <tr><td>Audio</td><td class="num">49.1%</td><td class="num">46.6%</td><td class="num">7.4%</td><td class="num">1.2%</td><td class="num">2.2%</td><td class="num">6.2%</td></tr>
+    </table>
+    </div>
+    <p>The CPU runs on the 4 performance cores, so CPU usage stays around 50%.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B CPU usage during text generation decode" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) process CPU usage during text generation decode</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B average CPU usage during prefill (average over 64 to 2,048-token inputs)" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) average process CPU usage during prefill (average over 64 to 2,048-token inputs)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B CPU usage during image / audio input TTFT" loading="lazy">
+      <figcaption>SC8380XP (E2B / FP16) process CPU usage during image (left) and audio input (right) TTFT</figcaption>
+    </figure>
+
+    <h4 id="sc8380xp-e4b">E4B / FP16</h4>
+
+    <h5>Decode throughput</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Path</th><th>Without MTP</th><th>With MTP</th><th>MTP speedup</th><th>Acceptance</th></tr>
+      <tr><td>CPU</td><td class="num">20.209 tokens/s</td><td class="num">34.010 tokens/s</td><td class="num">1.68x</td><td class="num">43.3%</td></tr>
+      <tr><td>GPU</td><td class="num">8.434 tokens/s</td><td class="num">4.962 tokens/s</td><td class="num">0.59x</td><td class="num">38.2%</td></tr>
+      <tr><td>NPU</td><td class="num">4.311 tokens/s</td><td class="num">7.996 tokens/s</td><td class="num">1.85x</td><td class="num">39.4%</td></tr>
+    </table>
+    </div>
+    <p>Decode is fastest on the CPU. On the GPU, decode became slower with MTP.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B decode throughput (1000 generated tokens, CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) decode throughput (1000 generated tokens)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_by_output_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B per-token decode throughput over 1000 generated tokens (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+
+    <h5>Prefill throughput</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Path</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>CPU (without MTP)</td><td class="num">129.117</td><td class="num">124.315</td><td class="num">119.669</td><td class="num">112.318</td><td class="num">106.239</td><td class="num">99.274</td></tr>
+      <tr><td>CPU (with MTP)</td><td class="num">114.588</td><td class="num">115.837</td><td class="num">117.360</td><td class="num">112.383</td><td class="num">104.566</td><td class="num">97.730</td></tr>
+      <tr><td>GPU (without MTP)</td><td class="num">101.494</td><td class="num">115.771</td><td class="num">122.735</td><td class="num">118.920</td><td class="num">108.919</td><td class="num">96.327</td></tr>
+      <tr><td>GPU (with MTP)</td><td class="num">64.261</td><td class="num">87.397</td><td class="num">102.919</td><td class="num">107.840</td><td class="num">102.897</td><td class="num">92.966</td></tr>
+      <tr><td>NPU (without MTP)</td><td class="num">63.030</td><td class="num">127.516</td><td class="num">244.569</td><td class="num">254.622</td><td class="num">249.404</td><td class="num">248.349</td></tr>
+      <tr><td>NPU (with MTP)</td><td class="num">63.413</td><td class="num">129.878</td><td class="num">254.998</td><td class="num">253.348</td><td class="num">250.169</td><td class="num">248.072</td></tr>
+    </table>
+    </div>
+    <p>For inputs of 256 tokens or more the NPU is the fastest; for a 2,048-token input it is 2.50x the CPU (without MTP). NPU prefill is almost the same with and without MTP.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput (2,048-token input, CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) prefill throughput (2,048-token input)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_by_input_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput by input length (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) prefill throughput by input length</figcaption>
+    </figure>
+
+    <h5>VLM (image input) and audio input latency</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Input</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
       <tr><td>Image</td><td>CPU (without MTP)</td><td class="num">79.04 s</td><td class="num">21.437 tokens/s</td><td class="num">—</td></tr>
       <tr><td>Image</td><td>CPU (with MTP)</td><td class="num">78.75 s</td><td class="num">33.824 tokens/s</td><td class="num">37.6%</td></tr>
       <tr><td>Image</td><td>GPU (without MTP)</td><td class="num">79.38 s</td><td class="num">9.423 tokens/s</td><td class="num">—</td></tr>
@@ -526,9 +524,85 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">7.39 s</td><td class="num">11.986 tokens/s</td><td class="num">92.6%</td></tr>
     </table>
     </div>
+    <p>NPU TTFT is 1/8.7 (image) and 1/4.5 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.75x for image input and 2.84x for audio input.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_ttft_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B VLM / audio input TTFT breakdown (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) VLM (left) and audio input (right) TTFT breakdown (prompt setup including the encoder, and decoder prefill plus the first token)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B VLM / audio input decode throughput (CPU / GPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) VLM (left) and audio input (right) decode throughput</figcaption>
+    </figure>
+
+    <h5>CPU usage</h5>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>QCS6490 E2B / Int16</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
+      <tr><th>Input</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>GPU (without MTP)</th><th>GPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
+      <tr><td>Text</td><td class="num">48.7%</td><td class="num">48.1%</td><td class="num">4.6%</td><td class="num">2.1%</td><td class="num">1.9%</td><td class="num">3.2%</td></tr>
+      <tr><td>Image</td><td class="num">49.0%</td><td class="num">47.9%</td><td class="num">5.4%</td><td class="num">2.6%</td><td class="num">1.9%</td><td class="num">3.7%</td></tr>
+      <tr><td>Audio</td><td class="num">48.9%</td><td class="num">46.0%</td><td class="num">5.6%</td><td class="num">2.3%</td><td class="num">2.0%</td><td class="num">3.7%</td></tr>
+    </table>
+    </div>
+    <p>The CPU runs on the 4 performance cores, so CPU usage stays around 50%.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B CPU usage during text generation decode" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) process CPU usage during text generation decode</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B average CPU usage during prefill (average over 64 to 2,048-token inputs)" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) average process CPU usage during prefill (average over 64 to 2,048-token inputs)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B CPU usage during image / audio input TTFT" loading="lazy">
+      <figcaption>SC8380XP (E4B / FP16) process CPU usage during image (left) and audio input (right) TTFT</figcaption>
+    </figure>
+
+    <h3 id="qcs6490">QCS6490 (Hexagon v68)</h3>
+
+    <h4 id="qcs6490-e2b">E2B / Int16</h4>
+
+    <h5>Decode throughput</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Path</th><th>Without MTP</th><th>With MTP</th><th>MTP speedup</th><th>Acceptance</th></tr>
+      <tr><td>CPU</td><td class="num">8.268 tokens/s</td><td class="num">12.551 tokens/s</td><td class="num">1.52x</td><td class="num">32.4%</td></tr>
+      <tr><td>NPU</td><td class="num">4.401 tokens/s</td><td class="num">7.289 tokens/s</td><td class="num">1.66x</td><td class="num">36.9%</td></tr>
+    </table>
+    </div>
+    <p>Decode is fastest on the CPU. MTP made decode 1.52x on the CPU and 1.66x on the NPU.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_qcs6490.png" alt="QCS6490 E2B decode throughput (1000 generated tokens, CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>QCS6490 (E2B / Int16) decode throughput (1000 generated tokens)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_text_tps_by_output_qcs6490.png" alt="QCS6490 E2B per-token decode throughput over 1000 generated tokens (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>QCS6490 (E2B / Int16) per-token decode throughput over 1000 generated tokens</figcaption>
+    </figure>
+
+    <h5>Prefill throughput</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Path</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>CPU (without MTP)</td><td class="num">69.899</td><td class="num">72.120</td><td class="num">68.605</td><td class="num">64.913</td><td class="num">59.277</td><td class="num">53.487</td></tr>
+      <tr><td>CPU (with MTP)</td><td class="num">64.226</td><td class="num">66.437</td><td class="num">59.173</td><td class="num">63.920</td><td class="num">54.278</td><td class="num">54.221</td></tr>
+      <tr><td>NPU (without MTP)</td><td class="num">53.211</td><td class="num">105.854</td><td class="num">197.664</td><td class="num">211.179</td><td class="num">214.442</td><td class="num">212.110</td></tr>
+      <tr><td>NPU (with MTP)</td><td class="num">45.300</td><td class="num">89.782</td><td class="num">189.393</td><td class="num">189.008</td><td class="num">193.163</td><td class="num">203.766</td></tr>
+    </table>
+    </div>
+    <p>For inputs of 128 tokens or more the NPU is the fastest; for a 2,048-token input it is 3.97x the CPU (without MTP). NPU prefill is somewhat lower with MTP (0.85x to 0.96x).</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_qcs6490.png" alt="QCS6490 E2B prefill throughput (2,048-token input, CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>QCS6490 (E2B / Int16) prefill throughput (2,048-token input)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_by_input_qcs6490.png" alt="QCS6490 E2B prefill throughput by input length (CPU / NPU, without / with MTP)" loading="lazy">
+      <figcaption>QCS6490 (E2B / Int16) prefill throughput by input length</figcaption>
+    </figure>
+
+    <h5>VLM (image input) and audio input latency</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Input</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
       <tr><td>Image</td><td>CPU (without MTP)</td><td class="num">84.75 s</td><td class="num">8.417 tokens/s</td><td class="num">—</td></tr>
       <tr><td>Image</td><td>CPU (with MTP)</td><td class="num">85.63 s</td><td class="num">15.303 tokens/s</td><td class="num">41.7%</td></tr>
       <tr><td>Image</td><td>NPU (without MTP)</td><td class="num">8.88 s</td><td class="num">4.340 tokens/s</td><td class="num">—</td></tr>
@@ -539,24 +613,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">6.71 s</td><td class="num">10.718 tokens/s</td><td class="num">92.6%</td></tr>
     </table>
     </div>
-    <p>On SC8380XP, NPU TTFT is 1/11.4 (E2B image), 1/6.1 (E2B audio), 1/8.7 (E4B image) and 1/4.5 (E4B audio) of the CPU (without MTP). With MTP, NPU decode became 1.36x (E2B) / 1.75x (E4B) for image input and 2.02x / 2.84x for audio input. On QCS6490, NPU TTFT is 1/10.5 (image) and 1/5.4 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.52x for image input and 2.49x for audio input, and CPU decode became 1.82x and 3.09x. Audio was measured with a single recording and is not a general speed ratio.</p>
-
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_ttft_sc8380xp.png" alt="Snapdragon X Plus E2B VLM / audio input TTFT breakdown (CPU / GPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SC8380XP (E2B / FP16) VLM (left) and audio input (right) TTFT breakdown (prompt setup including the encoder, and decoder prefill plus the first token)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_ttft_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B VLM / audio input TTFT breakdown (CPU / GPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SC8380XP (E4B / FP16) VLM (left) and audio input (right) TTFT breakdown (prompt setup including the encoder, and decoder prefill plus the first token)</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_tps_sc8380xp.png" alt="Snapdragon X Plus E2B VLM / audio input decode throughput (CPU / GPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SC8380XP (E2B / FP16) VLM (left) and audio input (right) decode throughput</figcaption>
-    </figure>
-    <figure class="bench-figure">
-      <img src="../../llm/benchmark/mtp_media_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B VLM / audio input decode throughput (CPU / GPU / NPU, without / with MTP)" loading="lazy">
-      <figcaption>SC8380XP (E4B / FP16) VLM (left) and audio input (right) decode throughput</figcaption>
-    </figure>
+    <p>NPU TTFT is 1/10.5 (image) and 1/5.4 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.52x for image input and 2.49x for audio input, and CPU decode became 1.82x and 3.09x.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_ttft_qcs6490.png" alt="QCS6490 E2B VLM / audio input TTFT breakdown (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>QCS6490 (E2B / Int16) VLM (left) and audio input (right) TTFT breakdown (prompt setup including the encoder, and decoder prefill plus the first token)</figcaption>
@@ -564,6 +621,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_tps_qcs6490.png" alt="QCS6490 E2B VLM / audio input decode throughput (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>QCS6490 (E2B / Int16) VLM (left) and audio input (right) decode throughput</figcaption>
+    </figure>
+
+    <h5>CPU usage</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Input</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
+      <tr><td>Text</td><td class="num">47.9%</td><td class="num">47.9%</td><td class="num">0.6%</td><td class="num">1.2%</td></tr>
+      <tr><td>Image</td><td class="num">47.9%</td><td class="num">47.7%</td><td class="num">0.8%</td><td class="num">1.5%</td></tr>
+      <tr><td>Audio</td><td class="num">47.9%</td><td class="num">47.1%</td><td class="num">1.0%</td><td class="num">2.1%</td></tr>
+    </table>
+    </div>
+    <p>The CPU runs on the 4 performance cores, so CPU usage stays around 50%.</p>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_cpu_qcs6490.png" alt="QCS6490 E2B CPU usage during text generation decode" loading="lazy">
+      <figcaption>QCS6490 (E2B / Int16) process CPU usage during text generation decode</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_pps_cpu_qcs6490.png" alt="QCS6490 E2B average CPU usage during prefill (average over 64 to 2,048-token inputs)" loading="lazy">
+      <figcaption>QCS6490 (E2B / Int16) average process CPU usage during prefill (average over 64 to 2,048-token inputs)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../llm/benchmark/mtp_media_cpu_qcs6490.png" alt="QCS6490 E2B CPU usage during image / audio input TTFT" loading="lazy">
+      <figcaption>QCS6490 (E2B / Int16) process CPU usage during image (left) and audio input (right) TTFT</figcaption>
     </figure>
 
   </div>
