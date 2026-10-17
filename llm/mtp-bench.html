@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia LLM MTP ベンチマーク</title>
+  <meta name="description" content="ailia LLM 1.5.1 の MTP（Multi-Token Prediction）を使用した、Qualcomm SoC の NPU における Gemma 4 の Decode スループット改善の測定結果です。">
+  <link rel="canonical" href="https://docs.ailia.ai/llm/mtp-bench.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/llm/mtp-bench.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/llm/mtp-bench.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/llm/mtp-bench.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/llm/mtp-bench.html">
+  <meta property="og:title" content="ailia LLM MTP ベンチマーク">
+  <meta property="og:description" content="ailia LLM 1.5.1 の MTP（Multi-Token Prediction）を使用した、Qualcomm SoC の NPU における Gemma 4 の Decode スループット改善の測定結果です。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia LLM MTP ベンチマーク">
+  <meta name="twitter:description" content="ailia LLM 1.5.1 の MTP（Multi-Token Prediction）を使用した、Qualcomm SoC の NPU における Gemma 4 の Decode スループット改善の測定結果です。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+    .bench-figure { margin: 24px 0; }
+    .bench-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--white); }
+    .bench-figure figcaption { margin-top: 8px; font-size: 0.9em; color: #666; text-align: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia LLM Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../en/llm/mtp-bench.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia LLM MTP ベンチマーク</h1>
+    <p>ailia LLM 1.5.1 の MTP（Multi-Token Prediction）を使用した、Qualcomm SoC の NPU と CPU における Gemma 4 の測定結果です。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <p>MTP の仕組みと使い方は <a href="mtp.html">ailia LLM MTP ガイド</a> を参照してください。</p>
+    <ul>
+      <li><a href="#android">Android</a>
+        <ul>
+          <li><a href="#sm8475">Snapdragon 8+ Gen 1（SM8475）</a>：<a href="#sm8475-e2b">E2B</a></li>
+          <li><a href="#sm7635">Snapdragon 7s Gen 3（SM7635）</a>：<a href="#sm7635-e2b">E2B</a> / <a href="#sm7635-e4b">E4B</a></li>
+        </ul>
+      </li>
+      <li><a href="#windows">Windows</a>
+        <ul>
+          <li><a href="#sc8380xp">Snapdragon X Plus（SC8380XP）</a>：<a href="#sc8380xp-e2b">E2B</a> / <a href="#sc8380xp-e4b">E4B</a></li>
+          <li><a href="#qcs6490">QCS6490</a>：<a href="#qcs6490-e2b">E2B</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2 id="android">Android</h2>
+
+    <h3>測定条件</h3>
+    <ul>
+      <li><strong>NPU</strong>：v1.5.1 の MTP 対応モデル（W4）、QAIRT 2.47、コンテキスト長 8192、AR-256（Prefill）/ AR-4（検証）/ AR-1 構成です。</li>
+      <li><strong>CPU</strong>：llama.cpp で実行しています（スレッド数 4）。本体は GGUF（E2B は Q4_K_M、E4B は QAT Q4_0）、Assistant は Q4_0 の GGUF です。</li>
+      <li><strong>MTP</strong>：「MTP あり」は Assistant を開いた値（ドラフト長 3）です。受理率は、Assistant の候補が本体の検証で採用された割合です。</li>
+      <li><strong>測定方法</strong>：greedy で、各条件 2 回の中央値です。Decode は 81 トークン入力・1,000 トークン生成、Prefill は 64〜2,048 トークン入力・1 トークン生成です。</li>
+      <li><strong>画像・音声入力</strong>：画像は 768x768 の 1 枚（100 トークン出力）、音声は英語音声 1 件の書き起こし（32 トークン出力）です。TTFT はエンコーダを含み、モデルのオープンは含みません。</li>
+      <li><strong>CPU 使用率</strong>：Decode 中のプロセス CPU 使用率で、8 コアすべてを使い切った状態を 100% とします。CPU は 4 スレッドで動作するため 50% 前後になります。</li>
+    </ul>
+
+    <h3 id="sm8475">Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）</h3>
+
+    <h4 id="sm8475-e2b">E2B / FP16</h4>
+
+    <h5>Decode スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果</th><th>受理率</th></tr>
+      <tr><td>CPU</td><td class="num">9.189 tokens/s</td><td class="num">8.658 tokens/s</td><td class="num">0.94 倍</td><td class="num">31.1%</td></tr>
+      <tr><td>NPU</td><td class="num">6.074 tokens/s</td><td class="num">9.751 tokens/s</td><td class="num">1.61 倍</td><td class="num">31.6%</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_sm8475.png" alt="SM8475 E2Bの Decode スループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の Decode スループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_by_output_sm8475.png" alt="SM8475 E2Bの Decode のトークンごとのスループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
+    </figure>
+
+    <h5>Prefill スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>CPU（MTP なし）</td><td class="num">35.337</td><td class="num">33.201</td><td class="num">32.409</td><td class="num">31.383</td><td class="num">29.327</td><td class="num">27.196</td></tr>
+      <tr><td>CPU（MTP あり）</td><td class="num">31.128</td><td class="num">31.366</td><td class="num">31.310</td><td class="num">30.978</td><td class="num">29.101</td><td class="num">27.040</td></tr>
+      <tr><td>NPU（MTP なし）</td><td class="num">76.766</td><td class="num">149.788</td><td class="num">294.427</td><td class="num">306.972</td><td class="num">304.128</td><td class="num">299.831</td></tr>
+      <tr><td>NPU（MTP あり）</td><td class="num">77.393</td><td class="num">155.049</td><td class="num">306.953</td><td class="num">307.530</td><td class="num">304.491</td><td class="num">300.197</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_sm8475.png" alt="SM8475 E2B の Prefill スループット（2,048 トークン入力）（2,048 トークン入力）（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の Prefill スループット（2,048 トークン入力）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_by_input_sm8475.png" alt="SM8475 E2B の入力トークン数別の Prefill スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の入力トークン数別の Prefill スループット</figcaption>
+    </figure>
+
+    <h5>VLM（画像入力）・音声入力の応答時間</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>経路</th><th>TTFT</th><th>Decode</th><th>受理率</th></tr>
+      <tr><td>画像</td><td>CPU（MTP なし）</td><td class="num">33.46 秒</td><td class="num">8.784 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>CPU（MTP あり）</td><td class="num">34.00 秒</td><td class="num">7.701 tokens/s</td><td class="num">28.9%</td></tr>
+      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">7.06 秒</td><td class="num">5.382 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">6.92 秒</td><td class="num">10.476 tokens/s</td><td class="num">41.7%</td></tr>
+      <tr><td>音声</td><td>CPU（MTP なし）</td><td class="num">21.79 秒</td><td class="num">9.138 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>CPU（MTP あり）</td><td class="num">21.65 秒</td><td class="num">12.712 tokens/s</td><td class="num">80.0%</td></tr>
+      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">4.20 秒</td><td class="num">5.344 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">4.53 秒</td><td class="num">18.054 tokens/s</td><td class="num">100.0%</td></tr>
+    </table>
+    </div>
+    <p>NPU（MTP あり）の TTFT は CPU（MTP なし）の 1/4.8（画像）、1/4.8（音声）です。NPU の Decode は MTP により、画像入力で 1.95 倍、音声入力で 3.38 倍になりました。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_ttft_sm8475.png" alt="SM8475 E2B の VLM / 音声入力の TTFT 内訳（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_tps_sm8475.png" alt="SM8475 E2B の VLM / 音声入力の Decode スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
+    </figure>
+
+    <h5>CPU 使用率</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
+      <tr><td>テキスト</td><td class="num">48.9%</td><td class="num">48.3%</td><td class="num">2.6%</td><td class="num">4.4%</td></tr>
+      <tr><td>画像</td><td class="num">48.7%</td><td class="num">48.1%</td><td class="num">3.7%</td><td class="num">4.8%</td></tr>
+      <tr><td>音声</td><td class="num">48.6%</td><td class="num">47.3%</td><td class="num">3.6%</td><td class="num">4.8%</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_cpu_sm8475.png" alt="SM8475 E2B のテキスト生成の Decode 中の CPU 使用率" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）のテキスト生成の Decode 中のプロセス CPU 使用率</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_cpu_sm8475.png" alt="SM8475 E2B の Prefill 中の平均 CPU 使用率（64〜2,048 トークン入力の平均）" loading="lazy">
+      <figcaption>SM8475（E2B / FP16）の Prefill 中の平均プロセス CPU 使用率（64〜2,048 トークン入力の平均）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_cpu_sm8475.png" alt="SM8475 E2B の画像 / 音声入力の TTFT 中の CPU 使用率" loading="lazy">
+      <figcaption>SM8475（E2B / FP16） の画像（左）/ 音声入力（右）の TTFT 中のプロセス CPU 使用率</figcaption>
+    </figure>
+
+    <h3 id="sm7635">Snapdragon 7s Gen 3（SM7635 / Hexagon v73）</h3>
+
+    <h4 id="sm7635-e2b">E2B / Int16</h4>
+
+    <h5>Decode スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果</th><th>受理率</th></tr>
+      <tr><td>CPU</td><td class="num">8.423 tokens/s</td><td class="num">11.336 tokens/s</td><td class="num">1.35 倍</td><td class="num">31.1%</td></tr>
+      <tr><td>NPU</td><td class="num">6.680 tokens/s</td><td class="num">10.579 tokens/s</td><td class="num">1.58 倍</td><td class="num">34.8%</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_sm7635.png" alt="SM7635 E2Bの Decode スループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の Decode スループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_by_output_sm7635.png" alt="SM7635 E2Bの Decode のトークンごとのスループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
+    </figure>
+
+    <h5>Prefill スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>CPU（MTP なし）</td><td class="num">57.466</td><td class="num">54.395</td><td class="num">51.547</td><td class="num">47.661</td><td class="num">37.408</td><td class="num">33.600</td></tr>
+      <tr><td>CPU（MTP あり）</td><td class="num">50.451</td><td class="num">49.910</td><td class="num">49.452</td><td class="num">46.387</td><td class="num">34.608</td><td class="num">31.654</td></tr>
+      <tr><td>NPU（MTP なし）</td><td class="num">32.911</td><td class="num">64.958</td><td class="num">129.053</td><td class="num">130.981</td><td class="num">128.974</td><td class="num">127.976</td></tr>
+      <tr><td>NPU（MTP あり）</td><td class="num">33.344</td><td class="num">66.363</td><td class="num">132.603</td><td class="num">132.104</td><td class="num">130.779</td><td class="num">129.264</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_sm7635.png" alt="SM7635 E2B の Prefill スループット（2,048 トークン入力）（2,048 トークン入力）（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の Prefill スループット（2,048 トークン入力）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_by_input_sm7635.png" alt="SM7635 E2B の入力トークン数別の Prefill スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の入力トークン数別の Prefill スループット</figcaption>
+    </figure>
+
+    <h5>VLM（画像入力）・音声入力の応答時間</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>経路</th><th>TTFT</th><th>Decode</th><th>受理率</th></tr>
+      <tr><td>画像</td><td>CPU（MTP なし）</td><td class="num">17.99 秒</td><td class="num">8.035 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>CPU（MTP あり）</td><td class="num">17.74 秒</td><td class="num">11.046 tokens/s</td><td class="num">28.9%</td></tr>
+      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">8.41 秒</td><td class="num">6.715 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">7.85 秒</td><td class="num">9.713 tokens/s</td><td class="num">30.1%</td></tr>
+      <tr><td>音声</td><td>CPU（MTP なし）</td><td class="num">14.14 秒</td><td class="num">7.972 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>CPU（MTP あり）</td><td class="num">14.10 秒</td><td class="num">16.313 tokens/s</td><td class="num">80.0%</td></tr>
+      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">7.48 秒</td><td class="num">6.712 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">7.56 秒</td><td class="num">17.268 tokens/s</td><td class="num">92.6%</td></tr>
+    </table>
+    </div>
+    <p>NPU（MTP あり）の TTFT は CPU（MTP なし）の 1/2.3（画像）、1/1.9（音声）です。NPU の Decode は MTP により、画像入力で 1.45 倍、音声入力で 2.57 倍になりました。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_ttft_sm7635.png" alt="SM7635 E2B の VLM / 音声入力の TTFT 内訳（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_tps_sm7635.png" alt="SM7635 E2B の VLM / 音声入力の Decode スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
+    </figure>
+
+    <h5>CPU 使用率</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
+      <tr><td>テキスト</td><td class="num">49.0%</td><td class="num">48.0%</td><td class="num">2.4%</td><td class="num">4.1%</td></tr>
+      <tr><td>画像</td><td class="num">48.7%</td><td class="num">47.7%</td><td class="num">2.4%</td><td class="num">4.2%</td></tr>
+      <tr><td>音声</td><td class="num">48.7%</td><td class="num">47.0%</td><td class="num">2.4%</td><td class="num">4.3%</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_cpu_sm7635.png" alt="SM7635 E2B のテキスト生成の Decode 中の CPU 使用率" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）のテキスト生成の Decode 中のプロセス CPU 使用率</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_cpu_sm7635.png" alt="SM7635 E2B の Prefill 中の平均 CPU 使用率（64〜2,048 トークン入力の平均）" loading="lazy">
+      <figcaption>SM7635（E2B / Int16）の Prefill 中の平均プロセス CPU 使用率（64〜2,048 トークン入力の平均）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_cpu_sm7635.png" alt="SM7635 E2B の画像 / 音声入力の TTFT 中の CPU 使用率" loading="lazy">
+      <figcaption>SM7635（E2B / Int16） の画像（左）/ 音声入力（右）の TTFT 中のプロセス CPU 使用率</figcaption>
+    </figure>
+
+    <h4 id="sm7635-e4b">E4B / Int16</h4>
+
+    <h5>Decode スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果</th><th>受理率</th></tr>
+      <tr><td>CPU</td><td class="num">4.217 tokens/s</td><td class="num">6.944 tokens/s</td><td class="num">1.65 倍</td><td class="num">37.1%</td></tr>
+      <tr><td>NPU</td><td class="num">3.191 tokens/s</td><td class="num">3.163 tokens/s</td><td class="num">0.99 倍</td><td class="num">38.6%</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_e4b_sm7635.png" alt="SM7635 E4Bの Decode スループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の Decode スループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_by_output_e4b_sm7635.png" alt="SM7635 E4Bの Decode のトークンごとのスループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
+    </figure>
+
+    <h5>Prefill スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>CPU（MTP なし）</td><td class="num">34.773</td><td class="num">35.415</td><td class="num">38.182</td><td class="num">36.076</td><td class="num">29.317</td><td class="num">27.488</td></tr>
+      <tr><td>CPU（MTP あり）</td><td class="num">33.002</td><td class="num">34.064</td><td class="num">32.739</td><td class="num">32.094</td><td class="num">29.620</td><td class="num">26.869</td></tr>
+      <tr><td>NPU（MTP なし）</td><td class="num">20.380</td><td class="num">40.495</td><td class="num">79.377</td><td class="num">82.226</td><td class="num">82.662</td><td class="num">82.534</td></tr>
+      <tr><td>NPU（MTP あり）</td><td class="num">20.623</td><td class="num">40.630</td><td class="num">80.440</td><td class="num">83.119</td><td class="num">82.887</td><td class="num">82.257</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_e4b_sm7635.png" alt="SM7635 E4B の Prefill スループット（2,048 トークン入力）（2,048 トークン入力）（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の Prefill スループット（2,048 トークン入力）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_by_input_e4b_sm7635.png" alt="SM7635 E4B の入力トークン数別の Prefill スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の入力トークン数別の Prefill スループット</figcaption>
+    </figure>
+
+    <h5>VLM（画像入力）・音声入力の応答時間</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>経路</th><th>TTFT</th><th>Decode</th><th>受理率</th></tr>
+      <tr><td>画像</td><td>CPU（MTP なし）</td><td class="num">99.00 秒</td><td class="num">4.401 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>CPU（MTP あり）</td><td class="num">103.83 秒</td><td class="num">6.446 tokens/s</td><td class="num">37.6%</td></tr>
+      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">15.15 秒</td><td class="num">3.140 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">14.89 秒</td><td class="num">3.220 tokens/s</td><td class="num">40.0%</td></tr>
+      <tr><td>音声</td><td>CPU（MTP なし）</td><td class="num">52.73 秒</td><td class="num">4.055 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>CPU（MTP あり）</td><td class="num">50.40 秒</td><td class="num">7.507 tokens/s</td><td class="num">100.0%</td></tr>
+      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">13.01 秒</td><td class="num">3.043 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">13.19 秒</td><td class="num">5.503 tokens/s</td><td class="num">100.0%</td></tr>
+    </table>
+    </div>
+    <p>NPU（MTP あり）の TTFT は CPU（MTP なし）の 1/6.6（画像）、1/4.0（音声）です。NPU の Decode は MTP により、画像入力で 1.03 倍、音声入力で 1.81 倍になりました。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_ttft_e4b_sm7635.png" alt="SM7635 E4B の VLM / 音声入力の TTFT 内訳（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_tps_e4b_sm7635.png" alt="SM7635 E4B の VLM / 音声入力の Decode スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
+    </figure>
+
+    <h5>CPU 使用率</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
+      <tr><td>テキスト</td><td class="num">48.3%</td><td class="num">46.5%</td><td class="num">1.4%</td><td class="num">2.0%</td></tr>
+      <tr><td>画像</td><td class="num">48.5%</td><td class="num">46.8%</td><td class="num">1.7%</td><td class="num">2.0%</td></tr>
+      <tr><td>音声</td><td class="num">48.1%</td><td class="num">42.5%</td><td class="num">2.0%</td><td class="num">2.1%</td></tr>
+    </table>
+    </div>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_cpu_e4b_sm7635.png" alt="SM7635 E4B のテキスト生成の Decode 中の CPU 使用率" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）のテキスト生成の Decode 中のプロセス CPU 使用率</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_cpu_e4b_sm7635.png" alt="SM7635 E4B の Prefill 中の平均 CPU 使用率（64〜2,048 トークン入力の平均）" loading="lazy">
+      <figcaption>SM7635（E4B / Int16）の Prefill 中の平均プロセス CPU 使用率（64〜2,048 トークン入力の平均）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_cpu_e4b_sm7635.png" alt="SM7635 E4B の画像 / 音声入力の TTFT 中の CPU 使用率" loading="lazy">
+      <figcaption>SM7635（E4B / Int16） の画像（左）/ 音声入力（右）の TTFT 中のプロセス CPU 使用率</figcaption>
+    </figure>
+
+    <h2 id="windows">Windows</h2>
+
+    <h3>測定条件</h3>
+    <ul>
+      <li><strong>OS</strong>：SC8380XP は Windows 11 Pro、QCS6490 は Windows 11 IoT Enterprise LTSC です。</li>
+      <li><strong>NPU</strong>：v1.5.1 の MTP 対応モデル（SC8380XP は FP16 / W4、QCS6490 は Int16）、QAIRT 2.47、コンテキスト長 8192 です。</li>
+      <li><strong>CPU / GPU</strong>：CPU は llama.cpp で実行しています（OpenMP 無効、高性能コアの 4 コア）。本体は QAT Q4_0、Assistant は Q4_0 の GGUF です。GPU は SC8380XP の Adreno X1-45 で llama.cpp の OpenCL バックエンドを使用しています（QCS6490 は未測定）。</li>
+      <li><strong>測定方法</strong>：greedy で、各構成 1 回の測定です。Decode・Prefill・受理率の条件は Android と同じです。</li>
+      <li><strong>画像・音声入力</strong>：画像は 768x768 の 1 枚（100 トークン出力）、音声は英語音声 1 件の書き起こし（33 トークン出力）です。エンコーダは CPU・GPU の構成では CPU、NPU の構成では NPU で実行しています。</li>
+      <li><strong>CPU 使用率</strong>：Decode 中のプロセス CPU 使用率で、8 コアすべてを使い切った状態を 100% とします。CPU は高性能コアの 4 コアだけを使用するため 50% 前後になります。</li>
+    </ul>
+
+    <h3 id="sc8380xp">Snapdragon X Plus（SC8380XP / Hexagon v73）</h3>
+
+    <h4 id="sc8380xp-e2b">E2B / FP16</h4>
+
+    <h5>Decode スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果</th><th>受理率</th></tr>
+      <tr><td>CPU</td><td class="num">36.097 tokens/s</td><td class="num">45.952 tokens/s</td><td class="num">1.27 倍</td><td class="num">31.1%</td></tr>
+      <tr><td>GPU</td><td class="num">15.789 tokens/s</td><td class="num">7.956 tokens/s</td><td class="num">0.50 倍</td><td class="num">39.0%</td></tr>
+      <tr><td>NPU</td><td class="num">7.396 tokens/s</td><td class="num">10.725 tokens/s</td><td class="num">1.45 倍</td><td class="num">31.2%</td></tr>
+    </table>
+    </div>
+    <p>Decode は CPU が最も高速です。GPU は MTP ありで Decode が低下しました。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_sc8380xp.png" alt="Snapdragon X Plus E2B の Decode スループット（1000 トークン生成、CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の Decode スループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_by_output_sc8380xp.png" alt="Snapdragon X Plus E2B の Decode のトークンごとのスループット（1000 トークン生成、CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
+    </figure>
+
+    <h5>Prefill スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>CPU（MTP なし）</td><td class="num">261.792</td><td class="num">243.510</td><td class="num">228.444</td><td class="num">203.791</td><td class="num">180.420</td><td class="num">162.898</td></tr>
+      <tr><td>CPU（MTP あり）</td><td class="num">226.239</td><td class="num">209.196</td><td class="num">212.324</td><td class="num">198.671</td><td class="num">179.041</td><td class="num">159.733</td></tr>
+      <tr><td>GPU（MTP なし）</td><td class="num">191.567</td><td class="num">211.200</td><td class="num">226.293</td><td class="num">210.324</td><td class="num">185.268</td><td class="num">155.789</td></tr>
+      <tr><td>GPU（MTP あり）</td><td class="num">110.794</td><td class="num">150.182</td><td class="num">181.306</td><td class="num">187.165</td><td class="num">173.085</td><td class="num">149.692</td></tr>
+      <tr><td>NPU（MTP なし）</td><td class="num">142.326</td><td class="num">268.719</td><td class="num">550.238</td><td class="num">558.241</td><td class="num">556.910</td><td class="num">535.660</td></tr>
+      <tr><td>NPU（MTP あり）</td><td class="num">146.658</td><td class="num">291.834</td><td class="num">572.231</td><td class="num">550.662</td><td class="num">545.243</td><td class="num">549.844</td></tr>
+    </table>
+    </div>
+    <p>128 トークン以上の入力では NPU が最も高速で、2,048 トークン入力では CPU（MTP なし）の 3.29 倍です。MTP の有無で NPU の Prefill はほぼ同じです。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_sc8380xp.png" alt="Snapdragon X Plus E2B の Prefill スループット（2,048 トークン入力、CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の Prefill スループット（2,048 トークン入力）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_by_input_sc8380xp.png" alt="Snapdragon X Plus E2B の入力トークン数別の Prefill スループット（CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の入力トークン数別の Prefill スループット</figcaption>
+    </figure>
+
+    <h5>VLM（画像入力）・音声入力の応答時間</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>経路</th><th>TTFT</th><th>Decode</th><th>受理率</th></tr>
+      <tr><td>画像</td><td>CPU（MTP なし）</td><td class="num">77.44 秒</td><td class="num">38.097 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>CPU（MTP あり）</td><td class="num">77.44 秒</td><td class="num">61.421 tokens/s</td><td class="num">43.2%</td></tr>
+      <tr><td>画像</td><td>GPU（MTP なし）</td><td class="num">77.83 秒</td><td class="num">17.383 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>GPU（MTP あり）</td><td class="num">77.82 秒</td><td class="num">8.451 tokens/s</td><td class="num">41.7%</td></tr>
+      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">6.39 秒</td><td class="num">7.132 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">5.95 秒</td><td class="num">11.525 tokens/s</td><td class="num">39.9%</td></tr>
+      <tr><td>音声</td><td>CPU（MTP なし）</td><td class="num">30.93 秒</td><td class="num">39.247 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>CPU（MTP あり）</td><td class="num">30.75 秒</td><td class="num">103.169 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>音声</td><td>GPU（MTP なし）</td><td class="num">30.77 秒</td><td class="num">16.935 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>GPU（MTP あり）</td><td class="num">30.80 秒</td><td class="num">15.584 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">4.21 秒</td><td class="num">7.341 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">4.46 秒</td><td class="num">19.628 tokens/s</td><td class="num">92.6%</td></tr>
+    </table>
+    </div>
+    <p>NPU の TTFT は CPU（MTP なし）の 1/13.0（画像）、1/6.9（音声）です。NPU の Decode は MTP により、画像入力で 1.62 倍、音声入力で 2.67 倍になりました。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_ttft_sc8380xp.png" alt="Snapdragon X Plus E2B の VLM / 音声入力の TTFT 内訳（CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_tps_sc8380xp.png" alt="Snapdragon X Plus E2B の VLM / 音声入力の Decode スループット（CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
+    </figure>
+
+    <h5>CPU 使用率</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>GPU（MTP なし）</th><th>GPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
+      <tr><td>テキスト</td><td class="num">48.0%</td><td class="num">46.1%</td><td class="num">6.6%</td><td class="num">1.4%</td><td class="num">2.8%</td><td class="num">4.9%</td></tr>
+      <tr><td>画像</td><td class="num">48.5%</td><td class="num">47.7%</td><td class="num">6.2%</td><td class="num">2.8%</td><td class="num">2.9%</td><td class="num">5.4%</td></tr>
+      <tr><td>音声</td><td class="num">49.1%</td><td class="num">46.6%</td><td class="num">7.4%</td><td class="num">1.2%</td><td class="num">2.7%</td><td class="num">4.9%</td></tr>
+    </table>
+    </div>
+    <p>CPU は高性能コアの 4 コアで実行しているため、CPU の使用率は 50% 前後です。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B のテキスト生成の Decode 中の CPU 使用率" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）のテキスト生成の Decode 中のプロセス CPU 使用率</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B の Prefill 中の平均 CPU 使用率（64〜2,048 トークン入力の平均）" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の Prefill 中の平均プロセス CPU 使用率（64〜2,048 トークン入力の平均）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B の画像 / 音声入力の TTFT 中の CPU 使用率" loading="lazy">
+      <figcaption>SC8380XP（E2B / FP16）の画像（左）/ 音声入力（右）の TTFT 中のプロセス CPU 使用率</figcaption>
+    </figure>
+
+    <h4 id="sc8380xp-e4b">E4B / FP16</h4>
+
+    <h5>Decode スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果</th><th>受理率</th></tr>
+      <tr><td>CPU</td><td class="num">20.209 tokens/s</td><td class="num">34.010 tokens/s</td><td class="num">1.68 倍</td><td class="num">43.3%</td></tr>
+      <tr><td>GPU</td><td class="num">8.434 tokens/s</td><td class="num">4.962 tokens/s</td><td class="num">0.59 倍</td><td class="num">38.2%</td></tr>
+      <tr><td>NPU</td><td class="num">4.346 tokens/s</td><td class="num">7.172 tokens/s</td><td class="num">1.65 倍</td><td class="num">33.4%</td></tr>
+    </table>
+    </div>
+    <p>Decode は CPU が最も高速です。GPU は MTP ありで Decode が低下しました。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の Decode スループット（1000 トークン生成、CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の Decode スループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_by_output_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の Decode のトークンごとのスループット（1000 トークン生成、CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
+    </figure>
+
+    <h5>Prefill スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>CPU（MTP なし）</td><td class="num">129.117</td><td class="num">124.315</td><td class="num">119.669</td><td class="num">112.318</td><td class="num">106.239</td><td class="num">99.274</td></tr>
+      <tr><td>CPU（MTP あり）</td><td class="num">114.588</td><td class="num">115.837</td><td class="num">117.360</td><td class="num">112.383</td><td class="num">104.566</td><td class="num">97.730</td></tr>
+      <tr><td>GPU（MTP なし）</td><td class="num">101.494</td><td class="num">115.771</td><td class="num">122.735</td><td class="num">118.920</td><td class="num">108.919</td><td class="num">96.327</td></tr>
+      <tr><td>GPU（MTP あり）</td><td class="num">64.261</td><td class="num">87.397</td><td class="num">102.919</td><td class="num">107.840</td><td class="num">102.897</td><td class="num">92.966</td></tr>
+      <tr><td>NPU（MTP なし）</td><td class="num">81.311</td><td class="num">161.784</td><td class="num">312.190</td><td class="num">325.714</td><td class="num">318.495</td><td class="num">317.629</td></tr>
+      <tr><td>NPU（MTP あり）</td><td class="num">81.512</td><td class="num">164.540</td><td class="num">324.876</td><td class="num">326.486</td><td class="num">321.507</td><td class="num">319.063</td></tr>
+    </table>
+    </div>
+    <p>128 トークン以上の入力では NPU が最も高速で、2,048 トークン入力では CPU（MTP なし）の 3.20 倍です。MTP の有無で NPU の Prefill はほぼ同じです。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の Prefill スループット（2,048 トークン入力、CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の Prefill スループット（2,048 トークン入力）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_by_input_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の入力トークン数別の Prefill スループット（CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の入力トークン数別の Prefill スループット</figcaption>
+    </figure>
+
+    <h5>VLM（画像入力）・音声入力の応答時間</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>経路</th><th>TTFT</th><th>Decode</th><th>受理率</th></tr>
+      <tr><td>画像</td><td>CPU（MTP なし）</td><td class="num">79.04 秒</td><td class="num">21.437 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>CPU（MTP あり）</td><td class="num">78.75 秒</td><td class="num">33.824 tokens/s</td><td class="num">37.6%</td></tr>
+      <tr><td>画像</td><td>GPU（MTP なし）</td><td class="num">79.38 秒</td><td class="num">9.423 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>GPU（MTP あり）</td><td class="num">80.72 秒</td><td class="num">5.596 tokens/s</td><td class="num">41.7%</td></tr>
+      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">9.46 秒</td><td class="num">4.153 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">8.14 秒</td><td class="num">7.744 tokens/s</td><td class="num">43.4%</td></tr>
+      <tr><td>音声</td><td>CPU（MTP なし）</td><td class="num">33.37 秒</td><td class="num">21.364 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>CPU（MTP あり）</td><td class="num">33.17 秒</td><td class="num">58.900 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>音声</td><td>GPU（MTP なし）</td><td class="num">33.04 秒</td><td class="num">9.406 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>GPU（MTP あり）</td><td class="num">33.07 秒</td><td class="num">9.795 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">5.83 秒</td><td class="num">4.183 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">5.96 秒</td><td class="num">12.772 tokens/s</td><td class="num">92.6%</td></tr>
+    </table>
+    </div>
+    <p>NPU の TTFT は CPU（MTP なし）の 1/9.7（画像）、1/5.6（音声）です。NPU の Decode は MTP により、画像入力で 1.86 倍、音声入力で 3.05 倍になりました。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_ttft_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の VLM / 音声入力の TTFT 内訳（CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_tps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の VLM / 音声入力の Decode スループット（CPU / GPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
+    </figure>
+
+    <h5>CPU 使用率</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>GPU（MTP なし）</th><th>GPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
+      <tr><td>テキスト</td><td class="num">48.7%</td><td class="num">48.1%</td><td class="num">4.6%</td><td class="num">2.1%</td><td class="num">1.8%</td><td class="num">3.0%</td></tr>
+      <tr><td>画像</td><td class="num">49.0%</td><td class="num">47.9%</td><td class="num">5.4%</td><td class="num">2.6%</td><td class="num">1.8%</td><td class="num">3.2%</td></tr>
+      <tr><td>音声</td><td class="num">48.9%</td><td class="num">46.0%</td><td class="num">5.6%</td><td class="num">2.3%</td><td class="num">1.7%</td><td class="num">3.2%</td></tr>
+    </table>
+    </div>
+    <p>CPU は高性能コアの 4 コアで実行しているため、CPU の使用率は 50% 前後です。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B のテキスト生成の Decode 中の CPU 使用率" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）のテキスト生成の Decode 中のプロセス CPU 使用率</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の Prefill 中の平均 CPU 使用率（64〜2,048 トークン入力の平均）" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の Prefill 中の平均プロセス CPU 使用率（64〜2,048 トークン入力の平均）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B の画像 / 音声入力の TTFT 中の CPU 使用率" loading="lazy">
+      <figcaption>SC8380XP（E4B / FP16）の画像（左）/ 音声入力（右）の TTFT 中のプロセス CPU 使用率</figcaption>
+    </figure>
+
+    <h3 id="qcs6490">QCS6490（Hexagon v68）</h3>
+
+    <h4 id="qcs6490-e2b">E2B / Int16</h4>
+
+    <h5>Decode スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果</th><th>受理率</th></tr>
+      <tr><td>CPU</td><td class="num">8.268 tokens/s</td><td class="num">12.551 tokens/s</td><td class="num">1.52 倍</td><td class="num">32.4%</td></tr>
+      <tr><td>NPU</td><td class="num">4.401 tokens/s</td><td class="num">7.289 tokens/s</td><td class="num">1.66 倍</td><td class="num">36.9%</td></tr>
+    </table>
+    </div>
+    <p>Decode は CPU が最も高速です。MTP により CPU が 1.52 倍、NPU が 1.66 倍になりました。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_qcs6490.png" alt="QCS6490 E2B の Decode スループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）の Decode スループット（1000 トークン生成）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_text_tps_by_output_qcs6490.png" alt="QCS6490 E2B の Decode のトークンごとのスループット（1000 トークン生成、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）の Decode のトークンごとのスループット（1000 トークン生成）</figcaption>
+    </figure>
+
+    <h5>Prefill スループット</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>経路</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
+      <tr><td>CPU（MTP なし）</td><td class="num">69.899</td><td class="num">72.120</td><td class="num">68.605</td><td class="num">64.913</td><td class="num">59.277</td><td class="num">53.487</td></tr>
+      <tr><td>CPU（MTP あり）</td><td class="num">64.226</td><td class="num">66.437</td><td class="num">59.173</td><td class="num">63.920</td><td class="num">54.278</td><td class="num">54.221</td></tr>
+      <tr><td>NPU（MTP なし）</td><td class="num">53.211</td><td class="num">105.854</td><td class="num">197.664</td><td class="num">211.179</td><td class="num">214.442</td><td class="num">212.110</td></tr>
+      <tr><td>NPU（MTP あり）</td><td class="num">45.300</td><td class="num">89.782</td><td class="num">189.393</td><td class="num">189.008</td><td class="num">193.163</td><td class="num">203.766</td></tr>
+    </table>
+    </div>
+    <p>128 トークン以上の入力では NPU が最も高速で、2,048 トークン入力では CPU（MTP なし）の 3.97 倍です。NPU の Prefill は MTP ありで 0.85〜0.96 倍とやや低くなります。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_qcs6490.png" alt="QCS6490 E2B の Prefill スループット（2,048 トークン入力、CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）の Prefill スループット（2,048 トークン入力）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_by_input_qcs6490.png" alt="QCS6490 E2B の入力トークン数別の Prefill スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）の入力トークン数別の Prefill スループット</figcaption>
+    </figure>
+
+    <h5>VLM（画像入力）・音声入力の応答時間</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>経路</th><th>TTFT</th><th>Decode</th><th>受理率</th></tr>
+      <tr><td>画像</td><td>CPU（MTP なし）</td><td class="num">84.75 秒</td><td class="num">8.417 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>CPU（MTP あり）</td><td class="num">85.63 秒</td><td class="num">15.303 tokens/s</td><td class="num">41.7%</td></tr>
+      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">8.88 秒</td><td class="num">4.340 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">8.04 秒</td><td class="num">6.586 tokens/s</td><td class="num">31.4%</td></tr>
+      <tr><td>音声</td><td>CPU（MTP なし）</td><td class="num">36.40 秒</td><td class="num">8.753 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>CPU（MTP あり）</td><td class="num">36.81 秒</td><td class="num">27.060 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">6.70 秒</td><td class="num">4.309 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">6.71 秒</td><td class="num">10.718 tokens/s</td><td class="num">92.6%</td></tr>
+    </table>
+    </div>
+    <p>NPU の TTFT は CPU（MTP なし）の 1/10.5（画像）、1/5.4（音声）です。MTP により、NPU の Decode は画像入力で 1.52 倍、音声入力で 2.49 倍、CPU の Decode は画像入力で 1.82 倍、音声入力で 3.09 倍になりました。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_ttft_qcs6490.png" alt="QCS6490 E2B の VLM / 音声入力の TTFT 内訳（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_tps_qcs6490.png" alt="QCS6490 E2B の VLM / 音声入力の Decode スループット（CPU / NPU、MTP なし / あり）" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）の VLM（左）/ 音声入力（右）の Decode スループット</figcaption>
+    </figure>
+
+    <h5>CPU 使用率</h5>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>入力</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
+      <tr><td>テキスト</td><td class="num">47.9%</td><td class="num">47.9%</td><td class="num">0.6%</td><td class="num">1.2%</td></tr>
+      <tr><td>画像</td><td class="num">47.9%</td><td class="num">47.7%</td><td class="num">0.8%</td><td class="num">1.5%</td></tr>
+      <tr><td>音声</td><td class="num">47.9%</td><td class="num">47.1%</td><td class="num">1.0%</td><td class="num">2.1%</td></tr>
+    </table>
+    </div>
+    <p>CPU は高性能コアの 4 コアで実行しているため、CPU の使用率は 50% 前後です。</p>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_cpu_qcs6490.png" alt="QCS6490 E2B のテキスト生成の Decode 中の CPU 使用率" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）のテキスト生成の Decode 中のプロセス CPU 使用率</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_pps_cpu_qcs6490.png" alt="QCS6490 E2B の Prefill 中の平均 CPU 使用率（64〜2,048 トークン入力の平均）" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）の Prefill 中の平均プロセス CPU 使用率（64〜2,048 トークン入力の平均）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/mtp_media_cpu_qcs6490.png" alt="QCS6490 E2B の画像 / 音声入力の TTFT 中の CPU 使用率" loading="lazy">
+      <figcaption>QCS6490（E2B / Int16）の画像（左）/ 音声入力（右）の TTFT 中のプロセス CPU 使用率</figcaption>
+    </figure>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
