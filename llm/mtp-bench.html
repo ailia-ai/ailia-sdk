@@ -94,7 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li><strong>NPU</strong>：v1.5.1 の MTP 対応モデル（W4）、QAIRT 2.47、コンテキスト長 8192、AR-256（Prefill）/ AR-4（検証）/ AR-1 構成です。</li>
       <li><strong>CPU</strong>：llama.cpp で実行しています（スレッド数 4）。本体は GGUF（E2B は Q4_K_M、E4B は QAT Q4_0）、Assistant は Q4_0 の GGUF です。</li>
       <li><strong>MTP</strong>：「MTP あり」は Assistant を開いた値（ドラフト長 3）です。受理率は、Assistant の候補が本体の検証で採用された割合です。</li>
-      <li><strong>測定方法</strong>：greedy で、各条件 2 回の中央値です。Decode は 81 トークン入力・1,000 トークン生成、Prefill は 64〜2,048 トークン入力・1 トークン生成です。2026-10-12 に測定しました。</li>
+      <li><strong>測定方法</strong>：greedy で、各条件 2 回の中央値です。Decode は 81 トークン入力・1,000 トークン生成、Prefill は 64〜2,048 トークン入力・1 トークン生成です。CPU は 2026-10-12、NPU は 2026-10-17 に測定しました。</li>
       <li><strong>画像・音声入力</strong>：画像は 768x768 の 1 枚（100 トークン出力）、音声は英語音声 1 件の書き起こし（32 トークン出力）です。TTFT はエンコーダを含み、モデルのオープンは含みません。</li>
       <li><strong>CPU 使用率</strong>：Decode 中のプロセス CPU 使用率で、8 コアすべてを使い切った状態を 100% とします。CPU は 4 スレッドで動作するため 50% 前後になります。</li>
     </ul>
@@ -108,7 +108,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <table class="version-table">
       <tr><th>経路</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果</th><th>受理率</th></tr>
       <tr><td>CPU</td><td class="num">9.189 tokens/s</td><td class="num">8.658 tokens/s</td><td class="num">0.94 倍</td><td class="num">31.1%</td></tr>
-      <tr><td>NPU</td><td class="num">5.353 tokens/s</td><td class="num">9.675 tokens/s</td><td class="num">1.81 倍</td><td class="num">33.7%</td></tr>
+      <tr><td>NPU</td><td class="num">6.074 tokens/s</td><td class="num">9.751 tokens/s</td><td class="num">1.61 倍</td><td class="num">31.6%</td></tr>
     </table>
     </div>
     <figure class="bench-figure">
@@ -126,8 +126,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>経路</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
       <tr><td>CPU（MTP なし）</td><td class="num">35.337</td><td class="num">33.201</td><td class="num">32.409</td><td class="num">31.383</td><td class="num">29.327</td><td class="num">27.196</td></tr>
       <tr><td>CPU（MTP あり）</td><td class="num">31.128</td><td class="num">31.366</td><td class="num">31.310</td><td class="num">30.978</td><td class="num">29.101</td><td class="num">27.040</td></tr>
-      <tr><td>NPU（MTP なし）</td><td class="num">69.770</td><td class="num">136.787</td><td class="num">265.156</td><td class="num">287.433</td><td class="num">283.803</td><td class="num">281.277</td></tr>
-      <tr><td>NPU（MTP あり）</td><td class="num">71.074</td><td class="num">136.212</td><td class="num">266.966</td><td class="num">287.802</td><td class="num">283.944</td><td class="num">282.239</td></tr>
+      <tr><td>NPU（MTP なし）</td><td class="num">76.766</td><td class="num">149.788</td><td class="num">294.427</td><td class="num">306.972</td><td class="num">304.128</td><td class="num">299.831</td></tr>
+      <tr><td>NPU（MTP あり）</td><td class="num">77.393</td><td class="num">155.049</td><td class="num">306.953</td><td class="num">307.530</td><td class="num">304.491</td><td class="num">300.197</td></tr>
     </table>
     </div>
     <figure class="bench-figure">
@@ -145,15 +145,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>入力</th><th>経路</th><th>TTFT</th><th>Decode</th><th>受理率</th></tr>
       <tr><td>画像</td><td>CPU（MTP なし）</td><td class="num">33.46 秒</td><td class="num">8.784 tokens/s</td><td class="num">—</td></tr>
       <tr><td>画像</td><td>CPU（MTP あり）</td><td class="num">34.00 秒</td><td class="num">7.701 tokens/s</td><td class="num">28.9%</td></tr>
-      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">9.12 秒</td><td class="num">5.305 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">8.04 秒</td><td class="num">9.504 tokens/s</td><td class="num">36.1%</td></tr>
+      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">7.06 秒</td><td class="num">5.382 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">6.92 秒</td><td class="num">10.476 tokens/s</td><td class="num">41.7%</td></tr>
       <tr><td>音声</td><td>CPU（MTP なし）</td><td class="num">21.79 秒</td><td class="num">9.138 tokens/s</td><td class="num">—</td></tr>
       <tr><td>音声</td><td>CPU（MTP あり）</td><td class="num">21.65 秒</td><td class="num">12.712 tokens/s</td><td class="num">80.0%</td></tr>
-      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">6.18 秒</td><td class="num">5.562 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">6.38 秒</td><td class="num">16.197 tokens/s</td><td class="num">100.0%</td></tr>
+      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">4.20 秒</td><td class="num">5.344 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">4.53 秒</td><td class="num">18.054 tokens/s</td><td class="num">100.0%</td></tr>
     </table>
     </div>
-    <p>NPU（MTP あり）の TTFT は CPU（MTP なし）の 1/4.2（画像）、1/3.4（音声）です。NPU の Decode は MTP により、画像入力で 1.79 倍、音声入力で 2.91 倍になりました。</p>
+    <p>NPU（MTP あり）の TTFT は CPU（MTP なし）の 1/4.8（画像）、1/4.8（音声）です。NPU の Decode は MTP により、画像入力で 1.95 倍、音声入力で 3.38 倍になりました。</p>
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_ttft_sm8475.png" alt="SM8475 E2B の VLM / 音声入力の TTFT 内訳（CPU / NPU、MTP なし / あり）" loading="lazy">
       <figcaption>SM8475（E2B / FP16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
@@ -167,9 +167,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>入力</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
-      <tr><td>テキスト</td><td class="num">48.9%</td><td class="num">48.3%</td><td class="num">3.2%</td><td class="num">4.0%</td></tr>
-      <tr><td>画像</td><td class="num">48.7%</td><td class="num">48.1%</td><td class="num">3.4%</td><td class="num">4.5%</td></tr>
-      <tr><td>音声</td><td class="num">48.6%</td><td class="num">47.3%</td><td class="num">3.1%</td><td class="num">5.0%</td></tr>
+      <tr><td>テキスト</td><td class="num">48.9%</td><td class="num">48.3%</td><td class="num">2.6%</td><td class="num">4.4%</td></tr>
+      <tr><td>画像</td><td class="num">48.7%</td><td class="num">48.1%</td><td class="num">3.7%</td><td class="num">4.8%</td></tr>
+      <tr><td>音声</td><td class="num">48.6%</td><td class="num">47.3%</td><td class="num">3.6%</td><td class="num">4.8%</td></tr>
     </table>
     </div>
     <figure class="bench-figure">
@@ -194,7 +194,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <table class="version-table">
       <tr><th>経路</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果</th><th>受理率</th></tr>
       <tr><td>CPU</td><td class="num">8.423 tokens/s</td><td class="num">11.336 tokens/s</td><td class="num">1.35 倍</td><td class="num">31.1%</td></tr>
-      <tr><td>NPU</td><td class="num">6.389 tokens/s</td><td class="num">9.898 tokens/s</td><td class="num">1.55 倍</td><td class="num">35.6%</td></tr>
+      <tr><td>NPU</td><td class="num">6.680 tokens/s</td><td class="num">10.579 tokens/s</td><td class="num">1.58 倍</td><td class="num">34.8%</td></tr>
     </table>
     </div>
     <figure class="bench-figure">
@@ -212,8 +212,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>経路</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
       <tr><td>CPU（MTP なし）</td><td class="num">57.466</td><td class="num">54.395</td><td class="num">51.547</td><td class="num">47.661</td><td class="num">37.408</td><td class="num">33.600</td></tr>
       <tr><td>CPU（MTP あり）</td><td class="num">50.451</td><td class="num">49.910</td><td class="num">49.452</td><td class="num">46.387</td><td class="num">34.608</td><td class="num">31.654</td></tr>
-      <tr><td>NPU（MTP なし）</td><td class="num">33.106</td><td class="num">65.713</td><td class="num">130.399</td><td class="num">130.210</td><td class="num">129.942</td><td class="num">128.918</td></tr>
-      <tr><td>NPU（MTP あり）</td><td class="num">33.688</td><td class="num">67.355</td><td class="num">133.535</td><td class="num">133.397</td><td class="num">131.292</td><td class="num">130.078</td></tr>
+      <tr><td>NPU（MTP なし）</td><td class="num">32.911</td><td class="num">64.958</td><td class="num">129.053</td><td class="num">130.981</td><td class="num">128.974</td><td class="num">127.976</td></tr>
+      <tr><td>NPU（MTP あり）</td><td class="num">33.344</td><td class="num">66.363</td><td class="num">132.603</td><td class="num">132.104</td><td class="num">130.779</td><td class="num">129.264</td></tr>
     </table>
     </div>
     <figure class="bench-figure">
@@ -231,15 +231,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>入力</th><th>経路</th><th>TTFT</th><th>Decode</th><th>受理率</th></tr>
       <tr><td>画像</td><td>CPU（MTP なし）</td><td class="num">17.99 秒</td><td class="num">8.035 tokens/s</td><td class="num">—</td></tr>
       <tr><td>画像</td><td>CPU（MTP あり）</td><td class="num">17.74 秒</td><td class="num">11.046 tokens/s</td><td class="num">28.9%</td></tr>
-      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">8.87 秒</td><td class="num">6.210 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">7.93 秒</td><td class="num">9.947 tokens/s</td><td class="num">37.6%</td></tr>
+      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">8.41 秒</td><td class="num">6.715 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">7.85 秒</td><td class="num">9.713 tokens/s</td><td class="num">30.1%</td></tr>
       <tr><td>音声</td><td>CPU（MTP なし）</td><td class="num">14.14 秒</td><td class="num">7.972 tokens/s</td><td class="num">—</td></tr>
       <tr><td>音声</td><td>CPU（MTP あり）</td><td class="num">14.10 秒</td><td class="num">16.313 tokens/s</td><td class="num">80.0%</td></tr>
-      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">7.61 秒</td><td class="num">6.423 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">7.53 秒</td><td class="num">15.992 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">7.48 秒</td><td class="num">6.712 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">7.56 秒</td><td class="num">17.268 tokens/s</td><td class="num">92.6%</td></tr>
     </table>
     </div>
-    <p>NPU（MTP あり）の TTFT は CPU（MTP なし）の 1/2.3（画像）、1/1.9（音声）です。NPU の Decode は MTP により、画像入力で 1.60 倍、音声入力で 2.49 倍になりました。</p>
+    <p>NPU（MTP あり）の TTFT は CPU（MTP なし）の 1/2.3（画像）、1/1.9（音声）です。NPU の Decode は MTP により、画像入力で 1.45 倍、音声入力で 2.57 倍になりました。</p>
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_ttft_sm7635.png" alt="SM7635 E2B の VLM / 音声入力の TTFT 内訳（CPU / NPU、MTP なし / あり）" loading="lazy">
       <figcaption>SM7635（E2B / Int16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
@@ -253,9 +253,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>入力</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
-      <tr><td>テキスト</td><td class="num">49.0%</td><td class="num">48.0%</td><td class="num">2.9%</td><td class="num">4.8%</td></tr>
-      <tr><td>画像</td><td class="num">48.7%</td><td class="num">47.7%</td><td class="num">3.1%</td><td class="num">4.8%</td></tr>
-      <tr><td>音声</td><td class="num">48.7%</td><td class="num">47.0%</td><td class="num">2.8%</td><td class="num">4.9%</td></tr>
+      <tr><td>テキスト</td><td class="num">49.0%</td><td class="num">48.0%</td><td class="num">2.4%</td><td class="num">4.1%</td></tr>
+      <tr><td>画像</td><td class="num">48.7%</td><td class="num">47.7%</td><td class="num">2.4%</td><td class="num">4.2%</td></tr>
+      <tr><td>音声</td><td class="num">48.7%</td><td class="num">47.0%</td><td class="num">2.4%</td><td class="num">4.3%</td></tr>
     </table>
     </div>
     <figure class="bench-figure">
@@ -278,7 +278,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <table class="version-table">
       <tr><th>経路</th><th>MTP なし</th><th>MTP あり</th><th>MTP の効果</th><th>受理率</th></tr>
       <tr><td>CPU</td><td class="num">4.217 tokens/s</td><td class="num">6.944 tokens/s</td><td class="num">1.65 倍</td><td class="num">37.1%</td></tr>
-      <tr><td>NPU</td><td class="num">3.122 tokens/s</td><td class="num">3.164 tokens/s</td><td class="num">1.01 倍</td><td class="num">39.1%</td></tr>
+      <tr><td>NPU</td><td class="num">3.191 tokens/s</td><td class="num">3.163 tokens/s</td><td class="num">0.99 倍</td><td class="num">38.6%</td></tr>
     </table>
     </div>
     <figure class="bench-figure">
@@ -296,8 +296,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>経路</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
       <tr><td>CPU（MTP なし）</td><td class="num">34.773</td><td class="num">35.415</td><td class="num">38.182</td><td class="num">36.076</td><td class="num">29.317</td><td class="num">27.488</td></tr>
       <tr><td>CPU（MTP あり）</td><td class="num">33.002</td><td class="num">34.064</td><td class="num">32.739</td><td class="num">32.094</td><td class="num">29.620</td><td class="num">26.869</td></tr>
-      <tr><td>NPU（MTP なし）</td><td class="num">20.944</td><td class="num">40.843</td><td class="num">81.231</td><td class="num">83.990</td><td class="num">81.732</td><td class="num">81.338</td></tr>
-      <tr><td>NPU（MTP あり）</td><td class="num">20.863</td><td class="num">40.969</td><td class="num">81.235</td><td class="num">84.102</td><td class="num">79.278</td><td class="num">83.247</td></tr>
+      <tr><td>NPU（MTP なし）</td><td class="num">20.380</td><td class="num">40.495</td><td class="num">79.377</td><td class="num">82.226</td><td class="num">82.662</td><td class="num">82.534</td></tr>
+      <tr><td>NPU（MTP あり）</td><td class="num">20.623</td><td class="num">40.630</td><td class="num">80.440</td><td class="num">83.119</td><td class="num">82.887</td><td class="num">82.257</td></tr>
     </table>
     </div>
     <figure class="bench-figure">
@@ -315,15 +315,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>入力</th><th>経路</th><th>TTFT</th><th>Decode</th><th>受理率</th></tr>
       <tr><td>画像</td><td>CPU（MTP なし）</td><td class="num">99.00 秒</td><td class="num">4.401 tokens/s</td><td class="num">—</td></tr>
       <tr><td>画像</td><td>CPU（MTP あり）</td><td class="num">103.83 秒</td><td class="num">6.446 tokens/s</td><td class="num">37.6%</td></tr>
-      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">15.71 秒</td><td class="num">3.112 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">14.32 秒</td><td class="num">2.972 tokens/s</td><td class="num">35.4%</td></tr>
+      <tr><td>画像</td><td>NPU（MTP なし）</td><td class="num">15.15 秒</td><td class="num">3.140 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>画像</td><td>NPU（MTP あり）</td><td class="num">14.89 秒</td><td class="num">3.220 tokens/s</td><td class="num">40.0%</td></tr>
       <tr><td>音声</td><td>CPU（MTP なし）</td><td class="num">52.73 秒</td><td class="num">4.055 tokens/s</td><td class="num">—</td></tr>
       <tr><td>音声</td><td>CPU（MTP あり）</td><td class="num">50.40 秒</td><td class="num">7.507 tokens/s</td><td class="num">100.0%</td></tr>
-      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">12.92 秒</td><td class="num">3.040 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">12.97 秒</td><td class="num">5.037 tokens/s</td><td class="num">100.0%</td></tr>
+      <tr><td>音声</td><td>NPU（MTP なし）</td><td class="num">13.01 秒</td><td class="num">3.043 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>音声</td><td>NPU（MTP あり）</td><td class="num">13.19 秒</td><td class="num">5.503 tokens/s</td><td class="num">100.0%</td></tr>
     </table>
     </div>
-    <p>NPU（MTP あり）の TTFT は CPU（MTP なし）の 1/6.9（画像）、1/4.1（音声）です。NPU の Decode は MTP により、画像入力で 0.96 倍、音声入力で 1.66 倍になりました。</p>
+    <p>NPU（MTP あり）の TTFT は CPU（MTP なし）の 1/6.6（画像）、1/4.0（音声）です。NPU の Decode は MTP により、画像入力で 1.03 倍、音声入力で 1.81 倍になりました。</p>
     <figure class="bench-figure">
       <img src="benchmark/mtp_media_ttft_e4b_sm7635.png" alt="SM7635 E4B の VLM / 音声入力の TTFT 内訳（CPU / NPU、MTP なし / あり）" loading="lazy">
       <figcaption>SM7635（E4B / Int16）の VLM（左）/ 音声入力（右）の TTFT 内訳（エンコーダを含むプロンプト設定と、デコーダの Prefill + 最初のトークン）</figcaption>
@@ -337,9 +337,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>入力</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
-      <tr><td>テキスト</td><td class="num">48.3%</td><td class="num">46.5%</td><td class="num">1.6%</td><td class="num">1.9%</td></tr>
+      <tr><td>テキスト</td><td class="num">48.3%</td><td class="num">46.5%</td><td class="num">1.4%</td><td class="num">2.0%</td></tr>
       <tr><td>画像</td><td class="num">48.5%</td><td class="num">46.8%</td><td class="num">1.7%</td><td class="num">2.0%</td></tr>
-      <tr><td>音声</td><td class="num">48.1%</td><td class="num">42.5%</td><td class="num">2.0%</td><td class="num">2.6%</td></tr>
+      <tr><td>音声</td><td class="num">48.1%</td><td class="num">42.5%</td><td class="num">2.0%</td><td class="num">2.1%</td></tr>
     </table>
     </div>
     <figure class="bench-figure">

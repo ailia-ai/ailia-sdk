@@ -83,30 +83,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>This page describes the models and API needed for MTP as a delta from the <a href="qnn.html">ailia LLM NPU (QNN) Guide</a>. NPU setup (deploying the QNN runtime, Android configuration, getting the SoC name) is the same as in the QNN Guide. For measurements, see the <a href="mtp-bench.html">ailia LLM MTP Benchmark</a>.</p>
 
     <h2>Faster decode with MTP</h2>
-    <p>For Gemma 4 E2B text generation, MTP made NPU decode 1.81x on Snapdragon 8+ Gen 1, 1.55x on Snapdragon 7s Gen 3 and 1.71x on Snapdragon X Plus (1.85x for E4B). For audio transcription it is 2.02x to 2.91x (E2B).</p>
+    <p>For Gemma 4 E2B text generation, MTP made NPU decode 1.61x on Snapdragon 8+ Gen 1, 1.58x on Snapdragon 7s Gen 3 and 1.71x on Snapdragon X Plus (1.85x for E4B). For audio transcription it is 2.02x to 3.38x (E2B).</p>
     <p>With QNN alone (one-token-at-a-time generation with AR-1), NPU decode does not speed up as much as prefill, and even on Android devices it was equal to or slower than the CPU. With MTP, multiple tokens can be committed per main-model run, so decode can also use the NPU's parallel compute. MTP can also be used on the CPU (4 threads); for E2B on Snapdragon 7s Gen 3, CPU decode is also 1.35x.</p>
     <div class="hbar-chart">
       <div class="hbar-title">Snapdragon 8+ Gen 1 (SM8475) E2B / FP16: text generation decode</div>
-      <div class="hbar-row"><span class="hbar-label">CPU (without MTP)</span><span class="hbar-track"><span class="hbar-fill" style="width: 95.0%"></span></span><span class="hbar-value">9.189 tokens/s</span></div>
-      <div class="hbar-row"><span class="hbar-label">CPU (with MTP)</span><span class="hbar-track"><span class="hbar-fill" style="width: 89.5%"></span></span><span class="hbar-value">8.658 tokens/s</span></div>
-      <div class="hbar-row"><span class="hbar-label">NPU (without MTP)</span><span class="hbar-track"><span class="hbar-fill" style="width: 55.3%"></span></span><span class="hbar-value">5.353 tokens/s</span></div>
-      <div class="hbar-row is-accent"><span class="hbar-label">NPU (with MTP)</span><span class="hbar-track"><span class="hbar-fill is-accent" style="width: 100.0%"></span></span><span class="hbar-value">9.675 tokens/s</span></div>
+      <div class="hbar-row"><span class="hbar-label">CPU (without MTP)</span><span class="hbar-track"><span class="hbar-fill" style="width: 94.2%"></span></span><span class="hbar-value">9.189 tokens/s</span></div>
+      <div class="hbar-row"><span class="hbar-label">CPU (with MTP)</span><span class="hbar-track"><span class="hbar-fill" style="width: 88.8%"></span></span><span class="hbar-value">8.658 tokens/s</span></div>
+      <div class="hbar-row"><span class="hbar-label">NPU (without MTP)</span><span class="hbar-track"><span class="hbar-fill" style="width: 62.3%"></span></span><span class="hbar-value">6.074 tokens/s</span></div>
+      <div class="hbar-row is-accent"><span class="hbar-label">NPU (with MTP)</span><span class="hbar-track"><span class="hbar-fill is-accent" style="width: 100.0%"></span></span><span class="hbar-value">9.751 tokens/s</span></div>
       <div class="hbar-caption">81-token input, 1,000 generated tokens. CPU is llama.cpp (Q4_K_M, 4 threads) on the same device.</div>
     </div>
     <div class="hbar-chart">
       <div class="hbar-title">Snapdragon 7s Gen 3 (SM7635) E2B / Int16: text generation decode</div>
       <div class="hbar-row"><span class="hbar-label">CPU (without MTP)</span><span class="hbar-track"><span class="hbar-fill" style="width: 74.3%"></span></span><span class="hbar-value">8.423 tokens/s</span></div>
       <div class="hbar-row"><span class="hbar-label">CPU (with MTP)</span><span class="hbar-track"><span class="hbar-fill" style="width: 100.0%"></span></span><span class="hbar-value">11.336 tokens/s</span></div>
-      <div class="hbar-row"><span class="hbar-label">NPU (without MTP)</span><span class="hbar-track"><span class="hbar-fill" style="width: 56.4%"></span></span><span class="hbar-value">6.389 tokens/s</span></div>
-      <div class="hbar-row is-accent"><span class="hbar-label">NPU (with MTP)</span><span class="hbar-track"><span class="hbar-fill is-accent" style="width: 87.3%"></span></span><span class="hbar-value">9.898 tokens/s</span></div>
+      <div class="hbar-row"><span class="hbar-label">NPU (without MTP)</span><span class="hbar-track"><span class="hbar-fill" style="width: 58.9%"></span></span><span class="hbar-value">6.680 tokens/s</span></div>
+      <div class="hbar-row is-accent"><span class="hbar-label">NPU (with MTP)</span><span class="hbar-track"><span class="hbar-fill is-accent" style="width: 93.3%"></span></span><span class="hbar-value">10.579 tokens/s</span></div>
       <div class="hbar-caption">81-token input, 1,000 generated tokens. CPU is llama.cpp (Q4_K_M, 4 threads) on the same device.</div>
     </div>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Device / model (text generation)</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
-      <tr><td>SM8475 (Snapdragon 8+ Gen 1) E2B / FP16</td><td class="num">9.189 tokens/s</td><td class="num">8.658 tokens/s</td><td class="num">5.353 tokens/s</td><td class="num">9.675 tokens/s</td></tr>
-      <tr><td>SM7635 (Snapdragon 7s Gen 3) E2B / Int16</td><td class="num">8.423 tokens/s</td><td class="num">11.336 tokens/s</td><td class="num">6.389 tokens/s</td><td class="num">9.898 tokens/s</td></tr>
-      <tr><td>SM7635 (Snapdragon 7s Gen 3) E4B / Int16</td><td class="num">4.217 tokens/s</td><td class="num">6.944 tokens/s</td><td class="num">3.122 tokens/s</td><td class="num">3.164 tokens/s</td></tr>
+      <tr><td>SM8475 (Snapdragon 8+ Gen 1) E2B / FP16</td><td class="num">9.189 tokens/s</td><td class="num">8.658 tokens/s</td><td class="num">6.074 tokens/s</td><td class="num">9.751 tokens/s</td></tr>
+      <tr><td>SM7635 (Snapdragon 7s Gen 3) E2B / Int16</td><td class="num">8.423 tokens/s</td><td class="num">11.336 tokens/s</td><td class="num">6.680 tokens/s</td><td class="num">10.579 tokens/s</td></tr>
+      <tr><td>SM7635 (Snapdragon 7s Gen 3) E4B / Int16</td><td class="num">4.217 tokens/s</td><td class="num">6.944 tokens/s</td><td class="num">3.191 tokens/s</td><td class="num">3.163 tokens/s</td></tr>
     </table>
     </div>
     <p>See the <a href="mtp-bench.html">ailia LLM MTP Benchmark</a> for details.</p>

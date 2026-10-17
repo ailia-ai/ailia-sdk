@@ -83,30 +83,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>このページは <a href="qnn.html">ailia LLM NPU（QNN）ガイド</a> からの差分として、MTP に必要なモデルと API を説明します。NPU のセットアップ（QNN ランタイムの配置、Android の設定、SoC 名の取得）は QNN ガイドと共通です。測定結果は <a href="mtp-bench.html">ailia LLM MTP ベンチマーク</a> を参照してください。</p>
 
     <h2>MTP による Decode の高速化</h2>
-    <p>Gemma 4 E2B のテキスト生成では、MTP により NPU の Decode が Snapdragon 8+ Gen 1 で 1.81 倍、Snapdragon 7s Gen 3 で 1.55 倍、Snapdragon X Plus で 1.71 倍（E4B は 1.85 倍）になりました。音声の書き起こしでは 2.02〜2.91 倍（E2B）です。</p>
+    <p>Gemma 4 E2B のテキスト生成では、MTP により NPU の Decode が Snapdragon 8+ Gen 1 で 1.61 倍、Snapdragon 7s Gen 3 で 1.58 倍、Snapdragon X Plus で 1.71 倍（E4B は 1.85 倍）になりました。音声の書き起こしでは 2.02〜3.38 倍（E2B）です。</p>
     <p>QNN 単体（AR-1 による 1 トークンずつの生成）では、NPU の Decode は Prefill ほど速くならず、Android 端末でも CPU と同等か下回っていました。MTP では本体の 1 回の実行で複数トークンを確定できるため、Decode でも NPU の並列演算を利用できます。CPU（4 スレッド）でも MTP を使用でき、Snapdragon 7s Gen 3 の E2B では CPU の Decode も 1.35 倍になります。</p>
     <div class="hbar-chart">
       <div class="hbar-title">Snapdragon 8+ Gen 1（SM8475）E2B / FP16：テキスト生成の Decode</div>
-      <div class="hbar-row"><span class="hbar-label">CPU（MTP なし）</span><span class="hbar-track"><span class="hbar-fill" style="width: 95.0%"></span></span><span class="hbar-value">9.189 tokens/s</span></div>
-      <div class="hbar-row"><span class="hbar-label">CPU（MTP あり）</span><span class="hbar-track"><span class="hbar-fill" style="width: 89.5%"></span></span><span class="hbar-value">8.658 tokens/s</span></div>
-      <div class="hbar-row"><span class="hbar-label">NPU（MTP なし）</span><span class="hbar-track"><span class="hbar-fill" style="width: 55.3%"></span></span><span class="hbar-value">5.353 tokens/s</span></div>
-      <div class="hbar-row is-accent"><span class="hbar-label">NPU（MTP あり）</span><span class="hbar-track"><span class="hbar-fill is-accent" style="width: 100.0%"></span></span><span class="hbar-value">9.675 tokens/s</span></div>
+      <div class="hbar-row"><span class="hbar-label">CPU（MTP なし）</span><span class="hbar-track"><span class="hbar-fill" style="width: 94.2%"></span></span><span class="hbar-value">9.189 tokens/s</span></div>
+      <div class="hbar-row"><span class="hbar-label">CPU（MTP あり）</span><span class="hbar-track"><span class="hbar-fill" style="width: 88.8%"></span></span><span class="hbar-value">8.658 tokens/s</span></div>
+      <div class="hbar-row"><span class="hbar-label">NPU（MTP なし）</span><span class="hbar-track"><span class="hbar-fill" style="width: 62.3%"></span></span><span class="hbar-value">6.074 tokens/s</span></div>
+      <div class="hbar-row is-accent"><span class="hbar-label">NPU（MTP あり）</span><span class="hbar-track"><span class="hbar-fill is-accent" style="width: 100.0%"></span></span><span class="hbar-value">9.751 tokens/s</span></div>
       <div class="hbar-caption">81 トークン入力・1,000 トークン生成。CPU は同じ端末の llama.cpp（Q4_K_M、4 スレッド）。</div>
     </div>
     <div class="hbar-chart">
       <div class="hbar-title">Snapdragon 7s Gen 3（SM7635）E2B / Int16：テキスト生成の Decode</div>
       <div class="hbar-row"><span class="hbar-label">CPU（MTP なし）</span><span class="hbar-track"><span class="hbar-fill" style="width: 74.3%"></span></span><span class="hbar-value">8.423 tokens/s</span></div>
       <div class="hbar-row"><span class="hbar-label">CPU（MTP あり）</span><span class="hbar-track"><span class="hbar-fill" style="width: 100.0%"></span></span><span class="hbar-value">11.336 tokens/s</span></div>
-      <div class="hbar-row"><span class="hbar-label">NPU（MTP なし）</span><span class="hbar-track"><span class="hbar-fill" style="width: 56.4%"></span></span><span class="hbar-value">6.389 tokens/s</span></div>
-      <div class="hbar-row is-accent"><span class="hbar-label">NPU（MTP あり）</span><span class="hbar-track"><span class="hbar-fill is-accent" style="width: 87.3%"></span></span><span class="hbar-value">9.898 tokens/s</span></div>
+      <div class="hbar-row"><span class="hbar-label">NPU（MTP なし）</span><span class="hbar-track"><span class="hbar-fill" style="width: 58.9%"></span></span><span class="hbar-value">6.680 tokens/s</span></div>
+      <div class="hbar-row is-accent"><span class="hbar-label">NPU（MTP あり）</span><span class="hbar-track"><span class="hbar-fill is-accent" style="width: 93.3%"></span></span><span class="hbar-value">10.579 tokens/s</span></div>
       <div class="hbar-caption">81 トークン入力・1,000 トークン生成。CPU は同じ端末の llama.cpp（Q4_K_M、4 スレッド）。</div>
     </div>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>端末・モデル（テキスト生成）</th><th>CPU（MTP なし）</th><th>CPU（MTP あり）</th><th>NPU（MTP なし）</th><th>NPU（MTP あり）</th></tr>
-      <tr><td>SM8475（Snapdragon 8+ Gen 1）E2B / FP16</td><td class="num">9.189 tokens/s</td><td class="num">8.658 tokens/s</td><td class="num">5.353 tokens/s</td><td class="num">9.675 tokens/s</td></tr>
-      <tr><td>SM7635（Snapdragon 7s Gen 3）E2B / Int16</td><td class="num">8.423 tokens/s</td><td class="num">11.336 tokens/s</td><td class="num">6.389 tokens/s</td><td class="num">9.898 tokens/s</td></tr>
-      <tr><td>SM7635（Snapdragon 7s Gen 3）E4B / Int16</td><td class="num">4.217 tokens/s</td><td class="num">6.944 tokens/s</td><td class="num">3.122 tokens/s</td><td class="num">3.164 tokens/s</td></tr>
+      <tr><td>SM8475（Snapdragon 8+ Gen 1）E2B / FP16</td><td class="num">9.189 tokens/s</td><td class="num">8.658 tokens/s</td><td class="num">6.074 tokens/s</td><td class="num">9.751 tokens/s</td></tr>
+      <tr><td>SM7635（Snapdragon 7s Gen 3）E2B / Int16</td><td class="num">8.423 tokens/s</td><td class="num">11.336 tokens/s</td><td class="num">6.680 tokens/s</td><td class="num">10.579 tokens/s</td></tr>
+      <tr><td>SM7635（Snapdragon 7s Gen 3）E4B / Int16</td><td class="num">4.217 tokens/s</td><td class="num">6.944 tokens/s</td><td class="num">3.191 tokens/s</td><td class="num">3.163 tokens/s</td></tr>
     </table>
     </div>
     <p>詳細は <a href="mtp-bench.html">ailia LLM MTP ベンチマーク</a> を参照してください。</p>
