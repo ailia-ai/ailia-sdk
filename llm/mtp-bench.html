@@ -94,7 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li><strong>NPU</strong>：v1.5.1 の MTP 対応モデル（W4）、QAIRT 2.47、コンテキスト長 8192、AR-256（Prefill）/ AR-4（検証）/ AR-1 構成です。</li>
       <li><strong>CPU</strong>：llama.cpp で実行しています（スレッド数 4）。本体は GGUF（E2B は Q4_K_M、E4B は QAT Q4_0）、Assistant は Q4_0 の GGUF です。</li>
       <li><strong>MTP</strong>：「MTP あり」は Assistant を開いた値（ドラフト長 3）です。受理率は、Assistant の候補が本体の検証で採用された割合です。</li>
-      <li><strong>測定方法</strong>：greedy で、各条件 2 回の中央値です。Decode は 81 トークン入力・1,000 トークン生成、Prefill は 64〜2,048 トークン入力・1 トークン生成です。CPU は 2026-10-12、NPU は 2026-10-17 に測定しました。</li>
+      <li><strong>測定方法</strong>：greedy で、各条件 2 回の中央値です。Decode は 81 トークン入力・1,000 トークン生成、Prefill は 64〜2,048 トークン入力・1 トークン生成です。</li>
       <li><strong>画像・音声入力</strong>：画像は 768x768 の 1 枚（100 トークン出力）、音声は英語音声 1 件の書き起こし（32 トークン出力）です。TTFT はエンコーダを含み、モデルのオープンは含みません。</li>
       <li><strong>CPU 使用率</strong>：Decode 中のプロセス CPU 使用率で、8 コアすべてを使い切った状態を 100% とします。CPU は 4 スレッドで動作するため 50% 前後になります。</li>
     </ul>
@@ -362,7 +362,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li><strong>OS</strong>：SC8380XP は Windows 11 Pro、QCS6490 は Windows 11 IoT Enterprise LTSC です。</li>
       <li><strong>NPU</strong>：v1.5.1 の MTP 対応モデル（SC8380XP は FP16 / W4、QCS6490 は Int16）、QAIRT 2.47、コンテキスト長 8192 です。</li>
       <li><strong>CPU / GPU</strong>：CPU は llama.cpp で実行しています（OpenMP 無効、高性能コアの 4 コア）。本体は QAT Q4_0、Assistant は Q4_0 の GGUF です。GPU は SC8380XP の Adreno X1-45 で llama.cpp の OpenCL バックエンドを使用しています（QCS6490 は未測定）。</li>
-      <li><strong>測定方法</strong>：greedy で、各構成 1 回の測定です。Decode・Prefill・受理率の条件は Android と同じです。SC8380XP は 2026-10-13、QCS6490 は 2026-10-16 に測定しました。</li>
+      <li><strong>測定方法</strong>：greedy で、各構成 1 回の測定です。Decode・Prefill・受理率の条件は Android と同じです。</li>
       <li><strong>画像・音声入力</strong>：画像は 768x768 の 1 枚（100 トークン出力）、音声は英語音声 1 件の書き起こし（33 トークン出力）です。エンコーダは CPU・GPU の構成では CPU、NPU の構成では NPU で実行しています。</li>
       <li><strong>CPU 使用率</strong>：Decode 中のプロセス CPU 使用率で、8 コアすべてを使い切った状態を 100% とします。CPU は高性能コアの 4 コアだけを使用するため 50% 前後になります。</li>
     </ul>
@@ -449,7 +449,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>音声</td><td class="num">49.1%</td><td class="num">46.6%</td><td class="num">7.4%</td><td class="num">1.2%</td><td class="num">2.2%</td><td class="num">6.2%</td></tr>
     </table>
     </div>
-    <p>CPU は高性能コアの 4 コアで実行しているため、CPU の使用率は 50% 前後です。</p>
     <figure class="bench-figure">
       <img src="benchmark/mtp_cpu_sc8380xp.png" alt="Snapdragon X Plus E2B のテキスト生成の Decode 中の CPU 使用率" loading="lazy">
       <figcaption>SC8380XP（E2B / FP16）のテキスト生成の Decode 中のプロセス CPU 使用率</figcaption>
@@ -543,7 +542,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>音声</td><td class="num">48.9%</td><td class="num">46.0%</td><td class="num">5.6%</td><td class="num">2.3%</td><td class="num">2.0%</td><td class="num">3.7%</td></tr>
     </table>
     </div>
-    <p>CPU は高性能コアの 4 コアで実行しているため、CPU の使用率は 50% 前後です。</p>
     <figure class="bench-figure">
       <img src="benchmark/mtp_cpu_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B のテキスト生成の Decode 中の CPU 使用率" loading="lazy">
       <figcaption>SC8380XP（E4B / FP16）のテキスト生成の Decode 中のプロセス CPU 使用率</figcaption>
@@ -632,7 +630,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>音声</td><td class="num">47.9%</td><td class="num">47.1%</td><td class="num">1.0%</td><td class="num">2.1%</td></tr>
     </table>
     </div>
-    <p>CPU は高性能コアの 4 コアで実行しているため、CPU の使用率は 50% 前後です。</p>
     <figure class="bench-figure">
       <img src="benchmark/mtp_cpu_qcs6490.png" alt="QCS6490 E2B のテキスト生成の Decode 中の CPU 使用率" loading="lazy">
       <figcaption>QCS6490（E2B / Int16）のテキスト生成の Decode 中のプロセス CPU 使用率</figcaption>
