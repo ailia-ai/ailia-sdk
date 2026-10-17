@@ -377,7 +377,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>Path</th><th>Without MTP</th><th>With MTP</th><th>MTP speedup</th><th>Acceptance</th></tr>
       <tr><td>CPU</td><td class="num">36.097 tokens/s</td><td class="num">45.952 tokens/s</td><td class="num">1.27x</td><td class="num">31.1%</td></tr>
       <tr><td>GPU</td><td class="num">15.789 tokens/s</td><td class="num">7.956 tokens/s</td><td class="num">0.50x</td><td class="num">39.0%</td></tr>
-      <tr><td>NPU</td><td class="num">7.488 tokens/s</td><td class="num">12.830 tokens/s</td><td class="num">1.71x</td><td class="num">35.2%</td></tr>
+      <tr><td>NPU</td><td class="num">7.396 tokens/s</td><td class="num">10.725 tokens/s</td><td class="num">1.45x</td><td class="num">31.2%</td></tr>
     </table>
     </div>
     <p>Decode is fastest on the CPU. On the GPU, decode became slower with MTP.</p>
@@ -398,11 +398,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>CPU (with MTP)</td><td class="num">226.239</td><td class="num">209.196</td><td class="num">212.324</td><td class="num">198.671</td><td class="num">179.041</td><td class="num">159.733</td></tr>
       <tr><td>GPU (without MTP)</td><td class="num">191.567</td><td class="num">211.200</td><td class="num">226.293</td><td class="num">210.324</td><td class="num">185.268</td><td class="num">155.789</td></tr>
       <tr><td>GPU (with MTP)</td><td class="num">110.794</td><td class="num">150.182</td><td class="num">181.306</td><td class="num">187.165</td><td class="num">173.085</td><td class="num">149.692</td></tr>
-      <tr><td>NPU (without MTP)</td><td class="num">111.367</td><td class="num">218.215</td><td class="num">427.649</td><td class="num">429.607</td><td class="num">416.812</td><td class="num">417.205</td></tr>
-      <tr><td>NPU (with MTP)</td><td class="num">109.650</td><td class="num">224.799</td><td class="num">436.772</td><td class="num">431.751</td><td class="num">423.681</td><td class="num">415.362</td></tr>
+      <tr><td>NPU (without MTP)</td><td class="num">142.326</td><td class="num">268.719</td><td class="num">550.238</td><td class="num">558.241</td><td class="num">556.910</td><td class="num">535.660</td></tr>
+      <tr><td>NPU (with MTP)</td><td class="num">146.658</td><td class="num">291.834</td><td class="num">572.231</td><td class="num">550.662</td><td class="num">545.243</td><td class="num">549.844</td></tr>
     </table>
     </div>
-    <p>For inputs of 256 tokens or more the NPU is the fastest; for a 2,048-token input it is 2.55x the CPU (without MTP). NPU prefill is almost the same with and without MTP.</p>
+    <p>For inputs of 128 tokens or more the NPU is the fastest; for a 2,048-token input it is 3.29x the CPU (without MTP). NPU prefill is almost the same with and without MTP.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_pps_sc8380xp.png" alt="Snapdragon X Plus E2B prefill throughput (2,048-token input, CPU / GPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SC8380XP (E2B / FP16) prefill throughput (2,048-token input)</figcaption>
@@ -420,17 +420,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>Image</td><td>CPU (with MTP)</td><td class="num">77.44 s</td><td class="num">61.421 tokens/s</td><td class="num">43.2%</td></tr>
       <tr><td>Image</td><td>GPU (without MTP)</td><td class="num">77.83 s</td><td class="num">17.383 tokens/s</td><td class="num">—</td></tr>
       <tr><td>Image</td><td>GPU (with MTP)</td><td class="num">77.82 s</td><td class="num">8.451 tokens/s</td><td class="num">41.7%</td></tr>
-      <tr><td>Image</td><td>NPU (without MTP)</td><td class="num">7.42 s</td><td class="num">7.603 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>Image</td><td>NPU (with MTP)</td><td class="num">6.79 s</td><td class="num">10.305 tokens/s</td><td class="num">32.0%</td></tr>
+      <tr><td>Image</td><td>NPU (without MTP)</td><td class="num">6.39 s</td><td class="num">7.132 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Image</td><td>NPU (with MTP)</td><td class="num">5.95 s</td><td class="num">11.525 tokens/s</td><td class="num">39.9%</td></tr>
       <tr><td>Audio</td><td>CPU (without MTP)</td><td class="num">30.93 s</td><td class="num">39.247 tokens/s</td><td class="num">—</td></tr>
       <tr><td>Audio</td><td>CPU (with MTP)</td><td class="num">30.75 s</td><td class="num">103.169 tokens/s</td><td class="num">92.6%</td></tr>
       <tr><td>Audio</td><td>GPU (without MTP)</td><td class="num">30.77 s</td><td class="num">16.935 tokens/s</td><td class="num">—</td></tr>
       <tr><td>Audio</td><td>GPU (with MTP)</td><td class="num">30.80 s</td><td class="num">15.584 tokens/s</td><td class="num">92.6%</td></tr>
-      <tr><td>Audio</td><td>NPU (without MTP)</td><td class="num">5.03 s</td><td class="num">8.088 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">5.03 s</td><td class="num">16.327 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>Audio</td><td>NPU (without MTP)</td><td class="num">4.21 s</td><td class="num">7.341 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">4.46 s</td><td class="num">19.628 tokens/s</td><td class="num">92.6%</td></tr>
     </table>
     </div>
-    <p>NPU TTFT is 1/11.4 (image) and 1/6.1 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.36x for image input and 2.02x for audio input.</p>
+    <p>NPU TTFT is 1/13.0 (image) and 1/6.9 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.62x for image input and 2.67x for audio input.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_ttft_sc8380xp.png" alt="Snapdragon X Plus E2B VLM / audio input TTFT breakdown (CPU / GPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SC8380XP (E2B / FP16) VLM (left) and audio input (right) TTFT breakdown (prompt setup including the encoder, and decoder prefill plus the first token)</figcaption>
@@ -444,9 +444,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Input</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>GPU (without MTP)</th><th>GPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
-      <tr><td>Text</td><td class="num">48.0%</td><td class="num">46.1%</td><td class="num">6.6%</td><td class="num">1.4%</td><td class="num">2.7%</td><td class="num">4.3%</td></tr>
-      <tr><td>Image</td><td class="num">48.5%</td><td class="num">47.7%</td><td class="num">6.2%</td><td class="num">2.8%</td><td class="num">3.0%</td><td class="num">5.1%</td></tr>
-      <tr><td>Audio</td><td class="num">49.1%</td><td class="num">46.6%</td><td class="num">7.4%</td><td class="num">1.2%</td><td class="num">2.2%</td><td class="num">6.2%</td></tr>
+      <tr><td>Text</td><td class="num">48.0%</td><td class="num">46.1%</td><td class="num">6.6%</td><td class="num">1.4%</td><td class="num">2.8%</td><td class="num">4.9%</td></tr>
+      <tr><td>Image</td><td class="num">48.5%</td><td class="num">47.7%</td><td class="num">6.2%</td><td class="num">2.8%</td><td class="num">2.9%</td><td class="num">5.4%</td></tr>
+      <tr><td>Audio</td><td class="num">49.1%</td><td class="num">46.6%</td><td class="num">7.4%</td><td class="num">1.2%</td><td class="num">2.7%</td><td class="num">4.9%</td></tr>
     </table>
     </div>
     <p>The CPU runs on the 4 performance cores, so CPU usage stays around 50%.</p>
@@ -471,7 +471,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>Path</th><th>Without MTP</th><th>With MTP</th><th>MTP speedup</th><th>Acceptance</th></tr>
       <tr><td>CPU</td><td class="num">20.209 tokens/s</td><td class="num">34.010 tokens/s</td><td class="num">1.68x</td><td class="num">43.3%</td></tr>
       <tr><td>GPU</td><td class="num">8.434 tokens/s</td><td class="num">4.962 tokens/s</td><td class="num">0.59x</td><td class="num">38.2%</td></tr>
-      <tr><td>NPU</td><td class="num">4.311 tokens/s</td><td class="num">7.996 tokens/s</td><td class="num">1.85x</td><td class="num">39.4%</td></tr>
+      <tr><td>NPU</td><td class="num">4.346 tokens/s</td><td class="num">7.172 tokens/s</td><td class="num">1.65x</td><td class="num">33.4%</td></tr>
     </table>
     </div>
     <p>Decode is fastest on the CPU. On the GPU, decode became slower with MTP.</p>
@@ -492,11 +492,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>CPU (with MTP)</td><td class="num">114.588</td><td class="num">115.837</td><td class="num">117.360</td><td class="num">112.383</td><td class="num">104.566</td><td class="num">97.730</td></tr>
       <tr><td>GPU (without MTP)</td><td class="num">101.494</td><td class="num">115.771</td><td class="num">122.735</td><td class="num">118.920</td><td class="num">108.919</td><td class="num">96.327</td></tr>
       <tr><td>GPU (with MTP)</td><td class="num">64.261</td><td class="num">87.397</td><td class="num">102.919</td><td class="num">107.840</td><td class="num">102.897</td><td class="num">92.966</td></tr>
-      <tr><td>NPU (without MTP)</td><td class="num">63.030</td><td class="num">127.516</td><td class="num">244.569</td><td class="num">254.622</td><td class="num">249.404</td><td class="num">248.349</td></tr>
-      <tr><td>NPU (with MTP)</td><td class="num">63.413</td><td class="num">129.878</td><td class="num">254.998</td><td class="num">253.348</td><td class="num">250.169</td><td class="num">248.072</td></tr>
+      <tr><td>NPU (without MTP)</td><td class="num">81.311</td><td class="num">161.784</td><td class="num">312.190</td><td class="num">325.714</td><td class="num">318.495</td><td class="num">317.629</td></tr>
+      <tr><td>NPU (with MTP)</td><td class="num">81.512</td><td class="num">164.540</td><td class="num">324.876</td><td class="num">326.486</td><td class="num">321.507</td><td class="num">319.063</td></tr>
     </table>
     </div>
-    <p>For inputs of 256 tokens or more the NPU is the fastest; for a 2,048-token input it is 2.50x the CPU (without MTP). NPU prefill is almost the same with and without MTP.</p>
+    <p>For inputs of 128 tokens or more the NPU is the fastest; for a 2,048-token input it is 3.20x the CPU (without MTP). NPU prefill is almost the same with and without MTP.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_pps_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B prefill throughput (2,048-token input, CPU / GPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SC8380XP (E4B / FP16) prefill throughput (2,048-token input)</figcaption>
@@ -514,17 +514,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>Image</td><td>CPU (with MTP)</td><td class="num">78.75 s</td><td class="num">33.824 tokens/s</td><td class="num">37.6%</td></tr>
       <tr><td>Image</td><td>GPU (without MTP)</td><td class="num">79.38 s</td><td class="num">9.423 tokens/s</td><td class="num">—</td></tr>
       <tr><td>Image</td><td>GPU (with MTP)</td><td class="num">80.72 s</td><td class="num">5.596 tokens/s</td><td class="num">41.7%</td></tr>
-      <tr><td>Image</td><td>NPU (without MTP)</td><td class="num">10.69 s</td><td class="num">4.337 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>Image</td><td>NPU (with MTP)</td><td class="num">9.11 s</td><td class="num">7.592 tokens/s</td><td class="num">43.2%</td></tr>
+      <tr><td>Image</td><td>NPU (without MTP)</td><td class="num">9.46 s</td><td class="num">4.153 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Image</td><td>NPU (with MTP)</td><td class="num">8.14 s</td><td class="num">7.744 tokens/s</td><td class="num">43.4%</td></tr>
       <tr><td>Audio</td><td>CPU (without MTP)</td><td class="num">33.37 s</td><td class="num">21.364 tokens/s</td><td class="num">—</td></tr>
       <tr><td>Audio</td><td>CPU (with MTP)</td><td class="num">33.17 s</td><td class="num">58.900 tokens/s</td><td class="num">92.6%</td></tr>
       <tr><td>Audio</td><td>GPU (without MTP)</td><td class="num">33.04 s</td><td class="num">9.406 tokens/s</td><td class="num">—</td></tr>
       <tr><td>Audio</td><td>GPU (with MTP)</td><td class="num">33.07 s</td><td class="num">9.795 tokens/s</td><td class="num">92.6%</td></tr>
-      <tr><td>Audio</td><td>NPU (without MTP)</td><td class="num">7.78 s</td><td class="num">4.219 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">7.39 s</td><td class="num">11.986 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>Audio</td><td>NPU (without MTP)</td><td class="num">5.83 s</td><td class="num">4.183 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">5.96 s</td><td class="num">12.772 tokens/s</td><td class="num">92.6%</td></tr>
     </table>
     </div>
-    <p>NPU TTFT is 1/8.7 (image) and 1/4.5 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.75x for image input and 2.84x for audio input.</p>
+    <p>NPU TTFT is 1/9.7 (image) and 1/5.6 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.86x for image input and 3.05x for audio input.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_ttft_e4b_sc8380xp.png" alt="Snapdragon X Plus E4B VLM / audio input TTFT breakdown (CPU / GPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>SC8380XP (E4B / FP16) VLM (left) and audio input (right) TTFT breakdown (prompt setup including the encoder, and decoder prefill plus the first token)</figcaption>
@@ -538,9 +538,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Input</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>GPU (without MTP)</th><th>GPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
-      <tr><td>Text</td><td class="num">48.7%</td><td class="num">48.1%</td><td class="num">4.6%</td><td class="num">2.1%</td><td class="num">1.9%</td><td class="num">3.2%</td></tr>
-      <tr><td>Image</td><td class="num">49.0%</td><td class="num">47.9%</td><td class="num">5.4%</td><td class="num">2.6%</td><td class="num">1.9%</td><td class="num">3.7%</td></tr>
-      <tr><td>Audio</td><td class="num">48.9%</td><td class="num">46.0%</td><td class="num">5.6%</td><td class="num">2.3%</td><td class="num">2.0%</td><td class="num">3.7%</td></tr>
+      <tr><td>Text</td><td class="num">48.7%</td><td class="num">48.1%</td><td class="num">4.6%</td><td class="num">2.1%</td><td class="num">1.8%</td><td class="num">3.0%</td></tr>
+      <tr><td>Image</td><td class="num">49.0%</td><td class="num">47.9%</td><td class="num">5.4%</td><td class="num">2.6%</td><td class="num">1.8%</td><td class="num">3.2%</td></tr>
+      <tr><td>Audio</td><td class="num">48.9%</td><td class="num">46.0%</td><td class="num">5.6%</td><td class="num">2.3%</td><td class="num">1.7%</td><td class="num">3.2%</td></tr>
     </table>
     </div>
     <p>The CPU runs on the 4 performance cores, so CPU usage stays around 50%.</p>
