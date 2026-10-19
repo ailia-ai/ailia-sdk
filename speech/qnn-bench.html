@@ -33,6 +33,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <style>
     .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
     .table-wrap { overflow-x: auto; }
+    .bench-figure { margin: 24px 0; }
+    .bench-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--white); }
+    .bench-figure figcaption { margin-top: 8px; font-size: 0.9em; color: #666; text-align: center; }
   </style>
 </head>
 <body>
@@ -75,7 +78,43 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </ul>
 
     <h2 id="android">Android</h2>
-    <p>測定結果は準備中です。</p>
+
+    <h3>測定条件</h3>
+    <p>Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）を搭載した ASUS AI2202（Android 14）で、Whisper Medium と Large V3 Turbo を測定した結果です。NPU は INT16 の QNN Model（per-channel INT8 重み・U16 活性化・U8 K/V キャッシュ）、CPU は同じ端末上で元の ONNX モデルを ailia SDK の CPU 経路で実行した値です。CPU / NPU とも同じランタイムを使用しています。</p>
+    <ul>
+      <li>音声は約 39.7 秒の日本語音声（48 kHz、ステレオ、PCM16）です。</li>
+      <li>言語は自動判定、タスクは transcribe、greedy デコード（beam size 1）、VAD・話者分離なし、CPU スレッド数は AUTO です。</li>
+      <li>各経路でモデルを一度開き、1 回のウォームアップ後の 3 回を集計しています。モデルのオープン、WAV 読み込み、入力の push、ウォームアップは含みません。</li>
+      <li>処理時間と CPU 時間は同じ <code>ailiaSpeechTranscribe</code> 呼び出し区間で計測しています。</li>
+    </ul>
+
+    <h3>文字起こし速度と CPU 使用率</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>モデル</th><th>経路</th><th>処理時間（平均）</th><th>最小〜最大</th><th>実時間比</th><th>CPU 使用率</th></tr>
+      <tr><td>Medium</td><td>CPU（ONNX）</td><td class="num">111.563 秒</td><td class="num">108.631〜114.903 秒</td><td class="num">0.36 倍</td><td class="num">63.78%</td></tr>
+      <tr><td>Medium</td><td>NPU（QNN）</td><td class="num">10.589 秒</td><td class="num">10.570〜10.623 秒</td><td class="num">3.75 倍</td><td class="num">8.38%</td></tr>
+      <tr><td>Large V3 Turbo</td><td>CPU（ONNX）</td><td class="num">88.306 秒</td><td class="num">87.459〜89.498 秒</td><td class="num">0.45 倍</td><td class="num">83.47%</td></tr>
+      <tr><td>Large V3 Turbo</td><td>NPU（QNN）</td><td class="num">3.196 秒</td><td class="num">3.194〜3.199 秒</td><td class="num">12.43 倍</td><td class="num">8.83%</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>実時間比は <code>音声長 / 平均処理時間</code> で、1 倍を超えると音声長より短い時間で文字起こしできます。</li>
+      <li>CPU 使用率は <code>プロセス CPU 時間の合計 / 処理時間の合計 / 8 コア × 100</code> で、8 コアすべてを使い切った状態を 100% とします。アプリケーションプロセスの使用率であり、端末全体の負荷や NPU 使用率ではありません。</li>
+    </ul>
+    <p>NPU は CPU に対して Medium で約 10.5 倍、Large V3 Turbo で約 27.6 倍高速です。Large V3 Turbo の NPU 実行では 39.7 秒の音声を約 3.2 秒で文字起こしでき、実時間の 12 倍以上の速度です。CPU 使用率も 8〜9% 程度に収まるため、アプリケーション側の処理に CPU を残せます。</p>
+
+    <figure class="bench-figure">
+      <img src="benchmark/transcription_speed_sm8475.png" alt="SM8475 の Whisper Medium / Large V3 Turbo の文字起こし速度（CPU / NPU）" loading="lazy">
+      <figcaption>SM8475 の文字起こし速度（実時間比、エラーバーは最小〜最大）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/cpu_utilization_sm8475.png" alt="SM8475 の Whisper Medium / Large V3 Turbo の文字起こし中の CPU 使用率（CPU / NPU）" loading="lazy">
+      <figcaption>SM8475 の文字起こし中のホストプロセス CPU 使用率（8 コア全体比）</figcaption>
+    </figure>
+
+    <h3>認識結果</h3>
+    <p>CPU と NPU では量子化形式が異なるため、出力文が完全には一致しない場合があります。今回の音声では、Large V3 Turbo は句読点と空白を除くと CPU と NPU で同一の文になりました。Medium は NPU で句読点が付き、一部の語（「ソフトウェア」→「ゾフェア」など）に差が出ました。正解原稿に対する WER / CER の評価ではありません。</p>
 
     <h2 id="windows">Windows</h2>
     <p>測定結果は準備中です。</p>

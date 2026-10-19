@@ -33,6 +33,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <style>
     .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
     .table-wrap { overflow-x: auto; }
+    .bench-figure { margin: 24px 0; }
+    .bench-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--white); }
+    .bench-figure figcaption { margin-top: 8px; font-size: 0.9em; color: #666; text-align: center; }
   </style>
 </head>
 <body>
@@ -75,7 +78,43 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </ul>
 
     <h2 id="android">Android</h2>
-    <p>Measurement results are in preparation.</p>
+
+    <h3>Test conditions</h3>
+    <p>Whisper Medium and Large V3 Turbo were measured on an ASUS AI2202 (Android 14) with Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69). The NPU uses INT16 QNN Models (per-channel INT8 weights, U16 activations, U8 K/V cache). The CPU results run the original ONNX models through the ailia SDK CPU path on the same device. Both use the same runtime.</p>
+    <ul>
+      <li>The input is about 39.7 seconds of Japanese speech (48 kHz, stereo, PCM16).</li>
+      <li>Automatic language detection, transcribe task, greedy decoding (beam size 1), no VAD or diarization, CPU threads set to AUTO.</li>
+      <li>Each path opens the model once, runs one warmup, then measures 3 runs. Model opening, WAV loading, input push and the warmup are excluded.</li>
+      <li>Processing time and CPU time are measured over the same <code>ailiaSpeechTranscribe</code> calls.</li>
+    </ul>
+
+    <h3>Transcription speed and CPU usage</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Model</th><th>Path</th><th>Time (mean)</th><th>Min–max</th><th>Realtime factor</th><th>CPU usage</th></tr>
+      <tr><td>Medium</td><td>CPU (ONNX)</td><td class="num">111.563 s</td><td class="num">108.631–114.903 s</td><td class="num">0.36x</td><td class="num">63.78%</td></tr>
+      <tr><td>Medium</td><td>NPU (QNN)</td><td class="num">10.589 s</td><td class="num">10.570–10.623 s</td><td class="num">3.75x</td><td class="num">8.38%</td></tr>
+      <tr><td>Large V3 Turbo</td><td>CPU (ONNX)</td><td class="num">88.306 s</td><td class="num">87.459–89.498 s</td><td class="num">0.45x</td><td class="num">83.47%</td></tr>
+      <tr><td>Large V3 Turbo</td><td>NPU (QNN)</td><td class="num">3.196 s</td><td class="num">3.194–3.199 s</td><td class="num">12.43x</td><td class="num">8.83%</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>Realtime factor is <code>audio duration / mean processing time</code>; above 1x means the audio is transcribed faster than its length.</li>
+      <li>CPU usage is <code>total process CPU time / total processing time / 8 cores × 100</code>, where 100% means all 8 cores are fully used. It is the application process usage, not whole-device load or NPU usage.</li>
+    </ul>
+    <p>The NPU is about 10.5x faster than the CPU for Medium and about 27.6x faster for Large V3 Turbo. With Large V3 Turbo on the NPU, 39.7 seconds of audio is transcribed in about 3.2 seconds, more than 12x realtime. CPU usage stays around 8–9%, leaving CPU headroom for the application.</p>
+
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/transcription_speed_sm8475.png" alt="Whisper Medium / Large V3 Turbo transcription speed on SM8475 (CPU / NPU)" loading="lazy">
+      <figcaption>Transcription speed on SM8475 (realtime factor; error bars show min–max)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/cpu_utilization_sm8475.png" alt="Whisper Medium / Large V3 Turbo CPU usage during transcription on SM8475 (CPU / NPU)" loading="lazy">
+      <figcaption>Host process CPU usage during transcription on SM8475 (relative to all 8 cores)</figcaption>
+    </figure>
+
+    <h3>Recognition results</h3>
+    <p>Because the CPU and NPU use different quantization formats, the output text may not match exactly. For this audio, Large V3 Turbo produced identical text on CPU and NPU after removing punctuation and spaces. Medium on the NPU added punctuation and differed in a few words. This is not a WER / CER evaluation against a reference transcript.</p>
 
     <h2 id="windows">Windows</h2>
     <p>Measurement results are in preparation.</p>
