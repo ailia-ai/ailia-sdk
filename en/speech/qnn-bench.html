@@ -80,9 +80,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="android">Android</h2>
 
     <h3>Test conditions</h3>
-    <p>Whisper Medium and Large V3 Turbo were measured on an ASUS AI2202 (Android 14) with Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69). The NPU uses INT16 QNN Models (per-channel INT8 weights, U16 activations, U8 K/V cache). The CPU results run the original ONNX models through the ailia SDK CPU path on the same device. Both use the same runtime.</p>
+    <p>Whisper Medium and Large V3 Turbo were measured on two devices: an ASUS AI2202 (Android 14) with Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69), and a SHARP SH-M33 (Android 16) with Snapdragon 7s Gen 3 (SM7635 / Hexagon v73). The NPU uses INT16 QNN Models built for each SoC (per-channel INT8 weights, U16 activations, U8 K/V cache). The CPU results run the original ONNX models through the ailia SDK CPU path on the same device. Both use the same runtime.</p>
     <ul>
-      <li>The input is about 39.7 seconds of Japanese speech (48 kHz, stereo, PCM16).</li>
+      <li>The input is about 39.7 seconds of Japanese speech (48 kHz, stereo, PCM16), the same file on every device.</li>
       <li>Automatic language detection, transcribe task, greedy decoding (beam size 1), no VAD or diarization, CPU threads set to AUTO.</li>
       <li>Each path opens the model once, runs one warmup, then measures 3 runs. Model opening, WAV loading, input push and the warmup are excluded.</li>
       <li>Processing time and CPU time are measured over the same <code>ailiaSpeechTranscribe</code> calls.</li>
@@ -91,18 +91,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h3>Transcription speed and CPU usage</h3>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Model</th><th>Path</th><th>Time (mean)</th><th>Min–max</th><th>Realtime factor</th><th>CPU usage</th></tr>
-      <tr><td>Medium</td><td>CPU (ONNX)</td><td class="num">111.563 s</td><td class="num">108.631–114.903 s</td><td class="num">0.36x</td><td class="num">63.78%</td></tr>
-      <tr><td>Medium</td><td>NPU (QNN)</td><td class="num">10.589 s</td><td class="num">10.570–10.623 s</td><td class="num">3.75x</td><td class="num">8.38%</td></tr>
-      <tr><td>Large V3 Turbo</td><td>CPU (ONNX)</td><td class="num">88.306 s</td><td class="num">87.459–89.498 s</td><td class="num">0.45x</td><td class="num">83.47%</td></tr>
-      <tr><td>Large V3 Turbo</td><td>NPU (QNN)</td><td class="num">3.196 s</td><td class="num">3.194–3.199 s</td><td class="num">12.43x</td><td class="num">8.83%</td></tr>
+      <tr><th>Device</th><th>Model</th><th>Path</th><th>Time (mean)</th><th>Min–max</th><th>Realtime factor</th><th>CPU usage</th><th>NPU speedup</th></tr>
+      <tr><td rowspan="2">SM8475 (Hexagon v69)</td><td rowspan="2">Medium</td><td>CPU (ONNX)</td><td class="num">111.563 s</td><td class="num">108.631–114.903 s</td><td class="num">0.36x</td><td class="num">63.78%</td><td rowspan="2" class="num">10.54x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">10.589 s</td><td class="num">10.570–10.623 s</td><td class="num">3.75x</td><td class="num">8.38%</td></tr>
+      <tr><td rowspan="2">SM8475 (Hexagon v69)</td><td rowspan="2">Large V3 Turbo</td><td>CPU (ONNX)</td><td class="num">88.306 s</td><td class="num">87.459–89.498 s</td><td class="num">0.45x</td><td class="num">83.47%</td><td rowspan="2" class="num">27.63x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">3.196 s</td><td class="num">3.194–3.199 s</td><td class="num">12.43x</td><td class="num">8.83%</td></tr>
+      <tr><td rowspan="2">SM7635 (Hexagon v73)</td><td rowspan="2">Medium</td><td>CPU (ONNX)</td><td class="num">125.164 s</td><td class="num">124.620–125.809 s</td><td class="num">0.32x</td><td class="num">66.26%</td><td rowspan="2" class="num">7.30x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">17.150 s</td><td class="num">17.134–17.166 s</td><td class="num">2.32x</td><td class="num">5.30%</td></tr>
+      <tr><td rowspan="2">SM7635 (Hexagon v73)</td><td rowspan="2">Large V3 Turbo</td><td>CPU (ONNX)</td><td class="num">85.651 s</td><td class="num">81.146–88.899 s</td><td class="num">0.46x</td><td class="num">81.73%</td><td rowspan="2" class="num">11.09x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">7.723 s</td><td class="num">7.715–7.739 s</td><td class="num">5.15x</td><td class="num">5.17%</td></tr>
     </table>
     </div>
     <ul>
       <li>Realtime factor is <code>audio duration / mean processing time</code>; above 1x means the audio is transcribed faster than its length.</li>
       <li>CPU usage is <code>total process CPU time / total processing time / 8 cores × 100</code>, where 100% means all 8 cores are fully used. It is the application process usage, not whole-device load or NPU usage.</li>
     </ul>
-    <p>The NPU is about 10.5x faster than the CPU for Medium and about 27.6x faster for Large V3 Turbo. With Large V3 Turbo on the NPU, 39.7 seconds of audio is transcribed in about 3.2 seconds, more than 12x realtime. CPU usage stays around 8–9%, leaving CPU headroom for the application.</p>
+    <p>Compared with the CPU, the NPU is about 10.5x faster for Medium and 27.6x faster for Large V3 Turbo on SM8475, and about 7.3x and 11.1x faster on SM7635. With Large V3 Turbo on the NPU, 39.7 seconds of audio is transcribed in about 3.2 seconds on SM8475 and about 7.7 seconds on SM7635. CPU usage stays around 5–9%, leaving CPU headroom for the application.</p>
+    <p>On SM7635, the thermal status was LIGHT from the end of the Medium CPU run onward. The devices differ in OS, CPU configuration and thermal state, so this is not a comparison of raw SoC compute performance.</p>
 
     <figure class="bench-figure">
       <img src="../../speech/benchmark/transcription_speed_sm8475.png" alt="Whisper Medium / Large V3 Turbo transcription speed on SM8475 (CPU / NPU)" loading="lazy">
@@ -112,12 +117,48 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="../../speech/benchmark/cpu_utilization_sm8475.png" alt="Whisper Medium / Large V3 Turbo CPU usage during transcription on SM8475 (CPU / NPU)" loading="lazy">
       <figcaption>Host process CPU usage during transcription on SM8475 (relative to all 8 cores)</figcaption>
     </figure>
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/transcription_speed_sm7635.png" alt="Whisper Medium / Large V3 Turbo transcription speed on SM7635 (CPU / NPU)" loading="lazy">
+      <figcaption>Transcription speed on SM7635 (realtime factor; error bars show min–max)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/cpu_utilization_sm7635.png" alt="Whisper Medium / Large V3 Turbo CPU usage during transcription on SM7635 (CPU / NPU)" loading="lazy">
+      <figcaption>Host process CPU usage during transcription on SM7635 (relative to all 8 cores)</figcaption>
+    </figure>
 
     <h3>Recognition results</h3>
-    <p>Because the CPU and NPU use different quantization formats, the output text may not match exactly. For this audio, Large V3 Turbo produced identical text on CPU and NPU after removing punctuation and spaces. Medium on the NPU added punctuation and differed in a few words. This is not a WER / CER evaluation against a reference transcript.</p>
+    <p>Because the CPU and NPU use different quantization formats, the output text may not match exactly. For this audio, SM7635 (both Medium and Large V3 Turbo) and SM8475 (Large V3 Turbo) produced identical text on CPU and NPU after removing punctuation and spaces. Medium on the SM8475 NPU added punctuation and differed in a few words. This is not a WER / CER evaluation against a reference transcript.</p>
 
     <h2 id="windows">Windows</h2>
-    <p>Measurement results are in preparation.</p>
+
+    <h3>Test conditions</h3>
+    <p>Measured on a Windows 11 Pro ARM64 PC with Snapdragon X Plus (SC8380XP / Hexagon v73, 8 cores), using the same audio, procedure and aggregation as on Android. The NPU uses INT16 QNN Models built for SC8380XP. The CPU results run the original ONNX models through the ailia SDK CPU path on the same PC. The PC was on AC power with the default power plan.</p>
+
+    <h3>Transcription speed and CPU usage</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device</th><th>Model</th><th>Path</th><th>Time (mean)</th><th>Min–max</th><th>Realtime factor</th><th>CPU usage</th><th>NPU speedup</th></tr>
+      <tr><td rowspan="2">SC8380XP (Hexagon v73)</td><td rowspan="2">Medium</td><td>CPU (ONNX)</td><td class="num">42.634 s</td><td class="num">41.598–44.593 s</td><td class="num">0.93x</td><td class="num">58.95%</td><td rowspan="2" class="num">10.17x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">4.193 s</td><td class="num">4.166–4.233 s</td><td class="num">9.48x</td><td class="num">7.36%</td></tr>
+      <tr><td rowspan="2">SC8380XP (Hexagon v73)</td><td rowspan="2">Large V3 Turbo</td><td>CPU (ONNX)</td><td class="num">36.308 s</td><td class="num">34.022–38.162 s</td><td class="num">1.09x</td><td class="num">62.65%</td><td rowspan="2" class="num">19.90x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">1.825 s</td><td class="num">1.815–1.834 s</td><td class="num">21.78x</td><td class="num">8.49%</td></tr>
+    </table>
+    </div>
+    <p>The NPU is about 10.2x faster than the CPU for Medium and about 19.9x faster for Large V3 Turbo. With Large V3 Turbo on the NPU, 39.7 seconds of audio is transcribed in about 1.8 seconds, more than 21x realtime. CPU usage is around 7–9%.</p>
+
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/transcription_speed_sc8380xp.png" alt="Whisper Medium / Large V3 Turbo transcription speed on SC8380XP (CPU / NPU)" loading="lazy">
+      <figcaption>Transcription speed on SC8380XP (realtime factor; error bars show min–max)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/cpu_utilization_sc8380xp.png" alt="Whisper Medium / Large V3 Turbo CPU usage during transcription on SC8380XP (CPU / NPU)" loading="lazy">
+      <figcaption>Host process CPU usage during transcription on SC8380XP (relative to all 8 cores)</figcaption>
+    </figure>
+
+    <h3>Recognition results</h3>
+    <p>Large V3 Turbo produced identical text on CPU and NPU after removing punctuation and spaces. For Medium on the NPU, repeated runs with the same model alternated between two outputs that differ in two words. This does not affect the speed results.</p>
+
+    <p>QCS6490 results are in preparation.</p>
 
   </div>
 
