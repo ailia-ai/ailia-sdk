@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia Speech NPU（QNN）ベンチマーク</title>
+  <meta name="description" content="ailia Speech の QNN バックエンドを使用した、Qualcomm SoC の NPU における Whisper の測定結果です。">
+  <link rel="canonical" href="https://docs.ailia.ai/speech/qnn-bench.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/speech/qnn-bench.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/speech/qnn-bench.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/speech/qnn-bench.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/speech/qnn-bench.html">
+  <meta property="og:title" content="ailia Speech NPU（QNN）ベンチマーク">
+  <meta property="og:description" content="ailia Speech の QNN バックエンドを使用した、Qualcomm SoC の NPU における Whisper の測定結果です。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia Speech NPU（QNN）ベンチマーク">
+  <meta name="twitter:description" content="ailia Speech の QNN バックエンドを使用した、Qualcomm SoC の NPU における Whisper の測定結果です。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia Speech Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../en/speech/qnn-bench.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia Speech NPU（QNN）ベンチマーク</h1>
+    <p>ailia Speech の QNN バックエンドで Whisper を Qualcomm SoC の NPU で実行した測定結果を示します。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <p>QNN バックエンドの使い方は <a href="qnn.html">ailia Speech NPU（QNN）ガイド</a> を参照してください。</p>
+    <ul>
+      <li><a href="#android">Android（Snapdragon 8+ Gen 1 / SM8475、Snapdragon 7s Gen 3 / SM7635）</a></li>
+      <li><a href="#windows">Windows（Snapdragon X Plus / SC8380XP、QCS6490）</a></li>
+    </ul>
+
+    <h2 id="android">Android</h2>
+    <p>測定結果は準備中です。</p>
+
+    <h2 id="windows">Windows</h2>
+    <p>測定結果は準備中です。</p>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
