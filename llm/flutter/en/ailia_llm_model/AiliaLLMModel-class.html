@@ -64,7 +64,8 @@
 <section class="desc markdown">
   <p>Manages a native LLM instance for text, image, audio and tool generation.</p>
 <p>Call <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a>, set a prompt, then call <a href="../ailia_llm_model/AiliaLLMModel/generate.html">generate</a> until it returns null.
-Release the instance with <a href="../ailia_llm_model/AiliaLLMModel/close.html">close</a> when it is no longer needed.</p>
+Release the instance with <a href="../ailia_llm_model/AiliaLLMModel/close.html">close</a> when it is no longer needed.
+When using QNN, call <a href="../ailia_llm_model/AiliaLLMModel/close.html">close</a> on the same native thread that called <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a>.</p>
 </section>
 
 

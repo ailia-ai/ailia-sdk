@@ -73,6 +73,10 @@
 <section class="desc markdown">
   <p>Destroys the native model and releases its instance handle and projector.
 Safe to call repeatedly, including before <a href="../../ailia_llm_model/AiliaLLMModel/open.html">open</a>.</p>
+<p>When using QNN, this method must be called on the same native thread that
+called <a href="../../ailia_llm_model/AiliaLLMModel/open.html">open</a>. Moving only resource release to another thread, such as the
+UI thread, may cause <code>QnnDevice_create failed: code 14001</code> when QNN is
+subsequently used on a different thread.</p>
 </section>
 
 

@@ -65,7 +65,7 @@
   <div class="breadcrumbs"><a href="../../../index.html">ailia_llm</a><span class="delimiter">/</span><a href="../index.html">axip.ailia_llm</a><span class="delimiter">/</span><span class="current">AiliaLLM</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Ailia</span><wbr></wbr><span><span>LLM</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_llm/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">AiliaLLM</a> : <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Closeable.html">Closeable</a></div><p class="paragraph">Kotlin binding for ailia LLM library. Provides Large Language Model inference capabilities.</p><p class="paragraph">Calls JNI directly from Kotlin without going through Java wrappers.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_llm/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">AiliaLLM</a> : <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Closeable.html">Closeable</a></div><p class="paragraph">Kotlin binding for ailia LLM library. Provides Large Language Model inference capabilities.</p><p class="paragraph">Calls JNI directly from Kotlin without going through Java wrappers.</p><p class="paragraph">When using QNN, call <a href="destroy.html">destroy</a> or <a href="close.html">close</a> on the same thread that constructed this instance. For QNN, release resources explicitly on that thread; do not rely on garbage collection.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -120,7 +120,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_llm/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="close.html"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Implements Closeable for use with use { } blocks.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_llm/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="close.html"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Implements Closeable for use with use { } blocks. When using QNN, this method must be called on the same thread that constructed this instance, as with <a href="destroy.html">destroy</a>.</p></div></div></div>
                 </div>
               </div>
             </div>

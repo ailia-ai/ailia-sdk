@@ -561,7 +561,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>LLMオブジェクトを作成します。 </p>
+<p>LLMオブジェクトを作成します。 </p><dl class="section remark"><dt>注釈</dt><dd>QNNを使用する場合は、この関数を呼び出したスレッドでailiaLLMDestroyを呼び出してLLMオブジェクトを破棄してください。 </dd></dl>
 
 </div>
 </div>
@@ -588,6 +588,7 @@ ailia_llm.h の依存先関係図:</div>
   </table>
   </dd>
 </dl>
+<dl class="section remark"><dt>注釈</dt><dd>QNNを使用する場合は、ailiaLLMCreateを呼び出したスレッドで呼び出してください。 QNN使用時に解放だけをUIスレッドなどの別スレッドへ移すと、その後、別のスレッドでQNNを使用する際に QnnDevice_create failed: code 14001が発生することがあります。 </dd></dl>
 
 </div>
 </div>

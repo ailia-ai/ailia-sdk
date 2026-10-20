@@ -66,7 +66,7 @@
   <div class="cover ">
     <h1 class="cover"><span><span>destroy</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_llm/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="destroy.html"><span class="token function">destroy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><p class="paragraph">Destroys the AiliaLLM instance and releases resources.</p></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_llm/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="destroy.html"><span class="token function">destroy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><p class="paragraph">Destroys the AiliaLLM instance and releases resources.</p><p class="paragraph">When using QNN, this method must be called on the same thread that constructed this instance. When using QNN, moving only resource release to another thread, such as the UI thread, may cause <code class="lang-kotlin">QnnDevice_create failed: code 14001</code> when QNN is subsequently used on a different thread.</p></div></div>
 </div>
       <div class="footer">
         <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2026 Copyright ailia Inc.</span><span

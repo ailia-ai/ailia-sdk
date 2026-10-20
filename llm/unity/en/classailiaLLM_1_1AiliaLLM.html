@@ -225,7 +225,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>Creates a LLM instance. </p>
+<p>Creates a LLM instance. </p><dl class="section remark"><dt>Remarks</dt><dd>When using QNN, the LLM instance must be destroyed by calling ailiaLLMDestroy on the same thread that called this function. </dd></dl>
 
 </div>
 </div>
@@ -252,6 +252,7 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section remark"><dt>Remarks</dt><dd>When using QNN, this function must be called on the same thread that called ailiaLLMCreate. When using QNN, moving only the release operation to another thread, such as the UI thread, may cause QnnDevice_create failed: code 14001 when QNN is subsequently used on a different thread. </dd></dl>
 
 </div>
 </div>

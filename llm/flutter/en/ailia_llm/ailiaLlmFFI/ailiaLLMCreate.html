@@ -80,6 +80,8 @@
 <p>Returns:</p>
 <p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
 <p>Creates a LLM instance.</p>
+<p>Notes:</p>
+<p>When using QNN, the LLM instance must be destroyed by calling ailiaLLMDestroy on the same thread that called this function.</p>
 </section>
 
 

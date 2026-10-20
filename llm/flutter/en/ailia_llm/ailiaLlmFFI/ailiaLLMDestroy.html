@@ -77,6 +77,10 @@
 <ul>
 <li><code>llm</code>: A LLM instance pointer</li>
 </ul>
+<p>Notes:</p>
+<p>When using QNN, this function must be called on the same thread that called ailiaLLMCreate.
+When using QNN, moving only the release operation to another thread, such as the UI thread, may cause
+QnnDevice_create failed: code 14001 when QNN is subsequently used on a different thread.</p>
 </section>
 
 

@@ -86,6 +86,9 @@ A context size of zero selects the package/model default.
 a constant selects the first matching device, and an empty string selects
 automatically. Any existing instance is closed before opening the model.
 Throws if the backend is unavailable or native initialization fails.</p>
+<p>Creates the native instance on the calling thread. When using QNN, call
+<a href="../../ailia_llm_model/AiliaLLMModel/close.html">close</a> on that same native thread. Reopening an existing QNN instance must
+also use that thread.</p>
 </section>
 
 
