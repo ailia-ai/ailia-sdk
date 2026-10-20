@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia Speech NPU (QNN) Benchmark</title>
+  <meta name="description" content="Measurement results of Whisper on the NPU of Qualcomm SoCs using the QNN backend of ailia Speech.">
+  <link rel="canonical" href="https://docs.ailia.ai/en/speech/qnn-bench.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/speech/qnn-bench.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/speech/qnn-bench.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/speech/qnn-bench.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/speech/qnn-bench.html">
+  <meta property="og:title" content="ailia Speech NPU (QNN) Benchmark">
+  <meta property="og:description" content="Measurement results of Whisper on the NPU of Qualcomm SoCs using the QNN backend of ailia Speech.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia Speech NPU (QNN) Benchmark">
+  <meta name="twitter:description" content="Measurement results of Whisper on the NPU of Qualcomm SoCs using the QNN backend of ailia Speech.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <style>
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+    .bench-figure { margin: 24px 0; }
+    .bench-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--white); }
+    .bench-figure figcaption { margin-top: 8px; font-size: 0.9em; color: #666; text-align: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia Speech Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../../speech/qnn-bench.html" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia Speech NPU (QNN) Benchmark</h1>
+    <p>Measurement results of running Whisper on the NPU of Qualcomm SoCs with the QNN backend of ailia Speech.</p>
+  </section>
+
+  <div class="guide-content">
+
+    <p>For how to use the QNN backend, see the <a href="qnn.html">ailia Speech NPU (QNN) Guide</a>.</p>
+    <ul>
+      <li><a href="#android">Android (Snapdragon 8+ Gen 1 / SM8475, Snapdragon 7s Gen 3 / SM7635)</a></li>
+      <li><a href="#windows">Windows (Snapdragon X Plus / SC8380XP, QCS6490)</a></li>
+    </ul>
+
+    <h2 id="android">Android</h2>
+
+    <h3>Test conditions</h3>
+    <p>Whisper Medium and Large V3 Turbo were measured on two devices: Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73). The NPU uses INT16 QNN Models built for each SoC. The CPU results run the original ONNX models through the ailia SDK CPU path on the same device. Both use the same runtime.</p>
+    <ul>
+      <li>The input is about 39.7 seconds of Japanese speech (48 kHz, stereo, PCM16), the same file on every device.</li>
+      <li>Automatic language detection, transcribe task, greedy decoding (beam size 1), no VAD or diarization, CPU threads set to AUTO.</li>
+      <li>Each path opens the model once, runs one warmup, then measures 3 runs. Model opening, WAV loading, input push and the warmup are excluded.</li>
+      <li>Processing time and CPU time are measured over the same <code>ailiaSpeechTranscribe</code> calls.</li>
+    </ul>
+
+    <h3>Transcription speed</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device</th><th>Model</th><th>Path</th><th>Time (mean)</th><th>Realtime factor</th><th>NPU speedup</th></tr>
+      <tr><td rowspan="2">SM8475 (Hexagon v69)</td><td rowspan="2">Medium</td><td>CPU (ONNX)</td><td class="num">111.563 s</td><td class="num">0.36x</td><td rowspan="2" class="num">10.54x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">10.589 s</td><td class="num">3.75x</td></tr>
+      <tr><td rowspan="2">SM8475 (Hexagon v69)</td><td rowspan="2">Large V3 Turbo</td><td>CPU (ONNX)</td><td class="num">88.306 s</td><td class="num">0.45x</td><td rowspan="2" class="num">27.63x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">3.196 s</td><td class="num">12.43x</td></tr>
+      <tr><td rowspan="2">SM7635 (Hexagon v73)</td><td rowspan="2">Medium</td><td>CPU (ONNX)</td><td class="num">125.164 s</td><td class="num">0.32x</td><td rowspan="2" class="num">7.30x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">17.150 s</td><td class="num">2.32x</td></tr>
+      <tr><td rowspan="2">SM7635 (Hexagon v73)</td><td rowspan="2">Large V3 Turbo</td><td>CPU (ONNX)</td><td class="num">85.651 s</td><td class="num">0.46x</td><td rowspan="2" class="num">11.09x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">7.723 s</td><td class="num">5.15x</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>Realtime factor is <code>audio duration / mean processing time</code>; above 1x means the audio is transcribed faster than its length.</li>
+    </ul>
+    <p>Compared with the CPU, the NPU is about 10.5x faster for Medium and 27.6x faster for Large V3 Turbo on SM8475, and about 7.3x for Medium and 11.1x for Large V3 Turbo on SM7635. With Large V3 Turbo on the NPU, 39.7 seconds of audio is transcribed in about 3.2 seconds on SM8475 and about 7.7 seconds on SM7635.</p>
+
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/transcription_speed_sm8475.png" alt="Whisper Medium / Large V3 Turbo transcription speed on SM8475 (CPU / NPU)" loading="lazy">
+      <figcaption>Transcription speed on SM8475 (realtime factor)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/transcription_speed_sm7635.png" alt="Whisper Medium / Large V3 Turbo transcription speed on SM7635 (CPU / NPU)" loading="lazy">
+      <figcaption>Transcription speed on SM7635 (realtime factor)</figcaption>
+    </figure>
+
+    <h3>CPU usage</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device</th><th>Model</th><th>CPU (ONNX)</th><th>NPU (QNN)</th></tr>
+      <tr><td>SM8475 (Hexagon v69)</td><td>Medium</td><td class="num">63.78%</td><td class="num">8.38%</td></tr>
+      <tr><td>SM8475 (Hexagon v69)</td><td>Large V3 Turbo</td><td class="num">83.47%</td><td class="num">8.83%</td></tr>
+      <tr><td>SM7635 (Hexagon v73)</td><td>Medium</td><td class="num">66.26%</td><td class="num">5.30%</td></tr>
+      <tr><td>SM7635 (Hexagon v73)</td><td>Large V3 Turbo</td><td class="num">81.73%</td><td class="num">5.17%</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>CPU usage is <code>total process CPU time / total processing time / 8 cores × 100</code>, where 100% means all 8 cores are fully used.</li>
+    </ul>
+    <p>CPU usage on the NPU stays around 5–9%, leaving CPU headroom for the application. Running on the CPU uses 64–83%.</p>
+
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/cpu_utilization_sm8475.png" alt="Whisper Medium / Large V3 Turbo CPU usage during transcription on SM8475 (CPU / NPU)" loading="lazy">
+      <figcaption>Host process CPU usage during transcription on SM8475 (relative to all 8 cores)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/cpu_utilization_sm7635.png" alt="Whisper Medium / Large V3 Turbo CPU usage during transcription on SM7635 (CPU / NPU)" loading="lazy">
+      <figcaption>Host process CPU usage during transcription on SM7635 (relative to all 8 cores)</figcaption>
+    </figure>
+
+    <h2 id="windows">Windows</h2>
+
+    <h3>Test conditions</h3>
+    <p>Measured on two Windows ARM64 devices using the same audio, procedure and aggregation as on Android. Snapdragon X Plus (SC8380XP / Hexagon v73, 8 cores) runs Windows 11 Pro, and QCS6490 (Hexagon v68, 8 cores) runs Windows 11 IoT Enterprise LTSC. The NPU uses INT16 QNN Models built for each SoC. The CPU results run the original ONNX models through the ailia SDK CPU path on the same device.</p>
+
+    <h3>Transcription speed</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device</th><th>Model</th><th>Path</th><th>Time (mean)</th><th>Realtime factor</th><th>NPU speedup</th></tr>
+      <tr><td rowspan="2">SC8380XP (Hexagon v73)</td><td rowspan="2">Medium</td><td>CPU (ONNX)</td><td class="num">42.634 s</td><td class="num">0.93x</td><td rowspan="2" class="num">10.17x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">4.193 s</td><td class="num">9.48x</td></tr>
+      <tr><td rowspan="2">SC8380XP (Hexagon v73)</td><td rowspan="2">Large V3 Turbo</td><td>CPU (ONNX)</td><td class="num">36.308 s</td><td class="num">1.09x</td><td rowspan="2" class="num">19.90x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">1.825 s</td><td class="num">21.78x</td></tr>
+      <tr><td rowspan="2">QCS6490 (Hexagon v68)</td><td rowspan="2">Medium</td><td>CPU (ONNX)</td><td class="num">148.901 s</td><td class="num">0.27x</td><td rowspan="2" class="num">10.96x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">13.588 s</td><td class="num">2.92x</td></tr>
+      <tr><td rowspan="2">QCS6490 (Hexagon v68)</td><td rowspan="2">Large V3 Turbo</td><td>CPU (ONNX)</td><td class="num">101.509 s</td><td class="num">0.39x</td><td rowspan="2" class="num">13.23x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">7.672 s</td><td class="num">5.18x</td></tr>
+    </table>
+    </div>
+    <p>Compared with the CPU, the NPU is about 10.2x faster for Medium and 19.9x for Large V3 Turbo on SC8380XP, and about 11.0x for Medium and 13.2x for Large V3 Turbo on QCS6490. With Large V3 Turbo on the NPU, 39.7 seconds of audio is transcribed in about 1.8 seconds on SC8380XP and about 7.7 seconds on QCS6490.</p>
+
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/transcription_speed_sc8380xp.png" alt="Whisper Medium / Large V3 Turbo transcription speed on SC8380XP (CPU / NPU)" loading="lazy">
+      <figcaption>Transcription speed on SC8380XP (realtime factor)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/transcription_speed_qcs6490.png" alt="Whisper Medium / Large V3 Turbo transcription speed on QCS6490 (CPU / NPU)" loading="lazy">
+      <figcaption>Transcription speed on QCS6490 (realtime factor)</figcaption>
+    </figure>
+
+    <h3>CPU usage</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Device</th><th>Model</th><th>CPU (ONNX)</th><th>NPU (QNN)</th></tr>
+      <tr><td>SC8380XP (Hexagon v73)</td><td>Medium</td><td class="num">58.95%</td><td class="num">7.36%</td></tr>
+      <tr><td>SC8380XP (Hexagon v73)</td><td>Large V3 Turbo</td><td class="num">62.65%</td><td class="num">8.49%</td></tr>
+      <tr><td>QCS6490 (Hexagon v68)</td><td>Medium</td><td class="num">60.80%</td><td class="num">0.88%</td></tr>
+      <tr><td>QCS6490 (Hexagon v68)</td><td>Large V3 Turbo</td><td class="num">74.26%</td><td class="num">1.34%</td></tr>
+    </table>
+    </div>
+    <p>CPU usage on the NPU is around 7–9% on SC8380XP and around 1% on QCS6490. Running on the CPU uses 59–63% on SC8380XP and 61–75% on QCS6490.</p>
+
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/cpu_utilization_sc8380xp.png" alt="Whisper Medium / Large V3 Turbo CPU usage during transcription on SC8380XP (CPU / NPU)" loading="lazy">
+      <figcaption>Host process CPU usage during transcription on SC8380XP (relative to all 8 cores)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/cpu_utilization_qcs6490.png" alt="Whisper Medium / Large V3 Turbo CPU usage during transcription on QCS6490 (CPU / NPU)" loading="lazy">
+      <figcaption>Host process CPU usage during transcription on QCS6490 (relative to all 8 cores)</figcaption>
+    </figure>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
