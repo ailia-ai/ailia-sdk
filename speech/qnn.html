@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia Speech NPU（QNN）ガイド</title>
+  <meta name="description" content="ailia Speech の QNN バックエンドを使用して、Qualcomm SoC の NPU で Whisper による音声認識を高速に実行する方法を解説します。">
+  <link rel="canonical" href="https://docs.ailia.ai/speech/qnn.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/speech/qnn.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/speech/qnn.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/speech/qnn.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/speech/qnn.html">
+  <meta property="og:title" content="ailia Speech NPU（QNN）ガイド">
+  <meta property="og:description" content="ailia Speech の QNN バックエンドを使用して、Qualcomm SoC の NPU で Whisper による音声認識を高速に実行する方法を解説します。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia Speech NPU（QNN）ガイド">
+  <meta name="twitter:description" content="ailia Speech の QNN バックエンドを使用して、Qualcomm SoC の NPU で Whisper による音声認識を高速に実行する方法を解説します。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
+    .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; max-width: 480px; }
+    .arch-box .arch-name { font-weight: 600; color: var(--primary); }
+    .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
+    .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia Speech Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../en/speech/qnn.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia Speech NPU（QNN）ガイド</h1>
+    <p>ailia Speech の QNN バックエンドを使用して、Qualcomm SoC の NPU で Whisper による音声認識を高速に実行する方法を説明します。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>概要</h2>
+    <p>ailia Speech 1.6.0 以降は、Qualcomm SoC の NPU（Hexagon）を使用した Whisper の推論に対応しています。NPU を使用することで、高速・低消費電力に音声認識を実行できます。</p>
+    <p>QNN（Qualcomm AI Engine Direct）は Qualcomm が提供するバックエンド API です。ailia Speech では、Whisper のエンコーダとデコーダを SoC 専用の QNN Model（<code>.qnn</code>）に変換したファイルを使用します。1 つの <code>.qnn</code> にエンコーダとデコーダの両方が含まれているため、端末には ONNX は不要で、<code>.qnn</code> のみを配置します。</p>
+    <div class="arch-diagram">
+      <div class="arch-box"><div class="arch-name">QNN Model（.qnn）</div><div class="arch-desc">SoC 固有の Context Binary（エンコーダ + デコーダ）</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">ailia Speech（Device）</div><div class="arch-desc">Open 時にエンコーダ・デコーダとして同じ .qnn を指定</div></div>
+      <div class="arch-arrow">↓</div>
+      <div class="arch-box"><div class="arch-name">Hexagon NPU</div><div class="arch-desc">QNN（HTP バックエンド）でエンコーダ / デコーダを実行</div></div>
+    </div>
+    <div class="note">
+      <strong>注意:</strong> QNN Model（<code>.qnn</code>）の読み込みは ailia Speech 1.6.0 以降で利用できます。
+    </div>
+
+    <h2>対応プラットフォーム</h2>
+    <ul>
+      <li>Android（Snapdragon 8+ Gen 1 / sm8475、Snapdragon 7s Gen 3 / sm7635）</li>
+      <li>Windows on Arm（Snapdragon X Plus / sc8380xp）</li>
+      <li>QCS6490（qcs6490）</li>
+    </ul>
+    <p>QNN Model は SoC ごとに別ファイルになります。端末の SoC に一致する <code>.qnn</code> を使用してください。異なる SoC 向けのモデルは流用できません。</p>
+    <div class="note">
+      <strong>注意:</strong> QNN（QAIRT）の対応バージョンは ailia SDK と同じ 2.47.0.260601 です。QNN Model は QNN SDK のバージョンにも依存するため、異なるバージョンの QNN ランタイムと組み合わせないでください。
+    </div>
+
+    <h2>対応モデル</h2>
+    <p>現在は <strong>Whisper Large V3 Turbo</strong> と <strong>Whisper Medium</strong> に対応しています。いずれも Int16 に量子化したモデルです。</p>
+
+    <h3>モデルのダウンロード</h3>
+    <p>変換済みの Whisper の QNN Model は下記からダウンロードできます。対象端末の SoC に対応したファイルをご利用ください。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>SoC</th><th>端末の例</th><th>モデル</th><th>ファイル</th><th>サイズ</th></tr>
+      <tr><td rowspan="2">sm8475</td><td rowspan="2">Snapdragon 8+ Gen 1</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm8475-int16.qnn">whisper-large-v3-turbo-sm8475-int16.qnn</a></td><td class="num">1.00 GB</td></tr>
+      <tr><td>Medium</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-sm8475-int16.qnn">whisper-medium-sm8475-int16.qnn</a></td><td class="num">0.96 GB</td></tr>
+      <tr><td rowspan="2">sm7635</td><td rowspan="2">Snapdragon 7s Gen 3</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm7635-int16.qnn">whisper-large-v3-turbo-sm7635-int16.qnn</a></td><td class="num">1.11 GB</td></tr>
+      <tr><td>Medium</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-sm7635-int16.qnn">whisper-medium-sm7635-int16.qnn</a></td><td class="num">0.93 GB</td></tr>
+      <tr><td rowspan="2">sc8380xp</td><td rowspan="2">Surface（Snapdragon X Plus）</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sc8380xp-int16.qnn">whisper-large-v3-turbo-sc8380xp-int16.qnn</a></td><td class="num">0.97 GB</td></tr>
+      <tr><td>Medium</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-sc8380xp-int16.qnn">whisper-medium-sc8380xp-int16.qnn</a></td><td class="num">0.91 GB</td></tr>
+      <tr><td rowspan="2">qcs6490</td><td rowspan="2">QCS6490</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-qcs6490-int16.qnn">whisper-large-v3-turbo-qcs6490-int16.qnn</a></td><td class="num">1.01 GB</td></tr>
+      <tr><td>Medium</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-qcs6490-int16.qnn">whisper-medium-qcs6490-int16.qnn</a></td><td class="num">0.93 GB</td></tr>
+    </table>
+    </div>
+    <p>いずれも ailia Speech 1.6.0（QAIRT 2.47.0.260601）向けです。</p>
+    <div class="note">
+      <strong>その他の SoC について:</strong> 現在モデルファイルを公開しているのは sm8475、sm7635、sc8380xp、qcs6490 です。その他の SoC 向けの変換については <a href="https://ailia.ai/">ailia</a> までお問い合わせください。
+    </div>
+
+    <h2>プロジェクト設定</h2>
+    <p>QNN ランタイムの取得と配置は ailia SDK と共通です。Android の <code>AndroidManifest.xml</code> と <code>build.gradle</code> の設定、Windows on Arm での QNN DLL と NPU 側の <code>.so</code> / <code>.cat</code> の配置は <a href="../setup/qnn/">ailia SDK の QNN セットアップ</a>を参照してください。QNN ランタイムはモデル生成時と同じ QAIRT 2.47.0.260601 を使用してください。</p>
+    <p>Android では <code>.qnn</code> は assets 内のパスを直接指定できません。初回起動時にアプリのプライベートストレージへコピーするかダウンロードし、その実ファイルパスを以下の API に渡してください。</p>
+
+    <h2>コードサンプル：モデルのオープン</h2>
+    <p>通常は Open 時にエンコーダとデコーダの ONNX をそれぞれ指定しますが、QNN Model を使用する場合は、エンコーダとデコーダの両方に<strong>同じ <code>.qnn</code> のパス</strong>を指定します。モデルタイプには <code>.qnn</code> の元になったモデル（Large V3 Turbo または Medium）を指定します。以降の文字起こしの API は ONNX を使用する場合と同じです。</p>
+
+    <h3>C</h3>
+    <pre><code class="language-c">#include "ailia_speech.h"
+#include "ailia_speech_util.h"
+
+const char *qnn_path = "/data/user/0/your.package/files/whisper-large-v3-turbo-sm7635-int16.qnn";
+
+struct AILIASpeech *speech = NULL;
+ailiaSpeechCreate(&amp;speech, env_id, AILIA_MULTITHREAD_AUTO, memory_mode,
+                  AILIA_SPEECH_TASK_TRANSCRIBE, AILIA_SPEECH_FLAG_NONE,
+                  ailiaSpeechUtilGetCallback(), AILIA_SPEECH_API_CALLBACK_VERSION);
+/* エンコーダとデコーダに同じ .qnn を指定する */
+ailiaSpeechOpenModelFileA(speech, qnn_path, qnn_path,
+                          AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO);</code></pre>
+
+    <h3>Unity（C#）</h3>
+    <pre><code class="language-csharp">using System.IO;
+using UnityEngine;
+using ailiaSpeech;
+
+string qnnPath = Path.Combine(Application.persistentDataPath, "whisper-large-v3-turbo-sm7635-int16.qnn");
+var speech = new AiliaSpeechModel();
+// エンコーダとデコーダに同じ .qnn を指定する
+speech.Open(qnnPath, qnnPath, envId, memoryMode,
+            AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO,
+            AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+            AiliaSpeech.AILIA_SPEECH_FLAG_NONE, "auto");</code></pre>
+
+    <h3>Flutter</h3>
+    <pre><code class="language-dart">import 'package:ailia_speech/ailia_speech.dart';
+
+const qnnPath = '/data/user/0/your.package/files/whisper-large-v3-turbo-sm7635-int16.qnn';
+final speech = AiliaSpeechModel();
+// エンコーダとデコーダに同じ .qnn を指定する
+await speech.open(
+  encoderFile: qnnPath,
+  decoderFile: qnnPath,
+  modelType: AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO,
+);</code></pre>
+
+    <h3>JNI（Kotlin）</h3>
+    <p><code>context</code> は Android の Activity または Application の Context です。</p>
+    <pre><code class="language-kotlin">val qnnPath = "${context.filesDir}/whisper-large-v3-turbo-sm7635-int16.qnn"
+val speech = AiliaSpeech(
+    envId = -1,
+    task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+    flags = AiliaSpeech.AILIA_SPEECH_FLAG_NONE,
+)
+// エンコーダとデコーダに同じ .qnn を指定する
+speech.openModel(qnnPath, qnnPath,
+    AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO)</code></pre>
+
+    <h2>ベンチマーク</h2>
+    <p>NPU での測定結果は <a href="qnn-bench.html">ailia Speech NPU（QNN）ベンチマーク</a> を参照してください。</p>
+
+    <h2>評価版アプリ</h2>
+    <p>Android 向けの評価版 APK は <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v261020">ailia-models-kotlin-qnn.apk</a> です。Snapdragon 8+ Gen 1（sm8475）または Snapdragon 7s Gen 3（sm7635）を搭載した端末で動作します。</p>
+    <p>Windows on Arm 向けの評価版アプリは <a href="https://github.com/ailia-ai/ailia-models-flutter/releases/tag/v261020">ailia-models-flutter-qnn-v261020.zip</a> です。Snapdragon X Plus もしくは QCS6490 で動作します。</p>
+
+    <h2>制約</h2>
+    <ul>
+      <li>QNN Model は SoC ごとに変換が必要で、他の SoC 向けのファイルは使用できません。</li>
+      <li>現在の対応モデルは Whisper Large V3 Turbo / Medium です。</li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
