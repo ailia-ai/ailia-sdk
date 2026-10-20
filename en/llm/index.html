@@ -90,7 +90,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="step">
             <div class="step-number">2</div>
             <h3>Run a Sample</h3>
-            <p>Download <code>example.py</code> from <code>ailia-models</code> and run it. The script downloads the Gemma 4 E2B GGUF file on first run and streams a chat completion. For image input, audio input, or function calling, fetch <code>example_vlm.py</code>, <code>example_alm.py</code>, or <code>example_tool_use.py</code> from the same folder instead.</p>
+            <p>Download <code>example.py</code> from <code>ailia-models</code> and run it. The script downloads the Gemma 4 E2B GGUF file on first run and streams a chat completion. For image input, audio input, function calling, or MTP (Multi-Token Prediction), fetch <code>example_vlm.py</code>, <code>example_alm.py</code>, <code>example_tool_use.py</code>, or <code>example_mtp.py</code> from the same folder instead.</p>
             <pre><code class="language-bash">wget https://raw.githubusercontent.com/ailia-ai/ailia-models/master/large_language_model/gemma4/example.py
 python3 example.py</code></pre>
             <p>On Windows, use <code>python</code> instead of <code>python3</code>.</p>
@@ -98,6 +98,7 @@ python3 example.py</code></pre>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma4/example_vlm.py" target="_blank" class="card-link">example_vlm.py (image input)</a>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma4/example_alm.py" target="_blank" class="card-link">example_alm.py (audio input)</a>
             <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma4/example_tool_use.py" target="_blank" class="card-link">example_tool_use.py (function calling)</a>
+            <a href="https://github.com/ailia-ai/ailia-models/blob/master/large_language_model/gemma4/example_mtp.py" target="_blank" class="card-link">example_mtp.py (MTP)</a>
           </div>
         </div>
       </div>
@@ -350,7 +351,6 @@ while (!done) {
         <div class="article-title">ailia LLM NPU (QNN) Benchmark</div>
         <div class="article-source">docs.ailia.ai</div>
       </a>
-      <!--
       <a class="article-card" href="mtp.html">
         <div class="article-title">ailia LLM MTP (Multi-Token Prediction) Guide</div>
         <div class="article-source">docs.ailia.ai</div>
@@ -359,7 +359,6 @@ while (!done) {
         <div class="article-title">ailia LLM MTP Benchmark</div>
         <div class="article-source">docs.ailia.ai</div>
       </a>
-      -->
       <a class="article-card" href="tool_use.html">
         <div class="article-title">ailia LLM Tool Use Guide</div>
         <div class="article-source">docs.ailia.ai</div>
