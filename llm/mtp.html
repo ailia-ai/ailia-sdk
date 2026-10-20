@@ -295,11 +295,6 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);
 ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-int16-mmproj.qnn");
 /* 以降は ailiaLLMSetMultimodalPrompt / ailiaLLMGenerate */</code></pre>
 
-    <h2>アーキテクチャ詳細</h2>
-    <p>MTP 対応の本体 <code>.qnn</code> は、Prefill 用の AR-256、検証用の AR-4、通常生成用の AR-1 の 3 つのグラフを 1 つの QNN Context に格納し、重みと KV キャッシュを共有します。Assistant は本体の KV キャッシュと最終層の hidden state を直接参照して候補を生成するため、Assistant 側で KV キャッシュを別に持つ必要がなく、ファイルサイズは 50 MB 未満です。埋め込みテーブルも本体から参照します。</p>
-    <p>Prefill は従来どおり AR-256 で処理し、最後の hidden state と最初のトークン、KV キャッシュを Assistant に渡します。以降は「Assistant が 3 候補を生成 → AR-4 で 4 行を一括検証 → 受理された分の logits・hidden・KV をそのまま採用」を繰り返します。受理されたトークンの再計算は行いません。確定したトークンは内部のキューに入り、<code>ailiaLLMGenerate</code> の呼び出しごとに 1 トークンずつ返します。</p>
-    <p>マルチターンで新しいテキストプロンプトを設定すると、未返却の候補を破棄し、安全に再利用できる KV の共通部分を残して続きから Prefill します。画像・音声の切り替え時は、エンコーダ実行前に Assistant を一旦解放し、本体の Prefill 後に再生成します。</p>
-
     <h2>制約</h2>
     <ul>
       <li>NPU の本体に CPU 用の GGUF Assistant は組み合わせられません。</li>

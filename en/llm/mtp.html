@@ -295,11 +295,6 @@ ailiaLLMOpenMtpModelFileA(llm, "gemma4-e2b-sm7635-int16-mtp-assistant.qnn", 3);
 ailiaLLMOpenMultimodalProjectorFileA(llm, "gemma4-e2b-sm7635-int16-mmproj.qnn");
 /* then ailiaLLMSetMultimodalPrompt / ailiaLLMGenerate */</code></pre>
 
-    <h2>Architecture Details</h2>
-    <p>The MTP-capable main <code>.qnn</code> stores three graphs in a single QNN context — AR-256 for prefill, AR-4 for verification and AR-1 for normal generation — sharing the weights and the KV cache. The assistant generates candidates by directly referencing the main model's KV cache and final-layer hidden state, so it does not need its own KV cache and its file size is under 50 MB. The embedding table is also referenced from the main model.</p>
-    <p>Prefill is processed with AR-256 as before, and the last hidden state, the first token and the KV cache are passed to the assistant. After that, the cycle "the assistant generates 3 candidates → AR-4 verifies 4 rows at once → the logits, hidden states and KV for the accepted part are adopted as is" repeats. Accepted tokens are not recomputed. Committed tokens enter an internal queue, and each <code>ailiaLLMGenerate</code> call returns one token.</p>
-    <p>When a new text prompt is set in a multi-turn conversation, pending candidates are discarded, the common KV prefix that can be safely reused is kept, and prefill continues from there. When switching between image and audio, the assistant is released before running the encoder and recreated after the main model's prefill.</p>
-
     <h2>Limitations</h2>
     <ul>
       <li>A CPU GGUF assistant cannot be combined with an NPU main model.</li>
