@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia Speech NPU（QNN）ベンチマーク</title>
+  <meta name="description" content="ailia Speech の QNN バックエンドを使用した、Qualcomm SoC の NPU における Whisper の測定結果です。">
+  <link rel="canonical" href="https://docs.ailia.ai/speech/qnn-bench.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/speech/qnn-bench.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/speech/qnn-bench.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/speech/qnn-bench.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/speech/qnn-bench.html">
+  <meta property="og:title" content="ailia Speech NPU（QNN）ベンチマーク">
+  <meta property="og:description" content="ailia Speech の QNN バックエンドを使用した、Qualcomm SoC の NPU における Whisper の測定結果です。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia Speech NPU（QNN）ベンチマーク">
+  <meta name="twitter:description" content="ailia Speech の QNN バックエンドを使用した、Qualcomm SoC の NPU における Whisper の測定結果です。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .guide-content .version-table td.num { text-align: right; white-space: nowrap; }
+    .table-wrap { overflow-x: auto; }
+    .bench-figure { margin: 24px 0; }
+    .bench-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--white); }
+    .bench-figure figcaption { margin-top: 8px; font-size: 0.9em; color: #666; text-align: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia Speech Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../en/speech/qnn-bench.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia Speech NPU（QNN）ベンチマーク</h1>
+    <p>ailia Speech の QNN バックエンドで Whisper を Qualcomm SoC の NPU で実行した測定結果を示します。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <p>QNN バックエンドの使い方は <a href="qnn.html">ailia Speech NPU（QNN）ガイド</a> を参照してください。</p>
+    <ul>
+      <li><a href="#android">Android（Snapdragon 8+ Gen 1 / SM8475、Snapdragon 7s Gen 3 / SM7635）</a></li>
+      <li><a href="#windows">Windows（Snapdragon X Plus / SC8380XP、QCS6490）</a></li>
+    </ul>
+
+    <h2 id="android">Android</h2>
+
+    <h3>測定条件</h3>
+    <p>Whisper Medium と Large V3 Turbo を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）と Snapdragon 7s Gen 3（SM7635 / Hexagon v73）を使用しています。NPU は各 SoC 向けの INT16 の QNN Model、CPU は同じ端末上で元の ONNX モデルを ailia SDK の CPU 経路で実行した値です。CPU / NPU とも同じランタイムを使用しています。</p>
+    <ul>
+      <li>音声は約 39.7 秒の日本語音声（48 kHz、ステレオ、PCM16）で、全機種で同じファイルを使用しています。</li>
+      <li>言語は自動判定、タスクは transcribe、greedy デコード（beam size 1）、VAD・話者分離なし、CPU スレッド数は AUTO です。</li>
+      <li>各経路でモデルを一度開き、1 回のウォームアップ後の 3 回を集計しています。モデルのオープン、WAV 読み込み、入力の push、ウォームアップは含みません。</li>
+      <li>処理時間と CPU 時間は同じ <code>ailiaSpeechTranscribe</code> 呼び出し区間で計測しています。</li>
+    </ul>
+
+    <h3>文字起こし速度</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末</th><th>モデル</th><th>経路</th><th>処理時間（平均）</th><th>実時間比</th><th>NPU の効果</th></tr>
+      <tr><td rowspan="2">SM8475（Hexagon v69）</td><td rowspan="2">Medium</td><td>CPU（ONNX）</td><td class="num">111.563 秒</td><td class="num">0.36 倍</td><td rowspan="2" class="num">10.54 倍高速</td></tr>
+      <tr><td>NPU（QNN）</td><td class="num">10.589 秒</td><td class="num">3.75 倍</td></tr>
+      <tr><td rowspan="2">SM8475（Hexagon v69）</td><td rowspan="2">Large V3 Turbo</td><td>CPU（ONNX）</td><td class="num">88.306 秒</td><td class="num">0.45 倍</td><td rowspan="2" class="num">27.63 倍高速</td></tr>
+      <tr><td>NPU（QNN）</td><td class="num">3.196 秒</td><td class="num">12.43 倍</td></tr>
+      <tr><td rowspan="2">SM7635（Hexagon v73）</td><td rowspan="2">Medium</td><td>CPU（ONNX）</td><td class="num">125.164 秒</td><td class="num">0.32 倍</td><td rowspan="2" class="num">7.30 倍高速</td></tr>
+      <tr><td>NPU（QNN）</td><td class="num">17.150 秒</td><td class="num">2.32 倍</td></tr>
+      <tr><td rowspan="2">SM7635（Hexagon v73）</td><td rowspan="2">Large V3 Turbo</td><td>CPU（ONNX）</td><td class="num">85.651 秒</td><td class="num">0.46 倍</td><td rowspan="2" class="num">11.09 倍高速</td></tr>
+      <tr><td>NPU（QNN）</td><td class="num">7.723 秒</td><td class="num">5.15 倍</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>実時間比は <code>音声長 / 平均処理時間</code> で、1 倍を超えると音声長より短い時間で文字起こしできます。</li>
+    </ul>
+    <p>NPU は CPU に対して、SM8475 で Medium 約 10.5 倍・Large V3 Turbo 約 27.6 倍、SM7635 で Medium 約 7.3 倍・Large V3 Turbo 約 11.1 倍高速です。Large V3 Turbo の NPU 実行では、39.7 秒の音声を SM8475 で約 3.2 秒、SM7635 で約 7.7 秒で文字起こしできます。</p>
+
+    <figure class="bench-figure">
+      <img src="benchmark/transcription_speed_sm8475.png" alt="SM8475 の Whisper Medium / Large V3 Turbo の文字起こし速度（CPU / NPU）" loading="lazy">
+      <figcaption>SM8475 の文字起こし速度（実時間比）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/transcription_speed_sm7635.png" alt="SM7635 の Whisper Medium / Large V3 Turbo の文字起こし速度（CPU / NPU）" loading="lazy">
+      <figcaption>SM7635 の文字起こし速度（実時間比）</figcaption>
+    </figure>
+
+    <h3>CPU 使用率</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末</th><th>モデル</th><th>CPU（ONNX）</th><th>NPU（QNN）</th></tr>
+      <tr><td>SM8475（Hexagon v69）</td><td>Medium</td><td class="num">63.78%</td><td class="num">8.38%</td></tr>
+      <tr><td>SM8475（Hexagon v69）</td><td>Large V3 Turbo</td><td class="num">83.47%</td><td class="num">8.83%</td></tr>
+      <tr><td>SM7635（Hexagon v73）</td><td>Medium</td><td class="num">66.26%</td><td class="num">5.30%</td></tr>
+      <tr><td>SM7635（Hexagon v73）</td><td>Large V3 Turbo</td><td class="num">81.73%</td><td class="num">5.17%</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>CPU 使用率は <code>プロセス CPU 時間の合計 / 処理時間の合計 / 8 コア × 100</code> で、8 コアすべてを使い切った状態を 100% とします。</li>
+    </ul>
+    <p>NPU 実行時の CPU 使用率は 5〜9% 程度に収まるため、アプリケーション側の処理に CPU を残せます。CPU 実行では 64〜83% を使用します。</p>
+
+    <figure class="bench-figure">
+      <img src="benchmark/cpu_utilization_sm8475.png" alt="SM8475 の Whisper Medium / Large V3 Turbo の文字起こし中の CPU 使用率（CPU / NPU）" loading="lazy">
+      <figcaption>SM8475 の文字起こし中のホストプロセス CPU 使用率（8 コア全体比）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/cpu_utilization_sm7635.png" alt="SM7635 の Whisper Medium / Large V3 Turbo の文字起こし中の CPU 使用率（CPU / NPU）" loading="lazy">
+      <figcaption>SM7635 の文字起こし中のホストプロセス CPU 使用率（8 コア全体比）</figcaption>
+    </figure>
+
+    <h2 id="windows">Windows</h2>
+
+    <h3>測定条件</h3>
+    <p>Windows ARM64 の 2 機種で、Android と同じ音声・同じ手順・同じ集計方法で測定した結果です。Snapdragon X Plus（SC8380XP / Hexagon v73、8 コア）は Windows 11 Pro、QCS6490（Hexagon v68、8 コア）は Windows 11 IoT Enterprise LTSC を使用しています。NPU は各 SoC 向けの INT16 の QNN Model、CPU は同じ端末上で元の ONNX モデルを ailia SDK の CPU 経路で実行した値です。</p>
+
+    <h3>文字起こし速度</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末</th><th>モデル</th><th>経路</th><th>処理時間（平均）</th><th>実時間比</th><th>NPU の効果</th></tr>
+      <tr><td rowspan="2">SC8380XP（Hexagon v73）</td><td rowspan="2">Medium</td><td>CPU（ONNX）</td><td class="num">42.634 秒</td><td class="num">0.93 倍</td><td rowspan="2" class="num">10.17 倍高速</td></tr>
+      <tr><td>NPU（QNN）</td><td class="num">4.193 秒</td><td class="num">9.48 倍</td></tr>
+      <tr><td rowspan="2">SC8380XP（Hexagon v73）</td><td rowspan="2">Large V3 Turbo</td><td>CPU（ONNX）</td><td class="num">36.308 秒</td><td class="num">1.09 倍</td><td rowspan="2" class="num">19.90 倍高速</td></tr>
+      <tr><td>NPU（QNN）</td><td class="num">1.825 秒</td><td class="num">21.78 倍</td></tr>
+      <tr><td rowspan="2">QCS6490（Hexagon v68）</td><td rowspan="2">Medium</td><td>CPU（ONNX）</td><td class="num">148.901 秒</td><td class="num">0.27 倍</td><td rowspan="2" class="num">10.96 倍高速</td></tr>
+      <tr><td>NPU（QNN）</td><td class="num">13.588 秒</td><td class="num">2.92 倍</td></tr>
+      <tr><td rowspan="2">QCS6490（Hexagon v68）</td><td rowspan="2">Large V3 Turbo</td><td>CPU（ONNX）</td><td class="num">101.509 秒</td><td class="num">0.39 倍</td><td rowspan="2" class="num">13.23 倍高速</td></tr>
+      <tr><td>NPU（QNN）</td><td class="num">7.672 秒</td><td class="num">5.18 倍</td></tr>
+    </table>
+    </div>
+    <p>NPU は CPU に対して、SC8380XP で Medium 約 10.2 倍・Large V3 Turbo 約 19.9 倍、QCS6490 で Medium 約 11.0 倍・Large V3 Turbo 約 13.2 倍高速です。Large V3 Turbo の NPU 実行では、39.7 秒の音声を SC8380XP で約 1.8 秒、QCS6490 で約 7.7 秒で文字起こしできます。</p>
+
+    <figure class="bench-figure">
+      <img src="benchmark/transcription_speed_sc8380xp.png" alt="SC8380XP の Whisper Medium / Large V3 Turbo の文字起こし速度（CPU / NPU）" loading="lazy">
+      <figcaption>SC8380XP の文字起こし速度（実時間比）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/transcription_speed_qcs6490.png" alt="QCS6490 の Whisper Medium / Large V3 Turbo の文字起こし速度（CPU / NPU）" loading="lazy">
+      <figcaption>QCS6490 の文字起こし速度（実時間比）</figcaption>
+    </figure>
+
+    <h3>CPU 使用率</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>端末</th><th>モデル</th><th>CPU（ONNX）</th><th>NPU（QNN）</th></tr>
+      <tr><td>SC8380XP（Hexagon v73）</td><td>Medium</td><td class="num">58.95%</td><td class="num">7.36%</td></tr>
+      <tr><td>SC8380XP（Hexagon v73）</td><td>Large V3 Turbo</td><td class="num">62.65%</td><td class="num">8.49%</td></tr>
+      <tr><td>QCS6490（Hexagon v68）</td><td>Medium</td><td class="num">60.80%</td><td class="num">0.88%</td></tr>
+      <tr><td>QCS6490（Hexagon v68）</td><td>Large V3 Turbo</td><td class="num">74.26%</td><td class="num">1.34%</td></tr>
+    </table>
+    </div>
+    <p>NPU 実行時の CPU 使用率は SC8380XP で 7〜9%、QCS6490 で 1% 程度です。CPU 実行では SC8380XP が 59〜63%、QCS6490 が 61〜75% を使用します。</p>
+
+    <figure class="bench-figure">
+      <img src="benchmark/cpu_utilization_sc8380xp.png" alt="SC8380XP の Whisper Medium / Large V3 Turbo の文字起こし中の CPU 使用率（CPU / NPU）" loading="lazy">
+      <figcaption>SC8380XP の文字起こし中のホストプロセス CPU 使用率（8 コア全体比）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/cpu_utilization_qcs6490.png" alt="QCS6490 の Whisper Medium / Large V3 Turbo の文字起こし中の CPU 使用率（CPU / NPU）" loading="lazy">
+      <figcaption>QCS6490 の文字起こし中のホストプロセス CPU 使用率（8 コア全体比）</figcaption>
+    </figure>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

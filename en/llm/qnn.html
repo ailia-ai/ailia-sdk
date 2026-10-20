@@ -82,7 +82,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>ailia LLM NPU (QNN) Guide</h1>
-    <p>How to run fast LLM / VLM inference on the NPU of Qualcomm SoCs using the QNN backend of ailia LLM.</p>
+    <p>How to run LLM / VLM inference on the NPU of Qualcomm SoCs using the QNN backend of ailia LLM.</p>
   </section>
 
   <div class="guide-content">
@@ -104,6 +104,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="note">
       <strong>Note:</strong> The QNN backend is available in ailia LLM 1.5.0 and later.
     </div>
+    <!--
+    <div class="note">
+      <strong>MTP:</strong> ailia LLM 1.5.1 and later support MTP (Multi-Token Prediction), which makes NPU decode 1.45x to 1.65x for Gemma 4 E2B (2.57x to 3.38x for audio transcription). See the <a href="mtp.html">ailia LLM MTP Guide</a> for usage and the <a href="mtp-bench.html">ailia LLM MTP Benchmark</a> for measurements.
+    </div>
+    -->
 
     <h2>Supported Platforms</h2>
     <ul>
@@ -289,6 +294,11 @@ if (!llm.Open(modelPath, 0)) throw new Exception(llm.GetErrorDetail());
 
     <h2>Benchmark</h2>
     <p>Decode / prefill throughput, CPU usage during prefill, VLM and audio input response time, and memory usage measured with Gemma 4 E2B / E4B on Snapdragon 8+ Gen 1 (SM8475), Snapdragon 7s Gen 3 (SM7635), Snapdragon X Plus (SC8380XP) and QCS6490 are available in the <a href="qnn-bench.html">ailia LLM NPU (QNN) Benchmark</a>.</p>
+
+    <!--
+    <h2>Faster Decode with MTP</h2>
+    <p>Decode processes one token at a time, so on the NPU it is dominated by weight loading and can be equal to or slower than the CPU. ailia LLM 1.5.1 and later support MTP (Multi-Token Prediction), in which a small assistant (draft model) predicts the next few tokens and the main model verifies them together. Use an MTP-capable main model (<code>-mtp.qnn</code>) and an assistant (<code>-mtp-assistant.qnn</code>), and call <code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code> after opening the main model. See the <a href="mtp.html">ailia LLM MTP Guide</a> and the <a href="mtp-bench.html">ailia LLM MTP Benchmark</a> for details.</p>
+    -->
 
     <h2>Limitations</h2>
     <ul>
