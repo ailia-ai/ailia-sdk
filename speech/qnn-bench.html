@@ -106,7 +106,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>実時間比は <code>音声長 / 平均処理時間</code> で、1 倍を超えると音声長より短い時間で文字起こしできます。</li>
     </ul>
     <p>NPU は CPU に対して、SM8475 で Medium 約 10.5 倍・Large V3 Turbo 約 27.6 倍、SM7635 で Medium 約 7.3 倍・Large V3 Turbo 約 11.1 倍高速です。Large V3 Turbo の NPU 実行では、39.7 秒の音声を SM8475 で約 3.2 秒、SM7635 で約 7.7 秒で文字起こしできます。</p>
-    <p>SM7635 は Medium の CPU 測定後から thermal status が LIGHT になっています。OS・CPU 構成・温度状態が異なるため、SoC 単体の演算性能の比較ではありません。</p>
 
     <figure class="bench-figure">
       <img src="benchmark/transcription_speed_sm8475.png" alt="SM8475 の Whisper Medium / Large V3 Turbo の文字起こし速度（CPU / NPU）" loading="lazy">
@@ -128,7 +127,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </table>
     </div>
     <ul>
-      <li>CPU 使用率は <code>プロセス CPU 時間の合計 / 処理時間の合計 / 8 コア × 100</code> で、8 コアすべてを使い切った状態を 100% とします。アプリケーションプロセスの使用率であり、端末全体の負荷や NPU 使用率ではありません。</li>
+      <li>CPU 使用率は <code>プロセス CPU 時間の合計 / 処理時間の合計 / 8 コア × 100</code> で、8 コアすべてを使い切った状態を 100% とします。</li>
     </ul>
     <p>NPU 実行時の CPU 使用率は 5〜9% 程度に収まるため、アプリケーション側の処理に CPU を残せます。CPU 実行では 64〜83% を使用します。</p>
 
@@ -144,7 +143,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="windows">Windows</h2>
 
     <h3>測定条件</h3>
-    <p>Windows ARM64 の 2 機種で、Android と同じ音声・同じ手順・同じ集計方法で測定した結果です。Snapdragon X Plus（SC8380XP / Hexagon v73、8 コア）は Windows 11 Pro、QCS6490（Hexagon v68、8 コア）は Windows 11 IoT Enterprise LTSC を使用しています。NPU は各 SoC 向けの INT16 の QNN Model、CPU は同じ端末上で元の ONNX モデルを ailia SDK の CPU 経路で実行した値です。端末は AC 電源に接続し、電源プランは OS 既定のままです。</p>
+    <p>Windows ARM64 の 2 機種で、Android と同じ音声・同じ手順・同じ集計方法で測定した結果です。Snapdragon X Plus（SC8380XP / Hexagon v73、8 コア）は Windows 11 Pro、QCS6490（Hexagon v68、8 コア）は Windows 11 IoT Enterprise LTSC を使用しています。NPU は各 SoC 向けの INT16 の QNN Model、CPU は同じ端末上で元の ONNX モデルを ailia SDK の CPU 経路で実行した値です。</p>
 
     <h3>文字起こし速度</h3>
     <div class="table-wrap">
