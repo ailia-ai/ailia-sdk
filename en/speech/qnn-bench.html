@@ -74,7 +74,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>For how to use the QNN backend, see the <a href="qnn.html">ailia Speech NPU (QNN) Guide</a>.</p>
     <ul>
       <li><a href="#android">Android (Snapdragon 8+ Gen 1 / SM8475, Snapdragon 7s Gen 3 / SM7635)</a></li>
-      <li><a href="#windows">Windows (Snapdragon X Plus / SC8380XP)</a></li>
+      <li><a href="#windows">Windows (Snapdragon X Plus / SC8380XP, QCS6490)</a></li>
     </ul>
 
     <h2 id="android">Android</h2>
@@ -144,7 +144,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="windows">Windows</h2>
 
     <h3>Test conditions</h3>
-    <p>Measured on a Windows 11 Pro ARM64 PC with Snapdragon X Plus (SC8380XP / Hexagon v73, 8 cores), using the same audio, procedure and aggregation as on Android. The NPU uses INT16 QNN Models built for SC8380XP. The CPU results run the original ONNX models through the ailia SDK CPU path on the same PC. The PC was on AC power with the default power plan.</p>
+    <p>Measured on two Windows ARM64 devices using the same audio, procedure and aggregation as on Android. Snapdragon X Plus (SC8380XP / Hexagon v73, 8 cores) runs Windows 11 Pro, and QCS6490 (Hexagon v68, 8 cores) runs Windows 11 IoT Enterprise LTSC. The NPU uses INT16 QNN Models built for each SoC. The CPU results run the original ONNX models through the ailia SDK CPU path on the same device. Both devices were on AC power with the default power plan.</p>
 
     <h3>Transcription speed</h3>
     <div class="table-wrap">
@@ -154,13 +154,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>NPU (QNN)</td><td class="num">4.193 s</td><td class="num">9.48x</td></tr>
       <tr><td rowspan="2">SC8380XP (Hexagon v73)</td><td rowspan="2">Large V3 Turbo</td><td>CPU (ONNX)</td><td class="num">36.308 s</td><td class="num">1.09x</td><td rowspan="2" class="num">19.90x faster</td></tr>
       <tr><td>NPU (QNN)</td><td class="num">1.825 s</td><td class="num">21.78x</td></tr>
+      <tr><td rowspan="2">QCS6490 (Hexagon v68)</td><td rowspan="2">Medium</td><td>CPU (ONNX)</td><td class="num">148.901 s</td><td class="num">0.27x</td><td rowspan="2" class="num">10.96x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">13.588 s</td><td class="num">2.92x</td></tr>
+      <tr><td rowspan="2">QCS6490 (Hexagon v68)</td><td rowspan="2">Large V3 Turbo</td><td>CPU (ONNX)</td><td class="num">101.509 s</td><td class="num">0.39x</td><td rowspan="2" class="num">13.23x faster</td></tr>
+      <tr><td>NPU (QNN)</td><td class="num">7.672 s</td><td class="num">5.18x</td></tr>
     </table>
     </div>
-    <p>The NPU is about 10.2x faster than the CPU for Medium and about 19.9x faster for Large V3 Turbo. With Large V3 Turbo on the NPU, 39.7 seconds of audio is transcribed in about 1.8 seconds, more than 21x realtime.</p>
+    <p>Compared with the CPU, the NPU is about 10.2x faster for Medium and 19.9x for Large V3 Turbo on SC8380XP, and about 11.0x for Medium and 13.2x for Large V3 Turbo on QCS6490. With Large V3 Turbo on the NPU, 39.7 seconds of audio is transcribed in about 1.8 seconds on SC8380XP and about 7.7 seconds on QCS6490.</p>
 
     <figure class="bench-figure">
       <img src="../../speech/benchmark/transcription_speed_sc8380xp.png" alt="Whisper Medium / Large V3 Turbo transcription speed on SC8380XP (CPU / NPU)" loading="lazy">
       <figcaption>Transcription speed on SC8380XP (realtime factor; error bars show min–max)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/transcription_speed_qcs6490.png" alt="Whisper Medium / Large V3 Turbo transcription speed on QCS6490 (CPU / NPU)" loading="lazy">
+      <figcaption>Transcription speed on QCS6490 (realtime factor; error bars show min–max)</figcaption>
     </figure>
 
     <h3>CPU usage</h3>
@@ -169,13 +177,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>Device</th><th>Model</th><th>CPU (ONNX)</th><th>NPU (QNN)</th></tr>
       <tr><td>SC8380XP (Hexagon v73)</td><td>Medium</td><td class="num">58.95%</td><td class="num">7.36%</td></tr>
       <tr><td>SC8380XP (Hexagon v73)</td><td>Large V3 Turbo</td><td class="num">62.65%</td><td class="num">8.49%</td></tr>
+      <tr><td>QCS6490 (Hexagon v68)</td><td>Medium</td><td class="num">60.80%</td><td class="num">0.88%</td></tr>
+      <tr><td>QCS6490 (Hexagon v68)</td><td>Large V3 Turbo</td><td class="num">74.26%</td><td class="num">1.34%</td></tr>
     </table>
     </div>
-    <p>CPU usage on the NPU is around 7–9%. Running on the CPU uses 59–63%.</p>
+    <p>CPU usage on the NPU is around 7–9% on SC8380XP and around 1% on QCS6490. Running on the CPU uses 59–63% on SC8380XP and 61–75% on QCS6490.</p>
 
     <figure class="bench-figure">
       <img src="../../speech/benchmark/cpu_utilization_sc8380xp.png" alt="Whisper Medium / Large V3 Turbo CPU usage during transcription on SC8380XP (CPU / NPU)" loading="lazy">
       <figcaption>Host process CPU usage during transcription on SC8380XP (relative to all 8 cores)</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="../../speech/benchmark/cpu_utilization_qcs6490.png" alt="Whisper Medium / Large V3 Turbo CPU usage during transcription on QCS6490 (CPU / NPU)" loading="lazy">
+      <figcaption>Host process CPU usage during transcription on QCS6490 (relative to all 8 cores)</figcaption>
     </figure>
 
   </div>

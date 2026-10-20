@@ -74,7 +74,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>QNN バックエンドの使い方は <a href="qnn.html">ailia Speech NPU（QNN）ガイド</a> を参照してください。</p>
     <ul>
       <li><a href="#android">Android（Snapdragon 8+ Gen 1 / SM8475、Snapdragon 7s Gen 3 / SM7635）</a></li>
-      <li><a href="#windows">Windows（Snapdragon X Plus / SC8380XP）</a></li>
+      <li><a href="#windows">Windows（Snapdragon X Plus / SC8380XP、QCS6490）</a></li>
     </ul>
 
     <h2 id="android">Android</h2>
@@ -144,7 +144,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="windows">Windows</h2>
 
     <h3>測定条件</h3>
-    <p>Snapdragon X Plus（SC8380XP / Hexagon v73、8 コア）を搭載した Windows 11 Pro ARM64 の PC で、Android と同じ音声・同じ手順・同じ集計方法で測定した結果です。NPU は SC8380XP 向けの INT16 の QNN Model、CPU は同じ PC 上で元の ONNX モデルを ailia SDK の CPU 経路で実行した値です。PC は AC 電源に接続し、電源プランは OS 既定のままです。</p>
+    <p>Windows ARM64 の 2 機種で、Android と同じ音声・同じ手順・同じ集計方法で測定した結果です。Snapdragon X Plus（SC8380XP / Hexagon v73、8 コア）は Windows 11 Pro、QCS6490（Hexagon v68、8 コア）は Windows 11 IoT Enterprise LTSC を使用しています。NPU は各 SoC 向けの INT16 の QNN Model、CPU は同じ端末上で元の ONNX モデルを ailia SDK の CPU 経路で実行した値です。端末は AC 電源に接続し、電源プランは OS 既定のままです。</p>
 
     <h3>文字起こし速度</h3>
     <div class="table-wrap">
@@ -154,13 +154,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>NPU（QNN）</td><td class="num">4.193 秒</td><td class="num">9.48 倍</td></tr>
       <tr><td rowspan="2">SC8380XP（Hexagon v73）</td><td rowspan="2">Large V3 Turbo</td><td>CPU（ONNX）</td><td class="num">36.308 秒</td><td class="num">1.09 倍</td><td rowspan="2" class="num">19.90 倍高速</td></tr>
       <tr><td>NPU（QNN）</td><td class="num">1.825 秒</td><td class="num">21.78 倍</td></tr>
+      <tr><td rowspan="2">QCS6490（Hexagon v68）</td><td rowspan="2">Medium</td><td>CPU（ONNX）</td><td class="num">148.901 秒</td><td class="num">0.27 倍</td><td rowspan="2" class="num">10.96 倍高速</td></tr>
+      <tr><td>NPU（QNN）</td><td class="num">13.588 秒</td><td class="num">2.92 倍</td></tr>
+      <tr><td rowspan="2">QCS6490（Hexagon v68）</td><td rowspan="2">Large V3 Turbo</td><td>CPU（ONNX）</td><td class="num">101.509 秒</td><td class="num">0.39 倍</td><td rowspan="2" class="num">13.23 倍高速</td></tr>
+      <tr><td>NPU（QNN）</td><td class="num">7.672 秒</td><td class="num">5.18 倍</td></tr>
     </table>
     </div>
-    <p>NPU は CPU に対して Medium で約 10.2 倍、Large V3 Turbo で約 19.9 倍高速です。Large V3 Turbo の NPU 実行では 39.7 秒の音声を約 1.8 秒で文字起こしでき、実時間の 21 倍以上の速度です。</p>
+    <p>NPU は CPU に対して、SC8380XP で Medium 約 10.2 倍・Large V3 Turbo 約 19.9 倍、QCS6490 で Medium 約 11.0 倍・Large V3 Turbo 約 13.2 倍高速です。Large V3 Turbo の NPU 実行では、39.7 秒の音声を SC8380XP で約 1.8 秒、QCS6490 で約 7.7 秒で文字起こしできます。</p>
 
     <figure class="bench-figure">
       <img src="benchmark/transcription_speed_sc8380xp.png" alt="SC8380XP の Whisper Medium / Large V3 Turbo の文字起こし速度（CPU / NPU）" loading="lazy">
       <figcaption>SC8380XP の文字起こし速度（実時間比、エラーバーは最小〜最大）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/transcription_speed_qcs6490.png" alt="QCS6490 の Whisper Medium / Large V3 Turbo の文字起こし速度（CPU / NPU）" loading="lazy">
+      <figcaption>QCS6490 の文字起こし速度（実時間比、エラーバーは最小〜最大）</figcaption>
     </figure>
 
     <h3>CPU 使用率</h3>
@@ -169,13 +177,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>端末</th><th>モデル</th><th>CPU（ONNX）</th><th>NPU（QNN）</th></tr>
       <tr><td>SC8380XP（Hexagon v73）</td><td>Medium</td><td class="num">58.95%</td><td class="num">7.36%</td></tr>
       <tr><td>SC8380XP（Hexagon v73）</td><td>Large V3 Turbo</td><td class="num">62.65%</td><td class="num">8.49%</td></tr>
+      <tr><td>QCS6490（Hexagon v68）</td><td>Medium</td><td class="num">60.80%</td><td class="num">0.88%</td></tr>
+      <tr><td>QCS6490（Hexagon v68）</td><td>Large V3 Turbo</td><td class="num">74.26%</td><td class="num">1.34%</td></tr>
     </table>
     </div>
-    <p>NPU 実行時の CPU 使用率は 7〜9% 程度です。CPU 実行では 59〜63% を使用します。</p>
+    <p>NPU 実行時の CPU 使用率は SC8380XP で 7〜9%、QCS6490 で 1% 程度です。CPU 実行では SC8380XP が 59〜63%、QCS6490 が 61〜75% を使用します。</p>
 
     <figure class="bench-figure">
       <img src="benchmark/cpu_utilization_sc8380xp.png" alt="SC8380XP の Whisper Medium / Large V3 Turbo の文字起こし中の CPU 使用率（CPU / NPU）" loading="lazy">
       <figcaption>SC8380XP の文字起こし中のホストプロセス CPU 使用率（8 コア全体比）</figcaption>
+    </figure>
+    <figure class="bench-figure">
+      <img src="benchmark/cpu_utilization_qcs6490.png" alt="QCS6490 の Whisper Medium / Large V3 Turbo の文字起こし中の CPU 使用率（CPU / NPU）" loading="lazy">
+      <figcaption>QCS6490 の文字起こし中のホストプロセス CPU 使用率（8 コア全体比）</figcaption>
     </figure>
 
   </div>
