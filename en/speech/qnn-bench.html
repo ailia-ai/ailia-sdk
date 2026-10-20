@@ -80,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="android">Android</h2>
 
     <h3>Test conditions</h3>
-    <p>Whisper Medium and Large V3 Turbo were measured on two devices: an ASUS AI2202 (Android 14) with Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69), and a SHARP SH-M33 (Android 16) with Snapdragon 7s Gen 3 (SM7635 / Hexagon v73). The NPU uses INT16 QNN Models built for each SoC (per-channel INT8 weights, U16 activations, U8 K/V cache). The CPU results run the original ONNX models through the ailia SDK CPU path on the same device. Both use the same runtime.</p>
+    <p>Whisper Medium and Large V3 Turbo were measured on two devices: Snapdragon 8+ Gen 1 (SM8475 / Hexagon v69) and Snapdragon 7s Gen 3 (SM7635 / Hexagon v73). The NPU uses INT16 QNN Models built for each SoC. The CPU results run the original ONNX models through the ailia SDK CPU path on the same device. Both use the same runtime.</p>
     <ul>
       <li>The input is about 39.7 seconds of Japanese speech (48 kHz, stereo, PCM16), the same file on every device.</li>
       <li>Automatic language detection, transcribe task, greedy decoding (beam size 1), no VAD or diarization, CPU threads set to AUTO.</li>
