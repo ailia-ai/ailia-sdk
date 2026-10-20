@@ -566,10 +566,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <table class="version-table">
       <tr><th>Path</th><th>Without MTP</th><th>With MTP</th><th>MTP speedup</th><th>Acceptance</th></tr>
       <tr><td>CPU</td><td class="num">8.268 tokens/s</td><td class="num">12.551 tokens/s</td><td class="num">1.52x</td><td class="num">32.4%</td></tr>
-      <tr><td>NPU</td><td class="num">4.401 tokens/s</td><td class="num">7.289 tokens/s</td><td class="num">1.66x</td><td class="num">36.9%</td></tr>
+      <tr><td>NPU</td><td class="num">4.326 tokens/s</td><td class="num">7.131 tokens/s</td><td class="num">1.65x</td><td class="num">36.0%</td></tr>
     </table>
     </div>
-    <p>Decode is fastest on the CPU. MTP made decode 1.52x on the CPU and 1.66x on the NPU.</p>
+    <p>Decode is fastest on the CPU. MTP made decode 1.52x on the CPU and 1.65x on the NPU.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_text_tps_qcs6490.png" alt="QCS6490 E2B decode throughput (1000 generated tokens, CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>QCS6490 (E2B / Int16) decode throughput (1000 generated tokens)</figcaption>
@@ -585,11 +585,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>Path</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1024</th><th>2048</th></tr>
       <tr><td>CPU (without MTP)</td><td class="num">69.899</td><td class="num">72.120</td><td class="num">68.605</td><td class="num">64.913</td><td class="num">59.277</td><td class="num">53.487</td></tr>
       <tr><td>CPU (with MTP)</td><td class="num">64.226</td><td class="num">66.437</td><td class="num">59.173</td><td class="num">63.920</td><td class="num">54.278</td><td class="num">54.221</td></tr>
-      <tr><td>NPU (without MTP)</td><td class="num">53.211</td><td class="num">105.854</td><td class="num">197.664</td><td class="num">211.179</td><td class="num">214.442</td><td class="num">212.110</td></tr>
-      <tr><td>NPU (with MTP)</td><td class="num">45.300</td><td class="num">89.782</td><td class="num">189.393</td><td class="num">189.008</td><td class="num">193.163</td><td class="num">203.766</td></tr>
+      <tr><td>NPU (without MTP)</td><td class="num">54.430</td><td class="num">101.921</td><td class="num">211.349</td><td class="num">212.480</td><td class="num">214.039</td><td class="num">211.759</td></tr>
+      <tr><td>NPU (with MTP)</td><td class="num">54.091</td><td class="num">109.916</td><td class="num">215.555</td><td class="num">214.996</td><td class="num">214.028</td><td class="num">213.825</td></tr>
     </table>
     </div>
-    <p>For inputs of 128 tokens or more the NPU is the fastest; for a 2,048-token input it is 3.97x the CPU (without MTP). NPU prefill is somewhat lower with MTP (0.85x to 0.96x).</p>
+    <p>For inputs of 128 tokens or more the NPU is the fastest; for a 2,048-token input it is 3.96x the CPU (without MTP). NPU prefill is almost the same with and without MTP.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_pps_qcs6490.png" alt="QCS6490 E2B prefill throughput (2,048-token input, CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>QCS6490 (E2B / Int16) prefill throughput (2,048-token input)</figcaption>
@@ -605,15 +605,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>Input</th><th>Path</th><th>TTFT</th><th>Decode</th><th>Acceptance</th></tr>
       <tr><td>Image</td><td>CPU (without MTP)</td><td class="num">84.75 s</td><td class="num">8.417 tokens/s</td><td class="num">—</td></tr>
       <tr><td>Image</td><td>CPU (with MTP)</td><td class="num">85.63 s</td><td class="num">15.303 tokens/s</td><td class="num">41.7%</td></tr>
-      <tr><td>Image</td><td>NPU (without MTP)</td><td class="num">8.88 s</td><td class="num">4.340 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>Image</td><td>NPU (with MTP)</td><td class="num">8.04 s</td><td class="num">6.586 tokens/s</td><td class="num">31.4%</td></tr>
+      <tr><td>Image</td><td>NPU (without MTP)</td><td class="num">8.27 s</td><td class="num">4.364 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Image</td><td>NPU (with MTP)</td><td class="num">7.27 s</td><td class="num">7.735 tokens/s</td><td class="num">41.7%</td></tr>
       <tr><td>Audio</td><td>CPU (without MTP)</td><td class="num">36.40 s</td><td class="num">8.753 tokens/s</td><td class="num">—</td></tr>
       <tr><td>Audio</td><td>CPU (with MTP)</td><td class="num">36.81 s</td><td class="num">27.060 tokens/s</td><td class="num">92.6%</td></tr>
-      <tr><td>Audio</td><td>NPU (without MTP)</td><td class="num">6.70 s</td><td class="num">4.309 tokens/s</td><td class="num">—</td></tr>
-      <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">6.71 s</td><td class="num">10.718 tokens/s</td><td class="num">92.6%</td></tr>
+      <tr><td>Audio</td><td>NPU (without MTP)</td><td class="num">6.25 s</td><td class="num">4.325 tokens/s</td><td class="num">—</td></tr>
+      <tr><td>Audio</td><td>NPU (with MTP)</td><td class="num">6.19 s</td><td class="num">12.199 tokens/s</td><td class="num">92.6%</td></tr>
     </table>
     </div>
-    <p>NPU TTFT is 1/10.5 (image) and 1/5.4 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.52x for image input and 2.49x for audio input, and CPU decode became 1.82x and 3.09x.</p>
+    <p>NPU TTFT is 1/10.2 (image) and 1/5.8 (audio) of the CPU (without MTP). With MTP, NPU decode became 1.77x for image input and 2.82x for audio input, and CPU decode became 1.82x and 3.09x.</p>
     <figure class="bench-figure">
       <img src="../../llm/benchmark/mtp_media_ttft_qcs6490.png" alt="QCS6490 E2B VLM / audio input TTFT breakdown (CPU / NPU, without / with MTP)" loading="lazy">
       <figcaption>QCS6490 (E2B / Int16) VLM (left) and audio input (right) TTFT breakdown (prompt setup including the encoder, and decoder prefill plus the first token)</figcaption>
@@ -627,9 +627,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Input</th><th>CPU (without MTP)</th><th>CPU (with MTP)</th><th>NPU (without MTP)</th><th>NPU (with MTP)</th></tr>
-      <tr><td>Text</td><td class="num">47.9%</td><td class="num">47.9%</td><td class="num">0.6%</td><td class="num">1.2%</td></tr>
-      <tr><td>Image</td><td class="num">47.9%</td><td class="num">47.7%</td><td class="num">0.8%</td><td class="num">1.5%</td></tr>
-      <tr><td>Audio</td><td class="num">47.9%</td><td class="num">47.1%</td><td class="num">1.0%</td><td class="num">2.1%</td></tr>
+      <tr><td>Text</td><td class="num">47.9%</td><td class="num">47.9%</td><td class="num">0.9%</td><td class="num">1.4%</td></tr>
+      <tr><td>Image</td><td class="num">47.9%</td><td class="num">47.7%</td><td class="num">0.9%</td><td class="num">1.4%</td></tr>
+      <tr><td>Audio</td><td class="num">47.9%</td><td class="num">47.1%</td><td class="num">1.0%</td><td class="num">1.3%</td></tr>
     </table>
     </div>
     <p>The CPU runs on the 4 performance cores, so CPU usage stays around 50%.</p>
