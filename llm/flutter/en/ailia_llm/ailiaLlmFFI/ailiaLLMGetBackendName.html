@@ -73,18 +73,14 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 計算環境の一覧を取得します
-@param env 計算環境名の格納先（ライブラリがロードされている間有効）
-@param env_idx 計算環境情報のインデックス(0～ ailiaLLMGetBackendCount() -1)
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。</p>
-<p>~english
-@brief Gets the list of computational environments.
-@param env Storage for the environment name (valid while the library remains loaded)
-@param env_idx The index of the computational environment information (0 to  ailiaLLMGetBackendCount() -1)
-@return
-If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.</p>
+  <p>Gets the list of computational environments.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>env</code>: Storage for the environment name (valid while the library remains loaded)</li>
+<li><code>env_idx</code>: The index of the computational environment information (0 to  ailiaLLMGetBackendCount() -1)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
 </section>
 
 
@@ -133,7 +129,7 @@ If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or a
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

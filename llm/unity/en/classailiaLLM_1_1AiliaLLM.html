@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.0.0</span>
+   &#160;<span id="projectnumber">1.5.1.0</span>
    </div>
   </td>
  </tr>
@@ -95,6 +95,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a95e5f66e1c4556c8506bff1197bd05d2"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a95e5f66e1c4556c8506bff1197bd05d2">ailiaLLMOpenModelFile</a> (IntPtr llm, string path, uint n_ctx)</td></tr>
 <tr class="memdesc:a95e5f66e1c4556c8506bff1197bd05d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open model file.  <a href="classailiaLLM_1_1AiliaLLM.html#a95e5f66e1c4556c8506bff1197bd05d2">More...</a><br /></td></tr>
 <tr class="separator:a95e5f66e1c4556c8506bff1197bd05d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8e0e3835162a45932fba918f8088e42"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#ab8e0e3835162a45932fba918f8088e42">ailiaLLMOpenMtpModelFile</a> (IntPtr llm, string path, uint n_draft)</td></tr>
+<tr class="memdesc:ab8e0e3835162a45932fba918f8088e42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open an MTP assistant and enable draft/target verification decoding.  <a href="classailiaLLM_1_1AiliaLLM.html#ab8e0e3835162a45932fba918f8088e42">More...</a><br /></td></tr>
+<tr class="separator:ab8e0e3835162a45932fba918f8088e42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e035d98b06ee69b970aa8a629ff2239"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a1e035d98b06ee69b970aa8a629ff2239">ailiaLLMSetSamplingParams</a> (IntPtr llm, uint top_k, float top_p, float temp, uint dist)</td></tr>
 <tr class="memdesc:a1e035d98b06ee69b970aa8a629ff2239"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the sampling parameter.  <a href="classailiaLLM_1_1AiliaLLM.html#a1e035d98b06ee69b970aa8a629ff2239">More...</a><br /></td></tr>
 <tr class="separator:a1e035d98b06ee69b970aa8a629ff2239"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,6 +156,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2f475287fa0438202fced2fed506fa74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11237d0ad99269e220d9e822330d9b35"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a11237d0ad99269e220d9e822330d9b35">ailiaLLMSetBackend</a> (IntPtr llm, uint backend_idx)</td></tr>
 <tr class="separator:a11237d0ad99269e220d9e822330d9b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa589933d546322e5bf2cc3f8363470e3"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#aa589933d546322e5bf2cc3f8363470e3">ailiaLLMSetNumThreads</a> (IntPtr llm, uint n_threads)</td></tr>
+<tr class="memdesc:aa589933d546322e5bf2cc3f8363470e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the CPU thread count before opening the model.  <a href="classailiaLLM_1_1AiliaLLM.html#aa589933d546322e5bf2cc3f8363470e3">More...</a><br /></td></tr>
+<tr class="separator:aa589933d546322e5bf2cc3f8363470e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a7432fef0b41ea6ff5cc889efece1f0f7">ailiaLLMDestroy</a> (IntPtr llm)</td></tr>
 <tr class="memdesc:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">It destroys the LLM instance.  <a href="classailiaLLM_1_1AiliaLLM.html#a7432fef0b41ea6ff5cc889efece1f0f7">More...</a><br /></td></tr>
 <tr class="separator:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -219,7 +225,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>Creates a LLM instance. </p>
+<p>Creates a LLM instance. </p><dl class="section remark"><dt>Remarks</dt><dd>When using QNN, the LLM instance must be destroyed by calling ailiaLLMDestroy on the same thread that called this function. </dd></dl>
 
 </div>
 </div>
@@ -246,6 +252,7 @@ Static Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section remark"><dt>Remarks</dt><dd>When using QNN, this function must be called on the same thread that called ailiaLLMCreate. When using QNN, moving only the release operation to another thread, such as the UI thread, may cause QnnDevice_create failed: code 14001 when QNN is subsequently used on a different thread. </dd></dl>
 
 </div>
 </div>
@@ -835,6 +842,51 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab8e0e3835162a45932fba918f8088e42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8e0e3835162a45932fba918f8088e42">&#9670;&nbsp;</a></span>ailiaLLMOpenMtpModelFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMOpenMtpModelFile </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>n_draft</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Open an MTP assistant and enable draft/target verification decoding. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLM instance </td></tr>
+    <tr><td class="paramname">path</td><td>Path to a matching Gemma 4 assistant GGUF, or assistant .qnn for a QNN target </td></tr>
+    <tr><td class="paramname">n_draft</td><td>Number of draft tokens (at least 1). QNN supports up to 3.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Call once after opening the target and before setting a prompt. Supports text generation with CPU/GPU Gemma 4 GGUF and QNN models. Verify the requested draft tokens together with one target token. </p>
+
+</div>
+</div>
 <a id="ab4b15e5f0cf6582a8f8884f297829198"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab4b15e5f0cf6582a8f8884f297829198">&#9670;&nbsp;</a></span>ailiaLLMOpenMultimodalProjectorFile()</h2>
 
@@ -945,6 +997,45 @@ Static Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="classailiaLLM_1_1AiliaLLM.html#a3d815c32d8319a43399d93ccd88b308b">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
 <p>Set multimodal prompt. Include &lt;<b>media</b>&gt; placeholders in message content, and set corresponding media data in media_data. Example: "Describe this image: &lt;__media__&gt;" </p>
+
+</div>
+</div>
+<a id="aa589933d546322e5bf2cc3f8363470e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa589933d546322e5bf2cc3f8363470e3">&#9670;&nbsp;</a></span>ailiaLLMSetNumThreads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMSetNumThreads </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>n_threads</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the CPU thread count before opening the model. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLM instance </td></tr>
+    <tr><td class="paramname">n_threads</td><td>Thread count (0 selects automatically). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>AILIA_LLM_STATUS_SUCCESS on success, or AILIA_LLM_STATUS_INVALID_STATE after a model is opened.</dd></dl>
+<p>The default is 0 when this API is not called. On Android, automatic selection uses the number of performance (big/prime) cores. If topology is unavailable, the existing core-count heuristic is used. Target decode/prefill, assistant and VLM/ALM CPU inference threads share this value. </p>
 
 </div>
 </div>

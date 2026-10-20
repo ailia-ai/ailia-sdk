@@ -71,7 +71,10 @@
     </section>
     
 <section class="desc markdown">
-  <p>Gets buffered assistant JSON after generation; no delta concatenation needed.</p>
+  <p>Returns the buffered assistant message as a decoded JSON object.</p>
+<p>After generation completes for <a href="../../ailia_llm_model/AiliaLLMModel/setPromptJson.html">setPromptJson</a>, append this object to the
+history. It can include <code>tool_calls</code>; delta concatenation is unnecessary.
+Throws if the model is unopened, retrieval fails or the JSON is invalid.</p>
 </section>
 
 
@@ -125,7 +128,7 @@
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

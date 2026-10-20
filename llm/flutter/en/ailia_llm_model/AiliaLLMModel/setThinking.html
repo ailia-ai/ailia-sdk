@@ -74,7 +74,9 @@
 <section class="desc markdown">
   <p>Enable or disable thinking (reasoning output).
 Controls whether thinking models (e.g. Gemma4) output their reasoning process.
-Must be called before setPrompt.</p>
+<code>enable</code> selects whether reasoning output is enabled.
+Call after <a href="../../ailia_llm_model/AiliaLLMModel/open.html">open</a> and before <a href="../../ailia_llm_model/AiliaLLMModel/setPrompt.html">setPrompt</a> or <a href="../../ailia_llm_model/AiliaLLMModel/setPromptJson.html">setPromptJson</a>.
+Throws if the model is unopened or the native operation fails.</p>
 </section>
 
 
@@ -124,7 +126,7 @@ Must be called before setPrompt.</p>
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

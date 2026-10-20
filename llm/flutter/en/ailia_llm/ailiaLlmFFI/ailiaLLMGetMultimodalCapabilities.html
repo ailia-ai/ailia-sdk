@@ -74,24 +74,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief マルチモーダル機能がサポートされているかを確認します。
-@param llm LLMオブジェクトポインタ
-@param vision_support 画像入力（VLM）をサポートしているか
-@param audio_support 音声入力（ALM）をサポートしているか
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaLLMOpenMultimodalProjectorFileの後に呼び出し可能です。</p>
-<p>~english
-@brief Check if multimodal features are supported.
-@param llm A LLM instance pointer
-@param vision_support Whether image input (VLM) is supported
-@param audio_support Whether audio input (ALM) is supported
-@return
-If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
-@details
-Can be called after ailiaLLMOpenMultimodalProjectorFile.</p>
+  <p>Check if multimodal features are supported.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: A LLM instance pointer</li>
+<li><code>vision_support</code>: Whether image input (VLM) is supported</li>
+<li><code>audio_support</code>: Whether audio input (ALM) is supported</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Can be called after ailiaLLMOpenMultimodalProjectorFile.</p>
 </section>
 
 
@@ -142,7 +134,7 @@ Can be called after ailiaLLMOpenMultimodalProjectorFile.</p>
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

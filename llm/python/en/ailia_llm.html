@@ -45,6 +45,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ailia_llm.AiliaLLM"><code class="docutils literal notranslate"><span class="pre">AiliaLLM</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.__init__"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.close"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.close()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.context_full"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.context_full()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.generate"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.generate()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.generate_json"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.generate_json()</span></code></a></li>
@@ -55,9 +56,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.get_qnn_model_name"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.get_qnn_model_name()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.get_response_json"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.get_response_json()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.open"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.open_mtp_model"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open_mtp_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.open_multimodal_projector"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.open_multimodal_projector()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.prompt_token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.prompt_token_count()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_backend"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_backend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_num_threads"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_num_threads()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_thinking"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_thinking()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_tools"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_tools()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.token_count()</span></code></a></li>
@@ -104,6 +107,11 @@
 <p>Provides text generation using large language models via the ailia LLM
 native backend. Supports both text-only and multimodal (vision/audio)
 generation.</p>
+<p class="rubric">Notes</p>
+<p>When using QNN, call <a class="reference internal" href="#ailia_llm.AiliaLLM.close" title="ailia_llm.AiliaLLM.close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">close()</span></code></a> explicitly on the same thread that
+created the instance, whether it is the main thread or a worker thread.
+For other backends, explicit cleanup is optional; resources are also
+released automatically by <code class="docutils literal notranslate"><span class="pre">__del__</span></code>.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ailia_llm</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">llm</span> <span class="o">=</span> <span class="n">ailia_llm</span><span class="o">.</span><span class="n">AiliaLLM</span><span class="p">()</span>
@@ -117,12 +125,26 @@ generation.</p>
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.__init__" title="Link to this definition">¶</a></dt>
 <dd><p>Create an ailia LLM instance.</p>
 <p>Allocates a native LLM context. Call <a class="reference internal" href="#ailia_llm.AiliaLLM.open" title="ailia_llm.AiliaLLM.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a> to load a model
-before generating text.</p>
+before generating text.
+When using QNN, call <a class="reference internal" href="#ailia_llm.AiliaLLM.close" title="ailia_llm.AiliaLLM.close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">close()</span></code></a> on the same thread that creates
+this instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>AiliaLLMError</strong> – If the native context creation fails.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.close" title="Link to this definition">¶</a></dt>
+<dd><p>Release the native LLM instance.</p>
+<p>Explicit cleanup is only required when using QNN to ensure release
+on the same thread that created the instance. Call this method on that
+thread, whether it is the main thread or a worker thread.
+For other backends, explicit cleanup is optional; resources are also
+released automatically by <code class="docutils literal notranslate"><span class="pre">__del__</span></code>.</p>
+<p>Repeated calls are safe; the instance cannot be used after closing.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -379,6 +401,16 @@ When 0, the default context size of the model is used.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.open_mtp_model">
+<span class="sig-name descname"><span class="pre">open_mtp_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_draft</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.open_mtp_model" title="Link to this definition">¶</a></dt>
+<dd><p>Open an MTP assistant and enable draft/target verification decoding.</p>
+<p>Use a matching Gemma 4 assistant GGUF, or assistant .qnn for a QNN target.
+Call once after opening the target and before setting a prompt.
+Supports text generation with CPU/GPU Gemma 4 GGUF and QNN models.
+n_draft is required: must be at least 1; QNN supports up to 3 draft tokens.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ailia_llm.AiliaLLM.open_multimodal_projector">
 <span class="sig-name descname"><span class="pre">open_multimodal_projector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mmproj_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.open_multimodal_projector" title="Link to this definition">¶</a></dt>
 <dd><p>Open a multimodal projector file for vision or audio support.</p>
@@ -432,6 +464,14 @@ such as image or audio understanding.</p>
 <dd><p>Select a backend before <a class="reference internal" href="#ailia_llm.AiliaLLM.open" title="ailia_llm.AiliaLLM.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a> (GPU, CPU, or HTP (QNN)).</p>
 <p>With no selection, model format selects the backend automatically.
 Explicit CPU/GPU rejects .qnn and explicit HTP (QNN) rejects GGUF.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.set_num_threads">
+<span class="sig-name descname"><span class="pre">set_num_threads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_threads</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.set_num_threads" title="Link to this definition">¶</a></dt>
+<dd><p>Set shared CPU threads before open; default/0 selects automatically.</p>
+<p>Android uses performance (big/prime) cores when topology is available.
+Applies to target decode/prefill, assistant and VLM/ALM CPU processing.</p>
 </dd></dl>
 
 <dl class="py method">

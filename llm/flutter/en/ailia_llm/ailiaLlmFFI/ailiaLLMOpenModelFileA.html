@@ -74,27 +74,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief モデルファイルを読み込みます。
-@param llm LLMオブジェクトポインタへのポインタ
-@param path GGUFまたはailia QNNモデル（.qnn）のパス
-@param n_ctx コンテキスト長（0でモデルのデフォルト）
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエンド未選択なら
-.qnnはHTPに、GGUFはCPU/GPUに自動振り分けされます。明示選択した場合は
-バックエンドとモデル形式の一致が必要です。.qnnではn_ctx=0を指定すると
-コンパイル済み固定contextを使用し、外部GGUF/Contextは不要です。</p>
-<p>~english
-@brief Open model file.
-@param llm A pointer to the LLM instance pointer
-@param path Path to a GGUF or self-contained .qnn model
-@param n_ctx Context length for model (0 is model default）
-@return
-If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
-@details
-Opens a GGUF or self-contained ailia QNN model. Without an explicit backend
+  <p>Open model file.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: A pointer to the LLM instance pointer</li>
+<li><code>path</code>: Path to a GGUF or self-contained .qnn model</li>
+<li><code>n_ctx</code>: Context length for model (0 is model default）</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Opens a GGUF or self-contained ailia QNN model. Without an explicit backend
 selection, .qnn selects HTP and GGUF selects CPU/GPU automatically. An
 explicit selection must match the model format. For .qnn, n_ctx=0 selects
 its compiled static context and no external GGUF/context is needed.</p>
@@ -148,7 +137,7 @@ its compiled static context and no external GGUF/context is needed.</p>
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

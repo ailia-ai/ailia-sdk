@@ -74,37 +74,27 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief マルチモーダルプロンプトを設定します。
-@param llm LLMオブジェクトポインタ
-@param message マルチモーダルメッセージの配列
-@param message_cnt メッセージの数
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-マルチモーダル対応のプロンプトを設定します。メッセージのcontentに&lt;<strong>media</strong>&gt;プレースホルダーを含め、
-対応するメディアデータをmedia_dataに設定してください。
-例: "この画像について説明してください: &lt;<strong>media</strong>&gt;"
-messageの内容は内部でコピーされるため、呼び出し後に開放することができます。
-画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。
-音声はWAV/MP3/FLACのファイルパスまたはエンコード済みバッファから読み込み可能です。
-KVキャッシュの再利用では、ファイル入力はパス、バッファ入力は内容で同一性を判定します。</p>
-<p>~english
-@brief Set multimodal prompt.
-@param llm A LLM instance pointer
-@param message Array of multimodal messages
-@param message_cnt Number of messages
-@return
-If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
-@details
-Set multimodal prompt. Include &lt;<strong>media</strong>&gt; placeholders in message content,
+  <p>Set multimodal prompt.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: A LLM instance pointer</li>
+<li><code>message</code>: Array of multimodal messages</li>
+<li><code>message_cnt</code>: Number of messages</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Set multimodal prompt. Include <code>&lt;__media__&gt;</code> placeholders in message content,
 and set corresponding media data in media_data.
-Example: "Describe this image: &lt;<strong>media</strong>&gt;"
+Example: "Describe this image: <code>&lt;__media__&gt;</code>"
 The content of message is copied internally, so it can be freed after the call.
 Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data.
 Audio accepts WAV/MP3/FLAC file paths or encoded buffers, with width/height=0.
-KV cache reuse identifies file media by path and buffer media by content.
-@note With tools configured, returns INVALID_STATE. Use ailiaLLMSetPromptJson for tool use with media.</p>
+KV cache reuse identifies file and buffer media by their content hashes.
+Encoder outputs are retained only for media in the current prompt; removed media is evicted.
+Decoded images/audio are released when prompt setup returns.
+Successfully switching to a prompt without media releases the media caches.</p>
+<p>Notes:</p>
+<p>With tools configured, returns INVALID_STATE. Use ailiaLLMSetPromptJson for tool use with media.</p>
 </section>
 
 
@@ -155,7 +145,7 @@ KV cache reuse identifies file media by path and buffer media by content.
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

@@ -72,20 +72,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief LLMオブジェクトを作成します。
-@param llm LLMオブジェクトポインタへのポインタ
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-LLMオブジェクトを作成します。</p>
-<p>~english
-@brief Creates a LLM instance.
-@param llm A pointer to the LLM instance pointer
-@return
-If this function is successful, it returns  \ref AILIA_LLM_STATUS_SUCCESS , or an error code otherwise.
-@details
-Creates a LLM instance.</p>
+  <p>Creates a LLM instance.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>llm</code>: A pointer to the LLM instance pointer</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Creates a LLM instance.</p>
+<p>Notes:</p>
+<p>When using QNN, the LLM instance must be destroyed by calling ailiaLLMDestroy on the same thread that called this function.</p>
 </section>
 
 
@@ -132,7 +128,7 @@ Creates a LLM instance.</p>
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

@@ -130,13 +130,7 @@
 
 </dt>
 <dd>
-  ~japanese
-@brief LLMオブジェクトを作成します。
-@param llm LLMオブジェクトポインタへのポインタ
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-LLMオブジェクトを作成します。
+  Creates a LLM instance.
   
 
 </dd>
@@ -149,9 +143,7 @@ LLMオブジェクトを作成します。
 
 </dt>
 <dd>
-  ~japanese
-@brief LLMオブジェクトを破棄します。
-@param llm LLMオブジェクトポインタ
+  It destroys the LLM instance.
   
 
 </dd>
@@ -164,16 +156,7 @@ LLMオブジェクトを作成します。
 
 </dt>
 <dd>
-  ~japanese
-@brief 生成を行います。
-@param llm LLMオブジェクトポインタ
-@param done 生成が完了したか
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-デコードした結果はailiaLLMGetDeltaText APIで取得します。
-ailiaLLMGenerateを呼び出すたびに1トークンずつデコードします。
-doneは0か1を取ります。doneが1の場合、生成完了となります。
+  Perform generate
   
 
 </dd>
@@ -186,11 +169,7 @@ doneは0か1を取ります。doneが1の場合、生成完了となります。
 
 </dt>
 <dd>
-  ~japanese
-@brief 利用可能な計算環境(CPU, GPU, HTP (QNN))の数を取得します
-@param env_count 計算環境情報の数の格納先
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the number of available computational environments (CPU, GPU, HTP (QNN)).
   
 
 </dd>
@@ -203,11 +182,7 @@ doneは0か1を取ります。doneが1の場合、生成完了となります。
 
 </dt>
 <dd>
-  ~japanese
-@brief 指定した計算環境のデバイス名を取得します。
-@param name デバイス名の格納先（ライブラリがロードされている間有効）
-@param env_idx ailiaLLMGetBackendCount() で列挙したインデックス
-@return 成功時は AILIA_LLM_STATUS_SUCCESS。
+  Gets the device name for a computational environment.
   
 
 </dd>
@@ -220,12 +195,7 @@ doneは0か1を取ります。doneが1の場合、生成完了となります。
 
 </dt>
 <dd>
-  ~japanese
-@brief 計算環境の一覧を取得します
-@param env 計算環境名の格納先（ライブラリがロードされている間有効）
-@param env_idx 計算環境情報のインデックス(0～ ailiaLLMGetBackendCount() -1)
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the list of computational environments.
   
 
 </dd>
@@ -238,12 +208,7 @@ doneは0か1を取ります。doneが1の場合、生成完了となります。
 
 </dt>
 <dd>
-  ~japanese
-@brief コンテキストの長さを取得します。
-@param llm   LLMオブジェクトポインタ
-@param len  コンテキストの長さ
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the size of context.
   
 
 </dd>
@@ -256,15 +221,7 @@ doneは0か1を取ります。doneが1の場合、生成完了となります。
 
 </dt>
 <dd>
-  ~japanese
-@brief テキストを取得します。
-@param llm       LLMオブジェクトポインタ
-@param text      テキスト(UTF8)
-@param buf_size  バッファサイズ
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaLLMGenerate() を一度も実行していない場合は \ref AILIA_LLM_STATUS_INVALID_STATE が返ります。
+  Gets the decoded text.
   
 
 </dd>
@@ -277,12 +234,7 @@ ailiaLLMGenerate() を一度も実行していない場合は \ref AILIA_LLM_STA
 
 </dt>
 <dd>
-  ~japanese
-@brief テキストの長さを取得します。(NULL文字含む)
-@param llm       LLMオブジェクトポインタ
-@param buf_size  テキストの長さ
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the size of text. (Include null)
   
 
 </dd>
@@ -295,19 +247,7 @@ ailiaLLMGenerate() を一度も実行していない場合は \ref AILIA_LLM_STA
 
 </dt>
 <dd>
-  ~japanese
-@brief モデル読み込み・プロンプト設定・推論APIの直近のエラー詳細を返します。
-@return オブジェクト所有のUTF-8文字列。成功後は空文字列です。
-@remark 次のモデル読み込み・プロンプト設定・推論API呼び出し、またはDestroyまで有効です。
-QNNのエラーでは元の数値コード、失敗したAPI、取得可能な対象名を含みます。
-同じオブジェクトへの並列API呼び出しはサポートしません。
-~english
-@brief Returns details of the last model-open, prompt-setup or generation error.
-@return Object-owned UTF-8 string, empty after a successful operation.
-@remark Valid until the next model-open, prompt-setup, generation call or Destroy.
-QNN failures include the original code, failing API and object name when available.
-Concurrent calls on the same object are not supported. A null handle returns
-a static diagnostic string. This getter does not load the QNN plug-in.
+  Returns details of the last model-open, prompt-setup or generation error.
   
 
 </dd>
@@ -320,14 +260,7 @@ a static diagnostic string. This getter does not load the QNN plug-in.
 
 </dt>
 <dd>
-  ~japanese
-@brief 生成したトークンの数を取得します。
-@param llm   LLMオブジェクトポインタ
-@param cnt   生成したトークンの数
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaLLMGenerateを呼び出した後に呼び出し可能です。
+  Gets the count of prompt token.
   
 
 </dd>
@@ -340,15 +273,7 @@ ailiaLLMGenerateを呼び出した後に呼び出し可能です。
 
 </dt>
 <dd>
-  ~japanese
-@brief マルチモーダル機能がサポートされているかを確認します。
-@param llm LLMオブジェクトポインタ
-@param vision_support 画像入力（VLM）をサポートしているか
-@param audio_support 音声入力（ALM）をサポートしているか
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaLLMOpenMultimodalProjectorFileの後に呼び出し可能です。
+  Check if multimodal features are supported.
   
 
 </dd>
@@ -361,14 +286,7 @@ ailiaLLMOpenMultimodalProjectorFileの後に呼び出し可能です。
 
 </dt>
 <dd>
-  ~japanese
-@brief プロンプトトークンの数を取得します。
-@param llm   LLMオブジェクトポインタ
-@param cnt   プロンプトトークンの数
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaLLMSetPromptを呼び出した後に呼び出し可能です。
+  Gets the count of prompt token.
   
 
 </dd>
@@ -381,20 +299,7 @@ ailiaLLMSetPromptを呼び出した後に呼び出し可能です。
 
 </dt>
 <dd>
-  ~japanese
-@brief 現在の端末に対応するQNNモデル名を取得します。
-@param model_name QNNモデル名の格納先（例: "sm8475"）。返された文字列は
-libraryが所有するため、呼び出し側で解放しないでください。
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-返される名前はailia_llm_compile_cが生成するtext modelのファイル名から
-<code>.qnn</code>を除いた部分と一致します。画像入力（VLM）／音声入力（ALM）用projectorは
-同じ名前に<code>-mmproj.qnn</code>を付けたファイルです。QNNはAndroid arm64と
-Windows ARM64に対応します。この呼び出しでQNN plug-inを初めて
-遅延loadします。未対応SoCでは \ref AILIA_LLM_STATUS_OTHER_ERROR 、plug-inが
-存在しない場合、およびBUILD_QNN以外では
-\ref AILIA_LLM_STATUS_UNIMPLEMENTED を返します。
+  Gets the QNN model name for the current device.
   
 
 </dd>
@@ -407,26 +312,7 @@ Windows ARM64に対応します。この呼び出しでQNN plug-inを初めて
 
 </dt>
 <dd>
-  ~japanese
-@brief SDK内部に蓄積した生成結果を構造化assistant JSONとして取得します。
-@param llm LLMオブジェクト
-@param json UTF-8出力バッファ
-@param buf_size バッファサイズ
-@details Generateで生成した出力をSDKが連結します。GetDeltaTextの取得・連結は不要です。
-成功したJSONをSetPromptJsonの履歴配列に追加できます。新しいプロンプトで蓄積をリセットします。
-生成完了後に呼び出してください。未完了の呼び出し/ThinkingはPARSE_ERRORで、補完しません。
-プロンプト未設定やtools/Thinking変更後はINVALID_STATE。生成前は空のassistantを返します。
-NULL引数や不足したバッファはINVALID_ARGUMENTです。取得しても蓄積は消えません。
-~english
-@brief Gets structured assistant JSON from output accumulated inside the SDK.
-@param llm LLM instance
-@param json UTF-8 output buffer
-@param buf_size Buffer size
-@details No GetDeltaText calls or application-side concatenation are required.
-Append the returned object to SetPromptJson history. A new prompt resets accumulated output.
-Call after generation completes. Unfinished calls/thinking return PARSE_ERROR without repair.
-An unset prompt or changed tools/thinking returns INVALID_STATE. Before generation, returns an empty assistant.
-Null arguments or insufficient buffers return INVALID_ARGUMENT. Reading does not consume the output.
+  Gets structured assistant JSON from output accumulated inside the SDK.
   
 
 </dd>
@@ -439,16 +325,7 @@ Null arguments or insufficient buffers return INVALID_ARGUMENT. Reading does not
 
 </dt>
 <dd>
-  ~japanese
-@brief SDK内部に蓄積した生成結果のassistant JSONサイズを取得します（NULL文字含む）。
-@param llm LLMオブジェクト
-@param buf_size 必要なバッファサイズ
-@details ailiaLLMGetResponseJsonと同じ解析条件・エラーを適用します。
-~english
-@brief Gets the buffered assistant JSON size, including the terminating null.
-@param llm LLM instance
-@param buf_size Required buffer size
-@details Same parsing rules and errors as ailiaLLMGetResponseJson.
+  Gets the buffered assistant JSON size, including the terminating null.
   
 
 </dd>
@@ -461,13 +338,7 @@ Null arguments or insufficient buffers return INVALID_ARGUMENT. Reading does not
 
 </dt>
 <dd>
-  ~japanese
-@brief トークンの数を取得します。
-@param llm   LLMオブジェクトポインタ
-@param cnt   トークンの数
-@param text  テキスト(UTF8)
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the count of token.
   
 
 </dd>
@@ -480,24 +351,39 @@ Null arguments or insufficient buffers return INVALID_ARGUMENT. Reading does not
 
 </dt>
 <dd>
-  ~japanese
-@brief モデルファイルを読み込みます。
-@param llm LLMオブジェクトポインタへのポインタ
-@param path GGUFまたはailia QNNモデル（.qnn）のパス
-@param n_ctx コンテキスト長（0でモデルのデフォルト）
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエンド未選択なら
-.qnnはHTPに、GGUFはCPU/GPUに自動振り分けされます。明示選択した場合は
-バックエンドとモデル形式の一致が必要です。.qnnではn_ctx=0を指定すると
-コンパイル済み固定contextを使用し、外部GGUF/Contextは不要です。
+  Open model file.
   
 
 </dd>
 
         <dt id="ailiaLLMOpenModelFileW" class="callable">
   <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMOpenModelFileW.html">ailiaLLMOpenModelFileW</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMOpenModelFileW-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMOpenModelFileW-param-path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">path</span>, </span><span class="parameter" id="ailiaLLMOpenModelFileW-param-n_ctx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">n_ctx</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="ailiaLLMOpenMtpModelFileA" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMOpenMtpModelFileA.html">ailiaLLMOpenMtpModelFileA</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMOpenMtpModelFileA-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMOpenMtpModelFileA-param-path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">path</span>, </span><span class="parameter" id="ailiaLLMOpenMtpModelFileA-param-n_draft"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">n_draft</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Open an MTP assistant and enable draft/target verification decoding.
+  
+
+</dd>
+
+        <dt id="ailiaLLMOpenMtpModelFileW" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMOpenMtpModelFileW.html">ailiaLLMOpenMtpModelFileW</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMOpenMtpModelFileW-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMOpenMtpModelFileW-param-path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">path</span>, </span><span class="parameter" id="ailiaLLMOpenMtpModelFileW-param-n_draft"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">n_draft</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
   </span>
   
@@ -517,18 +403,7 @@ GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエ�
 
 </dt>
 <dd>
-  ~japanese
-@brief マルチモーダルプロジェクタファイルを読み込みます。
-@param llm LLMオブジェクトポインタ
-@param mmproj_path MMPROJ GGUFまたは自己完結ailia QNN projector（.qnn）のパス
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-マルチモーダル機能を使用するには、先にailiaLLMOpenModelFileでテキストモデルを読み込み、
-その後でこの関数でマルチモーダルプロジェクタを読み込む必要があります。
-画像入力（VLM）には画像対応、音声入力（ALM）には音声対応のmmproj GGUF、
-または各入力用コンテキストを含む.qnnが必要です。画像入力（VLM）のみに対応する
-既存.qnnは音声入力（ALM）に対応しません。
+  Load multimodal projector file.
   
 
 </dd>
@@ -554,12 +429,7 @@ GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエ�
 
 </dt>
 <dd>
-  ~japanese
-@brief モデルを開く前に、このインスタンスが使用するバックエンドを選択します。
-@param llm LLMインスタンス
-@param backend_idx ailiaLLMGetBackendCount/Nameで列挙したデバイスのインデックス
-@return 成功時はAILIA_LLM_STATUS_SUCCESS。モデルを開いた後はAILIA_LLM_STATUS_INVALID_STATE。
-@details 未指定の場合はモデル形式から自動選択します。HTP (QNN)は.qnn専用です。CPU/GPUを明示選択した場合は.qnnを開けません。切り替えるには新しいインスタンスでモデルを開き直してください。
+  Selects the backend for this instance before opening a model.
   
 
 </dd>
@@ -572,21 +442,20 @@ GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエ�
 
 </dt>
 <dd>
-  ~japanese
-@brief マルチモーダルプロンプトを設定します。
-@param llm LLMオブジェクトポインタ
-@param message マルチモーダルメッセージの配列
-@param message_cnt メッセージの数
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-マルチモーダル対応のプロンプトを設定します。メッセージのcontentに&lt;<strong>media</strong>&gt;プレースホルダーを含め、
-対応するメディアデータをmedia_dataに設定してください。
-例: "この画像について説明してください: &lt;<strong>media</strong>&gt;"
-messageの内容は内部でコピーされるため、呼び出し後に開放することができます。
-画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。
-音声はWAV/MP3/FLACのファイルパスまたはエンコード済みバッファから読み込み可能です。
-KVキャッシュの再利用では、ファイル入力はパス、バッファ入力は内容で同一性を判定します。
+  Set multimodal prompt.
+  
+
+</dd>
+
+        <dt id="ailiaLLMSetNumThreads" class="callable">
+  <span class="name"><a href="../ailia_llm/ailiaLlmFFI/ailiaLLMSetNumThreads.html">ailiaLLMSetNumThreads</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaLLMSetNumThreads-param-llm"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_llm/AILIALLM-class.html">AILIALLM</a></span>&gt;</span></span> <span class="parameter-name">llm</span>, </span><span class="parameter" id="ailiaLLMSetNumThreads-param-n_threads"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">n_threads</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Sets the CPU thread count before opening the model.
   
 
 </dd>
@@ -599,19 +468,7 @@ KVキャッシュの再利用では、ファイル入力はパス、バッファ
 
 </dt>
 <dd>
-  ~japanese
-@brief プロンプトを設定します。
-@param llm LLMオブジェクトポインタへのポインタ
-@param message メッセージの配列
-@param message_cnt メッセージの数
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-LLMに問い合わせるプロンプトを設定します。
-ChatHistoryもmessageに含めてください。
-ツール設定中はINVALID_STATEを返します。最初のuserメッセージからailiaLLMSetPromptJsonを使用してください。
-ailiaLLMSetToolsでツールを解除すると本APIを再び使用できます。
-messageの内容は内部でコピーされるため、呼び出し後に開放することができます。
+  Set the prompt.
   
 
 </dd>
@@ -624,52 +481,7 @@ messageの内容は内部でコピーされるため、呼び出し後に開放�
 
 </dt>
 <dd>
-  ~japanese
-@brief 構造化されたJSON会話履歴からプロンプトを設定します。
-@param llm LLMオブジェクトポインタ
-@param messages_json UTF-8の空でないメッセージJSON配列（NULL終端）
-@details
-roleはsystem/user/assistant/tool、contentは文字列またはnullです。userはcontent配列にも対応します。
-配列要素は{"type":"text","text":"..."}、またはtypeがimage/audioでfile_path（ローカルファイル）か
-data（標準Base64のエンコード済みファイル）を1つ指定します。JPEG/PNG、WAV/MP3/FLAC等に対応します。
-メディアは対応projectorの読込が必要です。URL取得・生PCM/RGB・動画には対応しません。
-配列順に入力し、画像/音声を含む履歴は毎回評価します。
-assistantのcontentをモデル固有構文として再解析しません。reasoning_contentとtool_callsを明示してください。
-ailiaLLMGetResponseJsonの結果をassistantメッセージとしてそのまま追加できます。
-tool_callsはtype="function"、空でないidとfunction.name、JSONオブジェクトを表す文字列function.argumentsを必要とします。
-idはassistant内で一意とし、後続ターンでは再利用できます。
-tool結果のcontentは文字列、tool_call_idは直前のassistantの呼び出しIDです。
-連続するtool結果は順序ではなくIDで対応付け、ツール名を補います。重複・不一致の結果は拒否します。
-不完全なargumentsは補完・破棄せずエラーとします。GetResponseJsonがPARSE_ERRORの場合は、
-失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加してください。
-SetTools(NULL)後も過去のtool_callsとtool結果を入力できます。結果JSONはツール解除前に取得してください。
-入力は呼び出し後に解放できます。成功後はailiaLLMGenerateで生成します。
-@return 成功時SUCCESS。不正なJSON・型・ID対応・引数はINVALID_ARGUMENT。
-モデル未読込の場合はINVALID_STATE。
-その他の生成準備エラーはailiaLLMSetPromptと同じです。
-~english
-@brief Sets a prompt from structured JSON conversation history.
-@param llm A LLM instance pointer
-@param messages_json Nonempty UTF-8 JSON message array (null terminated)
-@details
-Roles are system/user/assistant/tool; content is a string or null. User content also accepts arrays.
-Parts are {"type":"text","text":"..."}, or type image/audio with exactly one of file_path (local file)
-and data (standard padded Base64 encoded file). JPEG/PNG and WAV/MP3/FLAC are supported by the decoder.
-Media requires a compatible loaded projector. URLs, raw PCM/RGB and video are unsupported.
-Parts retain input order; media history is re-evaluated on each prompt.
-Assistant content is not reparsed as model-specific syntax. Supply reasoning_content and tool_calls explicitly.
-Append the assistant JSON returned by ailiaLLMGetResponseJson directly to the array.
-Each tool call requires type="function", nonempty id and function.name, and function.arguments as a JSON-object string.
-IDs must be unique within an assistant message but may be reused in later turns.
-Tool results require string content and tool_call_id matching the preceding assistant.
-Consecutive results are matched by ID, not position; names are filled in. Duplicate/unmatched results are rejected.
-Incomplete arguments are rejected, never repaired or discarded. If GetResponseJson returns PARSE_ERROR,
-do not append the failed assistant; append a retry user message to the existing history.
-Historical tool calls/results remain accepted after SetTools(NULL). Retrieve response JSON before clearing tools.
-Input can be freed after the call. On success, generate with ailiaLLMGenerate.
-@return SUCCESS on success; INVALID_ARGUMENT for invalid JSON, types, ID associations or arguments;
-INVALID_STATE if no model is loaded.
-Other prompt preparation errors are the same as ailiaLLMSetPrompt.
+  Sets a prompt from structured JSON conversation history.
   
 
 </dd>
@@ -682,17 +494,7 @@ Other prompt preparation errors are the same as ailiaLLMSetPrompt.
 
 </dt>
 <dd>
-  ~japanese
-@brief サンプリングのパラメータを設定します。
-@param llm LLMオブジェクトポインタへのポインタ
-@param top_k サンプリングする確率値の上位個数、デフォルト40
-@param top_p サンプリングする確率値の範囲、デフォルト0.9（0.9〜1.0）
-@param temp 温度パラメータ、デフォルト0.4
-@param dist シード、デフォルト1234
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-LLMのサンプリングの設定を行います。ailiaLLMSetPromptの前に実行する必要があります。
+  Set the sampling parameter.
   
 
 </dd>
@@ -705,14 +507,7 @@ LLMのサンプリングの設定を行います。ailiaLLMSetPromptの前に実
 
 </dt>
 <dd>
-  ~japanese
-@brief Thinking（推論過程の出力）を有効または無効にします。
-@param llm LLMオブジェクトポインタへのポインタ
-@param enable 0で無効、0以外で有効（デフォルト：無効）
-@return
-成功した場合は \ref AILIA_LLM_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ailiaLLMSetPromptの前に実行する必要があります。
+  Enable or disable thinking (reasoning output).
   
 
 </dd>
@@ -725,22 +520,7 @@ Thinkingモデル（Gemma4等）の推論過程の出力を制御します。ail
 
 </dt>
 <dd>
-  ~japanese
-@brief OpenAI互換のツール定義JSON配列を設定します。NULL/空文字列/空配列で解除します。
-@param llm LLMオブジェクト
-@param tools_json UTF-8のツール定義
-@details tools設定中はSetPrompt/SetMultimodalPromptがINVALID_STATEを返します。
-最初のuser入力からSetPromptJsonを使用し、Generateで生成後、GetResponseJsonでassistant JSONを取得します。
-deltaはプレビュー用です。アプリ側で連結する必要はありません。結果はtool_call_idで返します。
-設定変更後は新しいプロンプトを設定してください。不正な定義はINVALID_ARGUMENTです。
-~english
-@brief Sets OpenAI-compatible tool definitions. NULL, empty string or array clears tools.
-@param llm LLM instance
-@param tools_json UTF-8 tool definition array
-@details SetPrompt/SetMultimodalPrompt return INVALID_STATE while tools are configured.
-Use SetPromptJson from the first user input, generate, then retrieve assistant JSON with GetResponseJson.
-Deltas are optional previews; no concatenation is required. Return results using tool_call_id.
-Set a new prompt after changing tools. Invalid definitions return INVALID_ARGUMENT.
+  Sets OpenAI-compatible tool definitions. NULL, empty string or array clears tools.
   
 
 </dd>
@@ -828,7 +608,7 @@ Set a new prompt after changing tools. Invalid definitions return INVALID_ARGUME
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   

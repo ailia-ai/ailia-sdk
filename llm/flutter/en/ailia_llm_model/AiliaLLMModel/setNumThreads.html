@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the setMultimodalPrompt method from the AiliaLLMModel class, for the Dart programming language.">
-  <title>setMultimodalPrompt method - AiliaLLMModel class - ailia_llm_model library - Dart API</title>
+  <meta name="description" content="API docs for the setNumThreads method from the AiliaLLMModel class, for the Dart programming language.">
+  <title>setNumThreads method - AiliaLLMModel class - ailia_llm_model library - Dart API</title>
 
 
   
@@ -31,9 +31,9 @@
     <li><a href="../../index.html">ailia_llm</a></li>
     <li><a href="../../ailia_llm_model/ailia_llm_model-library.html">ailia_llm_model.dart</a></li>
     <li><a href="../../ailia_llm_model/AiliaLLMModel-class.html">AiliaLLMModel</a></li>
-    <li class="self-crumb"><span class="deprecated">setMultimodalPrompt</span> method</li>
+    <li class="self-crumb">setNumThreads method</li>
   </ol>
-  <div class="self-name">setMultimodalPrompt</div>
+  <div class="self-name">setNumThreads</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -57,19 +57,14 @@
       data-above-sidebar="ailia_llm_model&#47;AiliaLLMModel-class-sidebar.html"
       data-below-sidebar="">
       <div>
-<h1><span class="kind-method">setMultimodalPrompt</span> method 
+<h1><span class="kind-method">setNumThreads</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
-  <div>
-    <ol class="annotation-list">
-        <li>@<a href="https://api.flutter.dev/flutter/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use setPrompt() instead, which automatically detects media_data in messages.&#39;)</li>
-    </ol>
-  </div>
 
 <span class="returntype">void</span>
-<span class="name deprecated">setMultimodalPrompt</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="setMultimodalPrompt-param-messages"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">messages</span></span></li>
+<span class="name ">setNumThreads</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="setNumThreads-param-nThreads"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">nThreads</span></span></li>
 </ol>)
 
       
@@ -77,28 +72,30 @@
     </section>
     
 <section class="desc markdown">
-  <p>Set multimodal prompt for generation with media attachments.</p>
-<p>@deprecated Use <a href="../../ailia_llm_model/AiliaLLMModel/setPrompt.html">setPrompt</a> instead. This method is deprecated and will
-be removed in a future version. The unified <a href="../../ailia_llm_model/AiliaLLMModel/setPrompt.html">setPrompt</a> method
-automatically detects media_data in messages and routes accordingly.</p>
-<p>messages must be a list of maps with the following properties:</p>
-<ul>
-<li>'role' (String): The role (e.g., "system", "user", "assistant")</li>
-<li>'content' (String): The text content with &lt;<strong>media</strong>&gt; placeholders</li>
-<li>'media_data' (List&lt;Map&lt;String, dynamic&gt;&gt;, optional): Media attachments</li>
-</ul>
+  <p>Sets the CPU thread count before <a href="../../ailia_llm_model/AiliaLLMModel/open.html">open</a>.
+<code>nThreads</code> is 0 for automatic selection, which is also the default.
+On Android, automatic selection uses performance (big/prime) cores,
+falling back to the existing core-count heuristic if topology is unavailable.
+Target decode/prefill, assistant and VLM/ALM CPU inference threads share this value.
+Throws an <a href="https://api.flutter.dev/flutter/dart-core/ArgumentError-class.html">ArgumentError</a> for values outside 0..INT_MAX, or an <a href="https://api.flutter.dev/flutter/dart-core/Exception-class.html">Exception</a>
+if the model is already open or the native operation fails.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">@Deprecated(
-    &#39;Use setPrompt() instead, which automatically detects media_data in messages.&#39;)
-void setMultimodalPrompt(List&lt;Map&lt;String, dynamic&gt;&gt; messages) {
-  &#47;&#47; Delegate to the unified setPrompt() method to ensure consistent behavior
-  &#47;&#47; and projector-loaded checks.
-  setPrompt(messages);
+  <pre class="language-dart"><code class="language-dart">void setNumThreads(int nThreads) {
+  if (nThreads &lt; 0 || nThreads &gt; 0x7fffffff) {
+    throw ArgumentError.value(nThreads, &#39;nThreads&#39;, &#39;must be between 0 and INT_MAX&#39;);
+  }
+  if (pLLm != nullptr &amp;&amp; pLLm.value != nullptr) {
+    final status = dllHandle.ailiaLLMSetNumThreads(pLLm.value, nThreads);
+    if (status != ailia_llm_dart.AILIA_LLM_STATUS_SUCCESS) {
+      throw Exception(&#39;ailiaLLMSetNumThreads returned an error status $status&#39;);
+    }
+  }
+  _numThreads = nThreads;
 }</code></pre>
 </section>
 
@@ -117,7 +114,7 @@ void setMultimodalPrompt(List&lt;Map&lt;String, dynamic&gt;&gt; messages) {
     <li><a href="../../index.html">ailia_llm</a></li>
     <li><a href="../../ailia_llm_model/ailia_llm_model-library.html">ailia_llm_model</a></li>
     <li><a href="../../ailia_llm_model/AiliaLLMModel-class.html">AiliaLLMModel</a></li>
-    <li class="self-crumb"><span class="deprecated">setMultimodalPrompt</span> method</li>
+    <li class="self-crumb">setNumThreads method</li>
 </ol>
 
 
@@ -133,7 +130,7 @@ void setMultimodalPrompt(List&lt;Map&lt;String, dynamic&gt;&gt; messages) {
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.0
+      1.5.1
   </span>
 
   
