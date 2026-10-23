@@ -1200,7 +1200,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエンド未選択なら .qnnはHTPに、GGUFはCPU/GPUに自動振り分けされます。明示選択した場合は バックエンドとモデル形式の一致が必要です。.qnnではn_ctx=0を指定すると コンパイル済み固定contextを使用し、外部GGUF/Contextは不要です。 </p>
+<p>GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエンド未選択なら .qnnはHTPに、GGUFはCPU/GPUに自動振り分けされます。明示選択した場合は バックエンドとモデル形式の一致が必要です。.qnnではn_ctx=0を指定すると モデル内のコンテキスト長を使用します。 </p>
 
 </div>
 </div>
@@ -1352,7 +1352,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>マルチモーダル機能を使用するには、先にailiaLLMOpenModelFileでテキストモデルを読み込み、 その後でこの関数でマルチモーダルプロジェクタを読み込む必要があります。 画像入力（VLM）には画像対応、音声入力（ALM）には音声対応のmmproj GGUF、 または各入力用コンテキストを含む.qnnが必要です。画像入力（VLM）のみに対応する 既存.qnnは音声入力（ALM）に対応しません。 </p>
+<p>マルチモーダル機能を使用するには、先にailiaLLMOpenModelFileでテキストモデルを読み込み、 その後でこの関数でマルチモーダルプロジェクタを読み込む必要があります。 画像入力（VLM）には画像対応、音声入力（ALM）には音声対応のmmproj GGUF、 または各入力用コンテキストを含む.qnnが必要です。 </p>
 
 </div>
 </div>

@@ -11,50 +11,58 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
   <link rel="icon" href="../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ailia_speech</a></li>
-    <li><a href="../ailia_speech/">ailia_speech.dart</a></li>
+    <li><a href="../ailia_speech/ailia_speech-library.html">ailia_speech.dart</a></li>
     <li class="self-crumb">ailiaSpeechFFI class</li>
   </ol>
   <div class="self-name">ailiaSpeechFFI</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_speech&#47;ailia_speech-library-sidebar.html"
-    data-below-sidebar="ailia_speech&#47;ailiaSpeechFFI-class-sidebar.html">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_speech&#47;ailia_speech-library-sidebar.html"
+      data-below-sidebar="ailia_speech&#47;ailiaSpeechFFI-class-sidebar.html">
+      <div>
 <h1><span class="kind-class">ailiaSpeechFFI</span> class 
  
 </h1></div>
 
     
 <section class="desc markdown">
-  <p>Written for the FFI article</p>
+  <p>Dart FFI bindings for ailia Speech (generated from native/ailia_speech.h)</p>
 </section>
 
 
@@ -62,31 +70,30 @@
     
   <section class="summary offset-anchor" id="constructors">
     <h2>Constructors</h2>
+
     <dl class="constructor-summary-list">
-        <dt id="ailiaSpeechFFI.new" class="callable">
-          <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaSpeechFFI.html">ailiaSpeechFFI.new</a></span><span class="signature">(<span class="parameter" id="-param-dynamicLibrary"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/DynamicLibrary-class.html">DynamicLibrary</a></span> <span class="parameter-name">dynamicLibrary</span></span>)</span>
+        <dt id="ailiaSpeechFFI" class="callable">
+          <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaSpeechFFI.html">ailiaSpeechFFI</a></span><span class="signature">(<span class="parameter" id="-param-dynamicLibrary"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/DynamicLibrary-class.html">DynamicLibrary</a></span> <span class="parameter-name">dynamicLibrary</span></span>)</span>
         </dt>
         <dd>
           The symbols are looked up in <code>dynamicLibrary</code>.
         </dd>
         <dt id="ailiaSpeechFFI.fromLookup" class="callable">
-          <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaSpeechFFI.fromLookup.html">ailiaSpeechFFI.fromLookup</a></span><span class="signature">(<span class="parameter" id="fromLookup-param-lookup"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">lookup</span>&lt;<wbr><span class="type-parameter">T extends NativeType</span>&gt;(<span class="parameter" id="param-symbolName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">symbolName</span></span>)</span>)</span>
+          <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaSpeechFFI.fromLookup.html">ailiaSpeechFFI.fromLookup</a></span><span class="signature">(<span class="parameter" id="fromLookup-param-lookup"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> <span class="parameter-name">lookup</span>(<span class="parameter" id="param-symbolName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">symbolName</span></span>)</span>)</span>
         </dt>
         <dd>
           The symbols are looked up with <code>lookup</code>.
         </dd>
     </dl>
   </section>
-    
-  <section
-      class="summary offset-anchor inherited"
-      id="instance-properties">
-    <h2>Properties</h2>
-    <dl class="properties">
+
+    <section class="summary offset-anchor inherited" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
         <dt id="hashCode" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-  
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
 
 </dt>
 <dd class="inherited">
@@ -97,8 +104,7 @@
 
         <dt id="runtimeType" class="property inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
-  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
-  
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
 
 </dt>
 <dd class="inherited">
@@ -107,8 +113,8 @@
 
 </dd>
 
-    </dl>
-  </section>
+      </dl>
+    </section>
 
     
   <section
@@ -124,8 +130,7 @@
 
 </dt>
 <dd>
-  ~japanese
-@brief 指定したBlob間でデータをコピーします
+  Perform copies  between blobs that specified.
   
 
 </dd>
@@ -138,18 +143,7 @@
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを作成します。
-@param net ネットワークオブジェクトポインタへのポインタ
-@param env_id 計算に利用する推論実行環境のID( ailiaGetEnvironment() で取得)  \ref AILIA_ENVIRONMENT_ID_AUTO
-にした場合は自動で選択する
-@param num_thread スレッド数の上限(  \ref AILIA_MULTITHREAD_AUTO  にした場合は自動で設定)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ネットワークオブジェクトを作成します。
-推論実行環境を自動にした場合はCPUモードになり、BLASが利用できる場合はBLASを利用します。
-なお、BLASを利用する場合num_threadは無視される場合があります。
+  Creates a network instance.
   
 
 </dd>
@@ -162,9 +156,7 @@
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを破棄します。
-@param net ネットワークオブジェクトポインタ
+  It destroys the network instance.
   
 
 </dd>
@@ -177,15 +169,7 @@
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時のレイヤー統合を無効化します
-@param net ネットワークオブジェクトポインタ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-レイヤー統合により取得できなくなるBlobを取得する必要がある場合などに用います。
-ailiaCreate() の直後に指定する必要があります。ailiaOpenを呼び出した後は変更することができません。
-なお、レイヤー統合を無効化すると推論速度が低下する場合があります。
+  Disalbe layer fusion optimaization for inference
   
 
 </dd>
@@ -198,14 +182,7 @@ ailiaCreate() の直後に指定する必要があります。ailiaOpenを呼び
 
 </dt>
 <dd>
-  ~japanese
-@brief ailiaがグローバルに確保したGPUリソース等を解放します
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返します。
-@details
-ailiaCreate() で作成したインスタンス全てを ailiaDestroy() で解放した状態で呼び出す必要があります。
-それ以外の状態で呼び出された場合 #ref AILIA_STATUS_INVALID_STATE を返します。
-Windows 環境の場合、DllMain 等からこの API を呼び出すとデッドロックする可能性があります。
+  Release GPU and other resources that have been globally allocated with ailia.
   
 
 </dd>
@@ -218,16 +195,7 @@ Windows 環境の場合、DllMain 等からこの API を呼び出すとデッ�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)のインデックスを名前で探し取得します。
-@param net ネットワークオブジェクトポインタ
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@param name 検索するBlob名
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時は入出力Blobのみが検索可能です。中間Blobを検索する場合ailiaOpneWeightXXXを呼び出す必要があります。
+  Searches by name for the index of the internal data (blob) during inference and returns it.
   
 
 </dd>
@@ -240,17 +208,7 @@ Windows 環境の場合、DllMain 等からこの API を呼び出すとデッ�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の名前をインデックスで探し取得します。
-@param net ネットワークオブジェクトポインタ
-@param buffer Blob名の出力先バッファ
-@param buffer_size バッファのサイズ(終端null文字分を含む)
-@param blob_idx 検索するblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時は入出力Blobのみが検索可能です。中間Blobを検索する場合ailiaOpneWeightXXXを呼び出す必要があります。
+  Searches by index for the name of the internal data (blob) during inference and returns it.
   
 
 </dd>
@@ -263,16 +221,7 @@ Windows 環境の場合、DllMain 等からこの API を呼び出すとデッ�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の数を取得します。
-@param net ネットワークオブジェクトポインタ
-@param blob_count blobの数の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時は入出力Blobのみが列挙され、ailiaOpneWeightXXX呼び出し時に中間Blobの列挙が行われます。
-そのためailiaOpenStreamXXX呼び出し直後とailiaOpneWeightXXX呼び出し直後で返答する数が変わる場合があります。
+  Gets the amount of internal data (blob) during inference.
   
 
 </dd>
@@ -285,16 +234,7 @@ Windows 環境の場合、DllMain 等からこの API を呼び出すとデッ�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dest 推論結果の書き出し先バッファにX,Y,Z,Wの順でnumeric型で格納
-@param dest_size 推論結果の書き出し先バッファのbyte数
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaPredict() または ailiaUpdate() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。
+  Gets the internal data (blob) during inference.
   
 
 </dd>
@@ -307,15 +247,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の型を取得します。
-@param net ネットワークオブジェクトポインタ
-@param type データ型の書き出し先バッファ。値は AILIA_DATATYPE_XXX で定義されています。
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Get the type of Blob.
   
 
 </dd>
@@ -328,15 +260,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の次元を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dim blobの次元の格納先
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、それ以外のエラーの場合はエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the dimension of the internal data (blob) during inference.
   
 
 </dd>
@@ -349,16 +273,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 入力データ(Blob)のインデックスを取得します
-@param net ネットワークオブジェクトポインタ
-@param blob_idx blobのインデックス(0～ ailiaGetBlobCount() -1)
-@param input_blob_idx 入力blob内でのインデックス(0～ ailiaGetInputBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時に列挙されたinput_blob_idx及びblob_idxは保持されるためailiaOpneWeightXXX呼び出し後も同じ値が返ることが保証されます。
+  Get the blob index of the input data.
   
 
 </dd>
@@ -371,15 +286,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 出力データ(Blob)のインデックスを取得します
-@param net ネットワークオブジェクトポインタ
-@param blob_idx blobのインデックス(0～ ailiaGetBlobCount() -1)
-@param output_blob_idx 出力blob内でのインデックス(0～ ailiaGetOutputBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
+  Get the blob index of the input data blob.
   
 
 </dd>
@@ -392,16 +299,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 内部データ(Blob)の名前の出力に必要なバッファのサイズを取得します。
-@param net ネットワークオブジェクトポインタ
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@param buffer_size Blob名の出力に必要なバッファのサイズ(終端null文字分を含む)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時は入出力Blobのみが検索可能です。中間Blobを検索する場合ailiaOpneWeightXXXを呼び出す必要があります。
+  Gets the size of the buffer needed for output of the name of the internal data (blob).
   
 
 </dd>
@@ -414,18 +312,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape データの形状情報の格納先
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、5次元以上の場合 \ref AILIA_STATUS_NDIMENSION_SHAPE 、
-それ以外のエラーの場合はエラーコードを返す。
-@details
-形状が5次元以上の場合は ailiaGetBlobDim() 、 ailiaGetBlobShapeND() を利用してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the shape of the internal data (blob) during inference.
   
 
 </dd>
@@ -438,16 +325,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape blobの各次元の大きさの格納先配列(dim-1, dim-2, ... ,1, 0順で格納)
-@param dim shapeの次元
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、それ以外のエラーの場合はエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the amount of internal data (blob) during inference.
   
 
 </dd>
@@ -460,13 +338,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 計算環境の一覧を取得します
-@param env 計算環境情報の格納先(AILIANetworkインスタンスを破棄するまで有効)
-@param env_idx 計算環境情報のインデックス(0～ ailiaGetEnvironmentCount() -1)
-@param version AILIA_ENVIRONMENT_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the list of computational environments.
   
 
 </dd>
@@ -479,11 +351,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 利用可能な計算環境(CPU, GPU)の数を取得します
-@param env_count 計算環境情報の数の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the number of available computational environments (CPU, GPU).
   
 
 </dd>
@@ -496,15 +364,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief エラーの詳細を返します
-@param net   ネットワークオブジェクトポインタ
-@return
-エラー詳細
-@details
-返値は解放する必要はありません。
-文字列の有効期間は次にailiaのAPIを呼ぶまでです。
-モデルが暗号化されている場合は空文字を返します。
+  Returns the details of errors.
   
 
 </dd>
@@ -517,16 +377,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 入力データ(Blob)の数を取得します。
-@param net ネットワークオブジェクトポインタ
-@param input_blob_count 入力blobの数の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、入力Blobの列挙はailiaOpenStreamXXX呼び出し時に行われますが変更可能な重み(input付きinitialzier)の列挙はailiaOpneWeightXXX呼び出し時に行われます。
-そのためailiaOpenStreamXXX呼び出し直後とailiaOpneWeightXXX呼び出し直後で返答する数が変わる場合があります。
+  Get the number of input data blobs.
   
 
 </dd>
@@ -539,14 +390,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の入力データの次元を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dim 入力データの次元の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、それ以外のエラーの場合はエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the dimension of the input data during inference.
   
 
 </dd>
@@ -559,18 +403,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の入力データの形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの形状情報
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、5次元以上の場合 \ref AILIA_STATUS_NDIMENSION_SHAPE 、
-形状の一部が未確定の場合 \ref AILIA_STATUS_UNSETTLED_SHAPE 、それ以外のエラーの場合はエラーコードを返す。
-@details
-形状が5次元以上の場合は ailiaGetInputDim() 、 ailiaGetInputShapeND() を利用してください。
-形状の一部が未確定の場合、該当する次元の値は0となり、それ以外の次元の値は有効な値が格納されます。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the shape of the input data during inference.
   
 
 </dd>
@@ -583,17 +416,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の入力データの形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの各次元の大きさの格納先配列(dim-1, dim-2, ... ,1, 0順で格納)
-@param dim shapeの次元
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、形状の一部が未確定の場合 \ref AILIA_STATUS_UNSETTLED_SHAPE 、
-それ以外のエラーの場合はエラーコードを返す。
-@details
-形状の一部が未確定の場合、該当する次元の値は0となり、それ以外の次元の値は有効な値が格納されます。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the shape of the input data during inference.
   
 
 </dd>
@@ -606,14 +429,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 出力データ(Blob)の数を取得します。
-@param net ネットワークオブジェクトポインタ
-@param output_blob_count 出力blobの数の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
+  Get the number of output data blobs.
   
 
 </dd>
@@ -626,14 +442,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の出力データの次元を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dim 出力データの次元の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、それ以外のエラーの場合はエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the dimension of the output data during inference.
   
 
 </dd>
@@ -646,16 +455,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の出力データの形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape 出力データの形状情報
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、5次元以上の場合 \ref AILIA_STATUS_NDIMENSION_SHAPE 、
-それ以外のエラーの場合エラーコードを返す。
-形状が5次元以上の場合は ailiaGetOutputDim() 、 ailiaGetOutputShapeND() を利用してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the shape of the output data during inference.
   
 
 </dd>
@@ -668,15 +468,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の出力データの形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape 出力データの各次元の大きさの格納先配列(dim-1, dim-2, ... ,1, 0順で格納)
-@param dim shapeの次元
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、それ以外のエラーの場合はエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the shape of the output data during inference.
   
 
 </dd>
@@ -689,13 +481,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 選択された計算環境を取得します
-@param net ネットワークオブジェクトポインタ
-@param env 計算環境情報の格納先(AILIANetworkインスタンスを破棄するまで有効)
-@param version AILIA_ENVIRONMENT_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the selected computational environment.
   
 
 </dd>
@@ -708,15 +494,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief ステータスコードに対応する文字列を返します。
-@param status_code   ステータスコード
-@return
-ステータスコードに対応する文字列。
-@details
-返値は解放する必要はありません。
-返された文字列は ailia のライブラリ(ailia.dll, libailia.so 等)をアンロードするまで有効です。
-AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() でエラーの詳細を取得できます。
+  Returns the string describing given status code.
   
 
 </dd>
@@ -729,14 +507,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークSummary用に必要なバッファのサイズを取得します。
-@param net ネットワークオブジェクトポインタ
-@param buffer_size バッファのサイズの格納先(終端null文字分を含む)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the size of the buffer needed for the network summary.
   
 
 </dd>
@@ -749,34 +520,20 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ライブラリバージョンを取得します
-@return
-バージョン番号
-@details
-返値は解放する必要はありません。
+  Get the version of the library.
   
 
 </dd>
 
         <dt id="ailiaOpenStreamEx" class="callable">
-  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaOpenStreamEx.html">ailiaOpenStreamEx</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaOpenStreamEx-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaOpenStreamEx-param-fopen_args"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">fopen_args</span>, </span><span class="parameter" id="ailiaOpenStreamEx-param-callback"><span class="type-annotation"><a href="../ailia_speech/ailiaFileCallback.html">ailiaFileCallback</a></span> <span class="parameter-name">callback</span>, </span><span class="parameter" id="ailiaOpenStreamEx-param-version"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">version</span></span>)
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaOpenStreamEx.html">ailiaOpenStreamEx</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaOpenStreamEx-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaOpenStreamEx-param-fopen_args"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">fopen_args</span>, </span><span class="parameter" id="ailiaOpenStreamEx-param-callback"><span class="type-annotation">_ailiaFileCallback</span> <span class="parameter-name">callback</span>, </span><span class="parameter" id="ailiaOpenStreamEx-param-version"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">version</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
   </span>
   
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを初期化します。(ユーザ定義ファイルアクセスコールバック)
-@param net ネットワークオブジェクトポインタ
-@param fopen_args  \ref AILIA_USER_API_FOPEN に通知される引数ポインタ
-@param callback ユーザ定義ファイルアクセスコールバック関数構造体
-@param version ファイルアクセスコールバック関数構造体のバージョン( \ref AILIA_FILE_CALLBACK_VERSION )
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ファイルから読み込み、ネットワークオブジェクトを初期化します。
+  Initializes the network instance. (User-defined file access callback)
   
 
 </dd>
@@ -789,14 +546,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを初期化します。(ファイルから読み込み)
-@param net ネットワークオブジェクトポインタ
-@param path prototxtファイルのパス名(MBSC or UTF16)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ファイルから読み込み、ネットワークオブジェクトを初期化します。
+  Initializes the network instance. (Read from file)
   
 
 </dd>
@@ -822,37 +572,20 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを初期化します。(メモリから読み込み)
-@param net ネットワークオブジェクトポインタ
-@param buf prototxtファイルのデータへのポインタ
-@param buf_size prototxtファイルのデータサイズ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-メモリから読み込み、ネットワークオブジェクトを初期化します。
+  Initializes the network instance. (Read from memory)
   
 
 </dd>
 
         <dt id="ailiaOpenWeightEx" class="callable">
-  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaOpenWeightEx.html">ailiaOpenWeightEx</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaOpenWeightEx-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaOpenWeightEx-param-fopen_args"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">fopen_args</span>, </span><span class="parameter" id="ailiaOpenWeightEx-param-callback"><span class="type-annotation"><a href="../ailia_speech/ailiaFileCallback.html">ailiaFileCallback</a></span> <span class="parameter-name">callback</span>, </span><span class="parameter" id="ailiaOpenWeightEx-param-version"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">version</span></span>)
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaOpenWeightEx.html">ailiaOpenWeightEx</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaOpenWeightEx-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaOpenWeightEx-param-fopen_args"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">fopen_args</span>, </span><span class="parameter" id="ailiaOpenWeightEx-param-callback"><span class="type-annotation">_ailiaFileCallback</span> <span class="parameter-name">callback</span>, </span><span class="parameter" id="ailiaOpenWeightEx-param-version"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">version</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
   </span>
   
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトに重み係数を読み込みます。(ユーザ定義ファイルアクセスコールバック)
-@param net ネットワークオブジェクトポインタ
-@param fopen_args  \ref AILIA_USER_API_FOPEN に通知される引数ポインタ
-@param callback ユーザ定義ファイルアクセスコールバック関数構造体
-@param version ファイルアクセスコールバック関数構造体のバージョン( \ref AILIA_FILE_CALLBACK_VERSION )
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ファイルからネットワークオブジェクトに重み係数を読み込みます。
+  Reads weights into a network instance. (User-defined file access callback)
   
 
 </dd>
@@ -865,14 +598,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトに重み係数を読み込みます。(ファイルから読み込み)
-@param net ネットワークオブジェクトポインタ
-@param path protobuf/onnxファイルのパス名(MBSC or UTF16)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ファイルからネットワークオブジェクトに重み係数を読み込みます。
+  Reads weights into a network instance. (Read from file)
   
 
 </dd>
@@ -898,15 +624,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトに重み係数を読み込みます。(メモリから読み込み)
-@param net ネットワークオブジェクトポインタ
-@param buf protobuf/onnxファイルのデータへのポインタ
-@param buf_size protobuf/onnxファイルのデータサイズ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-メモリからネットワークオブジェクトに重み係数を読み込みます。
+  Reads weights into a network instance. (Read from memory)
   
 
 </dd>
@@ -919,17 +637,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論を行い推論結果を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dest 推論結果の書き出し先バッファにX,Y,Z,Wの順でnumeric型で格納  サイズはネットファイルのoutputSizeとなる
-@param dest_size 推論結果の書き出し先バッファのbyte数
-@param src 推論データ X,Y,Z,Wの順でnumeric型で格納 サイズはネットファイルのinputSizeとなる
-@param src_size 推論データのbyte数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Performs the inferences and provides the inference result.
   
 
 </dd>
@@ -942,18 +650,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief 指定したBlobに入力データを与えます。
-@param net ネットワークオブジェクトポインタ
-@param src 推論データ X,Y,Z,Wの順でnumeric型で格納
-@param src_size 推論データのbyte数
-@param blob_idx 入力するblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-複数入力があるネットワークなどで入力を指定する場合に用います。
-blob_idxで入力レイヤーのblob以外のものを指定した場合、 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Provides the specified blob with the input data.
   
 
 </dd>
@@ -966,20 +663,7 @@ blob_idxで入力レイヤーのblob以外のものを指定した場合、 \ref
 
 </dt>
 <dd>
-  ~japanese
-@brief 指定したBlobの形状を変更します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの形状情報
-@param blob_idx 変更するblobのインデックス
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-複数入力があるネットワークなどで入力形状を変更する場合に用います。
-blob_idxは入力レイヤーのblob以外のものを指定した場合 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-その他の注意点は ailiaSetInputShape() の解説を参照してください。
-入力形状のランクが5次元以上の場合は ailiaSetInputBlobShapeND() を利用してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Change the shape of the blob given by its index
   
 
 </dd>
@@ -992,19 +676,7 @@ blob_idxは入力レイヤーのblob以外のものを指定した場合 \ref AI
 
 </dt>
 <dd>
-  ~japanese
-@brief 指定したBlobの形状を変更します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの各次元の大きさの配列(dim-1, dim-2, ... ,1, 0)
-@param dim shapeの次元
-@param blob_idx 変更するblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-複数入力があるネットワークなどで入力形状を変更する場合に用います。
-blob_idxは入力レイヤーのblob以外のものを指定した場合 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-その他の注意点は ailiaSetInputShapeND() の解説を参照してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Change the shape of the blob given by its index
   
 
 </dd>
@@ -1017,20 +689,7 @@ blob_idxは入力レイヤーのblob以外のものを指定した場合 \ref AI
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の入力データの形状を変更します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの形状情報
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-prototxtで定義されている入力形状を変更します。
-prototxtに記述されているランクと同じにする必要があります。
-なお、重み係数の形状が入力形状に依存しているなどによりエラーが返る場合があります。
-prototxtで定義されているランクが4次元未満の場合は未使用の要素に1を設定する必要があります。
-prototxtで定義されているランクが5次元以上の場合は ailiaSetInputShapeND() を利用してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Changes the shape of the input data during inference.
   
 
 </dd>
@@ -1043,18 +702,7 @@ prototxtで定義されているランクが5次元以上の場合は ailiaSetIn
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の入力データの形状を変更します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの各次元の大きさの配列(dim-1, dim-2, ... ,1, 0)
-@param dim shapeの次元
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-prototxtで定義されている入力形状を変更します。
-prototxtに記述されているランクと同じにする必要があります。
-なお、重み係数の形状が入力形状に依存しているなどによりエラーが返る場合があります。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Changes the shape of the input data during inference.
   
 
 </dd>
@@ -1067,18 +715,7 @@ prototxtに記述されているランクと同じにする必要があります
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時のメモリの使用方針を設定します
-@param net ネットワークオブジェクトポインタ
-@param mode メモリモード(論理和で複数指定可) AILIA_MEMORY_XXX (デフォルト: \ref AILIA_MEMORY_REDUCE_CONSTANT )
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-メモリの使用方針を変更します。 \ref AILIA_MEMORY_NO_OPTIMIZATION 以外を指定した場合は、
-推論時に確保する中間バッファーを開放するため、推論時のメモリ使用量を削減することができます。
-ailiaCreate() の直後に指定する必要があります。ailiaOpenを呼び出した後は変更することができません。
-なお、中間バッファーを開放するように指定した場合、該当するBlobに対し、 ailiaGetBlobData() を呼び出すと
-\ref AILIA_STATUS_DATA_HIDDEN エラーが返ります。
+  Set the memory usage policy for inference
   
 
 </dd>
@@ -1091,16 +728,7 @@ ailiaCreate() の直後に指定する必要があります。ailiaOpenを呼び
 
 </dt>
 <dd>
-  ~japanese
-@brief プロファイルモードをセットします
-@param net          ネットワークオブジェクトポインタ
-@param mode         プロファイルモード
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-プロファイルモードを指定します。デフォルトは無効です。
-ailiaOpenStreamXXXを呼び出したあとに呼び出してください。
-プロファイルモードを有効にした場合、 ailiaSummary() の出力にプロファイル結果が追加されます。
+  Set the profile mode.
   
 
 </dd>
@@ -1113,17 +741,7 @@ ailiaOpenStreamXXXを呼び出したあとに呼び出してください。
 
 </dt>
 <dd>
-  ~japanese
-@brief 一時キャッシュディレクトリを指定します
-@param cache_dir 一時キャッシュディレクトリ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-指定したキャッシュディレクトリは推論実行環境毎に最適化したマシンコードを生成して保存するためにシステムが利用します。
-ailia の実行開始時に一度だけ呼び出してください。二回目以降の呼び出しに対しては無視して成功を返します。
-複数スレッドから呼び出された場合も内部で排他制御しているので特に問題は発生しません。
-Vulkan のシェーダーキャッシュ機能など、この API を呼ぶまで利用できないものがあります。
-cache_dirにはContext.getCacheDir()で取得したファイルパスを指定してください。
+  Specifies a temporary cache directory.
   
 
 </dd>
@@ -1149,12 +767,7 @@ cache_dirにはContext.getCacheDir()で取得したファイルパスを指定�
 
 </dt>
 <dd>
-  ~japanese
-@brief 音声認識を行うために十分なデータが存在するかどうかを判定します。
-@param net ネットワークオブジェクトポインタ
-@param buffered 存在フラグ（1で存在、0で存在しない）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Determines if there is enough data to perform speech recognition.
   
 
 </dd>
@@ -1167,12 +780,7 @@ cache_dirにはContext.getCacheDir()で取得したファイルパスを指定�
 
 </dt>
 <dd>
-  ~japanese
-@brief 全てのデータの処理が完了したかどうかを判定します。
-@param net ネットワークオブジェクトポインタ
-@param complete 完了フラグ（1で完了、0で完了していない）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Determines whether all data has been processed.
   
 
 </dd>
@@ -1185,20 +793,7 @@ cache_dirにはContext.getCacheDir()で取得したファイルパスを指定�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを作成します。
-@param net ネットワークオブジェクトポインタへのポインタ
-@param env_id 計算に利用する推論実行環境のID( ailiaGetEnvironment() で取得)  \ref AILIA_ENVIRONMENT_ID_AUTO にした場合は自動で選択する
-@param num_thread スレッド数の上限(  \ref AILIA_MULTITHREAD_AUTO  にした場合は自動で設定)
-@param memory_mode メモリモード(AILIA_MEMORY_MODE_<em>)
-@param task AILIA_SPEECH_TASK_</em>
-@param flag AILIA_SPEECH_FLAG_*の論理和
-@param api_callback ailiaのAPIへのコールバック
-@param version AILIA_SPEECH_API_CALLBACK_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ネットワークオブジェクトを作成します。
+  Creates a network instance.
   
 
 </dd>
@@ -1211,9 +806,7 @@ cache_dirにはContext.getCacheDir()で取得したファイルパスを指定�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを破棄します。
-@param net ネットワークオブジェクトポインタ
+  It destroys the network instance.
   
 
 </dd>
@@ -1226,14 +819,7 @@ cache_dirにはContext.getCacheDir()で取得したファイルパスを指定�
 
 </dt>
 <dd>
-  ~japanese
-@brief 音声のキューへの投入を終了します。
-@param net ネットワークオブジェクトポインタ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-音声ファイルの末尾であることを通知することで、30秒分のデータが存在しなくてもailiaSpeechBufferedが1を返すようになります。
-ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前に、ailiaSpeechResetTranscribeStateを呼び出す必要があります。
+  Finalize input PCM data to queue
   
 
 </dd>
@@ -1246,15 +832,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief エラーの詳細を返します
-@param net   ネットワークオブジェクトポインタ
-@return
-エラー詳細
-@details
-返値は解放する必要はありません。
-文字列の有効期間は次にailiaSpeechのAPIを呼ぶまでです。
-モデルが暗号化されている場合は空文字を返します。
+  Returns the details of errors.
   
 
 </dd>
@@ -1267,17 +845,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief 認識したテキストを取得します。
-@param net ネットワークオブジェクトポインタ
-@param text テキスト
-@param version AILIA_SPEECH_TEXT_VERSION
-@param idx テキストのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-返値は解放する必要はありません。
-文字列の有効期間は次にailiaSpeechのAPIを呼ぶまでです。
+  Get recognized text
   
 
 </dd>
@@ -1290,12 +858,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief 認識したテキストの数を取得します。
-@param net ネットワークオブジェクトポインタ
-@param count テキストの数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Get recognized text count
   
 
 </dd>
@@ -1308,14 +871,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief 話者分離に適用するAIモデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param segmentation_path onnxファイルのパス名(MBSC)
-@param embedding_path onnxファイルのパス名(MBSC)
-@param type AILIA_SPEECH_DIARIZATION_TYPE_PYANNOTE_AUDIO
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set AI model for speaker diarization (MBSC)
   
 
 </dd>
@@ -1328,14 +884,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief 話者分離に適用するAIモデルを指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param segmentation_path onnxファイルのパス名(UTF16)
-@param embedding_path onnxファイルのパス名(UTF16)
-@param type AILIA_SPEECH_DIARIZATION_TYPE_PYANNOTE_AUDIO
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set AI model for speaker diarization (UTF16)
   
 
 </dd>
@@ -1348,13 +897,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief 誤り訂正辞書を指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param dictionary_path 辞書ファイルのパス名(MBSC)
-@param dictionary_type AILIA_SPEECH_DICTIONARY_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set dictionary for error correction.
   
 
 </dd>
@@ -1367,13 +910,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief 誤り訂正辞書を指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param dictionary_path 辞書ファイルのパス名(UTF16)
-@param dictionary_type AILIA_SPEECH_DICTIONARY_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set dictionary for error correction.
   
 
 </dd>
@@ -1386,14 +923,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief モデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param encoder_path onnxファイルのパス名(MBSC)
-@param decoder_path onnxファイルのパス名(MBSC)
-@param model_type AILIA_SPEECH_MODEL_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set models into a network instance.
   
 
 </dd>
@@ -1406,16 +936,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief モデルを指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param encoder_path onnxファイルのパス名(UTF16)
-@param decoder_path onnxファイルのパス名(UTF16)
-@param model_type AILIA_SPEECH_MODEL_TYPE_*
-@param task AILIA_SPEECH_TASK_*
-@param flag AILIA_SPEECH_FLAG_*の論理和
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set models into a network instance.
   
 
 </dd>
@@ -1428,17 +949,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief 後処理に適用するAIモデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param encoder_path onnxファイルのパス名(MBSC)
-@param decoder_path onnxファイルのパス名(MBSC)
-@param source_path Tokenizerのmodelファイルのパス名(MBSC)
-@param target_path Tokenizerのmodelファイルのパス名(MBSC)
-@param prefix      T5のprefix (UTF8)、FuguMTの場合はNULL
-@param post_process_type AILIA_SPEECH_POST_PROCESS_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set AI model for post process (MBSC)
   
 
 </dd>
@@ -1451,17 +962,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief 後処理に適用するAIモデルを指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param encoder_path onnxファイルのパス名(UTF16)
-@param decoder_path onnxファイルのパス名(UTF16)
-@param source_path Tokenizerのmodelファイルのパス名(UTF16)
-@param target_path Tokenizerのmodelファイルのパス名(UTF16)
-@param prefix      T5のprefix (UTF8)、FuguMTの場合はNULL
-@param post_process_type AILIA_SPEECH_POST_PROCESS_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set AI model for post process (UTF16)
   
 
 </dd>
@@ -1474,15 +975,7 @@ ailiaSpeechFinalizeInputDataを実行後、ailiaSpeechPushInputDataの実行前�
 
 </dt>
 <dd>
-  ~japanese
-@brief 無音検知に適用するVADモデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param vad_path onnxファイルのパス名(MBSC)
-@param vad_type AILIA_SPEECH_VAD_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-VADを有効にするにはailiaSpeechSetSilentThresholdで判定しきい値を設定する必要があります。
+  Set vad model for voice activity detection.
   
 
 </dd>
@@ -1495,15 +988,7 @@ VADを有効にするにはailiaSpeechSetSilentThresholdで判定しきい値を
 
 </dt>
 <dd>
-  ~japanese
-@brief 無音検知に適用するVADモデルを指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param vad_path onnxファイルのパス名(UTF16)
-@param vad_type AILIA_SPEECH_VAD_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-VADを有効にするにはailiaSpeechSetSilentThresholdで判定しきい値を設定する必要があります。
+  Set vad model for voice activity detection.
   
 
 </dd>
@@ -1516,13 +1001,7 @@ VADを有効にするにはailiaSpeechSetSilentThresholdで判定しきい値を
 
 </dt>
 <dd>
-  ~japanese
-@brief 後処理を行います。
-@param net ネットワークオブジェクトポインタ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-認識した結果はailiaSpeechGetText APIで取得します。
+  Execute post process
   
 
 </dd>
@@ -1535,15 +1014,7 @@ VADを有効にするにはailiaSpeechSetSilentThresholdで判定しきい値を
 
 </dt>
 <dd>
-  ~japanese
-@brief 音声をキューに投入します。
-@param net ネットワークオブジェクトポインタ
-@param src PCMデータ（チャンネルインタリーブ、ステレオの場合はLRLR順、PCMは-1.0〜1.0のレンジ）
-@param channels チャンネル数
-@param samples チャンネルあたりのサンプル数
-@param sampling_rate サンプリングレート（Hz）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Push PCM data to queue
   
 
 </dd>
@@ -1556,15 +1027,7 @@ VADを有効にするにはailiaSpeechSetSilentThresholdで判定しきい値を
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトの内部状態を初期化します。
-@param net ネットワークオブジェクトポインタ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIを呼び出すことで、前回のデコード結果などの内部状態を初期化します。
-このAPIを呼び出した後、モデルを再び開く必要はありません。
-ailiaSpeechOpenModelFile、ailiaSpeechSetIntermediateCallback、ailiaSpeechSetLanguage、ailiaSpeechSetSilentThreshold、ailiaSpeechSetPromptのステートは保持されます。
+  It resets the network instance.
   
 
 </dd>
@@ -1577,13 +1040,7 @@ ailiaSpeechOpenModelFile、ailiaSpeechSetIntermediateCallback、ailiaSpeechSetLa
 
 </dt>
 <dd>
-  ~japanese
-@brief 制約の設定を行います。
-@param net ネットワークオブジェクトポインタ
-@param constraint 制約となるテキスト(UTF8)
-@param type 制約モード (AILIA_SPEECH_CONSTRAINT_*)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す
+  Set constraint.
   
 
 </dd>
@@ -1596,16 +1053,7 @@ ailiaSpeechOpenModelFile、ailiaSpeechSetIntermediateCallback、ailiaSpeechSetLa
 
 </dt>
 <dd>
-  ~japanese
-@brief 認識の途中結果を取得するコールバックを設定します。
-@param net ネットワークオブジェクトポインタ
-@param callback コールバック
-@param handle コールバックに渡されるハンドル
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-返値は解放する必要はありません。
-文字列の有効期間は次にailiaSpeechのAPIを呼ぶまでです。
+  Set a callback to get intermediate results of recognition.
   
 
 </dd>
@@ -1618,14 +1066,7 @@ ailiaSpeechOpenModelFile、ailiaSpeechSetIntermediateCallback、ailiaSpeechSetLa
 
 </dt>
 <dd>
-  ~japanese
-@brief 言語設定を行います。
-@param net ネットワークオブジェクトポインタ
-@param language 言語コード（en, jaなど）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す
-@details
-languageに"auto"を指定すると自動選択を行います。
+  Set language.
   
 
 </dd>
@@ -1638,12 +1079,7 @@ languageに"auto"を指定すると自動選択を行います。
 
 </dt>
 <dd>
-  ~japanese
-@brief プロンプトの設定を行います。
-@param net ネットワークオブジェクトポインタ
-@param prompt promptとなるテキスト(UTF8)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す
+  Set prompt.
   
 
 </dd>
@@ -1656,16 +1092,7 @@ languageに"auto"を指定すると自動選択を行います。
 
 </dt>
 <dd>
-  ~japanese
-@brief 無音判定の閾値を設定します。
-@param net ネットワークオブジェクトポインタ
-@param silent_threshold  有音判定のしきい値（標準値0.5）
-@param speech_sec    有音区間の時間（秒数）（標準値1.0）
-@param no_speech_sec 無音区間の時間（秒数）（標準値1.0）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す
-@details
-有音区間が一定以上存在する場合に無音区間が一定時間以上続いた場合に30secを待たずに滞留しているバッファを処理します。
+  Set silent threshold.
   
 
 </dd>
@@ -1678,18 +1105,7 @@ languageに"auto"を指定すると自動選択を行います。
 
 </dt>
 <dd>
-  ~japanese
-@brief ポストプロセス対象のテキストを設定します。
-@param net ネットワークオブジェクトポインタ
-@param text テキスト
-@param version AILIA_SPEECH_TEXT_VERSION
-@param idx テキストのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-音声認識を使用せず、ポストプロセスのみを使用する場合に使用します。
-文字列は内部バッファにコピーされるため、呼び出し後に解放することができます。
-idxがailiaSpeechGetTextCountよりも大きい場合、自動的に内部バッファが拡張されます。
+  Set postprocess text
   
 
 </dd>
@@ -1702,13 +1118,7 @@ idxがailiaSpeechGetTextCountよりも大きい場合、自動的に内部バッ
 
 </dt>
 <dd>
-  ~japanese
-@brief 音声認識を行います。
-@param net ネットワークオブジェクトポインタ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-認識した結果はailiaSpeechGetText APIで取得します。
+  Perform speech recognition
   
 
 </dd>
@@ -1721,16 +1131,20 @@ idxがailiaSpeechGetTextCountよりも大きい場合、自動的に内部バッ
 
 </dt>
 <dd>
-  ~japanese
-@brief 各Blobの名前と形状を表示します。
-@param net ネットワークオブジェクトポインタ
-@param buffer Summaryの出力先
-@param buffer_size 出力バッファのサイズ(終端null文字分を含む)。 ailiaGetSummaryLength()
-で取得した値を設定してください。
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Shows the name and shape of each blob.
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerAddSpecialTokens" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerAddSpecialTokens.html">ailiaTokenizerAddSpecialTokens</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerAddSpecialTokens-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerAddSpecialTokens-param-tokens"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">tokens</span>, </span><span class="parameter" id="ailiaTokenizerAddSpecialTokens-param-count"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">count</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Add SpecialToken
   
 
 </dd>
@@ -1743,15 +1157,7 @@ idxがailiaSpeechGetTextCountよりも大きい場合、自動的に内部バッ
 
 </dt>
 <dd>
-  ~japanese
-@brief トークナイズオブジェクトを作成します。
-@param net トークナイザオブジェクトポインタへのポインタ
-@param type AILIA_TOKENIZER_TYPE_*
-@param flag AILIA_TOKENIZER_FLAG_*の論理和
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-トークナイズオブジェクトを作成します。
+  Creates a tokenizer instance.
   
 
 </dd>
@@ -1764,16 +1170,20 @@ idxがailiaSpeechGetTextCountよりも大きい場合、自動的に内部バッ
 
 </dt>
 <dd>
-  ~japanese
-@brief デコードを行います。
-@param net トークナイザオブジェクトポインタ
-@param tokens デコードするトークン
-@param token_count トークンの数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-デコードした結果はailiaTokenizerGetText APIで取得します。
-skip_special_tokens=Trueと同様に、Special Tokenは出力しません。
+  Perform decode
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerDecodeWithSpecialTokens" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerDecodeWithSpecialTokens.html">ailiaTokenizerDecodeWithSpecialTokens</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerDecodeWithSpecialTokens-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerDecodeWithSpecialTokens-param-tokens"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>&gt;</span></span> <span class="parameter-name">tokens</span>, </span><span class="parameter" id="ailiaTokenizerDecodeWithSpecialTokens-param-token_count"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">token_count</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Perform decode with special tokens
   
 
 </dd>
@@ -1786,9 +1196,7 @@ skip_special_tokens=Trueと同様に、Special Tokenは出力しません。
 
 </dt>
 <dd>
-  ~japanese
-@brief トークナイズオブジェクトを破棄します。
-@param net トークナイザオブジェクトポインタ
+  It destroys the tokenizer instance.
   
 
 </dd>
@@ -1801,14 +1209,46 @@ skip_special_tokens=Trueと同様に、Special Tokenは出力しません。
 
 </dt>
 <dd>
-  ~japanese
-@brief エンコードを行います。
-@param net トークナイザオブジェクトポインタ
-@param text エンコードするテキスト(UTF8)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-認識した結果はailiaTokenizerGetTokens APIで取得します。
+  Perform encode
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerEncodeWithSpecialTokens" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerEncodeWithSpecialTokens.html">ailiaTokenizerEncodeWithSpecialTokens</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerEncodeWithSpecialTokens-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerEncodeWithSpecialTokens-param-utf8"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">utf8</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Perform encode with special tokens
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerGetCharEnds" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerGetCharEnds.html">ailiaTokenizerGetCharEnds</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerGetCharEnds-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerGetCharEnds-param-char_ends"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>&gt;</span></span> <span class="parameter-name">char_ends</span>, </span><span class="parameter" id="ailiaTokenizerGetCharEnds-param-count"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">count</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Gets the Char end positions.
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerGetCharStarts" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerGetCharStarts.html">ailiaTokenizerGetCharStarts</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerGetCharStarts-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerGetCharStarts-param-char_starts"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>&gt;</span></span> <span class="parameter-name">char_starts</span>, </span><span class="parameter" id="ailiaTokenizerGetCharStarts-param-count"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">count</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Gets the Char start positions.
   
 
 </dd>
@@ -1821,15 +1261,7 @@ skip_special_tokens=Trueと同様に、Special Tokenは出力しません。
 
 </dt>
 <dd>
-  ~japanese
-@brief テキストを取得します。
-@param net   トークナイザオブジェクトポインタ
-@param text  テキスト(UTF8)
-@param len バッファサイズ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaTokenizerDecode() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。
+  Gets the decoded text.
   
 
 </dd>
@@ -1842,12 +1274,7 @@ ailiaTokenizerDecode() を一度も実行していない場合は \ref AILIA_STA
 
 </dt>
 <dd>
-  ~japanese
-@brief テキストの長さを取得します。(NULL文字含む)
-@param net   トークナイザオブジェクトポインタ
-@param len  テキストの長さ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the size of text. (Include null)
   
 
 </dd>
@@ -1860,12 +1287,7 @@ ailiaTokenizerDecode() を一度も実行していない場合は \ref AILIA_STA
 
 </dt>
 <dd>
-  ~japanese
-@brief トークンの数を取得します。
-@param net   トークナイザオブジェクトポインタ
-@param count  オブジェクト数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the number of tokens.
   
 
 </dd>
@@ -1878,16 +1300,72 @@ ailiaTokenizerDecode() を一度も実行していない場合は \ref AILIA_STA
 
 </dt>
 <dd>
-  ~japanese
-@brief トークンを取得します。
-@param net   トークナイザオブジェクトポインタ
-@param tokens トークン
-@param count  格納先トークン数
-@param
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaTokenizerEncode() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。
+  Gets the tokens.
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerGetVocab" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerGetVocab.html">ailiaTokenizerGetVocab</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerGetVocab-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerGetVocab-param-token"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">token</span>, </span><span class="parameter" id="ailiaTokenizerGetVocab-param-vocab"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">vocab</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Perform encode
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerGetVocabSize" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerGetVocabSize.html">ailiaTokenizerGetVocabSize</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerGetVocabSize-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerGetVocabSize-param-size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span> <span class="parameter-name">size</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Gets the size of vocab. (Include null)
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerGetWordIDs" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerGetWordIDs.html">ailiaTokenizerGetWordIDs</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerGetWordIDs-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerGetWordIDs-param-word_ids"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Int-class.html">Int</a></span>&gt;</span></span> <span class="parameter-name">word_ids</span>, </span><span class="parameter" id="ailiaTokenizerGetWordIDs-param-count"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">count</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Gets the word ID.
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerOpenAddedTokensFileA" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerOpenAddedTokensFileA.html">ailiaTokenizerOpenAddedTokensFileA</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerOpenAddedTokensFileA-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerOpenAddedTokensFileA-param-path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">path</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Open added tokens file.
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerOpenAddedTokensFileW" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerOpenAddedTokensFileW.html">ailiaTokenizerOpenAddedTokensFileW</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerOpenAddedTokensFileW-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerOpenAddedTokensFileW-param-path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">path</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
   
 
 </dd>
@@ -1900,14 +1378,7 @@ ailiaTokenizerEncode() を一度も実行していない場合は \ref AILIA_STA
 
 </dt>
 <dd>
-  ~japanese
-@brief 辞書ファイルを読み込みます。
-@param net トークナイザオブジェクトポインタへのポインタ
-@param path Mecabの辞書ファイルのパス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-Mecabの辞書ファイルを読み込みます。AILIA_TOKENIZER_TYPE_BERT_JAPANESE_XXXの場合のみ必要です。
+  Open dictionary file.
   
 
 </dd>
@@ -1933,14 +1404,7 @@ Mecabの辞書ファイルを読み込みます。AILIA_TOKENIZER_TYPE_BERT_JAPA
 
 </dt>
 <dd>
-  ~japanese
-@brief マージファイルを読み込みます。
-@param net トークナイザオブジェクトポインタへのポインタ
-@param path マージファイルのパス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-マージファイルを読み込みます。AILIA_TOKENIZER_TYPE_ROBERTAの場合のみ必要です。
+  Open merges file.
   
 
 </dd>
@@ -1966,20 +1430,39 @@ Mecabの辞書ファイルを読み込みます。AILIA_TOKENIZER_TYPE_BERT_JAPA
 
 </dt>
 <dd>
-  ~japanese
-@brief モデルファイルを読み込みます。
-@param net トークナイザオブジェクトポインタへのポインタ
-@param path SentencePieceのモデルファイルのパス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-SentencePieceのモデルファイルを読み込みます。AILIA_TOKENIZER_TYPE_XLM_ROBERTAもしくはAILIA_TOKENIZER_TYPE_MARIANの場合のみ必要です。
+  Open model file.
   
 
 </dd>
 
         <dt id="ailiaTokenizerOpenModelFileW" class="callable">
   <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerOpenModelFileW.html">ailiaTokenizerOpenModelFileW</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerOpenModelFileW-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerOpenModelFileW-param-path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">path</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerOpenTokenizerConfigFileA" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerOpenTokenizerConfigFileA.html">ailiaTokenizerOpenTokenizerConfigFileA</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerOpenTokenizerConfigFileA-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerOpenTokenizerConfigFileA-param-path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">path</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Open tokenizer config file.
+  
+
+</dd>
+
+        <dt id="ailiaTokenizerOpenTokenizerConfigFileW" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaTokenizerOpenTokenizerConfigFileW.html">ailiaTokenizerOpenTokenizerConfigFileW</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaTokenizerOpenTokenizerConfigFileW-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIATokenizer-class.html">AILIATokenizer</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaTokenizerOpenTokenizerConfigFileW-param-path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/WChar-class.html">WChar</a></span>&gt;</span></span> <span class="parameter-name">path</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
   </span>
   
@@ -1999,14 +1482,7 @@ SentencePieceのモデルファイルを読み込みます。AILIA_TOKENIZER_TYP
 
 </dt>
 <dd>
-  ~japanese
-@brief 単語ファイルを読み込みます。
-@param net トークナイザオブジェクトポインタへのポインタ
-@param path 単語ファイルのパス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-単語ファイルを読み込みます。AILIA_TOKENIZER_TYPE_BERT_JAPANESE_XXXの場合のみ必要です。
+  Open vocab file.
   
 
 </dd>
@@ -2032,13 +1508,7 @@ SentencePieceのモデルファイルを読み込みます。AILIA_TOKENIZER_TYP
 
 </dt>
 <dd>
-  ~japanese
-@brief UTF32の文字をUTF8の文字に変換します。
-@param utf8   UTF8の文字(4byte以上必要)
-@param processed_byte 書き込んだ文字数(UTF8)
-@param utf32  UTF32の文字
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Convert UTF32 character to UTF8 character.
   
 
 </dd>
@@ -2051,14 +1521,7 @@ SentencePieceのモデルファイルを読み込みます。AILIA_TOKENIZER_TYP
 
 </dt>
 <dd>
-  ~japanese
-@brief UTF8の文字をUTF32の文字に変換します。
-@param utf32   UTF32の文字
-@param processed_byte 消費したバイト数(UTF8)
-@param utf8  UTF8の文字
-@param utf8_len   バッファサイズ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Convert UTF8 character to UTF32 character.
   
 
 </dd>
@@ -2071,15 +1534,7 @@ SentencePieceのモデルファイルを読み込みます。AILIA_TOKENIZER_TYP
 
 </dt>
 <dd>
-  ~japanese
-@brief 事前に指定した入力データで推論を行います。
-@param net ネットワークオブジェクトポインタ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaSetInputBlobData() を用いて入力を与えた場合などに用います。
-推論結果は ailiaGetBlobData() で取得してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Makes inferences with the input data specified in advance.
   
 
 </dd>
@@ -2137,7 +1592,9 @@ ailiaSetInputBlobData() を用いて入力を与えた場合などに用いま�
     
     
 
+
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -2145,30 +1602,40 @@ ailiaSetInputBlobData() を用いて入力を与えた場合などに用いま�
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">ailia_speech</a></li>
-    <li><a href="../ailia_speech/">ailia_speech</a></li>
+    <li><a href="../ailia_speech/ailia_speech-library.html">ailia_speech</a></li>
     <li class="self-crumb">ailiaSpeechFFI class</li>
 </ol>
+
 
     <h5>ailia_speech library</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div>
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_speech
-      1.5.2
+      1.6.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
 <script src="../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 

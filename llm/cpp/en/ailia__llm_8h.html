@@ -1200,7 +1200,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>Opens a GGUF or self-contained ailia QNN model. Without an explicit backend selection, .qnn selects HTP and GGUF selects CPU/GPU automatically. An explicit selection must match the model format. For .qnn, n_ctx=0 selects its compiled static context and no external GGUF/context is needed. </p>
+<p>Opens a GGUF or self-contained ailia QNN model. Without an explicit backend selection, .qnn selects HTP and GGUF selects CPU/GPU automatically. An explicit selection must match the model format. For .qnn, n_ctx=0 uses the context length stored in the model. </p>
 
 </div>
 </div>
@@ -1352,7 +1352,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>To use multimodal features, you must first load the text model with ailiaLLMOpenModelFile, then load the multimodal projector with this function. A .qnn projector includes its device-specific context and needs no separate GGUF. Image input (VLM) requires a vision-capable projector, while audio input (ALM) requires an audio-capable projector. Existing VLM-only packages do not support ALM. </p>
+<p>To use multimodal features, you must first load the text model with ailiaLLMOpenModelFile, then load the multimodal projector with this function. A .qnn projector includes its device-specific context and needs no separate GGUF. Image input (VLM) requires a vision-capable projector, while audio input (ALM) requires an audio-capable projector. </p>
 
 </div>
 </div>

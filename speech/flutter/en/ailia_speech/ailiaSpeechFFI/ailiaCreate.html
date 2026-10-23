@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_speech</a></li>
-    <li><a href="../../ailia_speech/">ailia_speech.dart</a></li>
+    <li><a href="../../ailia_speech/ailia_speech-library.html">ailia_speech.dart</a></li>
     <li><a href="../../ailia_speech/ailiaSpeechFFI-class.html">ailiaSpeechFFI</a></li>
     <li class="self-crumb">ailiaCreate method</li>
   </ol>
@@ -33,29 +37,34 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_speech&#47;ailiaSpeechFFI-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_speech&#47;ailiaSpeechFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">ailiaCreate</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">ailiaCreate</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="ailiaCreate-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_speech/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
+<span class="name ">ailiaCreate</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaCreate-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_speech/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
 <li><span class="parameter" id="ailiaCreate-param-env_id"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">env_id</span>, </span></li>
 <li><span class="parameter" id="ailiaCreate-param-num_thread"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">num_thread</span></span></li>
 </ol>)
@@ -65,29 +74,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ネットワークオブジェクトを作成します。
-@param net ネットワークオブジェクトポインタへのポインタ
-@param env_id 計算に利用する推論実行環境のID( ailiaGetEnvironment() で取得)  \ref AILIA_ENVIRONMENT_ID_AUTO
-にした場合は自動で選択する
-@param num_thread スレッド数の上限(  \ref AILIA_MULTITHREAD_AUTO  にした場合は自動で設定)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ネットワークオブジェクトを作成します。
-推論実行環境を自動にした場合はCPUモードになり、BLASが利用できる場合はBLASを利用します。
-なお、BLASを利用する場合num_threadは無視される場合があります。</p>
-<p>~english
-@brief Creates a network instance.
-@param net A pointer to the network instance pointer
-@param env_id The ID of the inference backend used for computation (obtained by  ailiaGetEnvironment() ). It is
-selected automatically if  \ref AILIA_ENVIRONMENT_ID_AUTO  is specified.
-@param num_thread The upper limit on the number of threads (It is set automatically if  \ref AILIA_MULTITHREAD_AUTO
-is specified.)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-Creates a network instance.
+  <p>Creates a network instance.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A pointer to the network instance pointer</li>
+<li><code>env_id</code>: The ID of the inference backend used for computation (obtained by  ailiaGetEnvironment() ). It is
+selected automatically if  <a href="../../ailia_speech/AILIA_ENVIRONMENT_ID_AUTO-constant.html">AILIA_ENVIRONMENT_ID_AUTO</a>  is specified.</li>
+<li><code>num_thread</code>: The upper limit on the number of threads (It is set automatically if  <a href="../../ailia_speech/AILIA_MULTITHREAD_AUTO-constant.html">AILIA_MULTITHREAD_AUTO</a>
+is specified.)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_speech/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Creates a network instance.
 If the inference backend is set to automatic, CPU mode is used, while if BLAS is available, it uses BLAS.
 Note that if BLAS is used, num_thread may be ignored.</p>
 </section>
@@ -111,6 +109,7 @@ Note that if BLAS is used, num_thread may be ignored.</p>
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -118,31 +117,41 @@ Note that if BLAS is used, num_thread may be ignored.</p>
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_speech</a></li>
-    <li><a href="../../ailia_speech/">ailia_speech</a></li>
+    <li><a href="../../ailia_speech/ailia_speech-library.html">ailia_speech</a></li>
     <li><a href="../../ailia_speech/ailiaSpeechFFI-class.html">ailiaSpeechFFI</a></li>
     <li class="self-crumb">ailiaCreate method</li>
 </ol>
 
+
     <h5>ailiaSpeechFFI class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_speech
-      1.5.2
+      1.6.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 
