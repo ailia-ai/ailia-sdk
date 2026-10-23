@@ -6,12 +6,12 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ailia_speech package &mdash; ailia Speech Python API 1.5.2 documentation</title>
+  <title>ailia_speech package &mdash; ailia Speech Python API 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
-      <script src="_static/documentation_options.js?v=73275c37"></script>
+      <script src="_static/documentation_options.js?v=72d88caf"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -190,13 +190,19 @@ transcribe_step executes a step each time there is microphone input, and by sett
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>env_id</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: ENVIRONMENT_AUTO</em><em>(</em><em>-1</em><em>)</em>) – environment id of ailia execution.
-To retrieve env_id value, use
-ailia.get_environment_count() / ailia.get_environment() pair
-or ailia.get_gpu_environment_id() .</p></li>
-<li><p><strong>num_thread</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: MULTITHREAD_AUTO</em><em>(</em><em>0</em><em>)</em>) – number of threads.
-valid values: MULTITHREAD_AUTO=0 [means systems’s logical
-processor count], 1 to 32.</p></li>
+<li><p><strong>env_id</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: ENVIRONMENT_AUTO</em><em>(</em><em>-1</em><em>)</em>) – <p>environment id of ailia execution.
+To retrieve env_id value, use one of the following:</p>
+<ul>
+<li><p>ailia.get_environment_count() / ailia.get_environment() pair</p></li>
+<li><p>ailia.get_gpu_environment_id()</p></li>
+</ul>
+</p></li>
+<li><p><strong>num_thread</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: MULTITHREAD_AUTO</em><em>(</em><em>0</em><em>)</em>) – <p>number of threads. Valid values:</p>
+<ul>
+<li><p>MULTITHREAD_AUTO=0 (system’s logical processor count)</p></li>
+<li><p>1 to 32</p></li>
+</ul>
+</p></li>
 <li><p><strong>memory_mode</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: 11</em><em> (</em><em>reuse interstage</em><em>)</em>) – memory management mode of ailia execution.
 To retrieve memory_mode value, use ailia.get_memory_mode() .</p></li>
 <li><p><strong>task</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: AILIA_SPEECH_TASK_TRANSCRIBE</em>) – AILIA_SPEECH_TASK_TRANSCRIBE or AILIA_SPEECH_TASK_TRANSLATE</p></li>
@@ -245,13 +251,19 @@ By specifying AILIA_SPEECH_DIARIZATION_TYPE_PYANNOTE_AUDIO, speaker diarization 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>env_id</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: ENVIRONMENT_AUTO</em><em>(</em><em>-1</em><em>)</em>) – environment id of ailia execution.
-To retrieve env_id value, use
-ailia.get_environment_count() / ailia.get_environment() pair
-or ailia.get_gpu_environment_id() .</p></li>
-<li><p><strong>num_thread</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: MULTITHREAD_AUTO</em><em>(</em><em>0</em><em>)</em>) – number of threads.
-valid values: MULTITHREAD_AUTO=0 [means systems’s logical
-processor count], 1 to 32.</p></li>
+<li><p><strong>env_id</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: ENVIRONMENT_AUTO</em><em>(</em><em>-1</em><em>)</em>) – <p>environment id of ailia execution.
+To retrieve env_id value, use one of the following:</p>
+<ul>
+<li><p>ailia.get_environment_count() / ailia.get_environment() pair</p></li>
+<li><p>ailia.get_gpu_environment_id()</p></li>
+</ul>
+</p></li>
+<li><p><strong>num_thread</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: MULTITHREAD_AUTO</em><em>(</em><em>0</em><em>)</em>) – <p>number of threads. Valid values:</p>
+<ul>
+<li><p>MULTITHREAD_AUTO=0 (system’s logical processor count)</p></li>
+<li><p>1 to 32</p></li>
+</ul>
+</p></li>
 <li><p><strong>memory_mode</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: 11</em><em> (</em><em>reuse interstage</em><em>)</em>) – memory management mode of ailia execution.
 To retrieve memory_mode value, use ailia.get_memory_mode() .</p></li>
 <li><p><strong>task</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: AILIA_SPEECH_TASK_TRANSCRIBE</em>) – AILIA_SPEECH_TASK_TRANSCRIBE or AILIA_SPEECH_TASK_TRANSLATE</p></li>

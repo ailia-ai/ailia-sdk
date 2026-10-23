@@ -85,8 +85,8 @@
 <p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
 <p>Opens a GGUF or self-contained ailia QNN model. Without an explicit backend
 selection, .qnn selects HTP and GGUF selects CPU/GPU automatically. An
-explicit selection must match the model format. For .qnn, n_ctx=0 selects
-its compiled static context and no external GGUF/context is needed.</p>
+explicit selection must match the model format. For .qnn, n_ctx=0 uses
+the context length stored in the model.</p>
 </section>
 
 

@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_speech</a></li>
-    <li><a href="../../ailia_speech/">ailia_speech.dart</a></li>
+    <li><a href="../../ailia_speech/ailia_speech-library.html">ailia_speech.dart</a></li>
     <li><a href="../../ailia_speech/ailiaSpeechFFI-class.html">ailiaSpeechFFI</a></li>
     <li class="self-crumb">ailiaSpeechCreate method</li>
   </ol>
@@ -33,36 +37,41 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_speech&#47;ailiaSpeechFFI-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_speech&#47;ailiaSpeechFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">ailiaSpeechCreate</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">ailiaSpeechCreate</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="ailiaSpeechCreate-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_speech/AILIASpeech-class.html">AILIASpeech</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
+<span class="name ">ailiaSpeechCreate</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaSpeechCreate-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_speech/AILIASpeech-class.html">AILIASpeech</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
 <li><span class="parameter" id="ailiaSpeechCreate-param-env_id"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">env_id</span>, </span></li>
 <li><span class="parameter" id="ailiaSpeechCreate-param-num_thread"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">num_thread</span>, </span></li>
 <li><span class="parameter" id="ailiaSpeechCreate-param-memory_mode"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">memory_mode</span>, </span></li>
 <li><span class="parameter" id="ailiaSpeechCreate-param-task"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">task</span>, </span></li>
 <li><span class="parameter" id="ailiaSpeechCreate-param-flags"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">flags</span>, </span></li>
 <li><span class="parameter" id="ailiaSpeechCreate-param-callback"><span class="type-annotation"><a href="../../ailia_speech/AILIASpeechApiCallback.html">AILIASpeechApiCallback</a></span> <span class="parameter-name">callback</span>, </span></li>
-<li><span class="parameter" id="ailiaSpeechCreate-param-version"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">version</span>, </span></li>
+<li><span class="parameter" id="ailiaSpeechCreate-param-version"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">version</span></span></li>
 </ol>)
 
       
@@ -70,34 +79,21 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ネットワークオブジェクトを作成します。
-@param net ネットワークオブジェクトポインタへのポインタ
-@param env_id 計算に利用する推論実行環境のID( ailiaGetEnvironment() で取得)  \ref AILIA_ENVIRONMENT_ID_AUTO にした場合は自動で選択する
-@param num_thread スレッド数の上限(  \ref AILIA_MULTITHREAD_AUTO  にした場合は自動で設定)
-@param memory_mode メモリモード(AILIA_MEMORY_MODE_<em>)
-@param task AILIA_SPEECH_TASK_</em>
-@param flag AILIA_SPEECH_FLAG_*の論理和
-@param api_callback ailiaのAPIへのコールバック
-@param version AILIA_SPEECH_API_CALLBACK_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ネットワークオブジェクトを作成します。</p>
-<p>~english
-@brief Creates a network instance.
-@param net A pointer to the network instance pointer
-@param env_id The ID of the inference backend used for computation (obtained by  ailiaGetEnvironment() ). It is selected automatically if  \ref AILIA_ENVIRONMENT_ID_AUTO  is specified.
-@param num_thread The upper limit on the number of threads (It is set automatically if  \ref AILIA_MULTITHREAD_AUTO
-@param memory_mode The memory mode (AILIA_MEMORY_MODE_<em>)
-@param task AILIA_SPEECH_TASK_</em>
-@param flag OR of AILIA_SPEECH_FLAG_*
-@param api_callback The callback for ailia API
-@param version AILIA_SPEECH_API_CALLBACK_VERSION
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-Creates a network instance.</p>
+  <p>Creates a network instance.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A pointer to the network instance pointer</li>
+<li><code>env_id</code>: The ID of the inference backend used for computation (obtained by  ailiaGetEnvironment() ). It is selected automatically if  <a href="../../ailia_speech/AILIA_ENVIRONMENT_ID_AUTO-constant.html">AILIA_ENVIRONMENT_ID_AUTO</a>  is specified.</li>
+<li><code>num_thread</code>: The upper limit on the number of threads (It is set automatically if  <a href="../../ailia_speech/AILIA_MULTITHREAD_AUTO-constant.html">AILIA_MULTITHREAD_AUTO</a></li>
+<li><code>memory_mode</code>: The memory mode (AILIA_MEMORY_MODE_*)</li>
+<li><code>task</code>: AILIA_SPEECH_TASK_*</li>
+<li><code>flag</code>: OR of AILIA_SPEECH_FLAG_*</li>
+<li><code>api_callback</code>: The callback for ailia API</li>
+<li><code>version</code>: AILIA_SPEECH_API_CALLBACK_VERSION</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_speech/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Creates a network instance.</p>
 </section>
 
 
@@ -129,6 +125,7 @@ Creates a network instance.</p>
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -136,31 +133,41 @@ Creates a network instance.</p>
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_speech</a></li>
-    <li><a href="../../ailia_speech/">ailia_speech</a></li>
+    <li><a href="../../ailia_speech/ailia_speech-library.html">ailia_speech</a></li>
     <li><a href="../../ailia_speech/ailiaSpeechFFI-class.html">ailiaSpeechFFI</a></li>
     <li class="self-crumb">ailiaSpeechCreate method</li>
 </ol>
 
+
     <h5>ailiaSpeechFFI class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_speech
-      1.5.2
+      1.6.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 
