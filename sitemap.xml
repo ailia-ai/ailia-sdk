@@ -226,6 +226,22 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/speech/qnn.html"/>
   </url>
   <url>
+    <loc>https://docs.ailia.ai/speech/live.html</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/speech/live.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/speech/live.html"/>
+  </url>
+  <url>
+    <loc>https://docs.ailia.ai/en/speech/live.html</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/speech/live.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/speech/live.html"/>
+  </url>
+  <url>
     <loc>https://docs.ailia.ai/speech/qnn-bench.html</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
