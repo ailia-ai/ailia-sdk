@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_speech</a></li>
-    <li><a href="../../ailia_speech/">ailia_speech.dart</a></li>
+    <li><a href="../../ailia_speech/ailia_speech-library.html">ailia_speech.dart</a></li>
     <li><a href="../../ailia_speech/ailiaSpeechFFI-class.html">ailiaSpeechFFI</a></li>
     <li class="self-crumb">ailiaSpeechSetText method</li>
   </ol>
@@ -33,32 +37,37 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_speech&#47;ailiaSpeechFFI-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_speech&#47;ailiaSpeechFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">ailiaSpeechSetText</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">ailiaSpeechSetText</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="ailiaSpeechSetText-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_speech/AILIASpeech-class.html">AILIASpeech</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
+<span class="name ">ailiaSpeechSetText</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaSpeechSetText-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_speech/AILIASpeech-class.html">AILIASpeech</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
 <li><span class="parameter" id="ailiaSpeechSetText-param-text"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_speech/AILIASpeechText.html">AILIASpeechText</a></span>&gt;</span></span> <span class="parameter-name">text</span>, </span></li>
 <li><span class="parameter" id="ailiaSpeechSetText-param-version"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">version</span>, </span></li>
-<li><span class="parameter" id="ailiaSpeechSetText-param-idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">idx</span>, </span></li>
+<li><span class="parameter" id="ailiaSpeechSetText-param-idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">idx</span></span></li>
 </ol>)
 
       
@@ -66,28 +75,17 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ポストプロセス対象のテキストを設定します。
-@param net ネットワークオブジェクトポインタ
-@param text テキスト
-@param version AILIA_SPEECH_TEXT_VERSION
-@param idx テキストのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-音声認識を使用せず、ポストプロセスのみを使用する場合に使用します。
-文字列は内部バッファにコピーされるため、呼び出し後に解放することができます。
-idxがailiaSpeechGetTextCountよりも大きい場合、自動的に内部バッファが拡張されます。</p>
-<p>~english
-@brief Set postprocess text
-@param net A network instance pointer
-@param text Text
-@param version AILIA_SPEECH_TEXT_VERSION
-@param idx Text index
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-Used when using only post-processing without using speech recognition.
+  <p>Set postprocess text</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>text</code>: Text</li>
+<li><code>version</code>: AILIA_SPEECH_TEXT_VERSION</li>
+<li><code>idx</code>: Text index</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_speech/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Used when using only post-processing without using speech recognition.
 Since the string is copied to the internal buffer, it can be released after the call.
 If idx is larger than ailiaSpeechGetTextCount, the internal buffer will be automatically expanded.</p>
 </section>
@@ -113,6 +111,7 @@ If idx is larger than ailiaSpeechGetTextCount, the internal buffer will be autom
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -120,31 +119,41 @@ If idx is larger than ailiaSpeechGetTextCount, the internal buffer will be autom
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_speech</a></li>
-    <li><a href="../../ailia_speech/">ailia_speech</a></li>
+    <li><a href="../../ailia_speech/ailia_speech-library.html">ailia_speech</a></li>
     <li><a href="../../ailia_speech/ailiaSpeechFFI-class.html">ailiaSpeechFFI</a></li>
     <li class="self-crumb">ailiaSpeechSetText method</li>
 </ol>
 
+
     <h5>ailiaSpeechFFI class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_speech
-      1.5.2
+      1.6.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 

@@ -11,37 +11,45 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
   <link rel="icon" href="../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">ailia_speech</a></li>
-    <li><a href="../ailia_speech/">ailia_speech.dart</a></li>
+    <li><a href="../ailia_speech/ailia_speech-library.html">ailia_speech.dart</a></li>
     <li class="self-crumb">AILIA_USER_API_FSEEK typedef</li>
   </ol>
   <div class="self-name">AILIA_USER_API_FSEEK</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
+
   <div
       id="dartdoc-main-content"
       class="main-content"
@@ -51,6 +59,7 @@
 <h1><span class="kind-typedef">AILIA_USER_API_FSEEK</span> typedef 
  
 </h1></div>
+
     <section class="multi-line-signature">
         
   
@@ -61,20 +70,15 @@
 
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ファイルをシークします
-@param void *                     ユーザ定義ファイルポインタ
-@param  \ref AILIA_FSIZE_RETURN_TYPE     ファイル先頭からのオフセットバイト
-@return
-成功した場合、 \ref AILIA_USER_API_SUCCESS を返す。
-失敗した場合、 \ref AILIA_USER_API_FAILED を返す。</p>
-<p>~english
-@brief It seeks the file specified.
-@param void *                     A user-defined file pointer
-@param  \ref AILIA_FSIZE_RETURN_TYPE     Offset in bytes from the beginning of the file
-@return
-This function returns  \ref AILIA_USER_API_SUCCESS  if successful.
-It returns  \ref AILIA_USER_API_FAILED  if it fails.</p>
+  <p>It seeks the file specified.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>void</code>: *                     A user-defined file pointer</li>
+<li><code>Offset</code>: in bytes from the beginning of the file</li>
+</ul>
+<p>Returns:</p>
+<p>This function returns  <a href="../ailia_speech/AILIA_USER_API_SUCCESS-constant.html">AILIA_USER_API_SUCCESS</a>  if successful.
+It returns  <a href="../ailia_speech/AILIA_USER_API_FAILED-constant.html">AILIA_USER_API_FAILED</a>  if it fails.</p>
 </section>
 
     
@@ -84,7 +88,9 @@ It returns  \ref AILIA_USER_API_FAILED  if it fails.</p>
     = ffi.Pointer&lt;ffi.NativeFunction&lt;AILIA_USER_API_FSEEKFunction&gt;&gt;;</code></pre>
 </section>
 
+
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -92,30 +98,40 @@ It returns  \ref AILIA_USER_API_FAILED  if it fails.</p>
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">ailia_speech</a></li>
-    <li><a href="../ailia_speech/">ailia_speech</a></li>
+    <li><a href="../ailia_speech/ailia_speech-library.html">ailia_speech</a></li>
     <li class="self-crumb">AILIA_USER_API_FSEEK typedef</li>
 </ol>
+
 
     <h5>ailia_speech library</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-left-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
   </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_speech
-      1.5.2
+      1.6.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
 <script src="../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 

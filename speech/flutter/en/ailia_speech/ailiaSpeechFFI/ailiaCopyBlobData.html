@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_speech</a></li>
-    <li><a href="../../ailia_speech/">ailia_speech.dart</a></li>
+    <li><a href="../../ailia_speech/ailia_speech-library.html">ailia_speech.dart</a></li>
     <li><a href="../../ailia_speech/ailiaSpeechFFI-class.html">ailiaSpeechFFI</a></li>
     <li class="self-crumb">ailiaCopyBlobData method</li>
   </ol>
@@ -33,32 +37,37 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_speech&#47;ailiaSpeechFFI-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_speech&#47;ailiaSpeechFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">ailiaCopyBlobData</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">ailiaCopyBlobData</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="ailiaCopyBlobData-param-dst_net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_speech/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">dst_net</span>, </span></li>
+<span class="name ">ailiaCopyBlobData</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaCopyBlobData-param-dst_net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_speech/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">dst_net</span>, </span></li>
 <li><span class="parameter" id="ailiaCopyBlobData-param-dst_blob_idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">dst_blob_idx</span>, </span></li>
 <li><span class="parameter" id="ailiaCopyBlobData-param-src_net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_speech/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">src_net</span>, </span></li>
-<li><span class="parameter" id="ailiaCopyBlobData-param-src_blob_idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">src_blob_idx</span>, </span></li>
+<li><span class="parameter" id="ailiaCopyBlobData-param-src_blob_idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">src_blob_idx</span></span></li>
 </ol>)
 
       
@@ -66,31 +75,19 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 指定したBlob間でデータをコピーします</p>
-<p>@param dst_net コピー先のblobが含まれるネットワークオブジェクトポインター
-@param dst_blob_idx コピー先のblobのインデックス
-@param src_net コピー元のblobが含まれるネットワークオブジェクトポインター
-@param src_blob_idx コピー元のblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-指定したネットワークのBlobをコピーします。コピー元とコピー先のネットワークは別のものを指定することができます。
-コピー先のBlobは入力Blobのインデックスを、コピー元のBlobは任意のBlobのインデックスを指定してください。
-コピー先にその他のBlobを指定した場合 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Perform copies  between blobs that specified.</p>
-<p>@param dst_net The network object pointer that contains destination blob
-@param dst_blob_idx The index of destination blob
-@param src_net The network object pointer that contains source blob
-@param src_blob_idx The index of source blob
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and otherwise the coresponding error code.
-@details
-Perform copy blobs between specified network. It accepts copy over different network.
+  <p>Perform copies  between blobs that specified.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst_net</code>: The network object pointer that contains destination blob</li>
+<li><code>dst_blob_idx</code>: The index of destination blob</li>
+<li><code>src_net</code>: The network object pointer that contains source blob</li>
+<li><code>src_blob_idx</code>: The index of source blob</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_speech/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and otherwise the coresponding error code.</p>
+<p>Perform copy blobs between specified network. It accepts copy over different network.
 The src_blob_index must be specify blob index that inputs of src_net, and the dst_blob_index mut be specify blob index that outputs of dst_net.
-If specify index of other blob for dst_blob_idx , this function returns \ref AILIA_STATUS_INVALID_ARGUMENT .
+If specify index of other blob for dst_blob_idx , this function returns <a href="../../ailia_speech/AILIA_STATUS_INVALID_ARGUMENT-constant.html">AILIA_STATUS_INVALID_ARGUMENT</a> .
 This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
 
@@ -115,6 +112,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -122,31 +120,41 @@ This API can be call after call ailiaOpenWeighXXX().</p>
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_speech</a></li>
-    <li><a href="../../ailia_speech/">ailia_speech</a></li>
+    <li><a href="../../ailia_speech/ailia_speech-library.html">ailia_speech</a></li>
     <li><a href="../../ailia_speech/ailiaSpeechFFI-class.html">ailiaSpeechFFI</a></li>
     <li class="self-crumb">ailiaCopyBlobData method</li>
 </ol>
 
+
     <h5>ailiaSpeechFFI class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_speech
-      1.5.2
+      1.6.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 
