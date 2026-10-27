@@ -180,6 +180,66 @@ while (recording) {
     }
 }</code></pre>
 
+    <h3>Flutter</h3>
+    <pre><code class="language-dart">final speech = AiliaSpeechModel();
+speech.create(true, false, envId); // liveTranscribe = true
+speech.open(File(encoderPath), File(decoderPath), File(vadPath), "auto",
+    AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+speech.setIntermediateCallback((String text) {
+  print(text); // tentative result
+});
+
+while (recording) {
+  // 1. Push all PCM received so far
+  while (micQueue.isNotEmpty) {
+    final chunk = micQueue.removeFirst();
+    speech.pushInputData(chunk.pcm, sampleRate, chunk.channels);
+  }
+
+  // 2. Then run the Buffered check and Transcribe
+  while (speech.isBuffered()) {
+    for (final text in speech.transcribe()) {
+      print(text.text);
+    }
+  }
+}</code></pre>
+
+    <h3>Unity</h3>
+    <p><code>AiliaSpeechModel.Transcribe()</code> adds the given PCM to a queue, and a worker thread pushes the PCM, runs the Buffered check and runs Transcribe. So instead of calling <code>Transcribe()</code> for every chunk received from the microphone, concatenate the PCM received in each frame and pass it to a single <code>Transcribe()</code> call. The tentative result can be obtained with <code>GetIntermediateText()</code>.</p>
+    <pre><code class="language-csharp">AiliaSpeechModel ailia_speech = new AiliaSpeechModel();
+List&lt;float[]&gt; waveQueue = new List&lt;float[]&gt;();
+
+void OnEnable(){
+    ailia_speech.Open(encoder_path, decoder_path, env_id, memory_mode,
+        AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL,
+        AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE, AiliaSpeech.AILIA_SPEECH_FLAG_LIVE, "auto");
+    ailia_speech.OpenVad(vad_path, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO);
+}
+
+void Update(){
+    // Tentative result (e.g. show it in the UI)
+    ui_text.text = ailia_speech.GetIntermediateText();
+
+    // Confirmed results
+    foreach (string text in ailia_speech.GetResults()){
+        Debug.Log(text);
+    }
+
+    // 1. Concatenate all PCM received from the microphone so far
+    if (waveQueue.Count == 0){
+        return;
+    }
+    float[] waveData = waveQueue.SelectMany(x =&gt; x).ToArray();
+    waveQueue.Clear();
+
+    // 2. Pass it to Transcribe once
+    ailia_speech.Transcribe(waveData, frequency, channels, false);
+}
+
+void OnDisable(){
+    ailia_speech.Close();
+}</code></pre>
+
   </div>
 
   <footer>
@@ -191,6 +251,8 @@ while (recording) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {
