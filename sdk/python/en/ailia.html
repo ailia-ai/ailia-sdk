@@ -683,11 +683,15 @@ valid values (int) : range(0, a.get_blob_count())</p></li>
 <dd><p>change profile mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>mode</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=PROFILE_AVERAGE</em><em>(</em><em>1</em><em>)</em>) – <dl class="simple">
-<dt>valid values:</dt><dd><p>PROFILE_DISABLE(0)
-PROFILE_AVERAGE(1)</p>
+<dd class="field-odd"><p><strong>mode</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=PROFILE_AVERAGE</em><em>(</em><em>1</em><em>)</em>) – <dl>
+<dt>valid values:</dt><dd><p>PROFILE_DISABLE(0) : disable profile mode
+PROFILE_AVERAGE(1) : measure the processing time for each layer.</p>
+<blockquote>
+<div><p>If you infer multiple times, the average value excluding the first execution is saved.</p>
+</div></blockquote>
 </dd>
 </dl>
+<p>The profile result is added to the output of get_summary().</p>
 </p>
 </dd>
 </dl>

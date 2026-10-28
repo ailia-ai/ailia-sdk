@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia
-   &#160;<span id="projectnumber">1.6.1.0</span>
+   &#160;<span id="projectnumber">1.7.0.0</span>
    </div>
   </td>
  </tr>
@@ -295,6 +295,8 @@ $(function() {
 <tr class="separator:a357c93feed32b66e807ec785533796eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ccfee13981636320c544119a08b9228"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailia_1_1Ailia.html#a0ccfee13981636320c544119a08b9228">AILIA_STATUS_NDIMENSION_SHAPE</a> =( -23)</td></tr>
 <tr class="separator:a0ccfee13981636320c544119a08b9228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ed29178ff12ed1437aa038055ed0d36"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailia_1_1Ailia.html#a0ed29178ff12ed1437aa038055ed0d36">AILIA_STATUS_ALREADY_LOADED</a> =( -24)</td></tr>
+<tr class="separator:a0ed29178ff12ed1437aa038055ed0d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68052f9df0b2ef47342b4b8a94941cb5"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailia_1_1Ailia.html#a68052f9df0b2ef47342b4b8a94941cb5">AILIA_STATUS_OTHER_ERROR</a> =(-128)</td></tr>
 <tr class="separator:a68052f9df0b2ef47342b4b8a94941cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3565813476cebd75abd61d570785ff87"><td class="memItemLeft" align="right" valign="top">const String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailia_1_1Ailia.html#a3565813476cebd75abd61d570785ff87">LIBRARY_NAME</a> =&quot;ailia&quot;</td></tr>
@@ -844,7 +846,7 @@ $(function() {
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">net</td><td>ネットワークオブジェクトポインタ </td></tr>
-    <tr><td class="paramname">dest</td><td>推論結果書き出し先バッファ X,Y,Z,Wの順でnumeric型で格納 </td></tr>
+    <tr><td class="paramname">dest</td><td>推論結果書き出し先バッファ X,Y,Z,Wの順でfloat型で格納 </td></tr>
     <tr><td class="paramname">dest_size</td><td>推論結果書き出し先バッファのbyte数 </td></tr>
     <tr><td class="paramname">blob_idx</td><td>blobのインデックス (0～ <a class="el" href="classailia_1_1Ailia.html#ad8037b4753a7da165bdd69cb1f50d591" title="推論時の内部データ(Blob)の数を取得します。">ailiaGetBlobCount()</a> -1) </td></tr>
   </table>
@@ -2043,9 +2045,9 @@ $(function() {
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">net</td><td>ネットワークオブジェクトポインタ </td></tr>
-    <tr><td class="paramname">dest</td><td>推論結果書き出し先バッファ X,Y,Z,Wの順でnumeric型で格納 サイズはネットファイルのoutputSizeとなる </td></tr>
+    <tr><td class="paramname">dest</td><td>推論結果書き出し先バッファ X,Y,Z,Wの順でfloat型で格納 サイズはネットファイルのoutputSizeとなる </td></tr>
     <tr><td class="paramname">dest_size</td><td>推論結果書き出し先バッファのbyte数 </td></tr>
-    <tr><td class="paramname">src</td><td>推論データ X,Y,Z,Wの順でnumeric型で格納 サイズはネットファイルのinputSizeとなる </td></tr>
+    <tr><td class="paramname">src</td><td>推論データ X,Y,Z,Wの順でfloat型で格納 サイズはネットファイルのinputSizeとなる </td></tr>
     <tr><td class="paramname">src_size</td><td>推論データのbyte数 </td></tr>
   </table>
   </dd>
@@ -2096,7 +2098,7 @@ $(function() {
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">net</td><td>ネットワークオブジェクトポインタ </td></tr>
-    <tr><td class="paramname">src</td><td>推論データ X,Y,Z,Wの順でnumeric型で格納 サイズはネットファイルのinputSizeとなる </td></tr>
+    <tr><td class="paramname">src</td><td>推論データ X,Y,Z,Wの順でfloat型で格納 サイズはネットファイルのinputSizeとなる </td></tr>
     <tr><td class="paramname">src_size</td><td>推論データサイズ </td></tr>
     <tr><td class="paramname">blob_idx</td><td>入力するblobのインデックス </td></tr>
   </table>
@@ -2975,7 +2977,7 @@ $(function() {
   </tr>
 </table>
 </div><div class="memdoc">
-<p>レイヤー別の処理時間を計測します。複数回推論した場合は初回実行を除く平均値が保存されます。 </p>
+<p>レイヤー別の処理時間を計測します。複数回推論した場合は初回を除いた平均値が保存されます。 </p>
 
 </div>
 </div>
@@ -3021,6 +3023,29 @@ $(function() {
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ed29178ff12ed1437aa038055ed0d36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ed29178ff12ed1437aa038055ed0d36">&#9670;&nbsp;</a></span>AILIA_STATUS_ALREADY_LOADED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Int32 ailia.Ailia.AILIA_STATUS_ALREADY_LOADED =( -24)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>すでにモデルが読み込み済みであることを示す </p>
 
 </div>
 </div>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia
-   &#160;<span id="projectnumber">1.6.1.0</span>
+   &#160;<span id="projectnumber">1.7.0.0</span>
    </div>
   </td>
  </tr>
@@ -293,6 +293,8 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a357c93feed32b66e807ec785533796eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ccfee13981636320c544119a08b9228"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailia_1_1Ailia.html#a0ccfee13981636320c544119a08b9228">AILIA_STATUS_NDIMENSION_SHAPE</a> =( -23)</td></tr>
 <tr class="separator:a0ccfee13981636320c544119a08b9228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ed29178ff12ed1437aa038055ed0d36"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailia_1_1Ailia.html#a0ed29178ff12ed1437aa038055ed0d36">AILIA_STATUS_ALREADY_LOADED</a> =( -24)</td></tr>
+<tr class="separator:a0ed29178ff12ed1437aa038055ed0d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68052f9df0b2ef47342b4b8a94941cb5"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailia_1_1Ailia.html#a68052f9df0b2ef47342b4b8a94941cb5">AILIA_STATUS_OTHER_ERROR</a> =(-128)</td></tr>
 <tr class="separator:a68052f9df0b2ef47342b4b8a94941cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3565813476cebd75abd61d570785ff87"><td class="memItemLeft" align="right" valign="top">const String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailia_1_1Ailia.html#a3565813476cebd75abd61d570785ff87">LIBRARY_NAME</a> =&quot;ailia&quot;</td></tr>
@@ -820,7 +822,7 @@ Static Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">net</td><td>Network object pointer </td></tr>
-    <tr><td class="paramname">dest</td><td>Buffer to which inference result is written out Stored in numeric type in the order of X,Y,Z,W </td></tr>
+    <tr><td class="paramname">dest</td><td>Buffer to which inference result is written out Stored in float type in the order of X,Y,Z,W </td></tr>
     <tr><td class="paramname">dest_size</td><td>Number of bytes in the buffer to which inference results are written </td></tr>
     <tr><td class="paramname">blob_idx</td><td>Index of blob (0 to <a class="el" href="classailia_1_1Ailia.html#ad8037b4753a7da165bdd69cb1f50d591" title="Get the number of internal data (Blob) at inference.">ailiaGetBlobCount()</a> -1) </td></tr>
   </table>
@@ -1999,9 +2001,9 @@ Static Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">net</td><td>Network object pointer </td></tr>
-    <tr><td class="paramname">dest</td><td>Buffer to which inference result is written, stored in numeric type in the order of X,Y,Z,W Size is outputSize of net file </td></tr>
+    <tr><td class="paramname">dest</td><td>Buffer to which inference result is written, stored in float type in the order of X,Y,Z,W Size is outputSize of net file </td></tr>
     <tr><td class="paramname">dest_size</td><td>Number of bytes in the buffer to which inference results are written </td></tr>
-    <tr><td class="paramname">src</td><td>Inference data X,Y,Z,W stored in order by numeric type Size is inputSize of net file </td></tr>
+    <tr><td class="paramname">src</td><td>Inference data X,Y,Z,W stored in order by float type Size is inputSize of net file </td></tr>
     <tr><td class="paramname">src_size</td><td>Number of bytes of inference data </td></tr>
   </table>
   </dd>
@@ -2052,7 +2054,7 @@ Static Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">net</td><td>Network object pointer </td></tr>
-    <tr><td class="paramname">src</td><td>Inference data X,Y,Z,W stored in order by numeric type Size is inputSize of net file </td></tr>
+    <tr><td class="paramname">src</td><td>Inference data X,Y,Z,W stored in order by float type Size is inputSize of net file </td></tr>
     <tr><td class="paramname">src_size</td><td>Inference data size </td></tr>
     <tr><td class="paramname">blob_idx</td><td>Index of input blob </td></tr>
   </table>
@@ -2933,6 +2935,7 @@ Return <a class="el" href="classailia_1_1Ailia.html#af6677051221a1b631ad80388a07
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Measure the processing time for each layer. If you infer multiple times, the average value excluding the first execution is saved. </p>
 
 </div>
 </div>
@@ -2955,6 +2958,7 @@ Return <a class="el" href="classailia_1_1Ailia.html#af6677051221a1b631ad80388a07
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Disable profile mode (Default) </p>
 
 </div>
 </div>
@@ -2977,6 +2981,29 @@ Return <a class="el" href="classailia_1_1Ailia.html#af6677051221a1b631ad80388a07
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ed29178ff12ed1437aa038055ed0d36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ed29178ff12ed1437aa038055ed0d36">&#9670;&nbsp;</a></span>AILIA_STATUS_ALREADY_LOADED</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Int32 ailia.Ailia.AILIA_STATUS_ALREADY_LOADED =( -24)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Model file was already loaded </p>
 
 </div>
 </div>
