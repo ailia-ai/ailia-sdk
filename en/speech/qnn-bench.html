@@ -35,6 +35,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .table-wrap { overflow-x: auto; }
     .bench-figure { margin: 24px 0; }
     .bench-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--white); }
+    /* Single-panel chart (1260px) drawn at the same scale as the two-panel charts (2196px) */
+    .bench-figure.single img { width: 57.4%; margin: 0 auto; }
     .bench-figure figcaption { margin-top: 8px; font-size: 0.9em; color: #666; text-align: center; }
   </style>
 </head>
@@ -118,6 +120,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="../../speech/benchmark/transcription_speed_sm7635.png" alt="Whisper Medium / Large V3 Turbo transcription speed on SM7635 (CPU / NPU)" loading="lazy">
       <figcaption>Transcription speed on SM7635 (realtime factor)</figcaption>
     </figure>
+    <figure class="bench-figure single">
+      <img src="../../speech/benchmark/transcription_speed_sm7635_large_v3.png" alt="Whisper Large V3 transcription speed on SM7635 (NPU; CPU not measured)" loading="lazy">
+      <figcaption>Large V3 transcription speed on SM7635 (realtime factor)</figcaption>
+    </figure>
 
     <h3>CPU usage</h3>
     <div class="table-wrap">
@@ -142,6 +148,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <figure class="bench-figure">
       <img src="../../speech/benchmark/cpu_utilization_sm7635.png" alt="Whisper Medium / Large V3 Turbo CPU usage during transcription on SM7635 (CPU / NPU)" loading="lazy">
       <figcaption>Host process CPU usage during transcription on SM7635 (relative to all 8 cores)</figcaption>
+    </figure>
+    <figure class="bench-figure single">
+      <img src="../../speech/benchmark/cpu_utilization_sm7635_large_v3.png" alt="Whisper Large V3 CPU usage during transcription on SM7635 (NPU; CPU not measured)" loading="lazy">
+      <figcaption>Large V3 host process CPU usage during transcription on SM7635 (relative to all 8 cores)</figcaption>
     </figure>
 
     <h2 id="windows">Windows</h2>

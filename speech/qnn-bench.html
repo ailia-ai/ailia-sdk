@@ -35,6 +35,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .table-wrap { overflow-x: auto; }
     .bench-figure { margin: 24px 0; }
     .bench-figure img { display: block; max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--white); }
+    /* Single-panel chart (1260px) drawn at the same scale as the two-panel charts (2196px) */
+    .bench-figure.single img { width: 57.4%; margin: 0 auto; }
     .bench-figure figcaption { margin-top: 8px; font-size: 0.9em; color: #666; text-align: center; }
   </style>
 </head>
@@ -118,6 +120,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="benchmark/transcription_speed_sm7635.png" alt="SM7635 の Whisper Medium / Large V3 Turbo の文字起こし速度（CPU / NPU）" loading="lazy">
       <figcaption>SM7635 の文字起こし速度（実時間比）</figcaption>
     </figure>
+    <figure class="bench-figure single">
+      <img src="benchmark/transcription_speed_sm7635_large_v3.png" alt="SM7635 の Whisper Large V3 の文字起こし速度（NPU。CPU は測定不可）" loading="lazy">
+      <figcaption>SM7635 の Large V3 の文字起こし速度（実時間比）</figcaption>
+    </figure>
 
     <h3>CPU 使用率</h3>
     <div class="table-wrap">
@@ -142,6 +148,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <figure class="bench-figure">
       <img src="benchmark/cpu_utilization_sm7635.png" alt="SM7635 の Whisper Medium / Large V3 Turbo の文字起こし中の CPU 使用率（CPU / NPU）" loading="lazy">
       <figcaption>SM7635 の文字起こし中のホストプロセス CPU 使用率（8 コア全体比）</figcaption>
+    </figure>
+    <figure class="bench-figure single">
+      <img src="benchmark/cpu_utilization_sm7635_large_v3.png" alt="SM7635 の Whisper Large V3 の文字起こし中の CPU 使用率（NPU。CPU は測定不可）" loading="lazy">
+      <figcaption>SM7635 の Large V3 の文字起こし中のホストプロセス CPU 使用率（8 コア全体比）</figcaption>
     </figure>
 
     <h2 id="windows">Windows</h2>
