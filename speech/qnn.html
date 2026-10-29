@@ -100,15 +100,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h2>対応モデル</h2>
-    <p>現在は <strong>Whisper Large V3 Turbo</strong> と <strong>Whisper Medium</strong> に対応しています。Android（sm8475 / sm7635）では、加えて <strong>Whisper Large V3</strong> と <strong>Whisper Small</strong> にも対応しています。いずれも Int16 に量子化したモデルです。</p>
+    <p>現在は <strong>Whisper Large V3 Turbo</strong> と <strong>Whisper Medium</strong> に対応しています。Android では、加えて <strong>Whisper Small</strong>（sm8475 / sm7635）と <strong>Whisper Large V3</strong>（sm7635）にも対応しています。いずれも Int16 に量子化したモデルです。</p>
 
     <h3>モデルのダウンロード</h3>
     <p>変換済みの Whisper の QNN Model は下記からダウンロードできます。対象端末の SoC に対応したファイルをご利用ください。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>SoC</th><th>端末の例</th><th>モデル</th><th>ファイル</th><th>サイズ</th></tr>
-      <tr><td rowspan="4">sm8475</td><td rowspan="4">Snapdragon 8+ Gen 1</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm8475-int16.qnn">whisper-large-v3-turbo-sm8475-int16.qnn</a></td><td class="num">1.00 GB</td></tr>
-      <tr><td>Large V3</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-sm8475-int16.qnn">whisper-large-v3-sm8475-int16.qnn</a></td><td class="num">1.85 GB</td></tr>
+      <tr><td rowspan="3">sm8475</td><td rowspan="3">Snapdragon 8+ Gen 1</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm8475-int16.qnn">whisper-large-v3-turbo-sm8475-int16.qnn</a></td><td class="num">1.00 GB</td></tr>
       <tr><td>Medium</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-sm8475-int16.qnn">whisper-medium-sm8475-int16.qnn</a></td><td class="num">0.96 GB</td></tr>
       <tr><td>Small</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-small-sm8475-int16.qnn">whisper-small-sm8475-int16.qnn</a></td><td class="num">0.35 GB</td></tr>
       <tr><td rowspan="4">sm7635</td><td rowspan="4">Snapdragon 7s Gen 3</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm7635-int16.qnn">whisper-large-v3-turbo-sm7635-int16.qnn</a></td><td class="num">1.11 GB</td></tr>
@@ -194,7 +193,7 @@ speech.openModel(qnnPath, qnnPath,
     <h2>制約</h2>
     <ul>
       <li>QNN Model は SoC ごとに変換が必要で、他の SoC 向けのファイルは使用できません。</li>
-      <li>現在の対応モデルは Whisper Large V3 Turbo / Medium です。Android（sm8475 / sm7635）では Large V3 / Small にも対応しています。</li>
+      <li>現在の対応モデルは Whisper Large V3 Turbo / Medium です。Android では Small（sm8475 / sm7635）と Large V3（sm7635）にも対応しています。</li>
     </ul>
 
   </div>
