@@ -80,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2 id="android">Android</h2>
 
     <h3>測定条件</h3>
-    <p>Whisper Medium と Large V3 Turbo を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）と Snapdragon 7s Gen 3（SM7635 / Hexagon v73）を使用しています。NPU は各 SoC 向けの INT16 の QNN Model、CPU は同じ端末上で元の ONNX モデルを ailia SDK の CPU 経路で実行した値です。CPU / NPU とも同じランタイムを使用しています。</p>
+    <p>Whisper Medium と Large V3 Turbo を 2 機種で測定した結果です。Snapdragon 8+ Gen 1（SM8475 / Hexagon v69）と Snapdragon 7s Gen 3（SM7635 / Hexagon v73）を使用しています。NPU は各 SoC 向けの INT16 の QNN Model、CPU は同じ端末上で元の ONNX モデルを ailia SDK の CPU 経路で実行した値です。CPU / NPU とも同じランタイムを使用しています。SM7635 では Whisper Large V3 も同じ条件で測定しています。</p>
     <ul>
       <li>音声は約 39.7 秒の日本語音声（48 kHz、ステレオ、PCM16）で、全機種で同じファイルを使用しています。</li>
       <li>言語は自動判定、タスクは transcribe、greedy デコード（beam size 1）、VAD・話者分離なし、CPU スレッド数は AUTO です。</li>
@@ -100,12 +100,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>NPU（QNN）</td><td class="num">17.150 秒</td><td class="num">2.32 倍</td></tr>
       <tr><td rowspan="2">SM7635（Hexagon v73）</td><td rowspan="2">Large V3 Turbo</td><td>CPU（ONNX）</td><td class="num">85.651 秒</td><td class="num">0.46 倍</td><td rowspan="2" class="num">11.09 倍高速</td></tr>
       <tr><td>NPU（QNN）</td><td class="num">7.723 秒</td><td class="num">5.15 倍</td></tr>
+      <tr><td rowspan="2">SM7635（Hexagon v73）</td><td rowspan="2">Large V3</td><td>CPU（ONNX）</td><td class="num">測定不可</td><td class="num">—</td><td rowspan="2" class="num">—</td></tr>
+      <tr><td>NPU（QNN）</td><td class="num">24.081 秒</td><td class="num">1.65 倍</td></tr>
     </table>
     </div>
     <ul>
       <li>実時間比は <code>音声長 / 平均処理時間</code> で、1 倍を超えると音声長より短い時間で文字起こしできます。</li>
+      <li>SM7635 の Large V3 の CPU 実行は、最初のウォームアップが完了せず端末が応答しなくなったため測定できませんでした。CPU 用の ONNX の重みは約 6.4 GB で、端末の RAM（約 7.25 GiB）に対してメモリが不足している可能性があります。</li>
     </ul>
-    <p>NPU は CPU に対して、SM8475 で Medium 約 10.5 倍・Large V3 Turbo 約 27.6 倍、SM7635 で Medium 約 7.3 倍・Large V3 Turbo 約 11.1 倍高速です。Large V3 Turbo の NPU 実行では、39.7 秒の音声を SM8475 で約 3.2 秒、SM7635 で約 7.7 秒で文字起こしできます。</p>
+    <p>NPU は CPU に対して、SM8475 で Medium 約 10.5 倍・Large V3 Turbo 約 27.6 倍、SM7635 で Medium 約 7.3 倍・Large V3 Turbo 約 11.1 倍高速です。Large V3 Turbo の NPU 実行では、39.7 秒の音声を SM8475 で約 3.2 秒、SM7635 で約 7.7 秒で文字起こしできます。SM7635 の Large V3 の NPU 実行では約 24.1 秒（実時間比 1.65 倍）です。</p>
 
     <figure class="bench-figure">
       <img src="benchmark/transcription_speed_sm8475.png" alt="SM8475 の Whisper Medium / Large V3 Turbo の文字起こし速度（CPU / NPU）" loading="lazy">
@@ -124,12 +127,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>SM8475（Hexagon v69）</td><td>Large V3 Turbo</td><td class="num">83.47%</td><td class="num">8.83%</td></tr>
       <tr><td>SM7635（Hexagon v73）</td><td>Medium</td><td class="num">66.26%</td><td class="num">5.30%</td></tr>
       <tr><td>SM7635（Hexagon v73）</td><td>Large V3 Turbo</td><td class="num">81.73%</td><td class="num">5.17%</td></tr>
+      <tr><td>SM7635（Hexagon v73）</td><td>Large V3</td><td class="num">—</td><td class="num">2.04%</td></tr>
     </table>
     </div>
     <ul>
       <li>CPU 使用率は <code>プロセス CPU 時間の合計 / 処理時間の合計 / 8 コア × 100</code> で、8 コアすべてを使い切った状態を 100% とします。</li>
     </ul>
-    <p>NPU 実行時の CPU 使用率は 5〜9% 程度に収まるため、アプリケーション側の処理に CPU を残せます。CPU 実行では 64〜83% を使用します。</p>
+    <p>NPU 実行時の CPU 使用率は 2〜9% 程度に収まるため、アプリケーション側の処理に CPU を残せます。CPU 実行では 64〜83% を使用します。</p>
 
     <figure class="bench-figure">
       <img src="benchmark/cpu_utilization_sm8475.png" alt="SM8475 の Whisper Medium / Large V3 Turbo の文字起こし中の CPU 使用率（CPU / NPU）" loading="lazy">

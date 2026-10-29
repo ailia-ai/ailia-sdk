@@ -100,20 +100,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h2>Supported Models</h2>
-    <p><strong>Whisper Large V3 Turbo</strong> and <strong>Whisper Medium</strong> are currently supported. On Android, <strong>Whisper Small</strong> (sm8475 / sm7635) and <strong>Whisper Large V3</strong> (sm7635) are also supported. All models are quantized to Int16.</p>
+    <p><strong>Whisper Large V3 Turbo</strong> and <strong>Whisper Medium</strong> are currently supported. On Android (sm7635), <strong>Whisper Large V3</strong> is also supported. All models are quantized to Int16.</p>
 
     <h3>Model Download</h3>
     <p>Converted Whisper QNN Models can be downloaded below. Use the file that matches the SoC of your target device.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>SoC</th><th>Example device</th><th>Model</th><th>File</th><th>Size</th></tr>
-      <tr><td rowspan="3">sm8475</td><td rowspan="3">Snapdragon 8+ Gen 1</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm8475-int16.qnn">whisper-large-v3-turbo-sm8475-int16.qnn</a></td><td class="num">1.00 GB</td></tr>
+      <tr><td rowspan="2">sm8475</td><td rowspan="2">Snapdragon 8+ Gen 1</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm8475-int16.qnn">whisper-large-v3-turbo-sm8475-int16.qnn</a></td><td class="num">1.00 GB</td></tr>
       <tr><td>Medium</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-sm8475-int16.qnn">whisper-medium-sm8475-int16.qnn</a></td><td class="num">0.96 GB</td></tr>
-      <tr><td>Small</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-small-sm8475-int16.qnn">whisper-small-sm8475-int16.qnn</a></td><td class="num">0.35 GB</td></tr>
-      <tr><td rowspan="4">sm7635</td><td rowspan="4">Snapdragon 7s Gen 3</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm7635-int16.qnn">whisper-large-v3-turbo-sm7635-int16.qnn</a></td><td class="num">1.11 GB</td></tr>
+      <tr><td rowspan="3">sm7635</td><td rowspan="3">Snapdragon 7s Gen 3</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm7635-int16.qnn">whisper-large-v3-turbo-sm7635-int16.qnn</a></td><td class="num">1.11 GB</td></tr>
       <tr><td>Large V3</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-sm7635-int16.qnn">whisper-large-v3-sm7635-int16.qnn</a></td><td class="num">1.88 GB</td></tr>
       <tr><td>Medium</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-sm7635-int16.qnn">whisper-medium-sm7635-int16.qnn</a></td><td class="num">0.93 GB</td></tr>
-      <tr><td>Small</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-small-sm7635-int16.qnn">whisper-small-sm7635-int16.qnn</a></td><td class="num">0.35 GB</td></tr>
       <tr><td rowspan="2">sc8380xp</td><td rowspan="2">Surface (Snapdragon X Plus)</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sc8380xp-int16.qnn">whisper-large-v3-turbo-sc8380xp-int16.qnn</a></td><td class="num">0.97 GB</td></tr>
       <tr><td>Medium</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-sc8380xp-int16.qnn">whisper-medium-sc8380xp-int16.qnn</a></td><td class="num">0.91 GB</td></tr>
       <tr><td rowspan="2">qcs6490</td><td rowspan="2">QCS6490</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-qcs6490-int16.qnn">whisper-large-v3-turbo-qcs6490-int16.qnn</a></td><td class="num">1.01 GB</td></tr>
@@ -130,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>On Android, a <code>.qnn</code> cannot be opened directly from a path inside assets. Copy it to the app's private storage or download it on first launch, then pass that real file path to the API below.</p>
 
     <h2>Code Sample: Opening the Model</h2>
-    <p>Normally you pass separate encoder and decoder ONNX files at Open. When using a QNN Model, pass <strong>the same <code>.qnn</code> path</strong> as both the encoder and the decoder. For the model type, specify the model the <code>.qnn</code> was built from (Large V3 Turbo, Large V3, Medium, or Small). The transcription APIs that follow are the same as when using ONNX.</p>
+    <p>Normally you pass separate encoder and decoder ONNX files at Open. When using a QNN Model, pass <strong>the same <code>.qnn</code> path</strong> as both the encoder and the decoder. For the model type, specify the model the <code>.qnn</code> was built from (Large V3 Turbo, Large V3, or Medium). The transcription APIs that follow are the same as when using ONNX.</p>
 
     <h3>C</h3>
     <pre><code class="language-c">#include "ailia_speech.h"
@@ -193,7 +191,7 @@ speech.openModel(qnnPath, qnnPath,
     <h2>Limitations</h2>
     <ul>
       <li>A QNN Model must be converted for each SoC; files built for another SoC cannot be used.</li>
-      <li>The currently supported models are Whisper Large V3 Turbo / Medium. On Android, Small (sm8475 / sm7635) and Large V3 (sm7635) are also supported.</li>
+      <li>The currently supported models are Whisper Large V3 Turbo / Medium. On Android (sm7635), Large V3 is also supported.</li>
     </ul>
 
   </div>
