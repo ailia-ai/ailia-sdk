@@ -100,7 +100,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
 
     <h2>対応モデル</h2>
-    <p>現在は <strong>Whisper Large V3 Turbo</strong> と <strong>Whisper Medium</strong> に対応しています。いずれも Int16 に量子化したモデルです。</p>
+    <p>現在は <strong>Whisper Large V3 Turbo</strong> と <strong>Whisper Medium</strong> に対応しています。Android（sm7635）では、加えて <strong>Whisper Large V3</strong> にも対応しています。いずれも Int16 に量子化したモデルです。</p>
 
     <h3>モデルのダウンロード</h3>
     <p>変換済みの Whisper の QNN Model は下記からダウンロードできます。対象端末の SoC に対応したファイルをご利用ください。</p>
@@ -109,7 +109,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><th>SoC</th><th>端末の例</th><th>モデル</th><th>ファイル</th><th>サイズ</th></tr>
       <tr><td rowspan="2">sm8475</td><td rowspan="2">Snapdragon 8+ Gen 1</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm8475-int16.qnn">whisper-large-v3-turbo-sm8475-int16.qnn</a></td><td class="num">1.00 GB</td></tr>
       <tr><td>Medium</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-sm8475-int16.qnn">whisper-medium-sm8475-int16.qnn</a></td><td class="num">0.96 GB</td></tr>
-      <tr><td rowspan="2">sm7635</td><td rowspan="2">Snapdragon 7s Gen 3</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm7635-int16.qnn">whisper-large-v3-turbo-sm7635-int16.qnn</a></td><td class="num">1.11 GB</td></tr>
+      <tr><td rowspan="3">sm7635</td><td rowspan="3">Snapdragon 7s Gen 3</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sm7635-int16.qnn">whisper-large-v3-turbo-sm7635-int16.qnn</a></td><td class="num">1.11 GB</td></tr>
+      <tr><td>Large V3</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-sm7635-int16.qnn">whisper-large-v3-sm7635-int16.qnn</a></td><td class="num">1.88 GB</td></tr>
       <tr><td>Medium</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-sm7635-int16.qnn">whisper-medium-sm7635-int16.qnn</a></td><td class="num">0.93 GB</td></tr>
       <tr><td rowspan="2">sc8380xp</td><td rowspan="2">Surface（Snapdragon X Plus）</td><td>Large V3 Turbo</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-sc8380xp-int16.qnn">whisper-large-v3-turbo-sc8380xp-int16.qnn</a></td><td class="num">0.97 GB</td></tr>
       <tr><td>Medium</td><td><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-sc8380xp-int16.qnn">whisper-medium-sc8380xp-int16.qnn</a></td><td class="num">0.91 GB</td></tr>
@@ -127,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>Android では <code>.qnn</code> は assets 内のパスを直接指定できません。初回起動時にアプリのプライベートストレージへコピーするかダウンロードし、その実ファイルパスを以下の API に渡してください。</p>
 
     <h2>コードサンプル：モデルのオープン</h2>
-    <p>通常は Open 時にエンコーダとデコーダの ONNX をそれぞれ指定しますが、QNN Model を使用する場合は、エンコーダとデコーダの両方に<strong>同じ <code>.qnn</code> のパス</strong>を指定します。モデルタイプには <code>.qnn</code> の元になったモデル（Large V3 Turbo または Medium）を指定します。以降の文字起こしの API は ONNX を使用する場合と同じです。</p>
+    <p>通常は Open 時にエンコーダとデコーダの ONNX をそれぞれ指定しますが、QNN Model を使用する場合は、エンコーダとデコーダの両方に<strong>同じ <code>.qnn</code> のパス</strong>を指定します。モデルタイプには <code>.qnn</code> の元になったモデル（Large V3 Turbo、Large V3、Medium のいずれか）を指定します。以降の文字起こしの API は ONNX を使用する場合と同じです。</p>
 
     <h3>C</h3>
     <pre><code class="language-c">#include "ailia_speech.h"
@@ -184,13 +185,13 @@ speech.openModel(qnnPath, qnnPath,
     <p>NPU での測定結果は <a href="qnn-bench.html">ailia Speech NPU（QNN）ベンチマーク</a> を参照してください。</p>
 
     <h2>評価版アプリ</h2>
-    <p>Android 向けの評価版 APK は <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v261020">ailia-models-kotlin-qnn.apk</a> です。Snapdragon 8+ Gen 1（sm8475）または Snapdragon 7s Gen 3（sm7635）を搭載した端末で動作します。</p>
+    <p>Android 向けの評価版 APK は <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v261029">ailia-models-kotlin-qnn.apk</a> です。Snapdragon 8+ Gen 1（sm8475）または Snapdragon 7s Gen 3（sm7635）を搭載した端末で動作します。</p>
     <p>Windows on Arm 向けの評価版アプリは <a href="https://github.com/ailia-ai/ailia-models-flutter/releases/tag/v261026">ailia-models-flutter-qnn-v261026.zip</a> です。Snapdragon X Plus もしくは QCS6490 で動作します。</p>
 
     <h2>制約</h2>
     <ul>
       <li>QNN Model は SoC ごとに変換が必要で、他の SoC 向けのファイルは使用できません。</li>
-      <li>現在の対応モデルは Whisper Large V3 Turbo / Medium です。</li>
+      <li>現在の対応モデルは Whisper Large V3 Turbo / Medium です。Android（sm7635）では Large V3 にも対応しています。</li>
     </ul>
 
   </div>
