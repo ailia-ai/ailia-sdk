@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia
-   &#160;<span id="projectnumber">1.6.1.0</span>
+   &#160;<span id="projectnumber">1.7.0.0</span>
    </div>
   </td>
  </tr>
@@ -191,6 +191,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a2fff4a8949fa5ac5f03d81905952da2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia_8h.html#a2fff4a8949fa5ac5f03d81905952da2b">AILIA_STATUS_NDIMENSION_SHAPE</a>&#160;&#160;&#160;(-23)</td></tr>
 <tr class="memdesc:a2fff4a8949fa5ac5f03d81905952da2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dimension of shape is 5 or more.  <a href="ailia_8h.html#a2fff4a8949fa5ac5f03d81905952da2b">More...</a><br /></td></tr>
 <tr class="separator:a2fff4a8949fa5ac5f03d81905952da2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f27465ffbc6af9f7e2519fd7f049c6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia_8h.html#a9f27465ffbc6af9f7e2519fd7f049c6b">AILIA_STATUS_ALREADY_LOADED</a>&#160;&#160;&#160;(-24)</td></tr>
+<tr class="memdesc:a9f27465ffbc6af9f7e2519fd7f049c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model file was already loaded.  <a href="ailia_8h.html#a9f27465ffbc6af9f7e2519fd7f049c6b">More...</a><br /></td></tr>
+<tr class="separator:a9f27465ffbc6af9f7e2519fd7f049c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9889bc372ff9f0cb29a1cace33fe251"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia_8h.html#ac9889bc372ff9f0cb29a1cace33fe251">AILIA_STATUS_OTHER_ERROR</a>&#160;&#160;&#160;(-128)</td></tr>
 <tr class="memdesc:ac9889bc372ff9f0cb29a1cace33fe251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unknown error.  <a href="ailia_8h.html#ac9889bc372ff9f0cb29a1cace33fe251">More...</a><br /></td></tr>
 <tr class="separator:ac9889bc372ff9f0cb29a1cace33fe251"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -268,6 +271,8 @@ Macros</h2></td></tr>
 <tr class="separator:ade133d9f1579289279552c3d24cc470b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4e0fc3a547158b3794eb5e558372760"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia_8h.html#ab4e0fc3a547158b3794eb5e558372760">AILIA_PROFILE_AVERAGE</a>&#160;&#160;&#160;(0x01)</td></tr>
 <tr class="separator:ab4e0fc3a547158b3794eb5e558372760"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cc58764bd006625e881af66b69c7265"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia_8h.html#a7cc58764bd006625e881af66b69c7265">AILIA_PROFILE_NETWORK</a>&#160;&#160;&#160;(0x02)</td></tr>
+<tr class="separator:a7cc58764bd006625e881af66b69c7265"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fe28268d142b14e8c762bc7ce1360f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia_8h.html#a2fe28268d142b14e8c762bc7ce1360f5">ailiaOpenStreamFile</a>&#160;&#160;&#160;<a class="el" href="ailia_8h.html#a4c377f24beec2c4bc6d783b8e85a4860">ailiaOpenStreamFileA</a></td></tr>
 <tr class="separator:a2fe28268d142b14e8c762bc7ce1360f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5db05951eaf763e63a3a348aea558f1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia_8h.html#a5db05951eaf763e63a3a348aea558f1d">ailiaOpenWeightFile</a>&#160;&#160;&#160;<a class="el" href="ailia_8h.html#a231d647cecbd1beb0d8d78a83b50ed1b">ailiaOpenWeightFileA</a></td></tr>
@@ -969,6 +974,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7cc58764bd006625e881af66b69c7265"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cc58764bd006625e881af66b69c7265">&#9670;&nbsp;</a></span>AILIA_PROFILE_NETWORK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_PROFILE_NETWORK&#160;&#160;&#160;(0x02)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Measure the processing time for the entire network. If you infer multiple times, the average value excluding the first execution is saved. </p>
+
+</div>
+</div>
 <a id="a45ba57b0f66c7bd24ad7a92eaab93447"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a45ba57b0f66c7bd24ad7a92eaab93447">&#9670;&nbsp;</a></span>AILIA_SHAPE_VERSION</h2>
 
@@ -980,6 +1000,23 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9f27465ffbc6af9f7e2519fd7f049c6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f27465ffbc6af9f7e2519fd7f049c6b">&#9670;&nbsp;</a></span>AILIA_STATUS_ALREADY_LOADED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_STATUS_ALREADY_LOADED&#160;&#160;&#160;(-24)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Model file was already loaded. </p>
+<dl class="section remark"><dt>Remarks</dt><dd>AILIANetwork instance cannot load models multiple times. </dd></dl>
 
 </div>
 </div>
@@ -1861,7 +1898,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">net</td><td>A network instance pointer </td></tr>
-    <tr><td class="paramname">dest</td><td>The result is stored in the inference result destination buffer as numeric type data in the order of X, Y, Z, and W. </td></tr>
+    <tr><td class="paramname">dest</td><td>The result is stored in the inference result destination buffer as float type data in the order of X, Y, Z, and W. </td></tr>
     <tr><td class="paramname">dest_size</td><td>The number of bytes for the inference result destination buffer </td></tr>
     <tr><td class="paramname">blob_idx</td><td>The index of the blob (0 to <a class="el" href="ailia_8h.html#ae0cf65cdeae91ccf2449040a22025dea" title="Gets the amount of internal data (blob) during inference.">ailiaGetBlobCount()</a> -1) </td></tr>
   </table>
@@ -3162,9 +3199,9 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">net</td><td>A network instance pointer </td></tr>
-    <tr><td class="paramname">dest</td><td>The result is stored in the inference result destination buffer as numeric type data in the order of X, Y, Z, and W. The buffer has the same size as the network file outputSize. </td></tr>
+    <tr><td class="paramname">dest</td><td>The result is stored in the inference result destination buffer as float type data in the order of X, Y, Z, and W. The buffer has the same size as the network file outputSize. </td></tr>
     <tr><td class="paramname">dest_size</td><td>The number of bytes for the destination buffer for the inference result </td></tr>
-    <tr><td class="paramname">src</td><td>The input is stored as numeric type data in the order of the inference data X, Y, Z, and W. The input has the same size as the network file inputSize. </td></tr>
+    <tr><td class="paramname">src</td><td>The input is stored as float type data in the order of the inference data X, Y, Z, and W. The input has the same size as the network file inputSize. </td></tr>
     <tr><td class="paramname">src_size</td><td>The number of bytes of the inference data </td></tr>
   </table>
   </dd>
@@ -3216,7 +3253,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">net</td><td>A network instance pointer </td></tr>
-    <tr><td class="paramname">src</td><td>The inference data is stored as numeric type data in the order of X, Y, Z, and W. </td></tr>
+    <tr><td class="paramname">src</td><td>The inference data is stored as float type data in the order of X, Y, Z, and W. </td></tr>
     <tr><td class="paramname">src_size</td><td>The number of bytes of the inference data </td></tr>
     <tr><td class="paramname">blob_idx</td><td>The index of the blob for input </td></tr>
   </table>

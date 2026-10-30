@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia
-   &#160;<span id="projectnumber">1.6.1.0</span>
+   &#160;<span id="projectnumber">1.7.0.0</span>
    </div>
   </td>
  </tr>
@@ -334,7 +334,7 @@ ailia.AiliaModel 連携図</div>
 <div class="line"><a name="l01503"></a><span class="lineno"> 1503</span>&#160;        {</div>
 <div class="line"><a name="l01504"></a><span class="lineno"> 1504</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classailia_1_1AiliaModel.html#ade8fa978d679ea8a7dfc27fda7db77b5">logging</a>)</div>
 <div class="line"><a name="l01505"></a><span class="lineno"> 1505</span>&#160;            {</div>
-<div class="line"><a name="l01506"></a><span class="lineno"> 1506</span>&#160;                Debug.Log(<span class="stringliteral">&quot;ailiaUpdate failed &quot;</span> + status + <span class="stringliteral">&quot; (&quot;</span> + <a class="code" href="classailia_1_1AiliaModel.html#aaf806db29d4bdfd0d8a4f7e3c5c7a822">GetStatusString</a>(status) + <span class="stringliteral">&quot;)&quot;</span>);</div>
+<div class="line"><a name="l01506"></a><span class="lineno"> 1506</span>&#160;                Debug.Log(<span class="stringliteral">&quot;ailiaCopyBlobData failed &quot;</span> + status + <span class="stringliteral">&quot; (&quot;</span> + <a class="code" href="classailia_1_1AiliaModel.html#aaf806db29d4bdfd0d8a4f7e3c5c7a822">GetStatusString</a>(status) + <span class="stringliteral">&quot;)&quot;</span>);</div>
 <div class="line"><a name="l01507"></a><span class="lineno"> 1507</span>&#160;            }</div>
 <div class="line"><a name="l01508"></a><span class="lineno"> 1508</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l01509"></a><span class="lineno"> 1509</span>&#160;        }</div>
@@ -947,7 +947,7 @@ ailia.AiliaModel 連携図</div>
 
 <p>利用可能な計算環境(CPU, GPU)の数を取得します。 </p>
 <p>環境選択（詳細）</p>
-<dl class="section return"><dt>戻り値</dt><dd>成功した場合は利用可能な環境の数を、失敗した場合は-1を返す。　</dd></dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合は利用可能な環境の数を、失敗した場合は-1を返す。</dd></dl>
 <p>利用可能な環境の数を取得します。 </p>
 <div class="fragment"><div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    {</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        SetTemporaryCachePath();</div>
@@ -2002,7 +2002,7 @@ ailia.AiliaModel 連携図</div>
 <p>指定したBlobに入力データを設定します。 </p>
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">input_data</td><td>推論データ X,Y,Z,Wの順でnumeric型で格納 サイズはネットファイルのinputSizeとなる　（バッファの確保してるので厳密にailia.csの説明と同じでいいかわからない） </td></tr>
+    <tr><td class="paramname">input_data</td><td>推論データ X,Y,Z,Wの順でfloat型で格納 サイズはネットファイルのinputSizeとなる　（バッファの確保してるので厳密にailia.csの説明と同じでいいかわからない） </td></tr>
     <tr><td class="paramname">idx</td><td>設定を変更するBlobのインデックス </td></tr>
   </table>
   </dd>
