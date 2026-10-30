@@ -9,3 +9,8 @@ Classes
    :members:
    :undoc-members:
    :show-inheritance:
+
+Functions
+-----------
+
+.. autofunction:: ailia_tflite.thread_pool_set_num_threads

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_tflite
-   &#160;<span id="projectnumber">1.2.4.0</span>
+   &#160;<span id="projectnumber">1.2.5.0</span>
    </div>
   </td>
  </tr>
@@ -234,6 +234,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a03324653e33020846f5697fef8d52fcf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a03324653e33020846f5697fef8d52fcf">AILIA_TFLITE_CPU_FEATURES_I8MM</a>&#160;&#160;&#160;(0x00000080)</td></tr>
 <tr class="memdesc:a03324653e33020846f5697fef8d52fcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">I8MM.  <a href="ailia__tflite_8h.html#a03324653e33020846f5697fef8d52fcf">More...</a><br /></td></tr>
 <tr class="separator:a03324653e33020846f5697fef8d52fcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4db2ce5cb79e5b76874e4f343af5891"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ae4db2ce5cb79e5b76874e4f343af5891">AILIA_TFLITE_CPU_FEATURES_DOTPROD</a>&#160;&#160;&#160;(0x00000100)</td></tr>
+<tr class="memdesc:ae4db2ce5cb79e5b76874e4f343af5891"><td class="mdescLeft">&#160;</td><td class="mdescRight">ARM DOTPROD.  <a href="ailia__tflite_8h.html#ae4db2ce5cb79e5b76874e4f343af5891">More...</a><br /></td></tr>
+<tr class="separator:ae4db2ce5cb79e5b76874e4f343af5891"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a101eea8befc393c6f9682efba16345e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a101eea8befc393c6f9682efba16345e0">AILIA_TFLITE_SUB_CORE_COUNT_MAX</a>&#160;&#160;&#160;(8)</td></tr>
 <tr class="memdesc:a101eea8befc393c6f9682efba16345e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum number of cores in multicore environments.  <a href="ailia__tflite_8h.html#a101eea8befc393c6f9682efba16345e0">More...</a><br /></td></tr>
 <tr class="separator:a101eea8befc393c6f9682efba16345e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -264,6 +267,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a033451378fff5cbd772c56df5325f382"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a033451378fff5cbd772c56df5325f382">ailiaTFLiteCreate</a> (struct AILIATFLiteInstance **instance, const void *tflite, const size_t tflite_length, void *(*pmalloc)(size_t, const void *, void *), void *(*pmemcpy)(void *, const void *, size_t, void *), void(*pfree)(void *, void *), void *phandle, <a class="el" href="ailia__tflite_8h.html#ad3efb8abac41021597407f121eed535d">AILIATFLiteEnvironment</a> env_id, <a class="el" href="ailia__tflite_8h.html#a9c44ccf3ba49f821be2629bd3dcde53c">AILIATFLiteMemoryMode</a> memory_mode, <a class="el" href="ailia__tflite_8h.html#a102124bd44711479870d1515284d1a19">AILIATFLiteFlags</a> flags)</td></tr>
 <tr class="memdesc:a033451378fff5cbd772c56df5325f382"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create ailia TFLite runtime instances.  <a href="ailia__tflite_8h.html#a033451378fff5cbd772c56df5325f382">More...</a><br /></td></tr>
 <tr class="separator:a033451378fff5cbd772c56df5325f382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20aa172db921e2952e77e565ca1c84bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a20aa172db921e2952e77e565ca1c84bf">ailiaTFLiteCreateSharedInstance</a> (struct AILIATFLiteInstance **ppinstance, const struct AILIATFLiteInstance *ref_inst)</td></tr>
+<tr class="memdesc:a20aa172db921e2952e77e565ca1c84bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an instance sharing internal parameters.  <a href="ailia__tflite_8h.html#a20aa172db921e2952e77e565ca1c84bf">More...</a><br /></td></tr>
+<tr class="separator:a20aa172db921e2952e77e565ca1c84bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2762d4eab88139b057795b65afa3410f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a2762d4eab88139b057795b65afa3410f">ailiaTFLiteDestroy</a> (struct AILIATFLiteInstance *instance)</td></tr>
 <tr class="memdesc:a2762d4eab88139b057795b65afa3410f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Discard the instance of ailia TFLite runtime.  <a href="ailia__tflite_8h.html#a2762d4eab88139b057795b65afa3410f">More...</a><br /></td></tr>
 <tr class="separator:a2762d4eab88139b057795b65afa3410f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -375,6 +381,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ae1a274001c5c986417efa6086d186f62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ae1a274001c5c986417efa6086d186f62">ailiaTFLiteGetScratchBufferUsageEx</a> (struct AILIATFLiteInstance *instance, size_t *int_buffer_size, size_t *mid_buffer_size, size_t *ext_buffer_size, size_t *global_buffer_size)</td></tr>
 <tr class="memdesc:ae1a274001c5c986417efa6086d186f62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the maximum usage of the scratch buffer.  <a href="ailia__tflite_8h.html#ae1a274001c5c986417efa6086d186f62">More...</a><br /></td></tr>
 <tr class="separator:ae1a274001c5c986417efa6086d186f62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadde0cf00f65927ae32e547d85714423"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#aadde0cf00f65927ae32e547d85714423">ailiaTFLiteThreadPoolSetNumThreads</a> (int32_t num_threads)</td></tr>
+<tr class="memdesc:aadde0cf00f65927ae32e547d85714423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the number of threads for the global thread pool.  <a href="ailia__tflite_8h.html#aadde0cf00f65927ae32e547d85714423">More...</a><br /></td></tr>
+<tr class="separator:aadde0cf00f65927ae32e547d85714423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7571f684ee067f4fcab7a2003d6bc21f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a7571f684ee067f4fcab7a2003d6bc21f">ailiaTFLiteSetNumThreads</a> (struct AILIATFLiteInstance *instance, int32_t num_threads)</td></tr>
+<tr class="memdesc:a7571f684ee067f4fcab7a2003d6bc21f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the number of threads used for inference per instance.  <a href="ailia__tflite_8h.html#a7571f684ee067f4fcab7a2003d6bc21f">More...</a><br /></td></tr>
+<tr class="separator:a7571f684ee067f4fcab7a2003d6bc21f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2ca4f49099ba34816b1e2c62b9dc62d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ad2ca4f49099ba34816b1e2c62b9dc62d">ailiaTFLiteMklSetNumThreads</a> (const int32_t num_threads)</td></tr>
 <tr class="memdesc:ad2ca4f49099ba34816b1e2c62b9dc62d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the number of threads used by MKL.  <a href="ailia__tflite_8h.html#ad2ca4f49099ba34816b1e2c62b9dc62d">More...</a><br /></td></tr>
 <tr class="separator:ad2ca4f49099ba34816b1e2c62b9dc62d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -383,9 +395,9 @@ Functions</h2></td></tr>
 <tr class="separator:aa4a72d893963d90eebc881868d519a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a643bbb31f1cfa0e5b0b23a654dc7fead"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a643bbb31f1cfa0e5b0b23a654dc7fead">ailiaTFLiteSetSynchronizeFunctions</a> (struct AILIATFLiteInstance *instance, int(*pmain_after_command_store)(void *), int(*pmain_before_state_load)(void *))</td></tr>
 <tr class="separator:a643bbb31f1cfa0e5b0b23a654dc7fead"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74905b627056e6342e090b5f40b46feb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a74905b627056e6342e090b5f40b46feb">alilaTFLiteSetSubCoreControlVariables</a> (struct AILIATFLiteInstance *instance, const struct AILIATFLiteSubCoreControlVariables *control_variables, int32_t sub_core_count)</td></tr>
-<tr class="memdesc:a74905b627056e6342e090b5f40b46feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">When using multi-core systems, set the variables used to communicate with each subcore.  <a href="ailia__tflite_8h.html#a74905b627056e6342e090b5f40b46feb">More...</a><br /></td></tr>
-<tr class="separator:a74905b627056e6342e090b5f40b46feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab83c34057aa7a171f150b5bcce530d1f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ab83c34057aa7a171f150b5bcce530d1f">ailiaTFLiteSetSubCoreControlVariables</a> (struct AILIATFLiteInstance *instance, const struct AILIATFLiteSubCoreControlVariables *control_variables, int32_t sub_core_count)</td></tr>
+<tr class="memdesc:ab83c34057aa7a171f150b5bcce530d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">When using multi-core systems, set the variables used to communicate with each subcore.  <a href="ailia__tflite_8h.html#ab83c34057aa7a171f150b5bcce530d1f">More...</a><br /></td></tr>
+<tr class="separator:ab83c34057aa7a171f150b5bcce530d1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e49d04c6346c8a2cd65c9058ceea513"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a5e49d04c6346c8a2cd65c9058ceea513">ailiaTFLiteGetContext</a> (struct AILIATFLiteInstance *instance, void *buf, size_t buf_size)</td></tr>
 <tr class="memdesc:a5e49d04c6346c8a2cd65c9058ceea513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the result of the DSA. <br  />
   <a href="ailia__tflite_8h.html#a5e49d04c6346c8a2cd65c9058ceea513">More...</a><br /></td></tr>
@@ -402,7 +414,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>AILIA TFLITE RUNTIME INTERFACE. </p>
 <dl class="section copyright"><dt>Copyright</dt><dd>AXELL CORPORATION, ailia Inc. </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>December 10, 2025 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>October 30, 2026 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ac6b46690cebd7ae7bbeceb838e39cef7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6b46690cebd7ae7bbeceb838e39cef7">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_AVX</h2>
@@ -449,6 +461,22 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>AVX512. </p>
+
+</div>
+</div>
+<a id="ae4db2ce5cb79e5b76874e4f343af5891"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4db2ce5cb79e5b76874e4f343af5891">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_DOTPROD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_CPU_FEATURES_DOTPROD&#160;&#160;&#160;(0x00000100)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ARM DOTPROD. </p>
 
 </div>
 </div>
@@ -1280,7 +1308,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If you succeed, return AILIA_TFLITE_STATUS_SUCCESS. If you fail, return AILIA_TFLITE_STATUS_XXX.</dd></dl>
-<p>Update the internal shape and secure the buffer required for inference. </p>
+<p>Update the internal shape and secure the buffer required for inference. When BUILD_MODEL_DETACH is enabled, the caller may free the input tflite buffer after ailiaTFLiteAllocateTensors succeeds. If it fails, the buffer must remain valid until ailiaTFLiteDestroy is called. Shared instances cannot be created after the input buffer has been freed. With AILIA_TFLITE_ENV_MMALIB, ailiaTFLiteResizeInputTensor (shape change) and a second ailiaTFLiteAllocateTensors are not allowed after ailiaTFLiteAllocateTensors. </p>
 
 </div>
 </div>
@@ -1376,6 +1404,45 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If you succeed, return AILIA_TFLITE_STATUS_SUCCESS. If you fail, return AILIA_TFLITE_STATUS_XXX.</dd></dl>
 <p>Open the TFLITE model and create ailia TFLite runtime instances. We will also secure the necessary internal buffers. If the instance fails, you need to call AILIATFLITEDESTROY if you store anything other than NULL in Instance. </p>
+
+</div>
+</div>
+<a id="a20aa172db921e2952e77e565ca1c84bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20aa172db921e2952e77e565ca1c84bf">&#9670;&nbsp;</a></span>ailiaTFLiteCreateSharedInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteCreateSharedInstance </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance **&#160;</td>
+          <td class="paramname"><em>ppinstance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>ref_inst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create an instance sharing internal parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ppinstance</td><td>Receives the created instance. </td></tr>
+    <tr><td class="paramname">ref_inst</td><td>Successfully allocated REFERENCE, MMALIB_COMPATIBLE or MMALIB instance. An instance created by ailiaTFLiteCreateSharedInstance cannot be used (AILIA_TFLITE_STATUS_INVALID_ARGUMENT). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>AILIA_TFLITE_STATUS_SUCCESS on success, or AILIA_TFLITE_STATUS_XXX on failure.</dd></dl>
+<p>On failure, call ailiaTFLiteDestroy if *ppinstance is non-NULL. The original tflite buffer must remain valid during shared instance creation and AllocateTensors. The new instance is unallocated. Call ResizeInputTensor if needed, configure per-instance scratch buffers, subcore controls and synchronization callbacks, then call AllocateTensors. Inherits allocator (including handle), environment, memory mode, flags and CPU settings. The original owning instance must outlive all shared instances. Do not resize or reallocate that owner while any shared instance is alive. </p>
 
 </div>
 </div>
@@ -3077,6 +3144,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7571f684ee067f4fcab7a2003d6bc21f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7571f684ee067f4fcab7a2003d6bc21f">&#9670;&nbsp;</a></span>ailiaTFLiteSetNumThreads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteSetNumThreads </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>num_threads</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the number of threads used for inference per instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtime instance pointer </td></tr>
+    <tr><td class="paramname">num_threads</td><td>Number of threads (1 or more) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns AILIA_TFLITE_STATUS_SUCCESS on success. Returns AILIA_TFLITE_STATUS_XXX on failure.</dd></dl>
+<p>Sets the number of threads used for inference in the specified instance. By default, the value from the global thread pool is used. If a value larger than the number of threads in the thread pool is set, the number of threads in the thread pool will be used. Must be called before ailiaTFLiteAllocateTensors. If called after ailiaTFLiteAllocateTensors, it returns AILIA_TFLITE_STATUS_INVALID_ARGUMENT. </p>
+
+</div>
+</div>
 <a id="ae6644208466e6ff60465b50554b88318"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae6644208466e6ff60465b50554b88318">&#9670;&nbsp;</a></span>ailiaTFLiteSetProfileMode()</h2>
 
@@ -3276,48 +3382,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a643bbb31f1cfa0e5b0b23a654dc7fead"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a643bbb31f1cfa0e5b0b23a654dc7fead">&#9670;&nbsp;</a></span>ailiaTFLiteSetSynchronizeFunctions()</h2>
+<a id="ab83c34057aa7a171f150b5bcce530d1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab83c34057aa7a171f150b5bcce530d1f">&#9670;&nbsp;</a></span>ailiaTFLiteSetSubCoreControlVariables()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteSetSynchronizeFunctions </td>
-          <td>(</td>
-          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
-          <td class="paramname"><em>instance</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int(*)(void *)&#160;</td>
-          <td class="paramname"><em>pmain_after_command_store</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int(*)(void *)&#160;</td>
-          <td class="paramname"><em>pmain_before_state_load</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a74905b627056e6342e090b5f40b46feb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74905b627056e6342e090b5f40b46feb">&#9670;&nbsp;</a></span>alilaTFLiteSetSubCoreControlVariables()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> alilaTFLiteSetSubCoreControlVariables </td>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteSetSubCoreControlVariables </td>
           <td>(</td>
           <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
           <td class="paramname"><em>instance</em>, </td>
@@ -3353,6 +3425,68 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If you succeed, return AILIA_TFLITE_STATUS_SUCCESS. If you fail, return AILIA_TFLITE_STATUS_XXX.</dd></dl>
 <p>Specify number of sub-cores to sub_core_count, and specify a structure array with sub_core_count elements to control_variables. </p>
+
+</div>
+</div>
+<a id="a643bbb31f1cfa0e5b0b23a654dc7fead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a643bbb31f1cfa0e5b0b23a654dc7fead">&#9670;&nbsp;</a></span>ailiaTFLiteSetSynchronizeFunctions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteSetSynchronizeFunctions </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int(*)(void *)&#160;</td>
+          <td class="paramname"><em>pmain_after_command_store</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int(*)(void *)&#160;</td>
+          <td class="paramname"><em>pmain_before_state_load</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aadde0cf00f65927ae32e547d85714423"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadde0cf00f65927ae32e547d85714423">&#9670;&nbsp;</a></span>ailiaTFLiteThreadPoolSetNumThreads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteThreadPoolSetNumThreads </td>
+          <td>(</td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>num_threads</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the number of threads for the global thread pool. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num_threads</td><td>Number of threads (1 or more) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns AILIA_TFLITE_STATUS_SUCCESS on success. Returns AILIA_TFLITE_STATUS_XXX on failure.</dd></dl>
+<p>By default, the thread count is determined automatically. Must be called before the first ailiaTFLiteCreate call. If called after ailiaTFLiteCreate, it returns AILIA_TFLITE_STATUS_INVALID_ARGUMENT. </p>
 
 </div>
 </div>

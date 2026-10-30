@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_tflite
-   &#160;<span id="projectnumber">1.2.4.0</span>
+   &#160;<span id="projectnumber">1.2.5.0</span>
    </div>
   </td>
  </tr>
@@ -234,6 +234,9 @@ ailia_tflite.h の依存先関係図:</div>
 <tr class="memitem:a03324653e33020846f5697fef8d52fcf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a03324653e33020846f5697fef8d52fcf">AILIA_TFLITE_CPU_FEATURES_I8MM</a>&#160;&#160;&#160;(0x00000080)</td></tr>
 <tr class="memdesc:a03324653e33020846f5697fef8d52fcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">I8MM  <a href="ailia__tflite_8h.html#a03324653e33020846f5697fef8d52fcf">[詳解]</a><br /></td></tr>
 <tr class="separator:a03324653e33020846f5697fef8d52fcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4db2ce5cb79e5b76874e4f343af5891"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ae4db2ce5cb79e5b76874e4f343af5891">AILIA_TFLITE_CPU_FEATURES_DOTPROD</a>&#160;&#160;&#160;(0x00000100)</td></tr>
+<tr class="memdesc:ae4db2ce5cb79e5b76874e4f343af5891"><td class="mdescLeft">&#160;</td><td class="mdescRight">ARM DOTPROD  <a href="ailia__tflite_8h.html#ae4db2ce5cb79e5b76874e4f343af5891">[詳解]</a><br /></td></tr>
+<tr class="separator:ae4db2ce5cb79e5b76874e4f343af5891"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a101eea8befc393c6f9682efba16345e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a101eea8befc393c6f9682efba16345e0">AILIA_TFLITE_SUB_CORE_COUNT_MAX</a>&#160;&#160;&#160;(8)</td></tr>
 <tr class="memdesc:a101eea8befc393c6f9682efba16345e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチコアをサポートする環境で指定できるコア数の最大値  <a href="ailia__tflite_8h.html#a101eea8befc393c6f9682efba16345e0">[詳解]</a><br /></td></tr>
 <tr class="separator:a101eea8befc393c6f9682efba16345e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -264,6 +267,9 @@ ailia_tflite.h の依存先関係図:</div>
 <tr class="memitem:a033451378fff5cbd772c56df5325f382"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a033451378fff5cbd772c56df5325f382">ailiaTFLiteCreate</a> (struct AILIATFLiteInstance **instance, const void *tflite, const size_t tflite_length, void *(*pmalloc)(size_t, const void *, void *), void *(*pmemcpy)(void *, const void *, size_t, void *), void(*pfree)(void *, void *), void *phandle, <a class="el" href="ailia__tflite_8h.html#ad3efb8abac41021597407f121eed535d">AILIATFLiteEnvironment</a> env_id, <a class="el" href="ailia__tflite_8h.html#a9c44ccf3ba49f821be2629bd3dcde53c">AILIATFLiteMemoryMode</a> memory_mode, <a class="el" href="ailia__tflite_8h.html#a102124bd44711479870d1515284d1a19">AILIATFLiteFlags</a> flags)</td></tr>
 <tr class="memdesc:a033451378fff5cbd772c56df5325f382"><td class="mdescLeft">&#160;</td><td class="mdescRight">ailia TFLite runtimeのインスタンスを作成します。  <a href="ailia__tflite_8h.html#a033451378fff5cbd772c56df5325f382">[詳解]</a><br /></td></tr>
 <tr class="separator:a033451378fff5cbd772c56df5325f382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20aa172db921e2952e77e565ca1c84bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a20aa172db921e2952e77e565ca1c84bf">ailiaTFLiteCreateSharedInstance</a> (struct AILIATFLiteInstance **ppinstance, const struct AILIATFLiteInstance *ref_inst)</td></tr>
+<tr class="memdesc:a20aa172db921e2952e77e565ca1c84bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">内部パラメータを共有するインスタンスを作成します。  <a href="ailia__tflite_8h.html#a20aa172db921e2952e77e565ca1c84bf">[詳解]</a><br /></td></tr>
+<tr class="separator:a20aa172db921e2952e77e565ca1c84bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2762d4eab88139b057795b65afa3410f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a2762d4eab88139b057795b65afa3410f">ailiaTFLiteDestroy</a> (struct AILIATFLiteInstance *instance)</td></tr>
 <tr class="memdesc:a2762d4eab88139b057795b65afa3410f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ailia TFLite runtimeのインスタンスを破棄します。  <a href="ailia__tflite_8h.html#a2762d4eab88139b057795b65afa3410f">[詳解]</a><br /></td></tr>
 <tr class="separator:a2762d4eab88139b057795b65afa3410f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -375,6 +381,12 @@ ailia_tflite.h の依存先関係図:</div>
 <tr class="memitem:ae1a274001c5c986417efa6086d186f62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ae1a274001c5c986417efa6086d186f62">ailiaTFLiteGetScratchBufferUsageEx</a> (struct AILIATFLiteInstance *instance, size_t *int_buffer_size, size_t *mid_buffer_size, size_t *ext_buffer_size, size_t *global_buffer_size)</td></tr>
 <tr class="memdesc:ae1a274001c5c986417efa6086d186f62"><td class="mdescLeft">&#160;</td><td class="mdescRight">スクラッチバッファの最大使用量を取得します。  <a href="ailia__tflite_8h.html#ae1a274001c5c986417efa6086d186f62">[詳解]</a><br /></td></tr>
 <tr class="separator:ae1a274001c5c986417efa6086d186f62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadde0cf00f65927ae32e547d85714423"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#aadde0cf00f65927ae32e547d85714423">ailiaTFLiteThreadPoolSetNumThreads</a> (int32_t num_threads)</td></tr>
+<tr class="memdesc:aadde0cf00f65927ae32e547d85714423"><td class="mdescLeft">&#160;</td><td class="mdescRight">グローバルなスレッドプールのスレッド数を設定します  <a href="ailia__tflite_8h.html#aadde0cf00f65927ae32e547d85714423">[詳解]</a><br /></td></tr>
+<tr class="separator:aadde0cf00f65927ae32e547d85714423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7571f684ee067f4fcab7a2003d6bc21f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a7571f684ee067f4fcab7a2003d6bc21f">ailiaTFLiteSetNumThreads</a> (struct AILIATFLiteInstance *instance, int32_t num_threads)</td></tr>
+<tr class="memdesc:a7571f684ee067f4fcab7a2003d6bc21f"><td class="mdescLeft">&#160;</td><td class="mdescRight">インスタンスの推論に使用するスレッド数を設定します  <a href="ailia__tflite_8h.html#a7571f684ee067f4fcab7a2003d6bc21f">[詳解]</a><br /></td></tr>
+<tr class="separator:a7571f684ee067f4fcab7a2003d6bc21f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2ca4f49099ba34816b1e2c62b9dc62d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ad2ca4f49099ba34816b1e2c62b9dc62d">ailiaTFLiteMklSetNumThreads</a> (const int32_t num_threads)</td></tr>
 <tr class="memdesc:ad2ca4f49099ba34816b1e2c62b9dc62d"><td class="mdescLeft">&#160;</td><td class="mdescRight">MKLが使用するスレッド数を設定します  <a href="ailia__tflite_8h.html#ad2ca4f49099ba34816b1e2c62b9dc62d">[詳解]</a><br /></td></tr>
 <tr class="separator:ad2ca4f49099ba34816b1e2c62b9dc62d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -384,9 +396,9 @@ ailia_tflite.h の依存先関係図:</div>
 <tr class="memitem:a643bbb31f1cfa0e5b0b23a654dc7fead"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a643bbb31f1cfa0e5b0b23a654dc7fead">ailiaTFLiteSetSynchronizeFunctions</a> (struct AILIATFLiteInstance *instance, int(*pmain_after_command_store)(void *), int(*pmain_before_state_load)(void *))</td></tr>
 <tr class="memdesc:a643bbb31f1cfa0e5b0b23a654dc7fead"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチコアで使用する場合において、コア間の同期関数を設定します。  <a href="ailia__tflite_8h.html#a643bbb31f1cfa0e5b0b23a654dc7fead">[詳解]</a><br /></td></tr>
 <tr class="separator:a643bbb31f1cfa0e5b0b23a654dc7fead"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74905b627056e6342e090b5f40b46feb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a74905b627056e6342e090b5f40b46feb">alilaTFLiteSetSubCoreControlVariables</a> (struct AILIATFLiteInstance *instance, const struct AILIATFLiteSubCoreControlVariables *control_variables, int32_t sub_core_count)</td></tr>
-<tr class="memdesc:a74905b627056e6342e090b5f40b46feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチコアで使用する場合において、各サブコアとの通信に使用する変数を設定します。  <a href="ailia__tflite_8h.html#a74905b627056e6342e090b5f40b46feb">[詳解]</a><br /></td></tr>
-<tr class="separator:a74905b627056e6342e090b5f40b46feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab83c34057aa7a171f150b5bcce530d1f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#ab83c34057aa7a171f150b5bcce530d1f">ailiaTFLiteSetSubCoreControlVariables</a> (struct AILIATFLiteInstance *instance, const struct AILIATFLiteSubCoreControlVariables *control_variables, int32_t sub_core_count)</td></tr>
+<tr class="memdesc:ab83c34057aa7a171f150b5bcce530d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">マルチコアで使用する場合において、各サブコアとの通信に使用する変数を設定します。  <a href="ailia__tflite_8h.html#ab83c34057aa7a171f150b5bcce530d1f">[詳解]</a><br /></td></tr>
+<tr class="separator:ab83c34057aa7a171f150b5bcce530d1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e49d04c6346c8a2cd65c9058ceea513"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tflite_8h.html#a5e49d04c6346c8a2cd65c9058ceea513">ailiaTFLiteGetContext</a> (struct AILIATFLiteInstance *instance, void *buf, size_t buf_size)</td></tr>
 <tr class="memdesc:a5e49d04c6346c8a2cd65c9058ceea513"><td class="mdescLeft">&#160;</td><td class="mdescRight">DSAの結果を保存します。  <a href="ailia__tflite_8h.html#a5e49d04c6346c8a2cd65c9058ceea513">[詳解]</a><br /></td></tr>
 <tr class="separator:a5e49d04c6346c8a2cd65c9058ceea513"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -400,7 +412,7 @@ ailia_tflite.h の依存先関係図:</div>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>AILIA TFLITE RUNTIME INTERFACE </p>
 <dl class="section copyright"><dt>著作権所有</dt><dd>AXELL CORPORATION, ailia Inc. </dd></dl>
-<dl class="section date"><dt>日付</dt><dd>December 10, 2025 </dd></dl>
+<dl class="section date"><dt>日付</dt><dd>October 30, 2026 </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
 <a id="ac6b46690cebd7ae7bbeceb838e39cef7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6b46690cebd7ae7bbeceb838e39cef7">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_AVX</h2>
@@ -447,6 +459,22 @@ ailia_tflite.h の依存先関係図:</div>
 </div><div class="memdoc">
 
 <p>AVX512 </p>
+
+</div>
+</div>
+<a id="ae4db2ce5cb79e5b76874e4f343af5891"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4db2ce5cb79e5b76874e4f343af5891">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_DOTPROD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TFLITE_CPU_FEATURES_DOTPROD&#160;&#160;&#160;(0x00000100)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ARM DOTPROD </p>
 
 </div>
 </div>
@@ -1278,7 +1306,7 @@ ailia_tflite.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
-<p>内部の形状を更新し、推論に必要なバッファーを確保します。 </p>
+<p>内部の形状を更新し、推論に必要なバッファーを確保します。 ビルド時に BUILD_MODEL_DETACH を有効にしている場合、 ailiaTFLiteAllocateTensors が成功した後は入力 tflite バッファを解放できます。 解放後は共有インスタンスを作成できません。 失敗した場合は ailiaTFLiteDestroy を呼ぶまで入力 tflite バッファを保持する必要があります。 AILIA_TFLITE_ENV_MMALIB では ailiaTFLiteAllocateTensors 実行後の ailiaTFLiteResizeInputTensor による shape 変更と再度の ailiaTFLiteAllocateTensors はできません。 </p>
 
 </div>
 </div>
@@ -1374,6 +1402,45 @@ ailia_tflite.h の依存先関係図:</div>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
 <p>tfliteモデルを開き、ailia TFLite runtimeインスタンスを作成します。 また、必要な内部バッファーの確保も行います。 インスタンス生成に失敗した場合でinstanceにNULL以外が格納された場合はailiaTFLiteDestroyを呼び出す必要があります。 </p>
+
+</div>
+</div>
+<a id="a20aa172db921e2952e77e565ca1c84bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20aa172db921e2952e77e565ca1c84bf">&#9670;&nbsp;</a></span>ailiaTFLiteCreateSharedInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteCreateSharedInstance </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance **&#160;</td>
+          <td class="paramname"><em>ppinstance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>ref_inst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>内部パラメータを共有するインスタンスを作成します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ppinstance</td><td>作成したインスタンスの格納先。 </td></tr>
+    <tr><td class="paramname">ref_inst</td><td>AllocateTensorsが成功したREFERENCE、MMALIB_COMPATIBLEまたはMMALIBインスタンス。 ailiaTFLiteCreateSharedInstanceで作成したインスタンスは指定できません（AILIA_TFLITE_STATUS_INVALID_ARGUMENT）。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功時はAILIA_TFLITE_STATUS_SUCCESS、失敗時はAILIA_TFLITE_STATUS_XXX。</dd></dl>
+<p>失敗時も*ppinstanceがNULL以外ならailiaTFLiteDestroyを呼んでください。 共有先の作成・AllocateTensorsには、元のtfliteバッファも必要です。 作成直後は未確保です。必要に応じてResizeInputTensorを行い、各インスタンス固有の スクラッチバッファ・サブコア制御変数・同期関数を設定してからAllocateTensorsを呼んでください。 アロケータ（ハンドルを含む）、実行環境、メモリモード、フラグ、CPU設定を継承します。 最初の所有インスタンスは全共有先より後に破棄し、共有先の生存中はResize・再Allocateしないでください。 </p>
 
 </div>
 </div>
@@ -3045,6 +3112,45 @@ ailia_tflite.h の依存先関係図:</div>
 
 </div>
 </div>
+<a id="a7571f684ee067f4fcab7a2003d6bc21f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7571f684ee067f4fcab7a2003d6bc21f">&#9670;&nbsp;</a></span>ailiaTFLiteSetNumThreads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteSetNumThreads </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>num_threads</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>インスタンスの推論に使用するスレッド数を設定します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">num_threads</td><td>スレッド数（1以上） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>インスタンスの推論に使用するスレッド数を指定します。 デフォルトではスレッドプールのスレッド数を使用します。 スレッドプールのスレッド数よりも大きい値を設定した場合、スレッドプールのスレッド数が設定されます。 ailiaTFLiteAllocateTensors の前に呼び出す必要があります。 ailiaTFLiteAllocateTensors以降に呼び出すとAILIA_TFLITE_STATUS_INVALID_ARGUMENTを返します。 </p>
+
+</div>
+</div>
 <a id="ae6644208466e6ff60465b50554b88318"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae6644208466e6ff60465b50554b88318">&#9670;&nbsp;</a></span>ailiaTFLiteSetProfileMode()</h2>
 
@@ -3244,6 +3350,52 @@ ailia_tflite.h の依存先関係図:</div>
 
 </div>
 </div>
+<a id="ab83c34057aa7a171f150b5bcce530d1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab83c34057aa7a171f150b5bcce530d1f">&#9670;&nbsp;</a></span>ailiaTFLiteSetSubCoreControlVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteSetSubCoreControlVariables </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct AILIATFLiteSubCoreControlVariables *&#160;</td>
+          <td class="paramname"><em>control_variables</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>sub_core_count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>マルチコアで使用する場合において、各サブコアとの通信に使用する変数を設定します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインタ </td></tr>
+    <tr><td class="paramname">control_variables</td><td>AILIATFLiteSubCoreControlVariables構造体のポインタ </td></tr>
+    <tr><td class="paramname">sub_core_count</td><td>サブコア数 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>sub_core_countにサブコア数を指定し、control_variablesには要素数がsub_core_countの構造体配列を指定します。 </p>
+
+</div>
+</div>
 <a id="a643bbb31f1cfa0e5b0b23a654dc7fead"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a643bbb31f1cfa0e5b0b23a654dc7fead">&#9670;&nbsp;</a></span>ailiaTFLiteSetSynchronizeFunctions()</h2>
 
@@ -3290,49 +3442,31 @@ ailia_tflite.h の依存先関係図:</div>
 
 </div>
 </div>
-<a id="a74905b627056e6342e090b5f40b46feb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74905b627056e6342e090b5f40b46feb">&#9670;&nbsp;</a></span>alilaTFLiteSetSubCoreControlVariables()</h2>
+<a id="aadde0cf00f65927ae32e547d85714423"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadde0cf00f65927ae32e547d85714423">&#9670;&nbsp;</a></span>ailiaTFLiteThreadPoolSetNumThreads()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> alilaTFLiteSetSubCoreControlVariables </td>
+          <td class="memname"><a class="el" href="ailia__tflite_8h.html#afda2f6d89489d73ae1b983b2a8903cf2">AILIATFLiteStatus</a> ailiaTFLiteThreadPoolSetNumThreads </td>
           <td>(</td>
-          <td class="paramtype">struct AILIATFLiteInstance *&#160;</td>
-          <td class="paramname"><em>instance</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const struct AILIATFLiteSubCoreControlVariables *&#160;</td>
-          <td class="paramname"><em>control_variables</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>sub_core_count</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>num_threads</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>マルチコアで使用する場合において、各サブコアとの通信に使用する変数を設定します。 </p>
+<p>グローバルなスレッドプールのスレッド数を設定します </p>
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインタ </td></tr>
-    <tr><td class="paramname">control_variables</td><td>AILIATFLiteSubCoreControlVariables構造体のポインタ </td></tr>
-    <tr><td class="paramname">sub_core_count</td><td>サブコア数 </td></tr>
+    <tr><td class="paramname">num_threads</td><td>スレッド数（1以上） </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
-<p>sub_core_countにサブコア数を指定し、control_variablesには要素数がsub_core_countの構造体配列を指定します。 </p>
+<p>デフォルトでは自動設定となります。 最初の ailiaTFLiteCreate の前に呼び出す必要があります。 ailiaTFLiteCreate以降に呼び出すとAILIA_TFLITE_STATUS_INVALID_ARGUMENTを返します。 </p>
 
 </div>
 </div>
