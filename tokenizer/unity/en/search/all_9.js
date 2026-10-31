@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['open_66',['Open',['../classailiaTokenizer_1_1AiliaTokenizerModel.html#a9851e0371210f1b49358b8d27e0e94e8',1,'ailiaTokenizer::AiliaTokenizerModel']]]
+  ['open_67',['Open',['../classailiaTokenizer_1_1AiliaTokenizerModel.html#a9851e0371210f1b49358b8d27e0e94e8',1,'ailiaTokenizer::AiliaTokenizerModel']]]
 ];

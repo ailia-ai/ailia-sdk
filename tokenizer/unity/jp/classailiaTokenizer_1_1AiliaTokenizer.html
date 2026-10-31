@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_tokenizer
-   &#160;<span id="projectnumber">1.6.0.0</span>
+   &#160;<span id="projectnumber">1.7.0.0</span>
    </div>
   </td>
  </tr>
@@ -178,6 +178,8 @@ $(function() {
 <tr class="separator:a4aabb46d8825d8ed402a6f55a53b49b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95744006146fa1df15334754b37e5a87"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTokenizer_1_1AiliaTokenizer.html#a95744006146fa1df15334754b37e5a87">AILIA_TOKENIZER_TYPE_GEMMA</a> = (11)</td></tr>
 <tr class="separator:a95744006146fa1df15334754b37e5a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad78cb28b88413eeb56bf6e59db5e0cbf"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTokenizer_1_1AiliaTokenizer.html#ad78cb28b88413eeb56bf6e59db5e0cbf">AILIA_TOKENIZER_TYPE_QWEN2</a> = (12)</td></tr>
+<tr class="separator:ad78cb28b88413eeb56bf6e59db5e0cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d9bc9caf5d8bf603b38d04fe4729270"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTokenizer_1_1AiliaTokenizer.html#a4d9bc9caf5d8bf603b38d04fe4729270">AILIA_TOKENIZER_FLAG_NONE</a> = (0)</td></tr>
 <tr class="separator:a4d9bc9caf5d8bf603b38d04fe4729270"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a669a27e11383ab58d2cd06731138f1b2"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTokenizer_1_1AiliaTokenizer.html#a669a27e11383ab58d2cd06731138f1b2">AILIA_TOKENIZER_FLAG_UTF8_SAFE</a> = (1)</td></tr>
@@ -226,7 +228,7 @@ $(function() {
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
-<p>AILIA_TOKENIZER_TYPE_ROBERTAおよびAILIA_TOKENIZER_TYPE_GPT2の場合のみ有効です。 </p>
+<p>AILIA_TOKENIZER_TYPE_ROBERTA、AILIA_TOKENIZER_TYPE_GPT2、AILIA_TOKENIZER_TYPE_QWEN2の場合のみ有効です。先にvocabを読み込んでください。登録済みのトークンを追加した場合は無視され、既存のIDが維持されます。新規トークンのIDは登録順に採番されるため、学習済みモデルのID保持にはID付きファイルを使ってください。 </p>
 
 </div>
 </div>
@@ -893,7 +895,7 @@ $(function() {
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
-<p>追加トークンファイル (json) を読み込みます。AILIA_TOKENIZER_TYPE_WHISPERもしくはAILIA_TOKENIZER_TYPE_XLM_ROBERTAの場合のみ有効です。 </p>
+<p>追加トークンファイル (json) を読み込みます。AILIA_TOKENIZER_TYPE_WHISPERもしくはAILIA_TOKENIZER_TYPE_XLM_ROBERTAもしくはAILIA_TOKENIZER_TYPE_QWEN2の場合のみ有効です。QWEN2では先にvocabを読み込む必要があります。special属性はコンフィグから読み込みます。 </p>
 
 </div>
 </div>
@@ -971,7 +973,7 @@ $(function() {
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
-<p>マージファイル (txt) を読み込みます。AILIA_TOKENIZER_TYPE_ROBERTAもしくはAILIA_TOKENIZER_TYPE_WHISPERもしくはAILIA_TOKENIZER_TYPE_GPT2の場合のみ有効です。 </p>
+<p>マージファイル (txt) を読み込みます。AILIA_TOKENIZER_TYPE_ROBERTAもしくはAILIA_TOKENIZER_TYPE_WHISPERもしくはAILIA_TOKENIZER_TYPE_GPT2もしくはAILIA_TOKENIZER_TYPE_QWEN2の場合のみ有効です。 </p>
 
 </div>
 </div>
@@ -1049,7 +1051,7 @@ $(function() {
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
-<p>トークナイザコンフィグファイル (json) を読み込みます。AILIA_TOKENIZER_TYPE_BERTの場合のみ有効です。 </p>
+<p>トークナイザコンフィグファイル (json) を読み込みます。BERTおよびQWEN2で有効です。QWEN2ではvocabの後にtokenizer_config.jsonまたはtokenizer.jsonを読み込み、追加トークンのIDとspecial属性を登録します。 </p>
 
 </div>
 </div>
@@ -1088,7 +1090,7 @@ $(function() {
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
-<p>単語ファイル (ROBERTAとWHISPERとGPT2はjson、それ以外はtxt) を読み込みます。 </p>
+<p>単語ファイル (ROBERTAとWHISPERとGPT2とQWEN2はjson、それ以外はtxt) を読み込みます。 </p>
 
 </div>
 </div>
@@ -1399,6 +1401,28 @@ $(function() {
       <table class="memname">
         <tr>
           <td class="memname">const Int32 ailiaTokenizer.AiliaTokenizer.AILIA_TOKENIZER_TYPE_MARIAN = (3)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad78cb28b88413eeb56bf6e59db5e0cbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad78cb28b88413eeb56bf6e59db5e0cbf">&#9670;&nbsp;</a></span>AILIA_TOKENIZER_TYPE_QWEN2</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Int32 ailiaTokenizer.AiliaTokenizer.AILIA_TOKENIZER_TYPE_QWEN2 = (12)</td>
         </tr>
       </table>
   </td>

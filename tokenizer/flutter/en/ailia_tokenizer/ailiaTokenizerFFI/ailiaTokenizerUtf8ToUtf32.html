@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_tokenizer</a></li>
-    <li><a href="../../ailia_tokenizer/">ailia_tokenizer.dart</a></li>
+    <li><a href="../../ailia_tokenizer/ailia_tokenizer-library.html">ailia_tokenizer.dart</a></li>
     <li><a href="../../ailia_tokenizer/ailiaTokenizerFFI-class.html">ailiaTokenizerFFI</a></li>
     <li class="self-crumb">ailiaTokenizerUtf8ToUtf32 method</li>
   </ol>
@@ -33,32 +37,37 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_tokenizer&#47;ailiaTokenizerFFI-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_tokenizer&#47;ailiaTokenizerFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">ailiaTokenizerUtf8ToUtf32</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">ailiaTokenizerUtf8ToUtf32</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="ailiaTokenizerUtf8ToUtf32-param-utf32"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span> <span class="parameter-name">utf32</span>, </span></li>
+<span class="name ">ailiaTokenizerUtf8ToUtf32</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaTokenizerUtf8ToUtf32-param-utf32"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span> <span class="parameter-name">utf32</span>, </span></li>
 <li><span class="parameter" id="ailiaTokenizerUtf8ToUtf32-param-processed_byte"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span> <span class="parameter-name">processed_byte</span>, </span></li>
 <li><span class="parameter" id="ailiaTokenizerUtf8ToUtf32-param-utf8"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">utf8</span>, </span></li>
-<li><span class="parameter" id="ailiaTokenizerUtf8ToUtf32-param-utf8_len"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">utf8_len</span>, </span></li>
+<li><span class="parameter" id="ailiaTokenizerUtf8ToUtf32-param-utf8_len"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">utf8_len</span></span></li>
 </ol>)
 
       
@@ -66,22 +75,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief UTF8の文字をUTF32の文字に変換します。
-@param utf32   UTF32の文字
-@param processed_byte 消費したバイト数(UTF8)
-@param utf8  UTF8の文字
-@param utf8_len   バッファサイズ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</p>
-<p>~english
-@brief Convert UTF8 character to UTF32 character.
-@param utf32   UTF32の文字
-@param processed_byte Processed bytes on UTF8
-@param utf8  UTF8の文字
-@param utf8_len   Buffer Size
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.</p>
+  <p>Convert UTF8 character to UTF32 character.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>utf32</code>: UTF32の文字</li>
+<li><code>processed_byte</code>: Processed bytes on UTF8</li>
+<li><code>utf8</code>: UTF8の文字</li>
+<li><code>utf8_len</code>: Buffer Size</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_tokenizer/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
 </section>
 
 
@@ -105,6 +108,7 @@ If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an er
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -112,31 +116,41 @@ If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an er
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_tokenizer</a></li>
-    <li><a href="../../ailia_tokenizer/">ailia_tokenizer</a></li>
+    <li><a href="../../ailia_tokenizer/ailia_tokenizer-library.html">ailia_tokenizer</a></li>
     <li><a href="../../ailia_tokenizer/ailiaTokenizerFFI-class.html">ailiaTokenizerFFI</a></li>
     <li class="self-crumb">ailiaTokenizerUtf8ToUtf32 method</li>
 </ol>
 
+
     <h5>ailiaTokenizerFFI class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_tokenizer
-      1.6.0
+      1.7.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 
