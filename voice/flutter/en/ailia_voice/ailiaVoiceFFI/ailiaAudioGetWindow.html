@@ -65,24 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 窓関数の係数を取得します。
-@param dst 出力データのポインタ、float 型、要素数 window_n
-@param window_n 窓の長さ（サンプル数）
-@param win_type 窓関数の種類、AILIA_AUDIO_WIN_TYPE_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-窓関数はhann窓とhamming窓のみ対応しています。</p>
-<p>~english
-@brief Get the window function.
-@param dst pointer to the output data, of float format, and of length window_n
-@param window_n length of the window (in number of samples)
-@param win_type type of the window function: any of the AILIA_AUDIO_WIN_TYPE_* constants
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-Only the Hann and the Hamming window functions are supported.</p>
+  <p>Get the window function.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, and of length window_n</li>
+<li><code>window_n</code>: length of the window (in number of samples)</li>
+<li><code>win_type</code>: type of the window function: any of the AILIA_AUDIO_WIN_TYPE_* constants</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>Only the Hann and the Hamming window functions are supported.</p>
 </section>
 
 
@@ -127,7 +119,7 @@ Only the Hann and the Hamming window functions are supported.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

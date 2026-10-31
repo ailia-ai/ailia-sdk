@@ -72,42 +72,26 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 複素スペクトログラムから音響信号を生成します。
-@param dst 出力データのポインタ、float 型、要素数 sample_n
-@param src 入力データのポインタ、float 型、外側から freq_n, frame_n, 2(複素数: 実部, 虚部) 順のメモリレイアウト
-@param frame_n 入力データの時間フレーム数
-@param freq_n 周波数（fft_n/2+1）
-@param hop_n フレームのシフト数
-@param win_n 窓関数の長さ
-@param win_type 窓関数の種類、AILIA_AUDIO_WIN_TYPE_* のいずれか
-@param max_sample_n 出力データのサンプル数の最大値
-@param center 入力データ生成時の前後へのパディングの有無、AILIA_AUDIO_STFT_CENTER_* のいずれか
-@param norm_type 入力データ生成時の正規化処理、AILIA_AUDIO_FFT_NORMALIZE_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-時間フレームごとにIFFTを行い、最後に正規化処理を実行します。
-複素スペクトログラムのみに対応しています。</p>
-<p>~english
-@brief Generate an audio signal from a complex spectrogram.
-@param dst pointer to the output data, of float format, and of length sample_n
-@param src pointer to the input data, of float format, of length (2 * freq_n * frame_n), and which memory layout is a
-sequence of pairs <code>real part, imaginary part</code>. Memory layout, using the row-major convention: (freq_n, frame_n, 2).
-@param frame_n number of time frames in the input data
-@param freq_n number of frequencies bins for each time frame (freq_n = fft_n/2+1)
-@param hop_n step size of the time frame increment (expressed in number of samples) for the inputted spectrogram.
-@param win_n size of the window function
-@param win_type type of the window function: any of the AILIA_AUDIO_WIN_TYPE_* constants
-@param max_sample_n maximum value of the sample index in the outputted data
-@param center whether padding (before and after) was used or not (and its type) during the generation of the input
-data: any of the AILIA_AUDIO_STFT_CENTER_* constants
-@param norm_type normalization type that was used during the generation of the input data: any of the
-AILIA_AUDIO_FFT_NORMALIZE_* constants
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-For each time frame the normalization is executed at the end of the IFFT.
+  <p>Generate an audio signal from a complex spectrogram.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, and of length sample_n</li>
+<li><code>src</code>: pointer to the input data, of float format, of length (2 * freq_n * frame_n), and which memory layout is a
+sequence of pairs <code>real part, imaginary part</code>. Memory layout, using the row-major convention: (freq_n, frame_n, 2).</li>
+<li><code>frame_n</code>: number of time frames in the input data</li>
+<li><code>freq_n</code>: number of frequencies bins for each time frame (freq_n = fft_n/2+1)</li>
+<li><code>hop_n</code>: step size of the time frame increment (expressed in number of samples) for the inputted spectrogram.</li>
+<li><code>win_n</code>: size of the window function</li>
+<li><code>win_type</code>: type of the window function: any of the AILIA_AUDIO_WIN_TYPE_* constants</li>
+<li><code>max_sample_n</code>: maximum value of the sample index in the outputted data</li>
+<li><code>center</code>: whether padding (before and after) was used or not (and its type) during the generation of the input
+data: any of the AILIA_AUDIO_STFT_CENTER_* constants</li>
+<li><code>norm_type</code>: normalization type that was used during the generation of the input data: any of the
+AILIA_AUDIO_FFT_NORMALIZE_* constants</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>For each time frame the normalization is executed at the end of the IFFT.
 Only accepts a complex spectrogram in input.</p>
 </section>
 
@@ -167,7 +151,7 @@ Only accepts a complex spectrogram in input.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

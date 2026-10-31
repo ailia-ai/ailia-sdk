@@ -62,20 +62,10 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ailiaがグローバルに確保したGPUリソース等を解放します
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返します。
-@details
-ailiaCreate() で作成したインスタンス全てを ailiaDestroy() で解放した状態で呼び出す必要があります。
-それ以外の状態で呼び出された場合 #ref AILIA_STATUS_INVALID_STATE を返します。
-Windows 環境の場合、DllMain 等からこの API を呼び出すとデッドロックする可能性があります。</p>
-<p>~english
-@brief Release GPU and other resources that have been globally allocated with ailia.
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-It must be called with all ailia instances created by ailiaCreate() released by ailiaDestroy().
+  <p>Release GPU and other resources that have been globally allocated with ailia.</p>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>It must be called with all ailia instances created by ailiaCreate() released by ailiaDestroy().
 Otherwise, #ref AILIA_STATUS_INVALID_STATE will be returned.
 Call this API from DllMain() on Windows OS, there is possibility of a deadlock.</p>
 </section>
@@ -114,7 +104,7 @@ Call this API from DllMain() on Windows OS, there is possibility of a deadlock.<
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

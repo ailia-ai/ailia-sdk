@@ -68,32 +68,19 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 信号をリサンプルします
-@param dst 出力データのポインタ、float 型、要素数 dst_n
-@param src 入力データのポインタ、float 型、要素数 src_n
-@param dst_sample_rate 変換後のサンプリングレート
-@param dst_n データ出力先の確保要素数（dst_n &gt;= max_resample_n）
-@param src_sample_rate 入力データのサンプリングレート
-@param src_n 入力データの要素数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-最大出力数max_resample_nは ailiaAudioGetResampleLen() で取得できます。
-dst_n &lt;  max_resample_n : 先頭からdst_nに入る部分のみ出力
-dst_n &gt;= max_resample_n : 出力要素数はmax_resample_n</p>
-<p>~english
-@brief Resample the signal.
-@param dst pointer to the output data, of float format, and of length dst_n
-@param src pointer to the input data, of float format, and of length src_n
-@param dst_sample_rate sampling rate after the resampling
-@param dst_n length (in number of samples) reserved in the output buffer（dst_n &gt;= max_resample_n）
-@param src_sample_rate sampling rate of the input signal
-@param src_n number of samples in the input signal
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-The max number of samples in the output, max_resample_n, can be obtained from  ailiaAudioGetResampleLen() .
+  <p>Resample the signal.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, and of length dst_n</li>
+<li><code>src</code>: pointer to the input data, of float format, and of length src_n</li>
+<li><code>dst_sample_rate</code>: sampling rate after the resampling</li>
+<li><code>dst_n</code>: length (in number of samples) reserved in the output buffer（dst_n &gt;= max_resample_n）</li>
+<li><code>src_sample_rate</code>: sampling rate of the input signal</li>
+<li><code>src_n</code>: number of samples in the input signal</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>The max number of samples in the output, max_resample_n, can be obtained from  ailiaAudioGetResampleLen() .
 dst_n &lt;  max_resample_n : only the first dst_n samples are outputted
 dst_n &gt;= max_resample_n : max_resample_n samples are outputted</p>
 </section>
@@ -146,7 +133,7 @@ dst_n &gt;= max_resample_n : max_resample_n samples are outputted</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

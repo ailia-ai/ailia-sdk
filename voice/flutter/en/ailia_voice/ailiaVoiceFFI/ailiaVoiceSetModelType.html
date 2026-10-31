@@ -64,23 +64,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief G2Pで使用するモデルタイプを設定します。
-@param net ボイスオブジェクトポインタ
-@param model_type モデルタイプ（AILIA_VOICE_MODEL_TYPE_GPT_SOVITS, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V3, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2_PRO）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-G2Pを単独で使用する際に、モデルファイルを与えずにモデルタイプを設定することに使用します。
-ailiaVoiceOpenModelFileAまたはailiaVoiceOpenGPTSoVITSV3ModelFileAを呼び出した場合は自動的に設定されるため、本APIの呼び出しは不要です。</p>
-<p>~english
-@brief Set the model type used for G2P processing.
-@param net A Voice instance pointer
-@param model_type Model type (AILIA_VOICE_MODEL_TYPE_GPT_SOVITS, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V3, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2_PRO)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-Used to set the model type when using G2P standalone without opening model files.
+  <p>Set the model type used for G2P processing.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A Voice instance pointer</li>
+<li><code>model_type</code>: Model type (AILIA_VOICE_MODEL_TYPE_GPT_SOVITS, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V3, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2_PRO)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Used to set the model type when using G2P standalone without opening model files.
 If ailiaVoiceOpenModelFileA or ailiaVoiceOpenGPTSoVITSV3ModelFileA is called, the model type is set automatically, so calling this API is not required.</p>
 </section>
 
@@ -124,7 +116,7 @@ If ailiaVoiceOpenModelFileA or ailiaVoiceOpenGPTSoVITSV3ModelFileA is called, th
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

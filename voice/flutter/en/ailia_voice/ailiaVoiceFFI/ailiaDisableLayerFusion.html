@@ -63,22 +63,14 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 推論時のレイヤー統合を無効化します
-@param net ネットワークオブジェクトポインタ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-レイヤー統合により取得できなくなるBlobを取得する必要がある場合などに用います。
-ailiaCreate() の直後に指定する必要があります。ailiaOpenを呼び出した後は変更することができません。
-なお、レイヤー統合を無効化すると推論速度が低下する場合があります。</p>
-<p>~english
-@brief Disalbe layer fusion optimaization for inference
-@param net A network instance pointer
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This api use to get blob that remove by layer fusion optimization.
+  <p>Disalbe layer fusion optimaization for inference</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This api use to get blob that remove by layer fusion optimization.
 Must be specified immediately after  ailiaCreate() . It cannot be changed after calling ailiaOpen.
 Note: When disable layer fusion optimization, inference speed may be down.</p>
 </section>
@@ -121,7 +113,7 @@ Note: When disable layer fusion optimization, inference speed may be down.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

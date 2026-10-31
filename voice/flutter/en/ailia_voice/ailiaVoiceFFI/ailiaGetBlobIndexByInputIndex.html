@@ -65,25 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 入力データ(Blob)のインデックスを取得します
-@param net ネットワークオブジェクトポインタ
-@param blob_idx blobのインデックス(0～ ailiaGetBlobCount() -1)
-@param input_blob_idx 入力blob内でのインデックス(0～ ailiaGetInputBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時に列挙されたinput_blob_idx及びblob_idxは保持されるためailiaOpneWeightXXX呼び出し後も同じ値が返ることが保証されます。</p>
-<p>~english
-@brief Get the blob index of the input data.
-@param net A network instance pointer
-@param blob_idx index of the blob (between 0 and  ailiaGetBlobCount() -1)
-@param input_blob_idx index among the input blobs (between 0 and  ailiaGetInputBlobCount() -1)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This API can be call after call ailiaOpenStreamXXX().
+  <p>Get the blob index of the input data.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>blob_idx</code>: index of the blob (between 0 and  ailiaGetBlobCount() -1)</li>
+<li><code>input_blob_idx</code>: index among the input blobs (between 0 and  ailiaGetInputBlobCount() -1)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This API can be call after call ailiaOpenStreamXXX().
 In addition, we guarantee that input_blob_idx and blob_idx which enumerate when call ailiaOpenStreamXXX are not changed when call ailiaOpneWeightXXX.</p>
 </section>
 
@@ -129,7 +120,7 @@ In addition, we guarantee that input_blob_idx and blob_idx which enumerate when 
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

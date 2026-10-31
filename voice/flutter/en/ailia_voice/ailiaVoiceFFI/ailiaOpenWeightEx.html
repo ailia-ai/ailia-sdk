@@ -66,26 +66,17 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ネットワークオブジェクトに重み係数を読み込みます。(ユーザ定義ファイルアクセスコールバック)
-@param net ネットワークオブジェクトポインタ
-@param fopen_args  \ref AILIA_USER_API_FOPEN に通知される引数ポインタ
-@param callback ユーザ定義ファイルアクセスコールバック関数構造体
-@param version ファイルアクセスコールバック関数構造体のバージョン( \ref AILIA_FILE_CALLBACK_VERSION )
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ファイルからネットワークオブジェクトに重み係数を読み込みます。</p>
-<p>~english
-@brief Reads weights into a network instance. (User-defined file access callback)
-@param net A network instance pointer
-@param fopen_args An argument pointer supplied by AILIA_USER_API_FOPEN
-@param callback A struct for the user-defined file access callback function
-@param version The version of the struct for the file access callback function ( \ref AILIA_FILE_CALLBACK_VERSION )
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This function reads weights into the network instance from a file.</p>
+  <p>Reads weights into a network instance. (User-defined file access callback)</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>fopen_args</code>: An argument pointer supplied by AILIA_USER_API_FOPEN</li>
+<li><code>callback</code>: A struct for the user-defined file access callback function</li>
+<li><code>version</code>: The version of the struct for the file access callback function ( <a href="../../ailia_voice/AILIA_FILE_CALLBACK_VERSION-constant.html">AILIA_FILE_CALLBACK_VERSION</a> )</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This function reads weights into the network instance from a file.</p>
 </section>
 
 
@@ -132,7 +123,7 @@ This function reads weights into the network instance from a file.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

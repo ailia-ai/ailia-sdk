@@ -65,29 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 推論時の入力データの形状を変更します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの形状情報
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-prototxtで定義されている入力形状を変更します。
-prototxtに記述されているランクと同じにする必要があります。
-なお、重み係数の形状が入力形状に依存しているなどによりエラーが返る場合があります。
-prototxtで定義されているランクが4次元未満の場合は未使用の要素に1を設定する必要があります。
-prototxtで定義されているランクが5次元以上の場合は ailiaSetInputShapeND() を利用してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Changes the shape of the input data during inference.
-@param net A network instance pointer
-@param shape Shape information for the input data
-@param version AILIA_SHAPE_VERSION
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This function changes the input shape defined in prototxt.
+  <p>Changes the shape of the input data during inference.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>shape</code>: Shape information for the input data</li>
+<li><code>version</code>: AILIA_SHAPE_VERSION</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This function changes the input shape defined in prototxt.
 The shape must have the same rank as the one contained in prototxt.
 Note that an error may be returned if the weights are dependent on the input shapes, among other reasons.
 The dimension of shape that defined in prototxt is less than 4, the unused element must be set to 1.
@@ -137,7 +124,7 @@ This API can be call after call ailiaOpenWeighXXX()</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

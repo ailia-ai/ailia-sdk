@@ -65,25 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 内部データ(Blob)の名前の出力に必要なバッファのサイズを取得します。
-@param net ネットワークオブジェクトポインタ
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@param buffer_size Blob名の出力に必要なバッファのサイズ(終端null文字分を含む)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時は入出力Blobのみが検索可能です。中間Blobを検索する場合ailiaOpneWeightXXXを呼び出す必要があります。</p>
-<p>~english
-@brief Gets the size of the buffer needed for output of the name of the internal data (blob).
-@param net A network instance pointer
-@param blob_idx The index of the blob (0 to  ailiaGetBlobCount() -1)
-@param buffer_size The size of the buffer needed for output of the blob name (including the null terminator)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This API can be call after call ailiaOpenStreamXXX().
+  <p>Gets the size of the buffer needed for output of the name of the internal data (blob).</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>blob_idx</code>: The index of the blob (0 to  ailiaGetBlobCount() -1)</li>
+<li><code>buffer_size</code>: The size of the buffer needed for output of the blob name (including the null terminator)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This API can be call after call ailiaOpenStreamXXX().
 In addition, when call this API before call ailiaOpenWeightXXX, can only find inputs and outputs blobs.
 If you want find intermediate blobs, please call ailiaOpenWeightXXX before.</p>
 </section>
@@ -130,7 +121,7 @@ If you want find intermediate blobs, please call ailiaOpenWeightXXX before.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

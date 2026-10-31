@@ -65,21 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 計算環境の一覧を取得します
-@param env 計算環境情報の格納先(AILIANetworkインスタンスを破棄するまで有効)
-@param env_idx 計算環境情報のインデックス(0～ ailiaGetEnvironmentCount() -1)
-@param version AILIA_ENVIRONMENT_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</p>
-<p>~english
-@brief Gets the list of computational environments.
-@param env The storage location of the computational environment information (valid until the AILIANetwork instance
-is destroyed)
-@param env_idx The index of the computational environment information (0 to  ailiaGetEnvironmentCount() -1)
-@param version AILIA_ENVIRONMENT_VERSION
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.</p>
+  <p>Gets the list of computational environments.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>env</code>: The storage location of the computational environment information (valid until the AILIANetwork instance
+is destroyed)</li>
+<li><code>env_idx</code>: The index of the computational environment information (0 to  ailiaGetEnvironmentCount() -1)</li>
+<li><code>version</code>: AILIA_ENVIRONMENT_VERSION</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
 </section>
 
 
@@ -124,7 +119,7 @@ If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an er
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

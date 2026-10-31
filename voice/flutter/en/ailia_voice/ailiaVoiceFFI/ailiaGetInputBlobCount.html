@@ -64,24 +64,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 入力データ(Blob)の数を取得します。
-@param net ネットワークオブジェクトポインタ
-@param input_blob_count 入力blobの数の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、入力Blobの列挙はailiaOpenStreamXXX呼び出し時に行われますが変更可能な重み(input付きinitialzier)の列挙はailiaOpneWeightXXX呼び出し時に行われます。
-そのためailiaOpenStreamXXX呼び出し直後とailiaOpneWeightXXX呼び出し直後で返答する数が変わる場合があります。</p>
-<p>~english
-@brief Get the number of input data blobs.
-@param net A network instance pointer
-@param input_blob_count Storage location of the number of input blobs
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This API can be call after call ailiaOpenStreamXXX().
+  <p>Get the number of input data blobs.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>input_blob_count</code>: Storage location of the number of input blobs</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This API can be call after call ailiaOpenStreamXXX().
 In addition, this api returuns number of inputs when after call ailiaOpenStreamXXX.
 And, when call ailiaOpenWeightXXX, enumerate and optimzie initializer with input blobs.
 So, this api may return more count after call ailiaOpenWeightXXX.</p>
@@ -127,7 +118,7 @@ So, this api may return more count after call ailiaOpenWeightXXX.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

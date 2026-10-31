@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_voice
-   &#160;<span id="projectnumber">1.5.0.0</span>
+   &#160;<span id="projectnumber">1.5.3.0</span>
    </div>
   </td>
  </tr>
@@ -398,7 +398,7 @@ Protected Member Functions</h2></td></tr>
 <div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;            }</div>
 <div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;        }</div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;        <span class="keywordflow">return</span> System.Text.Encoding.UTF8.GetString(texts);</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;        <span class="keywordflow">return</span> System.Text.Encoding.UTF8.GetString(texts).TrimEnd(<span class="charliteral">&#39;\0&#39;</span>);</div>
 <div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
@@ -555,7 +555,7 @@ Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns true , or false otherwise. </dd></dl>
 <div class="fragment"><div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;    {</div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;        <span class="keywordtype">byte</span>[] text = System.Text.Encoding.UTF8.GetBytes(feature);</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;        <span class="keywordtype">byte</span>[] text = System.Text.Encoding.UTF8.GetBytes(feature+<span class="stringliteral">&quot;\u0000&quot;</span>);</div>
 <div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;        GCHandle handle = GCHandle.Alloc(text, GCHandleType.Pinned);</div>
 <div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;        IntPtr input = handle.AddrOfPinnedObject();</div>
 <div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;        <span class="keywordtype">int</span> status = AiliaVoice.ailiaVoiceInference(net, input);</div>
@@ -1297,7 +1297,7 @@ Protected Member Functions</h2></td></tr>
 <div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;        GCHandle audio_handle = GCHandle.Alloc(audio_data, GCHandleType.Pinned);</div>
 <div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;        IntPtr audio_input = audio_handle.AddrOfPinnedObject();</div>
 <div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160; </div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;        <span class="keywordtype">byte</span>[] text = System.Text.Encoding.UTF8.GetBytes(ref_text);</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;        <span class="keywordtype">byte</span>[] text = System.Text.Encoding.UTF8.GetBytes(ref_text+<span class="stringliteral">&quot;\u0000&quot;</span>);</div>
 <div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;        GCHandle text_handle = GCHandle.Alloc(text, GCHandleType.Pinned);</div>
 <div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;        IntPtr text_input = text_handle.AddrOfPinnedObject();</div>
 <div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;        <span class="keywordtype">int</span> status = AiliaVoice.ailiaVoiceSetReference(net, audio_input, (uint)(ref_audio.samples * ref_audio.channels * 4), (uint)(ref_audio.channels), (uint)(ref_audio.frequency), text_input);</div>

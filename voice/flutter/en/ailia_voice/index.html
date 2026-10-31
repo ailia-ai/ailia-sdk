@@ -1363,12 +1363,7 @@
 
 </dt>
 <dd>
-  ~japanese
-@brief ファイルを閉じます
-@param void *  ユーザ定義ファイルポインタ
-@return
-成功した場合、 \ref AILIA_USER_API_SUCCESS を返す。
-失敗した場合、 \ref AILIA_USER_API_FAILED を返す。
+  Closes the file.
   
 
 </dd>
@@ -1397,12 +1392,7 @@
 
 </dt>
 <dd>
-  ~japanese
-@brief ファイルを開きます
-@param const void *   ailiaOpenStreamEx() もしくは ailiaOpenWeightEx() に与えたfopen_args
-@return
-成功した場合、ユーザ定義ファイルポインタを返す。
-失敗した場合、NULLを返す。
+  Opens a file.
   
 
 </dd>
@@ -1431,15 +1421,7 @@
 
 </dt>
 <dd>
-  ~japanese
-@brief ファイルからデータを読み込みます
-@param void *                     読み込みデータ格納先のポインタ
-@param  \ref AILIA_FSIZE_RETURN_TYPE     読み込みデータのバイト長さ
-@param void *                     ユーザ定義ファイルポインタ
-@return
-成功した場合、 \ref AILIA_USER_API_SUCCESS を返す。
-失敗した場合、 \ref AILIA_USER_API_FAILED を返す。
-標準APIとは異なり、返値はAILIA_USER_API_*になりますのでご注意ください。
+  Reads data from the file.
   
 
 </dd>
@@ -1468,13 +1450,7 @@
 
 </dt>
 <dd>
-  ~japanese
-@brief ファイルをシークします
-@param void *                     ユーザ定義ファイルポインタ
-@param  \ref AILIA_FSIZE_RETURN_TYPE     ファイル先頭からのオフセットバイト
-@return
-成功した場合、 \ref AILIA_USER_API_SUCCESS を返す。
-失敗した場合、 \ref AILIA_USER_API_FAILED を返す。
+  It seeks the file specified.
   
 
 </dd>
@@ -1503,12 +1479,7 @@
 
 </dt>
 <dd>
-  ~japanese
-@brief ファイルのサイズを取得します
-@param void * ユーザ定義ファイルポインタ
-@return
-成功した場合、ファイルのサイズをバイト単位で返す。
-失敗した場合、-1を返す。
+  Gets the size of the file.
   
 
 </dd>
@@ -1531,18 +1502,13 @@
           
   <dt id="AILIA_USER_API_FTELL" class="">
   <span class="name"><a href="../ailia_voice/AILIA_USER_API_FTELL.html">AILIA_USER_API_FTELL</a></span>
-    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_USER_API_FTELLFunction.html">AILIA_USER_API_FTELLFunction</a></span>&gt;</span></span>&gt;</span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_USER_API_FSIZEFunction.html">AILIA_USER_API_FSIZEFunction</a></span>&gt;</span></span>&gt;</span>
   </span>
   
 
 </dt>
 <dd>
-  ~japanese
-@brief ファイルの現在位置を取得します
-@param void * ユーザ定義ファイルポインタ
-@return
-成功した場合、ファイルポインタの位置をバイト単位で返す。
-失敗した場合、-1を返す。
+  Gets the current position in the file.
   
 
 </dd>
@@ -1855,7 +1821,7 @@
           
   <dt id="AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEX" class="">
   <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEX.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEX</a></span>
-    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEXFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_OUTPUT_INDEXFunction</a></span>&gt;</span></span>&gt;</span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEXFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_INDEX_BY_INPUT_INDEXFunction</a></span>&gt;</span></span>&gt;</span>
   </span>
   
 
@@ -1971,7 +1937,7 @@
           
   <dt id="AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNT" class="">
   <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNT.html">AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNT</a></span>
-    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNTFunction.html">AILIA_VOICE_USER_API_AILIA_GET_OUTPUT_BLOB_COUNTFunction</a></span>&gt;</span></span>&gt;</span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNTFunction.html">AILIA_VOICE_USER_API_AILIA_GET_INPUT_BLOB_COUNTFunction</a></span>&gt;</span></span>&gt;</span>
   </span>
   
 
@@ -2087,7 +2053,7 @@
           
   <dt id="AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATA" class="">
   <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATA.html">AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATA</a></span>
-    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATAFunction.html">AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_DATAFunction</a></span>&gt;</span></span>&gt;</span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_DATAFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_DATAFunction</a></span>&gt;</span></span>&gt;</span>
   </span>
   
 
@@ -2116,7 +2082,7 @@
           
   <dt id="AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPE" class="">
   <span class="name"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPE.html">AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPE</a></span>
-    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPEFunction.html">AILIA_VOICE_USER_API_AILIA_SET_INPUT_BLOB_SHAPEFunction</a></span>&gt;</span></span>&gt;</span>
+    = <a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/NativeFunction-class.html">NativeFunction</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_voice/AILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPEFunction.html">AILIA_VOICE_USER_API_AILIA_GET_BLOB_SHAPEFunction</a></span>&gt;</span></span>&gt;</span>
   </span>
   
 
@@ -2655,7 +2621,7 @@
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

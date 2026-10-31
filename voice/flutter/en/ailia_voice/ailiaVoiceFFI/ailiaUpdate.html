@@ -63,22 +63,14 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 事前に指定した入力データで推論を行います。
-@param net ネットワークオブジェクトポインタ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaSetInputBlobData() を用いて入力を与えた場合などに用います。
-推論結果は ailiaGetBlobData() で取得してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Makes inferences with the input data specified in advance.
-@param net A network instance pointer
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This function is used when, for example, the input is provided with  ailiaSetInputBlobData() .
+  <p>Makes inferences with the input data specified in advance.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This function is used when, for example, the input is provided with  ailiaSetInputBlobData() .
 Get the inference result with  ailiaGetBlobData() .
 This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
@@ -121,7 +113,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

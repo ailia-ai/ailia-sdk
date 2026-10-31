@@ -64,22 +64,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 音声合成の速度を設定します。
-@param net ボイスオブジェクトポインタ
-@param speed 速度(デフォルト1.0、0より大きい値)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-GPT-SoVITS V2およびV3で使用できます。V1では無効です。</p>
-<p>~english
-@brief Set the speech speed for synthesis.
-@param net A Voice instance pointer
-@param speed Speed value (default 1.0, must be greater than 0)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-Supported by GPT-SoVITS V2 and V3. Not effective for V1.</p>
+  <p>Set the speech speed for synthesis.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A Voice instance pointer</li>
+<li><code>speed</code>: Speed value (default 1.0, must be greater than 0)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Supported by GPT-SoVITS V2 and V3. Not effective for V1.</p>
 </section>
 
 
@@ -122,7 +115,7 @@ Supported by GPT-SoVITS V2 and V3. Not effective for V1.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

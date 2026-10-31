@@ -65,21 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 選択された計算環境を取得します
-@param net ネットワークオブジェクトポインタ
-@param env 計算環境情報の格納先(AILIANetworkインスタンスを破棄するまで有効)
-@param version AILIA_ENVIRONMENT_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</p>
-<p>~english
-@brief Gets the selected computational environment.
-@param net A network instance pointer
-@param env The storage location of the computational environment information (valid until the AILIANetwork instance
-is destroyed)
-@param version AILIA_ENVIRONMENT_VERSION
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.</p>
+  <p>Gets the selected computational environment.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>env</code>: The storage location of the computational environment information (valid until the AILIANetwork instance
+is destroyed)</li>
+<li><code>version</code>: AILIA_ENVIRONMENT_VERSION</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
 </section>
 
 
@@ -124,7 +119,7 @@ If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an er
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

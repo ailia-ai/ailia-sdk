@@ -66,30 +66,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 指定したBlobに入力データを与えます。
-@param net ネットワークオブジェクトポインタ
-@param src 推論データ X,Y,Z,Wの順でnumeric型で格納
-@param src_size 推論データのbyte数
-@param blob_idx 入力するblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-複数入力があるネットワークなどで入力を指定する場合に用います。
-blob_idxで入力レイヤーのblob以外のものを指定した場合、 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Provides the specified blob with the input data.
-@param net A network instance pointer
-@param src The inference data is stored as numeric type data in the order of X, Y, Z, and W.
-@param src_size The number of bytes of the inference data
-@param blob_idx The index of the blob for input
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This function is used to specify the input on networks with multiple inputs.
-If something other than a blob in the input layer is specified for blob_idx, the function returns  \ref
-AILIA_STATUS_INVALID_ARGUMENT .
+  <p>Provides the specified blob with the input data.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>src</code>: The inference data is stored as numeric type data in the order of X, Y, Z, and W.</li>
+<li><code>src_size</code>: The number of bytes of the inference data</li>
+<li><code>blob_idx</code>: The index of the blob for input</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This function is used to specify the input on networks with multiple inputs.
+If something other than a blob in the input layer is specified for blob_idx, the function returns  <a href="../../ailia_voice/AILIA_STATUS_INVALID_ARGUMENT-constant.html">AILIA_STATUS_INVALID_ARGUMENT</a> .
 This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
 
@@ -137,7 +125,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

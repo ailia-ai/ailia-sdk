@@ -66,30 +66,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 指定したBlobの形状を変更します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの各次元の大きさの配列(dim-1, dim-2, ... ,1, 0)
-@param dim shapeの次元
-@param blob_idx 変更するblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-複数入力があるネットワークなどで入力形状を変更する場合に用います。
-blob_idxは入力レイヤーのblob以外のものを指定した場合 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-その他の注意点は ailiaSetInputShapeND() の解説を参照してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Change the shape of the blob given by its index
-@param net network object pointer
-@param shape An array of shape that contains size of each axis (dim-1, dim-2, ... ,1, 0)
-@param dim The size of shape.
-@param blob_idx index referencing the blob to reshape
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and otherwise the coresponding error code.
-@details
-This is useful to change the network input shape in a context where there are several input blobs.
-If blob_idx does not correspond to an input layer,  \ref AILIA_STATUS_INVALID_ARGUMENT  is returned.
+  <p>Change the shape of the blob given by its index</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: network object pointer</li>
+<li><code>shape</code>: An array of shape that contains size of each axis (dim-1, dim-2, ... ,1, 0)</li>
+<li><code>dim</code>: The size of shape.</li>
+<li><code>blob_idx</code>: index referencing the blob to reshape</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and otherwise the coresponding error code.</p>
+<p>This is useful to change the network input shape in a context where there are several input blobs.
+If blob_idx does not correspond to an input layer,  <a href="../../ailia_voice/AILIA_STATUS_INVALID_ARGUMENT-constant.html">AILIA_STATUS_INVALID_ARGUMENT</a>  is returned.
 For other related remarks, see the documentation of  ailiaSetInputShapeND().
 This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
@@ -138,7 +126,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

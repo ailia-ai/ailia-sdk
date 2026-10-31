@@ -65,27 +65,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief IFFTを実行します。
-@param dst 出力データのポインタ、float 型、外側から fft_n, 2(実部、虚部) 順のメモリレイアウト
-@param src 入力データのポインタ、float 型、外側から fft_n, 2(実部、虚部) 順のメモリレイアウト
-@param fft_n FFT点数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-FFT点数が2の累乗の場合、高速アルゴリズムで動作します。
-出力データは実部と虚部の交互信号であり、長さは fft_n*2 です。</p>
-<p>~english
-@brief Execute the IFFT.
-@param dst pointer to the output data, of float format, of length 2<em>fft_n, and which memory layout is a sequence of
-fft_n pairs <code>real part, imaginary part</code>. Memory layout, using the row-major convention: (fft_n, 2).
-@param src pointer to the input data, of float format, of length 2</em>fft_n, and which memory layout is a sequence of
-fft_n pairs <code>real part, imaginary part</code>. Memory layout, using the row-major convention: (fft_n, 2).
-@param fft_n count of FFT values (i.e. of frequency bins)
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-If fft_n is a power of 2, this function uses a faster algorithm.
+  <p>Execute the IFFT.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, of length 2*fft_n, and which memory layout is a sequence of
+fft_n pairs <code>real part, imaginary part</code>. Memory layout, using the row-major convention: (fft_n, 2).</li>
+<li><code>src</code>: pointer to the input data, of float format, of length 2*fft_n, and which memory layout is a sequence of
+fft_n pairs <code>real part, imaginary part</code>. Memory layout, using the row-major convention: (fft_n, 2).</li>
+<li><code>fft_n</code>: count of FFT values (i.e. of frequency bins)</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>If fft_n is a power of 2, this function uses a faster algorithm.
 As the output data alternates real and imaginary parts, its length is 2*fft_n.</p>
 </section>
 
@@ -131,7 +122,7 @@ As the output data alternates real and imaginary parts, its length is 2*fft_n.</
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

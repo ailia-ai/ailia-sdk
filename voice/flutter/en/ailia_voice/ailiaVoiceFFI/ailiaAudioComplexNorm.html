@@ -66,30 +66,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 複素数のノルムを算出します
-@param dst 出力データのポインタ、float 型、要素数 src_n
-@param src 入力データのポインタ、float 型、外側から src_n, 2(実部、虚部) 順のメモリレイアウト
-@param src_n 入力データの要素数
-@param power 累乗値( &gt; 0.0 )、1.0で複素数絶対値に相当
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-入力データのノルムを算出します
-src_cmp = src<code>0</code> + src<code>1</code> i において
-tmp_dst = pow(src<code>0</code>,2.0) + pow(src<code>1</code>,2.0)
-dst<code>0</code> = pow(tmp_dst,0.5*power);</p>
-<p>~english
-@brief Get the norm of the complex signal.
-@param dst pointer to the output data, of float format, and of length src_n
-@param src pointer to the input data, of float format, an array of length (2 * src_n) (sequence of complex pairs
-<code>real part, imaginary part</code>). (memory layout, using the row-major convention: (src_n, 2))
-@param src_n length of the input data
-@param power exponent to apply to the spectrogram (&gt; 0.0). 1.0: amplitude spectrogram
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-Compute the norm of the input data.
+  <p>Get the norm of the complex signal.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, and of length src_n</li>
+<li><code>src</code>: pointer to the input data, of float format, an array of length (2 * src_n) (sequence of complex pairs
+<code>real part, imaginary part</code>). (memory layout, using the row-major convention: (src_n, 2))</li>
+<li><code>src_n</code>: length of the input data</li>
+<li><code>power</code>: exponent to apply to the spectrogram (&gt; 0.0). 1.0: amplitude spectrogram</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>Compute the norm of the input data.
 For each src_cmp = src<code>0</code> + i * src<code>1</code>,
 tmp_dst = pow(src<code>0</code>,2.0) + pow(src<code>1</code>,2.0)
 dst<code>0</code> = pow(tmp_dst,0.5*power);</p>
@@ -139,7 +127,7 @@ dst<code>0</code> = pow(tmp_dst,0.5*power);</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

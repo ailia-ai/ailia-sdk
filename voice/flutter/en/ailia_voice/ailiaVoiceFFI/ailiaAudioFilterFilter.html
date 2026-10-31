@@ -72,40 +72,24 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 信号にゼロ位相フィルタ処理を適用します
-@param dst 出力データのポインタ、float 型、要素数 dst_n
-@param src 入力データのポインタ、float 型、要素数 src_n
-@param n_coef フィルタ分子係数のポインタ、float 型、要素数 n_coef_n
-@param d_coef フィルタ分母係数のポインタ、float 型、要素数 d_coef_n
-@param dst_n データ出力先の確保要素数（dst_n &gt;= src_n）
-@param src_n 入力データの要素数
-@param n_coef_n フィルタ分子係数の要素数
-@param d_coef_n フィルタ分母係数の要素数
-@param pad_type 入力信号に対する両端パディング処理方法、	AILIA_AUDIO_FILTFILT_PAD_* のいずれか
-@param pad_len 入力信号に対する両端パディング数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-dstへの出力数はmin(dst_m,src_n)となります。
-n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディングします。</p>
-<p>~english
-@brief Apply a zero-phase filter to the signal.
-@param dst pointer to the output data, of float format, and of length dst_n
-@param src pointer to the input data, of float format, and of length src_n
-@param n_coef pointer to the numerator coefficients of the filter, of float format, and length n_coef_n
-@param d_coef pointer to the denominator coefficients of the filter, of float format, and length d_coef_n
-@param dst_n length (in number of samples) reserved in the output buffer (dst_n &gt;= src_n)
-@param src_n number of samples in the input signal
-@param n_coef_n number of numerator coefficients of the filter
-@param d_coef_n number of denominator coefficients of the filter
-@param pad_type type of padding to apply at the start and at the end of the input signal: any of the
-AILIA_AUDIO_FILTFILT_PAD_* constants
-@param pad_len length of the padding applied to the start and to the end of the input signal
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-The number of values written to the output dst is min(dst_m,src_n).
+  <p>Apply a zero-phase filter to the signal.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, and of length dst_n</li>
+<li><code>src</code>: pointer to the input data, of float format, and of length src_n</li>
+<li><code>n_coef</code>: pointer to the numerator coefficients of the filter, of float format, and length n_coef_n</li>
+<li><code>d_coef</code>: pointer to the denominator coefficients of the filter, of float format, and length d_coef_n</li>
+<li><code>dst_n</code>: length (in number of samples) reserved in the output buffer (dst_n &gt;= src_n)</li>
+<li><code>src_n</code>: number of samples in the input signal</li>
+<li><code>n_coef_n</code>: number of numerator coefficients of the filter</li>
+<li><code>d_coef_n</code>: number of denominator coefficients of the filter</li>
+<li><code>pad_type</code>: type of padding to apply at the start and at the end of the input signal: any of the
+AILIA_AUDIO_FILTFILT_PAD_* constants</li>
+<li><code>pad_len</code>: length of the padding applied to the start and to the end of the input signal</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>The number of values written to the output dst is min(dst_m,src_n).
 The largest of n_coef_n and d_coef_n is taken as reference and zeros are added for padding where necessary.</p>
 </section>
 
@@ -165,7 +149,7 @@ The largest of n_coef_n and d_coef_n is taken as reference and zeros are added f
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

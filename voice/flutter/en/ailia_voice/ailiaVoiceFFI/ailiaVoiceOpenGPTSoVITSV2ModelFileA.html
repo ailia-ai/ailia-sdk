@@ -70,30 +70,20 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief GPT-SoVITS V2向けのモデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (MBSC)
-@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (MBSC)
-@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (MBSC)
-@param wave onnxファイルのパス名 (vits.onnx) (MBSC)
-@param ssl onnxファイルのパス名 (cnhubert.onnx) (MBSC)
-@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (MBSC)（NULLの場合はBERTを使用しない）
-@param vocab vocab.txtのパス名 (MBSC)（NULLの場合はBERTを使用しない）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</p>
-<p>~english
-@brief Set GPT-SoVITS V2 models into a network instance.
-@param net A network instance pointer
-@param encoder The path name to the onnx file (t2s_encoder.onnx) (MBSC)
-@param decoder1 The path name to the onnx file (t2s_fsdec.onnx) (MBSC)
-@param decoder2 The path name to the onnx file (t2s_sdec.onnx) (MBSC)
-@param wave The path name to the onnx file (vits.onnx) (MBSC)
-@param ssl The path name to the onnx file (cnhubert.onnx) (MBSC)
-@param chinese_bert The path name to the onnx file (chinese-roberta.onnx) (MBSC) (NULL to disable BERT)
-@param vocab The path name to the vocab file (vocab.txt) (MBSC) (NULL to disable BERT)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.</p>
+  <p>Set GPT-SoVITS V2 models into a network instance.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>encoder</code>: The path name to the onnx file (t2s_encoder.onnx) (MBSC)</li>
+<li><code>decoder1</code>: The path name to the onnx file (t2s_fsdec.onnx) (MBSC)</li>
+<li><code>decoder2</code>: The path name to the onnx file (t2s_sdec.onnx) (MBSC)</li>
+<li><code>wave</code>: The path name to the onnx file (vits.onnx) (MBSC)</li>
+<li><code>ssl</code>: The path name to the onnx file (cnhubert.onnx) (MBSC)</li>
+<li><code>chinese_bert</code>: The path name to the onnx file (chinese-roberta.onnx) (MBSC) (NULL to disable BERT)</li>
+<li><code>vocab</code>: The path name to the vocab file (vocab.txt) (MBSC) (NULL to disable BERT)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
 </section>
 
 
@@ -148,7 +138,7 @@ If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an er
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

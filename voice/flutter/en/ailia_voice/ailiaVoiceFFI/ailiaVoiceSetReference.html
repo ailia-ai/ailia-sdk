@@ -68,26 +68,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 0ショット音声合成のリファレンスとなる波形とテキストを設定します。
-@param net   ボイスオブジェクトポインタ
-@param buf  PCM波形 (0 - 1で正規化)
-@param buf_size バッファサイズ（byte単位）
-@param channels チャンネル数
-@param sampling_rate サンプリングレート
-@param features フィーチャー(UTF8)</p>
-<p>@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</p>
-<p>~english
-@brief Set the waveform and text as references for zero-shot voice synthesis.
-@param net   A Voice instance pointer
-@param buf   PCM Wave (Normalized by 0 - 1)
-@param buf_size buffer size (byte unit)
-@param channels num channels
-@param sampling_rate sampling rate
-@param features Feature (UTF8)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.</p>
+  <p>Set the waveform and text as references for zero-shot voice synthesis.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A Voice instance pointer</li>
+<li><code>buf</code>: PCM Wave (Normalized by 0 - 1)</li>
+<li><code>buf_size</code>: buffer size (byte unit)</li>
+<li><code>channels</code>: num channels</li>
+<li><code>sampling_rate</code>: sampling rate</li>
+<li><code>features</code>: Feature (UTF8)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
 </section>
 
 
@@ -138,7 +130,7 @@ If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an er
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

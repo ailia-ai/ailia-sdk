@@ -72,43 +72,24 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 信号にフィルタ処理を適用します
-@param dst 出力データのポインタ、float 型、要素数 dst_n
-@param src 入力データのポインタ、float 型、要素数 src_n
-@param n_coef フィルタ分子係数のポインタ、float 型、要素数 n_coef_n
-@param d_coef フィルタ分母係数のポインタ、float 型、要素数 d_coef_n
-@param zi 遅延状態のポインタ、float 型、要素数 zi_n (zi_n = max(n_coef_n,d_coef_n)-1)、nullptrを許容
-@param dst_n データ出力先の確保要素数（dst_n &gt;= src_n）
-@param src_n 入力データの要素数
-@param n_coef_n フィルタ分子係数の要素数
-@param d_coef_n フィルタ分母係数の要素数
-@param zi_n 遅延状態の要素数 (zi_n &gt;= max(n_coef_n,d_coef_n)-1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-dstへの出力数はmin(dst_m,src_n)となります。
-ziへは初期遅延状態を渡します。処理後には最終遅延状態に上書きされます。
-zi_nはmax(n_coef_n,d_coef_n)-1が必要となります。不足の場合、不足分は0でパディングし、最終遅延状態は返しません。
-ziにnullptrを与えた場合は、初期遅延状態を0とします。最終遅延状態も返しません。zi_nは無視されます。
-n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディングします。</p>
-<p>~english
-@brief Apply a filter to the signal.
-@param dst pointer to the output data, of float format, and of length dst_n
-@param src pointer to the input data, of float format, and of length src_n
-@param n_coef pointer to the numerator coefficients of the filter, of float format, and length n_coef_n
-@param d_coef pointer to the denominator coefficients of the filter, of float format, and length d_coef_n
-@param zi pointer to the initial delayed values to be used, of float format, and of length zi_n (zi_n =
-max(n_coef_n,d_coef_n)-1). nullptr is allowed.
-@param dst_n size, in number of samples, reserved in the output buffer (dst_n &gt;= src_n)
-@param src_n number of samples in the input signal
-@param n_coef_n number of numerator coefficients of the filter
-@param d_coef_n number of denominator coefficients of the filter
-@param zi_n number of initial delayed values provided (zi_n &gt;= max(n_coef_n,d_coef_n)-1)
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-The number of samples outputted to dst is min(dst_m,src_n).
+  <p>Apply a filter to the signal.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, and of length dst_n</li>
+<li><code>src</code>: pointer to the input data, of float format, and of length src_n</li>
+<li><code>n_coef</code>: pointer to the numerator coefficients of the filter, of float format, and length n_coef_n</li>
+<li><code>d_coef</code>: pointer to the denominator coefficients of the filter, of float format, and length d_coef_n</li>
+<li><code>zi</code>: pointer to the initial delayed values to be used, of float format, and of length zi_n (zi_n =
+max(n_coef_n,d_coef_n)-1). nullptr is allowed.</li>
+<li><code>dst_n</code>: size, in number of samples, reserved in the output buffer (dst_n &gt;= src_n)</li>
+<li><code>src_n</code>: number of samples in the input signal</li>
+<li><code>n_coef_n</code>: number of numerator coefficients of the filter</li>
+<li><code>d_coef_n</code>: number of denominator coefficients of the filter</li>
+<li><code>zi_n</code>: number of initial delayed values provided (zi_n &gt;= max(n_coef_n,d_coef_n)-1)</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>The number of samples outputted to dst is min(dst_m,src_n).
 Use zi to provide the initial delayed values. During processing, this array is overriden with the new delayed
 values. Out of the zi_n, the number of delayed values used is max(n_coef_n,d_coef_n)-1. If there are less than that,
 the remaining is assumed to be zeros, and the array zi is not updated with the new values. When zi is nullptr, zi_n
@@ -172,7 +153,7 @@ of n_coef_n and d_coef_n is taken as reference and zeros are added for padding w
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

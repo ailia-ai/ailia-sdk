@@ -64,24 +64,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 推論時の内部データ(Blob)の数を取得します。
-@param net ネットワークオブジェクトポインタ
-@param blob_count blobの数の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時は入出力Blobのみが列挙され、ailiaOpneWeightXXX呼び出し時に中間Blobの列挙が行われます。
-そのためailiaOpenStreamXXX呼び出し直後とailiaOpneWeightXXX呼び出し直後で返答する数が変わる場合があります。</p>
-<p>~english
-@brief Gets the amount of internal data (blob) during inference.
-@param net A network instance pointer
-@param blob_count Storage location of the number of blobs
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This API can be call after call ailiaOpenStreamXXX().
+  <p>Gets the amount of internal data (blob) during inference.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>blob_count</code>: Storage location of the number of blobs</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This API can be call after call ailiaOpenStreamXXX().
 In addition, this api returuns number of sum of inputs and outputs when after call ailiaOpenStreamXXX.
 And, when call ailiaOpenWeightXXX, enumerate and optimzie intermediate blobs.
 So, this api may return more count after call ailiaOpenWeightXXX.</p>
@@ -127,7 +118,7 @@ So, this api may return more count after call ailiaOpenWeightXXX.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

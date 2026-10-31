@@ -66,31 +66,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 指定したBlobの形状を変更します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの形状情報
-@param blob_idx 変更するblobのインデックス
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-複数入力があるネットワークなどで入力形状を変更する場合に用います。
-blob_idxは入力レイヤーのblob以外のものを指定した場合 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-その他の注意点は ailiaSetInputShape() の解説を参照してください。
-入力形状のランクが5次元以上の場合は ailiaSetInputBlobShapeND() を利用してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Change the shape of the blob given by its index
-@param net network object pointer
-@param shape new shape of the blob
-@param blob_idx index referencing the blob to reshape
-@param version AILIA_SHAPE_VERSION
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and otherwise the coresponding error code.
-@details
-This is useful to change the network input shape in a context where there are several input blobs.
-If blob_idx does not correspond to an input layer,  \ref AILIA_STATUS_INVALID_ARGUMENT  is returned.
+  <p>Change the shape of the blob given by its index</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: network object pointer</li>
+<li><code>shape</code>: new shape of the blob</li>
+<li><code>blob_idx</code>: index referencing the blob to reshape</li>
+<li><code>version</code>: AILIA_SHAPE_VERSION</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and otherwise the coresponding error code.</p>
+<p>This is useful to change the network input shape in a context where there are several input blobs.
+If blob_idx does not correspond to an input layer,  <a href="../../ailia_voice/AILIA_STATUS_INVALID_ARGUMENT-constant.html">AILIA_STATUS_INVALID_ARGUMENT</a>  is returned.
 For other related remarks, see the documentation of  ailiaSetInputShape().
 If dimension of shape has 5 or more, please use  ailiaSetInputBlobShapeND().
 This API can be call after call ailiaOpenWeighXXX().</p>
@@ -140,7 +127,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

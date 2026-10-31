@@ -66,27 +66,17 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 推論時の内部データ(Blob)の名前をインデックスで探し取得します。
-@param net ネットワークオブジェクトポインタ
-@param buffer Blob名の出力先バッファ
-@param buffer_size バッファのサイズ(終端null文字分を含む)
-@param blob_idx 検索するblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時は入出力Blobのみが検索可能です。中間Blobを検索する場合ailiaOpneWeightXXXを呼び出す必要があります。</p>
-<p>~english
-@brief Searches by index for the name of the internal data (blob) during inference and returns it.
-@param net A network instance pointer
-@param buffer The output destination buffer for the blob name
-@param buffer_size The size of the buffer (including the null terminator)
-@param blob_idx The index of the blob to search for
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This API can be call after call ailiaOpenStreamXXX().
+  <p>Searches by index for the name of the internal data (blob) during inference and returns it.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>buffer</code>: The output destination buffer for the blob name</li>
+<li><code>buffer_size</code>: The size of the buffer (including the null terminator)</li>
+<li><code>blob_idx</code>: The index of the blob to search for</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This API can be call after call ailiaOpenStreamXXX().
 In addition, when call this API before call ailiaOpenWeightXXX, can only find inputs and outputs blobs.
 If you want find intermediate blobs, please call ailiaOpenWeightXXX before.</p>
 </section>
@@ -135,7 +125,7 @@ If you want find intermediate blobs, please call ailiaOpenWeightXXX before.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

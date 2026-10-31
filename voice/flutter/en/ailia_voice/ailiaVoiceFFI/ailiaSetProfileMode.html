@@ -64,24 +64,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief プロファイルモードをセットします
-@param net          ネットワークオブジェクトポインタ
-@param mode         プロファイルモード
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-プロファイルモードを指定します。デフォルトは無効です。
-ailiaOpenStreamXXXを呼び出したあとに呼び出してください。
-プロファイルモードを有効にした場合、 ailiaSummary() の出力にプロファイル結果が追加されます。</p>
-<p>~english
-@brief Set the profile mode.
-@param net          The network instance pointer
-@param mode         Profile mode AILIA_PROFILE_XXX (Default : \ref AILIA_PROFILE_DISABLE )
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-Set the profile mode. The default is profile disabled.
+  <p>Set the profile mode.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: The network instance pointer</li>
+<li><code>mode</code>: Profile mode AILIA_PROFILE_XXX (Default : <a href="../../ailia_voice/AILIA_PROFILE_DISABLE-constant.html">AILIA_PROFILE_DISABLE</a> )</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Set the profile mode. The default is profile disabled.
 Call it after calling ailiaOpenStreamXXX.
 When profile mode is enabled, you can get profile result via  ailiaSummary() .</p>
 </section>
@@ -126,7 +117,7 @@ When profile mode is enabled, you can get profile result via  ailiaSummary() .</
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

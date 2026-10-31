@@ -65,25 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 実数の信号に対して標準化を実行します。
-@param dst 出力データのポインタ、float 型、要素数 src_n
-@param src 入力データのポインタ、float 型、要素数 src_n
-@param src_n 入力データの要素数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-入力データの平均0、分散1になるよう標準化を行う。
-dst = (src - mean(src)) / std(src)</p>
-<p>~english
-@brief Standardize a real signal.
-@param dst pointer to the output data, of float format, and of length src_n
-@param src pointer to the input data, of float format, and of length src_n
-@param src_n length of the input data
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-Standardize the input data so that its average value becomes 0 and its variance 1.
+  <p>Standardize a real signal.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, and of length src_n</li>
+<li><code>src</code>: pointer to the input data, of float format, and of length src_n</li>
+<li><code>src_n</code>: length of the input data</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>Standardize the input data so that its average value becomes 0 and its variance 1.
 dst = (src - mean(src)) / std(src)</p>
 </section>
 
@@ -129,7 +120,7 @@ dst = (src - mean(src)) / std(src)</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

@@ -61,23 +61,16 @@
 
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ファイルからデータを読み込みます
-@param void *                     読み込みデータ格納先のポインタ
-@param  \ref AILIA_FSIZE_RETURN_TYPE     読み込みデータのバイト長さ
-@param void *                     ユーザ定義ファイルポインタ
-@return
-成功した場合、 \ref AILIA_USER_API_SUCCESS を返す。
-失敗した場合、 \ref AILIA_USER_API_FAILED を返す。
-標準APIとは異なり、返値はAILIA_USER_API_*になりますのでご注意ください。</p>
-<p>~english
-@brief Reads data from the file.
-@param void *                     A pointer to the storage location of the data to be read
-@param  \ref AILIA_FSIZE_RETURN_TYPE     The length in bytes of the data to be read
-@param void *                     A user-defined file pointer
-@return
-This function returns  \ref AILIA_USER_API_SUCCESS  if successful.
-It returns  \ref AILIA_USER_API_FAILED  if it fails.
+  <p>Reads data from the file.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>void</code>: *                     A pointer to the storage location of the data to be read</li>
+<li><code>The</code>: length in bytes of the data to be read</li>
+<li><code>void</code>: *                     A user-defined file pointer</li>
+</ul>
+<p>Returns:</p>
+<p>This function returns  <a href="../ailia_voice/AILIA_USER_API_SUCCESS-constant.html">AILIA_USER_API_SUCCESS</a>  if successful.
+It returns  <a href="../ailia_voice/AILIA_USER_API_FAILED-constant.html">AILIA_USER_API_FAILED</a>  if it fails.
 Note that unlike the standard API, the return value will be AILIA_USER_API_*.</p>
 </section>
 
@@ -111,7 +104,7 @@ Note that unlike the standard API, the return value will be AILIA_USER_API_*.</p
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

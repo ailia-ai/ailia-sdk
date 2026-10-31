@@ -65,24 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 入力値を対数スケールに変換します。
-@param dst 出力データポインタ、float 型、長さ src_n
-@param src 入力データポインタ、float 型、長さ src_n
-@param src_n 計算対象の要素数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-dst = log_e(1.0 + src) を計算します。</p>
-<p>~english
-@brief Convert the input values to a logarithmic scale.
-@param dst pointer to the output data, of float format, and of length src_n
-@param src pointer to the input data, of float format, and of length src_n
-@param src_n number of elements to be calculated
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-dst = log_e(1.0 + src)</p>
+  <p>Convert the input values to a logarithmic scale.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, and of length src_n</li>
+<li><code>src</code>: pointer to the input data, of float format, and of length src_n</li>
+<li><code>src_n</code>: number of elements to be calculated</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>dst = log_e(1.0 + src)</p>
 </section>
 
 
@@ -127,7 +119,7 @@ dst = log_e(1.0 + src)</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

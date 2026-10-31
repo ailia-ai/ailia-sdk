@@ -65,24 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ネットワークオブジェクトに重み係数を読み込みます。(メモリから読み込み)
-@param net ネットワークオブジェクトポインタ
-@param buf protobuf/onnxファイルのデータへのポインタ
-@param buf_size protobuf/onnxファイルのデータサイズ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-メモリからネットワークオブジェクトに重み係数を読み込みます。</p>
-<p>~english
-@brief Reads weights into a network instance. (Read from memory)
-@param net A network instance pointer
-@param buf A pointer to the data in the protobuf/onnx file
-@param buf_size The data size of the protobuf/onnx file
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This function reads weights into the network instance from memory.</p>
+  <p>Reads weights into a network instance. (Read from memory)</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>buf</code>: A pointer to the data in the protobuf/onnx file</li>
+<li><code>buf_size</code>: The data size of the protobuf/onnx file</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This function reads weights into the network instance from memory.</p>
 </section>
 
 
@@ -127,7 +119,7 @@ This function reads weights into the network instance from memory.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

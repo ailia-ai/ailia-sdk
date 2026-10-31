@@ -79,59 +79,35 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 音響信号からメルスペクトログラムを生成します。
-@param dst 出力データのポインタ、float 型、外側から mel_n, frame_n 順のメモリレイアウト
-@param src 入力データのポインタ、float 型、モノラル PCM データ
-@param sample_n 入力データのサンプル数
-@param sample_rate サンプリング周波数
-@param fft_n FFT点数
-@param hop_n フレームのシフト数
-@param win_n 1フレームに含むサンプル数
-@param win_type 窓関数の種類、AILIA_AUDIO_WIN_TYPE_* のいずれか
-@param max_frame_n 出力データの時間フレーム数の最大値
-@param center 入力データの前後へのパディングの有無、AILIA_AUDIO_STFT_CENTER_* のいずれか
-@param power スペクトログラムの乗数（ &gt; 0.0）1.0: 振幅スペクトログラム、2.0: パワースペクトログラム、その他:
-任意の累乗値の出力に相当
-@param fft_norm_type FFT後の正規化処理、AILIA_AUDIO_FFT_NORMALIZE_* のいずれか
-@param f_min 周波数の最小値
-@param f_max 周波数の最大値
-@param mel_n メル周波数のインデックス数（ &lt; freq_n）
-@param mel_norm_type MELスペクトログラムの正規化の有無、AILIA_AUDIO_MEL_NORMALIZE_* のいずれか
-@param mel_formula MEL尺度の形式、AILIA_AUDIO_MEL_SCALE_FORMULA_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-時間フレームごとにFFT(STFT)→正規化処理→累乗（振幅・パワーに変換→メルフィルタバンクの係数取得→メル尺度への変換
-の順で処理を実行します。 出力データは実数の信号であり、長さはmel_n*時間フレーム長です。</p>
-<p>~english
-@brief Generate the mel spectrogram from the audio signal.
-@param dst pointer to the output data, of float format, and of length (mel_n * frame_n) (with frame_n the number of
-time frames outputted). (memory layout, using the row-major convention: (mel_n, frame_n))
-@param src pointer to the input data, of float format, monoral PCM audio data.
-@param sample_n count of samples in the input data
-@param sample_rate sampling rate of the input signal
-@param fft_n number of FFT components
-@param hop_n stride of each window shift (in number of samples). This is the size of the time increment for the
-spectrogram.
-@param win_n size of the window function (in number of samples)
-@param win_type type of the window function: any of the AILIA_AUDIO_WIN_TYPE_* constants
-@param max_frame_n maximum value of the time frame index in the outputted data
-@param center whether to pad or not (and the type of padding) before and after the input data: any of the
-AILIA_AUDIO_STFT_CENTER_* constants
-@param power exponent to apply to the spectrogram (&gt; 0.0). 1.0: amplitude spectrogram, 2.0: power spectrogram, etc,
-any other positive exponent value is allowed.
-@param fft_norm_type normalization after the FFT: any of the AILIA_AUDIO_FFT_NORMALIZE_* constants
-@param f_min lowest frequency
-@param f_max highest frequency
-@param mel_n number of mel frequency bins in the output (&lt; freq_n)
-@param mel_norm whether to normalize the mel spectrogram (and the type of the normalization): any of the
-AILIA_AUDIO_MEL_NORMALIZE_* constants
-@param mel_formula mel scale format: any of the AILIA_AUDIO_MEL_SCALE_FORMULA_* constants
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-For each time frame, the operations are processed in this order:
+  <p>Generate the mel spectrogram from the audio signal.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, and of length (mel_n * frame_n) (with frame_n the number of
+time frames outputted). (memory layout, using the row-major convention: (mel_n, frame_n))</li>
+<li><code>src</code>: pointer to the input data, of float format, monoral PCM audio data.</li>
+<li><code>sample_n</code>: count of samples in the input data</li>
+<li><code>sample_rate</code>: sampling rate of the input signal</li>
+<li><code>fft_n</code>: number of FFT components</li>
+<li><code>hop_n</code>: stride of each window shift (in number of samples). This is the size of the time increment for the
+spectrogram.</li>
+<li><code>win_n</code>: size of the window function (in number of samples)</li>
+<li><code>win_type</code>: type of the window function: any of the AILIA_AUDIO_WIN_TYPE_* constants</li>
+<li><code>max_frame_n</code>: maximum value of the time frame index in the outputted data</li>
+<li><code>center</code>: whether to pad or not (and the type of padding) before and after the input data: any of the
+AILIA_AUDIO_STFT_CENTER_* constants</li>
+<li><code>power</code>: exponent to apply to the spectrogram (&gt; 0.0). 1.0: amplitude spectrogram, 2.0: power spectrogram, etc,
+any other positive exponent value is allowed.</li>
+<li><code>fft_norm_type</code>: normalization after the FFT: any of the AILIA_AUDIO_FFT_NORMALIZE_* constants</li>
+<li><code>f_min</code>: lowest frequency</li>
+<li><code>f_max</code>: highest frequency</li>
+<li><code>mel_n</code>: number of mel frequency bins in the output (&lt; freq_n)</li>
+<li><code>mel_norm</code>: whether to normalize the mel spectrogram (and the type of the normalization): any of the
+AILIA_AUDIO_MEL_NORMALIZE_* constants</li>
+<li><code>mel_formula</code>: mel scale format: any of the AILIA_AUDIO_MEL_SCALE_FORMULA_* constants</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>For each time frame, the operations are processed in this order:
 FFT(STFT) -&gt; normalization -&gt; power exponentiation -&gt; get the mel filter-bank coefficients -&gt; convert to the mel
 scale. The output is real values, and its length is mel_n*frame_n (with frame_n the number of time frames outputted).</p>
 </section>
@@ -206,7 +182,7 @@ scale. The output is real values, and its length is mel_n*frame_n (with frame_n 
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

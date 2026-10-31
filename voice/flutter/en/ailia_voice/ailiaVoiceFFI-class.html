@@ -64,7 +64,7 @@
     <h2>Constructors</h2>
     <dl class="constructor-summary-list">
         <dt id="ailiaVoiceFFI.new" class="callable">
-          <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceFFI.html">ailiaVoiceFFI.new</a></span><span class="signature">(<span class="parameter" id="-param-dynamicLibrary"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/DynamicLibrary-class.html">DynamicLibrary</a></span> <span class="parameter-name">dynamicLibrary</span></span>)</span>
+          <span class="name"><a href="../ailia_voice/ailiaVoiceFFI/ailiaVoiceFFI.html">ailiaVoiceFFI</a></span><span class="signature">(<span class="parameter" id="param-dynamicLibrary"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/DynamicLibrary-class.html">DynamicLibrary</a></span> <span class="parameter-name">dynamicLibrary</span></span>)</span>
         </dt>
         <dd>
           The symbols are looked up in <code>dynamicLibrary</code>.
@@ -124,19 +124,7 @@
 
 </dt>
 <dd>
-  ~japanese
-@brief 複素数のノルムを算出します
-@param dst 出力データのポインタ、float 型、要素数 src_n
-@param src 入力データのポインタ、float 型、外側から src_n, 2(実部、虚部) 順のメモリレイアウト
-@param src_n 入力データの要素数
-@param power 累乗値( &gt; 0.0 )、1.0で複素数絶対値に相当
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-入力データのノルムを算出します
-src_cmp = src<code>0</code> + src<code>1</code> i において
-tmp_dst = pow(src<code>0</code>,2.0) + pow(src<code>1</code>,2.0)
-dst<code>0</code> = pow(tmp_dst,0.5*power);
+  Get the norm of the complex signal.
   
 
 </dd>
@@ -149,16 +137,7 @@ dst<code>0</code> = pow(tmp_dst,0.5*power);
 
 </dt>
 <dd>
-  ~japanese
-@brief 非負の入力値をデシベルスケールに変換します。
-@param dst 出力データポインタ、float 型、長さ src_n
-@param src 入力データポインタ、float 型、要素数 src_n
-@param src_n 計算対象の要素数
-@param top_db 出力の最大値から出力下限の閾値までを定める値 (&gt;= 0.0)、負数の場合は処理は閾値を設定しない
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-librosa.power_to_dbと互換性があります。
+  Convert non-negative input values to decibel scale.
   
 
 </dd>
@@ -171,19 +150,7 @@ librosa.power_to_dbと互換性があります。
 
 </dt>
 <dd>
-  ~japanese
-@brief 実数STFT結果をメル尺度に変換する
-@param dst 出力データのポインタ、float 型、外側から mel_n, frame_n 順のメモリレイアウト
-@param src 入力データのポインタ、float 型、外側から freq_n, frame_n 順のメモリレイアウト
-@param fb_mtrx メルフィルタバンク、float 型、外側から mel_n, freq_n  順のメモリレイアウト
-@param freq_n 周波数のインデックス数
-@param frame_n 入力データの時間フレームの数
-@param mel_n メル周波数のインデックス数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-入力された実数スペクトログラムをメル尺度に変換します
-fb_mtrxには ailiaAudioGetFBMatrix() で取得した係数を与える事が出来ます
+  Convert the real output of the STFT to the mel scale.
   
 
 </dd>
@@ -196,16 +163,7 @@ fb_mtrxには ailiaAudioGetFBMatrix() で取得した係数を与える事が出
 
 </dt>
 <dd>
-  ~japanese
-@brief FFTを実行します。
-@param dst 出力データのポインタ、float 型、外側から fft_n, 2(実部、虚部) 順のメモリレイアウト
-@param src 入力データのポインタ、float 型、要素数 fft_n
-@param fft_n FFT点数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-FFT点数が2の累乗の場合、高速アルゴリズムで動作します。
-出力データは実部と虚部の交互信号であり、長さは fft_n*2 です。
+  Execute the FFT.
   
 
 </dd>
@@ -218,23 +176,7 @@ FFT点数が2の累乗の場合、高速アルゴリズムで動作します。
 
 </dt>
 <dd>
-  ~japanese
-@brief 信号にゼロ位相フィルタ処理を適用します
-@param dst 出力データのポインタ、float 型、要素数 dst_n
-@param src 入力データのポインタ、float 型、要素数 src_n
-@param n_coef フィルタ分子係数のポインタ、float 型、要素数 n_coef_n
-@param d_coef フィルタ分母係数のポインタ、float 型、要素数 d_coef_n
-@param dst_n データ出力先の確保要素数（dst_n &gt;= src_n）
-@param src_n 入力データの要素数
-@param n_coef_n フィルタ分子係数の要素数
-@param d_coef_n フィルタ分母係数の要素数
-@param pad_type 入力信号に対する両端パディング処理方法、	AILIA_AUDIO_FILTFILT_PAD_* のいずれか
-@param pad_len 入力信号に対する両端パディング数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-dstへの出力数はmin(dst_m,src_n)となります。
-n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディングします。
+  Apply a zero-phase filter to the signal.
   
 
 </dd>
@@ -247,19 +189,7 @@ n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディ
 
 </dt>
 <dd>
-  ~japanese
-@brief 実数スペクトログラム/メルスペクトログラムの時間フレーム数を調整します。
-@param dst 出力データのポインタ、freq_n, dst_frame_n 順のメモリレイアウト
-@param src 入力データのポインタ、freq_n, src_frame_n 順のメモリレイアウト
-@param freq_n 周波数のインデックス数
-@param dst_frame_n 出力データの時間フレームの数
-@param src_frame_n 入力データの時間フレームの数
-@param pad_data パディング（dst_frame_n &gt; src_frame_n の場合に使用）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-dst_frame_n &gt; src_frame_n : 不足する時間フレームのデータを pad_data のデータで埋める。
-dst_frame_n &lt;= src_frame_n : 先頭から dst_frame_n のデータのみを切り出す。
+  Fix the number of time frames of a real-valued spectrogram/mel-spectrogram.
   
 
 </dd>
@@ -272,18 +202,7 @@ dst_frame_n &lt;= src_frame_n : 先頭から dst_frame_n のデータのみを�
 
 </dt>
 <dd>
-  ~japanese
-@brief メルフィルタバンクの係数を計算します。
-@param dst 出力データのポインタ、float 型、外側から mel_n, freq_n  順のメモリレイアウト
-@param freq_n 周波数のインデックス数
-@param f_min 周波数の最小値
-@param f_max 周波数の最大値
-@param mel_n メル周波数のインデックス数（ &lt; freq_n）
-@param sample_rate サンプリング周波数
-@param mel_norm 出力される係数の正規化の有無、AILIA_AUDIO_MEL_NORMALIZE_* のいずれか
-@param mel_formula MEL尺度の形式、AILIA_AUDIO_MEL_SCALE_FORMULA_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Create a mel filter-bank.
   
 
 </dd>
@@ -296,21 +215,7 @@ dst_frame_n &lt;= src_frame_n : 先頭から dst_frame_n のデータのみを�
 
 </dt>
 <dd>
-  ~japanese
-@brief STFTで生成される時間フレーム長を取得します。
-@param frame_n フレーム長出力先ポインタ
-@param sample_n STFTを適用するサンプル数
-@param fft_n FFT点数
-@param hop_n 窓のシフト数
-@param center AILIA_AUDIO_STFT_CENTER_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-STFT実行前のバッファサイズの決定に使用します。
-\ref AILIA_AUDIO_STFT_CENTER_NONE  の場合 hop_n ずつ区切り、sample_n の前後に padding を行いません。
-\ref AILIA_AUDIO_STFT_CENTER_ENABLE  の場合 sample_n の前後に fft_n/2 の padding(reflect) を行います。
-\ref AILIA_AUDIO_STFT_CENTER_SCIPY_DEFAULT の場合、sample_n の前後に fft_n/2 の padding(zero)
-を行い、hop_nの倍数になるようにpadding(zero)を行います
+  Get the number of frames generated by the STFT.
   
 
 </dd>
@@ -323,23 +228,7 @@ STFT実行前のバッファサイズの決定に使用します。
 
 </dt>
 <dd>
-  ~japanese
-@brief 複素スペクトログラムから音響信号を生成します。
-@param dst 出力データのポインタ、float 型、要素数 sample_n
-@param src 入力データのポインタ、float 型、外側から freq_n, frame_n, 2(複素数: 実部, 虚部) 順のメモリレイアウト
-@param frame_n 入力データの時間フレーム数
-@param freq_n 周波数（fft_n/2+1）
-@param hop_n フレームのシフト数
-@param win_n 窓関数の長さ
-@param win_type 窓関数の種類、AILIA_AUDIO_WIN_TYPE_* のいずれか
-@param max_sample_n 出力データのサンプル数の最大値
-@param center 入力データ生成時の前後へのパディングの有無、AILIA_AUDIO_STFT_CENTER_* のいずれか
-@param norm_type 入力データ生成時の正規化処理、AILIA_AUDIO_FFT_NORMALIZE_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-時間フレームごとにIFFTを行い、最後に正規化処理を実行します。
-複素スペクトログラムのみに対応しています。
+  Generate an audio signal from a complex spectrogram.
   
 
 </dd>
@@ -352,22 +241,7 @@ STFT実行前のバッファサイズの決定に使用します。
 
 </dt>
 <dd>
-  ~japanese
-@brief フィルタ処理用の初期遅延係数を算出します
-@param dst_zi 出力する初期遅延状態のポインタ、float 型、要素数 dst_n (dst_n &gt;= max(n_coef_n,d_coef_n)-1)
-@param n_coef フィルタ分子係数のポインタ、float 型、要素数 n_coef_n
-@param d_coef フィルタ分母係数のポインタ、float 型、要素数 d_coef_n
-@param dst_n 出力先の確保要素数 (dst_n &gt;= max(n_coef_n,d_coef_n)-1)
-@param n_coef_n フィルタ分子係数の要素数
-@param d_coef_n フィルタ分母係数の要素数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-一般に、得られた係数に入力信号の先頭を乗じたものを、初期遅延状態として ailiaAudioLinerFilter() に与えます。
-dst_nはmax(n_coef_n,d_coef_n)-1が必要となります。
-不足の場合は、確保分だけ出力します。
-超える部分は、0で埋めます。
-n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディングします。
+  Calculate the initial delay coefficients for filtering
   
 
 </dd>
@@ -380,31 +254,7 @@ n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディ
 
 </dt>
 <dd>
-  ~japanese
-@brief 音響信号からメルスペクトログラムを生成します。
-@param dst 出力データのポインタ、float 型、外側から mel_n, frame_n 順のメモリレイアウト
-@param src 入力データのポインタ、float 型、モノラル PCM データ
-@param sample_n 入力データのサンプル数
-@param sample_rate サンプリング周波数
-@param fft_n FFT点数
-@param hop_n フレームのシフト数
-@param win_n 1フレームに含むサンプル数
-@param win_type 窓関数の種類、AILIA_AUDIO_WIN_TYPE_* のいずれか
-@param max_frame_n 出力データの時間フレーム数の最大値
-@param center 入力データの前後へのパディングの有無、AILIA_AUDIO_STFT_CENTER_* のいずれか
-@param power スペクトログラムの乗数（ &gt; 0.0）1.0: 振幅スペクトログラム、2.0: パワースペクトログラム、その他:
-任意の累乗値の出力に相当
-@param fft_norm_type FFT後の正規化処理、AILIA_AUDIO_FFT_NORMALIZE_* のいずれか
-@param f_min 周波数の最小値
-@param f_max 周波数の最大値
-@param mel_n メル周波数のインデックス数（ &lt; freq_n）
-@param mel_norm_type MELスペクトログラムの正規化の有無、AILIA_AUDIO_MEL_NORMALIZE_* のいずれか
-@param mel_formula MEL尺度の形式、AILIA_AUDIO_MEL_SCALE_FORMULA_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-時間フレームごとにFFT(STFT)→正規化処理→累乗（振幅・パワーに変換→メルフィルタバンクの係数取得→メル尺度への変換
-の順で処理を実行します。 出力データは実数の信号であり、長さはmel_n*時間フレーム長です。
+  Generate the mel spectrogram from the audio signal.
   
 
 </dd>
@@ -417,19 +267,8 @@ n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディ
 
 </dt>
 <dd>
-  ~japanese
-@brief 信号の入力前後の無音域を除いた領域を検出します
-@param dst_start_pos 有音域の先頭サンプル位置出力先ポインタ、int 型
-@param dst_length 有音域の長さ出力先ポインタ、int 型
-@param src 入力データのポインタ、float 型、要素数 sample_n
-@param sample_n 入力データのサンプル数
-@param win_n 1フレームに含むサンプル数
-@param hop_n フレームのシフト数
-@param thr_db 有音を判断するdB (thr_db &gt; 0)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-全域が無音の場合、*dst_start_pos = -1,*dst_length = 0となります。
+  Find the region of the signal between the first and the last non-silence samples. Detects the area excluding
+the silent range before and after the signal input
   
 
 </dd>
@@ -442,14 +281,7 @@ n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディ
 
 </dt>
 <dd>
-  ~japanese
-@brief リサンプル後のサンプル数を計算します
-@param dst_sample_n リサンプル後サンプル数出力先ポインタ
-@param dst_sample_rate 変換後のサンプリングレート
-@param src_sample_n 入力データのサンプル数
-@param src_sample_rate 入力データのサンプリングレート
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Get the number of samples after the resampling.
   
 
 </dd>
@@ -462,19 +294,7 @@ n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディ
 
 </dt>
 <dd>
-  ~japanese
-@brief ISTFTで生成されるサンプル数を取得します。
-@param sample_n サンプル数出力先ポインタ
-@param frame_n STFTデータの時間フレーム長
-@param fft_n FFT点数
-@param hop_n 窓のシフト数
-@param center AILIA_AUDIO_STFT_CENTER_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ISTFT実行前のバッファサイズの決定に使用します。
-\ref AILIA_AUDIO_STFT_CENTER_NONE  の場合 前後の切り捨てを行いません。
-\ref AILIA_AUDIO_STFT_CENTER_NONE  以外の場合 前後の切り捨てを行います。
+  Get the number of samples generated by the ISTFT.
   
 
 </dd>
@@ -487,26 +307,7 @@ ISTFT実行前のバッファサイズの決定に使用します。
 
 </dt>
 <dd>
-  ~japanese
-@brief 音響信号からスペクトログラムを生成します。
-@param dst 出力データのポインタ、float 型、外側から freq_n, frame_n, 2(複素数: 実部, 虚部) 順のメモリレイアウト
-@param src 入力データのポインタ、float 型、要素数 sample_n
-@param sample_n 入力データのサンプル数
-@param fft_n FFT点数
-@param hop_n フレームのシフト数
-@param win_n 窓関数の長さ
-@param win_type 窓関数の種類、AILIA_AUDIO_WIN_TYPE_* のいずれか
-@param max_frame_n 出力データの時間フレーム数の最大値
-@param center 入力データの前後へのパディングの有無、AILIA_AUDIO_STFT_CENTER_* のいずれか
-@param power スペクトログラムの乗数（&gt;= 0.0） 0.0: 複素スペクトログラム、1.0: 振幅スペクトログラム、2.0:
-パワースペクトログラム、その他: 任意の累乗値の出力に相当
-@param norm_type FFT後の正規化処理、AILIA_AUDIO_FFT_NORMALIZE_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-時間フレームごとにFFT→正規化処理→累乗（振幅・パワーに変換）の順で処理を実行します。
-出力データは実部と虚部の交互信号であり、長さは(fft_n/2+1)<em>時間フレーム長</em>2です。
-powerが0.0以外の場合は虚部の値を全て0.0として出力します。
+  Generate the spectrogram from the audio signal.
   
 
 </dd>
@@ -519,15 +320,7 @@ powerが0.0以外の場合は虚部の値を全て0.0として出力します。
 
 </dt>
 <dd>
-  ~japanese
-@brief 窓関数の係数を取得します。
-@param dst 出力データのポインタ、float 型、要素数 window_n
-@param window_n 窓の長さ（サンプル数）
-@param win_type 窓関数の種類、AILIA_AUDIO_WIN_TYPE_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-窓関数はhann窓とhamming窓のみ対応しています。
+  Get the window function.
   
 
 </dd>
@@ -540,16 +333,7 @@ powerが0.0以外の場合は虚部の値を全て0.0として出力します。
 
 </dt>
 <dd>
-  ~japanese
-@brief IFFTを実行します。
-@param dst 出力データのポインタ、float 型、外側から fft_n, 2(実部、虚部) 順のメモリレイアウト
-@param src 入力データのポインタ、float 型、外側から fft_n, 2(実部、虚部) 順のメモリレイアウト
-@param fft_n FFT点数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-FFT点数が2の累乗の場合、高速アルゴリズムで動作します。
-出力データは実部と虚部の交互信号であり、長さは fft_n*2 です。
+  Execute the IFFT.
   
 
 </dd>
@@ -562,26 +346,7 @@ FFT点数が2の累乗の場合、高速アルゴリズムで動作します。
 
 </dt>
 <dd>
-  ~japanese
-@brief 信号にフィルタ処理を適用します
-@param dst 出力データのポインタ、float 型、要素数 dst_n
-@param src 入力データのポインタ、float 型、要素数 src_n
-@param n_coef フィルタ分子係数のポインタ、float 型、要素数 n_coef_n
-@param d_coef フィルタ分母係数のポインタ、float 型、要素数 d_coef_n
-@param zi 遅延状態のポインタ、float 型、要素数 zi_n (zi_n = max(n_coef_n,d_coef_n)-1)、nullptrを許容
-@param dst_n データ出力先の確保要素数（dst_n &gt;= src_n）
-@param src_n 入力データの要素数
-@param n_coef_n フィルタ分子係数の要素数
-@param d_coef_n フィルタ分母係数の要素数
-@param zi_n 遅延状態の要素数 (zi_n &gt;= max(n_coef_n,d_coef_n)-1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-dstへの出力数はmin(dst_m,src_n)となります。
-ziへは初期遅延状態を渡します。処理後には最終遅延状態に上書きされます。
-zi_nはmax(n_coef_n,d_coef_n)-1が必要となります。不足の場合、不足分は0でパディングし、最終遅延状態は返しません。
-ziにnullptrを与えた場合は、初期遅延状態を0とします。最終遅延状態も返しません。zi_nは無視されます。
-n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディングします。
+  Apply a filter to the signal.
   
 
 </dd>
@@ -594,15 +359,7 @@ n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディ
 
 </dt>
 <dd>
-  ~japanese
-@brief 入力値を対数スケールに変換します。
-@param dst 出力データポインタ、float 型、長さ src_n
-@param src 入力データポインタ、float 型、長さ src_n
-@param src_n 計算対象の要素数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-dst = log_e(1.0 + src) を計算します。
+  Convert the input values to a logarithmic scale.
   
 
 </dd>
@@ -615,21 +372,7 @@ dst = log_e(1.0 + src) を計算します。
 
 </dt>
 <dd>
-  ~japanese
-@brief スペクトログラムから振幅と位相を計算します。
-@param dst_mag 振幅の出力先ポインタ、外側から freq_n, frame_n 順のメモリレイアウト
-@param dst_phase 位相の出力先ポインタ、外側から freq_n, frame_n, 2(実部、虚部) 順のメモリレイアウト
-@param src 入力データのポインタ、frame_n, freq_n, 2(実部、虚部) 順のメモリレイアウト
-@param freq_n 周波数のインデックス数
-@param frame_n 時間フレームの数
-@param power 振幅スペクトルの乗数 ( &gt; 0.0)、1.0: 振幅スペクトログラム、2.0: パワースペクトログラムに相当
-@param phase_form 位相の出力形式、AILIA_AUDIO_PHASE_FORM_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-librosaのデフォルト値と互換の条件: phase_form =  \ref AILIA_AUDIO_PHASE_FORM_COMPLEX , power = 1.0
-PyTorchのデフォルト値と互換の条件: phase_form =  \ref AILIA_AUDIO_PHASE_FORM_REAL , power = 1.0
-phase_formによってdst_phaseの出力が変わります。
+  Get the amplitude and the phase from the spectrogram.
   
 
 </dd>
@@ -642,20 +385,7 @@ phase_formによってdst_phaseの出力が変わります。
 
 </dt>
 <dd>
-  ~japanese
-@brief 信号をリサンプルします
-@param dst 出力データのポインタ、float 型、要素数 dst_n
-@param src 入力データのポインタ、float 型、要素数 src_n
-@param dst_sample_rate 変換後のサンプリングレート
-@param dst_n データ出力先の確保要素数（dst_n &gt;= max_resample_n）
-@param src_sample_rate 入力データのサンプリングレート
-@param src_n 入力データの要素数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-最大出力数max_resample_nは ailiaAudioGetResampleLen() で取得できます。
-dst_n &lt;  max_resample_n : 先頭からdst_nに入る部分のみ出力
-dst_n &gt;= max_resample_n : 出力要素数はmax_resample_n
+  Resample the signal.
   
 
 </dd>
@@ -668,16 +398,7 @@ dst_n &gt;= max_resample_n : 出力要素数はmax_resample_n
 
 </dt>
 <dd>
-  ~japanese
-@brief 実数の信号に対して標準化を実行します。
-@param dst 出力データのポインタ、float 型、要素数 src_n
-@param src 入力データのポインタ、float 型、要素数 src_n
-@param src_n 入力データの要素数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-入力データの平均0、分散1になるよう標準化を行う。
-dst = (src - mean(src)) / std(src)
+  Standardize a real signal.
   
 
 </dd>
@@ -690,8 +411,7 @@ dst = (src - mean(src)) / std(src)
 
 </dt>
 <dd>
-  ~japanese
-@brief 指定したBlob間でデータをコピーします
+  Perform copies  between blobs that specified.
   
 
 </dd>
@@ -704,18 +424,7 @@ dst = (src - mean(src)) / std(src)
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを作成します。
-@param net ネットワークオブジェクトポインタへのポインタ
-@param env_id 計算に利用する推論実行環境のID( ailiaGetEnvironment() で取得)  \ref AILIA_ENVIRONMENT_ID_AUTO
-にした場合は自動で選択する
-@param num_thread スレッド数の上限(  \ref AILIA_MULTITHREAD_AUTO  にした場合は自動で設定)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ネットワークオブジェクトを作成します。
-推論実行環境を自動にした場合はCPUモードになり、BLASが利用できる場合はBLASを利用します。
-なお、BLASを利用する場合num_threadは無視される場合があります。
+  Creates a network instance.
   
 
 </dd>
@@ -728,9 +437,7 @@ dst = (src - mean(src)) / std(src)
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを破棄します。
-@param net ネットワークオブジェクトポインタ
+  It destroys the network instance.
   
 
 </dd>
@@ -743,15 +450,7 @@ dst = (src - mean(src)) / std(src)
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時のレイヤー統合を無効化します
-@param net ネットワークオブジェクトポインタ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-レイヤー統合により取得できなくなるBlobを取得する必要がある場合などに用います。
-ailiaCreate() の直後に指定する必要があります。ailiaOpenを呼び出した後は変更することができません。
-なお、レイヤー統合を無効化すると推論速度が低下する場合があります。
+  Disalbe layer fusion optimaization for inference
   
 
 </dd>
@@ -764,14 +463,7 @@ ailiaCreate() の直後に指定する必要があります。ailiaOpenを呼び
 
 </dt>
 <dd>
-  ~japanese
-@brief ailiaがグローバルに確保したGPUリソース等を解放します
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返します。
-@details
-ailiaCreate() で作成したインスタンス全てを ailiaDestroy() で解放した状態で呼び出す必要があります。
-それ以外の状態で呼び出された場合 #ref AILIA_STATUS_INVALID_STATE を返します。
-Windows 環境の場合、DllMain 等からこの API を呼び出すとデッドロックする可能性があります。
+  Release GPU and other resources that have been globally allocated with ailia.
   
 
 </dd>
@@ -784,16 +476,7 @@ Windows 環境の場合、DllMain 等からこの API を呼び出すとデッ�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)のインデックスを名前で探し取得します。
-@param net ネットワークオブジェクトポインタ
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@param name 検索するBlob名
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時は入出力Blobのみが検索可能です。中間Blobを検索する場合ailiaOpneWeightXXXを呼び出す必要があります。
+  Searches by name for the index of the internal data (blob) during inference and returns it.
   
 
 </dd>
@@ -806,17 +489,7 @@ Windows 環境の場合、DllMain 等からこの API を呼び出すとデッ�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の名前をインデックスで探し取得します。
-@param net ネットワークオブジェクトポインタ
-@param buffer Blob名の出力先バッファ
-@param buffer_size バッファのサイズ(終端null文字分を含む)
-@param blob_idx 検索するblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時は入出力Blobのみが検索可能です。中間Blobを検索する場合ailiaOpneWeightXXXを呼び出す必要があります。
+  Searches by index for the name of the internal data (blob) during inference and returns it.
   
 
 </dd>
@@ -829,16 +502,7 @@ Windows 環境の場合、DllMain 等からこの API を呼び出すとデッ�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の数を取得します。
-@param net ネットワークオブジェクトポインタ
-@param blob_count blobの数の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時は入出力Blobのみが列挙され、ailiaOpneWeightXXX呼び出し時に中間Blobの列挙が行われます。
-そのためailiaOpenStreamXXX呼び出し直後とailiaOpneWeightXXX呼び出し直後で返答する数が変わる場合があります。
+  Gets the amount of internal data (blob) during inference.
   
 
 </dd>
@@ -851,16 +515,7 @@ Windows 環境の場合、DllMain 等からこの API を呼び出すとデッ�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dest 推論結果の書き出し先バッファにX,Y,Z,Wの順でnumeric型で格納
-@param dest_size 推論結果の書き出し先バッファのbyte数
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaPredict() または ailiaUpdate() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。
+  Gets the internal data (blob) during inference.
   
 
 </dd>
@@ -873,15 +528,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の型を取得します。
-@param net ネットワークオブジェクトポインタ
-@param type データ型の書き出し先バッファ。値は AILIA_DATATYPE_XXX で定義されています。
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Get the type of Blob.
   
 
 </dd>
@@ -894,15 +541,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の次元を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dim blobの次元の格納先
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、それ以外のエラーの場合はエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the dimension of the internal data (blob) during inference.
   
 
 </dd>
@@ -915,16 +554,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 入力データ(Blob)のインデックスを取得します
-@param net ネットワークオブジェクトポインタ
-@param blob_idx blobのインデックス(0～ ailiaGetBlobCount() -1)
-@param input_blob_idx 入力blob内でのインデックス(0～ ailiaGetInputBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時に列挙されたinput_blob_idx及びblob_idxは保持されるためailiaOpneWeightXXX呼び出し後も同じ値が返ることが保証されます。
+  Get the blob index of the input data.
   
 
 </dd>
@@ -937,15 +567,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 出力データ(Blob)のインデックスを取得します
-@param net ネットワークオブジェクトポインタ
-@param blob_idx blobのインデックス(0～ ailiaGetBlobCount() -1)
-@param output_blob_idx 出力blob内でのインデックス(0～ ailiaGetOutputBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
+  Get the blob index of the input data blob.
   
 
 </dd>
@@ -958,16 +580,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 内部データ(Blob)の名前の出力に必要なバッファのサイズを取得します。
-@param net ネットワークオブジェクトポインタ
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@param buffer_size Blob名の出力に必要なバッファのサイズ(終端null文字分を含む)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、ailiaOpenStreamXXX呼び出し時は入出力Blobのみが検索可能です。中間Blobを検索する場合ailiaOpneWeightXXXを呼び出す必要があります。
+  Gets the size of the buffer needed for output of the name of the internal data (blob).
   
 
 </dd>
@@ -980,18 +593,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape データの形状情報の格納先
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、5次元以上の場合 \ref AILIA_STATUS_NDIMENSION_SHAPE 、
-それ以外のエラーの場合はエラーコードを返す。
-@details
-形状が5次元以上の場合は ailiaGetBlobDim() 、 ailiaGetBlobShapeND() を利用してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the shape of the internal data (blob) during inference.
   
 
 </dd>
@@ -1004,16 +606,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の内部データ(Blob)の形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape blobの各次元の大きさの格納先配列(dim-1, dim-2, ... ,1, 0順で格納)
-@param dim shapeの次元
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、それ以外のエラーの場合はエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the amount of internal data (blob) during inference.
   
 
 </dd>
@@ -1026,13 +619,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 計算環境の一覧を取得します
-@param env 計算環境情報の格納先(AILIANetworkインスタンスを破棄するまで有効)
-@param env_idx 計算環境情報のインデックス(0～ ailiaGetEnvironmentCount() -1)
-@param version AILIA_ENVIRONMENT_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the list of computational environments.
   
 
 </dd>
@@ -1045,11 +632,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 利用可能な計算環境(CPU, GPU)の数を取得します
-@param env_count 計算環境情報の数の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the number of available computational environments (CPU, GPU).
   
 
 </dd>
@@ -1062,15 +645,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief エラーの詳細を返します
-@param net   ネットワークオブジェクトポインタ
-@return
-エラー詳細
-@details
-返値は解放する必要はありません。
-文字列の有効期間は次にailiaのAPIを呼ぶまでです。
-モデルが暗号化されている場合は空文字を返します。
+  Returns the details of errors.
   
 
 </dd>
@@ -1083,16 +658,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 入力データ(Blob)の数を取得します。
-@param net ネットワークオブジェクトポインタ
-@param input_blob_count 入力blobの数の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
-なお、入力Blobの列挙はailiaOpenStreamXXX呼び出し時に行われますが変更可能な重み(input付きinitialzier)の列挙はailiaOpneWeightXXX呼び出し時に行われます。
-そのためailiaOpenStreamXXX呼び出し直後とailiaOpneWeightXXX呼び出し直後で返答する数が変わる場合があります。
+  Get the number of input data blobs.
   
 
 </dd>
@@ -1105,14 +671,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の入力データの次元を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dim 入力データの次元の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、それ以外のエラーの場合はエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the dimension of the input data during inference.
   
 
 </dd>
@@ -1125,18 +684,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の入力データの形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの形状情報
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、5次元以上の場合 \ref AILIA_STATUS_NDIMENSION_SHAPE 、
-形状の一部が未確定の場合 \ref AILIA_STATUS_UNSETTLED_SHAPE 、それ以外のエラーの場合はエラーコードを返す。
-@details
-形状が5次元以上の場合は ailiaGetInputDim() 、 ailiaGetInputShapeND() を利用してください。
-形状の一部が未確定の場合、該当する次元の値は0となり、それ以外の次元の値は有効な値が格納されます。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the shape of the input data during inference.
   
 
 </dd>
@@ -1149,17 +697,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の入力データの形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの各次元の大きさの格納先配列(dim-1, dim-2, ... ,1, 0順で格納)
-@param dim shapeの次元
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、形状の一部が未確定の場合 \ref AILIA_STATUS_UNSETTLED_SHAPE 、
-それ以外のエラーの場合はエラーコードを返す。
-@details
-形状の一部が未確定の場合、該当する次元の値は0となり、それ以外の次元の値は有効な値が格納されます。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the shape of the input data during inference.
   
 
 </dd>
@@ -1172,14 +710,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 出力データ(Blob)の数を取得します。
-@param net ネットワークオブジェクトポインタ
-@param output_blob_count 出力blobの数の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。
+  Get the number of output data blobs.
   
 
 </dd>
@@ -1192,14 +723,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の出力データの次元を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dim 出力データの次元の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、それ以外のエラーの場合はエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the dimension of the output data during inference.
   
 
 </dd>
@@ -1212,16 +736,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の出力データの形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape 出力データの形状情報
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、5次元以上の場合 \ref AILIA_STATUS_NDIMENSION_SHAPE 、
-それ以外のエラーの場合エラーコードを返す。
-形状が5次元以上の場合は ailiaGetOutputDim() 、 ailiaGetOutputShapeND() を利用してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the shape of the output data during inference.
   
 
 </dd>
@@ -1234,15 +749,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の出力データの形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape 出力データの各次元の大きさの格納先配列(dim-1, dim-2, ... ,1, 0順で格納)
-@param dim shapeの次元
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、それ以外のエラーの場合はエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the shape of the output data during inference.
   
 
 </dd>
@@ -1255,13 +762,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief 選択された計算環境を取得します
-@param net ネットワークオブジェクトポインタ
-@param env 計算環境情報の格納先(AILIANetworkインスタンスを破棄するまで有効)
-@param version AILIA_ENVIRONMENT_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the selected computational environment.
   
 
 </dd>
@@ -1274,15 +775,7 @@ ailiaPredict() または ailiaUpdate() を一度も実行していない場合�
 
 </dt>
 <dd>
-  ~japanese
-@brief ステータスコードに対応する文字列を返します。
-@param status_code   ステータスコード
-@return
-ステータスコードに対応する文字列。
-@details
-返値は解放する必要はありません。
-返された文字列は ailia のライブラリ(ailia.dll, libailia.so 等)をアンロードするまで有効です。
-AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() でエラーの詳細を取得できます。
+  Returns the string describing given status code.
   
 
 </dd>
@@ -1295,14 +788,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークSummary用に必要なバッファのサイズを取得します。
-@param net ネットワークオブジェクトポインタ
-@param buffer_size バッファのサイズの格納先(終端null文字分を含む)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Gets the size of the buffer needed for the network summary.
   
 
 </dd>
@@ -1315,12 +801,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ライブラリバージョンを取得します
-@return
-バージョン番号
-@details
-返値は解放する必要はありません。
+  Get the version of the library.
   
 
 </dd>
@@ -1333,16 +814,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを初期化します。(ユーザ定義ファイルアクセスコールバック)
-@param net ネットワークオブジェクトポインタ
-@param fopen_args  \ref AILIA_USER_API_FOPEN に通知される引数ポインタ
-@param callback ユーザ定義ファイルアクセスコールバック関数構造体
-@param version ファイルアクセスコールバック関数構造体のバージョン( \ref AILIA_FILE_CALLBACK_VERSION )
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ファイルから読み込み、ネットワークオブジェクトを初期化します。
+  Initializes the network instance. (User-defined file access callback)
   
 
 </dd>
@@ -1355,14 +827,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを初期化します。(ファイルから読み込み)
-@param net ネットワークオブジェクトポインタ
-@param path prototxtファイルのパス名(MBSC or UTF16)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ファイルから読み込み、ネットワークオブジェクトを初期化します。
+  Initializes the network instance. (Read from file)
   
 
 </dd>
@@ -1388,15 +853,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトを初期化します。(メモリから読み込み)
-@param net ネットワークオブジェクトポインタ
-@param buf prototxtファイルのデータへのポインタ
-@param buf_size prototxtファイルのデータサイズ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-メモリから読み込み、ネットワークオブジェクトを初期化します。
+  Initializes the network instance. (Read from memory)
   
 
 </dd>
@@ -1409,16 +866,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトに重み係数を読み込みます。(ユーザ定義ファイルアクセスコールバック)
-@param net ネットワークオブジェクトポインタ
-@param fopen_args  \ref AILIA_USER_API_FOPEN に通知される引数ポインタ
-@param callback ユーザ定義ファイルアクセスコールバック関数構造体
-@param version ファイルアクセスコールバック関数構造体のバージョン( \ref AILIA_FILE_CALLBACK_VERSION )
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ファイルからネットワークオブジェクトに重み係数を読み込みます。
+  Reads weights into a network instance. (User-defined file access callback)
   
 
 </dd>
@@ -1431,14 +879,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトに重み係数を読み込みます。(ファイルから読み込み)
-@param net ネットワークオブジェクトポインタ
-@param path protobuf/onnxファイルのパス名(MBSC or UTF16)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ファイルからネットワークオブジェクトに重み係数を読み込みます。
+  Reads weights into a network instance. (Read from file)
   
 
 </dd>
@@ -1464,15 +905,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief ネットワークオブジェクトに重み係数を読み込みます。(メモリから読み込み)
-@param net ネットワークオブジェクトポインタ
-@param buf protobuf/onnxファイルのデータへのポインタ
-@param buf_size protobuf/onnxファイルのデータサイズ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-メモリからネットワークオブジェクトに重み係数を読み込みます。
+  Reads weights into a network instance. (Read from memory)
   
 
 </dd>
@@ -1485,17 +918,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論を行い推論結果を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dest 推論結果の書き出し先バッファにX,Y,Z,Wの順でnumeric型で格納  サイズはネットファイルのoutputSizeとなる
-@param dest_size 推論結果の書き出し先バッファのbyte数
-@param src 推論データ X,Y,Z,Wの順でnumeric型で格納 サイズはネットファイルのinputSizeとなる
-@param src_size 推論データのbyte数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Performs the inferences and provides the inference result.
   
 
 </dd>
@@ -1508,18 +931,7 @@ AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() で�
 
 </dt>
 <dd>
-  ~japanese
-@brief 指定したBlobに入力データを与えます。
-@param net ネットワークオブジェクトポインタ
-@param src 推論データ X,Y,Z,Wの順でnumeric型で格納
-@param src_size 推論データのbyte数
-@param blob_idx 入力するblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-複数入力があるネットワークなどで入力を指定する場合に用います。
-blob_idxで入力レイヤーのblob以外のものを指定した場合、 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Provides the specified blob with the input data.
   
 
 </dd>
@@ -1532,20 +944,7 @@ blob_idxで入力レイヤーのblob以外のものを指定した場合、 \ref
 
 </dt>
 <dd>
-  ~japanese
-@brief 指定したBlobの形状を変更します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの形状情報
-@param blob_idx 変更するblobのインデックス
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-複数入力があるネットワークなどで入力形状を変更する場合に用います。
-blob_idxは入力レイヤーのblob以外のものを指定した場合 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-その他の注意点は ailiaSetInputShape() の解説を参照してください。
-入力形状のランクが5次元以上の場合は ailiaSetInputBlobShapeND() を利用してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Change the shape of the blob given by its index
   
 
 </dd>
@@ -1558,19 +957,7 @@ blob_idxは入力レイヤーのblob以外のものを指定した場合 \ref AI
 
 </dt>
 <dd>
-  ~japanese
-@brief 指定したBlobの形状を変更します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの各次元の大きさの配列(dim-1, dim-2, ... ,1, 0)
-@param dim shapeの次元
-@param blob_idx 変更するblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-複数入力があるネットワークなどで入力形状を変更する場合に用います。
-blob_idxは入力レイヤーのblob以外のものを指定した場合 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-その他の注意点は ailiaSetInputShapeND() の解説を参照してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Change the shape of the blob given by its index
   
 
 </dd>
@@ -1583,20 +970,7 @@ blob_idxは入力レイヤーのblob以外のものを指定した場合 \ref AI
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の入力データの形状を変更します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの形状情報
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-prototxtで定義されている入力形状を変更します。
-prototxtに記述されているランクと同じにする必要があります。
-なお、重み係数の形状が入力形状に依存しているなどによりエラーが返る場合があります。
-prototxtで定義されているランクが4次元未満の場合は未使用の要素に1を設定する必要があります。
-prototxtで定義されているランクが5次元以上の場合は ailiaSetInputShapeND() を利用してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Changes the shape of the input data during inference.
   
 
 </dd>
@@ -1609,18 +983,7 @@ prototxtで定義されているランクが5次元以上の場合は ailiaSetIn
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時の入力データの形状を変更します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの各次元の大きさの配列(dim-1, dim-2, ... ,1, 0)
-@param dim shapeの次元
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-prototxtで定義されている入力形状を変更します。
-prototxtに記述されているランクと同じにする必要があります。
-なお、重み係数の形状が入力形状に依存しているなどによりエラーが返る場合があります。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Changes the shape of the input data during inference.
   
 
 </dd>
@@ -1633,18 +996,7 @@ prototxtに記述されているランクと同じにする必要があります
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論時のメモリの使用方針を設定します
-@param net ネットワークオブジェクトポインタ
-@param mode メモリモード(論理和で複数指定可) AILIA_MEMORY_XXX (デフォルト: \ref AILIA_MEMORY_REDUCE_CONSTANT )
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-メモリの使用方針を変更します。 \ref AILIA_MEMORY_NO_OPTIMIZATION 以外を指定した場合は、
-推論時に確保する中間バッファーを開放するため、推論時のメモリ使用量を削減することができます。
-ailiaCreate() の直後に指定する必要があります。ailiaOpenを呼び出した後は変更することができません。
-なお、中間バッファーを開放するように指定した場合、該当するBlobに対し、 ailiaGetBlobData() を呼び出すと
-\ref AILIA_STATUS_DATA_HIDDEN エラーが返ります。
+  Set the memory usage policy for inference
   
 
 </dd>
@@ -1657,16 +1009,7 @@ ailiaCreate() の直後に指定する必要があります。ailiaOpenを呼び
 
 </dt>
 <dd>
-  ~japanese
-@brief プロファイルモードをセットします
-@param net          ネットワークオブジェクトポインタ
-@param mode         プロファイルモード
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-プロファイルモードを指定します。デフォルトは無効です。
-ailiaOpenStreamXXXを呼び出したあとに呼び出してください。
-プロファイルモードを有効にした場合、 ailiaSummary() の出力にプロファイル結果が追加されます。
+  Set the profile mode.
   
 
 </dd>
@@ -1679,17 +1022,7 @@ ailiaOpenStreamXXXを呼び出したあとに呼び出してください。
 
 </dt>
 <dd>
-  ~japanese
-@brief 一時キャッシュディレクトリを指定します
-@param cache_dir 一時キャッシュディレクトリ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-指定したキャッシュディレクトリは推論実行環境毎に最適化したマシンコードを生成して保存するためにシステムが利用します。
-ailia の実行開始時に一度だけ呼び出してください。二回目以降の呼び出しに対しては無視して成功を返します。
-複数スレッドから呼び出された場合も内部で排他制御しているので特に問題は発生しません。
-Vulkan のシェーダーキャッシュ機能など、この API を呼ぶまで利用できないものがあります。
-cache_dirにはContext.getCacheDir()で取得したファイルパスを指定してください。
+  Specifies a temporary cache directory.
   
 
 </dd>
@@ -1715,16 +1048,7 @@ cache_dirにはContext.getCacheDir()で取得したファイルパスを指定�
 
 </dt>
 <dd>
-  ~japanese
-@brief 各Blobの名前と形状を表示します。
-@param net ネットワークオブジェクトポインタ
-@param buffer Summaryの出力先
-@param buffer_size 出力バッファのサイズ(終端null文字分を含む)。 ailiaGetSummaryLength()
-で取得した値を設定してください。
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Shows the name and shape of each blob.
   
 
 </dd>
@@ -1737,15 +1061,7 @@ cache_dirにはContext.getCacheDir()で取得したファイルパスを指定�
 
 </dt>
 <dd>
-  ~japanese
-@brief 事前に指定した入力データで推論を行います。
-@param net ネットワークオブジェクトポインタ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaSetInputBlobData() を用いて入力を与えた場合などに用います。
-推論結果は ailiaGetBlobData() で取得してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。
+  Makes inferences with the input data specified in advance.
   
 
 </dd>
@@ -1758,19 +1074,7 @@ ailiaSetInputBlobData() を用いて入力を与えた場合などに用いま�
 
 </dt>
 <dd>
-  ~japanese
-@brief ボイスオブジェクトを作成します。
-@param net ボイスオブジェクトポインタへのポインタ
-@param env_id 計算に利用する推論実行環境のID( ailiaGetEnvironment() で取得)  \ref AILIA_ENVIRONMENT_ID_AUTO にした場合は自動で選択する
-@param num_thread スレッド数の上限(  \ref AILIA_MULTITHREAD_AUTO  にした場合は自動で設定)
-@param memory_mode メモリモード(AILIA_MEMORY_MODE_*)
-@param flag AILIA_VOICE_FLAG_*の論理和
-@param api_callback ailiaのAPIへのコールバック
-@param version AILIA_VOICE_API_CALLBACK_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ボイスオブジェクトを作成します。
+  Creates a Voice instance.
   
 
 </dd>
@@ -1783,9 +1087,7 @@ ailiaSetInputBlobData() を用いて入力を与えた場合などに用いま�
 
 </dt>
 <dd>
-  ~japanese
-@brief ボイスオブジェクトを破棄します。
-@param net ボイスオブジェクトポインタ
+  It destroys the Voice instance.
   
 
 </dd>
@@ -1798,14 +1100,7 @@ ailiaSetInputBlobData() を用いて入力を与えた場合などに用いま�
 
 </dt>
 <dd>
-  ~japanese
-@brief ExtractFullContextを行います。
-@param net ボイスオブジェクトポインタ
-@param text テキスト(UTF8)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-認識した結果はailiaVoiceGetFeaturesAPIで取得します。
+  Perform ExtractFullContext
   
 
 </dd>
@@ -1818,14 +1113,7 @@ ailiaSetInputBlobData() を用いて入力を与えた場合などに用いま�
 
 </dt>
 <dd>
-  ~japanese
-@brief エラーの詳細を返します
-@param net   ネットワークオブジェクトポインタ
-@return
-エラー詳細
-@details
-返値は解放する必要はありません。
-文字列の有効期間は次にailiaVoiceのAPIを呼ぶまでです。
+  Returns the details of errors.
   
 
 </dd>
@@ -1838,12 +1126,7 @@ ailiaSetInputBlobData() を用いて入力を与えた場合などに用いま�
 
 </dt>
 <dd>
-  ~japanese
-@brief フィーチャーの長さを取得します。(NULL文字含む)
-@param net   ボイスオブジェクトポインタ
-@param len  フィーチャーの長さ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the size of features. (Include null)
   
 
 </dd>
@@ -1856,15 +1139,7 @@ ailiaSetInputBlobData() を用いて入力を与えた場合などに用いま�
 
 </dt>
 <dd>
-  ~japanese
-@brief フィーチャーを取得します。
-@param net   ボイスオブジェクトポインタ
-@param features  フィーチャー(UTF8)
-@param len フィーチャーの長さ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaVoiceGraphemeToPhoneme() もしくは ailiaVoiceExtractFullContext() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。
+  Gets the decoded features.
   
 
 </dd>
@@ -1877,15 +1152,7 @@ ailiaVoiceGraphemeToPhoneme() もしくは ailiaVoiceExtractFullContext() を一
 
 </dt>
 <dd>
-  ~japanese
-@brief 波形を取得します。
-@param net   ボイスオブジェクトポインタ
-@param buf  PCM波形 (0 - 1で正規化)
-@param buf_size バッファサイズ（byte単位）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaVoiceInference() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。
+  Gets the decoded features.
   
 
 </dd>
@@ -1898,14 +1165,7 @@ ailiaVoiceInference() を一度も実行していない場合は \ref AILIA_STAT
 
 </dt>
 <dd>
-  ~japanese
-@brief 波形の情報を取得します。
-@param net   ボイスオブジェクトポインタ
-@param samples  サンプル数（チャンネル単位）
-@param channels  チャンネル数
-@param sampling_rate  サンプリングレート
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Gets the information of wave.
   
 
 </dd>
@@ -1918,15 +1178,7 @@ ailiaVoiceInference() を一度も実行していない場合は \ref AILIA_STAT
 
 </dt>
 <dd>
-  ~japanese
-@brief G2Pを行います。
-@param net ボイスオブジェクトポインタ
-@param text テキスト(UTF8)
-@param g2p_type AILIA_VOICE_G2P_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-認識した結果はailiaVoiceGetFeatures APIで取得します。
+  Perform g2p
   
 
 </dd>
@@ -1939,14 +1191,7 @@ ailiaVoiceInference() を一度も実行していない場合は \ref AILIA_STAT
 
 </dt>
 <dd>
-  ~japanese
-@brief 推論を行います。
-@param net ボイスオブジェクトポインタ
-@param text テキスト(UTF8)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-音声合成した結果はailiaVoiceGetWave APIで取得します。
+  Perform inference
   
 
 </dd>
@@ -1959,18 +1204,7 @@ ailiaVoiceInference() を一度も実行していない場合は \ref AILIA_STAT
 
 </dt>
 <dd>
-  ~japanese
-@brief 辞書を指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param dictionary_path 辞書フォルダのパス名(MBSC)
-@param dictionary_type AILIA_VOICE_DICTIONARY_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-中国語を使用する場合、GPT-SoVITS V1では \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN のみ必要です。
-GPT-SoVITS V2およびV3では \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN と
-\ref AILIA_VOICE_DICTIONARY_TYPE_G2PW の両方が必要です。
-G2PWを使用する場合、先にG2P_CNを読み込んでください。
+  Set dictionary into a network instance.
   
 
 </dd>
@@ -1983,18 +1217,7 @@ G2PWを使用する場合、先にG2P_CNを読み込んでください。
 
 </dt>
 <dd>
-  ~japanese
-@brief 辞書を指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param dictionary_path 辞書フォルダのパス名(UTF16)
-@param dictionary_type AILIA_VOICE_DICTIONARY_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-中国語を使用する場合、GPT-SoVITS V1では \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN のみ必要です。
-GPT-SoVITS V2およびV3では \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN と
-\ref AILIA_VOICE_DICTIONARY_TYPE_G2PW の両方が必要です。
-G2PWを使用する場合、先にG2P_CNを読み込んでください。
+  Set dictionary into a network instance.
   
 
 </dd>
@@ -2007,16 +1230,7 @@ G2PWを使用する場合、先にG2P_CNを読み込んでください。
 
 </dt>
 <dd>
-  ~japanese
-@brief GPT-SoVITS V1向けのモデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (MBSC)
-@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (MBSC)
-@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (MBSC)
-@param wave onnxファイルのパス名 (vits.onnx) (MBSC)
-@param ssl onnxファイルのパス名 (cnhubert.onnx) (MBSC)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set GPT-SoVITS V1 models into a network instance.
   
 
 </dd>
@@ -2029,16 +1243,7 @@ G2PWを使用する場合、先にG2P_CNを読み込んでください。
 
 </dt>
 <dd>
-  ~japanese
-@brief GPT-SoVITS V1向けのモデルを指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (UTF16)
-@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (UTF16)
-@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (UTF16)
-@param wave onnxファイルのパス名 (vits.onnx) (UTF16)
-@param ssl onnxファイルのパス名 (cnhubert.onnx) (UTF16)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set GPT-SoVITS V1 models into a network instance.
   
 
 </dd>
@@ -2051,18 +1256,7 @@ G2PWを使用する場合、先にG2P_CNを読み込んでください。
 
 </dt>
 <dd>
-  ~japanese
-@brief GPT-SoVITS V2向けのモデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (MBSC)
-@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (MBSC)
-@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (MBSC)
-@param wave onnxファイルのパス名 (vits.onnx) (MBSC)
-@param ssl onnxファイルのパス名 (cnhubert.onnx) (MBSC)
-@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (MBSC)（NULLの場合はBERTを使用しない）
-@param vocab vocab.txtのパス名 (MBSC)（NULLの場合はBERTを使用しない）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set GPT-SoVITS V2 models into a network instance.
   
 
 </dd>
@@ -2075,18 +1269,7 @@ G2PWを使用する場合、先にG2P_CNを読み込んでください。
 
 </dt>
 <dd>
-  ~japanese
-@brief GPT-SoVITS V2向けのモデルを指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (UTF16)
-@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (UTF16)
-@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (UTF16)
-@param wave onnxファイルのパス名 (vits.onnx) (UTF16)
-@param ssl onnxファイルのパス名 (cnhubert.onnx) (UTF16)
-@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (UTF16)（NULLの場合はBERTを使用しない）
-@param vocab vocab.txtのパス名 (UTF16)（NULLの場合はBERTを使用しない）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set GPT-SoVITS V2 models into a network instance.
   
 
 </dd>
@@ -2099,19 +1282,7 @@ G2PWを使用する場合、先にG2P_CNを読み込んでください。
 
 </dt>
 <dd>
-  ~japanese
-@brief GPT-SoVITS V2-Pro向けのモデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (MBSC)
-@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (MBSC)
-@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (MBSC)
-@param ssl onnxファイルのパス名 (cnhubert.onnx) (MBSC)
-@param vits onnxファイルのパス名 (vits.onnx) (MBSC)
-@param sv onnxファイルのパス名 (sv.onnx) (MBSC)
-@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (MBSC)（NULLの場合はBERTを使用しない）
-@param vocab vocab.txtのパス名 (MBSC)（NULLの場合はBERTを使用しない）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set GPT-SoVITS V2-Pro models into a network instance.
   
 
 </dd>
@@ -2124,19 +1295,7 @@ G2PWを使用する場合、先にG2P_CNを読み込んでください。
 
 </dt>
 <dd>
-  ~japanese
-@brief GPT-SoVITS V2-Pro向けのモデルを指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (UTF16)
-@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (UTF16)
-@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (UTF16)
-@param ssl onnxファイルのパス名 (cnhubert.onnx) (UTF16)
-@param vits onnxファイルのパス名 (vits.onnx) (UTF16)
-@param sv onnxファイルのパス名 (sv.onnx) (UTF16)
-@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (UTF16)（NULLの場合はBERTを使用しない）
-@param vocab vocab.txtのパス名 (UTF16)（NULLの場合はBERTを使用しない）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set GPT-SoVITS V2-Pro models into a network instance.
   
 
 </dd>
@@ -2149,20 +1308,7 @@ G2PWを使用する場合、先にG2P_CNを読み込んでください。
 
 </dt>
 <dd>
-  ~japanese
-@brief GPT-SoVITS V3向けのモデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param encoder_path onnxファイルのパス名 (t2s_encoder.onnx) (MBSC)
-@param decoder1_path onnxファイルのパス名 (t2s_fsdec.onnx) (MBSC)
-@param decoder2_path onnxファイルのパス名 (t2s_sdec.onnx) (MBSC)
-@param ssl_path onnxファイルのパス名 (cnhubert.onnx) (MBSC)
-@param vq_path onnxファイルのパス名 (vq_model.onnx) (MBSC)
-@param cfm_path onnxファイルのパス名 (vq_cfm.onnx) (MBSC)
-@param bigvgan_path onnxファイルのパス名 (bigvgan_model.onnx) (MBSC)
-@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (MBSC)（NULLの場合はBERTを使用しない）
-@param vocab vocab.txtのパス名 (MBSC)（NULLの場合はBERTを使用しない）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set GPT-SoVITS V3 models into a network instance.
   
 
 </dd>
@@ -2175,20 +1321,7 @@ G2PWを使用する場合、先にG2P_CNを読み込んでください。
 
 </dt>
 <dd>
-  ~japanese
-@brief GPT-SoVITS V3向けのモデルを指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名 (t2s_encoder.onnx) (UTF16)
-@param decoder1 onnxファイルのパス名 (t2s_fsdec.onnx) (UTF16)
-@param decoder2 onnxファイルのパス名 (t2s_sdec.onnx) (UTF16)
-@param ssl onnxファイルのパス名 (cnhubert.onnx) (UTF16)
-@param vq onnxファイルのパス名 (vq_model.onnx) (UTF16)
-@param cfm onnxファイルのパス名 (vq_cfm.onnx) (UTF16)
-@param bigvgan onnxファイルのパス名 (bigvgan_model.onnx) (UTF16)
-@param chinese_bert onnxファイルのパス名 (chinese-roberta.onnx) (UTF16)（NULLの場合はBERTを使用しない）
-@param vocab vocab.txtのパス名 (UTF16)（NULLの場合はBERTを使用しない）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set GPT-SoVITS V3 models into a network instance.
   
 
 </dd>
@@ -2201,21 +1334,7 @@ G2PWを使用する場合、先にG2P_CNを読み込んでください。
 
 </dt>
 <dd>
-  ~japanese
-@brief モデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param encoder_path onnxファイルのパス名(MBSC)
-@param decoder1_path onnxファイルのパス名(MBSC)
-@param decoder2_path onnxファイルのパス名(MBSC)
-@param wave_path onnxファイルのパス名(MBSC)
-@param ssl_path onnxファイルのパス名(MBSC)
-@param model_type AILIA_VOICE_MODEL_TYPE_*
-@param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-この関数は非推奨です。代わりにailiaVoiceOpenTacotron2ModelFileA、ailiaVoiceOpenGPTSoVITSV1ModelFileA、
-ailiaVoiceOpenGPTSoVITSV2ModelFileAを使用してください。
+  Set models into a network instance.
   
 
 </dd>
@@ -2228,21 +1347,7 @@ ailiaVoiceOpenGPTSoVITSV2ModelFileAを使用してください。
 
 </dt>
 <dd>
-  ~japanese
-@brief モデルを指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名(UTF16)
-@param decoder1 onnxファイルのパス名(UTF16)
-@param decoder2 onnxファイルのパス名(UTF16)
-@param wave onnxファイルのパス名(UTF16)
-@param ssl onnxファイルのパス名(UTF16)
-@param model_type AILIA_VOICE_MODEL_TYPE_*
-@param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-この関数は非推奨です。代わりにailiaVoiceOpenTacotron2ModelFileW、ailiaVoiceOpenGPTSoVITSV1ModelFileW、
-ailiaVoiceOpenGPTSoVITSV2ModelFileWを使用してください。
+  Set models into a network instance.
   
 
 </dd>
@@ -2255,16 +1360,7 @@ ailiaVoiceOpenGPTSoVITSV2ModelFileWを使用してください。
 
 </dt>
 <dd>
-  ~japanese
-@brief Tacotron2向けのモデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名 (encoder.onnx) (MBSC)
-@param decoder1 onnxファイルのパス名 (decoder_iter.onnx) (MBSC)
-@param decoder2 onnxファイルのパス名 (postnet.onnx) (MBSC)
-@param wave onnxファイルのパス名 (waveglow.onnx) (MBSC)
-@param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set Tacotron2 models into a network instance.
   
 
 </dd>
@@ -2277,16 +1373,7 @@ ailiaVoiceOpenGPTSoVITSV2ModelFileWを使用してください。
 
 </dt>
 <dd>
-  ~japanese
-@brief Tacotron2向けのモデルを指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名 (encoder.onnx) (UTF16)
-@param decoder1 onnxファイルのパス名 (decoder_iter.onnx) (UTF16)
-@param decoder2 onnxファイルのパス名 (postnet.onnx) (UTF16)
-@param wave onnxファイルのパス名 (waveglow.onnx) (UTF16)
-@param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set Tacotron2 models into a network instance.
   
 
 </dd>
@@ -2299,15 +1386,7 @@ ailiaVoiceOpenGPTSoVITSV2ModelFileWを使用してください。
 
 </dt>
 <dd>
-  ~japanese
-@brief G2Pで使用するモデルタイプを設定します。
-@param net ボイスオブジェクトポインタ
-@param model_type モデルタイプ（AILIA_VOICE_MODEL_TYPE_GPT_SOVITS, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V3, AILIA_VOICE_MODEL_TYPE_GPT_SOVITS_V2_PRO）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-G2Pを単独で使用する際に、モデルファイルを与えずにモデルタイプを設定することに使用します。
-ailiaVoiceOpenModelFileAまたはailiaVoiceOpenGPTSoVITSV3ModelFileAを呼び出した場合は自動的に設定されるため、本APIの呼び出しは不要です。
+  Set the model type used for G2P processing.
   
 
 </dd>
@@ -2320,14 +1399,7 @@ ailiaVoiceOpenModelFileAまたはailiaVoiceOpenGPTSoVITSV3ModelFileAを呼び出
 
 </dt>
 <dd>
-  ~japanese
-@brief 0ショット音声合成のリファレンスとなる波形とテキストを設定します。
-@param net   ボイスオブジェクトポインタ
-@param buf  PCM波形 (0 - 1で正規化)
-@param buf_size バッファサイズ（byte単位）
-@param channels チャンネル数
-@param sampling_rate サンプリングレート
-@param features フィーチャー(UTF8)
+  Set the waveform and text as references for zero-shot voice synthesis.
   
 
 </dd>
@@ -2340,12 +1412,7 @@ ailiaVoiceOpenModelFileAまたはailiaVoiceOpenGPTSoVITSV3ModelFileAを呼び出
 
 </dt>
 <dd>
-  ~japanese
-@brief GPT-SoVITS v3のCFMサンプリングステップ数を設定します。
-@param net ボイスオブジェクトポインタ
-@param steps CFMのEuler ODEステップ数(デフォルト4)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
+  Set the number of CFM sampling steps for GPT-SoVITS v3.
   
 
 </dd>
@@ -2358,14 +1425,7 @@ ailiaVoiceOpenModelFileAまたはailiaVoiceOpenGPTSoVITSV3ModelFileAを呼び出
 
 </dt>
 <dd>
-  ~japanese
-@brief 音声合成の速度を設定します。
-@param net ボイスオブジェクトポインタ
-@param speed 速度(デフォルト1.0、0より大きい値)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-GPT-SoVITS V2およびV3で使用できます。V1では無効です。
+  Set the speech speed for synthesis.
   
 
 </dd>
@@ -2378,15 +1438,7 @@ GPT-SoVITS V2およびV3で使用できます。V1では無効です。
 
 </dt>
 <dd>
-  ~japanese
-@brief ユーザ辞書を指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param dictionary_path ユーザ辞書ファイルのパス名(MBSC)
-@param dictionary_type AILIA_VOICE_DICTIONARY_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaVoiceOpenDictionaryFileAの前に呼び出す必要があります。
+  Set user dictionary into a network instance.
   
 
 </dd>
@@ -2399,15 +1451,7 @@ ailiaVoiceOpenDictionaryFileAの前に呼び出す必要があります。
 
 </dt>
 <dd>
-  ~japanese
-@brief ユーザ辞書を指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param dictionary_path ユーザ辞書ファイルのパス名(UTF16)
-@param dictionary_type AILIA_VOICE_DICTIONARY_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaVoiceOpenDictionaryFileWの前に呼び出す必要があります。
+  Set user dictionary into a network instance.
   
 
 </dd>
@@ -2488,7 +1532,7 @@ ailiaVoiceOpenDictionaryFileWの前に呼び出す必要があります。
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

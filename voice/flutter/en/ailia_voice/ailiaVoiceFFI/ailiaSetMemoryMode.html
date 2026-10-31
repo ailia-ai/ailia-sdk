@@ -64,32 +64,20 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 推論時のメモリの使用方針を設定します
-@param net ネットワークオブジェクトポインタ
-@param mode メモリモード(論理和で複数指定可) AILIA_MEMORY_XXX (デフォルト: \ref AILIA_MEMORY_REDUCE_CONSTANT )
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-メモリの使用方針を変更します。 \ref AILIA_MEMORY_NO_OPTIMIZATION 以外を指定した場合は、
-推論時に確保する中間バッファーを開放するため、推論時のメモリ使用量を削減することができます。
-ailiaCreate() の直後に指定する必要があります。ailiaOpenを呼び出した後は変更することができません。
-なお、中間バッファーを開放するように指定した場合、該当するBlobに対し、 ailiaGetBlobData() を呼び出すと
-\ref AILIA_STATUS_DATA_HIDDEN エラーが返ります。</p>
-<p>~english
-@brief Set the memory usage policy for inference
-@param net A network instance pointer
-@param mode Memory mode (Multiple specifications possible with logical sum) AILIA_MEMORY_XXX (Default : \ref
-AILIA_MEMORY_REDUCE_CONSTANT )
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-Change the memory usage policy.
-If a value other than  \ref AILIA_MEMORY_NO_OPTIMIZATION  is specified,
+  <p>Set the memory usage policy for inference</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>mode</code>: Memory mode (Multiple specifications possible with logical sum) AILIA_MEMORY_XXX (Default : <a href="../../ailia_voice/AILIA_MEMORY_REDUCE_CONSTANT-constant.html">AILIA_MEMORY_REDUCE_CONSTANT</a> )</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Change the memory usage policy.
+If a value other than  <a href="../../ailia_voice/AILIA_MEMORY_NO_OPTIMIZATION-constant.html">AILIA_MEMORY_NO_OPTIMIZATION</a>  is specified,
 the intermediate buffer secured during inference will be released, so the memory usage during inference can be
 reduced. Must be specified immediately after  ailiaCreate() . It cannot be changed after calling ailiaOpen. If you
 specify to release the intermediate buffer, calling  ailiaGetBlobData()  for the corresponding blob will return an
-\ref AILIA_STATUS_DATA_HIDDEN  error.</p>
+<a href="../../ailia_voice/AILIA_STATUS_DATA_HIDDEN-constant.html">AILIA_STATUS_DATA_HIDDEN</a>  error.</p>
 </section>
 
 
@@ -132,7 +120,7 @@ specify to release the intermediate buffer, calling  ailiaGetBlobData()  for the
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

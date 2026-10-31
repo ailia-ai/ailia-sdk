@@ -68,33 +68,21 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 実数スペクトログラム/メルスペクトログラムの時間フレーム数を調整します。
-@param dst 出力データのポインタ、freq_n, dst_frame_n 順のメモリレイアウト
-@param src 入力データのポインタ、freq_n, src_frame_n 順のメモリレイアウト
-@param freq_n 周波数のインデックス数
-@param dst_frame_n 出力データの時間フレームの数
-@param src_frame_n 入力データの時間フレームの数
-@param pad_data パディング（dst_frame_n &gt; src_frame_n の場合に使用）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-dst_frame_n &gt; src_frame_n : 不足する時間フレームのデータを pad_data のデータで埋める。
-dst_frame_n &lt;= src_frame_n : 先頭から dst_frame_n のデータのみを切り出す。</p>
-<p>~english
-@brief Fix the number of time frames of a real-valued spectrogram/mel-spectrogram.
-@param dst pointer to the output data, of length (freq_n * dst_frame_n), and of memory layout (in row-major
-convention) (freq_n, dst_frame_n).
-@param src pointer to the input data, of length (freq_n * src_frame_n), and of memory layout (in row-major
-convention) (freq_n, src_frame_n).
-@param freq_n number of frequency indices
-@param dst_frame_n number of time frames in the output data
-@param src_frame_n number of time frames in the input data
-@param pad_data value inserted for padding (used when dst_frame_n &gt; src_frame_n)
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-dst_frame_n &gt; src_frame_n : missing time frames are added and filled with the value pad_data.
+  <p>Fix the number of time frames of a real-valued spectrogram/mel-spectrogram.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of length (freq_n * dst_frame_n), and of memory layout (in row-major
+convention) (freq_n, dst_frame_n).</li>
+<li><code>src</code>: pointer to the input data, of length (freq_n * src_frame_n), and of memory layout (in row-major
+convention) (freq_n, src_frame_n).</li>
+<li><code>freq_n</code>: number of frequency indices</li>
+<li><code>dst_frame_n</code>: number of time frames in the output data</li>
+<li><code>src_frame_n</code>: number of time frames in the input data</li>
+<li><code>pad_data</code>: value inserted for padding (used when dst_frame_n &gt; src_frame_n)</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>dst_frame_n &gt; src_frame_n : missing time frames are added and filled with the value pad_data.
 dst_frame_n &lt;= src_frame_n : only keeps the first dst_frame_n data.</p>
 </section>
 
@@ -146,7 +134,7 @@ dst_frame_n &lt;= src_frame_n : only keeps the first dst_frame_n data.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

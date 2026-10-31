@@ -65,24 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 波形を取得します。
-@param net   ボイスオブジェクトポインタ
-@param buf  PCM波形 (0 - 1で正規化)
-@param buf_size バッファサイズ（byte単位）
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaVoiceInference() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。</p>
-<p>~english
-@brief Gets the decoded features.
-@param net   A Voice instance pointer
-@param buf   PCM Wave (Normalized by 0 - 1)
-@param buf_size  Buffer size (Byte unit)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-If  ailiaVoiceInference() is not run at all, the function returns  \ref AILIA_STATUS_INVALID_STATE .</p>
+  <p>Gets the decoded features.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A Voice instance pointer</li>
+<li><code>buf</code>: PCM Wave (Normalized by 0 - 1)</li>
+<li><code>buf_size</code>: Buffer size (Byte unit)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>If  ailiaVoiceInference() is not run at all, the function returns  <a href="../../ailia_voice/AILIA_STATUS_INVALID_STATE-constant.html">AILIA_STATUS_INVALID_STATE</a> .</p>
 </section>
 
 
@@ -127,7 +119,7 @@ If  ailiaVoiceInference() is not run at all, the function returns  \ref AILIA_ST
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

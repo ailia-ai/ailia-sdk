@@ -65,29 +65,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 推論時の入力データの形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape 入力データの形状情報
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、5次元以上の場合 \ref AILIA_STATUS_NDIMENSION_SHAPE 、
-形状の一部が未確定の場合 \ref AILIA_STATUS_UNSETTLED_SHAPE 、それ以外のエラーの場合はエラーコードを返す。
-@details
-形状が5次元以上の場合は ailiaGetInputDim() 、 ailiaGetInputShapeND() を利用してください。
-形状の一部が未確定の場合、該当する次元の値は0となり、それ以外の次元の値は有効な値が格納されます。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Gets the shape of the input data during inference.
-@param net A network instance pointer
-@param shape Shape information for the input data
-@param version AILIA_SHAPE_VERSION
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS .
-If shape has 5 or more dimension, it returns  \ref AILIA_STATUS_NDIMENSION_SHAPE .
-And if shape is not seattled, it returns \ref AILIA_STATUS_UNSETTLED_SHAPE , or an error code otherwise.
-@details
-When dimension of shape is 5 or more, please use  ailiaGetInputDim() and  ailiaGetInputShapeND().
+  <p>Gets the shape of the input data during inference.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>shape</code>: Shape information for the input data</li>
+<li><code>version</code>: AILIA_SHAPE_VERSION</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> .
+If shape has 5 or more dimension, it returns  <a href="../../ailia_voice/AILIA_STATUS_NDIMENSION_SHAPE-constant.html">AILIA_STATUS_NDIMENSION_SHAPE</a> .
+And if shape is not seattled, it returns <a href="../../ailia_voice/AILIA_STATUS_UNSETTLED_SHAPE-constant.html">AILIA_STATUS_UNSETTLED_SHAPE</a> , or an error code otherwise.</p>
+<p>When dimension of shape is 5 or more, please use  ailiaGetInputDim() and  ailiaGetInputShapeND().
 When shape is not settled, this function stores 0 at unsettled dimension and otherwise stores valid value.
 This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
@@ -134,7 +123,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

@@ -66,27 +66,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 推論時の内部データ(Blob)を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dest 推論結果の書き出し先バッファにX,Y,Z,Wの順でnumeric型で格納
-@param dest_size 推論結果の書き出し先バッファのbyte数
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaPredict() または ailiaUpdate() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。</p>
-<p>~english
-@brief Gets the internal data (blob) during inference.
-@param net A network instance pointer
-@param dest The result is stored in the inference result destination buffer as numeric type data in the order of X,
-Y, Z, and W.
-@param dest_size The number of bytes for the inference result destination buffer
-@param blob_idx The index of the blob (0 to  ailiaGetBlobCount() -1)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-If  ailiaPredict()  or  ailiaUpdate()  is not run at all, the function returns  \ref AILIA_STATUS_INVALID_STATE .</p>
+  <p>Gets the internal data (blob) during inference.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>dest</code>: The result is stored in the inference result destination buffer as numeric type data in the order of X,
+Y, Z, and W.</li>
+<li><code>dest_size</code>: The number of bytes for the inference result destination buffer</li>
+<li><code>blob_idx</code>: The index of the blob (0 to  ailiaGetBlobCount() -1)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>If  ailiaPredict()  or  ailiaUpdate()  is not run at all, the function returns  <a href="../../ailia_voice/AILIA_STATUS_INVALID_STATE-constant.html">AILIA_STATUS_INVALID_STATE</a> .</p>
 </section>
 
 
@@ -133,7 +124,7 @@ If  ailiaPredict()  or  ailiaUpdate()  is not run at all, the function returns  
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>
