@@ -65,26 +65,17 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 各Blobの名前と形状を表示します。
-@param net ネットワークオブジェクトポインタ
-@param buffer Summaryの出力先
-@param buffer_size 出力バッファのサイズ(終端null文字分を含む)。 ailiaGetSummaryLength()
-で取得した値を設定してください。
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Shows the name and shape of each blob.
-@param net A network instance pointer
-@param buffer The output destination of the summary
-@param buffer_size The size of the output buffer (including the null terminator). Set the value obtained by
-ailiaGetSummaryLength() .
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This API can be call after call ailiaOpenWeighXXX().</p>
+  <p>Shows the name and shape of each blob.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>buffer</code>: The output destination of the summary</li>
+<li><code>buffer_size</code>: The size of the output buffer (including the null terminator). Set the value obtained by
+ailiaGetSummaryLength() .</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
 
 
@@ -129,7 +120,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

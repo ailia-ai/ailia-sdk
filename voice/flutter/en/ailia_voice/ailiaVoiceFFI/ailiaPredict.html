@@ -67,30 +67,20 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 推論を行い推論結果を取得します。
-@param net ネットワークオブジェクトポインタ
-@param dest 推論結果の書き出し先バッファにX,Y,Z,Wの順でnumeric型で格納  サイズはネットファイルのoutputSizeとなる
-@param dest_size 推論結果の書き出し先バッファのbyte数
-@param src 推論データ X,Y,Z,Wの順でnumeric型で格納 サイズはネットファイルのinputSizeとなる
-@param src_size 推論データのbyte数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Performs the inferences and provides the inference result.
-@param net A network instance pointer
-@param dest The result is stored in the inference result destination buffer as numeric type data in the order of X,
-Y, Z, and W. The buffer has the same size as the network file outputSize.
-@param dest_size The number of bytes for the destination buffer for the inference result
-@param src The input is stored as numeric type data in the order of the inference data X, Y, Z, and W. The input has
-the same size as the network file inputSize.
-@param src_size The number of bytes of the inference data
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This API can be call after call ailiaOpenWeighXXX().</p>
+  <p>Performs the inferences and provides the inference result.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>dest</code>: The result is stored in the inference result destination buffer as numeric type data in the order of X,
+Y, Z, and W. The buffer has the same size as the network file outputSize.</li>
+<li><code>dest_size</code>: The number of bytes for the destination buffer for the inference result</li>
+<li><code>src</code>: The input is stored as numeric type data in the order of the inference data X, Y, Z, and W. The input has
+the same size as the network file inputSize.</li>
+<li><code>src_size</code>: The number of bytes of the inference data</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
 
 
@@ -139,7 +129,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

@@ -80,17 +80,17 @@
 ) {
   int status = 0;
   if (Platform.isWindows){
-    status = ailiaVoice.ailiaVoiceOpenDictionaryFileW(
+    status = using((arena) =&gt; ailiaVoice.ailiaVoiceOpenDictionaryFileW(
       ppAilia!.value,
-      dicFolder.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
+      dicFolder.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
       dictionaryType,
-    );
+    ), malloc);
   }else{
-    status = ailiaVoice.ailiaVoiceOpenDictionaryFileA(
+    status = using((arena) =&gt; ailiaVoice.ailiaVoiceOpenDictionaryFileA(
       ppAilia!.value,
-      dicFolder.toNativeUtf8().cast&lt;ffi.Char&gt;(),
+      dicFolder.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
       dictionaryType,
-    );
+    ), malloc);
   }
   throwError(&quot;ailiaVoiceOpenDictionaryFile&quot;, status);
 }</code></pre>
@@ -121,7 +121,7 @@
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

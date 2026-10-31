@@ -64,22 +64,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ネットワークSummary用に必要なバッファのサイズを取得します。
-@param net ネットワークオブジェクトポインタ
-@param buffer_size バッファのサイズの格納先(終端null文字分を含む)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Gets the size of the buffer needed for the network summary.
-@param net A network instance pointer
-@param buffer_size The storage location of the buffer size (including the null terminator)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This API can be call after call ailiaOpenWeighXXX().</p>
+  <p>Gets the size of the buffer needed for the network summary.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>buffer_size</code>: The storage location of the buffer size (including the null terminator)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
 
 
@@ -122,7 +115,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

@@ -64,22 +64,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ネットワークオブジェクトを初期化します。(ファイルから読み込み)
-@param net ネットワークオブジェクトポインタ
-@param path prototxtファイルのパス名(MBSC or UTF16)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ファイルから読み込み、ネットワークオブジェクトを初期化します。</p>
-<p>~english
-@brief Initializes the network instance. (Read from file)
-@param net A network instance pointer
-@param path The path name to the prototxt file (MBSC or UTF16)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This function reads the network instance from a file and initializes it.</p>
+  <p>Initializes the network instance. (Read from file)</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>path</code>: The path name to the prototxt file (MBSC or UTF16)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This function reads the network instance from a file and initializes it.</p>
 </section>
 
 
@@ -122,7 +115,7 @@ This function reads the network instance from a file and initializes it.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

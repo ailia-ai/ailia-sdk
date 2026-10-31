@@ -66,29 +66,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 推論時の内部データ(Blob)の形状を取得します。
-@param net ネットワークオブジェクトポインタ
-@param shape データの形状情報の格納先
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@param version AILIA_SHAPE_VERSION
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、5次元以上の場合 \ref AILIA_STATUS_NDIMENSION_SHAPE 、
-それ以外のエラーの場合はエラーコードを返す。
-@details
-形状が5次元以上の場合は ailiaGetBlobDim() 、 ailiaGetBlobShapeND() を利用してください。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Gets the shape of the internal data (blob) during inference.
-@param net A network instance pointer
-@param shape Storage location of the data shape information
-@param blob_idx The index of the blob (0 to  ailiaGetBlobCount() -1)
-@param version AILIA_SHAPE_VERSION
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS .
-And if shape has 5 or more dimension, it returns  \ref AILIA_STATUS_NDIMENSION_SHAPE , or an error code otherwise.
-@details
-When dimension of shape is 5 or more, please use  ailiaGetBlobDim() and  ailiaGetBlobShapeND().
+  <p>Gets the shape of the internal data (blob) during inference.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>shape</code>: Storage location of the data shape information</li>
+<li><code>blob_idx</code>: The index of the blob (0 to  ailiaGetBlobCount() -1)</li>
+<li><code>version</code>: AILIA_SHAPE_VERSION</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> .
+And if shape has 5 or more dimension, it returns  <a href="../../ailia_voice/AILIA_STATUS_NDIMENSION_SHAPE-constant.html">AILIA_STATUS_NDIMENSION_SHAPE</a> , or an error code otherwise.</p>
+<p>When dimension of shape is 5 or more, please use  ailiaGetBlobDim() and  ailiaGetBlobShapeND().
 This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
 
@@ -136,7 +125,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

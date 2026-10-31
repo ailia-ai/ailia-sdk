@@ -68,34 +68,22 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 実数STFT結果をメル尺度に変換する
-@param dst 出力データのポインタ、float 型、外側から mel_n, frame_n 順のメモリレイアウト
-@param src 入力データのポインタ、float 型、外側から freq_n, frame_n 順のメモリレイアウト
-@param fb_mtrx メルフィルタバンク、float 型、外側から mel_n, freq_n  順のメモリレイアウト
-@param freq_n 周波数のインデックス数
-@param frame_n 入力データの時間フレームの数
-@param mel_n メル周波数のインデックス数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-入力された実数スペクトログラムをメル尺度に変換します
-fb_mtrxには ailiaAudioGetFBMatrix() で取得した係数を与える事が出来ます</p>
-<p>~english
-@brief Convert the real output of the STFT to the mel scale.
-@param dst pointer to the output data, of float format, of length (mel_n * frame_n), and of memory layout (in
-row-major convention) (mel_n, frame_n).
-@param src pointer to the input data, of float format, of length (freq_n * frame_n), and of memory layout (in
-row-major convention) (freq_n, frame_n).
-@param fb_mtrx the mel filter-bank, of float format, of length (mel_n * freq_n), and of memory layout (in row-major
-convention) (mel_n, freq_n).
-@param freq_n number of frequency indices
-@param frame_n number of time frames in the input data
-@param mel_n number of mel frequency indices
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-Converts the real spectrogram given in input to the mel scale.
+  <p>Convert the real output of the STFT to the mel scale.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, of length (mel_n * frame_n), and of memory layout (in
+row-major convention) (mel_n, frame_n).</li>
+<li><code>src</code>: pointer to the input data, of float format, of length (freq_n * frame_n), and of memory layout (in
+row-major convention) (freq_n, frame_n).</li>
+<li><code>fb_mtrx</code>: the mel filter-bank, of float format, of length (mel_n * freq_n), and of memory layout (in row-major
+convention) (mel_n, freq_n).</li>
+<li><code>freq_n</code>: number of frequency indices</li>
+<li><code>frame_n</code>: number of time frames in the input data</li>
+<li><code>mel_n</code>: number of mel frequency indices</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>Converts the real spectrogram given in input to the mel scale.
 The argument fb_mtrx can take the coefficients outputted by  ailiaAudioGetFBMatrix() .</p>
 </section>
 
@@ -147,7 +135,7 @@ The argument fb_mtrx can take the coefficients outputted by  ailiaAudioGetFBMatr
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

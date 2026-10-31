@@ -66,22 +66,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief リサンプル後のサンプル数を計算します
-@param dst_sample_n リサンプル後サンプル数出力先ポインタ
-@param dst_sample_rate 変換後のサンプリングレート
-@param src_sample_n 入力データのサンプル数
-@param src_sample_rate 入力データのサンプリングレート
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</p>
-<p>~english
-@brief Get the number of samples after the resampling.
-@param dst_sample_n pointer to the destination where to write the output (the number of samples after resampling)
-@param dst_sample_rate sampling rate after the resampling
-@param src_sample_n number of samples in the input signal
-@param src_sample_rate sampling rate of the input signal
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.</p>
+  <p>Get the number of samples after the resampling.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst_sample_n</code>: pointer to the destination where to write the output (the number of samples after resampling)</li>
+<li><code>dst_sample_rate</code>: sampling rate after the resampling</li>
+<li><code>src_sample_n</code>: number of samples in the input signal</li>
+<li><code>src_sample_rate</code>: sampling rate of the input signal</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
 </section>
 
 
@@ -128,7 +122,7 @@ In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is retur
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

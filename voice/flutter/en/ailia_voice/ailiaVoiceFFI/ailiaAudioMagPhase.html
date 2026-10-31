@@ -69,47 +69,29 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief スペクトログラムから振幅と位相を計算します。
-@param dst_mag 振幅の出力先ポインタ、外側から freq_n, frame_n 順のメモリレイアウト
-@param dst_phase 位相の出力先ポインタ、外側から freq_n, frame_n, 2(実部、虚部) 順のメモリレイアウト
-@param src 入力データのポインタ、frame_n, freq_n, 2(実部、虚部) 順のメモリレイアウト
-@param freq_n 周波数のインデックス数
-@param frame_n 時間フレームの数
-@param power 振幅スペクトルの乗数 ( &gt; 0.0)、1.0: 振幅スペクトログラム、2.0: パワースペクトログラムに相当
-@param phase_form 位相の出力形式、AILIA_AUDIO_PHASE_FORM_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-librosaのデフォルト値と互換の条件: phase_form =  \ref AILIA_AUDIO_PHASE_FORM_COMPLEX , power = 1.0
-PyTorchのデフォルト値と互換の条件: phase_form =  \ref AILIA_AUDIO_PHASE_FORM_REAL , power = 1.0
-phase_formによってdst_phaseの出力が変わります。</p>
+  <p>Get the amplitude and the phase from the spectrogram.</p>
+<p>Parameters:</p>
 <ul>
-<li>\ref AILIA_AUDIO_PHASE_FORM_COMPLEX  : 実部と虚部の交互信号、サイズは freq_n * frame_n * 2</li>
-<li>\ref AILIA_AUDIO_PHASE_FORM_REAL  : 実部のみの信号、サイズは freq_n * frame_n</li>
+<li><code>dst_mag</code>: pointer to the outputted amplitudes, an array of length (freq_n * frame_n). (memory layout, using the
+row-major convention: (freq_n, frame_n))</li>
+<li><code>dst_phase</code>: pointer to the outputted phases, an array of length (2 * freq_n * frame_n) (sequence of complex
+pairs <code>real part, imaginary part</code>). (memory layout, using the row-major convention: (freq_n, frame_n, 2))</li>
+<li><code>src</code>: pointer to the input data, of length (2 * frame_n * freq_n) (a sequence of complex pairs <code>real,
+imaginary</code>). (memory layout, using the row-major convention: (frame_n, freq_n, 2))</li>
+<li><code>freq_n</code>: number of frequency indices</li>
+<li><code>frame_n</code>: number of time frames</li>
+<li><code>power</code>: exponent to apply to the spectrogram (&gt; 0.0). 1.0: amplitude spectrogram, 2.0: power spectrogram, etc,
+any other positive exponent value is allowed.</li>
+<li><code>phase_form</code>: format of the outputted phase: any of the AILIA_AUDIO_PHASE_FORM_* constants</li>
 </ul>
-<p>~english
-@brief Get the amplitude and the phase from the spectrogram.
-@param dst_mag pointer to the outputted amplitudes, an array of length (freq_n * frame_n). (memory layout, using the
-row-major convention: (freq_n, frame_n))
-@param dst_phase pointer to the outputted phases, an array of length (2 * freq_n * frame_n) (sequence of complex
-pairs <code>real part, imaginary part</code>). (memory layout, using the row-major convention: (freq_n, frame_n, 2))
-@param src pointer to the input data, of length (2 * frame_n * freq_n) (a sequence of complex pairs <code>real,
-imaginary</code>). (memory layout, using the row-major convention: (frame_n, freq_n, 2))
-@param freq_n number of frequency indices
-@param frame_n number of time frames
-@param power exponent to apply to the spectrogram (&gt; 0.0). 1.0: amplitude spectrogram, 2.0: power spectrogram, etc,
-any other positive exponent value is allowed.
-@param phase_form format of the outputted phase: any of the AILIA_AUDIO_PHASE_FORM_* constants
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-To be compatible with librosa, use: phase_form =  \ref AILIA_AUDIO_PHASE_FORM_COMPLEX , power = 1.0
-To be compatible with PyTorch, use: phase_form =  \ref AILIA_AUDIO_PHASE_FORM_REAL , power = 1.0
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>To be compatible with librosa, use: phase_form =  <a href="../../ailia_voice/AILIA_AUDIO_PHASE_FORM_COMPLEX-constant.html">AILIA_AUDIO_PHASE_FORM_COMPLEX</a> , power = 1.0
+To be compatible with PyTorch, use: phase_form =  <a href="../../ailia_voice/AILIA_AUDIO_PHASE_FORM_REAL-constant.html">AILIA_AUDIO_PHASE_FORM_REAL</a> , power = 1.0
 The dst_phase output depends on phase_form:</p>
 <ul>
-<li>\ref AILIA_AUDIO_PHASE_FORM_COMPLEX  : signal with real and imaginary parts, of size (freq_n * frame_n * 2)</li>
-<li>\ref AILIA_AUDIO_PHASE_FORM_REAL  : real signal, of size (freq_n * frame_n)</li>
+<li><a href="../../ailia_voice/AILIA_AUDIO_PHASE_FORM_COMPLEX-constant.html">AILIA_AUDIO_PHASE_FORM_COMPLEX</a>  : signal with real and imaginary parts, of size (freq_n * frame_n * 2)</li>
+<li><a href="../../ailia_voice/AILIA_AUDIO_PHASE_FORM_REAL-constant.html">AILIA_AUDIO_PHASE_FORM_REAL</a>  : real signal, of size (freq_n * frame_n)</li>
 </ul>
 </section>
 
@@ -163,7 +145,7 @@ The dst_phase output depends on phase_form:</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

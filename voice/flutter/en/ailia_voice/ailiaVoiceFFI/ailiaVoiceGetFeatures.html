@@ -65,24 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief フィーチャーを取得します。
-@param net   ボイスオブジェクトポインタ
-@param features  フィーチャー(UTF8)
-@param len フィーチャーの長さ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaVoiceGraphemeToPhoneme() もしくは ailiaVoiceExtractFullContext() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。</p>
-<p>~english
-@brief Gets the decoded features.
-@param net   A Voice instance pointer
-@param features  Features(UTF8)
-@param len  The length of features
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-If  ailiaVoiceGraphemeToPhoneme()  or ailiaVoiceExtractFullContext() is not run at all, the function returns  \ref AILIA_STATUS_INVALID_STATE .</p>
+  <p>Gets the decoded features.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A Voice instance pointer</li>
+<li><code>features</code>: Features(UTF8)</li>
+<li><code>len</code>: The length of features</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>If  ailiaVoiceGraphemeToPhoneme()  or ailiaVoiceExtractFullContext() is not run at all, the function returns  <a href="../../ailia_voice/AILIA_STATUS_INVALID_STATE-constant.html">AILIA_STATUS_INVALID_STATE</a> .</p>
 </section>
 
 
@@ -127,7 +119,7 @@ If  ailiaVoiceGraphemeToPhoneme()  or ailiaVoiceExtractFullContext() is not run 
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

@@ -65,24 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 推論時の内部データ(Blob)の型を取得します。
-@param net ネットワークオブジェクトポインタ
-@param type データ型の書き出し先バッファ。値は AILIA_DATATYPE_XXX で定義されています。
-@param blob_idx blobのインデックス (0～ ailiaGetBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Get the type of Blob.
-@param net A network instance pointer
-@param blob_idx The index of the blob (0 to  ailiaGetBlobCount() -1)
-@param type The type of blob is stored to it. Values are defined as AILIA_DATATYPE_XXX.
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This API can be call after call ailiaOpenWeighXXX().</p>
+  <p>Get the type of Blob.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>blob_idx</code>: The index of the blob (0 to  ailiaGetBlobCount() -1)</li>
+<li><code>type</code>: The type of blob is stored to it. Values are defined as AILIA_DATATYPE_XXX.</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
 
 
@@ -127,7 +119,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

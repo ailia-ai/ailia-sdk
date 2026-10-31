@@ -63,24 +63,14 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 一時キャッシュディレクトリを指定します
-@param cache_dir 一時キャッシュディレクトリ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-指定したキャッシュディレクトリは推論実行環境毎に最適化したマシンコードを生成して保存するためにシステムが利用します。
-ailia の実行開始時に一度だけ呼び出してください。二回目以降の呼び出しに対しては無視して成功を返します。
-複数スレッドから呼び出された場合も内部で排他制御しているので特に問題は発生しません。
-Vulkan のシェーダーキャッシュ機能など、この API を呼ぶまで利用できないものがあります。
-cache_dirにはContext.getCacheDir()で取得したファイルパスを指定してください。</p>
-<p>~english
-@brief Specifies a temporary cache directory.
-@param cache_dir Temporary cache directory
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This system uses the specified cache directory to generate and store machine code optimized for each inference
+  <p>Specifies a temporary cache directory.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>cache_dir</code>: Temporary cache directory</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This system uses the specified cache directory to generate and store machine code optimized for each inference
 backend. Call only once at the start of execution of ailia. It ignores any second and subsequent calls, and
 automatically returns success. There is no particular problem if it is called from multiple threads, as it provides
 exclusive control internally. Some functions, such as Vulkan shader cache, cannot be used until this API function is
@@ -125,7 +115,7 @@ called. Specify the file path obtained by Context.getCacheDir() for cache_dir.</
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

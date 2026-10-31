@@ -63,22 +63,14 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief エラーの詳細を返します
-@param net   ネットワークオブジェクトポインタ
-@return
-エラー詳細
-@details
-返値は解放する必要はありません。
-文字列の有効期間は次にailiaのAPIを呼ぶまでです。
-モデルが暗号化されている場合は空文字を返します。</p>
-<p>~english
-@brief Returns the details of errors.
-@param net   The network instance pointer
-@return
-Error details
-@details
-The return value does not have to be released.
+  <p>Returns the details of errors.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: The network instance pointer</li>
+</ul>
+<p>Returns:</p>
+<p>Error details</p>
+<p>The return value does not have to be released.
 The string is valid until the next ailia API function is called.
 If model is encrypted, this function returns empty string.</p>
 </section>
@@ -121,7 +113,7 @@ If model is encrypted, this function returns empty string.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

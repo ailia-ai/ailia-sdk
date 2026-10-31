@@ -64,22 +64,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 出力データ(Blob)の数を取得します。
-@param net ネットワークオブジェクトポインタ
-@param output_blob_count 出力blobの数の格納先
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Get the number of output data blobs.
-@param net A network instance pointer
-@param output_blob_count Storage location for the number of output blobs.
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This API can be call after call ailiaOpenStreamXXX().</p>
+  <p>Get the number of output data blobs.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>output_blob_count</code>: Storage location for the number of output blobs.</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This API can be call after call ailiaOpenStreamXXX().</p>
 </section>
 
 
@@ -122,7 +115,7 @@ This API can be call after call ailiaOpenStreamXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

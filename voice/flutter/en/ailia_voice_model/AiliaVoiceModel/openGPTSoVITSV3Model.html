@@ -105,31 +105,31 @@
 
   int status;
   if (Platform.isWindows){
-    status = ailiaVoice.ailiaVoiceOpenGPTSoVITSV3ModelFileW(
+    status = using((arena) =&gt; ailiaVoice.ailiaVoiceOpenGPTSoVITSV3ModelFileW(
       ppAilia!.value,
-      encoder.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
-      decoder1.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
-      decoder2.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
-      ssl.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
-      vq.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
-      cfm.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
-      bigvgan.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
-      (chineseBert != null) ? chineseBert.toNativeUtf16().cast&lt;ffi.WChar&gt;() : ffi.nullptr,
-      (vocab != null) ? vocab.toNativeUtf16().cast&lt;ffi.WChar&gt;() : ffi.nullptr,
-    );
+      encoder.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
+      decoder1.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
+      decoder2.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
+      ssl.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
+      vq.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
+      cfm.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
+      bigvgan.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
+      (chineseBert != null) ? chineseBert.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;() : ffi.nullptr,
+      (vocab != null) ? vocab.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;() : ffi.nullptr,
+    ), malloc);
   }else{
-    status = ailiaVoice.ailiaVoiceOpenGPTSoVITSV3ModelFileA(
+    status = using((arena) =&gt; ailiaVoice.ailiaVoiceOpenGPTSoVITSV3ModelFileA(
       ppAilia!.value,
-      encoder.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-      decoder1.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-      decoder2.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-      ssl.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-      vq.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-      cfm.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-      bigvgan.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-      (chineseBert != null) ? chineseBert.toNativeUtf8().cast&lt;ffi.Char&gt;() : ffi.nullptr,
-      (vocab != null) ? vocab.toNativeUtf8().cast&lt;ffi.Char&gt;() : ffi.nullptr,
-    );
+      encoder.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      decoder1.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      decoder2.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      ssl.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      vq.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      cfm.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      bigvgan.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      (chineseBert != null) ? chineseBert.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;() : ffi.nullptr,
+      (vocab != null) ? vocab.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;() : ffi.nullptr,
+    ), malloc);
   }
   throwError(&quot;ailiaVoiceOpenGPTSoVITSV3ModelFile&quot;, status);
 
@@ -162,7 +162,7 @@
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

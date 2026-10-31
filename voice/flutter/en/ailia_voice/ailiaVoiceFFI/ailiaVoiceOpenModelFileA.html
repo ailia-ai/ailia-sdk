@@ -70,35 +70,21 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief モデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param encoder_path onnxファイルのパス名(MBSC)
-@param decoder1_path onnxファイルのパス名(MBSC)
-@param decoder2_path onnxファイルのパス名(MBSC)
-@param wave_path onnxファイルのパス名(MBSC)
-@param ssl_path onnxファイルのパス名(MBSC)
-@param model_type AILIA_VOICE_MODEL_TYPE_*
-@param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-この関数は非推奨です。代わりにailiaVoiceOpenTacotron2ModelFileA、ailiaVoiceOpenGPTSoVITSV1ModelFileA、
-ailiaVoiceOpenGPTSoVITSV2ModelFileAを使用してください。</p>
-<p>~english
-@brief Set models into a network instance.
-@param net A network instance pointer
-@param encoder The path name to the onnx file (MBSC)
-@param decoder1 The path name to the onnx file (MBSC)
-@param decoder2 The path name to the onnx file (MBSC)
-@param wave The path name to the onnx file (MBSC)
-@param ssl The path name to the onnx file (MBSC)
-@param model_type AILIA_VOICE_MODEL_TYPE_*
-@param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This function is deprecated. Use ailiaVoiceOpenTacotron2ModelFileA, ailiaVoiceOpenGPTSoVITSV1ModelFileA,
+  <p>Set models into a network instance.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>encoder</code>: The path name to the onnx file (MBSC)</li>
+<li><code>decoder1</code>: The path name to the onnx file (MBSC)</li>
+<li><code>decoder2</code>: The path name to the onnx file (MBSC)</li>
+<li><code>wave</code>: The path name to the onnx file (MBSC)</li>
+<li><code>ssl</code>: The path name to the onnx file (MBSC)</li>
+<li><code>model_type</code>: AILIA_VOICE_MODEL_TYPE_*</li>
+<li><code>cleaner_type</code>: AILIA_VOICE_CLEANER_TYPE_*</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This function is deprecated. Use ailiaVoiceOpenTacotron2ModelFileA, ailiaVoiceOpenGPTSoVITSV1ModelFileA,
 ailiaVoiceOpenGPTSoVITSV2ModelFileA instead.</p>
 </section>
 
@@ -154,7 +140,7 @@ ailiaVoiceOpenGPTSoVITSV2ModelFileA instead.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

@@ -65,29 +65,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 辞書を指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param dictionary_path 辞書フォルダのパス名(MBSC)
-@param dictionary_type AILIA_VOICE_DICTIONARY_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-中国語を使用する場合、GPT-SoVITS V1では \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN のみ必要です。
-GPT-SoVITS V2およびV3では \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN と
-\ref AILIA_VOICE_DICTIONARY_TYPE_G2PW の両方が必要です。
-G2PWを使用する場合、先にG2P_CNを読み込んでください。</p>
-<p>~english
-@brief Set dictionary into a network instance.
-@param net A network instance pointer
-@param dictionary_path The path name to the dictionary folder (MBSC)
-@param dictionary_type AILIA_VOICE_DICTIONARY_TYPE_*
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-For Chinese, GPT-SoVITS V1 requires only \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN .
-GPT-SoVITS V2 and V3 require both \ref AILIA_VOICE_DICTIONARY_TYPE_G2P_CN and
-\ref AILIA_VOICE_DICTIONARY_TYPE_G2PW .
+  <p>Set dictionary into a network instance.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>dictionary_path</code>: The path name to the dictionary folder (MBSC)</li>
+<li><code>dictionary_type</code>: AILIA_VOICE_DICTIONARY_TYPE_*</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>For Chinese, GPT-SoVITS V1 requires only <a href="../../ailia_voice/AILIA_VOICE_DICTIONARY_TYPE_G2P_CN-constant.html">AILIA_VOICE_DICTIONARY_TYPE_G2P_CN</a> .
+GPT-SoVITS V2 and V3 require both <a href="../../ailia_voice/AILIA_VOICE_DICTIONARY_TYPE_G2P_CN-constant.html">AILIA_VOICE_DICTIONARY_TYPE_G2P_CN</a> and
+<a href="../../ailia_voice/AILIA_VOICE_DICTIONARY_TYPE_G2PW-constant.html">AILIA_VOICE_DICTIONARY_TYPE_G2PW</a> .
 When using G2PW, load G2P_CN first.</p>
 </section>
 
@@ -133,7 +122,7 @@ When using G2PW, load G2P_CN first.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

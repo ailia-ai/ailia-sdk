@@ -65,24 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ネットワークオブジェクトを初期化します。(メモリから読み込み)
-@param net ネットワークオブジェクトポインタ
-@param buf prototxtファイルのデータへのポインタ
-@param buf_size prototxtファイルのデータサイズ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-メモリから読み込み、ネットワークオブジェクトを初期化します。</p>
-<p>~english
-@brief Initializes the network instance. (Read from memory)
-@param net A network instance pointer
-@param buf A pointer to the data in the prototxt file
-@param buf_size The data size of the prototxt file
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This function reads the network instance from memory and initializes it.</p>
+  <p>Initializes the network instance. (Read from memory)</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>buf</code>: A pointer to the data in the prototxt file</li>
+<li><code>buf_size</code>: The data size of the prototxt file</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This function reads the network instance from memory and initializes it.</p>
 </section>
 
 
@@ -127,7 +119,7 @@ This function reads the network instance from memory and initializes it.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

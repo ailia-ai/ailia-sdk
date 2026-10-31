@@ -70,32 +70,22 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief メルフィルタバンクの係数を計算します。
-@param dst 出力データのポインタ、float 型、外側から mel_n, freq_n  順のメモリレイアウト
-@param freq_n 周波数のインデックス数
-@param f_min 周波数の最小値
-@param f_max 周波数の最大値
-@param mel_n メル周波数のインデックス数（ &lt; freq_n）
-@param sample_rate サンプリング周波数
-@param mel_norm 出力される係数の正規化の有無、AILIA_AUDIO_MEL_NORMALIZE_* のいずれか
-@param mel_formula MEL尺度の形式、AILIA_AUDIO_MEL_SCALE_FORMULA_* のいずれか
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</p>
-<p>~english
-@brief Create a mel filter-bank.
-@param dst pointer to the output data, of float format, and of length (mel_n * freq_n). (memory layout, using the
-row-major convention: (mel_n, freq_n))
-@param freq_n number of frequency indices for the FFT (1+fft_n/2)
-@param f_min lowest frequency
-@param f_max highest frequency
-@param mel_n number of mel frequency bins in the output (&lt; freq_n)
-@param sample_rate sampling rate for the signal that will be inputted to this filter
-@param mel_norm whether to normalize the output (and the type of the normalization): any of the
-AILIA_AUDIO_MEL_NORMALIZE_* constants
-@param mel_formula mel scale format: any of the AILIA_AUDIO_MEL_SCALE_FORMULA_* constants
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.</p>
+  <p>Create a mel filter-bank.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst</code>: pointer to the output data, of float format, and of length (mel_n * freq_n). (memory layout, using the
+row-major convention: (mel_n, freq_n))</li>
+<li><code>freq_n</code>: number of frequency indices for the FFT (1+fft_n/2)</li>
+<li><code>f_min</code>: lowest frequency</li>
+<li><code>f_max</code>: highest frequency</li>
+<li><code>mel_n</code>: number of mel frequency bins in the output (&lt; freq_n)</li>
+<li><code>sample_rate</code>: sampling rate for the signal that will be inputted to this filter</li>
+<li><code>mel_norm</code>: whether to normalize the output (and the type of the normalization): any of the
+AILIA_AUDIO_MEL_NORMALIZE_* constants</li>
+<li><code>mel_formula</code>: mel scale format: any of the AILIA_AUDIO_MEL_SCALE_FORMULA_* constants</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
 </section>
 
 
@@ -150,7 +140,7 @@ In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is retur
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

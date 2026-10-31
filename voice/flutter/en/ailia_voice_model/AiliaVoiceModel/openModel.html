@@ -99,27 +99,27 @@
 
   int status;
   if (Platform.isWindows){
-    status = ailiaVoice.ailiaVoiceOpenModelFileW(
+    status = using((arena) =&gt; ailiaVoice.ailiaVoiceOpenModelFileW(
       ppAilia!.value,
-      encoder.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
-      decoder1.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
-      decoder2.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
-      wave.toNativeUtf16().cast&lt;ffi.WChar&gt;(),
-      (ssl != null) ? ssl.toNativeUtf16().cast&lt;ffi.WChar&gt;():ffi.nullptr,
+      encoder.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
+      decoder1.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
+      decoder2.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
+      wave.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;(),
+      (ssl != null) ? ssl.toNativeUtf16(allocator: arena).cast&lt;ffi.WChar&gt;():ffi.nullptr,
       modelType,
       cleanerType,
-    );
+    ), malloc);
   }else{
-    status = ailiaVoice.ailiaVoiceOpenModelFileA(
+    status = using((arena) =&gt; ailiaVoice.ailiaVoiceOpenModelFileA(
       ppAilia!.value,
-      encoder.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-      decoder1.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-      decoder2.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-      wave.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-      (ssl != null) ? ssl.toNativeUtf8().cast&lt;ffi.Char&gt;():ffi.nullptr,
+      encoder.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      decoder1.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      decoder2.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      wave.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      (ssl != null) ? ssl.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;():ffi.nullptr,
       modelType,
       ailia_voice_dart.AILIA_VOICE_CLEANER_TYPE_BASIC,
-    );
+    ), malloc);
   }
   throwError(&quot;ailiaVoiceOpenModelFile&quot;, status);
 
@@ -152,7 +152,7 @@
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

@@ -63,6 +63,8 @@
     
 <section class="desc markdown">
   <p>Closes the model and releases native resources.</p>
+<p>The instance is released even when loading a model failed, because it has
+already been created by then and <a href="../../ailia_voice_model/AiliaVoiceModel/available.html">available</a> is still false.</p>
 </section>
 
 
@@ -70,13 +72,17 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void close() {
-  if (!available){
+  if (ppAilia == null){
     return;
   }
 
-  ffi.Pointer&lt;ailia_voice_dart.AILIAVoice&gt; net = ppAilia!.value;
-  ailiaVoice.ailiaVoiceDestroy(net);
+  if (_created){
+    ffi.Pointer&lt;ailia_voice_dart.AILIAVoice&gt; net = ppAilia!.value;
+    ailiaVoice.ailiaVoiceDestroy(net);
+    _created = false;
+  }
   malloc.free(ppAilia!);
+  ppAilia = null;
 
   available = false;
 }</code></pre>
@@ -107,7 +113,7 @@
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

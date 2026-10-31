@@ -68,35 +68,20 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief フィルタ処理用の初期遅延係数を算出します
-@param dst_zi 出力する初期遅延状態のポインタ、float 型、要素数 dst_n (dst_n &gt;= max(n_coef_n,d_coef_n)-1)
-@param n_coef フィルタ分子係数のポインタ、float 型、要素数 n_coef_n
-@param d_coef フィルタ分母係数のポインタ、float 型、要素数 d_coef_n
-@param dst_n 出力先の確保要素数 (dst_n &gt;= max(n_coef_n,d_coef_n)-1)
-@param n_coef_n フィルタ分子係数の要素数
-@param d_coef_n フィルタ分母係数の要素数
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-一般に、得られた係数に入力信号の先頭を乗じたものを、初期遅延状態として ailiaAudioLinerFilter() に与えます。
-dst_nはmax(n_coef_n,d_coef_n)-1が必要となります。
-不足の場合は、確保分だけ出力します。
-超える部分は、0で埋めます。
-n_coef_nとd_coef_nは大きいほうを基準とし、不足分は0でパディングします。</p>
-<p>~english
-@brief Calculate the initial delay coefficients for filtering
-@param dst_zi pointer to the output (initial delay coefficients), of float format, and of length dst_n (dst_n &gt;=
-max(n_coef_n,d_coef_n)-1)
-@param n_coef pointer to the numerator coefficients of the filter, of float format, and length n_coef_n
-@param d_coef pointer to the denominator coefficients of the filter, of float format, and length d_coef_n
-@param dst_n size, in number of samples, reserved in the output buffer (dst_n &gt;= max(n_coef_n,d_coef_n)-1)
-@param n_coef_n number of numerator coefficients of the filter
-@param d_coef_n number of denominator coefficients of the filter
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-These initial delay coefficients dst_zi, once multiplied with the early values of the signal, can be passed as
+  <p>Calculate the initial delay coefficients for filtering</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst_zi</code>: pointer to the output (initial delay coefficients), of float format, and of length dst_n (dst_n &gt;=
+max(n_coef_n,d_coef_n)-1)</li>
+<li><code>n_coef</code>: pointer to the numerator coefficients of the filter, of float format, and length n_coef_n</li>
+<li><code>d_coef</code>: pointer to the denominator coefficients of the filter, of float format, and length d_coef_n</li>
+<li><code>dst_n</code>: size, in number of samples, reserved in the output buffer (dst_n &gt;= max(n_coef_n,d_coef_n)-1)</li>
+<li><code>n_coef_n</code>: number of numerator coefficients of the filter</li>
+<li><code>d_coef_n</code>: number of denominator coefficients of the filter</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>These initial delay coefficients dst_zi, once multiplied with the early values of the signal, can be passed as
 initial delayed values, the zi argument, to  ailiaAudioLinerFilter() . Of the dst_n reserved length of the output
 buffer, the length used is max(n_coef_n,d_coef_n)-1. If dst_n is less than that, only the corresponding first values
 are output. If dst_n is larger, the remaining is filled with 0. The largest of n_coef_n and d_coef_n is taken as
@@ -151,7 +136,7 @@ reference and zeros are added for padding where necessary.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

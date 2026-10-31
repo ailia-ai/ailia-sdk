@@ -82,22 +82,24 @@
     throw Exception(&quot;Model not opened yet. wait one second and try again.&quot;);
   }
 
-  ffi.Pointer&lt;ffi.Float&gt; waveBuf = malloc&lt;ffi.Float&gt;(pcm.length);
-  for (int i = 0; i &lt; pcm.length; i++) {
-    waveBuf[i] = pcm[i];
-  }
+  &#47;&#47; The arena releases the PCM buffer and the feature text on every path,
+  &#47;&#47; including the one where throwError throws.
+  using((arena) {
+    ffi.Pointer&lt;ffi.Float&gt; waveBuf = arena&lt;ffi.Float&gt;(pcm.length);
+    for (int i = 0; i &lt; pcm.length; i++) {
+      waveBuf[i] = pcm[i];
+    }
 
-  int status = ailiaVoice.ailiaVoiceSetReference(
-    ppAilia!.value,
-    waveBuf,
-    pcm.length * 4,
-    nChannels,
-    sampleRate,
-    referenceFeature.toNativeUtf8().cast&lt;ffi.Char&gt;()
-  );
-  throwError(&quot;ailiaVoiceSetReference&quot;, status);
-
-  malloc.free(waveBuf);
+    int status = ailiaVoice.ailiaVoiceSetReference(
+      ppAilia!.value,
+      waveBuf,
+      pcm.length * 4,
+      nChannels,
+      sampleRate,
+      referenceFeature.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;()
+    );
+    throwError(&quot;ailiaVoiceSetReference&quot;, status);
+  }, malloc);
 }</code></pre>
 </section>
 
@@ -126,7 +128,7 @@
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

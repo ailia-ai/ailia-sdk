@@ -65,24 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief G2Pを行います。
-@param net ボイスオブジェクトポインタ
-@param text テキスト(UTF8)
-@param g2p_type AILIA_VOICE_G2P_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-認識した結果はailiaVoiceGetFeatures APIで取得します。</p>
-<p>~english
-@brief Perform g2p
-@param net A Voice instance pointer
-@param text Text(UTF8)
-@param g2p_type AILIA_VOICE_G2P_TYPE_*
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-Get the result with ailiaVoiceGetFeatures API.</p>
+  <p>Perform g2p</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A Voice instance pointer</li>
+<li><code>text</code>: Text(UTF8)</li>
+<li><code>g2p_type</code>: AILIA_VOICE_G2P_TYPE_*</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Get the result with ailiaVoiceGetFeatures API.</p>
 </section>
 
 
@@ -127,7 +119,7 @@ Get the result with ailiaVoiceGetFeatures API.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

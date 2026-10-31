@@ -64,18 +64,14 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief GPT-SoVITS v3のCFMサンプリングステップ数を設定します。
-@param net ボイスオブジェクトポインタ
-@param steps CFMのEuler ODEステップ数(デフォルト4)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</p>
-<p>~english
-@brief Set the number of CFM sampling steps for GPT-SoVITS v3.
-@param net A Voice instance pointer
-@param steps Number of Euler ODE steps for CFM (default 4)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.</p>
+  <p>Set the number of CFM sampling steps for GPT-SoVITS v3.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A Voice instance pointer</li>
+<li><code>steps</code>: Number of Euler ODE steps for CFM (default 4)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
 </section>
 
 
@@ -118,7 +114,7 @@ If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an er
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

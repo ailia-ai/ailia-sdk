@@ -6,12 +6,12 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ailia_voice package &mdash; ailia Voice Python API 1.1.0 documentation</title>
+  <title>ailia_voice package &mdash; ailia Voice Python API 1.5.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
-      <script src="_static/documentation_options.js?v=fc837d61"></script>
+      <script src="_static/documentation_options.js?v=d75fd82e"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -368,7 +368,8 @@ Supported by GPT-SoVITS V2 and V3. Not effective for V1.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: &quot;./&quot;</em>) – Destination for saving the model file.</p></li>
 <li><p><strong>user_dict_path</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Specify the path of the user dictionary. The user dictionary is in mecab format.</p></li>
-<li><p><strong>distill</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Specify “small” to use the distill model. None to use the default model.</p></li>
+<li><p><strong>distill</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Specify “small”, “base”, or “tiny” to use matching distilled GPT and VITS models.
+None to use the default models.</p></li>
 </ul>
 </dd>
 </dl>

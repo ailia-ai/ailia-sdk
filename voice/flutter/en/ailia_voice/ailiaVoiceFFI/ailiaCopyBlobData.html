@@ -66,31 +66,19 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 指定したBlob間でデータをコピーします</p>
-<p>@param dst_net コピー先のblobが含まれるネットワークオブジェクトポインター
-@param dst_blob_idx コピー先のblobのインデックス
-@param src_net コピー元のblobが含まれるネットワークオブジェクトポインター
-@param src_blob_idx コピー元のblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-指定したネットワークのBlobをコピーします。コピー元とコピー先のネットワークは別のものを指定することができます。
-コピー先のBlobは入力Blobのインデックスを、コピー元のBlobは任意のBlobのインデックスを指定してください。
-コピー先にその他のBlobを指定した場合 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Perform copies  between blobs that specified.</p>
-<p>@param dst_net The network object pointer that contains destination blob
-@param dst_blob_idx The index of destination blob
-@param src_net The network object pointer that contains source blob
-@param src_blob_idx The index of source blob
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and otherwise the coresponding error code.
-@details
-Perform copy blobs between specified network. It accepts copy over different network.
+  <p>Perform copies  between blobs that specified.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst_net</code>: The network object pointer that contains destination blob</li>
+<li><code>dst_blob_idx</code>: The index of destination blob</li>
+<li><code>src_net</code>: The network object pointer that contains source blob</li>
+<li><code>src_blob_idx</code>: The index of source blob</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and otherwise the coresponding error code.</p>
+<p>Perform copy blobs between specified network. It accepts copy over different network.
 The src_blob_index must be specify blob index that inputs of src_net, and the dst_blob_index mut be specify blob index that outputs of dst_net.
-If specify index of other blob for dst_blob_idx , this function returns \ref AILIA_STATUS_INVALID_ARGUMENT .
+If specify index of other blob for dst_blob_idx , this function returns <a href="../../ailia_voice/AILIA_STATUS_INVALID_ARGUMENT-constant.html">AILIA_STATUS_INVALID_ARGUMENT</a> .
 This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
 
@@ -138,7 +126,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

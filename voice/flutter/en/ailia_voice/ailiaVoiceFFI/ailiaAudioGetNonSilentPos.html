@@ -69,35 +69,23 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 信号の入力前後の無音域を除いた領域を検出します
-@param dst_start_pos 有音域の先頭サンプル位置出力先ポインタ、int 型
-@param dst_length 有音域の長さ出力先ポインタ、int 型
-@param src 入力データのポインタ、float 型、要素数 sample_n
-@param sample_n 入力データのサンプル数
-@param win_n 1フレームに含むサンプル数
-@param hop_n フレームのシフト数
-@param thr_db 有音を判断するdB (thr_db &gt; 0)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-全域が無音の場合、*dst_start_pos = -1,*dst_length = 0となります。</p>
-<p>~english
-@brief Find the region of the signal between the first and the last non-silence samples. Detects the area excluding
-the silent range before and after the signal input
-@param dst_start_pos pointer to the destination where to write the outputted start position of the non-silence area,
-of int format
-@param dst_length pointer to the destination where to write the outputted length of the non-silence area, of int
-format
-@param src pointer to the input data, of float format, and of length sample_n
-@param sample_n count of samples in the input data
-@param win_n size of the window function
-@param hop_n stride of each window shift (in number of samples)
-@param thr_db threshold (in dB) above which the signal is considered non-silence (thr_db &gt; 0)
-@return
-In case of success,  \ref AILIA_STATUS_SUCCESS , and else an error code is returned.
-@details
-In case the whole signal is considered silence, the following happens: *dst_start_pos = -1, *dst_length = 0</p>
+  <p>Find the region of the signal between the first and the last non-silence samples. Detects the area excluding
+the silent range before and after the signal input</p>
+<p>Parameters:</p>
+<ul>
+<li><code>dst_start_pos</code>: pointer to the destination where to write the outputted start position of the non-silence area,
+of int format</li>
+<li><code>dst_length</code>: pointer to the destination where to write the outputted length of the non-silence area, of int
+format</li>
+<li><code>src</code>: pointer to the input data, of float format, and of length sample_n</li>
+<li><code>sample_n</code>: count of samples in the input data</li>
+<li><code>win_n</code>: size of the window function</li>
+<li><code>hop_n</code>: stride of each window shift (in number of samples)</li>
+<li><code>thr_db</code>: threshold (in dB) above which the signal is considered non-silence (thr_db &gt; 0)</li>
+</ul>
+<p>Returns:</p>
+<p>In case of success,  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , and else an error code is returned.</p>
+<p>In case the whole signal is considered silence, the following happens: *dst_start_pos = -1, *dst_length = 0</p>
 </section>
 
 
@@ -150,7 +138,7 @@ In case the whole signal is considered silence, the following happens: *dst_star
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

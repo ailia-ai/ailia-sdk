@@ -65,29 +65,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ネットワークオブジェクトを作成します。
-@param net ネットワークオブジェクトポインタへのポインタ
-@param env_id 計算に利用する推論実行環境のID( ailiaGetEnvironment() で取得)  \ref AILIA_ENVIRONMENT_ID_AUTO
-にした場合は自動で選択する
-@param num_thread スレッド数の上限(  \ref AILIA_MULTITHREAD_AUTO  にした場合は自動で設定)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ネットワークオブジェクトを作成します。
-推論実行環境を自動にした場合はCPUモードになり、BLASが利用できる場合はBLASを利用します。
-なお、BLASを利用する場合num_threadは無視される場合があります。</p>
-<p>~english
-@brief Creates a network instance.
-@param net A pointer to the network instance pointer
-@param env_id The ID of the inference backend used for computation (obtained by  ailiaGetEnvironment() ). It is
-selected automatically if  \ref AILIA_ENVIRONMENT_ID_AUTO  is specified.
-@param num_thread The upper limit on the number of threads (It is set automatically if  \ref AILIA_MULTITHREAD_AUTO
-is specified.)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-Creates a network instance.
+  <p>Creates a network instance.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A pointer to the network instance pointer</li>
+<li><code>env_id</code>: The ID of the inference backend used for computation (obtained by  ailiaGetEnvironment() ). It is
+selected automatically if  <a href="../../ailia_voice/AILIA_ENVIRONMENT_ID_AUTO-constant.html">AILIA_ENVIRONMENT_ID_AUTO</a>  is specified.</li>
+<li><code>num_thread</code>: The upper limit on the number of threads (It is set automatically if  <a href="../../ailia_voice/AILIA_MULTITHREAD_AUTO-constant.html">AILIA_MULTITHREAD_AUTO</a>
+is specified.)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Creates a network instance.
 If the inference backend is set to automatic, CPU mode is used, while if BLAS is available, it uses BLAS.
 Note that if BLAS is used, num_thread may be ignored.</p>
 </section>
@@ -134,7 +123,7 @@ Note that if BLAS is used, num_thread may be ignored.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

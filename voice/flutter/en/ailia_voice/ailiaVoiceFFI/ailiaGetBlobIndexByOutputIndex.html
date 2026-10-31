@@ -65,24 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 出力データ(Blob)のインデックスを取得します
-@param net ネットワークオブジェクトポインタ
-@param blob_idx blobのインデックス(0～ ailiaGetBlobCount() -1)
-@param output_blob_idx 出力blob内でのインデックス(0～ ailiaGetOutputBlobCount() -1)
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-このAPIはailiaOpenStreamXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Get the blob index of the input data blob.
-@param net A network instance pointer
-@param blob_idx blob index (between 0 and  ailiaGetBlobCount() -1)
-@param output_blob_idx index among output blobs (between 0 and  ailiaGetOutputBlobCount() -1)
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This API can be call after call ailiaOpenStreamXXX().</p>
+  <p>Get the blob index of the input data blob.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>blob_idx</code>: blob index (between 0 and  ailiaGetBlobCount() -1)</li>
+<li><code>output_blob_idx</code>: index among output blobs (between 0 and  ailiaGetOutputBlobCount() -1)</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This API can be call after call ailiaOpenStreamXXX().</p>
 </section>
 
 
@@ -127,7 +119,7 @@ This API can be call after call ailiaOpenStreamXXX().</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

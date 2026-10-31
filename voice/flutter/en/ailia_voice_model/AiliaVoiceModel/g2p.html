@@ -78,38 +78,39 @@ Returns the phoneme feature string.</p>
     print(&quot;ailiaVoiceGraphemeToPhoeneme $inputText&quot;);
   }
 
-  int status = ailiaVoice.ailiaVoiceGraphemeToPhoneme(
-    ppAilia!.value,
-    inputText.toNativeUtf8().cast&lt;ffi.Char&gt;(),
-    g2pType,
-  );
-  throwError(&quot;ailiaVoiceGraphemeToPhoneme&quot;, status);
+  &#47;&#47; The arena releases the text and the feature buffer on every path,
+  &#47;&#47; including the ones where throwError throws.
+  return using((arena) {
+    int status = ailiaVoice.ailiaVoiceGraphemeToPhoneme(
+      ppAilia!.value,
+      inputText.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;(),
+      g2pType,
+    );
+    throwError(&quot;ailiaVoiceGraphemeToPhoneme&quot;, status);
 
-  final ffi.Pointer&lt;ffi.UnsignedInt&gt; len = malloc&lt;ffi.UnsignedInt&gt;();
-  status = ailiaVoice.ailiaVoiceGetFeatureLength(ppAilia!.value, len);
-  throwError(&quot;ailiaVoiceGetFeatureLength&quot;, status);
-  if (debug){
-    print(&quot;length ${len.value}&quot;);
-  }
+    final ffi.Pointer&lt;ffi.UnsignedInt&gt; len = arena&lt;ffi.UnsignedInt&gt;();
+    status = ailiaVoice.ailiaVoiceGetFeatureLength(ppAilia!.value, len);
+    throwError(&quot;ailiaVoiceGetFeatureLength&quot;, status);
+    if (debug){
+      print(&quot;length ${len.value}&quot;);
+    }
 
-  final ffi.Pointer&lt;ffi.Char&gt; features = malloc&lt;ffi.Char&gt;(len.value);
-  status = ailiaVoice.ailiaVoiceGetFeatures(
-    ppAilia!.value,
-    features,
-    len.value,
-  );
-  throwError(&quot;ailiaVoiceGetFeatures&quot;, status);
+    final ffi.Pointer&lt;ffi.Char&gt; features = arena&lt;ffi.Char&gt;(len.value);
+    status = ailiaVoice.ailiaVoiceGetFeatures(
+      ppAilia!.value,
+      features,
+      len.value,
+    );
+    throwError(&quot;ailiaVoiceGetFeatures&quot;, status);
 
-  ffi.Pointer&lt;Utf8&gt; p = features.cast&lt;Utf8&gt;();
-  String s = p.toDartString();
-  if (debug){
-    print(&quot;g2p output $s&quot;);
-  }
+    ffi.Pointer&lt;Utf8&gt; p = features.cast&lt;Utf8&gt;();
+    String s = p.toDartString();
+    if (debug){
+      print(&quot;g2p output $s&quot;);
+    }
 
-  malloc.free(len);
-  malloc.free(features);
-
-  return s;
+    return s;
+  }, malloc);
 }</code></pre>
 </section>
 
@@ -138,7 +139,7 @@ Returns the phoneme feature string.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

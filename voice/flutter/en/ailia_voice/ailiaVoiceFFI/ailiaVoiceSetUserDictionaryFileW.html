@@ -65,24 +65,16 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ユーザ辞書を指定します。(UTF16)
-@param net ネットワークオブジェクトポインタ
-@param dictionary_path ユーザ辞書ファイルのパス名(UTF16)
-@param dictionary_type AILIA_VOICE_DICTIONARY_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ailiaVoiceOpenDictionaryFileWの前に呼び出す必要があります。</p>
-<p>~english
-@brief Set user dictionary into a network instance.
-@param net A network instance pointer
-@param dictionary_path The path name to the user dictionary file (UTF16)
-@param dictionary_type AILIA_VOICE_DICTIONARY_TYPE_*
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-You need to call before ailiaVoiceOpenDictionaryFileW.</p>
+  <p>Set user dictionary into a network instance.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>dictionary_path</code>: The path name to the user dictionary file (UTF16)</li>
+<li><code>dictionary_type</code>: AILIA_VOICE_DICTIONARY_TYPE_*</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>You need to call before ailiaVoiceOpenDictionaryFileW.</p>
 </section>
 
 
@@ -127,7 +119,7 @@ You need to call before ailiaVoiceOpenDictionaryFileW.</p>
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

@@ -68,26 +68,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief Tacotron2向けのモデルを指定します。(MBSC)
-@param net ネットワークオブジェクトポインタ
-@param encoder onnxファイルのパス名 (encoder.onnx) (MBSC)
-@param decoder1 onnxファイルのパス名 (decoder_iter.onnx) (MBSC)
-@param decoder2 onnxファイルのパス名 (postnet.onnx) (MBSC)
-@param wave onnxファイルのパス名 (waveglow.onnx) (MBSC)
-@param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</p>
-<p>~english
-@brief Set Tacotron2 models into a network instance.
-@param net A network instance pointer
-@param encoder The path name to the onnx file (encoder.onnx) (MBSC)
-@param decoder1 The path name to the onnx file (decoder_iter.onnx) (MBSC)
-@param decoder2 The path name to the onnx file (postnet.onnx) (MBSC)
-@param wave The path name to the onnx file (waveglow.onnx) (MBSC)
-@param cleaner_type AILIA_VOICE_CLEANER_TYPE_*
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.</p>
+  <p>Set Tacotron2 models into a network instance.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>encoder</code>: The path name to the onnx file (encoder.onnx) (MBSC)</li>
+<li><code>decoder1</code>: The path name to the onnx file (decoder_iter.onnx) (MBSC)</li>
+<li><code>decoder2</code>: The path name to the onnx file (postnet.onnx) (MBSC)</li>
+<li><code>wave</code>: The path name to the onnx file (waveglow.onnx) (MBSC)</li>
+<li><code>cleaner_type</code>: AILIA_VOICE_CLEANER_TYPE_*</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_voice/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
 </section>
 
 
@@ -138,7 +130,7 @@ If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an er
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

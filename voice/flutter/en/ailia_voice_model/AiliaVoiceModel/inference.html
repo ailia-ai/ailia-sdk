@@ -88,62 +88,62 @@ Returns an <a href="../../ailia_voice_model/AiliaVoiceResult-class.html">AiliaVo
     print(&quot;ailiaVoiceInference&quot;);
   }
 
-  int status = ailiaVoice.ailiaVoiceInference(ppAilia!.value, inputFeature.toNativeUtf8().cast&lt;ffi.Char&gt;());
-  throwError(&quot;ailiaVoiceInference&quot;, status);
+  &#47;&#47; The arena releases the input text and the wave buffers on every path,
+  &#47;&#47; including the ones where throwError throws.
+  return using((arena) {
+    int status = ailiaVoice.ailiaVoiceInference(
+        ppAilia!.value, inputFeature.toNativeUtf8(allocator: arena).cast&lt;ffi.Char&gt;());
+    throwError(&quot;ailiaVoiceInference&quot;, status);
 
-  if (debug){
-    print(&quot;ailiaVoiceGetWaveInfo&quot;);
-  }
+    if (debug){
+      print(&quot;ailiaVoiceGetWaveInfo&quot;);
+    }
 
-  final ffi.Pointer&lt;ffi.UnsignedInt&gt; samples = malloc&lt;ffi.UnsignedInt&gt;();
-  final ffi.Pointer&lt;ffi.UnsignedInt&gt; channels = malloc&lt;ffi.UnsignedInt&gt;();
-  final ffi.Pointer&lt;ffi.UnsignedInt&gt; samplingRate = malloc&lt;ffi.UnsignedInt&gt;();
+    final ffi.Pointer&lt;ffi.UnsignedInt&gt; samples = arena&lt;ffi.UnsignedInt&gt;();
+    final ffi.Pointer&lt;ffi.UnsignedInt&gt; channels = arena&lt;ffi.UnsignedInt&gt;();
+    final ffi.Pointer&lt;ffi.UnsignedInt&gt; samplingRate = arena&lt;ffi.UnsignedInt&gt;();
 
-  status = ailiaVoice.ailiaVoiceGetWaveInfo(
-    ppAilia!.value,
-    samples,
-    channels,
-    samplingRate,
-  );
-  throwError(&quot;ailiaVoiceGetWaveInfo&quot;, status);
+    status = ailiaVoice.ailiaVoiceGetWaveInfo(
+      ppAilia!.value,
+      samples,
+      channels,
+      samplingRate,
+    );
+    throwError(&quot;ailiaVoiceGetWaveInfo&quot;, status);
 
-  if (debug){
-    print(&quot;ailiaVoiceGetWaves&quot;);
-  }
+    if (debug){
+      print(&quot;ailiaVoiceGetWaves&quot;);
+    }
 
-  final ffi.Pointer&lt;ffi.Float&gt; buf =
-      malloc&lt;ffi.Float&gt;(samples.value * channels.value);
+    final ffi.Pointer&lt;ffi.Float&gt; buf =
+        arena&lt;ffi.Float&gt;(samples.value * channels.value);
 
-  int sizeofFloat = 4;
-  status = ailiaVoice.ailiaVoiceGetWave(
-    ppAilia!.value,
-    buf,
-    samples.value * channels.value * sizeofFloat,
-  );
-  throwError(&quot;ailiaVoiceGetWaves&quot;, status);
+    int sizeofFloat = 4;
+    status = ailiaVoice.ailiaVoiceGetWave(
+      ppAilia!.value,
+      buf,
+      samples.value * channels.value * sizeofFloat,
+    );
+    throwError(&quot;ailiaVoiceGetWaves&quot;, status);
 
-  List&lt;double&gt; pcm = List&lt;double&gt;.empty(growable: true);
-  for (int i = 0; i &lt; samples.value * channels.value; i++) {
-    pcm.add(buf[i]);
-  }
+    List&lt;double&gt; pcm = List&lt;double&gt;.empty(growable: true);
+    for (int i = 0; i &lt; samples.value * channels.value; i++) {
+      pcm.add(buf[i]);
+    }
 
-  AiliaVoiceResult resultPcm = AiliaVoiceResult(
-    sampleRate: samplingRate.value,
-    nChannels: channels.value,
-    pcm: pcm,
-  );
+    AiliaVoiceResult resultPcm = AiliaVoiceResult(
+      sampleRate: samplingRate.value,
+      nChannels: channels.value,
+      pcm: pcm,
+    );
 
-  if (debug){
-    print(
-        &quot;ailiaVoice output ${samples.value} ${samplingRate.value} ${channels.value}&quot;);
-  }
+    if (debug){
+      print(
+          &quot;ailiaVoice output ${samples.value} ${samplingRate.value} ${channels.value}&quot;);
+    }
 
-  malloc.free(buf);
-  malloc.free(samples);
-  malloc.free(channels);
-  malloc.free(samplingRate);
-
-  return resultPcm;
+    return resultPcm;
+  }, malloc);
 }</code></pre>
 </section>
 
@@ -172,7 +172,7 @@ Returns an <a href="../../ailia_voice_model/AiliaVoiceResult-class.html">AiliaVo
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>

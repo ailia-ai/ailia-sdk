@@ -63,23 +63,15 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ステータスコードに対応する文字列を返します。
-@param status_code   ステータスコード
-@return
-ステータスコードに対応する文字列。
-@details
-返値は解放する必要はありません。
-返された文字列は ailia のライブラリ(ailia.dll, libailia.so 等)をアンロードするまで有効です。
-AILIANetwork のインスタンスがある場合は ailiaGetErrorDetail() でエラーの詳細を取得できます。</p>
-<p>~english
-@brief Returns the string describing given status code.
-@param status_code    Status code
-@return
-String describing given status code.
-Retuned string is valid until the library of ailia (ailia.dll, libailia.so, etc) is unloaded.
-@details
-The return value does not have to be released.
+  <p>Returns the string describing given status code.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>status_code</code>: Status code</li>
+</ul>
+<p>Returns:</p>
+<p>String describing given status code.
+Retuned string is valid until the library of ailia (ailia.dll, libailia.so, etc) is unloaded.</p>
+<p>The return value does not have to be released.
 If an instance of AILIANetwork is exist, ailiaGetErrorDetail() can be used to get the detail of the error.</p>
 </section>
 
@@ -121,7 +113,7 @@ If an instance of AILIANetwork is exist, ailiaGetErrorDetail() can be used to ge
 <footer>
   <span class="no-break">
     ailia_voice
-      1.5.0
+      1.5.3
   </span>
   
 </footer>
