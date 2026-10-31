@@ -6,12 +6,12 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ailia_tflite package &mdash; ailia TFLite Python API 1.2.4 documentation</title>
+  <title>ailia_tflite package &mdash; ailia TFLite Python API 1.2.5.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
-      <script src="_static/documentation_options.js?v=928db92d"></script>
+      <script src="_static/documentation_options.js?v=66d8a031"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -60,6 +60,10 @@
 </li>
 </ul>
 </li>
+<li><a class="reference internal" href="#functions">Functions</a><ul>
+<li><a class="reference internal" href="#ailia_tflite.thread_pool_set_num_threads"><code class="docutils literal notranslate"><span class="pre">thread_pool_set_num_threads()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -93,7 +97,7 @@
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="ailia_tflite.Interpreter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_tflite.</span></span><span class="sig-name descname"><span class="pre">Interpreter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_int_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">261948</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_mid_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1816576</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_ext_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">104857600</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_tflite.</span></span><span class="sig-name descname"><span class="pre">Interpreter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_int_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">261948</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_mid_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1816576</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_ext_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">104857600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <div class="line-block">
 <div class="line">ailia TFLite Runtime inference interface (compatible with tf.lite.interpreter)</div>
@@ -101,7 +105,7 @@
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="ailia_tflite.Interpreter.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_int_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">261948</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_mid_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1816576</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_ext_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">104857600</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_int_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">261948</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_mid_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1816576</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_ext_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">104857600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.Interpreter.__init__" title="Link to this definition">¶</a></dt>
 <dd><div class="line-block">
 <div class="line">Constructor</div>
 <div class="line">コンストラクタ</div>
@@ -115,18 +119,38 @@
 </div>
 </p></li>
 <li><p><strong>env_id</strong> (<em>int</em>) – <div class="line-block">
-<div class="line">Used when using NNAPI in Android ID in the execution environment</div>
-<div class="line">実行環境のID、AndroidでNNAPIを使用する場合に使用</div>
+<div class="line">Execution environment ID (AILIA_TFLITE_ENV_*). Specifies the backend to use, such as CPU, MMALIB, or NNAPI.</div>
+<div class="line">実行環境のID (AILIA_TFLITE_ENV_*)、CPU・MMALIB・NNAPI などのバックエンドを選択</div>
 </div>
 </p></li>
 <li><p><strong>memory_mode</strong> (<em>int</em>) – <div class="line-block">
-<div class="line">ailia_tflite.AILIA_TFLITE_MEMORY_REDUCE_INTERSTAGE can be used by specifying the memory mode.</div>
+<div class="line">ailia_tflite.AILIA_TFLITE_MEMORY_MODE_REDUCE_INTERSTAGE can be used by specifying the memory mode.</div>
 <div class="line">ailia_tflite.AILIA_TFLITE_MEMORY_MODE_REDUCE_INTERSTAGEを指定することで省メモリモードが使用可能</div>
 </div>
 </p></li>
 <li><p><strong>flags</strong> (<em>int</em>) – <div class="line-block">
 <div class="line">You can change the reasoning mode by specifying ailia_tflite.AILIA_TFLITE_FLAG_*</div>
 <div class="line">ailia_tflite.AILIA_TFLITE_FLAG_*を指定することで推論モードを変更可能</div>
+</div>
+</p></li>
+<li><p><strong>scratch_int_size</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">AILIA_TFLITE_ENV_MMALIBもしくはAILIA_TFLITE_ENV_MMALIB_COMPATIBLEの場合のスクラッチバッファのサイズ（IntのみFlash Attentionの精度に影響）</div>
+<div class="line">Scratch buffer size in the case of AILIA_TFLITE_ENV_MMALIB or AILIA_TFLITE_ENV_MMALIB_COMPATIBLE (only Int affects the accuracy of Flash Attention)</div>
+</div>
+</p></li>
+<li><p><strong>scratch_mid_size</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">AILIA_TFLITE_ENV_MMALIBもしくはAILIA_TFLITE_ENV_MMALIB_COMPATIBLEの場合のスクラッチバッファのサイズ</div>
+<div class="line">Scratch buffer size in the case of AILIA_TFLITE_ENV_MMALIB or AILIA_TFLITE_ENV_MMALIB_COMPATIBLE</div>
+</div>
+</p></li>
+<li><p><strong>scratch_ext_size</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">AILIA_TFLITE_ENV_MMALIBもしくはAILIA_TFLITE_ENV_MMALIB_COMPATIBLEの場合のスクラッチバッファのサイズ</div>
+<div class="line">Scratch buffer size in the case of AILIA_TFLITE_ENV_MMALIB or AILIA_TFLITE_ENV_MMALIB_COMPATIBLE</div>
+</div>
+</p></li>
+<li><p><strong>num_threads</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">インスタンスのスレッド数、0の場合はスレッドプールのスレッド数を使用</div>
+<div class="line">Number of threads for the instance; if 0, the number of threads from the thread pool is used</div>
 </div>
 </p></li>
 </ul>
@@ -557,6 +581,37 @@
 </dd></dl>
 
 </section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ailia_tflite.thread_pool_set_num_threads">
+<span class="sig-prename descclassname"><span class="pre">ailia_tflite.</span></span><span class="sig-name descname"><span class="pre">thread_pool_set_num_threads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tflite.thread_pool_set_num_threads" title="Link to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">Set the number of threads for the global thread pool.</div>
+<div class="line">グローバルなスレッドプールのスレッド数を設定する</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num_threads</strong> (<em>int</em>) – <div class="line-block">
+<div class="line">Number of threads (1 or more)</div>
+<div class="line">スレッド数（1以上）</div>
+</div>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<div class="line-block">
+<div class="line">By default, the thread count is determined automatically.</div>
+<div class="line">Must be called before the first __init__ call.</div>
+<div class="line">If called after __init__, it returns AILIA_TFLITE_STATUS_INVALID_ARGUMENT.</div>
+<div class="line"><br /></div>
+<div class="line">デフォルトではスレッド数は自動的に設定される。</div>
+<div class="line">最初の __init__ の前に呼び出す必要がある。</div>
+<div class="line">__init__ 以降に呼び出すと AILIA_TFLITE_STATUS_INVALID_ARGUMENT が返される。</div>
+</div>
+</dd></dl>
+
+</section>
 </section>
 
 
@@ -567,7 +622,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022 - 2025, AXELL CORPORATION, ailia Inc..</p>
+    <p>&#169; Copyright 2022 - 2026, AXELL CORPORATION, ailia Inc..</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

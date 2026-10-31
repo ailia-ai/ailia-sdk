@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_tflite
-   &#160;<span id="projectnumber">1.2.4.0</span>
+   &#160;<span id="projectnumber">1.2.5.0</span>
    </div>
   </td>
  </tr>
@@ -203,6 +203,12 @@ $(function() {
 <tr class="memitem:a29bf832951ede1b50c01e900fc6fc225"><td class="memItemLeft" align="right" valign="top">static Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTFLite_1_1AiliaTFLite.html#a29bf832951ede1b50c01e900fc6fc225">ailiaTFLiteGetScratchBufferUsage</a> (IntPtr instance, ref UInt64 int_buffer_size, ref UInt64 mid_buffer_size, ref UInt64 ext_buffer_size)</td></tr>
 <tr class="memdesc:a29bf832951ede1b50c01e900fc6fc225"><td class="mdescLeft">&#160;</td><td class="mdescRight">スクラッチバッファの最大使用量を取得します。  <a href="classailiaTFLite_1_1AiliaTFLite.html#a29bf832951ede1b50c01e900fc6fc225">[詳解]</a><br /></td></tr>
 <tr class="separator:a29bf832951ede1b50c01e900fc6fc225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a084ed29dcc6a1c635cd4fd53a1ddd956"><td class="memItemLeft" align="right" valign="top">static Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTFLite_1_1AiliaTFLite.html#a084ed29dcc6a1c635cd4fd53a1ddd956">ailiaTFLiteThreadPoolSetNumThreads</a> (Int32 num_threads)</td></tr>
+<tr class="memdesc:a084ed29dcc6a1c635cd4fd53a1ddd956"><td class="mdescLeft">&#160;</td><td class="mdescRight">グローバルなスレッドプールのスレッド数を設定します  <a href="classailiaTFLite_1_1AiliaTFLite.html#a084ed29dcc6a1c635cd4fd53a1ddd956">[詳解]</a><br /></td></tr>
+<tr class="separator:a084ed29dcc6a1c635cd4fd53a1ddd956"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc71f7997bcd23eaadb6ef5c6c0bc96f"><td class="memItemLeft" align="right" valign="top">static Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTFLite_1_1AiliaTFLite.html#abc71f7997bcd23eaadb6ef5c6c0bc96f">ailiaTFLiteSetNumThreads</a> (IntPtr instance, Int32 num_threads)</td></tr>
+<tr class="memdesc:abc71f7997bcd23eaadb6ef5c6c0bc96f"><td class="mdescLeft">&#160;</td><td class="mdescRight">インスタンスの推論に使用するスレッド数を設定します  <a href="classailiaTFLite_1_1AiliaTFLite.html#abc71f7997bcd23eaadb6ef5c6c0bc96f">[詳解]</a><br /></td></tr>
+<tr class="separator:abc71f7997bcd23eaadb6ef5c6c0bc96f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d3a58e04451a1fe12124be27b0881b0"><td class="memItemLeft" align="right" valign="top">static Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTFLite_1_1AiliaTFLite.html#a2d3a58e04451a1fe12124be27b0881b0">ailiaTFLiteMklSetNumThreads</a> (Int32 num_threads)</td></tr>
 <tr class="memdesc:a2d3a58e04451a1fe12124be27b0881b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">MKLが使用するスレッド数を設定します  <a href="classailiaTFLite_1_1AiliaTFLite.html#a2d3a58e04451a1fe12124be27b0881b0">[詳解]</a><br /></td></tr>
 <tr class="separator:a2d3a58e04451a1fe12124be27b0881b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -299,6 +305,12 @@ $(function() {
 <tr class="separator:aae3a6b5603cb2ca0fb3a6da32d40c3bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaae339652ad5196d43753bfb001128de"><td class="memItemLeft" align="right" valign="top">const UInt32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTFLite_1_1AiliaTFLite.html#aaae339652ad5196d43753bfb001128de">AILIA_TFLITE_CPU_FEATURES_VNNI</a> =(0x00000020)</td></tr>
 <tr class="separator:aaae339652ad5196d43753bfb001128de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f81cc2aeef0310604c7e53afae59f90"><td class="memItemLeft" align="right" valign="top">const UInt32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTFLite_1_1AiliaTFLite.html#a7f81cc2aeef0310604c7e53afae59f90">AILIA_TFLITE_CPU_FEATURES_AVX512</a> =(0x00000040)</td></tr>
+<tr class="separator:a7f81cc2aeef0310604c7e53afae59f90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef8a522abc112d43cbe5d1d7010c27c5"><td class="memItemLeft" align="right" valign="top">const UInt32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTFLite_1_1AiliaTFLite.html#aef8a522abc112d43cbe5d1d7010c27c5">AILIA_TFLITE_CPU_FEATURES_I8MM</a> =(0x00000080)</td></tr>
+<tr class="separator:aef8a522abc112d43cbe5d1d7010c27c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8592a4f7860cf8e2a4a0aa2ecde88ee0"><td class="memItemLeft" align="right" valign="top">const UInt32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTFLite_1_1AiliaTFLite.html#a8592a4f7860cf8e2a4a0aa2ecde88ee0">AILIA_TFLITE_CPU_FEATURES_DOTPROD</a> =(0x00000100)</td></tr>
+<tr class="separator:a8592a4f7860cf8e2a4a0aa2ecde88ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab38b42b14ba66a50e5fa9014077b479f"><td class="memItemLeft" align="right" valign="top">const String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTFLite_1_1AiliaTFLite.html#ab38b42b14ba66a50e5fa9014077b479f">LIBRARY_NAME</a> =&quot;ailia_tflite&quot;</td></tr>
 <tr class="separator:ab38b42b14ba66a50e5fa9014077b479f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -2125,6 +2137,45 @@ $(function() {
 
 </div>
 </div>
+<a id="abc71f7997bcd23eaadb6ef5c6c0bc96f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc71f7997bcd23eaadb6ef5c6c0bc96f">&#9670;&nbsp;</a></span>ailiaTFLiteSetNumThreads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Int32 ailiaTFLite.AiliaTFLite.ailiaTFLiteSetNumThreads </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>instance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Int32&#160;</td>
+          <td class="paramname"><em>num_threads</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>インスタンスの推論に使用するスレッド数を設定します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instance</td><td>ailia TFLite runtimeインスタンスポインター </td></tr>
+    <tr><td class="paramname">num_threads</td><td>スレッド数（1以上） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>インスタンスの推論に使用するスレッド数を指定します。 デフォルトではスレッドプールのスレッド数を使用します。 スレッドプールのスレッド数よりも大きい値を設定した場合、スレッドプールのスレッド数が設定されます。 ailiaTFLiteAllocateTensors の前に呼び出す必要があります。 ailiaTFLiteAllocateTensors以降に呼び出すとAILIA_TFLITE_STATUS_INVALID_ARGUMENTを返します。 </p>
+
+</div>
+</div>
 <a id="aacedc064dca9aed31393a5dcc953784d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aacedc064dca9aed31393a5dcc953784d">&#9670;&nbsp;</a></span>ailiaTFLiteSetProfileMode()</h2>
 
@@ -2237,6 +2288,34 @@ $(function() {
 
 </div>
 </div>
+<a id="a084ed29dcc6a1c635cd4fd53a1ddd956"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a084ed29dcc6a1c635cd4fd53a1ddd956">&#9670;&nbsp;</a></span>ailiaTFLiteThreadPoolSetNumThreads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Int32 ailiaTFLite.AiliaTFLite.ailiaTFLiteThreadPoolSetNumThreads </td>
+          <td>(</td>
+          <td class="paramtype">Int32&#160;</td>
+          <td class="paramname"><em>num_threads</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>グローバルなスレッドプールのスレッド数を設定します </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num_threads</td><td>スレッド数（1以上） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合はAILIA_TFLITE_STATUS_SUCCESSを返します。 失敗した場合はAILIA_TFLITE_STATUS_XXXを返します。</dd></dl>
+<p>デフォルトでは自動設定となります。 最初の ailiaTFLiteCreate の前に呼び出す必要があります。 ailiaTFLiteCreate以降に呼び出すとAILIA_TFLITE_STATUS_INVALID_ARGUMENTを返します。 </p>
+
+</div>
+</div>
 <h2 class="groupheader">メンバ詳解</h2>
 <a id="a2c8ba1170b23eff39f722dd25e22bf3f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2c8ba1170b23eff39f722dd25e22bf3f">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_AVX</h2>
@@ -2271,6 +2350,72 @@ $(function() {
       <table class="memname">
         <tr>
           <td class="memname">const UInt32 ailiaTFLite.AiliaTFLite.AILIA_TFLITE_CPU_FEATURES_AVX2 =(0x00000010)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f81cc2aeef0310604c7e53afae59f90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f81cc2aeef0310604c7e53afae59f90">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_AVX512</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const UInt32 ailiaTFLite.AiliaTFLite.AILIA_TFLITE_CPU_FEATURES_AVX512 =(0x00000040)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8592a4f7860cf8e2a4a0aa2ecde88ee0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8592a4f7860cf8e2a4a0aa2ecde88ee0">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_DOTPROD</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const UInt32 ailiaTFLite.AiliaTFLite.AILIA_TFLITE_CPU_FEATURES_DOTPROD =(0x00000100)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aef8a522abc112d43cbe5d1d7010c27c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef8a522abc112d43cbe5d1d7010c27c5">&#9670;&nbsp;</a></span>AILIA_TFLITE_CPU_FEATURES_I8MM</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const UInt32 ailiaTFLite.AiliaTFLite.AILIA_TFLITE_CPU_FEATURES_I8MM =(0x00000080)</td>
         </tr>
       </table>
   </td>
