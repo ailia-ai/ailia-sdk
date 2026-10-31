@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_tokenizer
-   &#160;<span id="projectnumber">1.6.0.0</span>
+   &#160;<span id="projectnumber">1.7.0.0</span>
    </div>
   </td>
  </tr>
@@ -126,6 +126,9 @@ Macros</h2></td></tr>
 <tr class="memitem:abfc176502a252a49cdb4c02f16ff5475"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tokenizer_8h.html#abfc176502a252a49cdb4c02f16ff5475">AILIA_TOKENIZER_TYPE_GEMMA</a>&#160;&#160;&#160;(11)</td></tr>
 <tr class="memdesc:abfc176502a252a49cdb4c02f16ff5475"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tokenizer for GEMMA.  <a href="ailia__tokenizer_8h.html#abfc176502a252a49cdb4c02f16ff5475">More...</a><br /></td></tr>
 <tr class="separator:abfc176502a252a49cdb4c02f16ff5475"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea8445f99e3bd9529a18026f25ba0f24"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tokenizer_8h.html#aea8445f99e3bd9529a18026f25ba0f24">AILIA_TOKENIZER_TYPE_QWEN2</a>&#160;&#160;&#160;(12)</td></tr>
+<tr class="memdesc:aea8445f99e3bd9529a18026f25ba0f24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tokenizer for Qwen2 with NFC normalization and Qwen2 pretokenization.  <a href="ailia__tokenizer_8h.html#aea8445f99e3bd9529a18026f25ba0f24">More...</a><br /></td></tr>
+<tr class="separator:aea8445f99e3bd9529a18026f25ba0f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28433a1ad8439f695ea99f23b4bc2d47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tokenizer_8h.html#a28433a1ad8439f695ea99f23b4bc2d47">AILIA_TOKENIZER_FLAG_NONE</a>&#160;&#160;&#160;(0)</td></tr>
 <tr class="memdesc:a28433a1ad8439f695ea99f23b4bc2d47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default flag.  <a href="ailia__tokenizer_8h.html#a28433a1ad8439f695ea99f23b4bc2d47">More...</a><br /></td></tr>
 <tr class="separator:a28433a1ad8439f695ea99f23b4bc2d47"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -409,6 +412,22 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aea8445f99e3bd9529a18026f25ba0f24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea8445f99e3bd9529a18026f25ba0f24">&#9670;&nbsp;</a></span>AILIA_TOKENIZER_TYPE_QWEN2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TOKENIZER_TYPE_QWEN2&#160;&#160;&#160;(12)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tokenizer for Qwen2 with NFC normalization and Qwen2 pretokenization. </p>
+
+</div>
+</div>
 <a id="a7a0029efcdb19f1ff9858ccedeeeeab5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7a0029efcdb19f1ff9858ccedeeeeab5">&#9670;&nbsp;</a></span>AILIA_TOKENIZER_TYPE_ROBERTA</h2>
 
@@ -601,7 +620,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
-<p>This is valid only for AILIA_TOKENIZER_TYPE_ROBERTA and AILIA_TOKENIZER_TYPE_GPT2. </p>
+<p>This is valid for ROBERTA, GPT2 and QWEN2 after loading the vocab. Adding an already registered token is ignored and its existing ID is preserved, including duplicates in one call. New token IDs follow registration order; load explicit-ID files to preserve pretrained model IDs. </p>
 
 </div>
 </div>
@@ -1272,7 +1291,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
-<p>Open a added tokens file (json). This API only requires for AILIA_TOKENIZER_TYPE_WHISPER or AILIA_TOKENIZER_TYPE_XLM_ROBERTA. </p>
+<p>Open an added tokens file (json) for WHISPER, XLM_ROBERTA or QWEN2. QWEN2 requires the vocab first. This flat file preserves IDs; special flags are read by OpenTokenizerConfigFile. Reloading the vocab after token registration returns INVALID_STATE. </p>
 
 </div>
 </div>
@@ -1406,7 +1425,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
-<p>Open a merge file (txt). This API only requires for AILIA_TOKENIZER_TYPE_ROBERTA or AILIA_TOKENIZER_TYPE_WHISPER or AILIA_TOKENIZER_TYPE_GPT2. </p>
+<p>Open a merge file (txt). This API only requires for AILIA_TOKENIZER_TYPE_ROBERTA or AILIA_TOKENIZER_TYPE_WHISPER or AILIA_TOKENIZER_TYPE_GPT2 or AILIA_TOKENIZER_TYPE_QWEN2. </p>
 
 </div>
 </div>
@@ -1540,7 +1559,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
-<p>Open a tokenizer config file (json). This API only requires for AILIA_TOKENIZER_TYPE_BERT. </p>
+<p>Open a tokenizer config file (json) for BERT or QWEN2. For QWEN2, load tokenizer_config.json or tokenizer.json after the vocab to register explicit added-token IDs and special attributes. </p>
 
 </div>
 </div>
@@ -1607,7 +1626,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
-<p>Open a vocab file (json for ROBERTA or WHISPER or GPT2, txt for others). </p>
+<p>Open a vocab file (json for ROBERTA or WHISPER or GPT2 or QWEN2, txt for others). </p>
 
 </div>
 </div>

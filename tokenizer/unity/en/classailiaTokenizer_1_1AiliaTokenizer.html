@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_tokenizer
-   &#160;<span id="projectnumber">1.6.0.0</span>
+   &#160;<span id="projectnumber">1.7.0.0</span>
    </div>
   </td>
  </tr>
@@ -178,6 +178,8 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a4aabb46d8825d8ed402a6f55a53b49b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95744006146fa1df15334754b37e5a87"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTokenizer_1_1AiliaTokenizer.html#a95744006146fa1df15334754b37e5a87">AILIA_TOKENIZER_TYPE_GEMMA</a> = (11)</td></tr>
 <tr class="separator:a95744006146fa1df15334754b37e5a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad78cb28b88413eeb56bf6e59db5e0cbf"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTokenizer_1_1AiliaTokenizer.html#ad78cb28b88413eeb56bf6e59db5e0cbf">AILIA_TOKENIZER_TYPE_QWEN2</a> = (12)</td></tr>
+<tr class="separator:ad78cb28b88413eeb56bf6e59db5e0cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d9bc9caf5d8bf603b38d04fe4729270"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTokenizer_1_1AiliaTokenizer.html#a4d9bc9caf5d8bf603b38d04fe4729270">AILIA_TOKENIZER_FLAG_NONE</a> = (0)</td></tr>
 <tr class="separator:a4d9bc9caf5d8bf603b38d04fe4729270"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a669a27e11383ab58d2cd06731138f1b2"><td class="memItemLeft" align="right" valign="top">const Int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaTokenizer_1_1AiliaTokenizer.html#a669a27e11383ab58d2cd06731138f1b2">AILIA_TOKENIZER_FLAG_UTF8_SAFE</a> = (1)</td></tr>
@@ -226,7 +228,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
-<p>This is valid only for AILIA_TOKENIZER_TYPE_ROBERTA and AILIA_TOKENIZER_TYPE_GPT2. </p>
+<p>This is valid for ROBERTA, GPT2 and QWEN2 after loading the vocab. Adding an already registered token is ignored and its existing ID is preserved, including duplicates in one call. New token IDs follow registration order; load explicit-ID files to preserve pretrained model IDs. </p>
 
 </div>
 </div>
@@ -897,7 +899,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
-<p>Open a added tokens file (json). This API only requires for AILIA_TOKENIZER_TYPE_WHISPER or AILIA_TOKENIZER_TYPE_XLM_ROBERTA. </p>
+<p>Open an added tokens file (json) for WHISPER, XLM_ROBERTA or QWEN2. QWEN2 requires the vocab first. This flat file preserves IDs; special flags are read by OpenTokenizerConfigFile. Reloading the vocab after token registration returns INVALID_STATE. </p>
 
 </div>
 </div>
@@ -975,7 +977,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
-<p>Open a merge file (txt). This API only requires for AILIA_TOKENIZER_TYPE_ROBERTA or AILIA_TOKENIZER_TYPE_WHISPER or AILIA_TOKENIZER_TYPE_GPT2. </p>
+<p>Open a merge file (txt). This API only requires for AILIA_TOKENIZER_TYPE_ROBERTA or AILIA_TOKENIZER_TYPE_WHISPER or AILIA_TOKENIZER_TYPE_GPT2 or AILIA_TOKENIZER_TYPE_QWEN2. </p>
 
 </div>
 </div>
@@ -1053,7 +1055,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
-<p>Open a tokenizer config file (json). This API only requires for AILIA_TOKENIZER_TYPE_BERT. </p>
+<p>Open a tokenizer config file (json) for BERT or QWEN2. For QWEN2, load tokenizer_config.json or tokenizer.json after the vocab to register explicit added-token IDs and special attributes. </p>
 
 </div>
 </div>
@@ -1092,7 +1094,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
-<p>Open a vocab file (json for ROBERTA or WHISPER or GPT2, txt for others). </p>
+<p>Open a vocab file (json for ROBERTA or WHISPER or GPT2 or QWEN2, txt for others). </p>
 
 </div>
 </div>
@@ -1403,6 +1405,28 @@ Static Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const Int32 ailiaTokenizer.AiliaTokenizer.AILIA_TOKENIZER_TYPE_MARIAN = (3)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad78cb28b88413eeb56bf6e59db5e0cbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad78cb28b88413eeb56bf6e59db5e0cbf">&#9670;&nbsp;</a></span>AILIA_TOKENIZER_TYPE_QWEN2</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Int32 ailiaTokenizer.AiliaTokenizer.AILIA_TOKENIZER_TYPE_QWEN2 = (12)</td>
         </tr>
       </table>
   </td>

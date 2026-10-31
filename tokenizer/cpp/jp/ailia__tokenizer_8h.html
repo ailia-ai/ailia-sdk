@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_tokenizer
-   &#160;<span id="projectnumber">1.6.0.0</span>
+   &#160;<span id="projectnumber">1.7.0.0</span>
    </div>
   </td>
  </tr>
@@ -129,6 +129,9 @@ ailia_tokenizer.h の依存先関係図:</div>
 <tr class="memitem:abfc176502a252a49cdb4c02f16ff5475"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tokenizer_8h.html#abfc176502a252a49cdb4c02f16ff5475">AILIA_TOKENIZER_TYPE_GEMMA</a>&#160;&#160;&#160;(11)</td></tr>
 <tr class="memdesc:abfc176502a252a49cdb4c02f16ff5475"><td class="mdescLeft">&#160;</td><td class="mdescRight">GEMMA向けのトークナイザ  <a href="ailia__tokenizer_8h.html#abfc176502a252a49cdb4c02f16ff5475">[詳解]</a><br /></td></tr>
 <tr class="separator:abfc176502a252a49cdb4c02f16ff5475"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea8445f99e3bd9529a18026f25ba0f24"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tokenizer_8h.html#aea8445f99e3bd9529a18026f25ba0f24">AILIA_TOKENIZER_TYPE_QWEN2</a>&#160;&#160;&#160;(12)</td></tr>
+<tr class="memdesc:aea8445f99e3bd9529a18026f25ba0f24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qwen2向けのトークナイザ（NFC正規化とQwen2の事前分割）  <a href="ailia__tokenizer_8h.html#aea8445f99e3bd9529a18026f25ba0f24">[詳解]</a><br /></td></tr>
+<tr class="separator:aea8445f99e3bd9529a18026f25ba0f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28433a1ad8439f695ea99f23b4bc2d47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__tokenizer_8h.html#a28433a1ad8439f695ea99f23b4bc2d47">AILIA_TOKENIZER_FLAG_NONE</a>&#160;&#160;&#160;(0)</td></tr>
 <tr class="memdesc:a28433a1ad8439f695ea99f23b4bc2d47"><td class="mdescLeft">&#160;</td><td class="mdescRight">フラグを設定しません  <a href="ailia__tokenizer_8h.html#a28433a1ad8439f695ea99f23b4bc2d47">[詳解]</a><br /></td></tr>
 <tr class="separator:a28433a1ad8439f695ea99f23b4bc2d47"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -238,7 +241,7 @@ ailia_tokenizer.h の依存先関係図:</div>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>ailia Tokenizer NLP TOKENIZER ライブラリ </p>
 <dl class="section copyright"><dt>著作権所有</dt><dd>AXELL CORPORATION, ailia Inc. </dd></dl>
-<dl class="section date"><dt>日付</dt><dd>2026/01/18 </dd></dl>
+<dl class="section date"><dt>日付</dt><dd>2026/10/31 </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
 <a id="a1c6a80cf85ef33500663112959784400"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c6a80cf85ef33500663112959784400">&#9670;&nbsp;</a></span>AILIA_API</h2>
@@ -413,6 +416,22 @@ ailia_tokenizer.h の依存先関係図:</div>
 </div><div class="memdoc">
 
 <p>MARIAN向けのトークナイザ </p>
+
+</div>
+</div>
+<a id="aea8445f99e3bd9529a18026f25ba0f24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea8445f99e3bd9529a18026f25ba0f24">&#9670;&nbsp;</a></span>AILIA_TOKENIZER_TYPE_QWEN2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AILIA_TOKENIZER_TYPE_QWEN2&#160;&#160;&#160;(12)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Qwen2向けのトークナイザ（NFC正規化とQwen2の事前分割） </p>
 
 </div>
 </div>
@@ -608,7 +627,7 @@ ailia_tokenizer.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
-<p>AILIA_TOKENIZER_TYPE_ROBERTAおよびAILIA_TOKENIZER_TYPE_GPT2の場合のみ有効です。 </p>
+<p>AILIA_TOKENIZER_TYPE_ROBERTA、AILIA_TOKENIZER_TYPE_GPT2、AILIA_TOKENIZER_TYPE_QWEN2の場合のみ有効です。先にvocabを読み込んでください。登録済みのトークンを追加した場合は無視され、既存のIDが維持されます。新規トークンのIDは登録順に採番されるため、学習済みモデルのID保持にはID付きファイルを使ってください。 </p>
 
 </div>
 </div>
@@ -1275,7 +1294,7 @@ ailia_tokenizer.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
-<p>追加トークンファイル (json) を読み込みます。AILIA_TOKENIZER_TYPE_WHISPERもしくはAILIA_TOKENIZER_TYPE_XLM_ROBERTAの場合のみ有効です。 </p>
+<p>追加トークンファイル (json) を読み込みます。AILIA_TOKENIZER_TYPE_WHISPERもしくはAILIA_TOKENIZER_TYPE_XLM_ROBERTAもしくはAILIA_TOKENIZER_TYPE_QWEN2の場合のみ有効です。QWEN2では先にvocabを読み込む必要があります。special属性はコンフィグから読み込みます。 </p>
 
 </div>
 </div>
@@ -1409,7 +1428,7 @@ ailia_tokenizer.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
-<p>マージファイル (txt) を読み込みます。AILIA_TOKENIZER_TYPE_ROBERTAもしくはAILIA_TOKENIZER_TYPE_WHISPERもしくはAILIA_TOKENIZER_TYPE_GPT2の場合のみ有効です。 </p>
+<p>マージファイル (txt) を読み込みます。AILIA_TOKENIZER_TYPE_ROBERTAもしくはAILIA_TOKENIZER_TYPE_WHISPERもしくはAILIA_TOKENIZER_TYPE_GPT2もしくはAILIA_TOKENIZER_TYPE_QWEN2の場合のみ有効です。 </p>
 
 </div>
 </div>
@@ -1543,7 +1562,7 @@ ailia_tokenizer.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
-<p>トークナイザコンフィグファイル (json) を読み込みます。AILIA_TOKENIZER_TYPE_BERTの場合のみ有効です。 </p>
+<p>トークナイザコンフィグファイル (json) を読み込みます。BERTおよびQWEN2で有効です。QWEN2ではvocabの後にtokenizer_config.jsonまたはtokenizer.jsonを読み込み、追加トークンのIDとspecial属性を登録します。 </p>
 
 </div>
 </div>
@@ -1610,7 +1629,7 @@ ailia_tokenizer.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
-<p>単語ファイル (ROBERTAとWHISPERとGPT2はjson、それ以外はtxt) を読み込みます。 </p>
+<p>単語ファイル (ROBERTAとWHISPERとGPT2とQWEN2はjson、それ以外はtxt) を読み込みます。 </p>
 
 </div>
 </div>

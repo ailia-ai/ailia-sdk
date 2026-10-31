@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_tokenizer
-   &#160;<span id="projectnumber">1.6.0.0</span>
+   &#160;<span id="projectnumber">1.7.0.0</span>
    </div>
   </td>
  </tr>
@@ -173,6 +173,12 @@ AILIA_TOKENIZER_TYPE_GEMMA</h3>
 <p>Pythonの下記の処理に対応します。別途、ailiaTokenizerOpenModelFileにtokenizer.modelを与える必要があります。</p>
 <div class="fragment"><div class="line">from transformers import GemmaTokenizer</div>
 <div class="line">tokenizer = GemmaTokenizer.from_pretrained(&quot;google/embeddinggemma-300m&quot;)</div>
+<div class="line">inputs = tokenizer(sents)</div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md40"></a>
+AILIA_TOKENIZER_TYPE_QWEN2</h3>
+<p>Pythonの下記の処理に対応します。NFC正規化はailia Tokenizerで行われます。別途、ailiaTokenizerOpenVocabFileにvocab.jsonを、ailiaTokenizerOpenMergeFileにmerges.txtを与える必要があります。&lt;|im_start|&gt;などの追加トークンを使用する場合は、vocabの読み込み後にailiaTokenizerOpenTokenizerConfigFileにtokenizer_config.jsonまたはtokenizer.jsonを与えると、追加トークンのIDとspecial属性が登録されます。ailiaTokenizerOpenAddedTokensFileに与えるadded_tokens.jsonはIDのみを保持し、special属性は付与されません。独自のSpecialTokenはailiaTokenizerAddSpecialTokensで登録できます（既存のIDは維持され、新規のIDは登録順に採番されます）。</p>
+<div class="fragment"><div class="line">from transformers import Qwen2TokenizerFast</div>
+<div class="line">tokenizer = Qwen2TokenizerFast.from_pretrained(&quot;Qwen/Qwen2.5-0.5B-Instruct&quot;)</div>
 <div class="line">inputs = tokenizer(sents)</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->

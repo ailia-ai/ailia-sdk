@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_tokenizer</a></li>
-    <li><a href="../../ailia_tokenizer/">ailia_tokenizer.dart</a></li>
+    <li><a href="../../ailia_tokenizer/ailia_tokenizer-library.html">ailia_tokenizer.dart</a></li>
     <li><a href="../../ailia_tokenizer/ailiaTokenizerFFI-class.html">ailiaTokenizerFFI</a></li>
     <li class="self-crumb">ailiaSetMemoryMode method</li>
   </ol>
@@ -33,29 +37,34 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_tokenizer&#47;ailiaTokenizerFFI-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_tokenizer&#47;ailiaTokenizerFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">ailiaSetMemoryMode</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">ailiaSetMemoryMode</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="ailiaSetMemoryMode-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_tokenizer/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
+<span class="name ">ailiaSetMemoryMode</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaSetMemoryMode-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_tokenizer/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
 <li><span class="parameter" id="ailiaSetMemoryMode-param-mode"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">mode</span></span></li>
 </ol>)
 
@@ -64,32 +73,20 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 推論時のメモリの使用方針を設定します
-@param net ネットワークオブジェクトポインタ
-@param mode メモリモード(論理和で複数指定可) AILIA_MEMORY_XXX (デフォルト: \ref AILIA_MEMORY_REDUCE_CONSTANT )
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-メモリの使用方針を変更します。 \ref AILIA_MEMORY_NO_OPTIMIZATION 以外を指定した場合は、
-推論時に確保する中間バッファーを開放するため、推論時のメモリ使用量を削減することができます。
-ailiaCreate() の直後に指定する必要があります。ailiaOpenを呼び出した後は変更することができません。
-なお、中間バッファーを開放するように指定した場合、該当するBlobに対し、 ailiaGetBlobData() を呼び出すと
-\ref AILIA_STATUS_DATA_HIDDEN エラーが返ります。</p>
-<p>~english
-@brief Set the memory usage policy for inference
-@param net A network instance pointer
-@param mode Memory mode (Multiple specifications possible with logical sum) AILIA_MEMORY_XXX (Default : \ref
-AILIA_MEMORY_REDUCE_CONSTANT )
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-Change the memory usage policy.
-If a value other than  \ref AILIA_MEMORY_NO_OPTIMIZATION  is specified,
+  <p>Set the memory usage policy for inference</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>mode</code>: Memory mode (Multiple specifications possible with logical sum) AILIA_MEMORY_XXX (Default : <a href="../../ailia_tokenizer/AILIA_MEMORY_REDUCE_CONSTANT-constant.html">AILIA_MEMORY_REDUCE_CONSTANT</a> )</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_tokenizer/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>Change the memory usage policy.
+If a value other than  <a href="../../ailia_tokenizer/AILIA_MEMORY_NO_OPTIMIZATION-constant.html">AILIA_MEMORY_NO_OPTIMIZATION</a>  is specified,
 the intermediate buffer secured during inference will be released, so the memory usage during inference can be
 reduced. Must be specified immediately after  ailiaCreate() . It cannot be changed after calling ailiaOpen. If you
 specify to release the intermediate buffer, calling  ailiaGetBlobData()  for the corresponding blob will return an
-\ref AILIA_STATUS_DATA_HIDDEN  error.</p>
+<a href="../../ailia_tokenizer/AILIA_STATUS_DATA_HIDDEN-constant.html">AILIA_STATUS_DATA_HIDDEN</a>  error.</p>
 </section>
 
 
@@ -109,6 +106,7 @@ specify to release the intermediate buffer, calling  ailiaGetBlobData()  for the
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -116,31 +114,41 @@ specify to release the intermediate buffer, calling  ailiaGetBlobData()  for the
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_tokenizer</a></li>
-    <li><a href="../../ailia_tokenizer/">ailia_tokenizer</a></li>
+    <li><a href="../../ailia_tokenizer/ailia_tokenizer-library.html">ailia_tokenizer</a></li>
     <li><a href="../../ailia_tokenizer/ailiaTokenizerFFI-class.html">ailiaTokenizerFFI</a></li>
     <li class="self-crumb">ailiaSetMemoryMode method</li>
 </ol>
 
+
     <h5>ailiaTokenizerFFI class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_tokenizer
-      1.6.0
+      1.7.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 

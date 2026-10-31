@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_tokenizer</a></li>
-    <li><a href="../../ailia_tokenizer/">ailia_tokenizer.dart</a></li>
+    <li><a href="../../ailia_tokenizer/ailia_tokenizer-library.html">ailia_tokenizer.dart</a></li>
     <li><a href="../../ailia_tokenizer/ailiaTokenizerFFI-class.html">ailiaTokenizerFFI</a></li>
     <li class="self-crumb">ailiaSetInputBlobData method</li>
   </ol>
@@ -33,32 +37,37 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_tokenizer&#47;ailiaTokenizerFFI-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_tokenizer&#47;ailiaTokenizerFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">ailiaSetInputBlobData</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">ailiaSetInputBlobData</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="ailiaSetInputBlobData-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_tokenizer/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
+<span class="name ">ailiaSetInputBlobData</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaSetInputBlobData-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_tokenizer/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
 <li><span class="parameter" id="ailiaSetInputBlobData-param-src"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">src</span>, </span></li>
 <li><span class="parameter" id="ailiaSetInputBlobData-param-src_size"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">src_size</span>, </span></li>
-<li><span class="parameter" id="ailiaSetInputBlobData-param-blob_idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">blob_idx</span>, </span></li>
+<li><span class="parameter" id="ailiaSetInputBlobData-param-blob_idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">blob_idx</span></span></li>
 </ol>)
 
       
@@ -66,30 +75,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 指定したBlobに入力データを与えます。
-@param net ネットワークオブジェクトポインタ
-@param src 推論データ X,Y,Z,Wの順でnumeric型で格納
-@param src_size 推論データのbyte数
-@param blob_idx 入力するblobのインデックス
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-複数入力があるネットワークなどで入力を指定する場合に用います。
-blob_idxで入力レイヤーのblob以外のものを指定した場合、 \ref AILIA_STATUS_INVALID_ARGUMENT が返ります。
-このAPIはailiaOpenWeighXXX呼び出し後より利用可能です。</p>
-<p>~english
-@brief Provides the specified blob with the input data.
-@param net A network instance pointer
-@param src The inference data is stored as numeric type data in the order of X, Y, Z, and W.
-@param src_size The number of bytes of the inference data
-@param blob_idx The index of the blob for input
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This function is used to specify the input on networks with multiple inputs.
-If something other than a blob in the input layer is specified for blob_idx, the function returns  \ref
-AILIA_STATUS_INVALID_ARGUMENT .
+  <p>Provides the specified blob with the input data.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>src</code>: The inference data is stored as numeric type data in the order of X, Y, Z, and W.</li>
+<li><code>src_size</code>: The number of bytes of the inference data</li>
+<li><code>blob_idx</code>: The index of the blob for input</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_tokenizer/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This function is used to specify the input on networks with multiple inputs.
+If something other than a blob in the input layer is specified for blob_idx, the function returns  <a href="../../ailia_tokenizer/AILIA_STATUS_INVALID_ARGUMENT-constant.html">AILIA_STATUS_INVALID_ARGUMENT</a> .
 This API can be call after call ailiaOpenWeighXXX().</p>
 </section>
 
@@ -114,6 +111,7 @@ This API can be call after call ailiaOpenWeighXXX().</p>
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -121,31 +119,41 @@ This API can be call after call ailiaOpenWeighXXX().</p>
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_tokenizer</a></li>
-    <li><a href="../../ailia_tokenizer/">ailia_tokenizer</a></li>
+    <li><a href="../../ailia_tokenizer/ailia_tokenizer-library.html">ailia_tokenizer</a></li>
     <li><a href="../../ailia_tokenizer/ailiaTokenizerFFI-class.html">ailiaTokenizerFFI</a></li>
     <li class="self-crumb">ailiaSetInputBlobData method</li>
 </ol>
 
+
     <h5>ailiaTokenizerFFI class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_tokenizer
-      1.6.0
+      1.7.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 

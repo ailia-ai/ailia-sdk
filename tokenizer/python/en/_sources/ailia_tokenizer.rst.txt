@@ -79,3 +79,9 @@ Classes
    :members:
    :undoc-members:
    :show-inheritance:
+
+.. autoclass:: ailia_tokenizer.Qwen2Tokenizer
+   :special-members: __init__, __name__
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_tokenizer
-   &#160;<span id="projectnumber">1.6.0.0</span>
+   &#160;<span id="projectnumber">1.7.0.0</span>
    </div>
   </td>
  </tr>
@@ -66,10 +66,10 @@ $(function() {
 <div class="title">Features </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md58"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md59"></a>
 Features of ailia Tokenizer</h1>
 <p>In this page, we present the features that are provided by both the C and the C# APIs.</p>
-<h2><a class="anchor" id="autotoc_md59"></a>
+<h2><a class="anchor" id="autotoc_md60"></a>
 Compatibility of Tokenizer</h2>
 <p>ailiaTokenizerEncode matches the following call from transformers. SpecialToken will be encoded as text. No padding or truncation occurs.</p>
 <div class="fragment"><div class="line">input_ids = tokenizer(sents, split_special_tokens=True)</div>
@@ -79,9 +79,9 @@ Compatibility of Tokenizer</h2>
 <div class="fragment"><div class="line">tokenizer.decode(input_ids, skip_special_tokens=True)</div>
 </div><!-- fragment --><p>ailiaTokenizerDecodeWithSpecialTokens matches the following call from transformers. SpecialToken will be output.</p>
 <div class="fragment"><div class="line">tokenizer.decode(input_ids)</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md60"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md61"></a>
 Tokenizer Types</h2>
-<h3><a class="anchor" id="autotoc_md61"></a>
+<h3><a class="anchor" id="autotoc_md62"></a>
 AILIA_TOKENIZER_TYPE_WHISPER</h3>
 <p>The following Python processes are supported.</p>
 <div class="fragment"><div class="line">from transformers import WhisperTokenizer</div>
@@ -91,7 +91,7 @@ AILIA_TOKENIZER_TYPE_WHISPER</h3>
 <div class="fragment"><div class="line">from tokenizer import get_tokenizer</div>
 <div class="line">is_multilingual = True</div>
 <div class="line">tokenizer = get_tokenizer(is_multilingual)</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md62"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md63"></a>
 AILIA_TOKENIZER_TYPE_CLIP</h3>
 <p>Corresponds to the following Python process; SOT and EOT will be given. Padding is not performed, so if necessary, pad trailing zeros up to 77 symbols.</p>
 <div class="fragment"><div class="line">from transformers import CLIPTokenizer</div>
@@ -102,19 +102,19 @@ AILIA_TOKENIZER_TYPE_CLIP</h3>
 <div class="line">sot_token = _tokenizer.encoder[&quot;&lt;|startoftext|&gt;&quot;]</div>
 <div class="line">eot_token = _tokenizer.encoder[&quot;&lt;|endoftext|&gt;&quot;]</div>
 <div class="line">all_tokens = [[sot_token] + _tokenizer.encode(text) + [eot_token] for text in texts]</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md63"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md64"></a>
 AILIA_TOKENIZER_TYPE_XLM_ROBERTA</h3>
 <p>Corresponds to the following process in Python. Separately, you will need to provide the sentimentpiece.bpe.model to the ailiaTokenizerOpenModelFile.</p>
 <div class="fragment"><div class="line">from transformers import XLMRobertaTokenizer</div>
 <div class="line">tokenizer = XLMRobertaTokenizer.from_pretrained(&#39;sentence-transformers/paraphrase-multilingual-mpnet-base-v2&#39;)</div>
 <div class="line">inputs = tokenizer(sents)</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md64"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md65"></a>
 AILIA_TOKENIZER_TYPE_MARIAN</h3>
 <p>Corresponds to the following process in Python. Separately, source.spm must be given to ailiaTokenizerOpenModelFile.</p>
 <div class="fragment"><div class="line">from transformers import MarianTokenizer</div>
 <div class="line">tokenizer = MarianTokenizer.from_pretrained(&quot;staka/fugumt-en-ja&quot;)</div>
 <div class="line">inputs = tokenizer(sents)</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md65"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md66"></a>
 AILIA_TOKENIZER_TYPE_BERT_JAPANESE_WORDPIECE</h3>
 <p>The following Python processes are supported: UKFC conversion is done by ailia Tokenizer. You need to give ipadic and tokenizer_wordpiece/vocab.txt separately.</p>
 <div class="fragment"><div class="line">from transformers import BertJapaneseTokenizer</div>
@@ -123,7 +123,7 @@ AILIA_TOKENIZER_TYPE_BERT_JAPANESE_WORDPIECE</h3>
 </div><!-- fragment --><p>If you want to match with convert_tokens_to_ids, you need to remove the [CLS] and [SEP] symbols from the beginning and the end.</p>
 <div class="fragment"><div class="line">tokenized_text = tokenizer.tokenize(text)</div>
 <div class="line">indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md66"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md67"></a>
 AILIA_TOKENIZER_TYPE_BERT_JAPANESE_CHARACTER</h3>
 <p>The following Python processes are supported: UKFC conversion is done by ailia Tokenizer. Separately, ipadic must be given to ailiaTokenizerOpenDictionaryFile and tokenizer_character/vocab.txt to ailiaTokenizerOpenVocabFile.</p>
 <div class="fragment"><div class="line">from transformers import BertJapaneseTokenizer</div>
@@ -132,19 +132,19 @@ AILIA_TOKENIZER_TYPE_BERT_JAPANESE_CHARACTER</h3>
 </div><!-- fragment --><p>If you want to match with convert_tokens_to_ids, you need to remove the [CLS] and [SEP] symbols from the beginning and the end.</p>
 <div class="fragment"><div class="line">tokenized_text = tokenizer.tokenize(text)</div>
 <div class="line">indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md67"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md68"></a>
 AILIA_TOKENIZER_TYPE_T5</h3>
 <p>Corresponds to the following Python process, which inserts an EOS symbol at the end of the output in the same way as add_special_tokens=True. Remove the EOS symbol at the end of the output. Separately, you need to give the file "spiece.model" to AsiaTokenizerOpenModelFile.</p>
 <div class="fragment"><div class="line">from transformers import T5Tokenizer</div>
 <div class="line">tokenizer = T5Tokenizer.from_pretrained(&#39;sonoisa/t5-base-japanese-title-generation&#39;)</div>
 <div class="line">inputs = tokenizer(sents)</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md68"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md69"></a>
 AILIA_TOKENIZER_TYPE_ROBERTA</h3>
 <p>Corresponds to the following Python process, which inserts an EOS symbol at the end of the output. Separately, you need to provide vocab.json to ailiaTokenizerOpenVocabFile and merges.txt to ailiaTokenizerOpenMergeFile.</p>
 <div class="fragment"><div class="line">from transformers import RobertaTokenizer</div>
 <div class="line">tokenize = RobertaTokenizer.from_pretrained(&#39;roberta-base&#39;)</div>
 <div class="line">inputs = tokenizer(sents)</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md69"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md70"></a>
 AILIA_TOKENIZER_TYPE_BERT</h3>
 <p>Corresponds to the following Python process. You need to give vocab.txt and tokenizer_config.json separately.</p>
 <div class="fragment"><div class="line">from transformers import BertTokenizer</div>
@@ -156,23 +156,29 @@ AILIA_TOKENIZER_TYPE_BERT</h3>
 </div><!-- fragment --><p>If you want to match with convert_tokens_to_ids, you need to remove the [CLS] and [SEP] symbols from the beginning and the end.</p>
 <div class="fragment"><div class="line">tokenized_text = tokenizer.tokenize(text)</div>
 <div class="line">indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md70"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md71"></a>
 AILIA_TOKENIZER_TYPE_GPT2</h3>
 <p>Corresponds to the following Python process. Separately, you need to provide vocab.json and merges.txt.</p>
 <div class="fragment"><div class="line">from transformers import GPT2Tokenizer</div>
 <div class="line">tokenizer = GPT2Tokenizer.from_pretrained(&quot;gpt2&quot;)</div>
 <div class="line">inputs = tokenizer(sents)</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md71"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md72"></a>
 AILIA_TOKENIZER_TYPE_LLAMA</h3>
 <p>Corresponds to the following Python process. Separately, tokenizer.model must be given to ailiaTokenizerOpenModelFile.</p>
 <div class="fragment"><div class="line">from transformers import LlamaTokenizer</div>
 <div class="line">tokenizer = LlamaTokenizer.from_pretrained(&quot;liuhaotian/llava-v1.5-7b&quot;)</div>
 <div class="line">inputs = tokenizer(sents)</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md72"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md73"></a>
 AILIA_TOKENIZER_TYPE_GEMMA</h3>
 <p>Corresponds to the following Python process. Separately, tokenizer.model must be given to ailiaTokenizerOpenModelFile.</p>
 <div class="fragment"><div class="line">from transformers import GemmaTokenizer</div>
 <div class="line">tokenizer = GemmaTokenizer.from_pretrained(&quot;google/embeddinggemma-300m&quot;)</div>
+<div class="line">inputs = tokenizer(sents)</div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md74"></a>
+AILIA_TOKENIZER_TYPE_QWEN2</h3>
+<p>Corresponds to the following Python process. NFC normalization is performed by ailia Tokenizer. Separately, you need to provide vocab.json to ailiaTokenizerOpenVocabFile and merges.txt to ailiaTokenizerOpenMergeFile. To use added tokens such as &lt;|im_start|&gt;, provide tokenizer_config.json or tokenizer.json to ailiaTokenizerOpenTokenizerConfigFile after loading the vocab; this registers the added-token IDs and special attributes. A flat added_tokens.json given to ailiaTokenizerOpenAddedTokensFile preserves IDs only, without special attributes. Custom SpecialTokens can be registered with ailiaTokenizerAddSpecialTokens (existing IDs are preserved; new IDs follow registration order).</p>
+<div class="fragment"><div class="line">from transformers import Qwen2TokenizerFast</div>
+<div class="line">tokenizer = Qwen2TokenizerFast.from_pretrained(&quot;Qwen/Qwen2.5-0.5B-Instruct&quot;)</div>
 <div class="line">inputs = tokenizer(sents)</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->

@@ -45,7 +45,7 @@
                     </a>
             </div>
             <div class="library-version">
-1.6.0.0            </div>
+1.7.0.0            </div>
         </div>
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="ailia_tokenizer/main">JVM</button>
@@ -110,7 +110,22 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="">Functions</h2>
-        <div class="table"><a data-name="1702077166%2FFunctions%2F549803034" anchor-label="close" id="1702077166%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
+        <div class="table"><a data-name="1925279026%2FFunctions%2F549803034" anchor-label="addSpecialTokens" id="1925279026%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
+          <div class="table-row" data-filterable-current="ailia_tokenizer/main" data-filterable-set="ailia_tokenizer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-special-tokens.html"><span>add</span><wbr></wbr><span>Special</span><wbr></wbr><span><span>Tokens</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1925279026%2FFunctions%2F549803034"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_tokenizer/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-special-tokens.html"><span class="token function">addSpecialTokens</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tokens<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Registers special tokens. Existing IDs are preserved; new IDs follow registration order.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1702077166%2FFunctions%2F549803034" anchor-label="close" id="1702077166%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
           <div class="table-row" data-filterable-current="ailia_tokenizer/main" data-filterable-set="ailia_tokenizer/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
@@ -125,17 +140,62 @@
               </div>
             </div>
           </div>
-<a data-name="-1202429850%2FFunctions%2F549803034" anchor-label="encode" id="-1202429850%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
+<a data-name="-101413115%2FFunctions%2F549803034" anchor-label="decode" id="-101413115%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
           <div class="table-row" data-filterable-current="ailia_tokenizer/main" data-filterable-set="ailia_tokenizer/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="encode.html"><span><span>encode</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1202429850%2FFunctions%2F549803034"></span>
+                  <div><a href="decode.html"><span><span>decode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-101413115%2FFunctions%2F549803034"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_tokenizer/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="encode.html"><span class="token function">encode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">text<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int-array/index.html">IntArray</a></div><div class="brief "><p class="paragraph">Encodes a text into token IDs.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_tokenizer/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="decode.html"><span class="token function">decode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tokens<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int-array/index.html">IntArray</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Decodes token IDs into text, skipping special tokens (equivalent to ailiaTokenizerDecode).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1220426972%2FFunctions%2F549803034" anchor-label="decodeWithSpecialTokens" id="-1220426972%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
+          <div class="table-row" data-filterable-current="ailia_tokenizer/main" data-filterable-set="ailia_tokenizer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="decode-with-special-tokens.html"><span>decode</span><wbr></wbr><span>With</span><wbr></wbr><span>Special</span><wbr></wbr><span><span>Tokens</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1220426972%2FFunctions%2F549803034"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_tokenizer/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="decode-with-special-tokens.html"><span class="token function">decodeWithSpecialTokens</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tokens<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int-array/index.html">IntArray</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Decodes token IDs into text, keeping special tokens (equivalent to ailiaTokenizerDecodeWithSpecialTokens).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2050003784%2FFunctions%2F549803034" anchor-label="encode" id="-2050003784%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
+          <div class="table-row" data-filterable-current="ailia_tokenizer/main" data-filterable-set="ailia_tokenizer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="encode.html"><span><span>encode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2050003784%2FFunctions%2F549803034"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_tokenizer/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="encode.html"><span class="token function">encode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">text<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int-array/index.html">IntArray</a></div><div class="brief "><p class="paragraph">Encodes a text into token IDs. Special tokens are encoded as plain text, the same as previous releases (equivalent to ailiaTokenizerEncode).</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="encode.html"><span class="token function">encode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">text<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">splitSpecialTokens<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int-array/index.html">IntArray</a></div><div class="brief "><p class="paragraph">Encodes text, optionally splitting special tokens into ordinary BPE pieces.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-341014283%2FFunctions%2F549803034" anchor-label="encodeWithSpecialTokens" id="-341014283%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
+          <div class="table-row" data-filterable-current="ailia_tokenizer/main" data-filterable-set="ailia_tokenizer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="encode-with-special-tokens.html"><span>encode</span><wbr></wbr><span>With</span><wbr></wbr><span>Special</span><wbr></wbr><span><span>Tokens</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-341014283%2FFunctions%2F549803034"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_tokenizer/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="encode-with-special-tokens.html"><span class="token function">encodeWithSpecialTokens</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">text<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int-array/index.html">IntArray</a></div><div class="brief "><p class="paragraph">Encodes text keeping registered special tokens (the Hugging Face default).</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -155,17 +215,47 @@
               </div>
             </div>
           </div>
-<a data-name="618080234%2FFunctions%2F549803034" anchor-label="loadFiles" id="618080234%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
+<a data-name="1007198890%2FFunctions%2F549803034" anchor-label="loadFiles" id="1007198890%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
           <div class="table-row" data-filterable-current="ailia_tokenizer/main" data-filterable-set="ailia_tokenizer/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="load-files.html"><span>load</span><wbr></wbr><span><span>Files</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="618080234%2FFunctions%2F549803034"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1007198890%2FFunctions%2F549803034"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_tokenizer/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="load-files.html"><span class="token function">loadFiles</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modelPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">vocabPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">mergePath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">dictionaryPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Loads the resource files required by the tokenizer.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_tokenizer/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="load-files.html"><span class="token function">loadFiles</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modelPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">vocabPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">mergePath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">dictionaryPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">addedTokensPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">tokenizerConfigPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Loads the resource files required by the tokenizer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="825017162%2FFunctions%2F549803034" anchor-label="openAddedTokensFile" id="825017162%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
+          <div class="table-row" data-filterable-current="ailia_tokenizer/main" data-filterable-set="ailia_tokenizer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="open-added-tokens-file.html"><span>open</span><wbr></wbr><span>Added</span><wbr></wbr><span>Tokens</span><wbr></wbr><span><span>File</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="825017162%2FFunctions%2F549803034"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_tokenizer/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="open-added-tokens-file.html"><span class="token function">openAddedTokensFile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Loads added token IDs after the vocabulary has been loaded.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1259012983%2FFunctions%2F549803034" anchor-label="openTokenizerConfigFile" id="-1259012983%2FFunctions%2F549803034" data-filterable-set="ailia_tokenizer/main"></a>
+          <div class="table-row" data-filterable-current="ailia_tokenizer/main" data-filterable-set="ailia_tokenizer/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="open-tokenizer-config-file.html"><span>open</span><wbr></wbr><span>Tokenizer</span><wbr></wbr><span>Config</span><wbr></wbr><span><span>File</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1259012983%2FFunctions%2F549803034"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_tokenizer/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="open-tokenizer-config-file.html"><span class="token function">openTokenizerConfigFile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Loads added-token attributes from tokenizer_config.json or tokenizer.json.</p></div></div></div>
                 </div>
               </div>
             </div>

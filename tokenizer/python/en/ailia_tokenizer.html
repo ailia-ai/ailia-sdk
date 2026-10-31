@@ -6,12 +6,12 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ailia_tokenizer package &mdash; ailia Tokenizer Python API 1.6.0 documentation</title>
+  <title>ailia_tokenizer package &mdash; ailia Tokenizer Python API 1.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
-      <script src="_static/documentation_options.js?v=72d88caf"></script>
+      <script src="_static/documentation_options.js?v=030dc6f6"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -108,6 +108,11 @@
 <li><a class="reference internal" href="#ailia_tokenizer.LlamaTokenizer.from_pretrained"><code class="docutils literal notranslate"><span class="pre">LlamaTokenizer.from_pretrained()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#ailia_tokenizer.Qwen2Tokenizer"><code class="docutils literal notranslate"><span class="pre">Qwen2Tokenizer</span></code></a><ul>
+<li><a class="reference internal" href="#ailia_tokenizer.Qwen2Tokenizer.add_special_tokens"><code class="docutils literal notranslate"><span class="pre">Qwen2Tokenizer.add_special_tokens()</span></code></a></li>
+<li><a class="reference internal" href="#ailia_tokenizer.Qwen2Tokenizer.from_pretrained"><code class="docutils literal notranslate"><span class="pre">Qwen2Tokenizer.from_pretrained()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -169,7 +174,7 @@ Otherwise, interpreted as batch index.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">&quot;Hello world!&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">"Hello world!"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">char_to_token</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 <span class="go">2</span>
 </pre></div>
@@ -189,9 +194,9 @@ Otherwise, interpreted as batch index.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">"hello world"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">dict</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-<span class="go">{&#39;input_ids&#39;: array([...]), &#39;attention_mask&#39;: array([...])}</span>
+<span class="go">{'input_ids': array([...]), 'attention_mask': array([...])}</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -210,9 +215,9 @@ Otherwise, interpreted as batch index.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">&quot;This is a test.&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">"This is a test."</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-<span class="go">[&#39;input_ids&#39;, &#39;attention_mask&#39;]</span>
+<span class="go">['input_ids', 'attention_mask']</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -234,7 +239,7 @@ Otherwise, interpreted as batch index.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;World&quot;</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;np&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="p">(</span><span class="s2">"Hello"</span><span class="p">,</span> <span class="s2">"World"</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">"np"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">sequence_ids</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="go">[0, 0, 0, 1, 1]</span>
 </pre></div>
@@ -265,7 +270,7 @@ Otherwise, interpreted as batch index.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">&quot;beautiful sunshine&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">"beautiful sunshine"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">token_to_word</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="go">1</span>
 </pre></div>
@@ -292,7 +297,7 @@ with that token. May contain <cite>None</cite> for special or non-word tokens.</
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">&quot;The quick brown fox.&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">"The quick brown fox."</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">word_ids</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="go">[0, 1, 2, 3, None]  # (None for special token like [CLS]/[SEP])</span>
 </pre></div>
@@ -325,7 +330,7 @@ Returns None if the word is not found.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">&quot;Nice weather today&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">"Nice weather today"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">word_to_chars</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">CharSpan(start=12, end=17)</span>
 </pre></div>
@@ -366,9 +371,9 @@ implemented using the ailia Tokenizer backend.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">T5Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;t5-small&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">add_special_tokens</span><span class="p">({</span><span class="s2">&quot;pad_token&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;pad&gt;&quot;</span><span class="p">})</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">add_special_tokens</span><span class="p">({</span><span class="s2">&quot;additional_special_tokens&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;&lt;extra_id_0&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;extra_id_1&gt;&quot;</span><span class="p">]})</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">T5Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"t5-small"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">add_special_tokens</span><span class="p">({</span><span class="s2">"pad_token"</span><span class="p">:</span> <span class="s2">"&lt;pad&gt;"</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">add_special_tokens</span><span class="p">({</span><span class="s2">"additional_special_tokens"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"&lt;extra_id_0&gt;"</span><span class="p">,</span> <span class="s2">"&lt;extra_id_1&gt;"</span><span class="p">]})</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -446,9 +451,9 @@ To encode a single sentence as one sequence, prefer <code class="docutils litera
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;bert-base-uncased&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"bert-base-uncased"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">convert_ids_to_tokens</span><span class="p">([</span><span class="mi">101</span><span class="p">,</span> <span class="mi">2023</span><span class="p">,</span> <span class="mi">2003</span><span class="p">,</span> <span class="mi">1037</span><span class="p">,</span> <span class="mi">3231</span><span class="p">,</span> <span class="mi">102</span><span class="p">])</span>
-<span class="go">[&#39;[CLS]&#39;, &#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;, &#39;[SEP]&#39;]</span>
+<span class="go">['[CLS]', 'this', 'is', 'a', 'test', '[SEP]']</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -473,10 +478,10 @@ To encode a single sentence as one sequence, prefer <code class="docutils litera
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;bert-base-uncased&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">convert_tokens_to_ids</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"bert-base-uncased"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">convert_tokens_to_ids</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
 <span class="go">7592</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">convert_tokens_to_ids</span><span class="p">([</span><span class="s2">&quot;[CLS]&quot;</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;[SEP]&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">convert_tokens_to_ids</span><span class="p">([</span><span class="s2">"[CLS]"</span><span class="p">,</span> <span class="s2">"hello"</span><span class="p">,</span> <span class="s2">"[SEP]"</span><span class="p">])</span>
 <span class="go">[101, 7592, 102]</span>
 </pre></div>
 </div>
@@ -584,9 +589,9 @@ If None, returns Python list type.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;bert-base-uncased&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">&quot;This is a test.&quot;</span><span class="p">,</span> <span class="s2">&quot;Another example.&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"bert-base-uncased"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span><span class="s2">"This is a test."</span><span class="p">,</span> <span class="s2">"Another example."</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="p">[</span><span class="s2">"input_ids"</span><span class="p">]</span>
 <span class="go">array([101, 1188, 1110, 170, 2774, 119, 102, ..., 102])</span>
 </pre></div>
 </div>
@@ -612,9 +617,9 @@ If None, returns Python list type.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">CLIPTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;openai/clip-vit-base-patch32&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s2">&quot;Hello world!&quot;</span><span class="p">)</span>
-<span class="go">[&#39;hello&#39;, &#39;world&#39;, &#39;!&#39;]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">CLIPTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"openai/clip-vit-base-patch32"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s2">"Hello world!"</span><span class="p">)</span>
+<span class="go">['hello', 'world', '!']</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -649,7 +654,7 @@ Expected files:
 with Whisper models. PAD token uses EOS (id=50257).</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">WhisperTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s2">&quot;This is a test.&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s2">"This is a test."</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -685,8 +690,8 @@ with EOT if <cite>_retain_sot_replace_to_eot=True</cite>.</p></li>
 </ul>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">CLIPTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s2">&quot;This is a test.&quot;</span><span class="p">)</span>
-<span class="go">[&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;, &#39;.&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s2">"This is a test."</span><span class="p">)</span>
+<span class="go">['this', 'is', 'a', 'test', '.']</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -719,8 +724,8 @@ with EOT if <cite>_retain_sot_replace_to_eot=True</cite>.</p></li>
 <li><p>If added_tokens.json exists in the tokenizer folder, load it additionally.</p></li>
 </ul>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">XLMRobertaTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;./tokenizer/&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;This is multilingual.&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">XLMRobertaTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"./tokenizer/"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"This is multilingual."</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -752,8 +757,8 @@ with EOT if <cite>_retain_sot_replace_to_eot=True</cite>.</p></li>
 <li><p>Does not use SOT tokens (SOT offset = 0).</p></li>
 </ul>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">MarianTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;./tokenizer/&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;Translate this sentence.&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">MarianTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"./tokenizer/"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"Translate this sentence."</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -789,9 +794,9 @@ with EOT if <cite>_retain_sot_replace_to_eot=True</cite>.</p></li>
 </ul>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">BertJapaneseWordPieceTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="s2">&quot;./tokenizer/&quot;</span><span class="p">,</span> <span class="n">dict_path</span><span class="o">=</span><span class="s2">&quot;./ipadic/&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s2">&quot;日本語のテキストを分かち書きします。&quot;</span><span class="p">)</span>
-<span class="go">[&#39;日本&#39;, &#39;語&#39;, &#39;の&#39;, &#39;テキスト&#39;, &#39;を&#39;, &#39;分&#39;, &#39;か&#39;, &#39;ち&#39;, &#39;書&#39;, &#39;き&#39;, &#39;します&#39;, &#39;。&#39;]</span>
+<span class="gp">... </span>    <span class="s2">"./tokenizer/"</span><span class="p">,</span> <span class="n">dict_path</span><span class="o">=</span><span class="s2">"./ipadic/"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s2">"日本語のテキストを分かち書きします。"</span><span class="p">)</span>
+<span class="go">['日本', '語', 'の', 'テキスト', 'を', '分', 'か', 'ち', '書', 'き', 'します', '。']</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -822,7 +827,7 @@ with EOT if <cite>_retain_sot_replace_to_eot=True</cite>.</p></li>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">BertJapaneseCharacterTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="s2">&quot;./tokenizer/&quot;</span><span class="p">,</span> <span class="n">dict_path</span><span class="o">=</span><span class="s2">&quot;./ipadic/&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="s2">"./tokenizer/"</span><span class="p">,</span> <span class="n">dict_path</span><span class="o">=</span><span class="s2">"./ipadic/"</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -849,8 +854,8 @@ with EOT if <cite>_retain_sot_replace_to_eot=True</cite>.</p></li>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">T5Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;./tokenizer/&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;Translate English to German: Hello world&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">T5Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"./tokenizer/"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"Translate English to German: Hello world"</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -882,8 +887,8 @@ with EOT if <cite>_retain_sot_replace_to_eot=True</cite>.</p></li>
 <li><p>Supports word-level positions.</p></li>
 </ul>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">RobertaTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;./tokenizer/&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;This is a RoBERTa-style sentence.&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">RobertaTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"./tokenizer/"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"This is a RoBERTa-style sentence."</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -915,8 +920,8 @@ with EOT if <cite>_retain_sot_replace_to_eot=True</cite>.</p></li>
 <li><p>Supports token_type_ids and word_ids.</p></li>
 </ul>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;./tokenizer/&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;A test sentence.&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"./tokenizer/"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"A test sentence."</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -948,8 +953,8 @@ with EOT if <cite>_retain_sot_replace_to_eot=True</cite>.</p></li>
 <li><p>GPT-2 architecture does not use SOT/EOT markers.</p></li>
 </ul>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">GPT2Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;./tokenizer/&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;Hello GPT-2 world!&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">GPT2Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"./tokenizer/"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ids</span> <span class="o">=</span> <span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"Hello GPT-2 world!"</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -981,10 +986,57 @@ with EOT if <cite>_retain_sot_replace_to_eot=True</cite>.</p></li>
 <li><p>Only SOT (start of text) marker is used, EOT is omitted.</p></li>
 </ul>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">LlamaTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;./tokenizer/&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;Generate text with LLaMA model.&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">LlamaTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"./tokenizer/"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"Generate text with LLaMA model."</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailia_tokenizer.Qwen2Tokenizer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_tokenizer.</span></span><span class="sig-name descname"><span class="pre">Qwen2Tokenizer</span></span><a class="headerlink" href="#ailia_tokenizer.Qwen2Tokenizer" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailia_tokenizer.PreTrainedTokenizer" title="ailia_tokenizer.PreTrainedTokenizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">PreTrainedTokenizer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tokenizer.Qwen2Tokenizer.add_special_tokens">
+<span class="sig-name descname"><span class="pre">add_special_tokens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">special_tokens_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tokenizer.Qwen2Tokenizer.add_special_tokens" title="Link to this definition">¶</a></dt>
+<dd><p>Add or configure special tokens (e.g. [PAD], additional tokens).</p>
+<p>Equivalent to HuggingFace’s <cite>add_special_tokens()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>special_tokens_dict</strong> (<em>dict</em>) – <dl class="simple">
+<dt>Dictionary describing special tokens. Supported keys:</dt><dd><ul class="simple">
+<li><p>”pad_token” : str</p></li>
+<li><p>”additional_special_tokens” : list[str]</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AiliaTokenizerError</strong> – If unsupported token type is provided.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span> <span class="o">=</span> <span class="n">T5Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">"t5-small"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">add_special_tokens</span><span class="p">({</span><span class="s2">"pad_token"</span><span class="p">:</span> <span class="s2">"&lt;pad&gt;"</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tok</span><span class="o">.</span><span class="n">add_special_tokens</span><span class="p">({</span><span class="s2">"additional_special_tokens"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"&lt;extra_id_0&gt;"</span><span class="p">,</span> <span class="s2">"&lt;extra_id_1&gt;"</span><span class="p">]})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_tokenizer.Qwen2Tokenizer.from_pretrained">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_pretrained</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pretrained_model_name_or_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_tokenizer.Qwen2Tokenizer.from_pretrained" title="Link to this definition">¶</a></dt>
+<dd><p>Load Qwen2/Qwen2.5 BPE with NFC normalization and added-token metadata.</p>
+<p>Load vocab.json first, followed by added_tokens.json and
+tokenizer_config.json (or tokenizer.json). Explicit IDs and the special
+attribute are preserved. A flat added_tokens.json alone has no special
+flags; use metadata files to match pretrained decoding behavior.</p>
 </dd></dl>
 
 </dd></dl>

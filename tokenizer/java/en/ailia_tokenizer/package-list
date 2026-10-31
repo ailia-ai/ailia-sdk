@@ -11,15 +11,23 @@ $dokka.location:axip.ailia_tokenizer/AiliaTokenizer.Companion/AILIA_TOKENIZER_TY
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer.Companion/AILIA_TOKENIZER_TYPE_GPT2/#/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/-companion/-a-i-l-i-a_-t-o-k-e-n-i-z-e-r_-t-y-p-e_-g-p-t2.html
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer.Companion/AILIA_TOKENIZER_TYPE_LLAMA/#/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/-companion/-a-i-l-i-a_-t-o-k-e-n-i-z-e-r_-t-y-p-e_-l-l-a-m-a.html
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer.Companion/AILIA_TOKENIZER_TYPE_MARIAN/#/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/-companion/-a-i-l-i-a_-t-o-k-e-n-i-z-e-r_-t-y-p-e_-m-a-r-i-a-n.html
+$dokka.location:axip.ailia_tokenizer/AiliaTokenizer.Companion/AILIA_TOKENIZER_TYPE_QWEN2/#/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/-companion/-a-i-l-i-a_-t-o-k-e-n-i-z-e-r_-t-y-p-e_-q-w-e-n2.html
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer.Companion/AILIA_TOKENIZER_TYPE_ROBERTA/#/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/-companion/-a-i-l-i-a_-t-o-k-e-n-i-z-e-r_-t-y-p-e_-r-o-b-e-r-t-a.html
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer.Companion/AILIA_TOKENIZER_TYPE_T5/#/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/-companion/-a-i-l-i-a_-t-o-k-e-n-i-z-e-r_-t-y-p-e_-t5.html
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer.Companion/AILIA_TOKENIZER_TYPE_WHISPER/#/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/-companion/-a-i-l-i-a_-t-o-k-e-n-i-z-e-r_-t-y-p-e_-w-h-i-s-p-e-r.html
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer.Companion/AILIA_TOKENIZER_TYPE_XLM_ROBERTA/#/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/-companion/-a-i-l-i-a_-t-o-k-e-n-i-z-e-r_-t-y-p-e_-x-l-m_-r-o-b-e-r-t-a.html
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer///PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/index.html
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer/AiliaTokenizer/#kotlin.Int/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/-ailia-tokenizer.html
+$dokka.location:axip.ailia_tokenizer/AiliaTokenizer/addSpecialTokens/#kotlin.Array[kotlin.String]/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/add-special-tokens.html
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer/close/#/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/close.html
+$dokka.location:axip.ailia_tokenizer/AiliaTokenizer/decode/#kotlin.IntArray/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/decode.html
+$dokka.location:axip.ailia_tokenizer/AiliaTokenizer/decodeWithSpecialTokens/#kotlin.IntArray/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/decode-with-special-tokens.html
+$dokka.location:axip.ailia_tokenizer/AiliaTokenizer/encode/#kotlin.String#kotlin.Boolean/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/encode.html
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer/encode/#kotlin.String/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/encode.html
+$dokka.location:axip.ailia_tokenizer/AiliaTokenizer/encodeWithSpecialTokens/#kotlin.String/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/encode-with-special-tokens.html
 $dokka.location:axip.ailia_tokenizer/AiliaTokenizer/getWord/#kotlin.Int/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/get-word.html
-$dokka.location:axip.ailia_tokenizer/AiliaTokenizer/loadFiles/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/load-files.html
+$dokka.location:axip.ailia_tokenizer/AiliaTokenizer/loadFiles/#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?#kotlin.String?/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/load-files.html
+$dokka.location:axip.ailia_tokenizer/AiliaTokenizer/openAddedTokensFile/#kotlin.String/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/open-added-tokens-file.html
+$dokka.location:axip.ailia_tokenizer/AiliaTokenizer/openTokenizerConfigFile/#kotlin.String/PointingToDeclaration/ailia_tokenizer/axip.ailia_tokenizer/-ailia-tokenizer/open-tokenizer-config-file.html
 axip.ailia_tokenizer
 

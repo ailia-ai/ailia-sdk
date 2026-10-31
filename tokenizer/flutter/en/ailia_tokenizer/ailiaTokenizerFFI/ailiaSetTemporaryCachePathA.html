@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_tokenizer</a></li>
-    <li><a href="../../ailia_tokenizer/">ailia_tokenizer.dart</a></li>
+    <li><a href="../../ailia_tokenizer/ailia_tokenizer-library.html">ailia_tokenizer.dart</a></li>
     <li><a href="../../ailia_tokenizer/ailiaTokenizerFFI-class.html">ailiaTokenizerFFI</a></li>
     <li class="self-crumb">ailiaSetTemporaryCachePathA method</li>
   </ol>
@@ -33,29 +37,34 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_tokenizer&#47;ailiaTokenizerFFI-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_tokenizer&#47;ailiaTokenizerFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">ailiaSetTemporaryCachePathA</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">ailiaSetTemporaryCachePathA</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="ailiaSetTemporaryCachePathA-param-cache_dir"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">cache_dir</span></span></li>
+<span class="name ">ailiaSetTemporaryCachePathA</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaSetTemporaryCachePathA-param-cache_dir"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span> <span class="parameter-name">cache_dir</span></span></li>
 </ol>)
 
       
@@ -63,24 +72,14 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief 一時キャッシュディレクトリを指定します
-@param cache_dir 一時キャッシュディレクトリ
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-指定したキャッシュディレクトリは推論実行環境毎に最適化したマシンコードを生成して保存するためにシステムが利用します。
-ailia の実行開始時に一度だけ呼び出してください。二回目以降の呼び出しに対しては無視して成功を返します。
-複数スレッドから呼び出された場合も内部で排他制御しているので特に問題は発生しません。
-Vulkan のシェーダーキャッシュ機能など、この API を呼ぶまで利用できないものがあります。
-cache_dirにはContext.getCacheDir()で取得したファイルパスを指定してください。</p>
-<p>~english
-@brief Specifies a temporary cache directory.
-@param cache_dir Temporary cache directory
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This system uses the specified cache directory to generate and store machine code optimized for each inference
+  <p>Specifies a temporary cache directory.</p>
+<p>Parameters:</p>
+<ul>
+<li><code>cache_dir</code>: Temporary cache directory</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_tokenizer/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This system uses the specified cache directory to generate and store machine code optimized for each inference
 backend. Call only once at the start of execution of ailia. It ignores any second and subsequent calls, and
 automatically returns success. There is no particular problem if it is called from multiple threads, as it provides
 exclusive control internally. Some functions, such as Vulkan shader cache, cannot be used until this API function is
@@ -102,6 +101,7 @@ called. Specify the file path obtained by Context.getCacheDir() for cache_dir.</
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -109,31 +109,41 @@ called. Specify the file path obtained by Context.getCacheDir() for cache_dir.</
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_tokenizer</a></li>
-    <li><a href="../../ailia_tokenizer/">ailia_tokenizer</a></li>
+    <li><a href="../../ailia_tokenizer/ailia_tokenizer-library.html">ailia_tokenizer</a></li>
     <li><a href="../../ailia_tokenizer/ailiaTokenizerFFI-class.html">ailiaTokenizerFFI</a></li>
     <li class="self-crumb">ailiaSetTemporaryCachePathA method</li>
 </ol>
 
+
     <h5>ailiaTokenizerFFI class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_tokenizer
-      1.6.0
+      1.7.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 

@@ -11,21 +11,25 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../../static-assets/github.css?v1">
   <link rel="stylesheet" href="../../static-assets/styles.css?v1">
   <link rel="icon" href="../../static-assets/favicon.png?v1">
+
   
 </head>
 
+
 <body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
 <div id="overlay-under-drawer"></div>
+
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">ailia_tokenizer</a></li>
-    <li><a href="../../ailia_tokenizer/">ailia_tokenizer.dart</a></li>
+    <li><a href="../../ailia_tokenizer/ailia_tokenizer-library.html">ailia_tokenizer.dart</a></li>
     <li><a href="../../ailia_tokenizer/ailiaTokenizerFFI-class.html">ailiaTokenizerFFI</a></li>
     <li class="self-crumb">ailiaOpenWeightEx method</li>
   </ol>
@@ -33,32 +37,37 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
-    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      dark_mode
-    </span>
-    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
-      light_mode
-    </span>
-  </button>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
 <main>
-<div
-    id="dartdoc-main-content"
-    class="main-content"
-    data-above-sidebar="ailia_tokenizer&#47;ailiaTokenizerFFI-class-sidebar.html"
-    data-below-sidebar="">
-    <div>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="ailia_tokenizer&#47;ailiaTokenizerFFI-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
 <h1><span class="kind-method">ailiaOpenWeightEx</span> method 
 </h1></div>
 
     <section class="multi-line-signature">
       
+
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
-<span class="name ">ailiaOpenWeightEx</span>(<wbr><ol class="parameter-list"> <li><span class="parameter" id="ailiaOpenWeightEx-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_tokenizer/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
+<span class="name ">ailiaOpenWeightEx</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="ailiaOpenWeightEx-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../ailia_tokenizer/AILIANetwork-class.html">AILIANetwork</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span></li>
 <li><span class="parameter" id="ailiaOpenWeightEx-param-fopen_args"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Void-class.html">Void</a></span>&gt;</span></span> <span class="parameter-name">fopen_args</span>, </span></li>
-<li><span class="parameter" id="ailiaOpenWeightEx-param-callback"><span class="type-annotation"><a href="../../ailia_tokenizer/ailiaFileCallback.html">ailiaFileCallback</a></span> <span class="parameter-name">callback</span>, </span></li>
-<li><span class="parameter" id="ailiaOpenWeightEx-param-version"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">version</span>, </span></li>
+<li><span class="parameter" id="ailiaOpenWeightEx-param-callback"><span class="type-annotation">_ailiaFileCallback</span> <span class="parameter-name">callback</span>, </span></li>
+<li><span class="parameter" id="ailiaOpenWeightEx-param-version"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">version</span></span></li>
 </ol>)
 
       
@@ -66,26 +75,17 @@
     </section>
     
 <section class="desc markdown">
-  <p>~japanese
-@brief ネットワークオブジェクトに重み係数を読み込みます。(ユーザ定義ファイルアクセスコールバック)
-@param net ネットワークオブジェクトポインタ
-@param fopen_args  \ref AILIA_USER_API_FOPEN に通知される引数ポインタ
-@param callback ユーザ定義ファイルアクセスコールバック関数構造体
-@param version ファイルアクセスコールバック関数構造体のバージョン( \ref AILIA_FILE_CALLBACK_VERSION )
-@return
-成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-@details
-ファイルからネットワークオブジェクトに重み係数を読み込みます。</p>
-<p>~english
-@brief Reads weights into a network instance. (User-defined file access callback)
-@param net A network instance pointer
-@param fopen_args An argument pointer supplied by AILIA_USER_API_FOPEN
-@param callback A struct for the user-defined file access callback function
-@param version The version of the struct for the file access callback function ( \ref AILIA_FILE_CALLBACK_VERSION )
-@return
-If this function is successful, it returns  \ref AILIA_STATUS_SUCCESS , or an error code otherwise.
-@details
-This function reads weights into the network instance from a file.</p>
+  <p>Reads weights into a network instance. (User-defined file access callback)</p>
+<p>Parameters:</p>
+<ul>
+<li><code>net</code>: A network instance pointer</li>
+<li><code>fopen_args</code>: An argument pointer supplied by AILIA_USER_API_FOPEN</li>
+<li><code>callback</code>: A struct for the user-defined file access callback function</li>
+<li><code>version</code>: The version of the struct for the file access callback function ( <a href="../../ailia_tokenizer/AILIA_FILE_CALLBACK_VERSION-constant.html">AILIA_FILE_CALLBACK_VERSION</a> )</li>
+</ul>
+<p>Returns:</p>
+<p>If this function is successful, it returns  <a href="../../ailia_tokenizer/AILIA_STATUS_SUCCESS-constant.html">AILIA_STATUS_SUCCESS</a> , or an error code otherwise.</p>
+<p>This function reads weights into the network instance from a file.</p>
 </section>
 
 
@@ -95,7 +95,7 @@ This function reads weights into the network instance from a file.</p>
   <pre class="language-dart"><code class="language-dart">int ailiaOpenWeightEx(
   ffi.Pointer&lt;AILIANetwork&gt; net,
   ffi.Pointer&lt;ffi.Void&gt; fopen_args,
-  ailiaFileCallback callback,
+  _ailiaFileCallback callback,
   int version,
 ) {
   return _ailiaOpenWeightEx(
@@ -109,6 +109,7 @@ This function reads weights into the network instance from a file.</p>
 
 
   </div> <!-- /.main-content -->
+
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
     <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
@@ -116,31 +117,41 @@ This function reads weights into the network instance from a file.</p>
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
+
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">ailia_tokenizer</a></li>
-    <li><a href="../../ailia_tokenizer/">ailia_tokenizer</a></li>
+    <li><a href="../../ailia_tokenizer/ailia_tokenizer-library.html">ailia_tokenizer</a></li>
     <li><a href="../../ailia_tokenizer/ailiaTokenizerFFI-class.html">ailiaTokenizerFFI</a></li>
     <li class="self-crumb">ailiaOpenWeightEx method</li>
 </ol>
 
+
     <h5>ailiaTokenizerFFI class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
+
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
-</div><!--/.sidebar-offcanvas-->
+  </div><!--/.sidebar-offcanvas-->
+
 </main>
+
 <footer>
   <span class="no-break">
     ailia_tokenizer
-      1.6.0
+      1.7.0
   </span>
+
   
 </footer>
+
 
 
 <script src="../../static-assets/highlight.pack.js?v1"></script>
 <script src="../../static-assets/docs.dart.js"></script>
 
+
+
 </body>
+
 </html>
 
