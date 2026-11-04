@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_speech
-   &#160;<span id="projectnumber">1.6.0.0</span>
+   &#160;<span id="projectnumber">1.6.1.0</span>
    </div>
   </td>
  </tr>
@@ -301,6 +301,9 @@ ailia_speech.h の依存先関係図:</div>
 <tr class="memitem:a0e0cb6e4b463dbf02fc5da05a061cedd"><td class="memItemLeft" align="right" valign="top">int <a class="el" href="ailia__speech_8h.html#a1c6a80cf85ef33500663112959784400">AILIA_API</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__speech_8h.html#a0e0cb6e4b463dbf02fc5da05a061cedd">ailiaSpeechBuffered</a> (struct AILIASpeech *net, unsigned int *buffered)</td></tr>
 <tr class="memdesc:a0e0cb6e4b463dbf02fc5da05a061cedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">音声認識を行うために十分なデータが存在するかどうかを判定します。  <a href="ailia__speech_8h.html#a0e0cb6e4b463dbf02fc5da05a061cedd">[詳解]</a><br /></td></tr>
 <tr class="separator:a0e0cb6e4b463dbf02fc5da05a061cedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a823bd64d0d4647e6a62444fcd98f2d8b"><td class="memItemLeft" align="right" valign="top">int <a class="el" href="ailia__speech_8h.html#a1c6a80cf85ef33500663112959784400">AILIA_API</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__speech_8h.html#a823bd64d0d4647e6a62444fcd98f2d8b">ailiaSpeechVadBuffered</a> (struct AILIASpeech *net, unsigned int *buffered)</td></tr>
+<tr class="memdesc:a823bd64d0d4647e6a62444fcd98f2d8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">VADで発話の区切りが検出されたかどうかを判定します。  <a href="ailia__speech_8h.html#a823bd64d0d4647e6a62444fcd98f2d8b">[詳解]</a><br /></td></tr>
+<tr class="separator:a823bd64d0d4647e6a62444fcd98f2d8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa610ce4758daf48552da5f172fc0d972"><td class="memItemLeft" align="right" valign="top">int <a class="el" href="ailia__speech_8h.html#a1c6a80cf85ef33500663112959784400">AILIA_API</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__speech_8h.html#aa610ce4758daf48552da5f172fc0d972">ailiaSpeechComplete</a> (struct AILIASpeech *net, unsigned int *complete)</td></tr>
 <tr class="memdesc:aa610ce4758daf48552da5f172fc0d972"><td class="mdescLeft">&#160;</td><td class="mdescRight">全てのデータの処理が完了したかどうかを判定します。  <a href="ailia__speech_8h.html#aa610ce4758daf48552da5f172fc0d972">[詳解]</a><br /></td></tr>
 <tr class="separator:aa610ce4758daf48552da5f172fc0d972"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -343,11 +346,17 @@ ailia_speech.h の依存先関係図:</div>
 <tr class="memitem:acac47e30e94493f096a1ae810e7c54b2"><td class="memItemLeft" align="right" valign="top">const char *<a class="el" href="ailia__speech_8h.html#a1c6a80cf85ef33500663112959784400">AILIA_API</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__speech_8h.html#acac47e30e94493f096a1ae810e7c54b2">ailiaSpeechGetErrorDetail</a> (struct AILIASpeech *net)</td></tr>
 <tr class="memdesc:acac47e30e94493f096a1ae810e7c54b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">エラーの詳細を返します  <a href="ailia__speech_8h.html#acac47e30e94493f096a1ae810e7c54b2">[詳解]</a><br /></td></tr>
 <tr class="separator:acac47e30e94493f096a1ae810e7c54b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af92a61f2da4466b6353a67b8c8cde741"><td class="memItemLeft" align="right" valign="top">int <a class="el" href="ailia__speech_8h.html#a1c6a80cf85ef33500663112959784400">AILIA_API</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__speech_8h.html#af92a61f2da4466b6353a67b8c8cde741">ailiaSpeechGetQNNModelName</a> (const char **model_name)</td></tr>
+<tr class="memdesc:af92a61f2da4466b6353a67b8c8cde741"><td class="mdescLeft">&#160;</td><td class="mdescRight">現在の端末に対応するQNNモデル名を取得します。  <a href="ailia__speech_8h.html#af92a61f2da4466b6353a67b8c8cde741">[詳解]</a><br /></td></tr>
+<tr class="separator:af92a61f2da4466b6353a67b8c8cde741"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aa67db467b66fe38e591b96590265e5"><td class="memItemLeft" align="right" valign="top">int <a class="el" href="ailia__speech_8h.html#a1c6a80cf85ef33500663112959784400">AILIA_API</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__speech_8h.html#a2aa67db467b66fe38e591b96590265e5">ailiaSpeechSetQNNGraphSwitching</a> (struct AILIASpeech *net, int enable)</td></tr>
+<tr class="memdesc:a2aa67db467b66fe38e591b96590265e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">QNNのグラフスイッチングを設定します。  <a href="ailia__speech_8h.html#a2aa67db467b66fe38e591b96590265e5">[詳解]</a><br /></td></tr>
+<tr class="separator:a2aa67db467b66fe38e591b96590265e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>ailia Speech AI音声認識 ライブラリ </p>
 <dl class="section copyright"><dt>著作権所有</dt><dd>AXELL CORPORATION, ailia Inc. </dd></dl>
-<dl class="section date"><dt>日付</dt><dd>2025/12/18 </dd></dl>
+<dl class="section date"><dt>日付</dt><dd>2026/10/30 </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
 <a id="a1c6a80cf85ef33500663112959784400"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c6a80cf85ef33500663112959784400">&#9670;&nbsp;</a></span>AILIA_API</h2>
@@ -1543,6 +1552,34 @@ ailia_speech.h の依存先関係図:</div>
 
 </div>
 </div>
+<a id="af92a61f2da4466b6353a67b8c8cde741"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af92a61f2da4466b6353a67b8c8cde741">&#9670;&nbsp;</a></span>ailiaSpeechGetQNNModelName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="ailia__speech_8h.html#a1c6a80cf85ef33500663112959784400">AILIA_API</a> ailiaSpeechGetQNNModelName </td>
+          <td>(</td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>model_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>現在の端末に対応するQNNモデル名を取得します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model_name</td><td>QNNモデル名の格納先（例: "sm8475"）。返された文字列は libraryが所有するため、呼び出し側で解放しないでください。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
+<p>返される名前はailia_speech_compile_qnnが生成する.qnnパッケージのファイル名に 含まれるSoC名と一致します。 この呼び出しでQNN plug-in（ailia_speech_qnn）を初めて遅延loadします。 未対応SoCでは AILIA_STATUS_OTHER_ERROR 、plug-inが存在しない場合は AILIA_STATUS_UNIMPLEMENTED を返します。 </p>
+
+</div>
+</div>
 <a id="a608a04f5e2018a5f608480e6da3a16a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a608a04f5e2018a5f608480e6da3a16a9">&#9670;&nbsp;</a></span>ailiaSpeechGetText()</h2>
 
@@ -2457,6 +2494,45 @@ ailia_speech.h の依存先関係図:</div>
 
 </div>
 </div>
+<a id="a2aa67db467b66fe38e591b96590265e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aa67db467b66fe38e591b96590265e5">&#9670;&nbsp;</a></span>ailiaSpeechSetQNNGraphSwitching()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="ailia__speech_8h.html#a1c6a80cf85ef33500663112959784400">AILIA_API</a> ailiaSpeechSetQNNGraphSwitching </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIASpeech *&#160;</td>
+          <td class="paramname"><em>net</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>QNNのグラフスイッチングを設定します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">net</td><td>ネットワークインスタンスのポインタ </td></tr>
+    <tr><td class="paramname">enable</td><td>0: 無効（既定値）、1: 有効 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功時は AILIA_STATUS_SUCCESS 、引数が不正な場合は AILIA_STATUS_INVALID_ARGUMENT 、モデルを開いた後は AILIA_STATUS_INVALID_STATE 。</dd></dl>
+<p>ailiaSpeechCreateの後、ailiaSpeechOpenModelFileの前に呼び出してください。 .qnnモデルのグラフを必要に応じて切り替え、HTPの常駐メモリを削減します。 切り替えにより推論時間が増える場合があります。ONNXモデルには影響しません。 </p>
+
+</div>
+</div>
 <a id="ade285d5e54d18ee5d71f982015d813cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ade285d5e54d18ee5d71f982015d813cc">&#9670;&nbsp;</a></span>ailiaSpeechSetSilentThreshold()</h2>
 
@@ -2588,6 +2664,45 @@ ailia_speech.h の依存先関係図:</div>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
 <p>認識した結果はailiaSpeechGetText APIで取得します。 </p>
+
+</div>
+</div>
+<a id="a823bd64d0d4647e6a62444fcd98f2d8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a823bd64d0d4647e6a62444fcd98f2d8b">&#9670;&nbsp;</a></span>ailiaSpeechVadBuffered()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="ailia__speech_8h.html#a1c6a80cf85ef33500663112959784400">AILIA_API</a> ailiaSpeechVadBuffered </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIASpeech *&#160;</td>
+          <td class="paramname"><em>net</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>buffered</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>VADで発話の区切りが検出されたかどうかを判定します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">net</td><td>ネットワークオブジェクトポインタ </td></tr>
+    <tr><td class="paramname">buffered</td><td>検出フラグ（1で検出、0で未検出） </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>成功した場合は AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。</dd></dl>
+<p>ailiaSpeechBufferedと異なり、30秒分のデータが蓄積されても1を返さず、 speech_sec以上の発話の後にno_speech_sec以上の無音が続いた場合にのみ1を返します。 ボイスコマンドの待ち受けなど、発話単位で認識を行う場合に使用します。 発話開始前の無音と、speech_secに満たない雑音は破棄されるため、長い無音の後の発話も先頭から認識されます。 ailiaSpeechFinalizeInputDataを呼び出した場合は、区切りがなくても1を返します。 発話が続く間は区切りが検出されるまでデータを蓄積します。ailiaSpeechTranscribeは1回あたり最大30秒を処理するため、 30秒を超える発話は1が返される間ailiaSpeechTranscribeを繰り返し呼び出すことで処理されます。 蓄積する長さを制限する場合は、ailiaSpeechGetPositionで未処理のフレーム数を確認してください。 事前にailiaSpeechSetSilentThresholdで判定しきい値を設定する必要があります。 1が返された場合はailiaSpeechTranscribeを呼び出してください。 </p>
 
 </div>
 </div>

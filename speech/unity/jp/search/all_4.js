@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['getcallback_164',['GetCallback',['../classailiaSpeech_1_1AiliaSpeech.html#aa8ce482b3b7710d3bd8bedc99d458519',1,'ailiaSpeech::AiliaSpeech']]],
-  ['getenvironmentid_165',['GetEnvironmentId',['../classailiaSpeech_1_1AiliaSpeechModel.html#a0afe39cff6e957ecea720d17718e4feb',1,'ailiaSpeech.AiliaSpeechModel.GetEnvironmentId()'],['../classailiaSpeech_1_1AiliaSpeechTranslateModel.html#af0cbadd21798dc16435c26fed5bf31c5',1,'ailiaSpeech.AiliaSpeechTranslateModel.GetEnvironmentId()']]],
-  ['getenvironmentname_166',['GetEnvironmentName',['../classailiaSpeech_1_1AiliaSpeechModel.html#a7e0871d97c768b5f64b65ff10b577c7c',1,'ailiaSpeech.AiliaSpeechModel.GetEnvironmentName()'],['../classailiaSpeech_1_1AiliaSpeechTranslateModel.html#a55dd1659e6acdb208d34ee721be74558',1,'ailiaSpeech.AiliaSpeechTranslateModel.GetEnvironmentName()']]],
-  ['geterrordetail_167',['GetErrorDetail',['../classailiaSpeech_1_1AiliaSpeechModel.html#abb58c92579ad5237df703d4ee41e0e2d',1,'ailiaSpeech.AiliaSpeechModel.GetErrorDetail()'],['../classailiaSpeech_1_1AiliaSpeechTranslateModel.html#a60b4c7bc7be0b4c11495d3b2f0060df2',1,'ailiaSpeech.AiliaSpeechTranslateModel.GetErrorDetail()']]],
-  ['getintermediatetext_168',['GetIntermediateText',['../classailiaSpeech_1_1AiliaSpeechModel.html#a8e5f5ef9031960f1b60d3da80aa34532',1,'ailiaSpeech::AiliaSpeechModel']]],
-  ['getresults_169',['GetResults',['../classailiaSpeech_1_1AiliaSpeechModel.html#a080694b8b6262d49a209187edf605a22',1,'ailiaSpeech::AiliaSpeechModel']]],
-  ['getstructuredresults_170',['GetStructuredResults',['../classailiaSpeech_1_1AiliaSpeechModel.html#a435a0a5324146e10a3f7a20e8c1f4ed9',1,'ailiaSpeech::AiliaSpeechModel']]]
+  ['getcallback_167',['GetCallback',['../classailiaSpeech_1_1AiliaSpeech.html#aa8ce482b3b7710d3bd8bedc99d458519',1,'ailiaSpeech::AiliaSpeech']]],
+  ['getenvironmentid_168',['GetEnvironmentId',['../classailiaSpeech_1_1AiliaSpeechModel.html#a0afe39cff6e957ecea720d17718e4feb',1,'ailiaSpeech.AiliaSpeechModel.GetEnvironmentId()'],['../classailiaSpeech_1_1AiliaSpeechTranslateModel.html#af0cbadd21798dc16435c26fed5bf31c5',1,'ailiaSpeech.AiliaSpeechTranslateModel.GetEnvironmentId()']]],
+  ['getenvironmentname_169',['GetEnvironmentName',['../classailiaSpeech_1_1AiliaSpeechModel.html#a7e0871d97c768b5f64b65ff10b577c7c',1,'ailiaSpeech.AiliaSpeechModel.GetEnvironmentName()'],['../classailiaSpeech_1_1AiliaSpeechTranslateModel.html#a55dd1659e6acdb208d34ee721be74558',1,'ailiaSpeech.AiliaSpeechTranslateModel.GetEnvironmentName()']]],
+  ['geterrordetail_170',['GetErrorDetail',['../classailiaSpeech_1_1AiliaSpeechModel.html#abb58c92579ad5237df703d4ee41e0e2d',1,'ailiaSpeech.AiliaSpeechModel.GetErrorDetail()'],['../classailiaSpeech_1_1AiliaSpeechTranslateModel.html#a60b4c7bc7be0b4c11495d3b2f0060df2',1,'ailiaSpeech.AiliaSpeechTranslateModel.GetErrorDetail()']]],
+  ['getintermediatetext_171',['GetIntermediateText',['../classailiaSpeech_1_1AiliaSpeechModel.html#a8e5f5ef9031960f1b60d3da80aa34532',1,'ailiaSpeech::AiliaSpeechModel']]],
+  ['getqnnmodelname_172',['GetQNNModelName',['../classailiaSpeech_1_1AiliaSpeechModel.html#a899d07e5c3793030d89200e9e8df0902',1,'ailiaSpeech::AiliaSpeechModel']]],
+  ['getresults_173',['GetResults',['../classailiaSpeech_1_1AiliaSpeechModel.html#a080694b8b6262d49a209187edf605a22',1,'ailiaSpeech::AiliaSpeechModel']]],
+  ['getstructuredresults_174',['GetStructuredResults',['../classailiaSpeech_1_1AiliaSpeechModel.html#a435a0a5324146e10a3f7a20e8c1f4ed9',1,'ailiaSpeech::AiliaSpeechModel']]]
 ];

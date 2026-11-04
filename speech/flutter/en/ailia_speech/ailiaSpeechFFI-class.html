@@ -837,6 +837,19 @@
 
 </dd>
 
+        <dt id="ailiaSpeechGetQNNModelName" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaSpeechGetQNNModelName.html">ailiaSpeechGetQNNModelName</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaSpeechGetQNNModelName-param-model_name"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/Char-class.html">Char</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">model_name</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Gets the QNN model name for the current device.
+  
+
+</dd>
+
         <dt id="ailiaSpeechGetText" class="callable">
   <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaSpeechGetText.html">ailiaSpeechGetText</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaSpeechGetText-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIASpeech-class.html">AILIASpeech</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaSpeechGetText-param-text"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIASpeechText.html">AILIASpeechText</a></span>&gt;</span></span> <span class="parameter-name">text</span>, </span><span class="parameter" id="ailiaSpeechGetText-param-version"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">version</span>, </span><span class="parameter" id="ailiaSpeechGetText-param-idx"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">idx</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
@@ -1084,6 +1097,19 @@
 
 </dd>
 
+        <dt id="ailiaSpeechSetQNNGraphSwitching" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaSpeechSetQNNGraphSwitching.html">ailiaSpeechSetQNNGraphSwitching</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaSpeechSetQNNGraphSwitching-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIASpeech-class.html">AILIASpeech</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaSpeechSetQNNGraphSwitching-param-enable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">enable</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Configures QNN graph switching.
+  
+
+</dd>
+
         <dt id="ailiaSpeechSetSilentThreshold" class="callable">
   <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaSpeechSetSilentThreshold.html">ailiaSpeechSetSilentThreshold</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaSpeechSetSilentThreshold-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIASpeech-class.html">AILIASpeech</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaSpeechSetSilentThreshold-param-silent_threshold"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">silent_threshold</span>, </span><span class="parameter" id="ailiaSpeechSetSilentThreshold-param-speech_sec"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">speech_sec</span>, </span><span class="parameter" id="ailiaSpeechSetSilentThreshold-param-no_speech_sec"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">no_speech_sec</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
@@ -1119,6 +1145,19 @@
 </dt>
 <dd>
   Perform speech recognition
+  
+
+</dd>
+
+        <dt id="ailiaSpeechVadBuffered" class="callable">
+  <span class="name"><a href="../ailia_speech/ailiaSpeechFFI/ailiaSpeechVadBuffered.html">ailiaSpeechVadBuffered</a></span><span class="signature">(<wbr><span class="parameter" id="ailiaSpeechVadBuffered-param-net"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../ailia_speech/AILIASpeech-class.html">AILIASpeech</a></span>&gt;</span></span> <span class="parameter-name">net</span>, </span><span class="parameter" id="ailiaSpeechVadBuffered-param-buffered"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ffi/Pointer-class.html">Pointer</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-ffi/UnsignedInt-class.html">UnsignedInt</a></span>&gt;</span></span> <span class="parameter-name">buffered</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Determines whether the end of an utterance has been detected by VAD.
   
 
 </dd>
@@ -1622,7 +1661,7 @@
 <footer>
   <span class="no-break">
     ailia_speech
-      1.6.0
+      1.6.1
   </span>
 
   

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['text_144',['text',['../struct__AILIASpeechText.html#ae53e0da708907b4ccd40ba796fa97833',1,'_AILIASpeechText']]],
-  ['time_5fstamp_5fbegin_145',['time_stamp_begin',['../struct__AILIASpeechText.html#afa317ae0e97f34bf603bf174fa57638b',1,'_AILIASpeechText']]],
-  ['time_5fstamp_5fend_146',['time_stamp_end',['../struct__AILIASpeechText.html#aa68dc0ba9cda57315271a26a574561c4',1,'_AILIASpeechText']]]
+  ['running_20qnn_20on_20yocto_20linux_145',['Running QNN on Yocto Linux',['../qnn.html',1,'']]]
 ];

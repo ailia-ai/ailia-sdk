@@ -6,12 +6,12 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ailia_speech package &mdash; ailia Speech Python API 1.6.0 documentation</title>
+  <title>ailia_speech package &mdash; ailia Speech Python API 1.6.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
-      <script src="_static/documentation_options.js?v=72d88caf"></script>
+      <script src="_static/documentation_options.js?v=d6a008b6"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -44,6 +44,9 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ailia_speech package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#classes">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ailia_speech.AiliaSpeechModel"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.get_qnn_model_name"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.get_qnn_model_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.open"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.open()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.set_qnn_graph_switching"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.set_qnn_graph_switching()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.set_silent_threshold"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.set_silent_threshold()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.transcribe"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.transcribe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_speech.AiliaSpeechModel.transcribe_step"><code class="docutils literal notranslate"><span class="pre">AiliaSpeechModel.transcribe_step()</span></code></a></li>
@@ -97,6 +100,90 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailia_speech.</span></span><span class="sig-name descname"><span class="pre">AiliaSpeechModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_thread</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_speech.AiliaSpeechModel" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
+<dt class="sig sig-object py" id="ailia_speech.AiliaSpeechModel.get_qnn_model_name">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_qnn_model_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailia_speech.AiliaSpeechModel.get_qnn_model_name" title="Link to this definition">¶</a></dt>
+<dd><p>Return the QNN model name for the current device, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;sm8475&quot;</span></code>.</p>
+<p>The name is the SoC name in the precompiled <code class="docutils literal notranslate"><span class="pre">.qnn</span></code> package filenames
+(for example <code class="docutils literal notranslate"><span class="pre">whisper-tiny-sm8475-int16.qnn</span></code>). No model instance
+needs to be created. This method can also be called on an instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>AiliaSpeechError</strong> – If the QNN plug-in is absent or the SoC is unsupported.
+    The native error code is available as <code class="docutils literal notranslate"><span class="pre">code</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_speech.AiliaSpeechModel.open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoder_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decoder_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vad_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segmentation_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vad_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diarization_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_speech.AiliaSpeechModel.open" title="Link to this definition">¶</a></dt>
+<dd><p>Open local recognition, VAD and diarization model files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>encoder_path</strong> (<em>str</em><em> or </em><em>os.PathLike</em><em>[</em><em>str</em><em>]</em>) – Path to an encoder ONNX file or an ailia QNN package (<code class="docutils literal notranslate"><span class="pre">.qnn</span></code>).</p></li>
+<li><p><strong>decoder_path</strong> (<em>str</em><em> or </em><em>os.PathLike</em><em>[</em><em>str</em><em>] or </em><em>None</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Path to the decoder ONNX file. Required for ONNX models, including
+SenseVoice (specify the same file for encoder and decoder).
+For a QNN package containing both graphs, leave this as None.</p></li>
+<li><p><strong>model_type</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default: AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_TINY</em>) – Type of recognition model matching the files. Accepts the same
+model type constants as <a class="reference internal" href="#ailia_speech.Whisper.initialize_model" title="ailia_speech.Whisper.initialize_model"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Whisper.initialize_model()</span></code></a> and
+<a class="reference internal" href="#ailia_speech.SenseVoice.initialize_model" title="ailia_speech.SenseVoice.initialize_model"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SenseVoice.initialize_model()</span></code></a>. Specify the appropriate type
+explicitly for models other than Whisper Tiny.</p></li>
+<li><p><strong>vad_path</strong> (<em>str</em><em> or </em><em>os.PathLike</em><em>[</em><em>str</em><em>] or </em><em>None</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Path to a Silero VAD ONNX file. None skips loading VAD.
+When supplied, sets the same silent thresholds as initialize_model.</p></li>
+<li><p><strong>segmentation_path</strong> (<em>str</em><em> or </em><em>os.PathLike</em><em>[</em><em>str</em><em>] or </em><em>None</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Path to the diarization segmentation ONNX file. Supply together
+with embedding_path, or leave both as None to skip diarization.</p></li>
+<li><p><strong>embedding_path</strong> (<em>str</em><em> or </em><em>os.PathLike</em><em>[</em><em>str</em><em>] or </em><em>None</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Path to the speaker embedding ONNX file. Required together with
+segmentation_path.</p></li>
+<li><p><strong>vad_type</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em><em>, </em><em>default: AILIA_SPEECH_VAD_TYPE_SILERO</em>) – Type of VAD. Specify AILIA_SPEECH_VAD_TYPE_SILERO when vad_path
+is supplied. Ignored when vad_path is None.</p></li>
+<li><p><strong>diarization_type</strong> (<em>int</em><em> or </em><em>None</em><em>, </em><em>optional</em><em>, </em><em>default: AILIA_SPEECH_DIARIZATION_TYPE_PYANNOTE_AUDIO</em>) – Type of diarization. Specify AILIA_SPEECH_DIARIZATION_TYPE_PYANNOTE_AUDIO
+when segmentation_path and embedding_path are supplied. Ignored
+when both paths are None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AiliaSpeechError</strong> – If a model file cannot be opened or loaded by the native API.</p></li>
+<li><p><strong>ValueError</strong> – If only one diarization path is supplied, vad_type or
+    diarization_type is None while its model paths are supplied,
+    or decoder_path is omitted for a non-QNN model.</p></li>
+<li><p><strong>OSError</strong> – If the recognition model file cannot be read when decoder_path
+    is omitted.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>No model files are downloaded. FP16 / FP32 and the VAD version are
+selected by the supplied files. Place external ONNX weights at the
+locations referenced by the ONNX file. For Whisper Large V3 Turbo,
+use AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO.</p>
+<p>None skips loading an optional model; it does not unload a model
+already loaded on this instance. To disable previously loaded VAD
+or diarization models, create a new instance.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ailia_speech</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">speech</span> <span class="o">=</span> <span class="n">ailia_speech</span><span class="o">.</span><span class="n">Whisper</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">speech</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"whisper-large-v3-turbo-qcs6490-int16.qnn"</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">model_type</span><span class="o">=</span><span class="n">ailia_speech</span><span class="o">.</span><span class="n">AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_speech.AiliaSpeechModel.set_qnn_graph_switching">
+<span class="sig-name descname"><span class="pre">set_qnn_graph_switching</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_speech.AiliaSpeechModel.set_qnn_graph_switching" title="Link to this definition">¶</a></dt>
+<dd><p>Configure QNN graph switching to reduce resident HTP memory for large <code class="docutils literal notranslate"><span class="pre">.qnn</span></code> models.</p>
+<p>Call after creating the instance and before <code class="docutils literal notranslate"><span class="pre">open</span></code> or <code class="docutils literal notranslate"><span class="pre">initialize_model</span></code>.
+Switching may increase inference time. ONNX models are unaffected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enable</strong> (<em>bool</em>) – True to enable, False to disable (default)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ailia_speech.AiliaSpeechModel.set_silent_threshold">
 <span class="sig-name descname"><span class="pre">set_silent_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">silent_threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speech_sec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_speech_sec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_speech.AiliaSpeechModel.set_silent_threshold" title="Link to this definition">¶</a></dt>
 <dd><p>Set silent threshold. If there are more than a certain number of sounded sections, and if the silent section lasts for a certain amount of time or more, the remaining buffer is processed without waiting for 30 seconds.</p>
@@ -145,7 +232,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ailia_speech.AiliaSpeechModel.transcribe_step">
-<span class="sig-name descname"><span class="pre">transcribe_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio_waveform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">complete</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_speech.AiliaSpeechModel.transcribe_step" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transcribe_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audio_waveform</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">complete</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vad_boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_speech.AiliaSpeechModel.transcribe_step" title="Link to this definition">¶</a></dt>
 <dd><p>Perform speech recognition. Processes the audio sequentially.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -155,6 +242,9 @@
 <li><p><strong>complete</strong> (<em>bool</em>) – True if this is the final audio input.
 transcribe_step executes a step each time there is microphone input, and by setting complete to True at the end, the buffer can be flushed.</p></li>
 <li><p><strong>lang</strong> (<em>str</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Language code (ja, en, etc.) (automatic detection if None)</p></li>
+<li><p><strong>vad_boundary</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default: False</em>) – If True, speech recognition is performed only when the end of an utterance is detected by VAD, instead of every 30 seconds.
+Silence before the utterance is discarded, so speech after a long silence is recognized from its beginning. Suitable for waiting for voice commands.
+set_silent_threshold must be called in advance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Yields<span class="colon">:</span></dt>

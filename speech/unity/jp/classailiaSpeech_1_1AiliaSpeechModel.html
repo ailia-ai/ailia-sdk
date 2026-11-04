@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_speech
-   &#160;<span id="projectnumber">1.6.0.0</span>
+   &#160;<span id="projectnumber">1.6.1.0</span>
    </div>
   </td>
  </tr>
@@ -108,6 +108,9 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 <tr class="memitem:a7e0871d97c768b5f64b65ff10b577c7c"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeechModel.html#a7e0871d97c768b5f64b65ff10b577c7c">GetEnvironmentName</a> ()</td></tr>
 <tr class="memdesc:a7e0871d97c768b5f64b65ff10b577c7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">実行環境の名称を取得します。  <a href="classailiaSpeech_1_1AiliaSpeechModel.html#a7e0871d97c768b5f64b65ff10b577c7c">[詳解]</a><br /></td></tr>
 <tr class="separator:a7e0871d97c768b5f64b65ff10b577c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac69537deb6e258d022d5032113339157"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeechModel.html#ac69537deb6e258d022d5032113339157">SetQNNGraphSwitching</a> (bool enable)</td></tr>
+<tr class="memdesc:ac69537deb6e258d022d5032113339157"><td class="mdescLeft">&#160;</td><td class="mdescRight">QNNのグラフスイッチングを設定します。  <a href="classailiaSpeech_1_1AiliaSpeechModel.html#ac69537deb6e258d022d5032113339157">[詳解]</a><br /></td></tr>
+<tr class="separator:ac69537deb6e258d022d5032113339157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9833d33cb5f07a3ba02866ce41f0728d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeechModel.html#a9833d33cb5f07a3ba02866ce41f0728d">Open</a> (string encoder_path, string decoder_path, int env_id, int memory_mode, int model_type, int task, int flag, string language)</td></tr>
 <tr class="memdesc:a9833d33cb5f07a3ba02866ce41f0728d"><td class="mdescLeft">&#160;</td><td class="mdescRight">インスタンスを作成します。  <a href="classailiaSpeech_1_1AiliaSpeechModel.html#a9833d33cb5f07a3ba02866ce41f0728d">[詳解]</a><br /></td></tr>
 <tr class="separator:a9833d33cb5f07a3ba02866ce41f0728d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,6 +168,9 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 静的公開メンバ関数</h2></td></tr>
+<tr class="memitem:a899d07e5c3793030d89200e9e8df0902"><td class="memItemLeft" align="right" valign="top">static string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeechModel.html#a899d07e5c3793030d89200e9e8df0902">GetQNNModelName</a> ()</td></tr>
+<tr class="memdesc:a899d07e5c3793030d89200e9e8df0902"><td class="mdescLeft">&#160;</td><td class="mdescRight">現在の端末に対応するQNNモデル名を取得します。  <a href="classailiaSpeech_1_1AiliaSpeechModel.html#a899d07e5c3793030d89200e9e8df0902">[詳解]</a><br /></td></tr>
+<tr class="separator:a899d07e5c3793030d89200e9e8df0902"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7423ac9567d7dadce3385c8a7a421d44"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeechModel.html#a7423ac9567d7dadce3385c8a7a421d44">IntermediateCallback</a> (IntPtr handle, IntPtr text)</td></tr>
 <tr class="separator:a7423ac9567d7dadce3385c8a7a421d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -199,15 +205,15 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 
 <p>インスタンスを破棄します。 </p>
 <p>インスタンスを破棄し、初期化します。 </p>
-<div class="fragment"><div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    {</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        DestroyThread();</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;        DestroyInterrupt();</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        <span class="keywordflow">if</span> (net != IntPtr.Zero)</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        {</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;            AiliaSpeech.ailiaSpeechDestroy(net);</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;            net = IntPtr.Zero;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        }</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    {</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        DestroyThread();</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;        DestroyInterrupt();</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;        <span class="keywordflow">if</span> (net != IntPtr.Zero)</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        {</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;            AiliaSpeech.ailiaSpeechDestroy(net);</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;            net = IntPtr.Zero;</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;        }</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -235,10 +241,10 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 </div><div class="memdoc">
 
 <p>リソースを解放します。 </p>
-<div class="fragment"><div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    {</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        <a class="code" href="classailiaSpeech_1_1AiliaSpeechModel.html#a6d2037606b26442b5614762923fc59b1">Dispose</a>(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    }</div>
-<div class="ttc" id="aclassailiaSpeech_1_1AiliaSpeechModel_html_a6d2037606b26442b5614762923fc59b1"><div class="ttname"><a href="classailiaSpeech_1_1AiliaSpeechModel.html#a6d2037606b26442b5614762923fc59b1">ailiaSpeech.AiliaSpeechModel.Dispose</a></div><div class="ttdeci">virtual void Dispose()</div><div class="ttdoc">リソースを解放します。</div><div class="ttdef"><b>Definition:</b> AiliaSpeechModel.cs:397</div></div>
+<div class="fragment"><div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    {</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        <a class="code" href="classailiaSpeech_1_1AiliaSpeechModel.html#a6d2037606b26442b5614762923fc59b1">Dispose</a>(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    }</div>
+<div class="ttc" id="aclassailiaSpeech_1_1AiliaSpeechModel_html_a6d2037606b26442b5614762923fc59b1"><div class="ttname"><a href="classailiaSpeech_1_1AiliaSpeechModel.html#a6d2037606b26442b5614762923fc59b1">ailiaSpeech.AiliaSpeechModel.Dispose</a></div><div class="ttdeci">virtual void Dispose()</div><div class="ttdoc">リソースを解放します。</div><div class="ttdef"><b>Definition:</b> AiliaSpeechModel.cs:454</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -265,13 +271,13 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    {</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        <span class="keywordflow">if</span> (disposing){</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;            <span class="comment">// release managed resource</span></div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        }</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        <a class="code" href="classailiaSpeech_1_1AiliaSpeechModel.html#a18aab7785df4a378c7acb8ca7fa105a0">Close</a>(); <span class="comment">// release unmanaged resource</span></div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    }</div>
-<div class="ttc" id="aclassailiaSpeech_1_1AiliaSpeechModel_html_a18aab7785df4a378c7acb8ca7fa105a0"><div class="ttname"><a href="classailiaSpeech_1_1AiliaSpeechModel.html#a18aab7785df4a378c7acb8ca7fa105a0">ailiaSpeech.AiliaSpeechModel.Close</a></div><div class="ttdeci">virtual void Close()</div><div class="ttdoc">インスタンスを破棄します。</div><div class="ttdef"><b>Definition:</b> AiliaSpeechModel.cs:379</div></div>
+<div class="fragment"><div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    {</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;        <span class="keywordflow">if</span> (disposing){</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;            <span class="comment">// release managed resource</span></div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        }</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;        <a class="code" href="classailiaSpeech_1_1AiliaSpeechModel.html#a18aab7785df4a378c7acb8ca7fa105a0">Close</a>(); <span class="comment">// release unmanaged resource</span></div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    }</div>
+<div class="ttc" id="aclassailiaSpeech_1_1AiliaSpeechModel_html_a18aab7785df4a378c7acb8ca7fa105a0"><div class="ttname"><a href="classailiaSpeech_1_1AiliaSpeechModel.html#a18aab7785df4a378c7acb8ca7fa105a0">ailiaSpeech.AiliaSpeechModel.Close</a></div><div class="ttdeci">virtual void Close()</div><div class="ttdoc">インスタンスを破棄します。</div><div class="ttdef"><b>Definition:</b> AiliaSpeechModel.cs:436</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -307,26 +313,26 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>env_id </dd></dl>
-<div class="fragment"><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                            {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordtype">int</span> env_id = Ailia.AILIA_ENVIRONMENT_ID_AUTO;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">if</span> (is_gpu) { <span class="comment">// GPU</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="keywordtype">int</span> count = 0;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            Ailia.ailiaGetEnvironmentCount(ref count);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; count; i++){</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                IntPtr env_ptr = IntPtr.Zero;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                Ailia.ailiaGetEnvironment(ref env_ptr, (uint)i, Ailia.AILIA_ENVIRONMENT_VERSION);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                Ailia.AILIAEnvironment env = (Ailia.AILIAEnvironment)Marshal.PtrToStructure(env_ptr, typeof(Ailia.AILIAEnvironment));</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                <span class="keywordflow">if</span> (env.backend == Ailia.AILIA_ENVIRONMENT_BACKEND_MPS || env.backend == Ailia.AILIA_ENVIRONMENT_BACKEND_CUDA || env.backend == Ailia.AILIA_ENVIRONMENT_BACKEND_VULKAN){</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                    env_id = env.id;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                    env_name = Marshal.PtrToStringAnsi(env.name);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            env_name = <span class="stringliteral">&quot;cpu&quot;</span>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">return</span> env_id;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                                            {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordtype">int</span> env_id = Ailia.AILIA_ENVIRONMENT_ID_AUTO;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">if</span> (is_gpu) { <span class="comment">// GPU</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="keywordtype">int</span> count = 0;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            Ailia.ailiaGetEnvironmentCount(ref count);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; count; i++){</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                IntPtr env_ptr = IntPtr.Zero;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                Ailia.ailiaGetEnvironment(ref env_ptr, (uint)i, Ailia.AILIA_ENVIRONMENT_VERSION);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                Ailia.AILIAEnvironment env = (Ailia.AILIAEnvironment)Marshal.PtrToStructure(env_ptr, typeof(Ailia.AILIAEnvironment));</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                <span class="keywordflow">if</span> (env.backend == Ailia.AILIA_ENVIRONMENT_BACKEND_MPS || env.backend == Ailia.AILIA_ENVIRONMENT_BACKEND_CUDA || env.backend == Ailia.AILIA_ENVIRONMENT_BACKEND_VULKAN){</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                    env_id = env.id;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                    env_name = Marshal.PtrToStringAnsi(env.name);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            }</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            env_name = <span class="stringliteral">&quot;cpu&quot;</span>;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordflow">return</span> env_id;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -355,9 +361,9 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 
 <p>実行環境の名称を取得します。 </p>
 <dl class="section return"><dt>戻り値</dt><dd>env_name </dd></dl>
-<div class="fragment"><div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                                      {</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keywordflow">return</span> env_name;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                                      {</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordflow">return</span> env_name;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -386,9 +392,9 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 
 <p>エラーの詳細を取得します。 </p>
 <dl class="section return"><dt>戻り値</dt><dd>エラーの詳細を示す文字列。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                  {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">return</span> m_error_detail;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                                  {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> m_error_detail;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -417,11 +423,54 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 
 <p>Speech2Textの途中のテキストを取得します。 </p>
 <dl class="section return"><dt>戻り値</dt><dd>認識結果を返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;                                       {</div>
-<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;        lock (m_intermediate_lock_async){</div>
-<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;            <span class="keywordflow">return</span> m_intermediate_text;</div>
-<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;        }</div>
-<div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;                                       {</div>
+<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;        lock (m_intermediate_lock_async){</div>
+<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;            <span class="keywordflow">return</span> m_intermediate_text;</div>
+<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;        }</div>
+<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a899d07e5c3793030d89200e9e8df0902"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a899d07e5c3793030d89200e9e8df0902">&#9670;&nbsp;</a></span>GetQNNModelName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static string ailiaSpeech.AiliaSpeechModel.GetQNNModelName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>現在の端末に対応するQNNモデル名を取得します。 </p>
+<dl class="section return"><dt>戻り値</dt><dd>QNNモデル名（例: "sm8475"）。</dd></dl>
+<p>インスタンスを作成せずに呼び出せます。 </p><dl class="exception"><dt>例外</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">InvalidOperationException</td><td>QNN plug-inが存在しない、または未対応SoCの場合 </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                                          {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        IntPtr name = IntPtr.Zero;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechGetQNNModelName(ref name);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">if</span> (status != Ailia.AILIA_STATUS_SUCCESS || name == IntPtr.Zero){</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="keywordflow">throw</span> <span class="keyword">new</span> InvalidOperationException(<span class="stringliteral">&quot;Failed to get QNN model name. Status: &quot;</span> + status);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="comment">// Model names are ASCII. Copy the library-owned string; never free it.</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">return</span> Marshal.PtrToStringAnsi(name);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -450,14 +499,14 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 
 <p>Speech2Textの実行結果を取得してクリアします。 </p>
 <dl class="section return"><dt>戻り値</dt><dd>認識結果を返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;                                    {</div>
-<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;        lock (m_lock_async)</div>
-<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;        {</div>
-<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;            List&lt;string&gt; results = <span class="keyword">new</span> List&lt;string&gt;(m_results);</div>
-<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;            m_results.Clear();</div>
-<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;            <span class="keywordflow">return</span> results;</div>
-<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;        }</div>
-<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;                                    {</div>
+<div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;        lock (m_lock_async)</div>
+<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;        {</div>
+<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;            List&lt;string&gt; results = <span class="keyword">new</span> List&lt;string&gt;(m_results);</div>
+<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;            m_results.Clear();</div>
+<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;            <span class="keywordflow">return</span> results;</div>
+<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;        }</div>
+<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -486,14 +535,14 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 
 <p>Speech2Textの実行結果を構造体で取得してクリアします。 </p>
 <dl class="section return"><dt>戻り値</dt><dd>認識結果を返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;        {</div>
-<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;            lock (m_lock_async)</div>
-<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;            {</div>
-<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;                List&lt;AiliaSpeechText&gt; results_struct = <span class="keyword">new</span> List&lt;AiliaSpeechText&gt;(m_results_struct);</div>
-<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;                m_results_struct.Clear();</div>
-<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;                <span class="keywordflow">return</span> results_struct;</div>
-<div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;            }</div>
-<div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;        }</div>
+<div class="fragment"><div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;        {</div>
+<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;            lock (m_lock_async)</div>
+<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;            {</div>
+<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;                List&lt;AiliaSpeechText&gt; results_struct = <span class="keyword">new</span> List&lt;AiliaSpeechText&gt;(m_results_struct);</div>
+<div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;                m_results_struct.Clear();</div>
+<div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;                <span class="keywordflow">return</span> results_struct;</div>
+<div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;            }</div>
+<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -530,19 +579,19 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;                                                                      {</div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;        lock (m_intermediate_lock_async){</div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;            <span class="keywordflow">try</span>{</div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;                 <span class="keywordtype">string</span> decoded_text = Marshal.PtrToStringAnsi(text);</div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;                 m_intermediate_text = decoded_text;</div>
-<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;            }<span class="keywordflow">catch</span>(Exception e){</div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;            }</div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;        }</div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;        <span class="keywordflow">if</span> (Marshal.ReadInt32(handle) != 0){</div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;            <span class="keywordflow">return</span> -1; <span class="comment">// 中断</span></div>
-<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;        }</div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;                                                                      {</div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;        lock (m_intermediate_lock_async){</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;            <span class="keywordflow">try</span>{</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;                 <span class="keywordtype">string</span> decoded_text = Marshal.PtrToStringAnsi(text);</div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;                 m_intermediate_text = decoded_text;</div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;            }<span class="keywordflow">catch</span>(Exception e){</div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;            }</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;        }</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;        <span class="keywordflow">if</span> (Marshal.ReadInt32(handle) != 0){</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;            <span class="keywordflow">return</span> -1; <span class="comment">// 中断</span></div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;        }</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -571,12 +620,12 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 
 <p>全ての音声の処理が完了したかどうか取得します。 </p>
 <dl class="section return"><dt>戻り値</dt><dd>完了した場合はtrue、それ以外の場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;                             {</div>
-<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;        lock (m_lock_async)</div>
-<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;        {</div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;            <span class="keywordflow">return</span> m_complete;</div>
-<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;        }</div>
-<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;                             {</div>
+<div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160;        lock (m_lock_async)</div>
+<div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;        {</div>
+<div class="line"><a name="l00926"></a><span class="lineno">  926</span>&#160;            <span class="keywordflow">return</span> m_complete;</div>
+<div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;        }</div>
+<div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -605,9 +654,9 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 
 <p>エラーが発生したか確認します。 </p>
 <dl class="section return"><dt>戻り値</dt><dd>エラーが発生した場合はtrue、発生していない場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                         {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">return</span> m_error;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                         {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> m_error;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -636,12 +685,12 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 
 <p>サブスレッドが実行中かどうか取得します。 </p>
 <dl class="section return"><dt>戻り値</dt><dd>実行中はtrue、それ以外の場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;                              {</div>
-<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;        lock (m_lock_async)</div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;        {</div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;            <span class="keywordflow">return</span> m_processing;</div>
-<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;        }</div>
-<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;                              {</div>
+<div class="line"><a name="l00888"></a><span class="lineno">  888</span>&#160;        lock (m_lock_async)</div>
+<div class="line"><a name="l00889"></a><span class="lineno">  889</span>&#160;        {</div>
+<div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;            <span class="keywordflow">return</span> m_processing;</div>
+<div class="line"><a name="l00891"></a><span class="lineno">  891</span>&#160;        }</div>
+<div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -670,12 +719,12 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 
 <p>Speech2Textを実行中かどうか取得します。 </p>
 <dl class="section return"><dt>戻り値</dt><dd>実行中はtrue、それ以外の場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;                                {</div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;        lock (m_lock_async)</div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;        {</div>
-<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;            <span class="keywordflow">return</span> m_decoding;</div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;        }</div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00905"></a><span class="lineno">  905</span>&#160;                                {</div>
+<div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;        lock (m_lock_async)</div>
+<div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;        {</div>
+<div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160;            <span class="keywordflow">return</span> m_decoding;</div>
+<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;        }</div>
+<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -764,63 +813,71 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はtrue、失敗した場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                                                                                                                                                {</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        AiliaLicense.CheckAndDownloadLicense();</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">if</span> (net != <span class="keyword">null</span>){</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            <a class="code" href="classailiaSpeech_1_1AiliaSpeechModel.html#a18aab7785df4a378c7acb8ca7fa105a0">Close</a>();</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        }</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        AiliaSpeech.AILIASpeechApiCallback callback = AiliaSpeech.GetCallback();</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechCreate(ref net, env_id, Ailia.AILIA_MULTITHREAD_AUTO, memory_mode, task, flag, callback, AiliaSpeech.AILIA_SPEECH_API_CALLBACK_VERSION);</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechCreate&quot;</span>);</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        }</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        status = AiliaSpeech.ailiaSpeechOpenModelFile(net, encoder_path, decoder_path, model_type);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechOpenModelFile&quot;</span>);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        }</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keywordflow">if</span> (language != <span class="stringliteral">&quot;auto&quot;</span>){</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            status = AiliaSpeech.ailiaSpeechSetLanguage(net, language);</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            Check(status, <span class="stringliteral">&quot;ailiaSpeechSetLanguage&quot;</span>);</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            }</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        }</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        status = AiliaSpeech.ailiaSpeechSetSilentThreshold(net, THRESHOLD_VOLUME, SPEECH_SEC, NO_SPEECH_SEC);</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechSetSilentThreshold&quot;</span>);</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        }</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        CreateInterrupt();</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        status = AiliaSpeech.ailiaSpeechSetIntermediateCallback(net, <a class="code" href="classailiaSpeech_1_1AiliaSpeechModel.html#a7423ac9567d7dadce3385c8a7a421d44">IntermediateCallback</a>, m_interrupt_ptr);</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechSetIntermediateCallback&quot;</span>);</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        }</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        CreateThread();</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        m_error = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        m_error_detail = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        <span class="keywordflow">if</span> ((flag &amp; AiliaSpeech.AILIA_SPEECH_FLAG_LIVE) != 0){</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            live_mode = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        }<span class="keywordflow">else</span>{</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;            live_mode = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        }</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    }</div>
-<div class="ttc" id="aclassailiaSpeech_1_1AiliaSpeechModel_html_a7423ac9567d7dadce3385c8a7a421d44"><div class="ttname"><a href="classailiaSpeech_1_1AiliaSpeechModel.html#a7423ac9567d7dadce3385c8a7a421d44">ailiaSpeech.AiliaSpeechModel.IntermediateCallback</a></div><div class="ttdeci">static int IntermediateCallback(IntPtr handle, IntPtr text)</div><div class="ttdef"><b>Definition:</b> AiliaSpeechModel.cs:582</div></div>
+<div class="fragment"><div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                                                                                                                                                {</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        AiliaLicense.CheckAndDownloadLicense();</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="keywordflow">if</span> (net != <span class="keyword">null</span>){</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            <a class="code" href="classailiaSpeech_1_1AiliaSpeechModel.html#a18aab7785df4a378c7acb8ca7fa105a0">Close</a>();</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        }</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        AiliaSpeech.AILIASpeechApiCallback callback = AiliaSpeech.GetCallback();</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechCreate(ref net, env_id, Ailia.AILIA_MULTITHREAD_AUTO, memory_mode, task, flag, callback, AiliaSpeech.AILIA_SPEECH_API_CALLBACK_VERSION);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechCreate&quot;</span>);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        }</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <span class="keywordflow">if</span> (qnn_graph_switching){</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            status = AiliaSpeech.ailiaSpeechSetQNNGraphSwitching(net, 1);</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            Check(status, <span class="stringliteral">&quot;ailiaSpeechSetQNNGraphSwitching&quot;</span>);</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;            }</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        }</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        status = AiliaSpeech.ailiaSpeechOpenModelFile(net, encoder_path, decoder_path, model_type);</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechOpenModelFile&quot;</span>);</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        }</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="keywordflow">if</span> (language != <span class="stringliteral">&quot;auto&quot;</span>){</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            status = AiliaSpeech.ailiaSpeechSetLanguage(net, language);</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            Check(status, <span class="stringliteral">&quot;ailiaSpeechSetLanguage&quot;</span>);</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            }</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        }</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        status = AiliaSpeech.ailiaSpeechSetSilentThreshold(net, THRESHOLD_VOLUME, SPEECH_SEC, NO_SPEECH_SEC);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechSetSilentThreshold&quot;</span>);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        }</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        CreateInterrupt();</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        status = AiliaSpeech.ailiaSpeechSetIntermediateCallback(net, <a class="code" href="classailiaSpeech_1_1AiliaSpeechModel.html#a7423ac9567d7dadce3385c8a7a421d44">IntermediateCallback</a>, m_interrupt_ptr);</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechSetIntermediateCallback&quot;</span>);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        }</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        CreateThread();</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        m_error = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        m_error_detail = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <span class="keywordflow">if</span> ((flag &amp; AiliaSpeech.AILIA_SPEECH_FLAG_LIVE) != 0){</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;            live_mode = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        }<span class="keywordflow">else</span>{</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;            live_mode = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        }</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    }</div>
+<div class="ttc" id="aclassailiaSpeech_1_1AiliaSpeechModel_html_a7423ac9567d7dadce3385c8a7a421d44"><div class="ttname"><a href="classailiaSpeech_1_1AiliaSpeechModel.html#a7423ac9567d7dadce3385c8a7a421d44">ailiaSpeech.AiliaSpeechModel.IntermediateCallback</a></div><div class="ttdeci">static int IntermediateCallback(IntPtr handle, IntPtr text)</div><div class="ttdef"><b>Definition:</b> AiliaSpeechModel.cs:639</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -874,18 +931,18 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はtrue、失敗した場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;                                                                                          {</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        <span class="keywordflow">if</span> (net == <span class="keyword">null</span>){</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        }</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        <span class="keywordtype">int</span> status;</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        status = AiliaSpeech.ailiaSpeechOpenDiarizationFile(net, segmentation_path, embedding_path, type);</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechOpenDializationFile&quot;</span>);</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        }</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                                                                                          {</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;        <span class="keywordflow">if</span> (net == <span class="keyword">null</span>){</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        }</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        <span class="keywordtype">int</span> status;</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        status = AiliaSpeech.ailiaSpeechOpenDiarizationFile(net, segmentation_path, embedding_path, type);</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechOpenDializationFile&quot;</span>);</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        }</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -932,17 +989,17 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はtrue、失敗した場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                                                                           {</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <span class="keywordflow">if</span> (net == <span class="keyword">null</span>){</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        }</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechOpenDictionaryFile(net, dictionary_path, dictionary_type);</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechOpenDictionaryFile&quot;</span>);</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        }</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                                                                           {</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        <span class="keywordflow">if</span> (net == <span class="keyword">null</span>){</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        }</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechOpenDictionaryFile(net, dictionary_path, dictionary_type);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechOpenDictionaryFile&quot;</span>);</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        }</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1017,27 +1074,27 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はtrue、失敗した場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;                                                                                                                                          {</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        <span class="keywordflow">if</span> (net == <span class="keyword">null</span>){</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        }</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        <span class="keywordtype">int</span> status;</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        <span class="keywordflow">if</span> (prefix == <span class="keyword">null</span>){</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;            status = AiliaSpeech.ailiaSpeechOpenPostProcessFile(net, encoder_path, decoder_path, source_path, target_path, IntPtr.Zero, type);</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        }<span class="keywordflow">else</span>{</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;            <span class="keywordtype">byte</span>[] text = System.Text.Encoding.UTF8.GetBytes(prefix+<span class="stringliteral">&quot;\u0000&quot;</span>);</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;            GCHandle handle = GCHandle.Alloc(text, GCHandleType.Pinned);</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;            IntPtr prefix_ptr = handle.AddrOfPinnedObject();</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;            status = AiliaSpeech.ailiaSpeechOpenPostProcessFile(net, encoder_path, decoder_path, source_path, target_path, prefix_ptr, type);</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;            handle.Free();</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        }</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechOpenPostProcessFile&quot;</span>);</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        }</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        post_process_mode = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                                                                                                                                          {</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        <span class="keywordflow">if</span> (net == <span class="keyword">null</span>){</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;        }</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        <span class="keywordtype">int</span> status;</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;        <span class="keywordflow">if</span> (prefix == <span class="keyword">null</span>){</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;            status = AiliaSpeech.ailiaSpeechOpenPostProcessFile(net, encoder_path, decoder_path, source_path, target_path, IntPtr.Zero, type);</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;        }<span class="keywordflow">else</span>{</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;            <span class="keywordtype">byte</span>[] text = System.Text.Encoding.UTF8.GetBytes(prefix+<span class="stringliteral">&quot;\u0000&quot;</span>);</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;            GCHandle handle = GCHandle.Alloc(text, GCHandleType.Pinned);</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;            IntPtr prefix_ptr = handle.AddrOfPinnedObject();</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;            status = AiliaSpeech.ailiaSpeechOpenPostProcessFile(net, encoder_path, decoder_path, source_path, target_path, prefix_ptr, type);</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            handle.Free();</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        }</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechOpenPostProcessFile&quot;</span>);</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        }</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        post_process_mode = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1084,22 +1141,22 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はtrue、失敗した場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;                                                      {</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordflow">if</span> (net == <span class="keyword">null</span>){</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        }</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechOpenVadFile(net, vad_path, vad_type);</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechOpenVadFile&quot;</span>);</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        }</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        status = AiliaSpeech.ailiaSpeechSetSilentThreshold(net, THRESHOLD_VAD, SPEECH_SEC, NO_SPEECH_SEC);</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechSetSilentThreshold&quot;</span>);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        }</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;                                                      {</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        <span class="keywordflow">if</span> (net == <span class="keyword">null</span>){</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        }</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechOpenVadFile(net, vad_path, vad_type);</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechOpenVadFile&quot;</span>);</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        }</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        status = AiliaSpeech.ailiaSpeechSetSilentThreshold(net, THRESHOLD_VAD, SPEECH_SEC, NO_SPEECH_SEC);</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechSetSilentThreshold&quot;</span>);</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        }</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1128,17 +1185,17 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
 
 <p>Speech2Textのステートを初期化します。 </p>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はtrue、失敗した場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;                                      {</div>
-<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechResetTranscribeState(net);</div>
-<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;        lock (m_lock_async)</div>
-<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;        {</div>
-<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;            m_complete = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;        }</div>
-<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;        <span class="keywordflow">if</span> (status == 0){</div>
-<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160;        }</div>
-<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00999"></a><span class="lineno">  999</span>&#160;                                      {</div>
+<div class="line"><a name="l01000"></a><span class="lineno"> 1000</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechResetTranscribeState(net);</div>
+<div class="line"><a name="l01001"></a><span class="lineno"> 1001</span>&#160;        lock (m_lock_async)</div>
+<div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;        {</div>
+<div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;            m_complete = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;        }</div>
+<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160;        <span class="keywordflow">if</span> (status == 0){</div>
+<div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160;        }</div>
+<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l01009"></a><span class="lineno"> 1009</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1185,17 +1242,17 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はtrue、失敗した場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;                                                                     {</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;        <span class="keywordtype">byte</span>[] text = System.Text.Encoding.UTF8.GetBytes(constraint+<span class="stringliteral">&quot;\u0000&quot;</span>);</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        GCHandle handle = GCHandle.Alloc(text, GCHandleType.Pinned);</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;        IntPtr input = handle.AddrOfPinnedObject();</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechSetConstraint(net, input, constraint_type);</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;        handle.Free();</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;        }</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;                                                                     {</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;        <span class="keywordtype">byte</span>[] text = System.Text.Encoding.UTF8.GetBytes(constraint+<span class="stringliteral">&quot;\u0000&quot;</span>);</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;        GCHandle handle = GCHandle.Alloc(text, GCHandleType.Pinned);</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;        IntPtr input = handle.AddrOfPinnedObject();</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechSetConstraint(net, input, constraint_type);</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;        handle.Free();</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;        }</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1231,17 +1288,55 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はtrue、失敗した場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;                                        {</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        <span class="keywordtype">byte</span>[] text = System.Text.Encoding.UTF8.GetBytes(prompt+<span class="stringliteral">&quot;\u0000&quot;</span>);</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        GCHandle handle = GCHandle.Alloc(text, GCHandleType.Pinned);</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        IntPtr input = handle.AddrOfPinnedObject();</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechSetPrompt(net, input);</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        handle.Free();</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;        }</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;                                        {</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;        <span class="keywordtype">byte</span>[] text = System.Text.Encoding.UTF8.GetBytes(prompt+<span class="stringliteral">&quot;\u0000&quot;</span>);</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;        GCHandle handle = GCHandle.Alloc(text, GCHandleType.Pinned);</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;        IntPtr input = handle.AddrOfPinnedObject();</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechSetPrompt(net, input);</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;        handle.Free();</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;        }</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac69537deb6e258d022d5032113339157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac69537deb6e258d022d5032113339157">&#9670;&nbsp;</a></span>SetQNNGraphSwitching()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ailiaSpeech.AiliaSpeechModel.SetQNNGraphSwitching </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>QNNのグラフスイッチングを設定します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td>trueで有効（既定値はfalse）</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Openの前に呼び出してください。次回のOpenで、モデルを開く前に適用します。 .qnnモデルのグラフを必要に応じて切り替え、HTPの常駐メモリを削減します。 切り替えにより推論時間が増える場合があります。ONNXモデルには影響しません。 </p>
+<div class="fragment"><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                                                 {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        qnn_graph_switching = enable;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1295,14 +1390,14 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はtrue、失敗した場合はfalseを返す。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;                                                                                                 {</div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechSetSilentThreshold(net, silent_threshold, speech_sec, no_speech_sec);</div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechSetSilentThreshold&quot;</span>);</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;        }</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;                                                                                                 {</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;        <span class="keywordtype">int</span> status = AiliaSpeech.ailiaSpeechSetSilentThreshold(net, silent_threshold, speech_sec, no_speech_sec);</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;        Check(status, <span class="stringliteral">&quot;ailiaSpeechSetSilentThreshold&quot;</span>);</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;        <span class="keywordflow">if</span> (status != 0){</div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;        }</div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1363,21 +1458,21 @@ ailiaSpeech.AiliaSpeechModel 連携図</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合はtrue、失敗した場合はfalseを返す。 @detail 音声認識を実行します。 ノンブロッキングAPIです。 実行が完了するとIsTranscribed APIがTrueを返します。 実行結果はGetResults APIで取得可能です。 実行の途中結果はGetIntermediateText APIで取得可能です。 </dd></dl>
-<div class="fragment"><div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;    {</div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;        <span class="keywordflow">if</span> (waveData.Length == 0){</div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;        }</div>
-<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;        lock (m_lock_async)</div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;        {</div>
-<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;            threadChannels = channels;</div>
-<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;            threadFrequency = frequency;</div>
-<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;            threadWaveQueue.Add(waveData);</div>
-<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;            threadComplete = tail;</div>
-<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;            m_processing = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;            m_auto_event.Set();</div>
-<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;        }</div>
-<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;    }</div>
+<div class="fragment"><div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;    {</div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;        <span class="keywordflow">if</span> (waveData.Length == 0){</div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;        }</div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;        lock (m_lock_async)</div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;        {</div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;            threadChannels = channels;</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;            threadFrequency = frequency;</div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;            threadWaveQueue.Add(waveData);</div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;            threadComplete = tail;</div>
+<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;            m_processing = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;            m_auto_event.Set();</div>
+<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;        }</div>
+<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;    }</div>
 </div><!-- fragment -->
 </div>
 </div>

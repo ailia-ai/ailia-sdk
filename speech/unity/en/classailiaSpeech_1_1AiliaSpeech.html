@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_speech
-   &#160;<span id="projectnumber">1.6.0.0</span>
+   &#160;<span id="projectnumber">1.6.1.0</span>
    </div>
   </td>
  </tr>
@@ -217,6 +217,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aea613813e4a456a3ce7e78a117371a29"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeech.html#aea613813e4a456a3ce7e78a117371a29">ailiaSpeechBuffered</a> (IntPtr net, ref uint buffered)</td></tr>
 <tr class="memdesc:aea613813e4a456a3ce7e78a117371a29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is processing data exist.  <a href="classailiaSpeech_1_1AiliaSpeech.html#aea613813e4a456a3ce7e78a117371a29">More...</a><br /></td></tr>
 <tr class="separator:aea613813e4a456a3ce7e78a117371a29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8971948e9f9f9a54398abb27e5e49346"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeech.html#a8971948e9f9f9a54398abb27e5e49346">ailiaSpeechVadBuffered</a> (IntPtr net, ref uint buffered)</td></tr>
+<tr class="memdesc:a8971948e9f9f9a54398abb27e5e49346"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the end of an utterance detected by VAD.  <a href="classailiaSpeech_1_1AiliaSpeech.html#a8971948e9f9f9a54398abb27e5e49346">More...</a><br /></td></tr>
+<tr class="separator:a8971948e9f9f9a54398abb27e5e49346"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0c599a836b67b6b045915b5b2a7252a"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeech.html#ab0c599a836b67b6b045915b5b2a7252a">ailiaSpeechComplete</a> (IntPtr net, ref uint complete)</td></tr>
 <tr class="memdesc:ab0c599a836b67b6b045915b5b2a7252a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is processed all data.  <a href="classailiaSpeech_1_1AiliaSpeech.html#ab0c599a836b67b6b045915b5b2a7252a">More...</a><br /></td></tr>
 <tr class="separator:ab0c599a836b67b6b045915b5b2a7252a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -253,6 +256,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a50b6b60c532b2836615760e5714d4aba"><td class="memItemLeft" align="right" valign="top">static IntPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeech.html#a50b6b60c532b2836615760e5714d4aba">ailiaSpeechGetErrorDetail</a> (IntPtr net)</td></tr>
 <tr class="memdesc:a50b6b60c532b2836615760e5714d4aba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the details of errors.  <a href="classailiaSpeech_1_1AiliaSpeech.html#a50b6b60c532b2836615760e5714d4aba">More...</a><br /></td></tr>
 <tr class="separator:a50b6b60c532b2836615760e5714d4aba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0ca1291bca925928594d608c2726e4f"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeech.html#aa0ca1291bca925928594d608c2726e4f">ailiaSpeechGetQNNModelName</a> (ref IntPtr model_name)</td></tr>
+<tr class="memdesc:aa0ca1291bca925928594d608c2726e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the QNN model name for the current device.  <a href="classailiaSpeech_1_1AiliaSpeech.html#aa0ca1291bca925928594d608c2726e4f">More...</a><br /></td></tr>
+<tr class="separator:aa0ca1291bca925928594d608c2726e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c681a37a840d61ca9874ef94a2eb5bc"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeech.html#a6c681a37a840d61ca9874ef94a2eb5bc">ailiaSpeechSetQNNGraphSwitching</a> (IntPtr net, int enable)</td></tr>
+<tr class="memdesc:a6c681a37a840d61ca9874ef94a2eb5bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures QNN graph switching.  <a href="classailiaSpeech_1_1AiliaSpeech.html#a6c681a37a840d61ca9874ef94a2eb5bc">More...</a><br /></td></tr>
+<tr class="separator:a6c681a37a840d61ca9874ef94a2eb5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5877ed5140dfe65035337a6bf81e154f"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaSpeech_1_1AiliaSpeech.html#a5877ed5140dfe65035337a6bf81e154f">ailiaSpeechSetSilentThreshold</a> (IntPtr net, float silent_threshold, float speech_sec, float no_speech_sec)</td></tr>
 <tr class="memdesc:a5877ed5140dfe65035337a6bf81e154f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set silent threshold.  <a href="classailiaSpeech_1_1AiliaSpeech.html#a5877ed5140dfe65035337a6bf81e154f">More...</a><br /></td></tr>
 <tr class="separator:a5877ed5140dfe65035337a6bf81e154f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -3758,6 +3767,34 @@ Static Public Attributes</h2></td></tr>
 </div><!-- fragment --> 
 </div>
 </div>
+<a id="aa0ca1291bca925928594d608c2726e4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0ca1291bca925928594d608c2726e4f">&#9670;&nbsp;</a></span>ailiaSpeechGetQNNModelName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaSpeech.AiliaSpeech.ailiaSpeechGetQNNModelName </td>
+          <td>(</td>
+          <td class="paramtype">ref IntPtr&#160;</td>
+          <td class="paramname"><em>model_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the QNN model name for the current device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model_name</td><td>Storage for the QNN model name (for example, "sm8475"). The library owns the returned string; do not free it. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
+<p>The returned name matches the SoC name in the .qnn package filenames. An unsupported SoC returns AILIA_STATUS_OTHER_ERROR. A missing QNN plug-in returns AILIA_STATUS_UNIMPLEMENTED. </p>
+
+</div>
+</div>
 <a id="aeb7ad72ee671f4dd1a86884892022239"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb7ad72ee671f4dd1a86884892022239">&#9670;&nbsp;</a></span>ailiaSpeechGetText()</h2>
 
@@ -4397,6 +4434,45 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a6c681a37a840d61ca9874ef94a2eb5bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c681a37a840d61ca9874ef94a2eb5bc">&#9670;&nbsp;</a></span>ailiaSpeechSetQNNGraphSwitching()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaSpeech.AiliaSpeech.ailiaSpeechSetQNNGraphSwitching </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>net</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures QNN graph switching. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">net</td><td>A network instance pointer </td></tr>
+    <tr><td class="paramname">enable</td><td>0: disabled (default), 1: enabled </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>AILIA_STATUS_SUCCESS on success, AILIA_STATUS_INVALID_ARGUMENT for invalid arguments, or AILIA_STATUS_INVALID_STATE after opening a model.</dd></dl>
+<p>Call after ailiaSpeechCreate and before ailiaSpeechOpenModelFile. Graphs in a .qnn model are switched on demand to reduce resident HTP memory. Switching may increase inference time. ONNX models are unaffected. </p>
+
+</div>
+</div>
 <a id="a5877ed5140dfe65035337a6bf81e154f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5877ed5140dfe65035337a6bf81e154f">&#9670;&nbsp;</a></span>ailiaSpeechSetSilentThreshold()</h2>
 
@@ -4527,6 +4603,45 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a8971948e9f9f9a54398abb27e5e49346"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8971948e9f9f9a54398abb27e5e49346">&#9670;&nbsp;</a></span>ailiaSpeechVadBuffered()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaSpeech.AiliaSpeech.ailiaSpeechVadBuffered </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>net</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ref uint&#160;</td>
+          <td class="paramname"><em>buffered</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Is the end of an utterance detected by VAD. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">net</td><td>A network instance pointer </td></tr>
+    <tr><td class="paramname">buffered</td><td>Is detected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns AILIA_STATUS_SUCCESS , or an error code otherwise.</dd></dl>
+<p>Unlike ailiaSpeechBuffered, this function does not return 1 just because 30 seconds worth of data has been accumulated. It returns 1 only when speech of speech_sec or longer is followed by silence of no_speech_sec or longer. Use this function to recognize audio per utterance, such as waiting for voice commands. Silence before the utterance and noise shorter than speech_sec are discarded, so speech after a long silence is recognized from its beginning. It also returns 1 without a boundary after ailiaSpeechFinalizeInputData is called. While speech continues, data is accumulated until a boundary is detected. Since ailiaSpeechTranscribe processes at most 30 seconds per call, speech longer than 30 seconds is processed by calling ailiaSpeechTranscribe repeatedly while this function returns 1. The detection threshold must be set in advance using ailiaSpeechSetSilentThreshold. When 1 is returned, call ailiaSpeechTranscribe. </p>
 
 </div>
 </div>
