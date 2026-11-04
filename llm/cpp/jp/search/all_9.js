@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['setup_71',['setup',['../md_md_c_setup.html',1,'']]],
-  ['setup_2emd_72',['setup.md',['../setup_8md.html',1,'']]]
+  ['role_74',['role',['../struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff',1,'_AILIALLMChatMessage::role()'],['../struct__AILIALLMMultimodalChatMessage.html#a9ee470dd9cf00f75e90c18371688b1be',1,'_AILIALLMMultimodalChatMessage::role()']]]
 ];

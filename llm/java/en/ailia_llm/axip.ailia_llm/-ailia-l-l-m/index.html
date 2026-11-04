@@ -45,7 +45,7 @@
                     </a>
             </div>
             <div class="library-version">
-1.5.1.0            </div>
+1.5.2.0            </div>
         </div>
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="ailia_llm/main">JVM</button>
@@ -361,6 +361,21 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_llm/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-prompt-json.html"><span class="token function">setPromptJson</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">messagesJson<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets structured history; required with tools. User content arrays accept text and image or audio parts with file_path or base64 data. Load a matching projector for media. Submit image and audio in separate prompts.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1415228534%2FFunctions%2F2133132528" anchor-label="setQNNGraphSwitching" id="-1415228534%2FFunctions%2F2133132528" data-filterable-set="ailia_llm/main"></a>
+          <div class="table-row" data-filterable-current="ailia_llm/main" data-filterable-set="ailia_llm/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-q-n-n-graph-switching.html"><span>set</span><wbr></wbr><span>QNNGraph</span><wbr></wbr><span><span>Switching</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1415228534%2FFunctions%2F2133132528"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_llm/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-q-n-n-graph-switching.html"><span class="token function">setQNNGraphSwitching</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enable<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures QNN graph switching before <a href="open-model-file.html">openModelFile</a>; disabled by default. Applies to LLM, MTP, vision and audio graphs. Reduces context reloads and memory, but SDK lazy loading can increase first-execution or generation latency. Disabling succeeds even when QNN is unavailable. Enabling in that environment throws with AILIA_LLM_STATUS_UNIMPLEMENTED.</p></div></div></div>
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setup_2emd_84',['setup.md',['../setup_8md.html',1,'']]]
+  ['qnn_2emd_88',['qnn.md',['../qnn_8md.html',1,'']]]
 ];
