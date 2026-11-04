@@ -92,7 +92,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <ul>
       <li>Android (Snapdragon 8+ Gen 1 / sm8475, Snapdragon 7s Gen 3 / sm7635)</li>
       <li>Windows on Arm (Snapdragon X Plus / sc8380xp)</li>
-      <li>QCS6490 (qcs6490)</li>
+      <li>QCS6490 (Windows, Hexagon v68; ailia Speech 1.6.0 or later)</li>
+      <li>QCS6490 (Yocto Linux, Hexagon v68; ailia Speech 1.6.1 or later)</li>
     </ul>
     <p>A separate QNN Model is provided for each SoC. Use the <code>.qnn</code> that matches the SoC of your device. Models built for a different SoC cannot be reused.</p>
     <div class="note">
@@ -187,6 +188,7 @@ speech.openModel(qnnPath, qnnPath,
     <h2>Evaluation App</h2>
     <p>The evaluation APK for Android is <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v261029">ailia-models-kotlin-qnn.apk</a>. It runs on devices with Snapdragon 8+ Gen 1 (sm8475) or Snapdragon 7s Gen 3 (sm7635).</p>
     <p>The evaluation app for Windows on Arm is <a href="https://github.com/ailia-ai/ailia-models-flutter/releases/tag/v261026">ailia-models-flutter-qnn-v261026.zip</a>. It runs on Snapdragon X Plus or QCS6490.</p>
+    <p>For how to run the evaluation app on Yocto Linux, see the <a href="https://docs.ailia.ai/speech/cpp/en/qnn.html">ailia Speech C++ QNN documentation</a>. You can apply for the evaluation version <a href="https://axip-console.appspot.com/trial/terms/AILIA-SPEECH?lang=en">here</a>.</p>
 
     <h2>Limitations</h2>
     <ul>

@@ -113,6 +113,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>Android (Hexagon v69 or later, e.g. Snapdragon 8 Gen 1 / 8+ Gen 1, 7s Gen 3, 8 Gen 2 or later)</li>
       <li>Windows on Arm (Snapdragon X Plus / sc8380xp, Hexagon v73)</li>
       <li>QCS6490 (Windows, Hexagon v68, E2B only; ailia LLM 1.5.0.1 or later)</li>
+      <li>QCS6490 (Yocto Linux, Hexagon v68, E2B only; ailia LLM 1.5.2.0 or later)</li>
     </ul>
     <p>On Windows on Arm, use the QNN-enabled ailia LLM ARM64 build and a <code>.qnn</code> file that matches the SoC of the device. The E2B text, image, and audio packages have been verified on a Snapdragon X Plus device and a QCS6490 device (Windows 11 IoT Enterprise). Models built for a different SoC cannot be reused.</p>
     <div class="note">
@@ -186,10 +187,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     implementation 'com.qualcomm.qti:qnn-runtime:2.47.0'
 }</code></pre>
     <p>A path inside assets cannot be passed for a <code>.qnn</code> file. Copy or download it to the app's private storage on first launch, and pass that real file path to the APIs below.</p>
-
-    <h3>Evaluation app</h3>
-    <p>The evaluation APK for Android is <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927">ailia-models-kotlin-qnn.apk</a>.</p>
-    <p>The evaluation app for Windows on Arm is <a href="https://github.com/ailia-ai/ailia-models-flutter/releases/tag/v261008">ailia-models-flutter-qnn-v261008.zip</a>. It runs on Snapdragon X Plus and QCS6490.</p>
 
     <h2>Code Samples: Getting the SoC Name and Opening the Model</h2>
     <p>First get the SoC name (e.g. <code>sm7635</code>), then choose a text model compiled for the same SoC, such as <code>gemma4-e2b-&lt;soc&gt;.qnn</code>. The returned string is the SoC name, not the whole file name. <code>n_ctx=0</code> selects the context length embedded in the package. Do not reuse a file built for a different SoC on an SoC for which no model is published. For image and audio input, open the text model first, then add the <code>-mmproj.qnn</code> of the same model and SoC with the regular projector API.</p>
@@ -295,6 +292,11 @@ if (!llm.Open(modelPath, 0)) throw new Exception(llm.GetErrorDetail());
 
     <h2>Faster Decode with MTP</h2>
     <p>Decode processes one token at a time, so on the NPU it is dominated by weight loading and can be equal to or slower than the CPU. ailia LLM 1.5.1 and later support MTP (Multi-Token Prediction), in which a small assistant (draft model) predicts the next few tokens and the main model verifies them together. Use an MTP-capable main model (<code>-mtp.qnn</code>) and an assistant (<code>-mtp-assistant.qnn</code>), and call <code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code> after opening the main model. See the <a href="mtp.html">ailia LLM MTP Guide</a> and the <a href="mtp-bench.html">ailia LLM MTP Benchmark</a> for details.</p>
+
+    <h2>Evaluation App</h2>
+    <p>The evaluation APK for Android is <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927">ailia-models-kotlin-qnn.apk</a>.</p>
+    <p>The evaluation app for Windows on Arm is <a href="https://github.com/ailia-ai/ailia-models-flutter/releases/tag/v261008">ailia-models-flutter-qnn-v261008.zip</a>. It runs on Snapdragon X Plus and QCS6490.</p>
+    <p>For how to run the evaluation app on Yocto Linux, see the <a href="https://docs.ailia.ai/llm/cpp/en/qnn.html">ailia LLM C++ QNN documentation</a>. You can apply for the evaluation version <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM?lang=en">here</a>.</p>
 
     <h2>Limitations</h2>
     <ul>
