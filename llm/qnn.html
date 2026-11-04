@@ -187,10 +187,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }</code></pre>
     <p><code>.qnn</code> は assets 内のパスを直接指定できません。初回起動時にアプリのプライベートストレージへコピーするかダウンロードし、その実ファイルパスを以下の API に渡してください。</p>
 
-    <h3>評価版アプリ</h3>
-    <p>Android 向けの評価版 APK は <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927">ailia-models-kotlin-qnn.apk</a> です。</p>
-    <p>Windows on Arm 向けの評価版アプリは <a href="https://github.com/ailia-ai/ailia-models-flutter/releases/tag/v261008">ailia-models-flutter-qnn-v261008.zip</a> です。Snapdragon X Plus と QCS6490 で動作します。</p>
-
     <h2>コードサンプル：SoC 名の取得とモデルのオープン</h2>
     <p>まず SoC 名（例: <code>sm7635</code>）を取得し、同じ SoC 用にコンパイルした <code>gemma4-e2b-&lt;soc&gt;.qnn</code> などのテキストモデルを選びます。返る文字列はファイル名全体ではなく SoC 名です。<code>n_ctx=0</code> はパッケージに埋め込まれたコンテキスト長を選択します。モデル未公開の SoC に別 SoC 用のファイルを流用しないでください。画像・音声入力には、テキストモデルを開いた後、同じモデル・SoC の <code>-mmproj.qnn</code> を通常のプロジェクタ API で追加します。</p>
     <p>以下は Android のテキストモデル例です。モデルファイルは前述のプライベートストレージ内にあるものとします。Windows on Arm の QNN 対応ビルドでも同じ API を使用し、ファイルパスを Windows の配置先に置き換えます。QNN プラグインがない場合は <code>UNIMPLEMENTED</code>、未対応 SoC の場合は <code>OTHER_ERROR</code> になります。</p>
@@ -295,6 +291,11 @@ if (!llm.Open(modelPath, 0)) throw new Exception(llm.GetErrorDetail());
 
     <h2>MTP による Decode の高速化</h2>
     <p>Decode は 1 トークンずつ処理するため、NPU では重みの読み出しが支配的になり、CPU と同等か下回る場合があります。ailia LLM 1.5.1 以降では、小さな Assistant（ドラフトモデル）で次の数トークンを予想し、本体でまとめて検証する MTP（Multi-Token Prediction）を使用できます。MTP 対応の本体（<code>-mtp.qnn</code>）と Assistant（<code>-mtp-assistant.qnn</code>）を使用し、本体を開いた後に <code>ailiaLLMOpenMtpModelFileA</code> / <code>W</code> を呼び出すだけで有効になります。詳しくは <a href="mtp.html">ailia LLM MTP ガイド</a> と <a href="mtp-bench.html">ailia LLM MTP ベンチマーク</a> を参照してください。</p>
+
+    <h2>評価版アプリ</h2>
+    <p>Android 向けの評価版 APK は <a href="https://github.com/ailia-ai/ailia-models-kotlin/releases/tag/v260927">ailia-models-kotlin-qnn.apk</a> です。</p>
+    <p>Windows on Arm 向けの評価版アプリは <a href="https://github.com/ailia-ai/ailia-models-flutter/releases/tag/v261008">ailia-models-flutter-qnn-v261008.zip</a> です。Snapdragon X Plus と QCS6490 で動作します。</p>
+    <p>Yocto Linux 向けの評価版アプリの実行方法は <a href="https://docs.ailia.ai/llm/cpp/jp/qnn.html">ailia LLM C++ QNN ドキュメント</a> をご参照ください。評価版のお申し込みは <a href="https://axip-console.appspot.com/trial/terms/AILIA-LLM">こちら</a> から行えます。</p>
 
     <h2>制約</h2>
     <ul>
