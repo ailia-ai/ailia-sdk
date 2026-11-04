@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ailia_speech: QNN / Yocto Linuxでの実行</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">ailia_speech
+   &#160;<span id="projectnumber">1.6.1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'検索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="PageDoc"><div class="header">
+  <div class="headertitle">
+<div class="title">QNN / Yocto Linuxでの実行 </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h1><a class="anchor" id="autotoc_md22"></a>
+動作確認済み環境</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">項目   </th><th class="markdownTableHeadNone">環境    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">ボード / SoC   </td><td class="markdownTableBodyNone">Advantech AOM-2721 / Qualcomm QCS6490    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Yocto   </td><td class="markdownTableBodyNone">4.0.22（Kirkstone）ベース    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">OS   </td><td class="markdownTableBodyNone">QCOM Robotics Reference Distro with ROS 1.3-ver.1.1    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">OS ID   </td><td class="markdownTableBodyNone">qcom-robotics-ros2-humble    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Linuxカーネル   </td><td class="markdownTableBodyNone">6.6.52-yl01301-ga97804e47e26    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">CPUアーキテクチャ   </td><td class="markdownTableBodyNone">aarch64    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">glibc   </td><td class="markdownTableBodyNone">2.35    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Python   </td><td class="markdownTableBodyNone">3.10.15    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">QNNランタイム   </td><td class="markdownTableBodyNone">QAIRT 2.47.0.260601 / Hexagon v68   </td></tr>
+</table>
+<p>Linux ARM64版は、glibc 2.35以下・GLIBCXX_3.4.29以下を要求する構成でビルドしています。検証環境のシステムC++ランタイムで実行できます。</p>
+<p>以下では、配布パッケージに含まれるLinux ARM64サンプルを使用します。 サンプルはビルド済みのため、実機へのコンパイラ導入やサンプルのビルドは不要です。 BSPにはCDSPファームウェア、FastRPCのlibcdsprpc.so、CDSPデバイスへのアクセス権が必要です。</p>
+<h1><a class="anchor" id="autotoc_md23"></a>
+1. 必要なファイルを取得する（ホストPC）</h1>
+<p>ailia Speech SDKの配布パッケージを展開します。以下のファイルも取得してください。</p>
+<ul>
+<li><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-qcs6490-int16.qnn">Whisper Large-v3-Turbo / QCS6490</a></li>
+<li><a href="https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-qcs6490-int16.qnn">Whisper Medium / QCS6490</a></li>
+<li><a href="https://apigwx-aws.qualcomm.com/qsc/public/v1/api/download/software/sdks/Qualcomm_AI_Runtime_Community/All/2.47.0.260601/v2.47.0.260601.zip">Qualcomm QAIRT SDK 2.47.0.260601</a></li>
+</ul>
+<p>モデルはTurboまたはMediumのどちらかを選択できます。以下ではTurboを使用します。 QAIRT SDKを展開し、SPEECH_PACKAGEとQNN_SDK_PATHを各パッケージの展開先に設定します。</p>
+<div class="fragment"><div class="line">export SPEECH_PACKAGE=/path/to/ailia_speech_package</div>
+<div class="line">export QNN_SDK_PATH=/path/to/qairt/2.47.0.260601</div>
+<div class="line">export DEPLOY=&quot;$PWD/qnn-yocto&quot;</div>
+<div class="line">mkdir -p &quot;$DEPLOY&quot;</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
+2. サンプルと依存ライブラリをコピーする（ホストPC）</h1>
+<p>パッケージの cpp/prebuilt/linux/arm64-v8a/ には、次のファイルが含まれています。 ailia SDK、ailia Audio、ailia Tokenizerのネイティブライブラリを別途取得する必要はありません。</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">ファイル   </th><th class="markdownTableHeadNone">用途    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">ailia_speech_sample   </td><td class="markdownTableBodyNone">C++サンプル実行ファイル    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">libailia_speech.so   </td><td class="markdownTableBodyNone">音声認識ライブラリ    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">libailia_speech_qnn.so   </td><td class="markdownTableBodyNone">QNNプラグイン    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">libailia.so   </td><td class="markdownTableBodyNone">ailia SDK    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">libailia_audio.so   </td><td class="markdownTableBodyNone">音声前処理    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">libailia_tokenizer.so   </td><td class="markdownTableBodyNone">トークナイザー   </td></tr>
+</table>
+<p>これらを作業フォルダへまとめてコピーします。</p>
+<div class="fragment"><div class="line">cp -R &quot;$SPEECH_PACKAGE/cpp/prebuilt/linux/arm64-v8a/.&quot; &quot;$DEPLOY/&quot;</div>
+<div class="line">cp &quot;$SPEECH_PACKAGE/cpp/demo.wav&quot; &quot;$DEPLOY/&quot;</div>
+<div class="line">curl -L --fail -o &quot;$DEPLOY/whisper-large-v3-turbo-qcs6490-int16.qnn&quot; \</div>
+<div class="line">  https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-large-v3-turbo-qcs6490-int16.qnn</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md25"></a>
+3. QNNライブラリをコピーする（ホストPC）</h1>
+<p>QAIRT SDKからYocto用の aarch64-oe-linux-gcc11.2 と、Hexagon v68のskelをコピーします。 Android用やWindows用のバイナリは使用しません。 FastRPCライブラリとCDSPファームウェアは実機BSPのものを使用します。</p>
+<div class="fragment"><div class="line">cp &quot;$QNN_SDK_PATH/lib/aarch64-oe-linux-gcc11.2/libQnnHtp.so&quot; &quot;$DEPLOY/&quot;</div>
+<div class="line">cp &quot;$QNN_SDK_PATH/lib/aarch64-oe-linux-gcc11.2/libQnnSystem.so&quot; &quot;$DEPLOY/&quot;</div>
+<div class="line">cp &quot;$QNN_SDK_PATH/lib/aarch64-oe-linux-gcc11.2/libQnnHtpV68Stub.so&quot; &quot;$DEPLOY/&quot;</div>
+<div class="line">cp &quot;$QNN_SDK_PATH/lib/hexagon-v68/unsigned/libQnnHtpV68Skel.so&quot; &quot;$DEPLOY/&quot;</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md26"></a>
+4. 実機へ転送する（ホストPC）</h1>
+<p>接続先IPとユーザー名を実機に合わせて変更してください。評価ライセンスが必要な場合は、 実機の ~/.shalo/ailia.lic へ有効なライセンスを配置します（<a href="setup.html">セットアップ</a>）。</p>
+<div class="fragment"><div class="line">scp -r &quot;$DEPLOY&quot; root@169.254.239.42:/home/root/</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md27"></a>
+5. C++サンプルを実行する（実機）</h1>
+<p>以降は実機上で実行します。サンプルは自身のフォルダからailiaのライブラリを読み込み、 QNNプラグインは同じフォルダのQNNライブラリとv68 skelを読み込むため、LD_LIBRARY_PATHの設定は不要です。 モデルのパスを第2引数へ渡します。cpuは音声前処理等の補助処理に使うailia環境の指定です。 QNNモデルの音声認識はHTP / NPUで実行されます。VAD・話者識別・ポストプロセスは無効です。</p>
+<div class="fragment"><div class="line">cd /home/root/qnn-yocto</div>
+<div class="line">chmod +x ./ailia_speech_sample</div>
+<div class="line">./ailia_speech_sample demo.wav whisper-large-v3-turbo-qcs6490-int16.qnn \</div>
+<div class="line">  auto transcribe vad_disable diarization_disable none cpu</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md28"></a>
+6. Pythonから実行する（実機）</h1>
+<h2><a class="anchor" id="autotoc_md29"></a>
+Pythonパッケージをインストールする</h2>
+<p>Python 3とpip3を使用します。BSPにpip3がない場合は、次のコマンドで用意します。</p>
+<div class="fragment"><div class="line">curl -L --fail -o get-pip.py https://bootstrap.pypa.io/get-pip.py</div>
+<div class="line">python3 get-pip.py</div>
+</div><!-- fragment --><p>SDKパッケージからインストールする場合は、SDKを実機上にも展開して次を実行します。 bootstrap.pyで同梱ライブラリをPythonパッケージへコピーした後、pip3 install . でインストールします。</p>
+<div class="fragment"><div class="line">cd /path/to/ailia_speech_package/python</div>
+<div class="line">python3 bootstrap.py</div>
+<div class="line">pip3 install .</div>
+</div><!-- fragment --><p>公開版を使用する場合は、代わりに次を実行します。</p>
+<div class="fragment"><div class="line">pip3 install ailia_speech</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md30"></a>
+インストール先にQNNライブラリをコピーする</h2>
+<p>pip3 showで表示されるLocationがsite-packagesのパスです。 その下の ailia_speech/linux/arm64-v8a/ にlibailia_speech_qnn.soがインストールされます。 QNNライブラリとv68 skelをこのファイルの横へコピーします。</p>
+<div class="fragment"><div class="line">pip3 show ailia_speech</div>
+<div class="line">SITE_PACKAGES=$(pip3 show ailia_speech | sed -n &#39;s/^Location: //p&#39;)</div>
+<div class="line">SPEECH_NATIVE=&quot;$SITE_PACKAGES/ailia_speech/linux/arm64-v8a&quot;</div>
+<div class="line">test -f &quot;$SPEECH_NATIVE/libailia_speech_qnn.so&quot;</div>
+<div class="line">cd /home/root/qnn-yocto</div>
+<div class="line">cp libQnnHtp.so libQnnSystem.so libQnnHtpV68Stub.so libQnnHtpV68Skel.so &quot;$SPEECH_NATIVE/&quot;</div>
+</div><!-- fragment --><p>ライブラリを配置した後でPythonを起動します。GLIBCXX_3.4.29以上のシステムのC++ランタイムを使用するため、追加のLD_LIBRARY_PATH設定は不要です。</p>
+<h2><a class="anchor" id="autotoc_md31"></a>
+アプリケーションからローカルモデルを開く</h2>
+<p>open()は指定したローカルファイルを開きます。モデルを自動ダウンロードするinitialize_model()の代わりに使用します。 次のコードを実機の /home/root/qnn-yocto/transcribe_qnn.py に保存してください。 soundfileで音声をfloat32として読み込み、モデルの読み込みから認識結果の表示までを実行します。 サンプルで使用するsoundfileをインストールしてください。</p>
+<div class="fragment"><div class="line">pip3 install soundfile</div>
+</div><!-- fragment --><p> 読み込んだ音声はailia Speechが受け取る (channels, samples) の形に転置します。 get_qnn_model_name()で実機のモデル識別名を取得します。set_qnn_graph_switching(True)はopen()の前に呼び、HTPメモリ使用量を抑えます。推論時間が増える場合があります。 QNNはファイルを1つ指定します。TurboにはPythonのTurbo定数を既定値として使用します。</p>
+<div class="fragment"><div class="line">import argparse</div>
+<div class="line">import soundfile as sf</div>
+<div class="line">import ailia_speech</div>
+<div class="line"> </div>
+<div class="line">parser = argparse.ArgumentParser()</div>
+<div class="line">parser.add_argument(&quot;--model&quot;, required=True)</div>
+<div class="line">parser.add_argument(&quot;--input&quot;, required=True)</div>
+<div class="line">parser.add_argument(&quot;--model-type&quot;, type=int,</div>
+<div class="line">                    default=ailia_speech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_LARGE_V3_TURBO)</div>
+<div class="line">parser.add_argument(&quot;--language&quot;, default=None)</div>
+<div class="line">args = parser.parse_args()</div>
+<div class="line"> </div>
+<div class="line">waveform, sampling_rate = sf.read(args.input, dtype=&quot;float32&quot;, always_2d=True)</div>
+<div class="line">waveform = waveform.T</div>
+<div class="line"> </div>
+<div class="line">speech = ailia_speech.Whisper()</div>
+<div class="line">print(&quot;QNN model:&quot;, speech.get_qnn_model_name())</div>
+<div class="line">speech.set_qnn_graph_switching(True)</div>
+<div class="line">speech.open(</div>
+<div class="line">    args.model,</div>
+<div class="line">    model_type=args.model_type,</div>
+<div class="line">    vad_path=None,</div>
+<div class="line">    segmentation_path=None,</div>
+<div class="line">    embedding_path=None,</div>
+<div class="line">)</div>
+<div class="line">for segment in speech.transcribe(waveform, sampling_rate, lang=args.language):</div>
+<div class="line">    print(segment[&quot;text&quot;], flush=True)</div>
+</div><!-- fragment --><p>手順6でQNNライブラリを配置した後に実行します。言語は自動判定します。日本語へ固定する場合は &ndash;language ja を追加します。</p>
+<div class="fragment"><div class="line">cd /home/root/qnn-yocto</div>
+<div class="line">python3 transcribe_qnn.py \</div>
+<div class="line">  --model ./whisper-large-v3-turbo-qcs6490-int16.qnn --input ./demo.wav</div>
+</div><!-- fragment --><p>ONNXの場合はopen(encoder_path, decoder_path, model_type=...)で2つのファイルを指定します。</p>
+<p>VADを使用する場合はvad_path="silero_vad_v6_2.onnx"のようにローカルのONNXファイルを指定します。 話者分離を使用する場合はsegmentation_path="segmentation.onnx"とembedding_path="speaker-embedding.onnx"の両方を指定します。 これらのONNXモデルはQNNの音声認識モデルと併用できます。各パスの既定値はNoneで、指定しなければ読み込みを省略します。 vad_typeの既定値はSilero、diarization_typeの既定値はPyannoteです。VADを指定するとinitialize_model()と同じ無音判定の設定が適用されます。 FP16やVADのバージョンは指定するファイルで選択します。ONNXの外部重みファイルはONNXが参照する場所に配置してください。 Noneは既に読み込んだモデルを解除する指定ではありません。</p>
+<h1><a class="anchor" id="autotoc_md32"></a>
+Mediumモデルを使用する場合</h1>
+<p>手順2のTurboモデルの代わりに、Mediumモデルをダウンロードして実機へ転送します。</p>
+<div class="fragment"><div class="line">curl -L --fail -o &quot;$DEPLOY/whisper-medium-qcs6490-int16.qnn&quot; \</div>
+<div class="line">  https://storage.googleapis.com/ailia-models/whisper/qnn/v1.6.0/whisper-medium-qcs6490-int16.qnn</div>
+<div class="line">scp &quot;$DEPLOY/whisper-medium-qcs6490-int16.qnn&quot; root@169.254.239.42:/home/root/qnn-yocto/</div>
+</div><!-- fragment --><p>実機の /home/root/qnn-yocto で実行するコマンドです。Pythonは手順6のライブラリ配置を行ってください。</p>
+<div class="fragment"><div class="line">./ailia_speech_sample demo.wav whisper-medium-qcs6490-int16.qnn \</div>
+<div class="line">  auto transcribe vad_disable diarization_disable none cpu</div>
+<div class="line">python3 transcribe_qnn.py \</div>
+<div class="line">  --model ./whisper-medium-qcs6490-int16.qnn --input ./demo.wav --model-type 3</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md33"></a>
+エラーの切り分け</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">エラー   </th><th class="markdownTableHeadNone">確認事項    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">GLIBCXX_x.x.xx not found   </td><td class="markdownTableBodyNone">GLIBCXX_3.4.29以上のC++ランタイム（Yocto 4.0以降のBSP）が必要です。BSPのバージョンを確認してください。    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">GLIBC_2.xx not found   </td><td class="markdownTableBodyNone">BSPのglibcとバイナリの要件を確認します。glibcのlibc.so.6やローダーを単体で上書きせず、対応するBSPを使用してください。    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">QnnSystem interface version mismatch   </td><td class="markdownTableBodyNone">QAIRT 2.47のYocto用ライブラリが選択されていることを確認します。    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">libcdsprpc.soの不足 / DSP初期化の失敗   </td><td class="markdownTableBodyNone">BSPのFastRPC、CDSPファームウェア、デバイス権限、v68 skelの配置を確認します。   </td></tr>
+</table>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

@@ -22,6 +22,7 @@ $dokka.location:axip.ailia_speech/AiliaSpeech.Companion/AILIA_SPEECH_SPEAKER_ID_
 $dokka.location:axip.ailia_speech/AiliaSpeech.Companion/AILIA_SPEECH_TASK_TRANSCRIBE/#/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/-companion/-a-i-l-i-a_-s-p-e-e-c-h_-t-a-s-k_-t-r-a-n-s-c-r-i-b-e.html
 $dokka.location:axip.ailia_speech/AiliaSpeech.Companion/AILIA_SPEECH_TASK_TRANSLATE/#/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/-companion/-a-i-l-i-a_-s-p-e-e-c-h_-t-a-s-k_-t-r-a-n-s-l-a-t-e.html
 $dokka.location:axip.ailia_speech/AiliaSpeech.Companion/AILIA_SPEECH_VAD_TYPE_SILERO/#/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/-companion/-a-i-l-i-a_-s-p-e-e-c-h_-v-a-d_-t-y-p-e_-s-i-l-e-r-o.html
+$dokka.location:axip.ailia_speech/AiliaSpeech.Companion/getQNNModelName/#/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/-companion/get-q-n-n-model-name.html
 $dokka.location:axip.ailia_speech/AiliaSpeech///PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/index.html
 $dokka.location:axip.ailia_speech/AiliaSpeech/AiliaSpeech/#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/-ailia-speech.html
 $dokka.location:axip.ailia_speech/AiliaSpeech/close/#/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/close.html
@@ -31,6 +32,7 @@ $dokka.location:axip.ailia_speech/AiliaSpeech/getComplete/#/PointingToDeclaratio
 $dokka.location:axip.ailia_speech/AiliaSpeech/getErrorDetail/#/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/get-error-detail.html
 $dokka.location:axip.ailia_speech/AiliaSpeech/getText/#kotlin.Int/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/get-text.html
 $dokka.location:axip.ailia_speech/AiliaSpeech/getTextCount/#/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/get-text-count.html
+$dokka.location:axip.ailia_speech/AiliaSpeech/getVadBuffered/#/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/get-vad-buffered.html
 $dokka.location:axip.ailia_speech/AiliaSpeech/openDiarization/#kotlin.String#kotlin.String#kotlin.Int/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/open-diarization.html
 $dokka.location:axip.ailia_speech/AiliaSpeech/openDictionary/#kotlin.String#kotlin.Int/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/open-dictionary.html
 $dokka.location:axip.ailia_speech/AiliaSpeech/openModel/#kotlin.String#kotlin.String#kotlin.Int/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/open-model.html
@@ -43,6 +45,7 @@ $dokka.location:axip.ailia_speech/AiliaSpeech/setConstraint/#kotlin.String#kotli
 $dokka.location:axip.ailia_speech/AiliaSpeech/setIntermediateCallback/#axip.ailia_speech.IntermediateCallback/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/set-intermediate-callback.html
 $dokka.location:axip.ailia_speech/AiliaSpeech/setLanguage/#kotlin.String/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/set-language.html
 $dokka.location:axip.ailia_speech/AiliaSpeech/setPrompt/#kotlin.String/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/set-prompt.html
+$dokka.location:axip.ailia_speech/AiliaSpeech/setQNNGraphSwitching/#kotlin.Boolean/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/set-q-n-n-graph-switching.html
 $dokka.location:axip.ailia_speech/AiliaSpeech/setSilentThreshold/#kotlin.Float#kotlin.Float#kotlin.Float/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/set-silent-threshold.html
 $dokka.location:axip.ailia_speech/AiliaSpeech/transcribe/#/PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech/transcribe.html
 $dokka.location:axip.ailia_speech/AiliaSpeechText///PointingToDeclaration/ailia_speech/axip.ailia_speech/-ailia-speech-text/index.html

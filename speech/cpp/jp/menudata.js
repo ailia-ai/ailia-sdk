@@ -46,7 +46,8 @@ var menudata={children:[
 {text:"ファイルメンバ",url:"globals.html",children:[
 {text:"全て",url:"globals.html",children:[
 {text:"a",url:"globals.html#index_a"}]},
-{text:"関数",url:"globals_func.html"},
+{text:"関数",url:"globals_func.html",children:[
+{text:"a",url:"globals_func.html#index_a"}]},
 {text:"型定義",url:"globals_type.html",children:[
 {text:"a",url:"globals_type.html#index_a"}]},
 {text:"マクロ定義",url:"globals_defs.html"}]}]}]}
