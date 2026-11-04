@@ -364,6 +364,27 @@ Use <a href="../ailia_llm_model/AiliaLLMModel/contextFull.html">contextFull</a> 
 
 </dd>
 
+        <dt id="setQNNGraphSwitching" class="callable">
+  <span class="name"><a href="../ailia_llm_model/AiliaLLMModel/setQNNGraphSwitching.html">setQNNGraphSwitching</a></span><span class="signature">(<wbr><span class="parameter" id="setQNNGraphSwitching-param-enable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">enable</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Configures QNN graph switching before <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a>; disabled by default.
+<code>enable</code> selects whether graph switching is enabled.
+Applies to LLM, MTP, vision and audio graphs. Reduces context reloads and
+memory, but SDK lazy loading can increase first-execution or generation latency.
+The setting is retained across <a href="../ailia_llm_model/AiliaLLMModel/close.html">close</a> and applied when <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a> creates the
+native instance. Disabling succeeds even when QNN is unavailable. Enabling
+in that environment causes <a href="../ailia_llm_model/AiliaLLMModel/open.html">open</a> to throw an <a href="https://api.flutter.dev/flutter/dart-core/Exception-class.html">Exception</a> with
+<code>AILIA_LLM_STATUS_UNIMPLEMENTED</code>. Calling this on an open model throws with
+<code>AILIA_LLM_STATUS_INVALID_STATE</code>.
+  
+
+</dd>
+
         <dt id="setSamplingParams" class="callable">
   <span class="name"><a href="../ailia_llm_model/AiliaLLMModel/setSamplingParams.html">setSamplingParams</a></span><span class="signature">(<wbr><span class="parameter" id="setSamplingParams-param-top_k"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">top_k</span>, </span><span class="parameter" id="setSamplingParams-param-top_p"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">top_p</span>, </span><span class="parameter" id="setSamplingParams-param-temp"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">temp</span>, </span><span class="parameter" id="setSamplingParams-param-dist"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">dist</span></span>)
     <span class="returntype parameter">&#8594; void</span>
@@ -524,7 +545,7 @@ a model. Throws if QNN is unavailable or the device is unsupported.
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.1
+      1.5.2
   </span>
 
   

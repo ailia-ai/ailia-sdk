@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.1.0</span>
+   &#160;<span id="projectnumber">1.5.2.0</span>
    </div>
   </td>
  </tr>
@@ -159,6 +159,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa589933d546322e5bf2cc3f8363470e3"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#aa589933d546322e5bf2cc3f8363470e3">ailiaLLMSetNumThreads</a> (IntPtr llm, uint n_threads)</td></tr>
 <tr class="memdesc:aa589933d546322e5bf2cc3f8363470e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the CPU thread count before opening the model.  <a href="classailiaLLM_1_1AiliaLLM.html#aa589933d546322e5bf2cc3f8363470e3">More...</a><br /></td></tr>
 <tr class="separator:aa589933d546322e5bf2cc3f8363470e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a833639f8ae2665fcb3fb1b0c240a4445"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a833639f8ae2665fcb3fb1b0c240a4445">ailiaLLMSetQNNGraphSwitching</a> (IntPtr llm, uint enabled)</td></tr>
+<tr class="memdesc:a833639f8ae2665fcb3fb1b0c240a4445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures QNN low-memory graph switching; disabled by default.  <a href="classailiaLLM_1_1AiliaLLM.html#a833639f8ae2665fcb3fb1b0c240a4445">More...</a><br /></td></tr>
+<tr class="separator:a833639f8ae2665fcb3fb1b0c240a4445"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classailiaLLM_1_1AiliaLLM.html#a7432fef0b41ea6ff5cc889efece1f0f7">ailiaLLMDestroy</a> (IntPtr llm)</td></tr>
 <tr class="memdesc:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">It destroys the LLM instance.  <a href="classailiaLLM_1_1AiliaLLM.html#a7432fef0b41ea6ff5cc889efece1f0f7">More...</a><br /></td></tr>
 <tr class="separator:a7432fef0b41ea6ff5cc889efece1f0f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1110,6 +1113,45 @@ Static Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a833639f8ae2665fcb3fb1b0c240a4445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a833639f8ae2665fcb3fb1b0c240a4445">&#9670;&nbsp;</a></span>ailiaLLMSetQNNGraphSwitching()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int ailiaLLM.AiliaLLM.ailiaLLMSetQNNGraphSwitching </td>
+          <td>(</td>
+          <td class="paramtype">IntPtr&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint&#160;</td>
+          <td class="paramname"><em>enabled</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures QNN low-memory graph switching; disabled by default. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLM instance </td></tr>
+    <tr><td class="paramname">enabled</td><td>0: disabled, 1: enabled </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS, INVALID_ARGUMENT, INVALID_STATE after model open, or UNIMPLEMENTED when enabling without QNN.</dd></dl>
+<p>Call after Create and before opening a model. Applies to LLM, MTP, vision and audio graphs. Reduces context reloads and memory, but SDK lazy loading can increase first-execution or generation latency. Disabling succeeds even when QNN is unavailable. </p>
 
 </div>
 </div>

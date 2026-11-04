@@ -61,6 +61,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.prompt_token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.prompt_token_count()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_backend"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_backend()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_num_threads"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_num_threads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_qnn_graph_switching"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_qnn_graph_switching()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_thinking"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_thinking()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.set_tools"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.set_tools()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailia_llm.AiliaLLM.token_count"><code class="docutils literal notranslate"><span class="pre">AiliaLLM.token_count()</span></code></a></li>
@@ -355,7 +356,8 @@ to <a class="reference internal" href="#ailia_llm.AiliaLLM.set_backend" title="a
 <dd><p>Return the QNN model name for the current device, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;sm7635&quot;</span></code>.</p>
 <p>The name is an artifact stem, not a numeric SoC ID. Use it to select
 a matching precompiled text <code class="docutils literal notranslate"><span class="pre">.qnn</span></code> and multimodal projector <code class="docutils literal notranslate"><span class="pre">.qnn</span></code>.
-No model instance needs to be opened. The returned native string is
+This method can be called on an instance or the class without opening
+a model. The returned native string is
 copied before this method returns; callers must not free it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -472,6 +474,25 @@ Explicit CPU/GPU rejects .qnn and explicit HTP (QNN) rejects GGUF.</p>
 <dd><p>Set shared CPU threads before open; default/0 selects automatically.</p>
 <p>Android uses performance (big/prime) cores when topology is available.
 Applies to target decode/prefill, assistant and VLM/ALM CPU processing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailia_llm.AiliaLLM.set_qnn_graph_switching">
+<span class="sig-name descname"><span class="pre">set_qnn_graph_switching</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.set_qnn_graph_switching" title="Link to this definition">¶</a></dt>
+<dd><p>Configure QNN graph switching before <a class="reference internal" href="#ailia_llm.AiliaLLM.open" title="ailia_llm.AiliaLLM.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a>; disabled by default.</p>
+<p>Applies to LLM, MTP, vision and audio graphs. Reduces context reloads
+and memory, but SDK lazy loading can increase first-execution or
+generation latency. Disabling succeeds even when QNN is unavailable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enable</strong> (<em>bool</em>) – True to enable graph switching, False to disable it (default: disabled).</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>AiliaLLMError</strong> – If the operation fails. The native error code is
+    <code class="docutils literal notranslate"><span class="pre">AILIA_LLM_STATUS_UNIMPLEMENTED</span></code> when enabling without QNN, or
+    <code class="docutils literal notranslate"><span class="pre">AILIA_LLM_STATUS_INVALID_STATE</span></code> after opening a model.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

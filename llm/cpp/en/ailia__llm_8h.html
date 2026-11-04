@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.1.0</span>
+   &#160;<span id="projectnumber">1.5.2.0</span>
    </div>
   </td>
  </tr>
@@ -246,6 +246,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ae5f87aa3627ae05d78c5d1050db5ee0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#ae5f87aa3627ae05d78c5d1050db5ee0f">ailiaLLMGetErrorDetail</a> (struct AILIALLM *llm)</td></tr>
 <tr class="memdesc:ae5f87aa3627ae05d78c5d1050db5ee0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns details of the last model-open, prompt-setup or generation error.  <a href="ailia__llm_8h.html#ae5f87aa3627ae05d78c5d1050db5ee0f">More...</a><br /></td></tr>
 <tr class="separator:ae5f87aa3627ae05d78c5d1050db5ee0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a6b0380555364b2e7c9ef2ac4890b70"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a1a6b0380555364b2e7c9ef2ac4890b70">ailiaLLMSetQNNGraphSwitching</a> (struct AILIALLM *llm, unsigned int enabled)</td></tr>
+<tr class="memdesc:a1a6b0380555364b2e7c9ef2ac4890b70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures QNN low-memory graph switching.  <a href="ailia__llm_8h.html#a1a6b0380555364b2e7c9ef2ac4890b70">More...</a><br /></td></tr>
+<tr class="separator:a1a6b0380555364b2e7c9ef2ac4890b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a381755d8e0881fe58eb1e3ee40796e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#a2a381755d8e0881fe58eb1e3ee40796e">ailiaLLMGetQNNModelName</a> (const char **model_name)</td></tr>
 <tr class="memdesc:a2a381755d8e0881fe58eb1e3ee40796e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the QNN model name for the current device.  <a href="ailia__llm_8h.html#a2a381755d8e0881fe58eb1e3ee40796e">More...</a><br /></td></tr>
 <tr class="separator:a2a381755d8e0881fe58eb1e3ee40796e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -253,7 +256,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>LLM inference library. </p>
 <dl class="section copyright"><dt>Copyright</dt><dd>AXELL CORPORATION, ailia Inc. </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>October 11, 2026 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>October 30, 2026 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a3c69aad585c8ee619c34450cb5f35ea9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c69aad585c8ee619c34450cb5f35ea9">&#9670;&nbsp;</a></span>AILIA_LLM_API</h2>
@@ -1589,6 +1592,45 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>Roles are system/user/assistant/tool; content is a string or null. User content also accepts arrays. Parts are {"type":"text","text":"..."}, or type image/audio with exactly one of file_path (local file) and data (standard padded Base64 encoded file). JPEG/PNG and WAV/MP3/FLAC are supported by the decoder. Media requires a compatible loaded projector. URLs, raw PCM/RGB and video are unsupported. Parts retain input order. Matching history prefixes reuse KV when ordered media inputs are unchanged and the required KV positions remain resident. Encoded media is reused subject to backend cache conditions. GGUF and QNN reuse retained encoder outputs even when KV must be rebuilt. File content hashes are checked on each call; changed media content is re-evaluated. Encoder outputs are retained only for media in the current prompt; removed media is evicted. Decoded images/audio are released when prompt setup returns. Successfully switching to a prompt without media releases the media caches. Assistant content is not reparsed as model-specific syntax. Supply reasoning_content and tool_calls explicitly. Append the assistant JSON returned by ailiaLLMGetResponseJson directly to the array. Each tool call requires type="function", nonempty id and function.name, and function.arguments as a JSON-object string. IDs must be unique within an assistant message but may be reused in later turns. Tool results require string content and tool_call_id matching the preceding assistant. Consecutive results are matched by ID, not position; names are filled in. Duplicate/unmatched results are rejected. Incomplete arguments are rejected, never repaired or discarded. If GetResponseJson returns PARSE_ERROR, do not append the failed assistant; append a retry user message to the existing history. Historical tool calls/results remain accepted after SetTools(NULL). Retrieve response JSON before clearing tools. Input can be freed after the call. On success, generate with ailiaLLMGenerate. </p><dl class="section return"><dt>Returns</dt><dd>SUCCESS on success; INVALID_ARGUMENT for invalid JSON, types, ID associations or arguments; INVALID_STATE if no model is loaded. Other prompt preparation errors are the same as ailiaLLMSetPrompt. </dd></dl>
+
+</div>
+</div>
+<a id="a1a6b0380555364b2e7c9ef2ac4890b70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a6b0380555364b2e7c9ef2ac4890b70">&#9670;&nbsp;</a></span>ailiaLLMSetQNNGraphSwitching()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int ailiaLLMSetQNNGraphSwitching </td>
+          <td>(</td>
+          <td class="paramtype">struct AILIALLM *&#160;</td>
+          <td class="paramname"><em>llm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>enabled</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configures QNN low-memory graph switching. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">llm</td><td>LLM instance </td></tr>
+    <tr><td class="paramname">enabled</td><td>0: disabled (default), 1: enabled </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>SUCCESS, INVALID_ARGUMENT, INVALID_STATE after model open, or AILIA_LLM_STATUS_UNIMPLEMENTED when enabling without QNN.</dd></dl>
+<p>Call after Create and before opening a model. Applies to LLM, MTP, vision and audio graphs. Reduces context reloads and memory, but SDK lazy loading can increase first-execution or generation latency. Disabling succeeds even when QNN is unavailable. </p>
 
 </div>
 </div>

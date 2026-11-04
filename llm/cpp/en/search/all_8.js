@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['role_71',['role',['../struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff',1,'_AILIALLMChatMessage::role()'],['../struct__AILIALLMMultimodalChatMessage.html#a9ee470dd9cf00f75e90c18371688b1be',1,'_AILIALLMMultimodalChatMessage::role()']]]
+  ['qnn_72',['qnn',['../md_md_c_qnn.html',1,'']]],
+  ['qnn_2emd_73',['qnn.md',['../qnn_8md.html',1,'']]]
 ];

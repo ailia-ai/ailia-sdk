@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['width_75',['width',['../struct__AILIALLMMediaData.html#a694ce972c5db3a8429eb340bcd3e50aa',1,'_AILIALLMMediaData']]]
+  ['setup_76',['setup',['../md_md_c_setup.html',1,'']]],
+  ['setup_20and_20build_77',['Setup and Build',['../setup.html',1,'']]],
+  ['setup_2emd_78',['setup.md',['../setup_8md.html',1,'']]]
 ];

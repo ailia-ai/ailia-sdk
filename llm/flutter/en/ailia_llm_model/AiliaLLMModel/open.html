@@ -134,6 +134,15 @@ also use that thread.</p>
     throw Exception(&#39;ailiaLLMSetNumThreads returned an error status $status&#39;);
   }
 
+  if (_qnnGraphSwitching != null) {
+    status = dllHandle.ailiaLLMSetQNNGraphSwitching(
+        pLLm.value, _qnnGraphSwitching! ? 1 : 0);
+    if (status != 0) {
+      close();
+      throw Exception(&#39;ailiaLLMSetQNNGraphSwitching returned an error status $status&#39;);
+    }
+  }
+
   if (!automatic) {
     status = dllHandle.ailiaLLMSetBackend(pLLm.value, backendIdx);
     if (status != 0) {
@@ -189,7 +198,7 @@ also use that thread.</p>
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.1
+      1.5.2
   </span>
 
   
