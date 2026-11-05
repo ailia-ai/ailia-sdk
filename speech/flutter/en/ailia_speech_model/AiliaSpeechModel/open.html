@@ -146,16 +146,7 @@
   throwError(&quot;ailiaSpeechSetIntermediateCallback&quot;, status);
 
   if (vad != null) {
-    const double thresholdVad = 0.5;
-    const double speechSec = 1.0;
-    const double noSpeechSec = 1.0;
-    status = ailiaSpeech.ailiaSpeechSetSilentThreshold(
-      ppAilia!.value,
-      thresholdVad,
-      speechSec,
-      noSpeechSec,
-    );
-    throwError(&quot;ailiaSpeechSetSilentThreshold&quot;, status);
+    setSilentThreshold(0.5, 1.0, 1.0);
   }
 
   available = true;
