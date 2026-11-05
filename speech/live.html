@@ -71,6 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="note">
       <strong>注意:</strong> 時間軸的に後ろの音声も参照できるため、ライブモードを使用しない方が精度は高くなります。音声ファイルに対してはライブモードを使用せず、マイク入力でリアルタイム性が必要な場合にライブモードを使用してください。
     </div>
+    <p>ボイスコマンドの待ち受けなど、発話が終わってから発話単位の確定結果を受け取る場合は、<a href="trigger.html">音声待ち受けガイド</a>を参照してください。</p>
 
     <h2>PCM の入力方法</h2>
     <p><code>AILIA_SPEECH_FLAG_LIVE</code> を使用する場合、PCM を 1 チャンク入力するたびに Buffered の判定と Transcribe を実行するのではなく、受信済みの PCM を先に取り込み、Buffered の判定と Transcribe を実行してください。</p>

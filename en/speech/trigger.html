@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia Speech Voice Trigger Guide</title>
+  <meta name="description" content="How to wait for voice input beyond 30 seconds and receive voice commands at VAD-detected utterance boundaries using the VadBuffered API in ailia Speech.">
+  <link rel="canonical" href="https://docs.ailia.ai/en/speech/trigger.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/speech/trigger.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/speech/trigger.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/speech/trigger.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/speech/trigger.html">
+  <meta property="og:title" content="ailia Speech Voice Trigger Guide">
+  <meta property="og:description" content="How to wait for voice input beyond 30 seconds and receive voice commands at VAD-detected utterance boundaries using the VadBuffered API in ailia Speech.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia Speech Voice Trigger Guide">
+  <meta name="twitter:description" content="How to wait for voice input beyond 30 seconds and receive voice commands at VAD-detected utterance boundaries using the VadBuffered API in ailia Speech.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia Speech Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../../speech/trigger.html" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia Speech Voice Trigger Guide</h1>
+    <p>How to wait for voice input beyond 30 seconds and receive voice commands at VAD-detected utterance boundaries using the VadBuffered API in ailia Speech.</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>Overview</h2>
+    <p>When waiting for voice commands or building a voice agent, you do not know when the user will start speaking. The application has to monitor the microphone input for a long time and receive a per-utterance recognition result once the user finishes speaking.</p>
+    <p>The regular <code>Buffered</code> API returns 1 not only when VAD detects the end of an utterance, but also when 30 seconds worth of audio have accumulated. In a standby use case with long silences, this causes an unnecessary Transcribe every 30 seconds.</p>
+    <p>The <code>VadBuffered</code> API does not return 1 just because 30 seconds worth of data have accumulated. It returns 1 only when VAD detects the end of an utterance. This lets you wait for voice input beyond 30 seconds and run speech recognition only when an utterance has finished.</p>
+    <div class="note">
+      <strong>Note:</strong> The VadBuffered API is available from ailia Speech 1.6.1.
+    </div>
+
+    <h2>Behavior</h2>
+    <p>The VadBuffered API behaves as follows.</p>
+    <ul>
+      <li>It returns 1 only when speech of <code>speech_sec</code> or longer is followed by silence of <code>no_speech_sec</code> or longer. Accumulating 30 seconds worth of data alone does not make it return 1.</li>
+      <li>Silence before the utterance and noise shorter than <code>speech_sec</code> are discarded, so speech after a long silence is recognized from its beginning.</li>
+      <li>While speech continues, data is accumulated until a boundary is detected. Since Transcribe processes at most 30 seconds per call, speech longer than 30 seconds is processed by calling Transcribe repeatedly while VadBuffered returns 1.</li>
+      <li>After <code>FinalizeInputData</code> is called, it returns 1 even without a boundary. Use this to process the remaining audio when recording stops.</li>
+      <li>To limit the accumulated length, check the number of unprocessed frames with <code>ailiaSpeechGetPosition</code>.</li>
+    </ul>
+    <p>The following setup is required.</p>
+    <ul>
+      <li>A VAD model (Silero VAD) must be opened with <code>OpenVad</code>.</li>
+      <li>The detection thresholds (VAD threshold, speech start duration <code>speech_sec</code>, and speech end duration <code>no_speech_sec</code>) must be set in advance with <code>SetSilentThreshold</code>.</li>
+      <li>Since recognition waits for an utterance boundary, use <code>AILIA_SPEECH_FLAG_NONE</code> (normal mode) instead of <code>AILIA_SPEECH_FLAG_LIVE</code>. If you need tentative results, you can also use the IntermediateCallback.</li>
+    </ul>
+    <div class="note">
+      <strong>Live mode vs. VadBuffered:</strong> For subtitle-like use cases that keep showing tentative results with low latency while the user is speaking, <a href="live.html">Live mode</a> is a better fit. For voice commands and voice agents that receive a confirmed per-utterance result after the user finishes speaking, use the VadBuffered API.
+    </div>
+
+    <h2>Standby Flow</h2>
+    <p>Feed the PCM received from the microphone with <code>PushInputData</code> while checking <code>VadBuffered</code>, and run <code>Transcribe</code> when it returns 1. Since a single utterance may exceed 30 seconds, call <code>Transcribe</code> repeatedly while <code>VadBuffered</code> returns 1, and handle the resulting text as one voice command. After that, you can keep waiting for the next utterance without resetting any state.</p>
+    <p>To stop recording, call <code>FinalizeInputData</code> and run <code>Transcribe</code> while <code>VadBuffered</code> returns 1 to process the remaining audio. Call <code>ResetTranscribeState</code> before pushing audio again.</p>
+
+    <h2>Code Samples</h2>
+
+    <h3>Kotlin (JNI)</h3>
+    <p>The voice agent in <a href="https://github.com/axinc-ai/ailia-models-kotlin" target="_blank" rel="noopener">ailia-models-kotlin</a> detects the end of the user's utterance with the VadBuffered API, receives a per-utterance recognition result, and then proceeds to generate the agent's response. The thresholds below are the same values used by the voice agent.</p>
+    <pre><code class="language-kotlin">val speech = AiliaSpeech(
+    envId = -1,
+    task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+    flags = AiliaSpeech.AILIA_SPEECH_FLAG_NONE, // VadBuffered requires non-LIVE mode
+)
+speech.openModel(encoderPath, decoderPath,
+    AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL)
+speech.openVad(vadPath, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO)
+// Values used by the voice agent: threshold=0.5, speechSec=0.25, noSpeechSec=1.0
+speech.setSilentThreshold(0.5f, 0.25f, 1.0f)
+
+while (listening) {
+    // 1. Push mic PCM; silence before the utterance is discarded by the SDK
+    while (true) {
+        val chunk = micQueue.poll() ?: break
+        speech.pushInputData(chunk.pcm, chunk.channels, chunk.samples, sampleRate)
+    }
+
+    // 2. Transcribe only when VAD detects the end of an utterance
+    val lines = mutableListOf&lt;String&gt;()
+    while (speech.getVadBuffered() == 1) {
+        speech.transcribe() // processes up to 30 seconds per call
+        for (i in 0 until speech.getTextCount()) {
+            lines += speech.getText(i).text
+        }
+    }
+    if (lines.isNotEmpty()) {
+        onVoiceCommand(lines.joinToString("")) // one utterance = one voice command
+    }
+}</code></pre>
+
+    <h3>Flutter</h3>
+    <p>Use <code>isVadBuffered()</code>. When a VAD model is passed to <code>open()</code>, a threshold of 0.5, <code>speech_sec</code> of 1.0 second, and <code>no_speech_sec</code> of 1.0 second are configured. To change the thresholds, call the FFI function <code>ailiaSpeechSetSilentThreshold</code> directly.</p>
+    <pre><code class="language-dart">final speech = AiliaSpeechModel();
+speech.create(false, false, envId); // liveTranscribe = false
+speech.open(File(encoderPath), File(decoderPath), File(vadPath), "auto",
+    AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+// Optional: override the thresholds configured by open()
+speech.ailiaSpeech.ailiaSpeechSetSilentThreshold(
+    speech.ppAilia!.value, 0.5, 0.25, 1.0);
+
+while (listening) {
+  // 1. Push mic PCM; silence before the utterance is discarded by the SDK
+  while (micQueue.isNotEmpty) {
+    final chunk = micQueue.removeFirst();
+    speech.pushInputData(chunk.pcm, sampleRate, chunk.channels);
+  }
+
+  // 2. Transcribe only when VAD detects the end of an utterance
+  final lines = &lt;String&gt;[];
+  while (speech.isVadBuffered()) {
+    for (final text in speech.transcribe()) { // processes up to 30 seconds per call
+      lines.add(text.text);
+    }
+  }
+  if (lines.isNotEmpty) {
+    onVoiceCommand(lines.join()); // one utterance = one voice command
+  }
+}</code></pre>
+
+    <h3>C++</h3>
+    <pre><code class="language-cpp">ailiaSpeechCreate(&amp;speech, env_id, AILIA_MULTITHREAD_AUTO, memory_mode,
+                  AILIA_SPEECH_TASK_TRANSCRIBE, AILIA_SPEECH_FLAG_NONE,
+                  ailiaSpeechUtilGetCallback(), AILIA_SPEECH_API_CALLBACK_VERSION);
+ailiaSpeechOpenModelFileA(speech, encoder_path, decoder_path,
+                          AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+ailiaSpeechOpenVadFileA(speech, "silero_vad.onnx", AILIA_SPEECH_VAD_TYPE_SILERO);
+ailiaSpeechSetSilentThreshold(speech, 0.5f, 0.25f, 1.0f);
+
+while (listening) {
+    // 1. Push mic PCM; silence before the utterance is discarded by the SDK
+    while (mic_queue_pop(&amp;chunk)) {
+        ailiaSpeechPushInputData(speech, chunk.pcm, chunk.channels, chunk.samples, sample_rate);
+    }
+
+    // 2. Transcribe only when VAD detects the end of an utterance
+    std::string lines;
+    while (true) {
+        unsigned int buffered = 0;
+        ailiaSpeechVadBuffered(speech, &amp;buffered);
+        if (buffered == 0) break;
+        ailiaSpeechTranscribe(speech); // processes up to 30 seconds per call
+
+        unsigned int n;
+        ailiaSpeechGetTextCount(speech, &amp;n);
+        for (unsigned int i = 0; i &lt; n; i++) {
+            AILIASpeechText text;
+            ailiaSpeechGetText(speech, &amp;text, AILIA_SPEECH_TEXT_VERSION, i);
+            lines += text.text;
+        }
+    }
+    if (!lines.empty()) {
+        on_voice_command(lines); // one utterance = one voice command
+    }
+}</code></pre>
+
+    <h3>Unity</h3>
+    <p>The <code>AiliaSpeechModel</code> class performs recognition with the Buffered API on its worker thread, so call the native API directly when using the VadBuffered API.</p>
+    <pre><code class="language-csharp">IntPtr net = IntPtr.Zero;
+List&lt;float[]&gt; waveQueue = new List&lt;float[]&gt;();
+
+void OnEnable(){
+    AiliaSpeech.AILIASpeechApiCallback callback = AiliaSpeech.GetCallback();
+    AiliaSpeech.ailiaSpeechCreate(ref net, env_id, Ailia.AILIA_MULTITHREAD_AUTO,
+        memory_mode, AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+        AiliaSpeech.AILIA_SPEECH_FLAG_NONE, callback,
+        AiliaSpeech.AILIA_SPEECH_API_CALLBACK_VERSION);
+    AiliaSpeech.ailiaSpeechOpenModelFile(net, encoder_path, decoder_path,
+        AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+    AiliaSpeech.ailiaSpeechOpenVadFile(net, vad_path, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO);
+    AiliaSpeech.ailiaSpeechSetSilentThreshold(net, 0.5f, 0.25f, 1.0f);
+}
+
+void Update(){
+    // 1. Push mic PCM; silence before the utterance is discarded by the SDK
+    if (waveQueue.Count == 0){
+        return;
+    }
+    float[] waveData = waveQueue.SelectMany(x =&gt; x).ToArray();
+    waveQueue.Clear();
+    AiliaSpeech.ailiaSpeechPushInputData(net, waveData,
+        channels, (uint)waveData.Length / channels, frequency);
+
+    // 2. Transcribe only when VAD detects the end of an utterance
+    List&lt;string&gt; lines = new List&lt;string&gt;();
+    while (true){
+        uint buffered = 0;
+        AiliaSpeech.ailiaSpeechVadBuffered(net, ref buffered);
+        if (buffered == 0) break;
+        AiliaSpeech.ailiaSpeechTranscribe(net); // processes up to 30 seconds per call
+
+        uint count = 0;
+        AiliaSpeech.ailiaSpeechGetTextCount(net, ref count);
+        for (uint i = 0; i &lt; count; i++){
+            AiliaSpeech.AILIASpeechText text = new AiliaSpeech.AILIASpeechText();
+            AiliaSpeech.ailiaSpeechGetText(net, text, AiliaSpeech.AILIA_SPEECH_TEXT_VERSION, i);
+            lines.Add(text.text);
+        }
+    }
+    if (lines.Count &gt; 0){
+        OnVoiceCommand(string.Join("", lines)); // one utterance = one voice command
+    }
+}</code></pre>
+    <div class="note">
+      <strong>Note:</strong> Transcribe blocks the main thread. In a real application, run it on a worker thread, following the implementation of the <code>AiliaSpeechModel</code> class.
+    </div>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
