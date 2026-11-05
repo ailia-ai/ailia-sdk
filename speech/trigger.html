@@ -196,7 +196,8 @@ while (listening) {
 }</code></pre>
 
     <h3>Unity</h3>
-    <p><code>SetVadBufferedMode(true)</code> を設定すると、<code>AiliaSpeechModel</code> クラスのサブスレッドが Buffered API の代わりに VadBuffered API を使用し、VAD で発話の区切りを検出した時点でのみ認識を行います。<code>OpenVad</code> の後に設定してください。認識結果は <code>GetResults()</code> で取得できます。</p>
+    <p><code>SetVadBufferedMode(true)</code> を設定すると、<code>AiliaSpeechModel</code> クラスのサブスレッドが Buffered API の代わりに VadBuffered API を使用し、VAD で発話の区切りを検出した時点でのみ認識を行います。<code>OpenVad</code> の後に設定してください。</p>
+    <p><code>IsProcessing()</code> が true の間は、サブスレッドが VAD 境界までのキューを処理中です。発話の途中までの結果を取得しないように、<code>IsProcessing()</code> が false になってから <code>GetResults()</code> で認識結果を取得します。</p>
     <pre><code class="language-csharp">AiliaSpeechModel ailia_speech = new AiliaSpeechModel();
 List&lt;float[]&gt; waveQueue = new List&lt;float[]&gt;();
 
@@ -211,9 +212,12 @@ void OnEnable(){
 }
 
 void Update(){
-    // Confirmed results (one utterance detected by VAD)
-    foreach (string text in ailia_speech.GetResults()){
-        OnVoiceCommand(text);
+    // Get the results after the worker thread has processed the queue up to the VAD boundary
+    if (!ailia_speech.IsProcessing()){
+        // Confirmed results (one utterance detected by VAD)
+        foreach (string text in ailia_speech.GetResults()){
+            OnVoiceCommand(text);
+        }
     }
 
     // Push mic PCM; silence before the utterance is discarded by the SDK
