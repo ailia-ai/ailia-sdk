@@ -132,14 +132,13 @@ while (listening) {
 }</code></pre>
 
     <h3>Flutter</h3>
-    <p><code>isVadBuffered()</code> を使用します。<code>open()</code> で VAD モデルを指定すると、しきい値 0.5、<code>speech_sec</code> 1.0 秒、<code>no_speech_sec</code> 1.0 秒が設定されます。しきい値を変更する場合は、FFI の <code>ailiaSpeechSetSilentThreshold</code> を直接呼び出します。</p>
+    <p><code>isVadBuffered()</code> を使用します。<code>open()</code> で VAD モデルを指定すると、しきい値 0.5、<code>speech_sec</code> 1.0 秒、<code>no_speech_sec</code> 1.0 秒が設定されます。しきい値を変更する場合は、<code>open()</code> の後に <code>setSilentThreshold()</code> を呼び出します。</p>
     <pre><code class="language-dart">final speech = AiliaSpeechModel();
 speech.create(false, false, envId); // liveTranscribe = false
 speech.open(File(encoderPath), File(decoderPath), File(vadPath), "auto",
     AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
 // Optional: override the thresholds configured by open()
-speech.ailiaSpeech.ailiaSpeechSetSilentThreshold(
-    speech.ppAilia!.value, 0.5, 0.25, 1.0);
+speech.setSilentThreshold(0.5, 0.25, 1.0);
 
 while (listening) {
   // 1. Push mic PCM; silence before the utterance is discarded by the SDK
@@ -197,55 +196,45 @@ while (listening) {
 }</code></pre>
 
     <h3>Unity</h3>
-    <p><code>AiliaSpeechModel</code> クラスはサブスレッド内で Buffered API を使用して認識を行うため、VadBuffered API を使用する場合はネイティブ API を直接呼び出します。</p>
-    <pre><code class="language-csharp">IntPtr net = IntPtr.Zero;
+    <p><code>SetVadBufferedMode(true)</code> を設定すると、<code>AiliaSpeechModel</code> クラスのサブスレッドが Buffered API の代わりに VadBuffered API を使用し、VAD で発話の区切りを検出した時点でのみ認識を行います。<code>OpenVad</code> の後に設定してください。</p>
+    <p><code>IsProcessing()</code> が true の間は、サブスレッドが VAD 境界までのキューを処理中です。この間に新しい PCM を push すると再び処理が始まり、発話の途中までの結果を取得する可能性があるため、マイクの PCM は <code>waveQueue</code> に蓄積したままにし、<code>IsProcessing()</code> が false になってから <code>GetResults()</code> で認識結果を取得して、蓄積した PCM を渡します。</p>
+    <pre><code class="language-csharp">AiliaSpeechModel ailia_speech = new AiliaSpeechModel();
 List&lt;float[]&gt; waveQueue = new List&lt;float[]&gt;();
 
 void OnEnable(){
-    AiliaSpeech.AILIASpeechApiCallback callback = AiliaSpeech.GetCallback();
-    AiliaSpeech.ailiaSpeechCreate(ref net, env_id, Ailia.AILIA_MULTITHREAD_AUTO,
-        memory_mode, AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
-        AiliaSpeech.AILIA_SPEECH_FLAG_NONE, callback,
-        AiliaSpeech.AILIA_SPEECH_API_CALLBACK_VERSION);
-    AiliaSpeech.ailiaSpeechOpenModelFile(net, encoder_path, decoder_path,
-        AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
-    AiliaSpeech.ailiaSpeechOpenVadFile(net, vad_path, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO);
-    AiliaSpeech.ailiaSpeechSetSilentThreshold(net, 0.5f, 0.25f, 1.0f);
+    ailia_speech.Open(encoder_path, decoder_path, env_id, memory_mode,
+        AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL,
+        AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE, AiliaSpeech.AILIA_SPEECH_FLAG_NONE, "auto");
+    ailia_speech.OpenVad(vad_path, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO);
+    // Transcribe only when VAD detects the end of an utterance
+    ailia_speech.SetVadBufferedMode(true);
+    ailia_speech.SetSilentThreshold(0.5f, 0.25f, 1.0f);
 }
 
 void Update(){
-    // 1. Push mic PCM; silence before the utterance is discarded by the SDK
+    // Wait until the worker thread has processed the queue up to the VAD boundary
+    if (ailia_speech.IsProcessing()){
+        return; // keep accumulating mic PCM in waveQueue
+    }
+
+    // Confirmed results
+    List&lt;string&gt; lines = ailia_speech.GetResults();
+    if (lines.Count &gt; 0){
+        OnVoiceCommand(string.Join("", lines)); // one utterance = one voice command
+    }
+
+    // Push mic PCM; silence before the utterance is discarded by the SDK
     if (waveQueue.Count == 0){
         return;
     }
     float[] waveData = waveQueue.SelectMany(x =&gt; x).ToArray();
     waveQueue.Clear();
-    AiliaSpeech.ailiaSpeechPushInputData(net, waveData,
-        channels, (uint)waveData.Length / channels, frequency);
+    ailia_speech.Transcribe(waveData, frequency, channels, false);
+}
 
-    // 2. Transcribe only when VAD detects the end of an utterance
-    List&lt;string&gt; lines = new List&lt;string&gt;();
-    while (true){
-        uint buffered = 0;
-        AiliaSpeech.ailiaSpeechVadBuffered(net, ref buffered);
-        if (buffered == 0) break;
-        AiliaSpeech.ailiaSpeechTranscribe(net); // processes up to 30 seconds per call
-
-        uint count = 0;
-        AiliaSpeech.ailiaSpeechGetTextCount(net, ref count);
-        for (uint i = 0; i &lt; count; i++){
-            AiliaSpeech.AILIASpeechText text = new AiliaSpeech.AILIASpeechText();
-            AiliaSpeech.ailiaSpeechGetText(net, text, AiliaSpeech.AILIA_SPEECH_TEXT_VERSION, i);
-            lines.Add(text.text);
-        }
-    }
-    if (lines.Count &gt; 0){
-        OnVoiceCommand(string.Join("", lines)); // one utterance = one voice command
-    }
+void OnDisable(){
+    ailia_speech.Close();
 }</code></pre>
-    <div class="note">
-      <strong>注意:</strong> Transcribe はメインスレッドをブロックします。実際のアプリケーションでは、<code>AiliaSpeechModel</code> クラスの実装を参考に、サブスレッドで実行してください。
-    </div>
 
   </div>
 
