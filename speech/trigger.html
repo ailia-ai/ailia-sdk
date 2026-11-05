@@ -98,8 +98,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>コードサンプル</h2>
 
-    <h3>Kotlin（ボイスエージェント）</h3>
-    <p><a href="https://github.com/axinc-ai/ailia-models-kotlin" target="_blank" rel="noopener">ailia-models-kotlin</a> のボイスエージェントでは、発話の終了を VadBuffered API で検出しています。発話の区切りが検出されたら入力を確定し、残りの音声をすべて処理してからエージェントの応答生成に進みます。</p>
+    <h3>Kotlin（JNI）</h3>
+    <p><a href="https://github.com/axinc-ai/ailia-models-kotlin" target="_blank" rel="noopener">ailia-models-kotlin</a> のボイスエージェントでは、発話の終了を VadBuffered API で検出し、発話単位で認識結果を受け取ってエージェントの応答生成に進みます。しきい値にはボイスエージェントと同じ値を使用しています。</p>
     <pre><code class="language-kotlin">val speech = AiliaSpeech(
     envId = -1,
     task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
@@ -109,144 +109,6 @@ speech.openModel(encoderPath, decoderPath,
     AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL)
 speech.openVad(vadPath, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO)
 // Values used by the voice agent: threshold=0.5, speechSec=0.25, noSpeechSec=1.0
-speech.setSilentThreshold(0.5f, 0.25f, 1.0f)
-
-// 1. Push mic PCM until VAD detects the end of an utterance
-var detected = false
-while (!detected) {
-    val chunk = micQueue.take()
-    speech.pushInputData(chunk.pcm, chunk.channels, chunk.samples, sampleRate)
-    detected = (speech.getVadBuffered() == 1)
-}
-
-// 2. Finalize the input and drain the remaining audio
-speech.finalizeInputData()
-val lines = mutableListOf&lt;String&gt;()
-while (speech.getVadBuffered() == 1) {
-    speech.transcribe()
-    for (i in 0 until speech.getTextCount()) {
-        lines += speech.getText(i).text
-    }
-}
-check(speech.getComplete() == 1)
-speech.resetTranscribeState() // required before pushing audio again
-
-val voiceCommand = lines.joinToString("")</code></pre>
-
-    <h3>Flutter</h3>
-    <p><code>isVadBuffered()</code> を使用します。<code>open()</code> で VAD モデルを指定すると、しきい値 0.5、<code>speech_sec</code> 1.0 秒、<code>no_speech_sec</code> 1.0 秒が設定されます。しきい値を変更する場合は、FFI の <code>ailiaSpeechSetSilentThreshold</code> を直接呼び出します。</p>
-    <pre><code class="language-dart">final speech = AiliaSpeechModel();
-speech.create(false, false, envId); // liveTranscribe = false
-speech.open(File(encoderPath), File(decoderPath), File(vadPath), "auto",
-    AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
-// Optional: override the thresholds configured by open()
-speech.ailiaSpeech.ailiaSpeechSetSilentThreshold(
-    speech.ppAilia!.value, 0.5, 0.25, 1.0);
-
-while (listening) {
-  // 1. Push mic PCM; silence before the utterance is discarded by the SDK
-  while (micQueue.isNotEmpty) {
-    final chunk = micQueue.removeFirst();
-    speech.pushInputData(chunk.pcm, sampleRate, chunk.channels);
-  }
-
-  // 2. Transcribe only when VAD detects the end of an utterance
-  final lines = &lt;String&gt;[];
-  while (speech.isVadBuffered()) {
-    for (final text in speech.transcribe()) {
-      lines.add(text.text);
-    }
-  }
-  if (lines.isNotEmpty) {
-    onVoiceCommand(lines.join()); // one utterance = one voice command
-  }
-}</code></pre>
-
-    <h3>C++</h3>
-    <pre><code class="language-c">ailiaSpeechCreate(&amp;speech, env_id, AILIA_MULTITHREAD_AUTO, memory_mode,
-                  AILIA_SPEECH_TASK_TRANSCRIBE, AILIA_SPEECH_FLAG_NONE,
-                  ailiaSpeechUtilGetCallback(), AILIA_SPEECH_API_CALLBACK_VERSION);
-ailiaSpeechOpenModelFileA(speech, encoder_path, decoder_path,
-                          AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
-ailiaSpeechOpenVadFileA(speech, "silero_vad.onnx", AILIA_SPEECH_VAD_TYPE_SILERO);
-ailiaSpeechSetSilentThreshold(speech, 0.5f, 0.25f, 1.0f);
-
-while (listening) {
-    // 1. Push mic PCM; silence before the utterance is discarded by the SDK
-    while (mic_queue_pop(&amp;chunk)) {
-        ailiaSpeechPushInputData(speech, chunk.pcm, chunk.channels, chunk.samples, sample_rate);
-    }
-
-    // 2. Transcribe only when VAD detects the end of an utterance
-    while (true) {
-        unsigned int buffered = 0;
-        ailiaSpeechVadBuffered(speech, &amp;buffered);
-        if (buffered == 0) break;
-        ailiaSpeechTranscribe(speech); // processes up to 30 seconds per call
-
-        unsigned int n;
-        ailiaSpeechGetTextCount(speech, &amp;n);
-        for (unsigned int i = 0; i &lt; n; i++) {
-            AILIASpeechText text;
-            ailiaSpeechGetText(speech, &amp;text, AILIA_SPEECH_TEXT_VERSION, i);
-            printf("%s\n", text.text); // one utterance = one voice command
-        }
-    }
-}</code></pre>
-
-    <h3>Unity</h3>
-    <p><code>AiliaSpeechModel</code> クラスはサブスレッド内で Buffered API を使用して認識を行うため、VadBuffered API を使用する場合はネイティブ API を直接呼び出します。</p>
-    <pre><code class="language-csharp">IntPtr net = IntPtr.Zero;
-AiliaSpeech.AILIASpeechApiCallback callback = AiliaSpeech.GetCallback();
-AiliaSpeech.ailiaSpeechCreate(ref net, env_id, Ailia.AILIA_MULTITHREAD_AUTO,
-    memory_mode, AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
-    AiliaSpeech.AILIA_SPEECH_FLAG_NONE, callback,
-    AiliaSpeech.AILIA_SPEECH_API_CALLBACK_VERSION);
-AiliaSpeech.ailiaSpeechOpenModelFile(net, encoder_path, decoder_path,
-    AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
-AiliaSpeech.ailiaSpeechOpenVadFile(net, vad_path, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO);
-AiliaSpeech.ailiaSpeechSetSilentThreshold(net, 0.5f, 0.25f, 1.0f);
-
-void Update(){
-    // 1. Concatenate all PCM received from the microphone so far
-    if (waveQueue.Count == 0){
-        return;
-    }
-    float[] waveData = waveQueue.SelectMany(x =&gt; x).ToArray();
-    waveQueue.Clear();
-    AiliaSpeech.ailiaSpeechPushInputData(net, waveData,
-        channels, (uint)waveData.Length / channels, frequency);
-
-    // 2. Transcribe only when VAD detects the end of an utterance
-    while (true){
-        uint buffered = 0;
-        AiliaSpeech.ailiaSpeechVadBuffered(net, ref buffered);
-        if (buffered == 0) break;
-        AiliaSpeech.ailiaSpeechTranscribe(net); // processes up to 30 seconds per call
-
-        uint count = 0;
-        AiliaSpeech.ailiaSpeechGetTextCount(net, ref count);
-        for (uint i = 0; i &lt; count; i++){
-            AiliaSpeech.AILIASpeechText text = new AiliaSpeech.AILIASpeechText();
-            AiliaSpeech.ailiaSpeechGetText(net, text, AiliaSpeech.AILIA_SPEECH_TEXT_VERSION, i);
-            Debug.Log(text.text); // one utterance = one voice command
-        }
-    }
-}</code></pre>
-    <div class="note">
-      <strong>注意:</strong> Transcribe はメインスレッドをブロックします。実際のアプリケーションでは、<code>AiliaSpeechModel</code> クラスの実装を参考に、サブスレッドで実行してください。
-    </div>
-
-    <h3>JNI（Kotlin）</h3>
-    <p>複数のボイスコマンドを連続して待ち受ける場合のループです。発話の区切りごとに認識結果を受け取り、状態をリセットすることなく待ち受けを継続します。</p>
-    <pre><code class="language-kotlin">val speech = AiliaSpeech(
-    envId = -1,
-    task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
-    flags = AiliaSpeech.AILIA_SPEECH_FLAG_NONE, // VadBuffered requires non-LIVE mode
-)
-speech.openModel(encoderPath, decoderPath,
-    AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL)
-speech.openVad(vadPath, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO)
 speech.setSilentThreshold(0.5f, 0.25f, 1.0f)
 
 while (listening) {
@@ -269,15 +131,194 @@ while (listening) {
     }
 }
 
-// Stop listening: drain the remaining audio
+// 3. Stop listening: drain the remaining audio
 speech.finalizeInputData()
+val lines = mutableListOf&lt;String&gt;()
 while (speech.getVadBuffered() == 1) {
     speech.transcribe()
     for (i in 0 until speech.getTextCount()) {
-        Log.d("ailia", speech.getText(i).text)
+        lines += speech.getText(i).text
     }
 }
+if (lines.isNotEmpty()) {
+    onVoiceCommand(lines.joinToString(""))
+}
 speech.resetTranscribeState() // required before pushing audio again</code></pre>
+
+    <h3>Flutter</h3>
+    <p><code>isVadBuffered()</code> を使用します。<code>open()</code> で VAD モデルを指定すると、しきい値 0.5、<code>speech_sec</code> 1.0 秒、<code>no_speech_sec</code> 1.0 秒が設定されます。しきい値を変更する場合は、FFI の <code>ailiaSpeechSetSilentThreshold</code> を直接呼び出します。</p>
+    <pre><code class="language-dart">final speech = AiliaSpeechModel();
+speech.create(false, false, envId); // liveTranscribe = false
+speech.open(File(encoderPath), File(decoderPath), File(vadPath), "auto",
+    AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+// Optional: override the thresholds configured by open()
+speech.ailiaSpeech.ailiaSpeechSetSilentThreshold(
+    speech.ppAilia!.value, 0.5, 0.25, 1.0);
+
+while (listening) {
+  // 1. Push mic PCM; silence before the utterance is discarded by the SDK
+  while (micQueue.isNotEmpty) {
+    final chunk = micQueue.removeFirst();
+    speech.pushInputData(chunk.pcm, sampleRate, chunk.channels);
+  }
+
+  // 2. Transcribe only when VAD detects the end of an utterance
+  final lines = &lt;String&gt;[];
+  while (speech.isVadBuffered()) {
+    for (final text in speech.transcribe()) { // processes up to 30 seconds per call
+      lines.add(text.text);
+    }
+  }
+  if (lines.isNotEmpty) {
+    onVoiceCommand(lines.join()); // one utterance = one voice command
+  }
+}
+
+// 3. Stop listening: drain the remaining audio
+speech.finalizeInputData();
+final lines = &lt;String&gt;[];
+while (speech.isVadBuffered()) {
+  for (final text in speech.transcribe()) {
+    lines.add(text.text);
+  }
+}
+if (lines.isNotEmpty) {
+  onVoiceCommand(lines.join());
+}
+speech.reset(); // ailiaSpeechResetTranscribeState: required before pushing audio again</code></pre>
+
+    <h3>C++</h3>
+    <pre><code class="language-cpp">ailiaSpeechCreate(&amp;speech, env_id, AILIA_MULTITHREAD_AUTO, memory_mode,
+                  AILIA_SPEECH_TASK_TRANSCRIBE, AILIA_SPEECH_FLAG_NONE,
+                  ailiaSpeechUtilGetCallback(), AILIA_SPEECH_API_CALLBACK_VERSION);
+ailiaSpeechOpenModelFileA(speech, encoder_path, decoder_path,
+                          AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+ailiaSpeechOpenVadFileA(speech, "silero_vad.onnx", AILIA_SPEECH_VAD_TYPE_SILERO);
+ailiaSpeechSetSilentThreshold(speech, 0.5f, 0.25f, 1.0f);
+
+while (listening) {
+    // 1. Push mic PCM; silence before the utterance is discarded by the SDK
+    while (mic_queue_pop(&amp;chunk)) {
+        ailiaSpeechPushInputData(speech, chunk.pcm, chunk.channels, chunk.samples, sample_rate);
+    }
+
+    // 2. Transcribe only when VAD detects the end of an utterance
+    std::string lines;
+    while (true) {
+        unsigned int buffered = 0;
+        ailiaSpeechVadBuffered(speech, &amp;buffered);
+        if (buffered == 0) break;
+        ailiaSpeechTranscribe(speech); // processes up to 30 seconds per call
+
+        unsigned int n;
+        ailiaSpeechGetTextCount(speech, &amp;n);
+        for (unsigned int i = 0; i &lt; n; i++) {
+            AILIASpeechText text;
+            ailiaSpeechGetText(speech, &amp;text, AILIA_SPEECH_TEXT_VERSION, i);
+            lines += text.text;
+        }
+    }
+    if (!lines.empty()) {
+        on_voice_command(lines); // one utterance = one voice command
+    }
+}
+
+// 3. Stop listening: drain the remaining audio
+ailiaSpeechFinalizeInputData(speech);
+std::string lines;
+while (true) {
+    unsigned int buffered = 0;
+    ailiaSpeechVadBuffered(speech, &amp;buffered);
+    if (buffered == 0) break;
+    ailiaSpeechTranscribe(speech);
+
+    unsigned int n;
+    ailiaSpeechGetTextCount(speech, &amp;n);
+    for (unsigned int i = 0; i &lt; n; i++) {
+        AILIASpeechText text;
+        ailiaSpeechGetText(speech, &amp;text, AILIA_SPEECH_TEXT_VERSION, i);
+        lines += text.text;
+    }
+}
+if (!lines.empty()) {
+    on_voice_command(lines);
+}
+ailiaSpeechResetTranscribeState(speech); // required before pushing audio again</code></pre>
+
+    <h3>Unity</h3>
+    <p><code>AiliaSpeechModel</code> クラスはサブスレッド内で Buffered API を使用して認識を行うため、VadBuffered API を使用する場合はネイティブ API を直接呼び出します。</p>
+    <pre><code class="language-csharp">IntPtr net = IntPtr.Zero;
+List&lt;float[]&gt; waveQueue = new List&lt;float[]&gt;();
+
+void OnEnable(){
+    AiliaSpeech.AILIASpeechApiCallback callback = AiliaSpeech.GetCallback();
+    AiliaSpeech.ailiaSpeechCreate(ref net, env_id, Ailia.AILIA_MULTITHREAD_AUTO,
+        memory_mode, AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+        AiliaSpeech.AILIA_SPEECH_FLAG_NONE, callback,
+        AiliaSpeech.AILIA_SPEECH_API_CALLBACK_VERSION);
+    AiliaSpeech.ailiaSpeechOpenModelFile(net, encoder_path, decoder_path,
+        AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+    AiliaSpeech.ailiaSpeechOpenVadFile(net, vad_path, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO);
+    AiliaSpeech.ailiaSpeechSetSilentThreshold(net, 0.5f, 0.25f, 1.0f);
+}
+
+void Update(){
+    // 1. Push mic PCM; silence before the utterance is discarded by the SDK
+    if (waveQueue.Count == 0){
+        return;
+    }
+    float[] waveData = waveQueue.SelectMany(x =&gt; x).ToArray();
+    waveQueue.Clear();
+    AiliaSpeech.ailiaSpeechPushInputData(net, waveData,
+        channels, (uint)waveData.Length / channels, frequency);
+
+    // 2. Transcribe only when VAD detects the end of an utterance
+    List&lt;string&gt; lines = new List&lt;string&gt;();
+    while (true){
+        uint buffered = 0;
+        AiliaSpeech.ailiaSpeechVadBuffered(net, ref buffered);
+        if (buffered == 0) break;
+        AiliaSpeech.ailiaSpeechTranscribe(net); // processes up to 30 seconds per call
+
+        uint count = 0;
+        AiliaSpeech.ailiaSpeechGetTextCount(net, ref count);
+        for (uint i = 0; i &lt; count; i++){
+            AiliaSpeech.AILIASpeechText text = new AiliaSpeech.AILIASpeechText();
+            AiliaSpeech.ailiaSpeechGetText(net, text, AiliaSpeech.AILIA_SPEECH_TEXT_VERSION, i);
+            lines.Add(text.text);
+        }
+    }
+    if (lines.Count &gt; 0){
+        OnVoiceCommand(string.Join("", lines)); // one utterance = one voice command
+    }
+}
+
+void OnDisable(){
+    // 3. Stop listening: drain the remaining audio
+    AiliaSpeech.ailiaSpeechFinalizeInputData(net);
+    List&lt;string&gt; lines = new List&lt;string&gt;();
+    while (true){
+        uint buffered = 0;
+        AiliaSpeech.ailiaSpeechVadBuffered(net, ref buffered);
+        if (buffered == 0) break;
+        AiliaSpeech.ailiaSpeechTranscribe(net);
+
+        uint count = 0;
+        AiliaSpeech.ailiaSpeechGetTextCount(net, ref count);
+        for (uint i = 0; i &lt; count; i++){
+            AiliaSpeech.AILIASpeechText text = new AiliaSpeech.AILIASpeechText();
+            AiliaSpeech.ailiaSpeechGetText(net, text, AiliaSpeech.AILIA_SPEECH_TEXT_VERSION, i);
+            lines.Add(text.text);
+        }
+    }
+    if (lines.Count &gt; 0){
+        OnVoiceCommand(string.Join("", lines));
+    }
+    AiliaSpeech.ailiaSpeechResetTranscribeState(net); // required before pushing audio again
+}</code></pre>
+    <div class="note">
+      <strong>注意:</strong> Transcribe はメインスレッドをブロックします。実際のアプリケーションでは、<code>AiliaSpeechModel</code> クラスの実装を参考に、サブスレッドで実行してください。
+    </div>
 
   </div>
 
@@ -287,7 +328,7 @@ speech.resetTranscribeState() // required before pushing audio again</code></pre
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
