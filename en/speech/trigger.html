@@ -197,7 +197,7 @@ while (listening) {
 
     <h3>Unity</h3>
     <p>With <code>SetVadBufferedMode(true)</code>, the worker thread of the <code>AiliaSpeechModel</code> class uses the VadBuffered API instead of the Buffered API and transcribes only when VAD detects the end of an utterance. Set it after <code>OpenVad</code>.</p>
-    <p>While <code>IsProcessing()</code> returns true, the worker thread is still processing the queue up to the VAD boundary. To avoid picking up a partial utterance, call <code>GetResults()</code> after <code>IsProcessing()</code> becomes false.</p>
+    <p>While <code>IsProcessing()</code> returns true, the worker thread is still processing the queue up to the VAD boundary. Pushing new PCM during this time starts processing again and may pick up a partial utterance, so keep accumulating the microphone PCM in <code>waveQueue</code>, and once <code>IsProcessing()</code> becomes false, drain the results with <code>GetResults()</code> and then pass the accumulated PCM.</p>
     <pre><code class="language-csharp">AiliaSpeechModel ailia_speech = new AiliaSpeechModel();
 List&lt;float[]&gt; waveQueue = new List&lt;float[]&gt;();
 
@@ -212,12 +212,14 @@ void OnEnable(){
 }
 
 void Update(){
-    // Get the results after the worker thread has processed the queue up to the VAD boundary
-    if (!ailia_speech.IsProcessing()){
-        // Confirmed results (one utterance detected by VAD)
-        foreach (string text in ailia_speech.GetResults()){
-            OnVoiceCommand(text);
-        }
+    // Wait until the worker thread has processed the queue up to the VAD boundary
+    if (ailia_speech.IsProcessing()){
+        return; // keep accumulating mic PCM in waveQueue
+    }
+
+    // Confirmed results (one utterance detected by VAD)
+    foreach (string text in ailia_speech.GetResults()){
+        OnVoiceCommand(text);
     }
 
     // Push mic PCM; silence before the utterance is discarded by the SDK
