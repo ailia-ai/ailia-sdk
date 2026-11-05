@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ailia Speech 音声待ち受けガイド</title>
+  <meta name="description" content="ailia Speech の VadBuffered API を使用して、30 秒を超えて音声を待ち受けし、VAD で検出した発話の区切りでボイスコマンドを受け取る方法を解説します。">
+  <link rel="canonical" href="https://docs.ailia.ai/speech/trigger.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/speech/trigger.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/speech/trigger.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/speech/trigger.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/speech/trigger.html">
+  <meta property="og:title" content="ailia Speech 音声待ち受けガイド">
+  <meta property="og:description" content="ailia Speech の VadBuffered API を使用して、30 秒を超えて音声を待ち受けし、VAD で検出した発話の区切りでボイスコマンドを受け取る方法を解説します。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ailia Speech 音声待ち受けガイド">
+  <meta name="twitter:description" content="ailia Speech の VadBuffered API を使用して、30 秒を超えて音声を待ち受けし、VAD で検出した発話の区切りでボイスコマンドを受け取る方法を解説します。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../ailia_logo.png" alt="ailia"></a>
+        <a href="./" class="logo-text">ailia Speech Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../">Top</a>
+        <a href="../sdk/">SDK</a>
+        <a href="../tflite/">TFLite</a>
+        <a href="../llm/">LLM</a>
+        <a href="../speech/">Speech</a>
+        <a href="../voice/">Voice</a>
+        <a href="../tokenizer/">Tokenizer</a>
+        <a href="../tracker/">Tracker</a>
+        <a href="../js/">JS</a>
+        <a href="../mp/">MP</a>
+        <a href="../en/speech/trigger.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>ailia Speech 音声待ち受けガイド</h1>
+    <p>ailia Speech の VadBuffered API を使用して、30 秒を超えて音声を待ち受けし、VAD で検出した発話の区切りでボイスコマンドを受け取る方法を解説します。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>概要</h2>
+    <p>ボイスコマンドの待ち受けやボイスエージェントでは、ユーザーがいつ話し始めるかわからないため、長時間マイク入力を監視し、発話が終わったタイミングで発話単位の認識結果を受け取る必要があります。</p>
+    <p>通常の <code>Buffered</code> API は、VAD で発話の区切りを検出した場合に加えて、30 秒分の音声が蓄積された場合にも 1 を返します。そのため、無音が続く待ち受け用途では、30 秒ごとに不要な Transcribe が実行されてしまいます。</p>
+    <p><code>VadBuffered</code> API は、30 秒分のデータが蓄積されても 1 を返さず、VAD で発話の区切りを検出した場合にのみ 1 を返します。これにより、30 秒を超えて音声を待ち受けし、発話が終わった時点でのみ音声認識を実行できます。</p>
+    <div class="note">
+      <strong>注意:</strong> VadBuffered API は ailia Speech 1.6.1 から使用可能です。
+    </div>
+
+    <h2>動作仕様</h2>
+    <p>VadBuffered API は以下のように動作します。</p>
+    <ul>
+      <li><code>speech_sec</code> 以上の発話の後に <code>no_speech_sec</code> 以上の無音が続いた場合にのみ 1 を返します。30 秒分のデータが蓄積されただけでは 1 を返しません。</li>
+      <li>発話開始前の無音と、<code>speech_sec</code> に満たない雑音は破棄されるため、長い無音の後の発話も先頭から認識されます。</li>
+      <li>発話が続く間は、区切りが検出されるまでデータを蓄積します。Transcribe は 1 回あたり最大 30 秒を処理するため、30 秒を超える発話は 1 が返される間 Transcribe を繰り返し呼び出すことで処理されます。</li>
+      <li><code>FinalizeInputData</code> を呼び出した場合は、区切りがなくても 1 を返します。録音を停止した際に、残りの音声を処理するために使用します。</li>
+      <li>蓄積する長さを制限する場合は、<code>ailiaSpeechGetPosition</code> で未処理のフレーム数を確認してください。</li>
+    </ul>
+    <p>使用するには以下の設定が必要です。</p>
+    <ul>
+      <li>VAD モデル（Silero VAD）を <code>OpenVad</code> で開いておく必要があります。</li>
+      <li><code>SetSilentThreshold</code> で判定しきい値（VAD しきい値、発話開始判定秒数 <code>speech_sec</code>、発話終了判定秒数 <code>no_speech_sec</code>）を事前に設定する必要があります。</li>
+      <li>発話の区切りを待ってから認識するため、<code>AILIA_SPEECH_FLAG_LIVE</code> は使用せず、<code>AILIA_SPEECH_FLAG_NONE</code>（通常モード）で使用します。暫定結果の表示が必要な場合は IntermediateCallback を併用できます。</li>
+    </ul>
+    <div class="note">
+      <strong>ライブモードとの使い分け:</strong> 発話中の暫定結果を低遅延で表示し続ける字幕のような用途には <a href="live.html">ライブモード</a> が適しています。発話が終わってから発話単位の確定結果を受け取るボイスコマンドやボイスエージェントの用途には VadBuffered API が適しています。
+    </div>
+
+    <h2>待ち受けのフロー</h2>
+    <p>マイクから受信した PCM を <code>PushInputData</code> で入力しながら <code>VadBuffered</code> を確認し、1 が返されたら <code>Transcribe</code> を実行します。1 つの発話が 30 秒を超える場合もあるため、<code>VadBuffered</code> が 1 を返す間 <code>Transcribe</code> を繰り返し、得られたテキストを 1 つのボイスコマンドとして処理します。その後は状態をリセットすることなく、そのまま次の発話の待ち受けを継続できます。</p>
+    <p>録音を終了する場合は <code>FinalizeInputData</code> を呼び出し、<code>VadBuffered</code> が 1 を返す間 <code>Transcribe</code> を実行して残りの音声を処理します。再度入力を行う場合は <code>ResetTranscribeState</code> を呼び出してください。</p>
+
+    <h2>コードサンプル</h2>
+
+    <h3>Kotlin（ボイスエージェント）</h3>
+    <p><a href="https://github.com/axinc-ai/ailia-models-kotlin" target="_blank" rel="noopener">ailia-models-kotlin</a> のボイスエージェントでは、発話の終了を VadBuffered API で検出しています。発話の区切りが検出されたら入力を確定し、残りの音声をすべて処理してからエージェントの応答生成に進みます。</p>
+    <pre><code class="language-kotlin">val speech = AiliaSpeech(
+    envId = -1,
+    task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+    flags = AiliaSpeech.AILIA_SPEECH_FLAG_NONE, // VadBuffered requires non-LIVE mode
+)
+speech.openModel(encoderPath, decoderPath,
+    AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL)
+speech.openVad(vadPath, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO)
+// Values used by the voice agent: threshold=0.5, speechSec=0.25, noSpeechSec=1.0
+speech.setSilentThreshold(0.5f, 0.25f, 1.0f)
+
+// 1. Push mic PCM until VAD detects the end of an utterance
+var detected = false
+while (!detected) {
+    val chunk = micQueue.take()
+    speech.pushInputData(chunk.pcm, chunk.channels, chunk.samples, sampleRate)
+    detected = (speech.getVadBuffered() == 1)
+}
+
+// 2. Finalize the input and drain the remaining audio
+speech.finalizeInputData()
+val lines = mutableListOf&lt;String&gt;()
+while (speech.getVadBuffered() == 1) {
+    speech.transcribe()
+    for (i in 0 until speech.getTextCount()) {
+        lines += speech.getText(i).text
+    }
+}
+check(speech.getComplete() == 1)
+speech.resetTranscribeState() // required before pushing audio again
+
+val voiceCommand = lines.joinToString("")</code></pre>
+
+    <h3>Flutter</h3>
+    <p><code>isVadBuffered()</code> を使用します。<code>open()</code> で VAD モデルを指定すると、しきい値 0.5、<code>speech_sec</code> 1.0 秒、<code>no_speech_sec</code> 1.0 秒が設定されます。しきい値を変更する場合は、FFI の <code>ailiaSpeechSetSilentThreshold</code> を直接呼び出します。</p>
+    <pre><code class="language-dart">final speech = AiliaSpeechModel();
+speech.create(false, false, envId); // liveTranscribe = false
+speech.open(File(encoderPath), File(decoderPath), File(vadPath), "auto",
+    AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+// Optional: override the thresholds configured by open()
+speech.ailiaSpeech.ailiaSpeechSetSilentThreshold(
+    speech.ppAilia!.value, 0.5, 0.25, 1.0);
+
+while (listening) {
+  // 1. Push mic PCM; silence before the utterance is discarded by the SDK
+  while (micQueue.isNotEmpty) {
+    final chunk = micQueue.removeFirst();
+    speech.pushInputData(chunk.pcm, sampleRate, chunk.channels);
+  }
+
+  // 2. Transcribe only when VAD detects the end of an utterance
+  final lines = &lt;String&gt;[];
+  while (speech.isVadBuffered()) {
+    for (final text in speech.transcribe()) {
+      lines.add(text.text);
+    }
+  }
+  if (lines.isNotEmpty) {
+    onVoiceCommand(lines.join()); // one utterance = one voice command
+  }
+}</code></pre>
+
+    <h3>C++</h3>
+    <pre><code class="language-c">ailiaSpeechCreate(&amp;speech, env_id, AILIA_MULTITHREAD_AUTO, memory_mode,
+                  AILIA_SPEECH_TASK_TRANSCRIBE, AILIA_SPEECH_FLAG_NONE,
+                  ailiaSpeechUtilGetCallback(), AILIA_SPEECH_API_CALLBACK_VERSION);
+ailiaSpeechOpenModelFileA(speech, encoder_path, decoder_path,
+                          AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+ailiaSpeechOpenVadFileA(speech, "silero_vad.onnx", AILIA_SPEECH_VAD_TYPE_SILERO);
+ailiaSpeechSetSilentThreshold(speech, 0.5f, 0.25f, 1.0f);
+
+while (listening) {
+    // 1. Push mic PCM; silence before the utterance is discarded by the SDK
+    while (mic_queue_pop(&amp;chunk)) {
+        ailiaSpeechPushInputData(speech, chunk.pcm, chunk.channels, chunk.samples, sample_rate);
+    }
+
+    // 2. Transcribe only when VAD detects the end of an utterance
+    while (true) {
+        unsigned int buffered = 0;
+        ailiaSpeechVadBuffered(speech, &amp;buffered);
+        if (buffered == 0) break;
+        ailiaSpeechTranscribe(speech); // processes up to 30 seconds per call
+
+        unsigned int n;
+        ailiaSpeechGetTextCount(speech, &amp;n);
+        for (unsigned int i = 0; i &lt; n; i++) {
+            AILIASpeechText text;
+            ailiaSpeechGetText(speech, &amp;text, AILIA_SPEECH_TEXT_VERSION, i);
+            printf("%s\n", text.text); // one utterance = one voice command
+        }
+    }
+}</code></pre>
+
+    <h3>Unity</h3>
+    <p><code>AiliaSpeechModel</code> クラスはサブスレッド内で Buffered API を使用して認識を行うため、VadBuffered API を使用する場合はネイティブ API を直接呼び出します。</p>
+    <pre><code class="language-csharp">IntPtr net = IntPtr.Zero;
+AiliaSpeech.AILIASpeechApiCallback callback = AiliaSpeech.GetCallback();
+AiliaSpeech.ailiaSpeechCreate(ref net, env_id, Ailia.AILIA_MULTITHREAD_AUTO,
+    memory_mode, AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+    AiliaSpeech.AILIA_SPEECH_FLAG_NONE, callback,
+    AiliaSpeech.AILIA_SPEECH_API_CALLBACK_VERSION);
+AiliaSpeech.ailiaSpeechOpenModelFile(net, encoder_path, decoder_path,
+    AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL);
+AiliaSpeech.ailiaSpeechOpenVadFile(net, vad_path, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO);
+AiliaSpeech.ailiaSpeechSetSilentThreshold(net, 0.5f, 0.25f, 1.0f);
+
+void Update(){
+    // 1. Concatenate all PCM received from the microphone so far
+    if (waveQueue.Count == 0){
+        return;
+    }
+    float[] waveData = waveQueue.SelectMany(x =&gt; x).ToArray();
+    waveQueue.Clear();
+    AiliaSpeech.ailiaSpeechPushInputData(net, waveData,
+        channels, (uint)waveData.Length / channels, frequency);
+
+    // 2. Transcribe only when VAD detects the end of an utterance
+    while (true){
+        uint buffered = 0;
+        AiliaSpeech.ailiaSpeechVadBuffered(net, ref buffered);
+        if (buffered == 0) break;
+        AiliaSpeech.ailiaSpeechTranscribe(net); // processes up to 30 seconds per call
+
+        uint count = 0;
+        AiliaSpeech.ailiaSpeechGetTextCount(net, ref count);
+        for (uint i = 0; i &lt; count; i++){
+            AiliaSpeech.AILIASpeechText text = new AiliaSpeech.AILIASpeechText();
+            AiliaSpeech.ailiaSpeechGetText(net, text, AiliaSpeech.AILIA_SPEECH_TEXT_VERSION, i);
+            Debug.Log(text.text); // one utterance = one voice command
+        }
+    }
+}</code></pre>
+    <div class="note">
+      <strong>注意:</strong> Transcribe はメインスレッドをブロックします。実際のアプリケーションでは、<code>AiliaSpeechModel</code> クラスの実装を参考に、サブスレッドで実行してください。
+    </div>
+
+    <h3>JNI（Kotlin）</h3>
+    <p>複数のボイスコマンドを連続して待ち受ける場合のループです。発話の区切りごとに認識結果を受け取り、状態をリセットすることなく待ち受けを継続します。</p>
+    <pre><code class="language-kotlin">val speech = AiliaSpeech(
+    envId = -1,
+    task = AiliaSpeech.AILIA_SPEECH_TASK_TRANSCRIBE,
+    flags = AiliaSpeech.AILIA_SPEECH_FLAG_NONE, // VadBuffered requires non-LIVE mode
+)
+speech.openModel(encoderPath, decoderPath,
+    AiliaSpeech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL)
+speech.openVad(vadPath, AiliaSpeech.AILIA_SPEECH_VAD_TYPE_SILERO)
+speech.setSilentThreshold(0.5f, 0.25f, 1.0f)
+
+while (listening) {
+    // 1. Push mic PCM; silence before the utterance is discarded by the SDK
+    while (true) {
+        val chunk = micQueue.poll() ?: break
+        speech.pushInputData(chunk.pcm, chunk.channels, chunk.samples, sampleRate)
+    }
+
+    // 2. Transcribe only when VAD detects the end of an utterance
+    val lines = mutableListOf&lt;String&gt;()
+    while (speech.getVadBuffered() == 1) {
+        speech.transcribe() // processes up to 30 seconds per call
+        for (i in 0 until speech.getTextCount()) {
+            lines += speech.getText(i).text
+        }
+    }
+    if (lines.isNotEmpty()) {
+        onVoiceCommand(lines.joinToString("")) // one utterance = one voice command
+    }
+}
+
+// Stop listening: drain the remaining audio
+speech.finalizeInputData()
+while (speech.getVadBuffered() == 1) {
+    speech.transcribe()
+    for (i in 0 until speech.getTextCount()) {
+        Log.d("ailia", speech.getText(i).text)
+    }
+}
+speech.resetTranscribeState() // required before pushing audio again</code></pre>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

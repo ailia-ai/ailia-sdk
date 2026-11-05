@@ -71,6 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="note">
       <strong>Note:</strong> Accuracy is higher without Live mode, because recognition can also refer to later audio. Do not use Live mode for audio files; use it for microphone input that needs real-time results.
     </div>
+    <p>To receive a confirmed per-utterance result after the user finishes speaking, such as when waiting for voice commands, see the <a href="trigger.html">Voice Trigger Guide</a>.</p>
 
     <h2>How to Push PCM</h2>
     <p>When using <code>AILIA_SPEECH_FLAG_LIVE</code>, do not run the Buffered check and Transcribe after every PCM chunk you push. Instead, first push all PCM received so far, then run the Buffered check and Transcribe.</p>
