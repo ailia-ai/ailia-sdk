@@ -236,6 +236,33 @@ void OnDisable(){
     ailia_speech.Close();
 }</code></pre>
 
+    <h3>Python</h3>
+    <p>In the <code>ailia_speech</code> package (<code>pip install ailia_speech</code>), passing <code>vad_boundary = True</code> to <code>transcribe_step()</code> makes it use the VadBuffered API internally, so recognition runs only when VAD detects the end of an utterance. Specifying <code>vad_type</code> in <code>initialize_model()</code> downloads the VAD model and sets a threshold of 0.5, <code>speech_sec</code> of 1.0 seconds, and <code>no_speech_sec</code> of 1.0 seconds. Call <code>set_silent_threshold()</code> to change the thresholds.</p>
+    <pre><code class="language-python">import ailia_speech
+
+speech = ailia_speech.Whisper(
+    env_id = -1,
+    task = ailia_speech.AILIA_SPEECH_TASK_TRANSCRIBE,
+    flags = ailia_speech.AILIA_SPEECH_FLAG_NONE) # VadBuffered requires non-LIVE mode
+speech.initialize_model(model_path = "./models/",
+    model_type = ailia_speech.AILIA_SPEECH_MODEL_TYPE_WHISPER_MULTILINGUAL_SMALL,
+    vad_type = ailia_speech.AILIA_SPEECH_VAD_TYPE_SILERO)
+# Optional: override the thresholds configured by initialize_model()
+speech.set_silent_threshold(0.5, 0.25, 1.0)
+
+while listening:
+    # 1. Push mic PCM; silence before the utterance is discarded by the SDK
+    pcm = mic_queue.get() # np.float32 PCM
+
+    # 2. Transcribe only when VAD detects the end of an utterance
+    lines = []
+    for text in speech.transcribe_step(pcm, sample_rate,
+                                       complete = False, vad_boundary = True):
+        lines.append(text["text"]) # processes up to 30 seconds per iteration
+
+    if lines:
+        on_voice_command("".join(lines)) # one utterance = one voice command</code></pre>
+
   </div>
 
   <footer>
@@ -248,6 +275,7 @@ void OnDisable(){
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
   <script>hljs.highlightAll();</script>
   <script>
     document.querySelectorAll('.menu-toggle').forEach(btn => {
