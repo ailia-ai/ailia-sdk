@@ -129,21 +129,7 @@ while (listening) {
     if (lines.isNotEmpty()) {
         onVoiceCommand(lines.joinToString("")) // one utterance = one voice command
     }
-}
-
-// 3. Stop listening: drain the remaining audio
-speech.finalizeInputData()
-val lines = mutableListOf&lt;String&gt;()
-while (speech.getVadBuffered() == 1) {
-    speech.transcribe()
-    for (i in 0 until speech.getTextCount()) {
-        lines += speech.getText(i).text
-    }
-}
-if (lines.isNotEmpty()) {
-    onVoiceCommand(lines.joinToString(""))
-}
-speech.resetTranscribeState() // required before pushing audio again</code></pre>
+}</code></pre>
 
     <h3>Flutter</h3>
     <p><code>isVadBuffered()</code> を使用します。<code>open()</code> で VAD モデルを指定すると、しきい値 0.5、<code>speech_sec</code> 1.0 秒、<code>no_speech_sec</code> 1.0 秒が設定されます。しきい値を変更する場合は、FFI の <code>ailiaSpeechSetSilentThreshold</code> を直接呼び出します。</p>
@@ -172,20 +158,7 @@ while (listening) {
   if (lines.isNotEmpty) {
     onVoiceCommand(lines.join()); // one utterance = one voice command
   }
-}
-
-// 3. Stop listening: drain the remaining audio
-speech.finalizeInputData();
-final lines = &lt;String&gt;[];
-while (speech.isVadBuffered()) {
-  for (final text in speech.transcribe()) {
-    lines.add(text.text);
-  }
-}
-if (lines.isNotEmpty) {
-  onVoiceCommand(lines.join());
-}
-speech.reset(); // ailiaSpeechResetTranscribeState: required before pushing audio again</code></pre>
+}</code></pre>
 
     <h3>C++</h3>
     <pre><code class="language-cpp">ailiaSpeechCreate(&amp;speech, env_id, AILIA_MULTITHREAD_AUTO, memory_mode,
@@ -221,29 +194,7 @@ while (listening) {
     if (!lines.empty()) {
         on_voice_command(lines); // one utterance = one voice command
     }
-}
-
-// 3. Stop listening: drain the remaining audio
-ailiaSpeechFinalizeInputData(speech);
-std::string lines;
-while (true) {
-    unsigned int buffered = 0;
-    ailiaSpeechVadBuffered(speech, &amp;buffered);
-    if (buffered == 0) break;
-    ailiaSpeechTranscribe(speech);
-
-    unsigned int n;
-    ailiaSpeechGetTextCount(speech, &amp;n);
-    for (unsigned int i = 0; i &lt; n; i++) {
-        AILIASpeechText text;
-        ailiaSpeechGetText(speech, &amp;text, AILIA_SPEECH_TEXT_VERSION, i);
-        lines += text.text;
-    }
-}
-if (!lines.empty()) {
-    on_voice_command(lines);
-}
-ailiaSpeechResetTranscribeState(speech); // required before pushing audio again</code></pre>
+}</code></pre>
 
     <h3>Unity</h3>
     <p><code>AiliaSpeechModel</code> クラスはサブスレッド内で Buffered API を使用して認識を行うため、VadBuffered API を使用する場合はネイティブ API を直接呼び出します。</p>
@@ -291,30 +242,6 @@ void Update(){
     if (lines.Count &gt; 0){
         OnVoiceCommand(string.Join("", lines)); // one utterance = one voice command
     }
-}
-
-void OnDisable(){
-    // 3. Stop listening: drain the remaining audio
-    AiliaSpeech.ailiaSpeechFinalizeInputData(net);
-    List&lt;string&gt; lines = new List&lt;string&gt;();
-    while (true){
-        uint buffered = 0;
-        AiliaSpeech.ailiaSpeechVadBuffered(net, ref buffered);
-        if (buffered == 0) break;
-        AiliaSpeech.ailiaSpeechTranscribe(net);
-
-        uint count = 0;
-        AiliaSpeech.ailiaSpeechGetTextCount(net, ref count);
-        for (uint i = 0; i &lt; count; i++){
-            AiliaSpeech.AILIASpeechText text = new AiliaSpeech.AILIASpeechText();
-            AiliaSpeech.ailiaSpeechGetText(net, text, AiliaSpeech.AILIA_SPEECH_TEXT_VERSION, i);
-            lines.Add(text.text);
-        }
-    }
-    if (lines.Count &gt; 0){
-        OnVoiceCommand(string.Join("", lines));
-    }
-    AiliaSpeech.ailiaSpeechResetTranscribeState(net); // required before pushing audio again
 }</code></pre>
     <div class="note">
       <strong>注意:</strong> Transcribe はメインスレッドをブロックします。実際のアプリケーションでは、<code>AiliaSpeechModel</code> クラスの実装を参考に、サブスレッドで実行してください。
