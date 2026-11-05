@@ -217,9 +217,10 @@ void Update(){
         return; // keep accumulating mic PCM in waveQueue
     }
 
-    // Confirmed results (one utterance detected by VAD)
-    foreach (string text in ailia_speech.GetResults()){
-        OnVoiceCommand(text);
+    // Confirmed results
+    List&lt;string&gt; lines = ailia_speech.GetResults();
+    if (lines.Count &gt; 0){
+        OnVoiceCommand(string.Join("", lines)); // one utterance = one voice command
     }
 
     // Push mic PCM; silence before the utterance is discarded by the SDK
