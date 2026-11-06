@@ -45,7 +45,7 @@
                     </a>
             </div>
             <div class="library-version">
-1.5.2.0            </div>
+1.5.3.0            </div>
         </div>
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="ailia_llm/main">JVM</button>
@@ -375,7 +375,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_llm/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-q-n-n-graph-switching.html"><span class="token function">setQNNGraphSwitching</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enable<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures QNN graph switching before <a href="open-model-file.html">openModelFile</a>; disabled by default. Applies to LLM, MTP, vision and audio graphs. Reduces context reloads and memory, but SDK lazy loading can increase first-execution or generation latency. Disabling succeeds even when QNN is unavailable. Enabling in that environment throws with AILIA_LLM_STATUS_UNIMPLEMENTED.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="ailia_llm/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-q-n-n-graph-switching.html"><span class="token function">setQNNGraphSwitching</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enable<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures QNN graph switching before <a href="open-model-file.html">openModelFile</a>; disabled by default. Applies to LLM, MTP, vision and audio graphs. When disabled (default), contexts are retained to prioritize speed, and LLM and MTP contexts are loaded when the model is opened. When enabled, contexts are loaded when needed and released when switching between media and the LLM to reduce memory usage, but reloading may increase processing time. In both modes, vision and audio contexts are loaded on first use. Enable this on devices with limited memory (e.g. VLM on SM8475). Disabling succeeds even when QNN is unavailable. Enabling in that environment throws with AILIA_LLM_STATUS_UNIMPLEMENTED.</p></div></div></div>
                 </div>
               </div>
             </div>

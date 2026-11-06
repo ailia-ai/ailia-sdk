@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.2.0</span>
+   &#160;<span id="projectnumber">1.5.3.0</span>
    </div>
   </td>
  </tr>
@@ -1151,7 +1151,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>SUCCESS, INVALID_ARGUMENT, INVALID_STATE after model open, or UNIMPLEMENTED when enabling without QNN.</dd></dl>
-<p>Call after Create and before opening a model. Applies to LLM, MTP, vision and audio graphs. Reduces context reloads and memory, but SDK lazy loading can increase first-execution or generation latency. Disabling succeeds even when QNN is unavailable. </p>
+<p>Call after Create and before opening a model. Applies to LLM, MTP, vision and audio graphs. When disabled (default), contexts are retained to prioritize speed, and LLM and MTP contexts are loaded when the model is opened. When enabled, contexts are loaded when needed and released when switching between media and the LLM to reduce memory usage, but reloading may increase processing time. In both modes, vision and audio contexts are loaded on first use. Enable this on devices with limited memory (e.g. VLM on SM8475). Disabling succeeds even when QNN is unavailable. </p>
 
 </div>
 </div>

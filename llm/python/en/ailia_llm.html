@@ -480,9 +480,13 @@ Applies to target decode/prefill, assistant and VLM/ALM CPU processing.</p>
 <dt class="sig sig-object py" id="ailia_llm.AiliaLLM.set_qnn_graph_switching">
 <span class="sig-name descname"><span class="pre">set_qnn_graph_switching</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.set_qnn_graph_switching" title="Link to this definition">¶</a></dt>
 <dd><p>Configure QNN graph switching before <a class="reference internal" href="#ailia_llm.AiliaLLM.open" title="ailia_llm.AiliaLLM.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a>; disabled by default.</p>
-<p>Applies to LLM, MTP, vision and audio graphs. Reduces context reloads
-and memory, but SDK lazy loading can increase first-execution or
-generation latency. Disabling succeeds even when QNN is unavailable.</p>
+<p>Applies to LLM, MTP, vision and audio graphs.
+When disabled (default), contexts are retained to prioritize speed, and LLM and MTP
+contexts are loaded when the model is opened. When enabled, contexts are loaded when
+needed and released when switching between media and the LLM to reduce memory usage,
+but reloading may increase processing time. In both modes, vision and audio contexts
+are loaded on first use. Enable this on devices with limited memory (e.g. VLM on SM8475).
+Disabling succeeds even when QNN is unavailable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>enable</strong> (<em>bool</em>) – True to enable graph switching, False to disable it (default: disabled).</p>

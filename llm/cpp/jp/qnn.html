@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.2.0</span>
+   &#160;<span id="projectnumber">1.5.3.0</span>
    </div>
   </td>
  </tr>
@@ -141,13 +141,12 @@ QNNライブラリをインストール先にコピーする</h2>
 <div class="line">cp libQnnHtp.so libQnnSystem.so libQnnHtpV68Stub.so libQnnHtpV68Skel.so &quot;$LLM_NATIVE/&quot;</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md26"></a>
 アプリケーションからローカルモデルを開く</h2>
-<p>Pythonからは、既存のopen()にダウンロード済みの.qnnファイルのパスを渡します。 以下はモデルの読み込みから応答生成までの例です。 get_qnn_model_name()で実機のモデル識別名を取得し、open()の前にset_qnn_graph_switching(True)を呼びます。グラフ切替でメモリ使用量を抑えられますが、処理時間が増える場合があります。 open()にダウンロード済みのモデルを渡し、generate()で応答を順次表示します。 このテキスト生成例ではマルチモーダルprojectorやMTP assistantは使用しません。</p>
+<p>Pythonからは、既存のopen()にダウンロード済みの.qnnファイルのパスを渡します。 以下はモデルの読み込みから応答生成までの例です。 get_qnn_model_name()で実機のモデル識別名を取得します。 open()にダウンロード済みのモデルを渡し、generate()で応答を順次表示します。 このテキスト生成例ではマルチモーダルprojectorやMTP assistantは使用しません。</p>
 <div class="fragment"><div class="line">import ailia_llm</div>
 <div class="line"> </div>
 <div class="line">llm = ailia_llm.AiliaLLM()</div>
 <div class="line">try:</div>
 <div class="line">    print(&quot;QNN model:&quot;, llm.get_qnn_model_name())</div>
-<div class="line">    llm.set_qnn_graph_switching(True)</div>
 <div class="line">    llm.open(&quot;./gemma4-e2b-qcs6490-int16-mtp.qnn&quot;, n_ctx=8192)</div>
 <div class="line">    messages = [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;What is the capital of Japan? Answer briefly.&quot;}]</div>
 <div class="line">    for text in llm.generate(messages):</div>
