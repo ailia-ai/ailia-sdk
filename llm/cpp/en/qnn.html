@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.2.0</span>
+   &#160;<span id="projectnumber">1.5.3.0</span>
    </div>
   </td>
  </tr>
@@ -141,13 +141,12 @@ Copy QNN libraries into the installed package</h2>
 <div class="line">cp libQnnHtp.so libQnnSystem.so libQnnHtpV68Stub.so libQnnHtpV68Skel.so &quot;$LLM_NATIVE/&quot;</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md34"></a>
 Open local models from an application</h2>
-<p>From Python, pass the path to the downloaded .qnn file to the existing open() method. The following example loads the model and generates a response. Get the device model name with get_qnn_model_name() and call set_qnn_graph_switching(True) before open(). Graph switching reduces memory usage but may increase latency. Pass the downloaded model to open() and print responses incrementally with generate(). This text generation example does not use a multimodal projector or MTP assistant.</p>
+<p>From Python, pass the path to the downloaded .qnn file to the existing open() method. The following example loads the model and generates a response. Get the device model name with get_qnn_model_name(). Pass the downloaded model to open() and print responses incrementally with generate(). This text generation example does not use a multimodal projector or MTP assistant.</p>
 <div class="fragment"><div class="line">import ailia_llm</div>
 <div class="line"> </div>
 <div class="line">llm = ailia_llm.AiliaLLM()</div>
 <div class="line">try:</div>
 <div class="line">    print(&quot;QNN model:&quot;, llm.get_qnn_model_name())</div>
-<div class="line">    llm.set_qnn_graph_switching(True)</div>
 <div class="line">    llm.open(&quot;./gemma4-e2b-qcs6490-int16-mtp.qnn&quot;, n_ctx=8192)</div>
 <div class="line">    messages = [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;What is the capital of Japan? Answer briefly.&quot;}]</div>
 <div class="line">    for text in llm.generate(messages):</div>

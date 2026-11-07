@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.2.0</span>
+   &#160;<span id="projectnumber">1.5.3.0</span>
    </div>
   </td>
  </tr>
@@ -256,7 +256,7 @@ ailia_llm.h の依存先関係図:</div>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>LLM推論ライブラリ </p>
 <dl class="section copyright"><dt>著作権所有</dt><dd>AXELL CORPORATION, ailia Inc. </dd></dl>
-<dl class="section date"><dt>日付</dt><dd>2026/10/30 </dd></dl>
+<dl class="section date"><dt>日付</dt><dd>2026/11/07 </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
 <a id="a3c69aad585c8ee619c34450cb5f35ea9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c69aad585c8ee619c34450cb5f35ea9">&#9670;&nbsp;</a></span>AILIA_LLM_API</h2>
@@ -1630,7 +1630,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功時はAILIA_LLM_STATUS_SUCCESS。モデルを開いた後はINVALID_STATE。</dd></dl>
-<p>ailiaLLMCreate後、モデルを開く前に呼び出してください。 LLM、MTP、画像・音声グラフに適用します。切り替え時の再ロードとメモリを 削減しますが、SDK内の遅延ロードにより初回実行や生成が遅くなる場合があります。 QNNが使用できない環境で有効化を指定した場合はAILIA_LLM_STATUS_UNIMPLEMENTEDを返します。 無効化はQNN非対応環境でも成功します。 </p>
+<p>ailiaLLMCreate後、モデルを開く前に呼び出してください。 LLM、MTP、画像・音声グラフに適用します。 無効時（既定値）はコンテキストを保持して速度を優先します。MTPを使用する場合はMTPを開く時点でLLM・MTPのコンテキストを、使用しない場合は最初の生成時または画像・音声の読み込み前にLLMのコンテキストを読み込みます。 有効時はコンテキストを必要時に読み込み、画像・音声とLLMの切り替え時に解放することでメモリ使用量を削減しますが、再ロードにより処理時間が増える場合があります。 画像・音声のコンテキストは、どちらの場合も初回使用時に読み込みます。 メモリに余裕がない端末（SM8475のVLMなど）では有効にしてください。 QNNが使用できない環境で有効化を指定した場合はAILIA_LLM_STATUS_UNIMPLEMENTEDを返します。 無効化はQNN非対応環境でも成功します。 </p>
 
 </div>
 </div>
