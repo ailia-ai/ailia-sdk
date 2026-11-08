@@ -630,7 +630,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>デコードした結果はailiaLLMGetDeltaText APIで取得します。 ailiaLLMGenerateを呼び出すたびに1トークンずつデコードします。 doneは0か1を取ります。doneが1の場合、生成完了となります。 </p>
+<p>デコードした結果はailiaLLMGetDeltaText APIで取得します。 ailiaLLMGenerateを呼び出すたびに1トークンずつデコードします。 doneは0か1を取ります。doneが1の場合、生成完了となります。 doneが1になった後は、次にプロンプトを設定するまで、呼び出すたびにdone=1を返し、テキストは追加されません。 コンテキストが一杯になると <a class="el" href="ailia__llm_8h.html#a79bd7f952f014ed738d1753dffade081">AILIA_LLM_STATUS_CONTEXT_FULL</a> を返します。 プロンプトが設定されていない場合は <a class="el" href="ailia__llm_8h.html#a486d229c92e4b5c0fe4fc0bf673c5034">AILIA_LLM_STATUS_INVALID_STATE</a> を返します。 </p>
 
 </div>
 </div>
@@ -817,7 +817,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p><a class="el" href="ailia__llm_8h.html#a5dd8bd3eb42561a666a6855759d49a87" title="生成を行います。">ailiaLLMGenerate()</a> を一度も実行していない場合は <a class="el" href="ailia__llm_8h.html#a486d229c92e4b5c0fe4fc0bf673c5034">AILIA_LLM_STATUS_INVALID_STATE</a> が返ります。 </p>
+<p>直前のailiaLLMGenerateで追加されたテキストを返します。プロンプトの設定直後、生成完了後、 およびプロンプト未設定時は空文字列です。モデル未読込の場合は <a class="el" href="ailia__llm_8h.html#a486d229c92e4b5c0fe4fc0bf673c5034">AILIA_LLM_STATUS_INVALID_STATE</a> が返ります。 </p>
 
 </div>
 </div>
@@ -916,7 +916,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>ailiaLLMGenerateを呼び出した後に呼び出し可能です。 </p>
+<p>現在のプロンプトに対して生成したトークン数を返します。生成終了のトークンを含みます。 プロンプトが設定されていない場合と、プロンプトの設定直後は0を返します。 </p>
 
 </div>
 </div>
@@ -1001,7 +1001,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>ailiaLLMSetPromptを呼び出した後に呼び出し可能です。 </p>
+<p>設定済みのプロンプトがコンテキスト上で占めるトークン数を返します。ailiaLLMSetPrompt、 ailiaLLMSetMultimodalPrompt、ailiaLLMSetPromptJsonのいずれで設定した場合も同じ定義で、 画像・音声を含むプロンプトでは埋め込みのトークン数を含みます。バックエンド（CPU/GPU、QNN）にも依存しません。 プロンプトが設定されていない場合は0を返します。 </p>
 
 </div>
 </div>
@@ -1203,7 +1203,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエンド未選択なら .qnnはHTPに、GGUFはCPU/GPUに自動振り分けされます。明示選択した場合は バックエンドとモデル形式の一致が必要です。.qnnではn_ctx=0を指定すると モデル内のコンテキスト長を使用します。 </p>
+<p>GGUFまたは自己完結ailia QNNモデルを読み込みます。バックエンド未選択なら .qnnはHTPに、GGUFはCPU/GPUに自動振り分けされます。明示選択した場合は バックエンドとモデル形式の一致が必要です。.qnnではn_ctx=0を指定すると モデル内のコンテキスト長を使用します。 1つのLLMオブジェクトで開けるモデルは1つです。読込済みのオブジェクトで再度呼び出すと <a class="el" href="ailia__llm_8h.html#a486d229c92e4b5c0fe4fc0bf673c5034">AILIA_LLM_STATUS_INVALID_STATE</a> を返し、読込済みのモデルはそのまま使用できます。 別のモデルを開く場合は、ailiaLLMDestroyの後にailiaLLMCreateからやり直してください。 </p>
 
 </div>
 </div>
@@ -1468,7 +1468,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>マルチモーダル対応のプロンプトを設定します。メッセージのcontentに&lt;<b>media</b>&gt;プレースホルダーを含め、 対応するメディアデータをmedia_dataに設定してください。 例: "この画像について説明してください: &lt;__media__&gt;" messageの内容は内部でコピーされるため、呼び出し後に開放することができます。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 音声はWAV/MP3/FLACのファイルパスまたはエンコード済みバッファから読み込み可能です。 KVキャッシュの再利用では、ファイル入力とバッファ入力は内容のハッシュで同一性を判定します。 エンコーダー出力は現在のプロンプトに含まれるメディアの分だけ保持し、履歴から外れた分は解放します。 デコード済みの画像・音声は設定処理の終了時に解放します。 メディアを含まないプロンプトへの切り替えが成功すると、メディアのキャッシュを解放します。 </p>
+<p>マルチモーダル対応のプロンプトを設定します。メッセージのcontentに&lt;<b>media</b>&gt;プレースホルダーを含め、 対応するメディアデータをmedia_dataに設定してください。 例: "この画像について説明してください: &lt;__media__&gt;" messageの内容は内部でコピーされるため、呼び出し後に開放することができます。 画像はファイルパス、エンコード済みバッファ（JPG、PNG等）、またはRaw RGBデータから読み込み可能です。 音声はWAV/MP3/FLACのファイルパスまたはエンコード済みバッファから読み込み可能です。 KVキャッシュの再利用では、ファイル入力とバッファ入力は内容のハッシュで同一性を判定します。 エンコーダー出力は現在のプロンプトに含まれるメディアの分だけ保持し、履歴から外れた分は解放します。 デコード済みの画像・音声は設定処理の終了時に解放します。 メディアを含まないプロンプトへの切り替えが成功すると、メディアのキャッシュを解放します。 エラーを返した場合はailiaLLMSetPromptと同様に、設定済みのプロンプトを破棄します。 </p>
 
 </div>
 </div>
@@ -1553,7 +1553,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>LLMに問い合わせるプロンプトを設定します。 ChatHistoryもmessageに含めてください。 ツール設定中はINVALID_STATEを返します。最初のuserメッセージからailiaLLMSetPromptJsonを使用してください。 ailiaLLMSetToolsでツールを解除すると本APIを再び使用できます。 messageの内容は内部でコピーされるため、呼び出し後に開放することができます。 </p>
+<p>LLMに問い合わせるプロンプトを設定します。 ChatHistoryもmessageに含めてください。 ツール設定中はINVALID_STATEを返します。最初のuserメッセージからailiaLLMSetPromptJsonを使用してください。 ailiaLLMSetToolsでツールを解除すると本APIを再び使用できます。 messageの内容は内部でコピーされるため、呼び出し後に開放することができます。 エラーを返した場合、設定済みのプロンプトは破棄されます。次にプロンプトの設定が成功するまで、 ailiaLLMGenerateとailiaLLMGetResponseJsonはINVALID_STATEを、トークン数の取得は0を返します。 </p>
 
 </div>
 </div>
@@ -1591,7 +1591,7 @@ ailia_llm.h の依存先関係図:</div>
   </table>
   </dd>
 </dl>
-<p>roleはsystem/user/assistant/tool、contentは文字列またはnullです。userはcontent配列にも対応します。 配列要素は{"type":"text","text":"..."}、またはtypeがimage/audioでfile_path（ローカルファイル）か data（標準Base64のエンコード済みファイル）を1つ指定します。 画像はJPEG/PNG等、音声はWAV/MP3/FLACに対応します。 メディアは対応projectorの読込が必要です。URL取得・生PCM/RGB・動画には対応しません。 配列順に入力します。メディア入力の内容・順序・個数と履歴の接頭部が一致し、 必要なKV位置が残っている場合はKVキャッシュを再利用します。 エンコード結果はバックエンドのキャッシュ条件に従って再利用します。 GGUF・QNNともにKVの再構築が必要な場合も、保持中のメディアのエンコーダー出力を再利用できます。 ファイルの内容ハッシュは毎回確認し、メディアの内容が変更された場合は再評価します。 エンコーダー出力は現在のプロンプトに含まれるメディアの分だけ保持し、履歴から外れた分は解放します。 デコード済みの画像・音声は設定処理の終了時に解放します。 メディアを含まないプロンプトへの切り替えが成功すると、メディアのキャッシュを解放します。 assistantのcontentをモデル固有構文として再解析しません。reasoning_contentとtool_callsを明示してください。 ailiaLLMGetResponseJsonの結果をassistantメッセージとしてそのまま追加できます。 tool_callsはtype="function"、空でないidとfunction.name、JSONオブジェクトを表す文字列function.argumentsを必要とします。 idはassistant内で一意とし、後続ターンでは再利用できます。 tool結果のcontentは文字列、tool_call_idは直前のassistantの呼び出しIDです。 連続するtool結果は順序ではなくIDで対応付け、ツール名を補います。重複・不一致の結果は拒否します。 不完全なargumentsは補完・破棄せずエラーとします。GetResponseJsonがPARSE_ERRORの場合は、 失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加してください。 SetTools(NULL)後も過去のtool_callsとtool結果を入力できます。結果JSONはツール解除前に取得してください。 入力は呼び出し後に解放できます。成功後はailiaLLMGenerateで生成します。 </p><dl class="section return"><dt>戻り値</dt><dd>成功時SUCCESS。不正なJSON・型・ID対応・引数はINVALID_ARGUMENT。 モデル未読込の場合はINVALID_STATE。 その他の生成準備エラーはailiaLLMSetPromptと同じです。 </dd></dl>
+<p>roleはsystem/user/assistant/tool、contentは文字列またはnullです。userはcontent配列にも対応します。 配列要素は{"type":"text","text":"..."}、またはtypeがimage/audioでfile_path（ローカルファイル）か data（標準Base64のエンコード済みファイル）を1つ指定します。 画像はJPEG/PNG等、音声はWAV/MP3/FLACに対応します。 メディアは対応projectorの読込が必要です。URL取得・生PCM/RGB・動画には対応しません。 配列順に入力します。メディア入力の内容・順序・個数と履歴の接頭部が一致し、 必要なKV位置が残っている場合はKVキャッシュを再利用します。 エンコード結果はバックエンドのキャッシュ条件に従って再利用します。 GGUF・QNNともにKVの再構築が必要な場合も、保持中のメディアのエンコーダー出力を再利用できます。 ファイルの内容ハッシュは毎回確認し、メディアの内容が変更された場合は再評価します。 エンコーダー出力は現在のプロンプトに含まれるメディアの分だけ保持し、履歴から外れた分は解放します。 デコード済みの画像・音声は設定処理の終了時に解放します。 メディアを含まないプロンプトへの切り替えが成功すると、メディアのキャッシュを解放します。 assistantのcontentをモデル固有構文として再解析しません。reasoning_contentとtool_callsを明示してください。 ailiaLLMGetResponseJsonの結果をassistantメッセージとしてそのまま追加できます。 tool_callsはtype="function"、空でないidとfunction.name、JSONオブジェクトを表す文字列function.argumentsを必要とします。 idはassistant内で一意とし、後続ターンでは再利用できます。 tool結果のcontentは文字列、tool_call_idは直前のassistantの呼び出しIDです。 連続するtool結果は順序ではなくIDで対応付け、ツール名を補います。重複・不一致の結果は拒否します。 不完全なargumentsは補完・破棄せずエラーとします。GetResponseJsonがPARSE_ERRORの場合は、 失敗したassistantを追加せず、既存履歴に再試行を指示するuserメッセージを追加してください。 SetTools(NULL)後も過去のtool_callsとtool結果を入力できます。結果JSONはツール解除前に取得してください。 入力は呼び出し後に解放できます。成功後はailiaLLMGenerateで生成します。 </p><dl class="section return"><dt>戻り値</dt><dd>成功時SUCCESS。不正なJSON・型・ID対応・引数はINVALID_ARGUMENT。 モデル未読込の場合はINVALID_STATE。 その他の生成準備エラーはailiaLLMSetPromptと同じです。 エラーを返した場合はailiaLLMSetPromptと同様に、設定済みのプロンプトを破棄します。 </dd></dl>
 
 </div>
 </div>
@@ -1690,7 +1690,7 @@ ailia_llm.h の依存先関係図:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>成功した場合は <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> 、そうでなければエラーコードを返す。</dd></dl>
-<p>LLMのサンプリングの設定を行います。ailiaLLMSetPromptの前に実行する必要があります。 </p>
+<p>LLMのサンプリングの設定を行います。設定はプロンプトの設定時（ailiaLLMSetPrompt、 ailiaLLMSetMultimodalPrompt、ailiaLLMSetPromptJson）に取り込まれ、次のプロンプトから反映されます。 設定済みのプロンプトの生成には影響しません。 </p>
 
 </div>
 </div>

@@ -66,7 +66,7 @@ $(function() {
 <div class="title">Running QNN on Yocto Linux </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md28"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md30"></a>
 Validated environment</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -92,7 +92,7 @@ Validated environment</h1>
 </table>
 <p>The Linux ARM64 binaries require at most glibc 2.35 and GLIBCXX_3.4.29. They can use the system C++ runtime in the environment listed below.</p>
 <p>Generate text with the public QCS6490 model. The BSP must provide CDSP firmware, FastRPC libcdsprpc.so, and access to the CDSP device. Install a valid ailia LLM license as described in the setup guide.</p>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 1. Get the required files (host PC)</h1>
 <p>Extract the ailia LLM SDK package and download:</p>
 <ul>
@@ -112,15 +112,15 @@ Validated environment</h1>
 <div class="line">cp &quot;$QNN_SDK_PATH/lib/aarch64-oe-linux-gcc11.2/libQnnHtpV68Stub.so&quot; &quot;$DEPLOY/&quot;</div>
 <div class="line">cp &quot;$QNN_SDK_PATH/lib/hexagon-v68/unsigned/libQnnHtpV68Skel.so&quot; &quot;$DEPLOY/&quot;</div>
 <div class="line">scp -r &quot;$DEPLOY&quot; root@169.254.239.42:/home/root/</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md30"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md32"></a>
 2. Run the C++ sample (board)</h1>
 <p>Place QNN libraries and the v68 skel beside libailia_llm_qnn.so. The sample and libraries load their dependencies from their own folder, so LD_LIBRARY_PATH is not needed. The system libstdc++ (GLIBCXX_3.4.29 or later) is used as the C++ runtime. The model extension selects QNN; text generation uses HTP / NPU. The sample runs two conversation turns and prints the responses.</p>
 <div class="fragment"><div class="line">cd /home/root/llm-qnn-yocto</div>
 <div class="line">chmod +x ./ailia_llm_sample</div>
 <div class="line">./ailia_llm_sample --model ./gemma4-e2b-qcs6490-int16-mtp.qnn</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md31"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md33"></a>
 3. Run from Python (board)</h1>
-<h2><a class="anchor" id="autotoc_md32"></a>
+<h2><a class="anchor" id="autotoc_md34"></a>
 Install the Python package</h2>
 <p>Use Python 3 and pip3. If pip3 is missing from the BSP, install it first:</p>
 <div class="fragment"><div class="line">curl -L --fail -o get-pip.py https://bootstrap.pypa.io/get-pip.py</div>
@@ -130,7 +130,7 @@ Install the Python package</h2>
 <div class="line">python3 bootstrap.py</div>
 <div class="line">pip3 install .</div>
 </div><!-- fragment --><p>Alternatively, install the public package with pip3 install ailia_llm.</p>
-<h2><a class="anchor" id="autotoc_md33"></a>
+<h2><a class="anchor" id="autotoc_md35"></a>
 Copy QNN libraries into the installed package</h2>
 <p>Copy QNN libraries and the v68 skel into ailia_llm/linux/arm64-v8a/ beneath the Location reported by pip3 show. The system C++ runtime must support GLIBCXX_3.4.29 or later; no additional LD_LIBRARY_PATH setting is needed:</p>
 <div class="fragment"><div class="line">pip3 show ailia_llm</div>
@@ -139,7 +139,7 @@ Copy QNN libraries into the installed package</h2>
 <div class="line">cd /home/root/llm-qnn-yocto</div>
 <div class="line">test -f &quot;$LLM_NATIVE/libailia_llm_qnn.so&quot;</div>
 <div class="line">cp libQnnHtp.so libQnnSystem.so libQnnHtpV68Stub.so libQnnHtpV68Skel.so &quot;$LLM_NATIVE/&quot;</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md34"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md36"></a>
 Open local models from an application</h2>
 <p>From Python, pass the path to the downloaded .qnn file to the existing open() method. The following example loads the model and generates a response. Get the device model name with get_qnn_model_name(). Pass the downloaded model to open() and print responses incrementally with generate(). This text generation example does not use a multimodal projector or MTP assistant.</p>
 <div class="fragment"><div class="line">import ailia_llm</div>
@@ -154,7 +154,7 @@ Open local models from an application</h2>
 <div class="line">    print()</div>
 <div class="line">finally:</div>
 <div class="line">    llm.close()</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md35"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md37"></a>
 Troubleshooting</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">

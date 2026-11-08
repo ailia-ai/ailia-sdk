@@ -92,7 +92,8 @@ Audio accepts WAV/MP3/FLAC file paths or encoded buffers, with width/height=0.
 KV cache reuse identifies file and buffer media by their content hashes.
 Encoder outputs are retained only for media in the current prompt; removed media is evicted.
 Decoded images/audio are released when prompt setup returns.
-Successfully switching to a prompt without media releases the media caches.</p>
+Successfully switching to a prompt without media releases the media caches.
+On error, the previously set prompt is discarded as with ailiaLLMSetPrompt.</p>
 <p>Notes:</p>
 <p>With tools configured, returns INVALID_STATE. Use ailiaLLMSetPromptJson for tool use with media.</p>
 </section>

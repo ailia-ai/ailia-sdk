@@ -87,7 +87,9 @@
 </ul>
 <p>Returns:</p>
 <p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
-<p>Set LLM sampling parameters. Must be run before ailiaLLMSetPrompt.</p>
+<p>Set LLM sampling parameters. They are captured when a prompt is set
+(ailiaLLMSetPrompt, ailiaLLMSetMultimodalPrompt, ailiaLLMSetPromptJson) and
+apply from the next prompt; generation for the current prompt is unchanged.</p>
 </section>
 
 

@@ -66,9 +66,9 @@ $(function() {
 <div class="title">API Usage </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md10"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md11"></a>
 Overview of ailia LLM API</h1>
-<h2><a class="anchor" id="autotoc_md11"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 Basic usage</h2>
 <p>This is an example of using ailia LLM.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="ailia__llm_8h.html">ailia_llm.h</a>&quot;</span></div>
@@ -122,7 +122,7 @@ Basic usage</h2>
 <div class="ttc" id="astruct__AILIALLMChatMessage_html"><div class="ttname"><a href="struct__AILIALLMChatMessage.html">_AILIALLMChatMessage</a></div><div class="ttdef"><b>Definition:</b> ailia_llm.h:197</div></div>
 <div class="ttc" id="astruct__AILIALLMChatMessage_html_a0ffec73b21e26a677fbb8ae8576f79c9"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a0ffec73b21e26a677fbb8ae8576f79c9">_AILIALLMChatMessage::content</a></div><div class="ttdeci">const char * content</div><div class="ttdoc">Represent the content of the message. For role &quot;tool&quot; the content is the tool result,...</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:207</div></div>
 <div class="ttc" id="astruct__AILIALLMChatMessage_html_a657ea086dd1a07ed3ef23b0602b157ff"><div class="ttname"><a href="struct__AILIALLMChatMessage.html#a657ea086dd1a07ed3ef23b0602b157ff">_AILIALLMChatMessage::role</a></div><div class="ttdeci">const char * role</div><div class="ttdoc">Represent the role. (system, user, assistant, tool) &quot;tool&quot; holds a tool result for tool use,...</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:202</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md12"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md13"></a>
 Image input (VLM)</h2>
 <p>Use a vision-capable text model and its matching projector. Call <code>ailiaLLMCreate</code>, <code>ailiaLLMOpenModelFileA</code>, then <code>ailiaLLMOpenMultimodalProjectorFileA</code>; check <code>vision_support</code> with <code>ailiaLLMGetMultimodalCapabilities</code>. Each <code>&lt;__media__&gt;</code> marker must match one entry in <code>media_data</code>, in order.</p>
 <div class="fragment"><div class="line"><span class="comment">/* llm: text model and matching vision-capable projector already opened. */</span></div>
@@ -154,7 +154,7 @@ Image input (VLM)</h2>
 <div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html_acd6be98cfa12b6d086b865f62b7c3650"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html#acd6be98cfa12b6d086b865f62b7c3650">_AILIALLMMultimodalChatMessage::media_count</a></div><div class="ttdeci">unsigned int media_count</div><div class="ttdoc">Number of media items in media_data array.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:298</div></div>
 <div class="ttc" id="astruct__AILIALLMMultimodalChatMessage_html_ad980deb6909cba08a2571887ae1d3b19"><div class="ttname"><a href="struct__AILIALLMMultimodalChatMessage.html#ad980deb6909cba08a2571887ae1d3b19">_AILIALLMMultimodalChatMessage::content</a></div><div class="ttdeci">const char * content</div><div class="ttdoc">Represent the content of the message. Use &lt;media&gt; placeholder for media.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:290</div></div>
 </div><!-- fragment --><p>Generate text with the same APIs as the basic example. Besides a file path, images accept encoded bytes (<code>data</code> / <code>data_size</code>, width and height zero) or raw RGB bytes (<code>width * height * 3</code>).</p>
-<h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Audio input (ALM)</h2>
 <p>Use an audio-capable text model and its matching mmproj containing an audio encoder. A vision-only projector cannot process audio. Tasks and languages depend on the model. Audio synthesis/output is not supported.</p>
 <ol type="1">
@@ -186,11 +186,11 @@ Audio input (ALM)</h2>
 <div class="line">    <span class="keywordflow">return</span> <a class="code" href="ailia__llm_8h.html#a7b6ed4adee89f894289b749bf0898162">ailiaLLMSetMultimodalPrompt</a>(llm, &amp;message, 1);</div>
 <div class="line">}</div>
 </div><!-- fragment --><p>Input is a WAV/MP3/FLAC file path or an encoded file buffer. For buffer input, set <code>file_path=NULL</code>, <code>data</code> and <code>data_size</code>; data takes precedence over a path. The size must fit an unsigned int. Keep the buffer and strings alive until the call returns. Set both width and height to zero. Raw PCM and live microphone streaming are not supported by this API. Media markers and array entries must match in count and order.</p>
-<h3><a class="anchor" id="autotoc_md14"></a>
+<h3><a class="anchor" id="autotoc_md15"></a>
 Audio on Android QNN</h3>
 <p>The same open APIs accept a precompiled text <code>.qnn</code> and an mmproj <code>.qnn</code> containing audio contexts and CPU weights. Source GGUF files are not required on the device. Use the correct SoC target, QNN libraries and matching base/plugin builds. Old vision-only packages do not acquire audio capability automatically.</p>
 <p>Feature extraction and subsampling remain on CPU; all 12 Conformer blocks and the final projection execute in one HTP graph. Padding and history-preserving chunking support short/long inputs. Regenerate older linear audio packages with the current compiler. Mixed image/audio in one prompt is unsupported; use separate prompts. Audio prompts do not reuse previous-prompt KV. Audio tokens are causal and may cross AR256 boundaries, but the resulting token sequence must fit the model context. QNN-owned sparse linear weights cannot fall back to CPU.</p>
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Android QNN models</h2>
 <p>With a QNN-enabled build, open a device-specific, precompiled text <code>.qnn</code> using <code>ailiaLLMOpenModelFileA</code>. For VLM/ALM, open its matching projector <code>.qnn</code> using <code>ailiaLLMOpenMultimodalProjectorFileA</code>. Unlike GGUF files, these packages are SoC-specific. Match the text/projector pair, QNN runtime and plug-in versions. Without an explicit backend selection, a <code>.qnn</code> package selects HTP (QNN). Explicit CPU/GPU selection rejects <code>.qnn</code>, and explicit HTP (QNN) rejects GGUF.</p>
 <div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> *stem = NULL;</div>
@@ -205,7 +205,7 @@ Android QNN models</h2>
 <div class="ttc" id="aailia__llm_8h_html_a2a381755d8e0881fe58eb1e3ee40796e"><div class="ttname"><a href="ailia__llm_8h.html#a2a381755d8e0881fe58eb1e3ee40796e">ailiaLLMGetQNNModelName</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMGetQNNModelName(const char **model_name)</div><div class="ttdoc">Gets the QNN model name for the current device.</div></div>
 <div class="ttc" id="aailia__llm_8h_html_adf9eb2721656c69eca33fbfceaec306d"><div class="ttname"><a href="ailia__llm_8h.html#adf9eb2721656c69eca33fbfceaec306d">ailiaLLMOpenMultimodalProjectorFileA</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMOpenMultimodalProjectorFileA(struct AILIALLM *llm, const char *mmproj_path)</div><div class="ttdoc">Load multimodal projector file.</div></div>
 </div><!-- fragment --><p>Skip the projector for text-only use. <code>n_ctx=0</code> selects the package context length. Model-name lookup returns UNIMPLEMENTED for a non-QNN build or absent plug-in, and OTHER_ERROR on unsupported SoCs. Inspect failures with <code>ailiaLLMGetErrorDetail</code>.</p>
-<h2><a class="anchor" id="autotoc_md16"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 Tool Use (JSON API)</h2>
 <p>Use <code>ailiaLLMSetPromptJson</code> from the first user message while tools are configured. The legacy <code>ailiaLLMSetPrompt</code> and <code>ailiaLLMSetMultimodalPrompt</code> return INVALID_STATE until tools are cleared. Define tools with <code>ailiaLLMSetTools</code>, set the JSON messages array, and call <code>ailiaLLMGenerate</code> until done. Deltas remain available through <code>ailiaLLMGetDeltaText</code> for previews; retrieving or concatenating them is optional. Retrieve assistant JSON with <code>ailiaLLMGetResponseJsonSize</code> / <code>ailiaLLMGetResponseJson</code>, append the object to history, execute complete calls, and append tool results with matching <code>tool_call_id</code>. Set the next JSON prompt to continue.</p>
 <p>The SDK accumulates generated output. Reads do not consume it; a new prompt resets it.</p>
@@ -239,7 +239,7 @@ Tool Use (JSON API)</h2>
 <div class="ttc" id="aailia__llm_8h_html_a687e4bd51ae3544952d71cb7a95185e8"><div class="ttname"><a href="ailia__llm_8h.html#a687e4bd51ae3544952d71cb7a95185e8">ailiaLLMSetTools</a></div><div class="ttdeci">AILIA_LLM_API int ailiaLLMSetTools(struct AILIALLM *llm, const char *tools_json)</div><div class="ttdoc">Sets OpenAI-compatible tool definitions. NULL, empty string or array clears tools.</div></div>
 <div class="ttc" id="aailia__llm_8h_html_af163e0259421bae206477575f5c90338"><div class="ttname"><a href="ailia__llm_8h.html#af163e0259421bae206477575f5c90338">AILIA_LLM_STATUS_OTHER_ERROR</a></div><div class="ttdeci">#define AILIA_LLM_STATUS_OTHER_ERROR</div><div class="ttdoc">Unknown error.</div><div class="ttdef"><b>Definition:</b> ailia_llm.h:191</div></div>
 </div><!-- fragment --><p>Include <code>&lt;stdlib.h&gt;</code> and pass a valid <code>char **response</code> to this example.</p>
-<h3><a class="anchor" id="autotoc_md17"></a>
+<h3><a class="anchor" id="autotoc_md18"></a>
 Structured history</h3>
 <div class="fragment"><div class="line">[</div>
 <div class="line"> {&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;Weather in Tokyo?&quot;},</div>
@@ -249,7 +249,7 @@ Structured history</h3>
 <div class="line"> {&quot;role&quot;:&quot;tool&quot;,&quot;tool_call_id&quot;:&quot;call_0&quot;,&quot;content&quot;:&quot;Snow, -3 C&quot;}</div>
 <div class="line">]</div>
 </div><!-- fragment --><p>Content is not reparsed as tool syntax. Supply assistant thinking in <code>reasoning_content</code>. Arguments must be a string containing a JSON object. Call IDs/names must be nonempty; IDs are unique per assistant, but may be reused in later turns. Consecutive tool results match the preceding assistant by ID, not order. Unknown IDs, duplicate results and conflicting names are rejected. Tool content must be a string; serialize objects first.</p>
-<h3><a class="anchor" id="autotoc_md18"></a>
+<h3><a class="anchor" id="autotoc_md19"></a>
 Images and audio</h3>
 <p>Load a compatible projector with <code>ailiaLLMOpenMultimodalProjectorFileA</code> and use ordered user content parts:</p>
 <div class="fragment"><div class="line">[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:[</div>
@@ -257,11 +257,45 @@ Images and audio</h3>
 <div class="line"> {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},</div>
 <div class="line"> {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}</div>
 <div class="line">]}]</div>
-</div><!-- fragment --><p>Each image/audio part specifies exactly one of <code>file_path</code> or <code>data</code>. Data is standard padded Base64 containing encoded file bytes (JPEG/PNG, WAV/MP3/FLAC, etc.). No URL fetching, video or raw RGB/PCM is supported. Media works with or without tools and is re-evaluated each prompt. An unloaded/incompatible projector returns INVALID_STATE. Query image/audio support with <code>ailiaLLMGetMultimodalCapabilities</code>.</p>
-<h3><a class="anchor" id="autotoc_md19"></a>
+</div><!-- fragment --><p>Each image/audio part specifies exactly one of <code>file_path</code> or <code>data</code>. Data is standard padded Base64 containing encoded file bytes (JPEG/PNG, WAV/MP3/FLAC, etc.). No URL fetching, video or raw RGB/PCM is supported. Media works with or without tools. A media history reuses the KV cache when the previous prompt is its prefix with the same media in the same order, and is re-evaluated otherwise. An unloaded/incompatible projector returns INVALID_STATE. Query image/audio support with <code>ailiaLLMGetMultimodalCapabilities</code>.</p>
+<h3><a class="anchor" id="autotoc_md20"></a>
 Incomplete output and errors</h3>
 <p>GetResponseJson rejects unfinished calls/thinking with PARSE_ERROR. It never repairs arguments or returns executable partial results. SetPromptJson rejects incomplete arguments, invalid JSON/types/ID associations and empty arrays with INVALID_ARGUMENT. If GetResponseJson returns PARSE_ERROR, do not append the failed assistant. Append a retry user message to the existing history; no partial content/reasoning retrieval is needed. Do not invent tool results.</p>
-<p>After clearing tools with SetTools(NULL), SetPromptJson still accepts historical tool calls and results for summaries or final answers. Retrieve response JSON before clearing tools, which invalidates the output parser. Use finally to clear tools even when an exception occurs. An unset prompt or changed tools/thinking returns INVALID_STATE; before generation an initialized prompt returns an empty assistant. File failures return ERROR_FILE_API, invalid Base64 returns INVALID_ARGUMENT, and undecodable media buffers return ERROR_BUFFER_API. </p>
+<p>After clearing tools with SetTools(NULL), SetPromptJson still accepts historical tool calls and results for summaries or final answers. Retrieve response JSON before clearing tools, which invalidates the output parser. Use finally to clear tools even when an exception occurs. An unset prompt or changed tools/thinking returns INVALID_STATE; before generation an initialized prompt returns an empty assistant. File failures return ERROR_FILE_API, invalid Base64 returns INVALID_ARGUMENT, and undecodable media buffers return ERROR_BUFFER_API.</p>
+<h2><a class="anchor" id="autotoc_md21"></a>
+API state transitions</h2>
+<p>An LLM instance has the following states. Below, "prompt APIs" means ailiaLLMSetPrompt, ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson.</p>
+<div class="fragment"><div class="line">           ailiaLLMCreate</div>
+<div class="line">                 |</div>
+<div class="line">                 v</div>
+<div class="line">          [Created] --ailiaLLMOpenModelFile--&gt; [Opened]</div>
+<div class="line">                                                 |  ^</div>
+<div class="line">                           prompt API succeeds   |  | prompt API fails</div>
+<div class="line">                                                 v  |</div>
+<div class="line">[Done] &lt;--done=1-- [Generating] &lt;--done=0-- [Prompt set]</div>
+</div><!-- fragment --><table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">State   </th><th class="markdownTableHeadNone">Entered by   </th><th class="markdownTableHeadNone">Main APIs available    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Created   </td><td class="markdownTableBodyNone">ailiaLLMCreate   </td><td class="markdownTableBodyNone">SetBackend, SetNumThreads, SetQNNGraphSwitching, OpenModelFile    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Opened   </td><td class="markdownTableBodyNone">successful OpenModelFile, failed prompt API   </td><td class="markdownTableBodyNone">OpenMultimodalProjectorFile (once), OpenMtpModelFile (once), prompt APIs, GetContextSize, GetTokenCount    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Prompt set   </td><td class="markdownTableBodyNone">successful prompt API   </td><td class="markdownTableBodyNone">Generate, GetPromptTokenCount, GetResponseJson, prompt APIs    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Generating   </td><td class="markdownTableBodyNone">Generate returns done=0   </td><td class="markdownTableBodyNone">Generate, GetDeltaText, GetGeneratedTokenCount, prompt APIs    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Done   </td><td class="markdownTableBodyNone">Generate returns done=1   </td><td class="markdownTableBodyNone">GetResponseJson, prompt APIs   </td></tr>
+</table>
+<ul>
+<li>SetSamplingParams, SetThinking and SetTools can be called in any state. Sampling parameters are captured when a prompt API is called and apply from the next prompt. Calling SetThinking or SetTools after setting a prompt makes GetResponseJson return INVALID_STATE until the next prompt is set.</li>
+<li>Prompt APIs can be called in any state from Opened on. On success, the KV cache of the previous prompt and its output is reused for the part that matches the head of the new prompt, and the state becomes Prompt set.</li>
+<li>When a prompt API returns an error, including argument errors, the current prompt is discarded and the state returns to Opened: Generate and GetResponseJson return INVALID_STATE, and GetPromptTokenCount and GetGeneratedTokenCount return 0. This also applies to ailiaLLMSetPrompt or ailiaLLMSetMultimodalPrompt returning INVALID_STATE while tools are configured.</li>
+<li>After Done, Generate keeps returning done=1 until the next prompt is set. If Generate returns CONTEXT_FULL, shorten the history and set the prompt again.</li>
+<li>GetPromptTokenCount returns the context tokens the prompt occupies, including image/audio embeddings, with the same value on every backend.</li>
+<li>OpenModelFile can be called once per instance. To use another model, destroy the instance and create a new one. ailiaLLMDestroy can be called in any state.</li>
+<li>An API called in a state that does not allow it returns INVALID_STATE without changing the state (prompt APIs excepted). </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
