@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.2.0</span>
+   &#160;<span id="projectnumber">1.5.3.0</span>
    </div>
   </td>
  </tr>
@@ -215,7 +215,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:adb295064cede64f543611c8fc0df0951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the count of prompt token.  <a href="ailia__llm_8h.html#adb295064cede64f543611c8fc0df0951">More...</a><br /></td></tr>
 <tr class="separator:adb295064cede64f543611c8fc0df0951"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acae43f3347fdd12df1a30d9302ff169d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#acae43f3347fdd12df1a30d9302ff169d">ailiaLLMGetGeneratedTokenCount</a> (struct AILIALLM *llm, unsigned int *cnt)</td></tr>
-<tr class="memdesc:acae43f3347fdd12df1a30d9302ff169d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the count of prompt token.  <a href="ailia__llm_8h.html#acae43f3347fdd12df1a30d9302ff169d">More...</a><br /></td></tr>
+<tr class="memdesc:acae43f3347fdd12df1a30d9302ff169d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the count of generated token.  <a href="ailia__llm_8h.html#acae43f3347fdd12df1a30d9302ff169d">More...</a><br /></td></tr>
 <tr class="separator:acae43f3347fdd12df1a30d9302ff169d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa365516599d78f9dc6b633defe1c5a97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ailia__llm_8h.html#a3c69aad585c8ee619c34450cb5f35ea9">AILIA_LLM_API</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ailia__llm_8h.html#aa365516599d78f9dc6b633defe1c5a97">ailiaLLMDestroy</a> (struct AILIALLM *llm)</td></tr>
 <tr class="memdesc:aa365516599d78f9dc6b633defe1c5a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">It destroys the LLM instance.  <a href="ailia__llm_8h.html#aa365516599d78f9dc6b633defe1c5a97">More...</a><br /></td></tr>
@@ -256,7 +256,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>LLM inference library. </p>
 <dl class="section copyright"><dt>Copyright</dt><dd>AXELL CORPORATION, ailia Inc. </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>October 30, 2026 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>November 7, 2026 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a3c69aad585c8ee619c34450cb5f35ea9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c69aad585c8ee619c34450cb5f35ea9">&#9670;&nbsp;</a></span>AILIA_LLM_API</h2>
@@ -630,7 +630,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>The decoded result is obtained through the ailiaLLMGetDeltaText API. Each call to ailiaLLMGenerate decodes one token at a time. The value of done is 0 or 1. If done is 1, the generation is complete. </p>
+<p>The decoded result is obtained through the ailiaLLMGetDeltaText API. Each call to ailiaLLMGenerate decodes one token at a time. The value of done is 0 or 1. If done is 1, the generation is complete. After done becomes 1, every call returns done=1 with no new text until the next prompt is set. Returns <a class="el" href="ailia__llm_8h.html#a79bd7f952f014ed738d1753dffade081">AILIA_LLM_STATUS_CONTEXT_FULL</a> when the context is full, and <a class="el" href="ailia__llm_8h.html#a486d229c92e4b5c0fe4fc0bf673c5034">AILIA_LLM_STATUS_INVALID_STATE</a> when no prompt is set. </p>
 
 </div>
 </div>
@@ -817,7 +817,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>If <a class="el" href="ailia__llm_8h.html#a5dd8bd3eb42561a666a6855759d49a87" title="Perform generate.">ailiaLLMGenerate()</a> is not run at all, the function returns <a class="el" href="ailia__llm_8h.html#a486d229c92e4b5c0fe4fc0bf673c5034">AILIA_LLM_STATUS_INVALID_STATE</a> . </p>
+<p>Returns the text added by the last ailiaLLMGenerate call. It is empty right after a prompt is set, after generation completes and when no prompt is set. Returns <a class="el" href="ailia__llm_8h.html#a486d229c92e4b5c0fe4fc0bf673c5034">AILIA_LLM_STATUS_INVALID_STATE</a> if no model is open. </p>
 
 </div>
 </div>
@@ -907,7 +907,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the count of prompt token. </p>
+<p>Gets the count of generated token. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">llm</td><td>A LLM instance pointer </td></tr>
@@ -916,7 +916,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>It can be called after calling ailiaLLMGenerate. </p>
+<p>Returns the number of tokens generated for the current prompt, including the end-of-generation token. Returns 0 when no prompt is set and right after a prompt is set. </p>
 
 </div>
 </div>
@@ -1001,7 +1001,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>It can be called after calling ailiaLLMSetPrompt. </p>
+<p>Returns the number of context tokens the current prompt occupies. The definition is the same for ailiaLLMSetPrompt, ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson: prompts with images or audio include their embedding tokens. It does not depend on the backend (CPU/GPU or QNN). Returns 0 when no prompt is set. </p>
 
 </div>
 </div>
@@ -1203,7 +1203,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>Opens a GGUF or self-contained ailia QNN model. Without an explicit backend selection, .qnn selects HTP and GGUF selects CPU/GPU automatically. An explicit selection must match the model format. For .qnn, n_ctx=0 uses the context length stored in the model. </p>
+<p>Opens a GGUF or self-contained ailia QNN model. Without an explicit backend selection, .qnn selects HTP and GGUF selects CPU/GPU automatically. An explicit selection must match the model format. For .qnn, n_ctx=0 uses the context length stored in the model. An LLM instance opens one model. Calling this again on an instance with an open model returns <a class="el" href="ailia__llm_8h.html#a486d229c92e4b5c0fe4fc0bf673c5034">AILIA_LLM_STATUS_INVALID_STATE</a> and keeps that model usable. To open another model, destroy the instance and create a new one. </p>
 
 </div>
 </div>
@@ -1468,7 +1468,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>Set multimodal prompt. Include &lt;<b>media</b>&gt; placeholders in message content, and set corresponding media data in media_data. Example: "Describe this image: &lt;__media__&gt;" The content of message is copied internally, so it can be freed after the call. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Audio accepts WAV/MP3/FLAC file paths or encoded buffers, with width/height=0. KV cache reuse identifies file and buffer media by their content hashes. Encoder outputs are retained only for media in the current prompt; removed media is evicted. Decoded images/audio are released when prompt setup returns. Successfully switching to a prompt without media releases the media caches. </p><dl class="section note"><dt>Note</dt><dd>With tools configured, returns INVALID_STATE. Use ailiaLLMSetPromptJson for tool use with media. </dd></dl>
+<p>Set multimodal prompt. Include &lt;<b>media</b>&gt; placeholders in message content, and set corresponding media data in media_data. Example: "Describe this image: &lt;__media__&gt;" The content of message is copied internally, so it can be freed after the call. Images can be loaded from file path, encoded buffer (JPG, PNG, etc.), or raw RGB data. Audio accepts WAV/MP3/FLAC file paths or encoded buffers, with width/height=0. KV cache reuse identifies file and buffer media by their content hashes. Encoder outputs are retained only for media in the current prompt; removed media is evicted. Decoded images/audio are released when prompt setup returns. Successfully switching to a prompt without media releases the media caches. On error, the previously set prompt is discarded as with ailiaLLMSetPrompt. </p><dl class="section note"><dt>Note</dt><dd>With tools configured, returns INVALID_STATE. Use ailiaLLMSetPromptJson for tool use with media. </dd></dl>
 
 </div>
 </div>
@@ -1553,7 +1553,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>Set the prompt to query the LLM. Please include ChatHistory in the message as well. Returns INVALID_STATE while tools are configured. Use ailiaLLMSetPromptJson from the first user message. Clear tools with ailiaLLMSetTools to use this API again. The contents of the message are copied internally, so you can free them after the call. </p>
+<p>Set the prompt to query the LLM. Please include ChatHistory in the message as well. Returns INVALID_STATE while tools are configured. Use ailiaLLMSetPromptJson from the first user message. Clear tools with ailiaLLMSetTools to use this API again. The contents of the message are copied internally, so you can free them after the call. On error, the previously set prompt is discarded: until a prompt is set successfully, ailiaLLMGenerate and ailiaLLMGetResponseJson return INVALID_STATE and the token counts are 0. </p>
 
 </div>
 </div>
@@ -1591,7 +1591,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>Roles are system/user/assistant/tool; content is a string or null. User content also accepts arrays. Parts are {"type":"text","text":"..."}, or type image/audio with exactly one of file_path (local file) and data (standard padded Base64 encoded file). JPEG/PNG and WAV/MP3/FLAC are supported by the decoder. Media requires a compatible loaded projector. URLs, raw PCM/RGB and video are unsupported. Parts retain input order. Matching history prefixes reuse KV when ordered media inputs are unchanged and the required KV positions remain resident. Encoded media is reused subject to backend cache conditions. GGUF and QNN reuse retained encoder outputs even when KV must be rebuilt. File content hashes are checked on each call; changed media content is re-evaluated. Encoder outputs are retained only for media in the current prompt; removed media is evicted. Decoded images/audio are released when prompt setup returns. Successfully switching to a prompt without media releases the media caches. Assistant content is not reparsed as model-specific syntax. Supply reasoning_content and tool_calls explicitly. Append the assistant JSON returned by ailiaLLMGetResponseJson directly to the array. Each tool call requires type="function", nonempty id and function.name, and function.arguments as a JSON-object string. IDs must be unique within an assistant message but may be reused in later turns. Tool results require string content and tool_call_id matching the preceding assistant. Consecutive results are matched by ID, not position; names are filled in. Duplicate/unmatched results are rejected. Incomplete arguments are rejected, never repaired or discarded. If GetResponseJson returns PARSE_ERROR, do not append the failed assistant; append a retry user message to the existing history. Historical tool calls/results remain accepted after SetTools(NULL). Retrieve response JSON before clearing tools. Input can be freed after the call. On success, generate with ailiaLLMGenerate. </p><dl class="section return"><dt>Returns</dt><dd>SUCCESS on success; INVALID_ARGUMENT for invalid JSON, types, ID associations or arguments; INVALID_STATE if no model is loaded. Other prompt preparation errors are the same as ailiaLLMSetPrompt. </dd></dl>
+<p>Roles are system/user/assistant/tool; content is a string or null. User content also accepts arrays. Parts are {"type":"text","text":"..."}, or type image/audio with exactly one of file_path (local file) and data (standard padded Base64 encoded file). JPEG/PNG and WAV/MP3/FLAC are supported by the decoder. Media requires a compatible loaded projector. URLs, raw PCM/RGB and video are unsupported. Parts retain input order. Matching history prefixes reuse KV when ordered media inputs are unchanged and the required KV positions remain resident. Encoded media is reused subject to backend cache conditions. GGUF and QNN reuse retained encoder outputs even when KV must be rebuilt. File content hashes are checked on each call; changed media content is re-evaluated. Encoder outputs are retained only for media in the current prompt; removed media is evicted. Decoded images/audio are released when prompt setup returns. Successfully switching to a prompt without media releases the media caches. Assistant content is not reparsed as model-specific syntax. Supply reasoning_content and tool_calls explicitly. Append the assistant JSON returned by ailiaLLMGetResponseJson directly to the array. Each tool call requires type="function", nonempty id and function.name, and function.arguments as a JSON-object string. IDs must be unique within an assistant message but may be reused in later turns. Tool results require string content and tool_call_id matching the preceding assistant. Consecutive results are matched by ID, not position; names are filled in. Duplicate/unmatched results are rejected. Incomplete arguments are rejected, never repaired or discarded. If GetResponseJson returns PARSE_ERROR, do not append the failed assistant; append a retry user message to the existing history. Historical tool calls/results remain accepted after SetTools(NULL). Retrieve response JSON before clearing tools. Input can be freed after the call. On success, generate with ailiaLLMGenerate. </p><dl class="section return"><dt>Returns</dt><dd>SUCCESS on success; INVALID_ARGUMENT for invalid JSON, types, ID associations or arguments; INVALID_STATE if no model is loaded. Other prompt preparation errors are the same as ailiaLLMSetPrompt. On error, the previously set prompt is discarded as with ailiaLLMSetPrompt. </dd></dl>
 
 </div>
 </div>
@@ -1630,7 +1630,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>SUCCESS, INVALID_ARGUMENT, INVALID_STATE after model open, or AILIA_LLM_STATUS_UNIMPLEMENTED when enabling without QNN.</dd></dl>
-<p>Call after Create and before opening a model. Applies to LLM, MTP, vision and audio graphs. Reduces context reloads and memory, but SDK lazy loading can increase first-execution or generation latency. Disabling succeeds even when QNN is unavailable. </p>
+<p>Call after Create and before opening a model. Applies to LLM, MTP, vision and audio graphs. When disabled (default), contexts are retained to prioritize speed. The LLM context is loaded with the MTP context when the MTP model is opened, or otherwise on the first generation or before the first vision or audio input. When enabled, contexts are loaded when needed and released when switching between media and the LLM to reduce memory usage, but reloading may increase processing time. In both modes, vision and audio contexts are loaded on first use. Enable this on devices with limited memory (e.g. VLM on SM8475). Disabling succeeds even when QNN is unavailable. </p>
 
 </div>
 </div>
@@ -1690,7 +1690,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If this function is successful, it returns <a class="el" href="ailia__llm_8h.html#a72cbafcad4ce0dd29db5174e4348a67e">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</dd></dl>
-<p>Set LLM sampling parameters. Must be run before ailiaLLMSetPrompt. </p>
+<p>Set LLM sampling parameters. They are captured when a prompt is set (ailiaLLMSetPrompt, ailiaLLMSetMultimodalPrompt, ailiaLLMSetPromptJson) and apply from the next prompt; generation for the current prompt is unchanged. </p>
 
 </div>
 </div>

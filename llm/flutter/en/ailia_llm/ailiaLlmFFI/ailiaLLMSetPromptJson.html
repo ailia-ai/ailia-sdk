@@ -103,7 +103,8 @@ Input can be freed after the call. On success, generate with ailiaLLMGenerate.</
 <p>Returns:</p>
 <p>SUCCESS on success; INVALID_ARGUMENT for invalid JSON, types, ID associations or arguments;
 INVALID_STATE if no model is loaded.
-Other prompt preparation errors are the same as ailiaLLMSetPrompt.</p>
+Other prompt preparation errors are the same as ailiaLLMSetPrompt.
+On error, the previously set prompt is discarded as with ailiaLLMSetPrompt.</p>
 </section>
 
 
@@ -152,7 +153,7 @@ Other prompt preparation errors are the same as ailiaLLMSetPrompt.</p>
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.2
+      1.5.3
   </span>
 
   

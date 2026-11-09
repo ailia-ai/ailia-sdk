@@ -87,7 +87,9 @@
 Please include ChatHistory in the message as well.
 Returns INVALID_STATE while tools are configured. Use ailiaLLMSetPromptJson from the first user message.
 Clear tools with ailiaLLMSetTools to use this API again.
-The contents of the message are copied internally, so you can free them after the call.</p>
+The contents of the message are copied internally, so you can free them after the call.
+On error, the previously set prompt is discarded: until a prompt is set successfully,
+ailiaLLMGenerate and ailiaLLMGetResponseJson return INVALID_STATE and the token counts are 0.</p>
 </section>
 
 
@@ -138,7 +140,7 @@ The contents of the message are copied internally, so you can free them after th
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.2
+      1.5.3
   </span>
 
   

@@ -83,7 +83,10 @@
 <p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
 <p>The decoded result is obtained through the ailiaLLMGetDeltaText API.
 Each call to ailiaLLMGenerate decodes one token at a time.
-The value of done is 0 or 1. If done is 1, the generation is complete.</p>
+The value of done is 0 or 1. If done is 1, the generation is complete.
+After done becomes 1, every call returns done=1 with no new text until the next prompt is set.
+Returns <a href="../../ailia_llm/AILIA_LLM_STATUS_CONTEXT_FULL-constant.html">AILIA_LLM_STATUS_CONTEXT_FULL</a> when the context is full, and
+<a href="../../ailia_llm/AILIA_LLM_STATUS_INVALID_STATE-constant.html">AILIA_LLM_STATUS_INVALID_STATE</a> when no prompt is set.</p>
 </section>
 
 
@@ -132,7 +135,7 @@ The value of done is 0 or 1. If done is 1, the generation is complete.</p>
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.2
+      1.5.3
   </span>
 
   

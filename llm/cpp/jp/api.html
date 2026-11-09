@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.2.0</span>
+   &#160;<span id="projectnumber">1.5.3.0</span>
    </div>
   </td>
  </tr>
@@ -265,7 +265,7 @@ JSON履歴</h3>
 <div class="line">  {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},</div>
 <div class="line">  {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}</div>
 <div class="line">]}]</div>
-</div><!-- fragment --><p>image/audioは<code>file_path</code>または<code>data</code>をちょうど1つ指定します。<code>data</code>は標準Base64（パディング付き）で エンコードしたファイル内容です。JPEG/PNG、WAV/MP3/FLAC等を使用できます。URL取得、動画、生RGB/PCMには対応しません。 画像・音声を含む履歴は毎回再評価します。メディア非対応のモデル/projectorや未読込はINVALID_STATEです。 画像と音声の対応状況は<code>ailiaLLMGetMultimodalCapabilities</code>で確認できます。</p>
+</div><!-- fragment --><p>image/audioは<code>file_path</code>または<code>data</code>をちょうど1つ指定します。<code>data</code>は標準Base64（パディング付き）で エンコードしたファイル内容です。JPEG/PNG、WAV/MP3/FLAC等を使用できます。URL取得、動画、生RGB/PCMには対応しません。 画像・音声を含む履歴も、前回のプロンプトが新しい履歴の先頭に一致し、同じメディアが同じ順序で含まれる場合はKVキャッシュを再利用し、それ以外は再評価します。メディア非対応のモデル/projectorや未読込はINVALID_STATEです。 画像と音声の対応状況は<code>ailiaLLMGetMultimodalCapabilities</code>で確認できます。</p>
 <h3><a class="anchor" id="autotoc_md9"></a>
 不完全な出力・エラー</h3>
 <ul>
@@ -275,7 +275,41 @@ JSON履歴</h3>
 <li>GetResponseJsonはプロンプト未設定、tools/Thinking変更後にINVALID_STATEを返します。プロンプト設定後・生成前の空出力は空のassistantです。</li>
 <li>ファイル読込失敗はERROR_FILE_API、Base64からのデコード済みメディア読込失敗はERROR_BUFFER_API、不正なBase64はINVALID_ARGUMENTです。</li>
 </ul>
-<p>SetTools(NULL)でツールを解除した後も、過去のtool_callsとtool結果をSetPromptJsonへ渡して要約・最終回答を生成できます。解除すると出力パーサーが無効になるため、結果JSONは解除前に取得してください。例外時もツール設定を解除するにはfinallyを使用してください。 </p>
+<p>SetTools(NULL)でツールを解除した後も、過去のtool_callsとtool結果をSetPromptJsonへ渡して要約・最終回答を生成できます。解除すると出力パーサーが無効になるため、結果JSONは解除前に取得してください。例外時もツール設定を解除するにはfinallyを使用してください。</p>
+<h2><a class="anchor" id="autotoc_md10"></a>
+API呼び出しの状態遷移</h2>
+<p>LLMオブジェクトは次の状態を持ちます。以下では、ailiaLLMSetPrompt、ailiaLLMSetMultimodalPrompt、 ailiaLLMSetPromptJsonをまとめて「プロンプト設定API」と呼びます。</p>
+<div class="fragment"><div class="line">           ailiaLLMCreate</div>
+<div class="line">                 |</div>
+<div class="line">                 v</div>
+<div class="line">            [未読込] --ailiaLLMOpenModelFile--&gt; [読込済み]</div>
+<div class="line">                                                   |  ^</div>
+<div class="line">                             プロンプト設定APIの成功 |  | プロンプト設定APIの失敗</div>
+<div class="line">                                                   v  |</div>
+<div class="line">[生成完了] &lt;--done=1-- [生成中] &lt;--done=0-- [プロンプト設定済み]</div>
+</div><!-- fragment --><table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">状態   </th><th class="markdownTableHeadNone">この状態になる操作   </th><th class="markdownTableHeadNone">呼び出せる主なAPI    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">未読込   </td><td class="markdownTableBodyNone">ailiaLLMCreate   </td><td class="markdownTableBodyNone">SetBackend、SetNumThreads、SetQNNGraphSwitching、OpenModelFile    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">読込済み   </td><td class="markdownTableBodyNone">OpenModelFileの成功、プロンプト設定APIの失敗   </td><td class="markdownTableBodyNone">OpenMultimodalProjectorFile（1回のみ）、OpenMtpModelFile（1回のみ）、プロンプト設定API、GetContextSize、GetTokenCount    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">プロンプト設定済み   </td><td class="markdownTableBodyNone">プロンプト設定APIの成功   </td><td class="markdownTableBodyNone">Generate、GetPromptTokenCount、GetResponseJson、プロンプト設定API    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">生成中   </td><td class="markdownTableBodyNone">Generateがdone=0を返す   </td><td class="markdownTableBodyNone">Generate、GetDeltaText、GetGeneratedTokenCount、プロンプト設定API    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">生成完了   </td><td class="markdownTableBodyNone">Generateがdone=1を返す   </td><td class="markdownTableBodyNone">GetResponseJson、プロンプト設定API   </td></tr>
+</table>
+<ul>
+<li>SetSamplingParams、SetThinking、SetToolsはどの状態でも呼び出せます。サンプリングの設定はプロンプト設定APIの呼び出し時に取り込まれ、次のプロンプトから反映されます。プロンプトの設定後にSetThinking・SetToolsを呼び出すと、次にプロンプトを設定するまでGetResponseJsonはINVALID_STATEを返します。</li>
+<li>プロンプト設定APIは、読込済み以降のどの状態からでも呼び出せます。成功すると、前回のプロンプトと生成結果のうち新しいプロンプトの先頭に一致する部分のKVキャッシュを再利用して、プロンプト設定済みになります。</li>
+<li>プロンプト設定APIがエラーを返した場合は、引数の誤りも含めて、設定済みのプロンプトを破棄して読込済みに戻ります。GenerateとGetResponseJsonはINVALID_STATEを、GetPromptTokenCountとGetGeneratedTokenCountは0を返します。ツール設定中にailiaLLMSetPromptまたはailiaLLMSetMultimodalPromptを呼び出した場合（INVALID_STATE）も同様です。</li>
+<li>生成完了の後にGenerateを呼び出すと、次にプロンプトを設定するまでdone=1を返し続けます。GenerateがCONTEXT_FULLを返した場合は、履歴を短くしてプロンプトを設定し直してください。</li>
+<li>GetPromptTokenCountは、プロンプトがコンテキスト上で占めるトークン数を返します。画像・音声の埋め込みを含み、バックエンドによらず同じ値です。</li>
+<li>OpenModelFileは1つのLLMオブジェクトに1回だけ呼び出せます。別のモデルを使う場合は、ailiaLLMDestroyの後にailiaLLMCreateからやり直してください。ailiaLLMDestroyはどの状態からでも呼び出せます。</li>
+<li>状態の条件を満たさないAPIはINVALID_STATEを返し、状態を変えません（プロンプト設定APIを除きます）。 </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

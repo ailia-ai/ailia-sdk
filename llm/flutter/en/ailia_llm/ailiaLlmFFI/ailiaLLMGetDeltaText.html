@@ -83,7 +83,9 @@
 </ul>
 <p>Returns:</p>
 <p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
-<p>If  ailiaLLMGenerate()  is not run at all, the function returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_INVALID_STATE-constant.html">AILIA_LLM_STATUS_INVALID_STATE</a> .</p>
+<p>Returns the text added by the last ailiaLLMGenerate call. It is empty right after a prompt is set,
+after generation completes and when no prompt is set. Returns <a href="../../ailia_llm/AILIA_LLM_STATUS_INVALID_STATE-constant.html">AILIA_LLM_STATUS_INVALID_STATE</a>
+if no model is open.</p>
 </section>
 
 
@@ -134,7 +136,7 @@
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.2
+      1.5.3
   </span>
 
   

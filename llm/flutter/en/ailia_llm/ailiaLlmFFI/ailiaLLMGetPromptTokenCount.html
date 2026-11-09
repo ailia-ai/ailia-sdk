@@ -81,7 +81,10 @@
 </ul>
 <p>Returns:</p>
 <p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
-<p>It can be called after calling ailiaLLMSetPrompt.</p>
+<p>Returns the number of context tokens the current prompt occupies. The definition is the same for
+ailiaLLMSetPrompt, ailiaLLMSetMultimodalPrompt and ailiaLLMSetPromptJson: prompts with images or
+audio include their embedding tokens. It does not depend on the backend (CPU/GPU or QNN).
+Returns 0 when no prompt is set.</p>
 </section>
 
 
@@ -130,7 +133,7 @@
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.2
+      1.5.3
   </span>
 
   

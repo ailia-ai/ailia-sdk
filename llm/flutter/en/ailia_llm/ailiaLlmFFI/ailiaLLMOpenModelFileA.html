@@ -86,7 +86,10 @@
 <p>Opens a GGUF or self-contained ailia QNN model. Without an explicit backend
 selection, .qnn selects HTP and GGUF selects CPU/GPU automatically. An
 explicit selection must match the model format. For .qnn, n_ctx=0 uses
-the context length stored in the model.</p>
+the context length stored in the model.
+An LLM instance opens one model. Calling this again on an instance with an
+open model returns <a href="../../ailia_llm/AILIA_LLM_STATUS_INVALID_STATE-constant.html">AILIA_LLM_STATUS_INVALID_STATE</a> and keeps that model
+usable. To open another model, destroy the instance and create a new one.</p>
 </section>
 
 
@@ -137,7 +140,7 @@ the context length stored in the model.</p>
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.2
+      1.5.3
   </span>
 
   

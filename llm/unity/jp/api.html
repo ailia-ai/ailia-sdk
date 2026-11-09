@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.2.0</span>
+   &#160;<span id="projectnumber">1.5.3.0</span>
    </div>
   </td>
  </tr>
@@ -180,7 +180,7 @@ JSON履歴</h3>
 <div class="line">  {&quot;type&quot;:&quot;image&quot;,&quot;file_path&quot;:&quot;/path/to/image.jpg&quot;},</div>
 <div class="line">  {&quot;type&quot;:&quot;audio&quot;,&quot;file_path&quot;:&quot;/path/to/audio.wav&quot;}</div>
 <div class="line">]}]</div>
-</div><!-- fragment --><p>image/audioは<code>file_path</code>または<code>data</code>をちょうど1つ指定します。<code>data</code>は標準Base64（パディング付き）で エンコードしたファイル内容です。JPEG/PNG、WAV/MP3/FLAC等を使用できます。URL取得、動画、生RGB/PCMには対応しません。 画像・音声を含む履歴は毎回再評価します。メディア非対応のモデル/projectorや未読込はINVALID_STATEです。 画像と音声の対応状況は<code>ailiaLLMGetMultimodalCapabilities</code>で確認できます。</p>
+</div><!-- fragment --><p>image/audioは<code>file_path</code>または<code>data</code>をちょうど1つ指定します。<code>data</code>は標準Base64（パディング付き）で エンコードしたファイル内容です。JPEG/PNG、WAV/MP3/FLAC等を使用できます。URL取得、動画、生RGB/PCMには対応しません。 画像・音声を含む履歴も、前回のプロンプトが新しい履歴の先頭に一致し、同じメディアが同じ順序で含まれる場合はKVキャッシュを再利用し、それ以外は再評価します。メディア非対応のモデル/projectorや未読込はINVALID_STATEです。 画像と音声の対応状況は<code>ailiaLLMGetMultimodalCapabilities</code>で確認できます。</p>
 <h3><a class="anchor" id="autotoc_md6"></a>
 不完全な出力・エラー</h3>
 <ul>

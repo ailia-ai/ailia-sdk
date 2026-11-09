@@ -184,9 +184,14 @@ the model.</p>
 <li><p><strong>prompts</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>) – Message dictionaries contain <code class="docutils literal notranslate"><span class="pre">&quot;role&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;content&quot;</span></code> strings.
 Optional <code class="docutils literal notranslate"><span class="pre">&quot;media_data&quot;</span></code> is a list of entries with <code class="docutils literal notranslate"><span class="pre">&quot;media_type&quot;</span></code>
 (<code class="docutils literal notranslate"><span class="pre">&quot;image&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;audio&quot;</span></code>), <code class="docutils literal notranslate"><span class="pre">&quot;file_path&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;data&quot;</span></code>, and
-optional <code class="docutils literal notranslate"><span class="pre">&quot;width&quot;</span></code>/<code class="docutils literal notranslate"><span class="pre">&quot;height&quot;</span></code>. Audio data contains an encoded
-WAV/MP3/FLAC file, not raw PCM. Tool results use role <code class="docutils literal notranslate"><span class="pre">&quot;tool&quot;</span></code>
-and a string <code class="docutils literal notranslate"><span class="pre">&quot;content&quot;</span></code> (see <a class="reference internal" href="#ailia_llm.AiliaLLM.set_tools" title="ailia_llm.AiliaLLM.set_tools"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_tools()</span></code></a>).</p></li>
+optional <code class="docutils literal notranslate"><span class="pre">&quot;width&quot;</span></code>/<code class="docutils literal notranslate"><span class="pre">&quot;height&quot;</span></code>. <code class="docutils literal notranslate"><span class="pre">&quot;data&quot;</span></code> is a bytes-like
+object (bytes, bytearray or memoryview) that is copied for the
+call and takes precedence over <code class="docutils literal notranslate"><span class="pre">&quot;file_path&quot;</span></code>. With width and
+height 0 it holds encoded file bytes (e.g. JPG/PNG); with both set
+it holds raw RGB pixels of exactly <code class="docutils literal notranslate"><span class="pre">width</span> <span class="pre">*</span> <span class="pre">height</span> <span class="pre">*</span> <span class="pre">3</span></code> bytes.
+Audio data contains an encoded WAV/MP3/FLAC file, not raw PCM.
+Tool results use role <code class="docutils literal notranslate"><span class="pre">&quot;tool&quot;</span></code> and a string <code class="docutils literal notranslate"><span class="pre">&quot;content&quot;</span></code>
+(see <a class="reference internal" href="#ailia_llm.AiliaLLM.set_tools" title="ailia_llm.AiliaLLM.set_tools"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_tools()</span></code></a>).</p></li>
 <li><p><strong>top_k</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=40</em>) – Top-k sampling parameter. Limits the token candidates
 to the top-k most probable tokens.</p></li>
 <li><p><strong>top_p</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.9</em>) – Top-p (nucleus) sampling parameter. Limits the token
@@ -396,7 +401,6 @@ When 0, the default context size of the model is used.</p></li>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">ailia_llm</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">llm</span> <span class="o">=</span> <span class="n">ailia_llm</span><span class="o">.</span><span class="n">AiliaLLM</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">llm</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;path/to/model.gguf&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">llm</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;path/to/model.gguf&quot;</span><span class="p">,</span> <span class="n">n_ctx</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -480,9 +484,14 @@ Applies to target decode/prefill, assistant and VLM/ALM CPU processing.</p>
 <dt class="sig sig-object py" id="ailia_llm.AiliaLLM.set_qnn_graph_switching">
 <span class="sig-name descname"><span class="pre">set_qnn_graph_switching</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailia_llm.AiliaLLM.set_qnn_graph_switching" title="Link to this definition">¶</a></dt>
 <dd><p>Configure QNN graph switching before <a class="reference internal" href="#ailia_llm.AiliaLLM.open" title="ailia_llm.AiliaLLM.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a>; disabled by default.</p>
-<p>Applies to LLM, MTP, vision and audio graphs. Reduces context reloads
-and memory, but SDK lazy loading can increase first-execution or
-generation latency. Disabling succeeds even when QNN is unavailable.</p>
+<p>Applies to LLM, MTP, vision and audio graphs.
+When disabled (default), contexts are retained to prioritize speed. The LLM context is
+loaded with the MTP context when the MTP model is opened, or otherwise on the first
+generation or before the first vision or audio input. When enabled, contexts are loaded when
+needed and released when switching between media and the LLM to reduce memory usage,
+but reloading may increase processing time. In both modes, vision and audio contexts
+are loaded on first use. Enable this on devices with limited memory (e.g. VLM on SM8475).
+Disabling succeeds even when QNN is unavailable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>enable</strong> (<em>bool</em>) – True to enable graph switching, False to disable it (default: disabled).</p>

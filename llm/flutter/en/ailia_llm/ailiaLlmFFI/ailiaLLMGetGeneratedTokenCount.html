@@ -73,7 +73,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Gets the count of prompt token.</p>
+  <p>Gets the count of generated token.</p>
 <p>Parameters:</p>
 <ul>
 <li><code>llm</code>: A LLM instance pointer</li>
@@ -81,7 +81,8 @@
 </ul>
 <p>Returns:</p>
 <p>If this function is successful, it returns  <a href="../../ailia_llm/AILIA_LLM_STATUS_SUCCESS-constant.html">AILIA_LLM_STATUS_SUCCESS</a> , or an error code otherwise.</p>
-<p>It can be called after calling ailiaLLMGenerate.</p>
+<p>Returns the number of tokens generated for the current prompt, including the end-of-generation
+token. Returns 0 when no prompt is set and right after a prompt is set.</p>
 </section>
 
 
@@ -130,7 +131,7 @@
 <footer>
   <span class="no-break">
     ailia_llm
-      1.5.2
+      1.5.3
   </span>
 
   

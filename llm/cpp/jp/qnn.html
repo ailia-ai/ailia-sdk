@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ailia_llm
-   &#160;<span id="projectnumber">1.5.2.0</span>
+   &#160;<span id="projectnumber">1.5.3.0</span>
    </div>
   </td>
  </tr>
@@ -66,7 +66,7 @@ $(function() {
 <div class="title">QNN / Yocto Linuxでの実行 </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md20"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md22"></a>
 動作確認済み環境</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -92,7 +92,7 @@ $(function() {
 </table>
 <p>Linux ARM64版は、glibc 2.35以下・GLIBCXX_3.4.29以下を要求する構成でビルドしています。検証環境のシステムC++ランタイムで実行できます。</p>
 <p>以下では公開QCS6490モデルを使ってテキストを生成します。 BSPにはCDSPファームウェア、FastRPCのlibcdsprpc.so、CDSPデバイスへのアクセス権が必要です。 有効なailia LLMライセンスをセットアップ手順に従って配置してください。</p>
-<h1><a class="anchor" id="autotoc_md21"></a>
+<h1><a class="anchor" id="autotoc_md23"></a>
 1. 必要なファイルを取得する（ホストPC）</h1>
 <p>ailia LLM SDKパッケージを展開し、次のファイルをダウンロードしてください。</p>
 <ul>
@@ -112,15 +112,15 @@ $(function() {
 <div class="line">cp &quot;$QNN_SDK_PATH/lib/aarch64-oe-linux-gcc11.2/libQnnHtpV68Stub.so&quot; &quot;$DEPLOY/&quot;</div>
 <div class="line">cp &quot;$QNN_SDK_PATH/lib/hexagon-v68/unsigned/libQnnHtpV68Skel.so&quot; &quot;$DEPLOY/&quot;</div>
 <div class="line">scp -r &quot;$DEPLOY&quot; root@169.254.239.42:/home/root/</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md22"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
 2. C++サンプルを実行する（実機）</h1>
 <p>QNNライブラリとv68 skelをlibailia_llm_qnn.soの横に配置します。サンプルとライブラリは自身のフォルダから依存ライブラリを読み込むため、LD_LIBRARY_PATHの設定は不要です。 C++ランタイムはシステムのlibstdc++（GLIBCXX_3.4.29以上）を使用します。 モデルの拡張子からQNNが選択され、テキスト生成はHTP / NPUを使用します。 サンプルは2ターンの会話を実行し、応答を表示します。</p>
 <div class="fragment"><div class="line">cd /home/root/llm-qnn-yocto</div>
 <div class="line">chmod +x ./ailia_llm_sample</div>
 <div class="line">./ailia_llm_sample --model ./gemma4-e2b-qcs6490-int16-mtp.qnn</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md23"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md25"></a>
 3. Pythonから実行する（実機）</h1>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md26"></a>
 Pythonパッケージをインストールする</h2>
 <p>Python 3とpip3を使用します。BSPにpip3がない場合は先に用意します。</p>
 <div class="fragment"><div class="line">curl -L --fail -o get-pip.py https://bootstrap.pypa.io/get-pip.py</div>
@@ -130,7 +130,7 @@ Pythonパッケージをインストールする</h2>
 <div class="line">python3 bootstrap.py</div>
 <div class="line">pip3 install .</div>
 </div><!-- fragment --><p>公開版を使用する場合は、代わりにpip3 install ailia_llmを実行します。</p>
-<h2><a class="anchor" id="autotoc_md25"></a>
+<h2><a class="anchor" id="autotoc_md27"></a>
 QNNライブラリをインストール先にコピーする</h2>
 <p>pip3 showのLocationの下にあるailia_llm/linux/arm64-v8a/へ、QNNライブラリとv68 skelをコピーします。 配置後にPythonを起動してください。GLIBCXX_3.4.29以上のシステムのC++ランタイムを使用するため、追加のLD_LIBRARY_PATH設定は不要です。</p>
 <div class="fragment"><div class="line">pip3 show ailia_llm</div>
@@ -139,15 +139,14 @@ QNNライブラリをインストール先にコピーする</h2>
 <div class="line">cd /home/root/llm-qnn-yocto</div>
 <div class="line">test -f &quot;$LLM_NATIVE/libailia_llm_qnn.so&quot;</div>
 <div class="line">cp libQnnHtp.so libQnnSystem.so libQnnHtpV68Stub.so libQnnHtpV68Skel.so &quot;$LLM_NATIVE/&quot;</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md26"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md28"></a>
 アプリケーションからローカルモデルを開く</h2>
-<p>Pythonからは、既存のopen()にダウンロード済みの.qnnファイルのパスを渡します。 以下はモデルの読み込みから応答生成までの例です。 get_qnn_model_name()で実機のモデル識別名を取得し、open()の前にset_qnn_graph_switching(True)を呼びます。グラフ切替でメモリ使用量を抑えられますが、処理時間が増える場合があります。 open()にダウンロード済みのモデルを渡し、generate()で応答を順次表示します。 このテキスト生成例ではマルチモーダルprojectorやMTP assistantは使用しません。</p>
+<p>Pythonからは、既存のopen()にダウンロード済みの.qnnファイルのパスを渡します。 以下はモデルの読み込みから応答生成までの例です。 get_qnn_model_name()で実機のモデル識別名を取得します。 open()にダウンロード済みのモデルを渡し、generate()で応答を順次表示します。 このテキスト生成例ではマルチモーダルprojectorやMTP assistantは使用しません。</p>
 <div class="fragment"><div class="line">import ailia_llm</div>
 <div class="line"> </div>
 <div class="line">llm = ailia_llm.AiliaLLM()</div>
 <div class="line">try:</div>
 <div class="line">    print(&quot;QNN model:&quot;, llm.get_qnn_model_name())</div>
-<div class="line">    llm.set_qnn_graph_switching(True)</div>
 <div class="line">    llm.open(&quot;./gemma4-e2b-qcs6490-int16-mtp.qnn&quot;, n_ctx=8192)</div>
 <div class="line">    messages = [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;What is the capital of Japan? Answer briefly.&quot;}]</div>
 <div class="line">    for text in llm.generate(messages):</div>
@@ -155,7 +154,7 @@ QNNライブラリをインストール先にコピーする</h2>
 <div class="line">    print()</div>
 <div class="line">finally:</div>
 <div class="line">    llm.close()</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md27"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md29"></a>
 エラーの切り分け</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
