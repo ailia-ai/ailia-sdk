@@ -84,12 +84,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>ailia SDK が i.MX 95 で利用できる実行環境は次のとおりです。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>実行環境</th><th>ハードウェア</th><th>ailia SDK 公開版 (pip)</th><th>ailia SDK NXP NPU 対応版</th></tr>
+      <tr><th>実行環境</th><th>ハードウェア</th><th>ailia SDK 公開版 (pip)</th><th>ailia SDK NXP NPU 対応版 (1.8 ベータ)</th></tr>
       <tr><td>CPU</td><td>Arm Cortex-A55</td><td>対応</td><td>対応</td></tr>
       <tr><td>VulkanDNN (FP32 / FP16)</td><td>Arm Mali-G310</td><td>対応</td><td>対応</td></tr>
       <tr><td>Neutron-i.MX95-NPU</td><td>NXP eIQ Neutron NPU</td><td>非対応</td><td>対応</td></tr>
     </table>
     </div>
+    <p>NXP NPU 対応版は、ailia SDK 1.8 のベータ版という扱いで提供しています。</p>
 
     <h2>動作確認環境</h2>
     <div class="table-wrap">
@@ -129,7 +130,7 @@ curl -4 -fL https://axip-console.appspot.com/license/download/product/AILIA -o ~
     <p>システム時刻が正しく設定されていることも確認してください。</p>
 
     <h2>NPU (Neutron) 対応版の導入</h2>
-    <p>Neutron NPU を使用するには、ailia SDK の NXP NPU 対応版バイナリを使用します。NXP NPU 対応版は <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> リポジトリで配布しています。pip 版をインストールした後、パッケージ内の <code>libailia.so</code> を NXP NPU 対応版に差し替えます。</p>
+    <p>Neutron NPU を使用するには、ailia SDK の NXP NPU 対応版バイナリ (ailia SDK 1.8 ベータ版) を使用します。NXP NPU 対応版は <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> リポジトリで配布しています。pip 版をインストールした後、パッケージ内の <code>libailia.so</code> を NXP NPU 対応版に差し替えます。</p>
     <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-nxp-demo.git
 cd ailia-sdk-nxp-demo
 python3 scripts/copy_sdk.py --install-npu</code></pre>
@@ -221,7 +222,7 @@ quantize_dynamic(
     <table class="version-table">
       <tr><th>ランタイム</th><th>レイヤー</th><th>条件</th></tr>
       <tr><td rowspan="4">ailia SDK</td><td>MatMulNBits</td><td>4 bit、zero point なし、定数重み、K % 16 == 0、N % 128 == 0</td></tr>
-      <tr><td>DynamicQuantizeLinear + MatMulInteger</td><td>INT8 / UINT8 重み</td></tr>
+      <tr><td>DynamicQuantizeLinear + MatMulInteger</td><td>INT8 / UINT8。定数重みに加え、両入力が動的な行列積にも対応</td></tr>
       <tr><td>ConvInteger</td><td>1D (NCL)、group 1、UINT8 入力、定数重み</td></tr>
       <tr><td>static QDQ の MatMul・Conv</td><td>QuantizeLinear / DequantizeLinear で挟んだ INT8 演算。Conv は 2D、group 1、K % 64 == 0、N % 128 == 0 で、既定では演算量の大きい形状のみ</td></tr>
       <tr><td rowspan="2">NXP ONNX Runtime</td><td>MatMulNBits</td><td>4 bit、zero point なし、定数重み、K % 16 == 0、N % 128 == 0</td></tr>
@@ -350,6 +351,9 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
 
     <h3>Transformer モデルで高速</h3>
     <p>MatMulNBits の NPU 実行に加えて、ARM NEON による INT4 CPU カーネル、Whisper の KV キャッシュなどにより、ViT で ONNX Runtime 比 1.08 倍、Whisper large-v3-turbo で 1.85 倍、SAM 2.1 の Image Encoder で 2.2 倍の速度を実測しました。セッション生成も高速で、SAM 2.1 では ONNX Runtime NPU の 4.2 秒に対し 2.0 秒です。</p>
+
+    <h3>両入力が動的な Attention の MatMul も NPU で実行</h3>
+    <p>ONNX Runtime の Neutron EP が NPU で実行できるのは、右辺が定数重みの行列積だけです。Attention の QK・AV のように両入力が推論ごとに変わる MatMul は CPU に残ります。ailia は右辺を推論ごとに NPU 向けにパックすることで、MatMulInteger や static QDQ 形式であれば、両入力が動的な MatMul も NPU で実行できます。Whisper のエンコーダや SAM 2.1 の Memory Attention では、Attention の行列積も NPU で実行しています。</p>
 
     <h3>ONNX Runtime や TFLite に依存しない</h3>
     <p>ailia は <code>libNeutronDriver.so</code> の低レベル API を直接呼び出し、対応ノードの抽出、重みの pack、CMA メモリ管理、CPU フォールバックを自身で管理します。Neutron ドライバは実行時に動的ロードするため、NPU のない i.MX や他の Linux 端末でも同じバイナリが CPU / Vulkan で動作します。</p>

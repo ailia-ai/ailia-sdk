@@ -84,12 +84,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>The execution environments ailia SDK can use on the i.MX 95 are:</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Environment</th><th>Hardware</th><th>ailia SDK public release (pip)</th><th>ailia SDK NXP NPU build</th></tr>
+      <tr><th>Environment</th><th>Hardware</th><th>ailia SDK public release (pip)</th><th>ailia SDK NXP NPU build (1.8 beta)</th></tr>
       <tr><td>CPU</td><td>Arm Cortex-A55</td><td>Supported</td><td>Supported</td></tr>
       <tr><td>VulkanDNN (FP32 / FP16)</td><td>Arm Mali-G310</td><td>Supported</td><td>Supported</td></tr>
       <tr><td>Neutron-i.MX95-NPU</td><td>NXP eIQ Neutron NPU</td><td>Not supported</td><td>Supported</td></tr>
     </table>
     </div>
+    <p>The NXP NPU build is provided as a beta of ailia SDK 1.8.</p>
 
     <h2>Tested Environment</h2>
     <div class="table-wrap">
@@ -129,7 +130,7 @@ curl -4 -fL https://axip-console.appspot.com/license/download/product/AILIA -o ~
     <p>Also make sure the system clock is set correctly.</p>
 
     <h2>Installing the NPU (Neutron) Build</h2>
-    <p>To use the Neutron NPU, use the ailia SDK NXP NPU build. It is distributed in the <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> repository. After installing the pip version, replace <code>libailia.so</code> in the package with the NXP NPU build.</p>
+    <p>To use the Neutron NPU, use the ailia SDK NXP NPU build (ailia SDK 1.8 beta). It is distributed in the <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> repository. After installing the pip version, replace <code>libailia.so</code> in the package with the NXP NPU build.</p>
     <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-nxp-demo.git
 cd ailia-sdk-nxp-demo
 python3 scripts/copy_sdk.py --install-npu</code></pre>
@@ -221,7 +222,7 @@ quantize_dynamic(
     <table class="version-table">
       <tr><th>Runtime</th><th>Layer</th><th>Conditions</th></tr>
       <tr><td rowspan="4">ailia SDK</td><td>MatMulNBits</td><td>4 bit, no zero point, constant weights, K % 16 == 0, N % 128 == 0</td></tr>
-      <tr><td>DynamicQuantizeLinear + MatMulInteger</td><td>INT8 / UINT8 weights</td></tr>
+      <tr><td>DynamicQuantizeLinear + MatMulInteger</td><td>INT8 / UINT8. Supports constant weights as well as matrix multiplications whose two inputs are both dynamic</td></tr>
       <tr><td>ConvInteger</td><td>1D (NCL), group 1, UINT8 input, constant weights</td></tr>
       <tr><td>Static QDQ MatMul and Conv</td><td>INT8 operations wrapped in QuantizeLinear / DequantizeLinear. Conv must be 2D, group 1, K % 64 == 0 and N % 128 == 0; by default only shapes with large compute are offloaded</td></tr>
       <tr><td rowspan="2">NXP ONNX Runtime</td><td>MatMulNBits</td><td>4 bit, no zero point, constant weights, K % 16 == 0, N % 128 == 0</td></tr>
@@ -350,6 +351,9 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
 
     <h3>Fast on Transformer Models</h3>
     <p>In addition to MatMulNBits on the NPU, ARM NEON INT4 CPU kernels and the Whisper KV cache gave measured speeds of 1.08x ONNX Runtime for ViT, 1.85x for Whisper large-v3-turbo and 2.2x for the SAM 2.1 Image Encoder. Session creation is also fast: 2.0 seconds for SAM 2.1 compared with 4.2 seconds for ONNX Runtime on the NPU.</p>
+
+    <h3>Attention MatMuls with Two Dynamic Inputs Also Run on the NPU</h3>
+    <p>The ONNX Runtime Neutron EP can run only matrix multiplications whose right-hand side is a constant weight on the NPU. MatMuls whose two inputs both change at each inference, such as QK and AV in Attention, stay on the CPU. ailia packs the right-hand side for the NPU at each inference, so it can also run MatMuls with two dynamic inputs on the NPU when they are in MatMulInteger or static QDQ form. In the Whisper encoder and the SAM 2.1 Memory Attention, the Attention matrix multiplications also run on the NPU.</p>
 
     <h3>No Dependency on ONNX Runtime or TFLite</h3>
     <p>ailia calls the low-level API of <code>libNeutronDriver.so</code> directly and manages node selection, weight packing, CMA memory and CPU fallback itself. The Neutron driver is loaded at runtime, so the same binary runs on CPU / Vulkan on i.MX devices without the NPU and on other Linux devices.</p>
