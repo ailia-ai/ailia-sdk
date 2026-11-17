@@ -141,10 +141,10 @@ python3 scripts/copy_sdk.py --install-npu</code></pre>
     <p>差し替え後に実行環境を列挙すると、<code>/dev/neutron0</code> と <code>libNeutronDriver.so</code> が検出できる場合に <code>Neutron-i.MX95-NPU</code> が追加されます。NPU のない端末や Neutron ドライバのない環境では、CPU と Vulkan のみが列挙されます。</p>
     <pre><code class="language-bash">python3 -c "import ailia; [print(i, ailia.get_environment(i)) for i in range(ailia.get_environment_count())]"</code></pre>
 
-    <p>NPU で実行するには、定数重みの MatMul を MatMulNBits (INT4) に変換したモデルを使用します (<a href="#npu-model">NPU 対応モデルの作り方</a>を参照)。NPU に対応しないノードは自動的に CPU で実行されます。初回推論時に重みを NPU 向けに変換するため、初回のみ時間がかかります。</p>
+    <p>NPU で実行するには、定数重みの MatMul を MatMulNBits (INT4) または MatMulInteger (INT8) に変換したモデルを使用します (<a href="#npu-model">NPU 対応モデルの作り方</a>を参照)。NPU に対応しないノードは自動的に CPU で実行されます。初回推論時に重みを NPU 向けに変換するため、初回のみ時間がかかります。</p>
 
     <h2>アーキテクチャ</h2>
-    <p>ailia SDK は ONNX を入力し、グラフをパースし、レイヤーをインスタンス化します。NPU で実行できるレイヤー (MatMulNBits、MatMulInteger、ConvInteger、static QDQ の行列積など) はモデルの読み込み時に NPU セグメントへ置き換えられ、それ以外のレイヤーは ailia_cpu で実行されます。NPU セグメントは ONNX Runtime や TFLite の Execution Provider を経由せず、BSP に含まれる <code>libNeutronDriver.so</code> の低レベル API を直接呼び出します。<code>libNeutronDriver.so</code> は実行時に <code>dlopen</code> で読み込むため、NPU のない端末ではリンクエラーにならず、CPU と Vulkan のみで動作します。</p>
+    <p>ailia SDK は ONNX を入力し、グラフをパースし、レイヤーをインスタンス化します。NPU で実行できる標準 ONNX 整数演算 (<code>MatMulNBits</code>、<code>MatMulInteger</code>、<code>ConvInteger</code>) はモデルの読み込み時に NPU セグメントへ置き換えられ、それ以外のレイヤーは ailia_cpu で実行されます。static QDQ の <code>DequantizeLinear → MatMul / Conv</code> パターンは NPU 対応レイヤーとして直接認識しません。NPU セグメントは ONNX Runtime や TFLite の Execution Provider を経由せず、BSP に含まれる <code>libNeutronDriver.so</code> の低レベル API を直接呼び出します。<code>libNeutronDriver.so</code> は実行時に <code>dlopen</code> で読み込むため、NPU のない端末ではリンクエラーにならず、CPU と Vulkan のみで動作します。</p>
     <div class="arch-diagram">
         <div class="arch-box"><div class="arch-name">ONNX</div><div class="arch-desc">モデルファイル</div></div>
         <div class="arch-arrow">↓</div>
@@ -152,7 +152,7 @@ python3 scripts/copy_sdk.py --install-npu</code></pre>
         <div class="arch-arrow">↙ ↘</div>
         <div class="arch-split">
           <div class="arch-col">
-        <div class="arch-box"><div class="arch-name">ailia Neutron バックエンド</div><div class="arch-desc">NPU セグメント管理、重みの pack、入力の INT8 量子化、出力の FP32 復元</div></div>
+        <div class="arch-box"><div class="arch-name">ailia Neutron バックエンド</div><div class="arch-desc">NPU セグメント管理、重みの pack、整数 GEMM、必要なスケール・出力変換</div></div>
         <div class="arch-arrow">↓</div>
         <div class="arch-box"><div class="arch-name">libNeutronDriver.so</div><div class="arch-desc">NXP Neutron ドライバ (低レベル API)</div></div>
         <div class="arch-arrow">↓</div>
@@ -206,7 +206,7 @@ python3 scripts/copy_sdk.py --install-npu</code></pre>
       <li><strong>精度を保ちやすい</strong>: 量子化に弱い LayerNorm や Softmax は FP32 のまま計算します。ViT-B/16 では FP32 と INT4 で top-5 の順位が一致しました。</li>
       <li><strong>モデルが小さい</strong>: 重みが 4 bit になるため、ViT-B/16 は 330.3 MiB から 49.3 MiB になります。</li>
     </ul>
-    <p>MatMulNBits は 4 bit の重みにのみ対応しています。重みを 8 bit で量子化する場合は、MatMulNBits ではなく DynamicQuantizeLinear + MatMulInteger の構成にしてください。ONNX Runtime の <code>quantize_dynamic</code> で MatMul を量子化すると、この構成のモデルが得られます。この場合も入力は推論ごとに動的に量子化されるため、キャリブレーションは不要です。</p>
+    <p>重みを 8 bit で量子化する場合は、標準 ONNX の <code>DynamicQuantizeLinear + MatMulInteger</code> 構成を推奨します。ONNX Runtime の <code>quantize_dynamic</code> で MatMul を量子化すると、この構成のモデルが得られます。この場合も入力は推論ごとに動的に量子化されるため、キャリブレーションは不要です。ailia SDK は <code>MatMulNBits</code> の INT8 も扱えますが、NPU 対応は出力チャネルごとに 1 block (<code>block_size &gt;= K</code>) の場合に限定され、既定では無効です。</p>
     <pre><code class="language-python">from onnxruntime.quantization import quantize_dynamic, QuantType
 
 quantize_dynamic(
@@ -221,15 +221,14 @@ quantize_dynamic(
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>ランタイム</th><th>レイヤー</th><th>条件</th></tr>
-      <tr><td rowspan="4">ailia SDK</td><td>MatMulNBits</td><td>4 bit、zero point なし、定数重み、K % 16 == 0、N % 128 == 0</td></tr>
-      <tr><td>DynamicQuantizeLinear + MatMulInteger</td><td>INT8 / UINT8。定数重みに加え、両入力が動的な行列積にも対応</td></tr>
-      <tr><td>ConvInteger</td><td>1D (NCL)、group 1、UINT8 入力、定数重み</td></tr>
-      <tr><td>static QDQ の MatMul・Conv</td><td>QuantizeLinear / DequantizeLinear で挟んだ INT8 演算。Conv は 2D、group 1、K % 64 == 0、N % 128 == 0 で、既定では演算量の大きい形状のみ</td></tr>
+      <tr><td rowspan="3">ailia SDK</td><td>MatMulNBits</td><td>INT4 / INT8、zero point なし、定数重み・scale、K % 16 == 0。INT8 は block_size &gt;= K</td></tr>
+      <tr><td>MatMulInteger</td><td>UINT8 入力、INT8 / UINT8 重み。定数重みと動的重み、scalar zero point、Cast・定数 scale・bias・UINT8 再量子化の融合に対応</td></tr>
+      <tr><td>ConvInteger</td><td>1D (NCL)、group 1、UINT8 入力、定数 INT8 / UINT8 重み。stride、dilation、auto padding、scalar / channel-wise weight zero point に対応</td></tr>
       <tr><td rowspan="2">NXP ONNX Runtime</td><td>MatMulNBits</td><td>4 bit、zero point なし、定数重み、K % 16 == 0、N % 128 == 0</td></tr>
       <tr><td>MatMulInteger、MatMulIntegerToFloat、QLinearMatMul、QGemm</td><td>定数重み、N % 16 == 0</td></tr>
     </table>
     </div>
-    <p>NXP ONNX Runtime では、static QDQ モデル (ViT、ResNet-50) を Neutron EP で実行しても、行列積と畳み込み (QLinearMatMul、QGemm、QLinearConv) はすべて CPU で実行され、NPU による高速化は得られませんでした。</p>
+    <p>ailia SDK の NPU フロントエンドは static QDQ パターンを直接 NPU 化しません。QDQ モデルを使用する場合は、量子化テンソル、scale、zero point、乗算順序を維持したまま、対象演算を事前に <code>MatMulInteger</code> または <code>ConvInteger</code> へ変換してください。条件を満たさないノードは CPU で実行されます。</p>
 
     <h3>MatMulNBits への変換</h3>
     <p>変換は PC で ONNX Runtime の <code>MatMulNBitsQuantizer</code> を使って行います。ailia-models の ViT のエクスポートサンプル (<code>image_classification/vit/export/export_int4.py</code>) が参考になります。このサンプルは <a href="https://github.com/ailia-ai/ailia-models/pull/1966" target="_blank">ailia-models PR #1966</a> で追加予定です。MatMulNBits の仕組みについては <a href="https://tech.ailia.ai/matmulnbits-llm-vlm%E3%82%92onnx%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99%E3%81%9F%E3%82%81%E3%81%AE4bit%E9%87%8F%E5%AD%90%E5%8C%96-6cb572b43c19/" target="_blank">MatMulNBits : LLM や VLM を ONNX で動かすための 4bit 量子化</a> を参照してください。</p>
@@ -299,61 +298,43 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
     <p>FRDM i.MX 95 で、ailia SDK と NXP BSP 同梱の ONNX Runtime 1.24.3 を比較しました。NPU は非対応レイヤーの CPU 実行を含みます。「出力変動」は同じ入力を繰り返し推論したときの出力の最大差です (0 は毎回同じ結果)。</p>
 
     <h3>ViT-B/16 (画像分類、224×224)</h3>
-    <p>INT4 は定数重みの MatMul を MatMulNBits に変換したモデルです。10 回の中央値。</p>
+    <p>定数重みの MatMul を MatMulNBits INT4 に変換し、その他の演算を FP32 で実行するモデルです。CPU 6 スレッド、プロファイル無効で 10 回測定した推論時間の中央値です。モデル Open 後のダミー推論 1 回と、実入力による 3 回のウォームアップは測定から除外しています。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>モデル・実行環境</th><th class="num">NXP ONNX Runtime</th><th class="num">ailia SDK</th><th class="num">出力変動 (ORT / ailia)</th></tr>
-      <tr><td>FP32 / CPU</td><td class="num">1,633.6 ms</td><td class="num">1,922.1 ms</td><td class="num">0 / 0</td></tr>
-      <tr><td>INT4 / CPU</td><td class="num">840.4 ms</td><td class="num">806.2 ms</td><td class="num">0 / 0</td></tr>
-      <tr class="highlight"><td>INT4 / NPU</td><td class="num">433.6 ms</td><td class="num">400.7 ms</td><td class="num">0.5403 / 0</td></tr>
+      <tr><th>条件</th><th class="num">推論時間 (中央値)</th><th class="num">Top-1</th><th class="num">出力変動 (最大絶対差)</th></tr>
+      <tr><td>ORT CPU</td><td class="num">672.9 ms</td><td class="num">208</td><td class="num">0</td></tr>
+      <tr><td>ORT NPU</td><td class="num">390.6 ms</td><td class="num">208</td><td class="num">0.2002</td></tr>
+      <tr><td>ailia CPU</td><td class="num">780.0 ms</td><td class="num">208</td><td class="num">0</td></tr>
+      <tr class="highlight"><td>ailia NPU</td><td class="num">317.3 ms</td><td class="num">208</td><td class="num">0</td></tr>
     </table>
     </div>
-    <p>ailia の NPU 実行は FP32 CPU の 4.8 倍、ONNX Runtime の NPU 実行の 1.08 倍の速度です。</p>
-
-    <h3>Whisper (音声認識)</h3>
-    <p>約 40 秒の日本語音声の文字起こし時間です。large-v3-turbo のエンコーダを INT4 に変換しています。RTF は処理時間 / 音声長です。</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>ランタイム / 実行環境</th><th class="num">エンコーダ</th><th class="num">デコーダ</th><th class="num">合計</th><th class="num">RTF</th></tr>
-      <tr><td>NXP ONNX Runtime / CPU</td><td class="num">77.5 s</td><td class="num">220.1 s</td><td class="num">297.6 s</td><td class="num">7.49</td></tr>
-      <tr><td>NXP ONNX Runtime / NPU</td><td class="num">54.6 s</td><td class="num">220.3 s</td><td class="num">274.9 s</td><td class="num">6.92</td></tr>
-      <tr><td>ailia SDK / CPU</td><td class="num">125.2 s</td><td class="num">97.9 s</td><td class="num">223.1 s</td><td class="num">5.61</td></tr>
-      <tr class="highlight"><td>ailia SDK / NPU</td><td class="num">50.7 s</td><td class="num">97.7 s</td><td class="num">148.4 s</td><td class="num">3.74</td></tr>
-    </table>
-    </div>
-    <p>ailia の NPU 実行は ONNX Runtime の NPU 実行の 1.85 倍の速度です。文字起こし結果は同じでした。</p>
+    <p>ailia NPU は ORT NPU の約 1.23 倍の速度です。全条件・全測定で Top-1 は 208 でした。ORT NPU のみ、同じ入力でも出力値の変動 (最大絶対差 0.2002) を観測し、他の 3 条件では変動はありませんでした。</p>
 
     <h3>SAM 2.1 Tiny (セグメンテーション、512×512)</h3>
-    <p><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> で測定しました。Image Encoder と Memory Attention は static INT8 QDQ、その他のネットワークは FP32 CPU です。静止画 (truck.jpg) は 3 回の中央値で、Click は Prompt Encoder + Mask Decoder の時間です。</p>
+    <p>2026-11-18、i.MX95、<a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> の COCO 校正済みモデル <code>coco-val2017-v1</code> で測定しました。NXP ONNX Runtime 1.24.3、ailia SDK 1.7 (NXP NPU 対応版)、CPU 6 スレッド、プロファイル無効です。全方式でモデル Open 時に同じダミー入力で 1 回推論し、その後 Bedroom の 5 フレームを同じ 2 点で 1 周ウォームアップしました。続く 3 回の中央値で、ウォームアップは測定に含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>ランタイム / 実行環境</th><th class="num">セッション生成</th><th class="num">Image Encoder</th><th class="num">Click</th></tr>
-      <tr><td>NXP ONNX Runtime / CPU</td><td class="num">3,819.6 ms</td><td class="num">1,930.8 ms</td><td class="num">169.9 ms</td></tr>
-      <tr><td>NXP ONNX Runtime / NPU</td><td class="num">4,229.5 ms</td><td class="num">2,009.2 ms</td><td class="num">169.0 ms</td></tr>
-      <tr><td>ailia SDK / CPU</td><td class="num">2,743.5 ms</td><td class="num">4,245.2 ms</td><td class="num">106.1 ms</td></tr>
-      <tr class="highlight"><td>ailia SDK / NPU</td><td class="num">2,026.9 ms</td><td class="num">902.3 ms</td><td class="num">106.8 ms</td></tr>
+      <tr><th>処理</th><th class="num">回数／動画</th><th class="num">ORT CPU</th><th class="num">ORT NPU※</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Image Encoder (ms／回)</td><td class="num">5</td><td class="num">2,273.1</td><td class="num">2,194.3</td><td class="num">4,806.9</td><td class="num">883.2</td></tr>
+      <tr><td>Mask Decoder (ms／回)</td><td class="num">5</td><td class="num">169.6</td><td class="num">164.8</td><td class="num">126.9</td><td class="num">126.1</td></tr>
+      <tr><td>Memory Attention (ms／回)</td><td class="num">4</td><td class="num">1,487.2</td><td class="num">1,484.2</td><td class="num">3,822.7</td><td class="num">517.2</td></tr>
+      <tr><td>Memory Encoder (ms／回)</td><td class="num">5</td><td class="num">294.3</td><td class="num">299.9</td><td class="num">237.8</td><td class="num">238.7</td></tr>
+      <tr class="highlight"><td>5 フレーム全体 (秒)</td><td class="num">—</td><td class="num">20.14</td><td class="num">19.75</td><td class="num">41.63</td><td class="num">8.72</td></tr>
     </table>
     </div>
-    <p>動画 (bedroom 5 フレーム) のメモリ追跡では、フレーム 3〜5 の中央値は次のとおりです。</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>ランタイム / 実行環境</th><th class="num">Image Encoder</th><th class="num">Memory Attention</th><th class="num">1 フレーム</th></tr>
-      <tr><td>NXP ONNX Runtime / CPU</td><td class="num">1,900.7 ms</td><td class="num">1,331.4 ms</td><td class="num">3,750.0 ms</td></tr>
-      <tr><td>NXP ONNX Runtime / NPU</td><td class="num">1,944.5 ms</td><td class="num">1,324.7 ms</td><td class="num">3,788.0 ms</td></tr>
-      <tr class="highlight"><td>ailia SDK / NPU</td><td class="num">898.0 ms</td><td class="num">621.9 ms</td><td class="num">1,925.8 ms</td></tr>
-    </table>
-    </div>
-    <p>ailia の NPU 実行は ONNX Runtime の NPU 実行に対し、Image Encoder で 2.2 倍、動画の 1 フレームで 2.0 倍の速度です。</p>
+    <p>モデル別は 1 回あたりの平均時間の中央値です。全体時間は画像読み込み・前後処理を含み、モデル読み込み・描画・保存を除きます。4 方式とも同じモデルを使用します。NPU 方式では Image Encoder と Memory Attention を CPU / NPU 混在で実行し、その他は CPU 実行です。</p>
+    <p>※ <strong>ORT NPU は出力異常 (最終測定の後続フレームのマスクが 0〜3 画素) があるため、速度参考値です。</strong></p>
+    <p>Bedroom での FP32 参照に対する平均マスク IoU は、ホスト ORT CPU で 96.07%、実機 ailia NPU で 95.71% です。正解マスクに対する精度ではありません。</p>
 
     <h2>ailia を使うメリット</h2>
     <h3>推論ごとに結果が変わらない NPU 実行</h3>
     <p>NXP ONNX Runtime の Neutron 実行では、ViTおよびSAM 2.1 で同一入力に対する出力が推論ごとに変動することを確認しています。ailia は大きな行列を NPU が安定して処理できるサイズに分割することで出力変動 0 を実現しています。閾値判定や回帰テストなど、再現性が求められる製品用途に適しています。</p>
 
     <h3>Transformer モデルで高速</h3>
-    <p>MatMulNBits の NPU 実行に加えて、ARM NEON による INT4 CPU カーネル、Whisper の KV キャッシュなどにより、ViT で ONNX Runtime 比 1.08 倍、Whisper large-v3-turbo で 1.85 倍、SAM 2.1 の Image Encoder で 2.2 倍の速度を実測しました。セッション生成も高速で、SAM 2.1 では ONNX Runtime NPU の 4.2 秒に対し 2.0 秒です。</p>
+    <p>MatMulNBits と MatMulInteger の NPU 実行により、ViT では ORT NPU の 390.6 ms に対して ailia NPU は 317.3 ms (約 1.23 倍高速) でした。COCO 校正済み SAM 2.1 では Image Encoder が ailia CPU の 4,806.9 ms に対して ailia NPU で 883.2 ms、5 フレーム全体が 41.63 秒に対して 8.72 秒です。</p>
 
     <h3>両入力が動的な Attention の MatMul も NPU で実行</h3>
-    <p>ONNX Runtime の Neutron EP が NPU で実行できるのは、右辺が定数重みの行列積だけです。Attention の QK・AV のように両入力が推論ごとに変わる MatMul は CPU に残ります。ailia は右辺を推論ごとに NPU 向けにパックすることで、MatMulInteger や static QDQ 形式であれば、両入力が動的な MatMul も NPU で実行できます。Whisper のエンコーダや SAM 2.1 の Memory Attention では、Attention の行列積も NPU で実行しています。</p>
+    <p>ONNX Runtime の Neutron EP が NPU で実行できるのは、右辺が定数重みの行列積だけです。Attention の QK・AV のように両入力が推論ごとに変わる MatMul は CPU に残ります。ailia は右辺を推論ごとに NPU 向けにパックすることで、両入力が動的な <code>MatMulInteger</code> も NPU で実行できます。SAM 2.1 の Memory Attention では、Attention の行列積を <code>MatMulInteger</code> として NPU で実行しています。</p>
 
     <h3>ONNX Runtime や TFLite に依存しない</h3>
     <p>ailia は <code>libNeutronDriver.so</code> の低レベル API を直接呼び出し、対応ノードの抽出、重みの pack、CMA メモリ管理、CPU フォールバックを自身で管理します。Neutron ドライバは実行時に動的ロードするため、NPU のない i.MX や他の Linux 端末でも同じバイナリが CPU / Vulkan で動作します。</p>

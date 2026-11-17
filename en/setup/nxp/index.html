@@ -141,10 +141,10 @@ python3 scripts/copy_sdk.py --install-npu</code></pre>
     <p>After replacing the files, <code>Neutron-i.MX95-NPU</code> is added to the environment list when <code>/dev/neutron0</code> and <code>libNeutronDriver.so</code> are found. On devices without the NPU or the Neutron driver, only CPU and Vulkan are listed.</p>
     <pre><code class="language-bash">python3 -c "import ailia; [print(i, ailia.get_environment(i)) for i in range(ailia.get_environment_count())]"</code></pre>
 
-    <p>To run on the NPU, use a model in which MatMuls with constant weights are converted to MatMulNBits (INT4) (see <a href="#npu-model">Creating Models for the NPU</a>). Nodes the NPU does not support run on the CPU automatically. Weights are converted for the NPU on the first inference, so only the first run takes longer.</p>
+    <p>To run on the NPU, use a model in which MatMuls with constant weights are converted to MatMulNBits (INT4) or MatMulInteger (INT8) (see <a href="#npu-model">Creating Models for the NPU</a>). Nodes the NPU does not support run on the CPU automatically. Weights are converted for the NPU on the first inference, so only the first run takes longer.</p>
 
     <h2>Architecture</h2>
-    <p>ailia SDK takes ONNX as input, parses the graph and instantiates layers. Layers that can run on the NPU (MatMulNBits, MatMulInteger, ConvInteger, static QDQ matrix multiplications, etc.) are replaced with NPU segments when the model is loaded, and the other layers run on ailia_cpu. NPU segments do not go through an ONNX Runtime or TFLite Execution Provider; they call the low-level API of <code>libNeutronDriver.so</code> in the BSP directly. <code>libNeutronDriver.so</code> is loaded at runtime with <code>dlopen</code>, so on devices without the NPU there is no link error and only CPU and Vulkan are used.</p>
+    <p>ailia SDK takes ONNX as input, parses the graph and instantiates layers. Standard ONNX integer operators that can run on the NPU (<code>MatMulNBits</code>, <code>MatMulInteger</code> and <code>ConvInteger</code>) are replaced with NPU segments when the model is loaded, and the other layers run on ailia_cpu. Static QDQ <code>DequantizeLinear → MatMul / Conv</code> patterns are not recognized directly as NPU-supported layers. NPU segments do not go through an ONNX Runtime or TFLite Execution Provider; they call the low-level API of <code>libNeutronDriver.so</code> in the BSP directly. <code>libNeutronDriver.so</code> is loaded at runtime with <code>dlopen</code>, so on devices without the NPU there is no link error and only CPU and Vulkan are used.</p>
     <div class="arch-diagram">
         <div class="arch-box"><div class="arch-name">ONNX</div><div class="arch-desc">Model file</div></div>
         <div class="arch-arrow">↓</div>
@@ -152,7 +152,7 @@ python3 scripts/copy_sdk.py --install-npu</code></pre>
         <div class="arch-arrow">↙ ↘</div>
         <div class="arch-split">
           <div class="arch-col">
-        <div class="arch-box"><div class="arch-name">ailia Neutron backend</div><div class="arch-desc">NPU segment management, weight packing, INT8 input quantization, FP32 output restoration</div></div>
+        <div class="arch-box"><div class="arch-name">ailia Neutron backend</div><div class="arch-desc">NPU segment management, weight packing, integer GEMM, and required scaling/output conversion</div></div>
         <div class="arch-arrow">↓</div>
         <div class="arch-box"><div class="arch-name">libNeutronDriver.so</div><div class="arch-desc">NXP Neutron driver (low-level API)</div></div>
         <div class="arch-arrow">↓</div>
@@ -206,7 +206,7 @@ python3 scripts/copy_sdk.py --install-npu</code></pre>
       <li><strong>Accuracy is easy to keep</strong>: LayerNorm and Softmax, which are sensitive to quantization, are computed in FP32. For ViT-B/16, the top-5 ranking matched between FP32 and INT4.</li>
       <li><strong>Small models</strong>: weights become 4 bit, so ViT-B/16 shrinks from 330.3 MiB to 49.3 MiB.</li>
     </ul>
-    <p>MatMulNBits supports only 4-bit weights. To quantize weights to 8 bits, use DynamicQuantizeLinear + MatMulInteger instead of MatMulNBits. Quantizing MatMul with ONNX Runtime's <code>quantize_dynamic</code> produces a model in this form. Inputs are still quantized dynamically at each inference, so no calibration is needed.</p>
+    <p>For 8-bit weights, the recommended form is the standard ONNX <code>DynamicQuantizeLinear + MatMulInteger</code> graph. Quantizing MatMul with ONNX Runtime's <code>quantize_dynamic</code> produces a model in this form. Inputs are still quantized dynamically at each inference, so no calibration is needed. ailia SDK can also handle INT8 <code>MatMulNBits</code>, but NPU offload is limited to one block per output channel (<code>block_size &gt;= K</code>) and is disabled by default.</p>
     <pre><code class="language-python">from onnxruntime.quantization import quantize_dynamic, QuantType
 
 quantize_dynamic(
@@ -221,15 +221,14 @@ quantize_dynamic(
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Runtime</th><th>Layer</th><th>Conditions</th></tr>
-      <tr><td rowspan="4">ailia SDK</td><td>MatMulNBits</td><td>4 bit, no zero point, constant weights, K % 16 == 0, N % 128 == 0</td></tr>
-      <tr><td>DynamicQuantizeLinear + MatMulInteger</td><td>INT8 / UINT8. Supports constant weights as well as matrix multiplications whose two inputs are both dynamic</td></tr>
-      <tr><td>ConvInteger</td><td>1D (NCL), group 1, UINT8 input, constant weights</td></tr>
-      <tr><td>Static QDQ MatMul and Conv</td><td>INT8 operations wrapped in QuantizeLinear / DequantizeLinear. Conv must be 2D, group 1, K % 64 == 0 and N % 128 == 0; by default only shapes with large compute are offloaded</td></tr>
+      <tr><td rowspan="3">ailia SDK</td><td>MatMulNBits</td><td>INT4 / INT8, no zero point, constant weights and scales, K % 16 == 0. INT8 requires block_size &gt;= K</td></tr>
+      <tr><td>MatMulInteger</td><td>UINT8 input and INT8 / UINT8 weights. Supports constant and dynamic weights, scalar zero points, and fusion of Cast, constant scales, bias and UINT8 requantization</td></tr>
+      <tr><td>ConvInteger</td><td>1D (NCL), group 1, UINT8 input and constant INT8 / UINT8 weights. Supports stride, dilation, automatic padding, and scalar / channel-wise weight zero points</td></tr>
       <tr><td rowspan="2">NXP ONNX Runtime</td><td>MatMulNBits</td><td>4 bit, no zero point, constant weights, K % 16 == 0, N % 128 == 0</td></tr>
       <tr><td>MatMulInteger, MatMulIntegerToFloat, QLinearMatMul, QGemm</td><td>Constant weights, N % 16 == 0</td></tr>
     </table>
     </div>
-    <p>With NXP ONNX Runtime, when we ran static QDQ models (ViT, ResNet-50) with the Neutron EP, all matrix multiplications and convolutions (QLinearMatMul, QGemm, QLinearConv) ran on the CPU, and the NPU gave no speedup.</p>
+    <p>The ailia SDK NPU frontend does not offload static QDQ patterns directly. When using a QDQ model, convert the target operations offline to <code>MatMulInteger</code> or <code>ConvInteger</code> while preserving the quantized tensors, scales, zero points and multiplication order. Nodes that do not meet the conditions run on the CPU.</p>
 
     <h3>Converting to MatMulNBits</h3>
     <p>Convert on a PC with ONNX Runtime's <code>MatMulNBitsQuantizer</code>. The ViT export sample in ailia-models (<code>image_classification/vit/export/export_int4.py</code>) is a good reference. The sample will be added in <a href="https://github.com/ailia-ai/ailia-models/pull/1966" target="_blank">ailia-models PR #1966</a>. For how MatMulNBits works, see <a href="https://tech.ailia.ai/matmulnbits-llm-vlm%E3%82%92onnx%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99%E3%81%9F%E3%82%81%E3%81%AE4bit%E9%87%8F%E5%AD%90%E5%8C%96-6cb572b43c19/" target="_blank">MatMulNBits: 4-bit quantization for running LLMs and VLMs with ONNX (Japanese)</a>.</p>
@@ -299,61 +298,43 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
     <p>We compared ailia SDK with ONNX Runtime 1.24.3 bundled with the NXP BSP on the FRDM i.MX 95. NPU results include CPU execution of unsupported layers. "Output variation" is the maximum output difference when the same input is inferred repeatedly (0 means the same result every time).</p>
 
     <h3>ViT-B/16 (Image Classification, 224×224)</h3>
-    <p>INT4 is a model with constant-weight MatMuls converted to MatMulNBits. Median of 10 runs.</p>
+    <p>The model converts constant-weight MatMuls to MatMulNBits INT4 and runs the remaining operations in FP32. The table reports median inference time over 10 runs with 6 CPU threads and profiling disabled. One dummy inference after opening the model and three warm-up inferences with the real input are excluded.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Model / environment</th><th class="num">NXP ONNX Runtime</th><th class="num">ailia SDK</th><th class="num">Output variation (ORT / ailia)</th></tr>
-      <tr><td>FP32 / CPU</td><td class="num">1,633.6 ms</td><td class="num">1,922.1 ms</td><td class="num">0 / 0</td></tr>
-      <tr><td>INT4 / CPU</td><td class="num">840.4 ms</td><td class="num">806.2 ms</td><td class="num">0 / 0</td></tr>
-      <tr class="highlight"><td>INT4 / NPU</td><td class="num">433.6 ms</td><td class="num">400.7 ms</td><td class="num">0.5403 / 0</td></tr>
+      <tr><th>Condition</th><th class="num">Inference time (median)</th><th class="num">Top-1</th><th class="num">Output variation (max absolute difference)</th></tr>
+      <tr><td>ORT CPU</td><td class="num">672.9 ms</td><td class="num">208</td><td class="num">0</td></tr>
+      <tr><td>ORT NPU</td><td class="num">390.6 ms</td><td class="num">208</td><td class="num">0.2002</td></tr>
+      <tr><td>ailia CPU</td><td class="num">780.0 ms</td><td class="num">208</td><td class="num">0</td></tr>
+      <tr class="highlight"><td>ailia NPU</td><td class="num">317.3 ms</td><td class="num">208</td><td class="num">0</td></tr>
     </table>
     </div>
-    <p>ailia on the NPU is 4.8x faster than FP32 on the CPU and 1.08x faster than ONNX Runtime on the NPU.</p>
-
-    <h3>Whisper (Speech Recognition)</h3>
-    <p>Time to transcribe about 40 seconds of Japanese audio. The large-v3-turbo encoder is converted to INT4. RTF is processing time / audio length.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Runtime / environment</th><th class="num">Encoder</th><th class="num">Decoder</th><th class="num">Total</th><th class="num">RTF</th></tr>
-      <tr><td>NXP ONNX Runtime / CPU</td><td class="num">77.5 s</td><td class="num">220.1 s</td><td class="num">297.6 s</td><td class="num">7.49</td></tr>
-      <tr><td>NXP ONNX Runtime / NPU</td><td class="num">54.6 s</td><td class="num">220.3 s</td><td class="num">274.9 s</td><td class="num">6.92</td></tr>
-      <tr><td>ailia SDK / CPU</td><td class="num">125.2 s</td><td class="num">97.9 s</td><td class="num">223.1 s</td><td class="num">5.61</td></tr>
-      <tr class="highlight"><td>ailia SDK / NPU</td><td class="num">50.7 s</td><td class="num">97.7 s</td><td class="num">148.4 s</td><td class="num">3.74</td></tr>
-    </table>
-    </div>
-    <p>ailia on the NPU is 1.85x faster than ONNX Runtime on the NPU. The transcriptions were the same.</p>
+    <p>ailia NPU is approximately 1.23x faster than ORT NPU. Top-1 was 208 for every condition and measurement. Only ORT NPU showed output variation for the same input (maximum absolute difference 0.2002); the other three conditions showed no variation.</p>
 
     <h3>SAM 2.1 Tiny (Segmentation, 512×512)</h3>
-    <p>Measured with <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a>. The Image Encoder and Memory Attention are static INT8 QDQ; the other networks run in FP32 on the CPU. Still-image results (truck.jpg) are the median of 3 runs, and Click is the Prompt Encoder + Mask Decoder time.</p>
+    <p>Measured on 2026-11-18 on the i.MX95 with the COCO-calibrated <code>coco-val2017-v1</code> model from <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a>. The runtimes were NXP ONNX Runtime 1.24.3 and ailia SDK 1.7 (NXP NPU build), with 6 CPU threads and profiling disabled. All backends ran the same dummy input once when opening each model, then warmed up with one full pass over the 5 Bedroom frames using the same two points. The table reports the median of the next 3 runs and excludes warm-up time.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Runtime / Environment</th><th class="num">Session creation</th><th class="num">Image Encoder</th><th class="num">Click</th></tr>
-      <tr><td>NXP ONNX Runtime / CPU</td><td class="num">3,819.6 ms</td><td class="num">1,930.8 ms</td><td class="num">169.9 ms</td></tr>
-      <tr><td>NXP ONNX Runtime / NPU</td><td class="num">4,229.5 ms</td><td class="num">2,009.2 ms</td><td class="num">169.0 ms</td></tr>
-      <tr><td>ailia SDK / CPU</td><td class="num">2,743.5 ms</td><td class="num">4,245.2 ms</td><td class="num">106.1 ms</td></tr>
-      <tr class="highlight"><td>ailia SDK / NPU</td><td class="num">2,026.9 ms</td><td class="num">902.3 ms</td><td class="num">106.8 ms</td></tr>
+      <tr><th>Operation</th><th class="num">Calls / video</th><th class="num">ORT CPU</th><th class="num">ORT NPU*</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Image Encoder (ms / call)</td><td class="num">5</td><td class="num">2,273.1</td><td class="num">2,194.3</td><td class="num">4,806.9</td><td class="num">883.2</td></tr>
+      <tr><td>Mask Decoder (ms / call)</td><td class="num">5</td><td class="num">169.6</td><td class="num">164.8</td><td class="num">126.9</td><td class="num">126.1</td></tr>
+      <tr><td>Memory Attention (ms / call)</td><td class="num">4</td><td class="num">1,487.2</td><td class="num">1,484.2</td><td class="num">3,822.7</td><td class="num">517.2</td></tr>
+      <tr><td>Memory Encoder (ms / call)</td><td class="num">5</td><td class="num">294.3</td><td class="num">299.9</td><td class="num">237.8</td><td class="num">238.7</td></tr>
+      <tr class="highlight"><td>5-frame total (seconds)</td><td class="num">—</td><td class="num">20.14</td><td class="num">19.75</td><td class="num">41.63</td><td class="num">8.72</td></tr>
     </table>
     </div>
-    <p>For memory tracking on video (5 bedroom frames), the medians of frames 3–5 are as follows.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Runtime / Environment</th><th class="num">Image Encoder</th><th class="num">Memory Attention</th><th class="num">Per frame</th></tr>
-      <tr><td>NXP ONNX Runtime / CPU</td><td class="num">1,900.7 ms</td><td class="num">1,331.4 ms</td><td class="num">3,750.0 ms</td></tr>
-      <tr><td>NXP ONNX Runtime / NPU</td><td class="num">1,944.5 ms</td><td class="num">1,324.7 ms</td><td class="num">3,788.0 ms</td></tr>
-      <tr class="highlight"><td>ailia SDK / NPU</td><td class="num">898.0 ms</td><td class="num">621.9 ms</td><td class="num">1,925.8 ms</td></tr>
-    </table>
-    </div>
-    <p>ailia on the NPU is 2.2x faster than ONNX Runtime on the NPU for the Image Encoder and 2.0x faster per video frame.</p>
+    <p>Per-model rows are the median of each run's average time per call. Total time includes image loading and pre/post-processing but excludes model loading, drawing and saving. All four backends use the same models. The NPU backends run the Image Encoder and Memory Attention with mixed CPU/NPU execution; all other networks run on the CPU.</p>
+    <p>* <strong>ORT NPU is a timing-only result because its output is invalid (the masks for later frames in the final measurement contain only 0–3 pixels).</strong></p>
+    <p>The mean mask IoU against the FP32 reference on Bedroom is 96.07% for host ORT CPU and 95.71% for ailia NPU on the device. This is not accuracy against ground-truth masks.</p>
 
     <h2>Benefits of Using ailia</h2>
     <h3>NPU Results That Do Not Change Between Runs</h3>
     <p>With NXP ONNX Runtime on Neutron, we confirmed that ViT and SAM 2.1 outputs change from run to run for the same input. ailia achieves zero output variation by splitting large matrices into sizes the NPU processes reliably. This suits products that need reproducibility, such as threshold decisions and regression testing.</p>
 
     <h3>Fast on Transformer Models</h3>
-    <p>In addition to MatMulNBits on the NPU, ARM NEON INT4 CPU kernels and the Whisper KV cache gave measured speeds of 1.08x ONNX Runtime for ViT, 1.85x for Whisper large-v3-turbo and 2.2x for the SAM 2.1 Image Encoder. Session creation is also fast: 2.0 seconds for SAM 2.1 compared with 4.2 seconds for ONNX Runtime on the NPU.</p>
+    <p>With MatMulNBits and MatMulInteger NPU execution, ViT takes 317.3 ms on ailia NPU versus 390.6 ms on ORT NPU (approximately 1.23x faster). For the COCO-calibrated SAM 2.1 model, the Image Encoder takes 883.2 ms on ailia NPU versus 4,806.9 ms on ailia CPU, and the 5-frame total takes 8.72 seconds versus 41.63 seconds.</p>
 
     <h3>Attention MatMuls with Two Dynamic Inputs Also Run on the NPU</h3>
-    <p>The ONNX Runtime Neutron EP can run only matrix multiplications whose right-hand side is a constant weight on the NPU. MatMuls whose two inputs both change at each inference, such as QK and AV in Attention, stay on the CPU. ailia packs the right-hand side for the NPU at each inference, so it can also run MatMuls with two dynamic inputs on the NPU when they are in MatMulInteger or static QDQ form. In the Whisper encoder and the SAM 2.1 Memory Attention, the Attention matrix multiplications also run on the NPU.</p>
+    <p>The ONNX Runtime Neutron EP can run only matrix multiplications whose right-hand side is a constant weight on the NPU. MatMuls whose two inputs both change at each inference, such as QK and AV in Attention, stay on the CPU. ailia packs the right-hand side for the NPU at each inference, so it can also run <code>MatMulInteger</code> with two dynamic inputs on the NPU. In SAM 2.1 Memory Attention, the Attention matrix multiplications run on the NPU as <code>MatMulInteger</code>.</p>
 
     <h3>No Dependency on ONNX Runtime or TFLite</h3>
     <p>ailia calls the low-level API of <code>libNeutronDriver.so</code> directly and manages node selection, weight packing, CMA memory and CPU fallback itself. The Neutron driver is loaded at runtime, so the same binary runs on CPU / Vulkan on i.MX devices without the NPU and on other Linux devices.</p>
