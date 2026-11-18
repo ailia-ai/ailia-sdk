@@ -191,11 +191,11 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Operation</th><th class="num">Calls / video</th><th class="num">ORT CPU</th><th class="num">ORT NPU*</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
-      <tr><td>Image Encoder (ms / call)</td><td class="num">5</td><td class="num">2,273.1</td><td class="num">2,194.3</td><td class="num">4,806.9</td><td class="num">883.2</td></tr>
-      <tr><td>Mask Decoder (ms / call)</td><td class="num">5</td><td class="num">169.6</td><td class="num">164.8</td><td class="num">126.9</td><td class="num">126.1</td></tr>
-      <tr><td>Memory Attention (ms / call)</td><td class="num">4</td><td class="num">1,487.2</td><td class="num">1,484.2</td><td class="num">3,822.7</td><td class="num">517.2</td></tr>
-      <tr><td>Memory Encoder (ms / call)</td><td class="num">5</td><td class="num">294.3</td><td class="num">299.9</td><td class="num">237.8</td><td class="num">238.7</td></tr>
-      <tr class="highlight"><td>5-frame total (seconds)</td><td class="num">—</td><td class="num">20.14</td><td class="num">19.75</td><td class="num">41.63</td><td class="num">8.72</td></tr>
+      <tr><td>Image Encoder (ms / call)</td><td class="num">5</td><td class="num">2,273.1</td><td class="num">2,194.3</td><td class="num">2,471.5</td><td class="num">891.0</td></tr>
+      <tr><td>Mask Decoder (ms / call)</td><td class="num">5</td><td class="num">169.6</td><td class="num">164.8</td><td class="num">126.8</td><td class="num">126.9</td></tr>
+      <tr><td>Memory Attention (ms / call)</td><td class="num">4</td><td class="num">1,487.2</td><td class="num">1,484.2</td><td class="num">1,116.5</td><td class="num">517.3</td></tr>
+      <tr><td>Memory Encoder (ms / call)</td><td class="num">5</td><td class="num">294.3</td><td class="num">299.9</td><td class="num">236.1</td><td class="num">236.4</td></tr>
+      <tr class="highlight"><td>5-frame total (seconds)</td><td class="num">—</td><td class="num">20.14</td><td class="num">19.75</td><td class="num">19.12</td><td class="num">8.75</td></tr>
     </table>
     </div>
     <p>Per-model rows are the median of each run's average time per call. Total time includes image loading and pre/post-processing but excludes model loading, drawing and saving. All four backends use the same models. The NPU backends run the Image Encoder and Memory Attention with mixed CPU/NPU execution; all other networks run on the CPU.</p>
@@ -252,7 +252,7 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
     <p>With NXP ONNX Runtime on Neutron, we confirmed that ViT and SAM 2.1 outputs change from run to run for the same input. ailia achieves zero output variation by splitting large matrices into sizes the NPU processes reliably. This suits products that need reproducibility, such as threshold decisions and regression testing.</p>
 
     <h3>Fast on Transformer Models</h3>
-    <p>With MatMulNBits and MatMulInteger NPU execution, ViT takes 317.3 ms on ailia NPU versus 390.6 ms on ORT NPU (approximately 1.23x faster). For the COCO-calibrated SAM 2.1 model, the Image Encoder takes 883.2 ms on ailia NPU versus 4,806.9 ms on ailia CPU, and the 5-frame total takes 8.72 seconds versus 41.63 seconds.</p>
+    <p>With MatMulNBits and MatMulInteger NPU execution, ViT takes 317.3 ms on ailia NPU versus 390.6 ms on ORT NPU (approximately 1.23x faster). For the COCO-calibrated SAM 2.1 model, the Image Encoder takes 891.0 ms on ailia NPU versus 2,471.5 ms on ailia CPU, and the 5-frame total takes 8.75 seconds versus 19.12 seconds.</p>
 
     <h3>Attention MatMuls with Two Dynamic Inputs Also Run on the NPU</h3>
     <p>The ONNX Runtime Neutron EP can run only matrix multiplications whose right-hand side is a constant weight on the NPU. MatMuls whose two inputs both change at each inference, such as QK and AV in Attention, stay on the CPU. ailia packs the right-hand side for the NPU at each inference, so it can also run <code>MatMulInteger</code> with two dynamic inputs on the NPU. In SAM 2.1 Memory Attention, the Attention matrix multiplications run on the NPU as <code>MatMulInteger</code>.</p>

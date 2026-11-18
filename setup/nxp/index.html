@@ -191,11 +191,11 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>処理</th><th class="num">回数／動画</th><th class="num">ORT CPU</th><th class="num">ORT NPU※</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
-      <tr><td>Image Encoder (ms／回)</td><td class="num">5</td><td class="num">2,273.1</td><td class="num">2,194.3</td><td class="num">4,806.9</td><td class="num">883.2</td></tr>
-      <tr><td>Mask Decoder (ms／回)</td><td class="num">5</td><td class="num">169.6</td><td class="num">164.8</td><td class="num">126.9</td><td class="num">126.1</td></tr>
-      <tr><td>Memory Attention (ms／回)</td><td class="num">4</td><td class="num">1,487.2</td><td class="num">1,484.2</td><td class="num">3,822.7</td><td class="num">517.2</td></tr>
-      <tr><td>Memory Encoder (ms／回)</td><td class="num">5</td><td class="num">294.3</td><td class="num">299.9</td><td class="num">237.8</td><td class="num">238.7</td></tr>
-      <tr class="highlight"><td>5 フレーム全体 (秒)</td><td class="num">—</td><td class="num">20.14</td><td class="num">19.75</td><td class="num">41.63</td><td class="num">8.72</td></tr>
+      <tr><td>Image Encoder (ms／回)</td><td class="num">5</td><td class="num">2,273.1</td><td class="num">2,194.3</td><td class="num">2,471.5</td><td class="num">891.0</td></tr>
+      <tr><td>Mask Decoder (ms／回)</td><td class="num">5</td><td class="num">169.6</td><td class="num">164.8</td><td class="num">126.8</td><td class="num">126.9</td></tr>
+      <tr><td>Memory Attention (ms／回)</td><td class="num">4</td><td class="num">1,487.2</td><td class="num">1,484.2</td><td class="num">1,116.5</td><td class="num">517.3</td></tr>
+      <tr><td>Memory Encoder (ms／回)</td><td class="num">5</td><td class="num">294.3</td><td class="num">299.9</td><td class="num">236.1</td><td class="num">236.4</td></tr>
+      <tr class="highlight"><td>5 フレーム全体 (秒)</td><td class="num">—</td><td class="num">20.14</td><td class="num">19.75</td><td class="num">19.12</td><td class="num">8.75</td></tr>
     </table>
     </div>
     <p>モデル別は 1 回あたりの平均時間の中央値です。全体時間は画像読み込み・前後処理を含み、モデル読み込み・描画・保存を除きます。4 方式とも同じモデルを使用します。NPU 方式では Image Encoder と Memory Attention を CPU / NPU 混在で実行し、その他は CPU 実行です。</p>
@@ -252,7 +252,7 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
     <p>NXP ONNX Runtime の Neutron 実行では、ViTおよびSAM 2.1 で同一入力に対する出力が推論ごとに変動することを確認しています。ailia は大きな行列を NPU が安定して処理できるサイズに分割することで出力変動 0 を実現しています。閾値判定や回帰テストなど、再現性が求められる製品用途に適しています。</p>
 
     <h3>Transformer モデルで高速</h3>
-    <p>MatMulNBits と MatMulInteger の NPU 実行により、ViT では ORT NPU の 390.6 ms に対して ailia NPU は 317.3 ms (約 1.23 倍高速) でした。COCO 校正済み SAM 2.1 では Image Encoder が ailia CPU の 4,806.9 ms に対して ailia NPU で 883.2 ms、5 フレーム全体が 41.63 秒に対して 8.72 秒です。</p>
+    <p>MatMulNBits と MatMulInteger の NPU 実行により、ViT では ORT NPU の 390.6 ms に対して ailia NPU は 317.3 ms (約 1.23 倍高速) でした。COCO 校正済み SAM 2.1 では Image Encoder が ailia CPU の 2,471.5 ms に対して ailia NPU で 891.0 ms、5 フレーム全体が 19.12 秒に対して 8.75 秒です。</p>
 
     <h3>両入力が動的な Attention の MatMul も NPU で実行</h3>
     <p>ONNX Runtime の Neutron EP が NPU で実行できるのは、右辺が定数重みの行列積だけです。Attention の QK・AV のように両入力が推論ごとに変わる MatMul は CPU に残ります。ailia は右辺を推論ごとに NPU 向けにパックすることで、両入力が動的な <code>MatMulInteger</code> も NPU で実行できます。SAM 2.1 の Memory Attention では、Attention の行列積を <code>MatMulInteger</code> として NPU で実行しています。</p>
