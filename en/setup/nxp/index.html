@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NXP i.MX 95 Setup Guide - ailia SDK</title>
-  <meta name="description" content="How to set up ailia SDK on the NXP FRDM i.MX 95 and run inference on the CPU, Mali-G310 Vulkan GPU and Neutron NPU, with benchmarks and the benefits of using ailia.">
+  <meta name="description" content="How to set up ailia SDK on the NXP FRDM i.MX 95 and run inference on the CPU, Mali-G310 Vulkan GPU and Neutron NPU, with benchmarks and the benefits of using ailia SDK.">
   <link rel="canonical" href="https://docs.ailia.ai/en/setup/nxp/">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/nxp/">
   <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/nxp/">
@@ -22,11 +22,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/en/setup/nxp/">
   <meta property="og:title" content="NXP i.MX 95 Setup Guide - ailia SDK">
-  <meta property="og:description" content="How to set up ailia SDK on the NXP FRDM i.MX 95 and run inference on the CPU, Mali-G310 Vulkan GPU and Neutron NPU, with benchmarks and the benefits of using ailia.">
+  <meta property="og:description" content="How to set up ailia SDK on the NXP FRDM i.MX 95 and run inference on the CPU, Mali-G310 Vulkan GPU and Neutron NPU, with benchmarks and the benefits of using ailia SDK.">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="NXP i.MX 95 Setup Guide - ailia SDK">
-  <meta name="twitter:description" content="How to set up ailia SDK on the NXP FRDM i.MX 95 and run inference on the CPU, Mali-G310 Vulkan GPU and Neutron NPU, with benchmarks and the benefits of using ailia.">
+  <meta name="twitter:description" content="How to set up ailia SDK on the NXP FRDM i.MX 95 and run inference on the CPU, Mali-G310 Vulkan GPU and Neutron NPU, with benchmarks and the benefits of using ailia SDK.">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../../../ailia_logo.png">
   <link rel="stylesheet" href="../../../css/common.css">
@@ -141,7 +141,7 @@ python3 scripts/copy_sdk.py --install-npu</code></pre>
     <p>After replacing the files, <code>Neutron-i.MX95-NPU</code> is added to the environment list when <code>/dev/neutron0</code> and <code>libNeutronDriver.so</code> are found. On devices without the NPU or the Neutron driver, only CPU and Vulkan are listed.</p>
     <pre><code class="language-bash">python3 -c "import ailia; [print(i, ailia.get_environment(i)) for i in range(ailia.get_environment_count())]"</code></pre>
 
-    <p>To run on the NPU, use a model in which MatMuls with constant weights are converted to MatMulNBits (INT4) or MatMulInteger (INT8) (see <a href="#npu-model">Creating Models for the NPU</a>). Nodes the NPU does not support run on the CPU automatically. Weights are converted for the NPU on the first inference, so only the first run takes longer.</p>
+    <p>To run on the NPU, use a model in which MatMuls with constant weights are converted to MatMulNBits (INT4) or MatMulInteger (INT8) (see <a href="npu_model.html">Creating Models for the NPU</a>). Nodes the NPU does not support run on the CPU automatically. Weights are converted for the NPU on the first inference, so only the first run takes longer.</p>
 
     <h2>Architecture</h2>
     <p>ailia SDK takes ONNX as input, parses the graph and instantiates layers. Standard ONNX integer operators that can run on the NPU (<code>MatMulNBits</code>, <code>MatMulInteger</code> and <code>ConvInteger</code>) are replaced with NPU segments when the model is loaded, and the other layers run on ailia_cpu. Static QDQ <code>DequantizeLinear → MatMul / Conv</code> patterns are not recognized directly as NPU-supported layers. NPU segments do not go through an ONNX Runtime or TFLite Execution Provider; they call the low-level API of <code>libNeutronDriver.so</code> in the BSP directly. <code>libNeutronDriver.so</code> is loaded at runtime with <code>dlopen</code>, so on devices without the NPU there is no link error and only CPU and Vulkan are used.</p>
@@ -189,91 +189,7 @@ python3 scripts/copy_sdk.py --install-npu</code></pre>
     <p>The settings header records the locations of the weights, inputs and outputs as offsets within the same region. ailia writes back data written by the CPU with <code>clean_cache</code> before calling <code>matmul</code>, and after completion it maintains the cache for the output region before reading it on the CPU. Because the region is shared by multiple models, NPU executions are serialized with a lock.</p>
 
     <h2 id="npu-model">Creating Models for the NPU</h2>
-
-    <h3>Basic Configuration: FP32 + NPU (INT8 MMA)</h3>
-    <p>Using the NPU does not require quantizing the whole model to INT8. The basic configuration keeps the model in FP32 and converts only MatMuls with constant weights (fully connected layers) to MatMulNBits (INT4 weights). The converted MatMulNBits nodes run on the NPU as INT8 multiply-accumulate (MMA), and the other layers stay FP32 and run on the CPU.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Operation</th><th>Format in the model</th><th>Where it runs and precision</th></tr>
-      <tr><td>MatMul with constant weights (Attention Q/K/V and output projections, MLP, etc.)</td><td>MatMulNBits (INT4 weights)</td><td>NPU: inputs are dynamically quantized to INT8, INT8 × INT8 is accumulated in INT32 and converted back to FP32</td></tr>
-      <tr><td>LayerNorm, Softmax, GELU, residual Add</td><td>FP32</td><td>CPU: FP32</td></tr>
-      <tr><td>MatMul between activations, such as Attention QK / AV</td><td>FP32</td><td>CPU: FP32</td></tr>
-    </table>
-    </div>
-    <p>This configuration has the following advantages:</p>
-    <ul>
-      <li><strong>No calibration</strong>: only the weights are quantized (weight-only) and inputs are quantized dynamically at each inference, so no calibration dataset is needed.</li>
-      <li><strong>Accuracy is easy to keep</strong>: LayerNorm and Softmax, which are sensitive to quantization, are computed in FP32. For ViT-B/16, the top-5 ranking matched between FP32 and INT4.</li>
-      <li><strong>Small models</strong>: weights become 4 bit, so ViT-B/16 shrinks from 330.3 MiB to 49.3 MiB.</li>
-    </ul>
-    <p>For 8-bit weights, the recommended form is the standard ONNX <code>DynamicQuantizeLinear + MatMulInteger</code> graph. Quantizing MatMul with ONNX Runtime's <code>quantize_dynamic</code> produces a model in this form. Inputs are still quantized dynamically at each inference, so no calibration is needed. ailia SDK can also handle INT8 <code>MatMulNBits</code>, but NPU offload is limited to one block per output channel (<code>block_size &gt;= K</code>) and is disabled by default.</p>
-    <pre><code class="language-python">from onnxruntime.quantization import quantize_dynamic, QuantType
-
-quantize_dynamic(
-    "ViT-B_16-224.onnx",
-    "ViT-B_16-224-int8.onnx",
-    op_types_to_quantize=["MatMul"],
-    weight_type=QuantType.QInt8,
-)</code></pre>
-
-    <h3>Layers That Run on the NPU</h3>
-    <p>The layers that ailia SDK and NXP ONNX Runtime (Neutron Execution Provider) run on the NPU are listed below. In both, nodes that do not meet the conditions run on the CPU.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Runtime</th><th>Layer</th><th>Conditions</th></tr>
-      <tr><td rowspan="3">ailia SDK</td><td>MatMulNBits</td><td>INT4 / INT8, no zero point, constant weights and scales, K % 16 == 0. INT8 requires block_size &gt;= K</td></tr>
-      <tr><td>MatMulInteger</td><td>UINT8 input and INT8 / UINT8 weights. Supports constant and dynamic weights, scalar zero points, and fusion of Cast, constant scales, bias and UINT8 requantization</td></tr>
-      <tr><td>ConvInteger</td><td>1D (NCL), group 1, UINT8 input and constant INT8 / UINT8 weights. Supports stride, dilation, automatic padding, and scalar / channel-wise weight zero points</td></tr>
-      <tr><td rowspan="2">NXP ONNX Runtime</td><td>MatMulNBits</td><td>4 bit, no zero point, constant weights, K % 16 == 0, N % 128 == 0</td></tr>
-      <tr><td>MatMulInteger, MatMulIntegerToFloat, QLinearMatMul, QGemm</td><td>Constant weights, N % 16 == 0</td></tr>
-    </table>
-    </div>
-    <p>The ailia SDK NPU frontend does not offload static QDQ patterns directly. When using a QDQ model, convert the target operations offline to <code>MatMulInteger</code> or <code>ConvInteger</code> while preserving the quantized tensors, scales, zero points and multiplication order. Nodes that do not meet the conditions run on the CPU.</p>
-
-    <h3>Converting to MatMulNBits</h3>
-    <p>Convert on a PC with ONNX Runtime's <code>MatMulNBitsQuantizer</code>. The ViT export sample in ailia-models (<code>image_classification/vit/export/export_int4.py</code>) is a good reference. The sample will be added in <a href="https://github.com/ailia-ai/ailia-models/pull/1966" target="_blank">ailia-models PR #1966</a>. For how MatMulNBits works, see <a href="https://tech.ailia.ai/matmulnbits-llm-vlm%E3%82%92onnx%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99%E3%81%9F%E3%82%81%E3%81%AE4bit%E9%87%8F%E5%AD%90%E5%8C%96-6cb572b43c19/" target="_blank">MatMulNBits: 4-bit quantization for running LLMs and VLMs with ONNX (Japanese)</a>.</p>
-    <pre><code class="language-bash">pip3 install onnxruntime onnx numpy
-cd ailia-models/image_classification/vit/export
-python3 export_int4.py</code></pre>
-    <p>It downloads the FP32 model, converts it to MatMulNBits, and writes <code>ViT-B_16-224-int4.onnx</code> and the <code>.prototxt</code> for ailia. The core of the conversion is:</p>
-    <pre><code class="language-python">import onnx
-from onnxruntime.quantization.matmul_nbits_quantizer import MatMulNBitsQuantizer
-from onnxruntime.quantization.quant_utils import QuantFormat
-
-model = onnx.load("ViT-B_16-224.onnx")
-quantizer = MatMulNBitsQuantizer(
-    model=model,
-    block_size=128,
-    is_symmetric=True,
-    accuracy_level=4,
-    quant_format=QuantFormat.QOperator,
-    op_types_to_quantize=("MatMul",),
-)
-quantizer.process()
-onnx.save(quantizer.model.model, "ViT-B_16-224-int4.onnx")</code></pre>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Parameter</th><th>Value</th><th>Meaning</th></tr>
-      <tr><td><code>op_types_to_quantize</code></td><td><code>("MatMul",)</code></td><td>Convert only MatMul. MatMuls without constant weights (Attention QK / AV) automatically stay FP32.</td></tr>
-      <tr><td><code>block_size</code></td><td>128</td><td>Size of the weight blocks that share a scale</td></tr>
-      <tr><td><code>is_symmetric</code></td><td>True</td><td>Symmetric quantization without a zero point. The NPU does not support zero points.</td></tr>
-      <tr><td><code>accuracy_level</code></td><td>4</td><td>Quantize inputs to INT8 and accumulate in INT32</td></tr>
-      <tr><td><code>quant_format</code></td><td><code>QOperator</code></td><td>Output as MatMulNBits nodes</td></tr>
-    </table>
-    </div>
-    <p>For ViT-B/16, 72 MatMuls with constant weights become MatMulNBits, while the 24 Attention MatMuls and the classification-head Gemm stay FP32.</p>
-    <p>MatMulNBits nodes run on the NPU when <code>K</code> is a multiple of 16, <code>N</code> is a multiple of 128, and there is no zero point. Nodes that do not meet these conditions run on the CPU automatically, without errors. You can check the converted model as follows.</p>
-    <pre><code class="language-python">import collections, onnx
-
-model = onnx.load("ViT-B_16-224-int4.onnx")
-print(collections.Counter(n.op_type for n in model.graph.node))
-for node in model.graph.node:
-    if node.op_type == "MatMulNBits":
-        a = {x.name: onnx.helper.get_attribute_value(x) for x in node.attribute}
-        ok = a["bits"] == 4 and a["K"] % 16 == 0 and a["N"] % 128 == 0 and len(node.input) &lt;= 3
-        print(node.name, a["K"], a["N"], "OK" if ok else "CPU")</code></pre>
-    <p>Generate the <code>.prototxt</code> that ailia loads with <code>onnx2prototxt.py</code> from <a href="https://github.com/ailia-ai/export-to-onnx" target="_blank">export-to-onnx</a> (the export sample generates it automatically).</p>
-    <pre><code class="language-bash">python3 onnx2prototxt.py ViT-B_16-224-int4.onnx</code></pre>
+    <p>For how to create models for the NPU by converting MatMuls with constant weights to MatMulNBits (INT4) or MatMulInteger (INT8), see <a href="npu_model.html">Creating Models for the NPU</a>.</p>
 
     <h2>Running Models</h2>
     <p>Use the samples in <a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a>. Specify the execution environment ID with the <code>-e</code> option.</p>
@@ -288,7 +204,7 @@ python3 vit.py -e 0
 python3 vit.py -e 2
 # Benchmark mode (11 inferences)
 python3 vit.py -e 0 -b -bc 11</code></pre>
-    <p>To run on the NPU, use the INT4 (MatMulNBits) model and pass the ID of <code>Neutron-i.MX95-NPU</code> to <code>-e</code>. The INT4 option for ViT will be added in <a href="https://github.com/ailia-ai/ailia-models/pull/1966" target="_blank">ailia-models PR #1966</a>.</p>
+    <p>To run on the NPU, use the INT4 (MatMulNBits) model and pass the ID of <code>Neutron-i.MX95-NPU</code> to <code>-e</code>. The INT4 option for ViT was added in <a href="https://github.com/ailia-ai/ailia-models/pull/1966" target="_blank">ailia-models PR #1966</a>.</p>
     <pre><code class="language-bash">python3 vit.py --quantize int4 -e &lt;ID of Neutron-i.MX95-NPU&gt; -b -bc 11</code></pre>
     <div class="note">
       <strong>Note:</strong> When running from the serial console, save the result to an image file, for example with <code>-s output.png</code>.
@@ -326,7 +242,7 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
     <p>* <strong>ORT NPU is a timing-only result because its output is invalid (the masks for later frames in the final measurement contain only 0–3 pixels).</strong></p>
     <p>The mean mask IoU against the FP32 reference on Bedroom is 96.07% for host ORT CPU and 95.71% for ailia NPU on the device. This is not accuracy against ground-truth masks.</p>
 
-    <h2>Benefits of Using ailia</h2>
+    <h2>Benefits of Using ailia SDK</h2>
     <h3>NPU Results That Do Not Change Between Runs</h3>
     <p>With NXP ONNX Runtime on Neutron, we confirmed that ViT and SAM 2.1 outputs change from run to run for the same input. ailia achieves zero output variation by splitting large matrices into sizes the NPU processes reliably. This suits products that need reproducibility, such as threshold decisions and regression testing.</p>
 
@@ -335,9 +251,6 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
 
     <h3>Attention MatMuls with Two Dynamic Inputs Also Run on the NPU</h3>
     <p>The ONNX Runtime Neutron EP can run only matrix multiplications whose right-hand side is a constant weight on the NPU. MatMuls whose two inputs both change at each inference, such as QK and AV in Attention, stay on the CPU. ailia packs the right-hand side for the NPU at each inference, so it can also run <code>MatMulInteger</code> with two dynamic inputs on the NPU. In SAM 2.1 Memory Attention, the Attention matrix multiplications run on the NPU as <code>MatMulInteger</code>.</p>
-
-    <h3>No Dependency on ONNX Runtime or TFLite</h3>
-    <p>ailia calls the low-level API of <code>libNeutronDriver.so</code> directly and manages node selection, weight packing, CMA memory and CPU fallback itself. The Neutron driver is loaded at runtime, so the same binary runs on CPU / Vulkan on i.MX devices without the NPU and on other Linux devices.</p>
 
     <h3>Switch Between CPU, GPU and NPU with the Same API</h3>
     <p>Changing the environment ID runs the same model and code on the CPU, Mali-G310 (Vulkan) or the Neutron NPU. The C++ / Python / C# / Flutter API is shared with Windows, macOS, Linux, Android and iOS, so applications developed on a PC can be ported to the i.MX 95 as-is.</p>
