@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NPU 対応モデルの作り方 - ailia SDK</title>
-  <meta name="description" content="NXP i.MX 95 の Neutron NPU で実行できる ONNX モデルの作り方を解説します。定数重みの MatMul を MatMulNBits (INT4) や MatMulInteger (INT8) に変換します。">
+  <meta name="description" content="NXP i.MX 95 の Neutron NPU で実行できる ONNX モデルの作り方を、ViT-B/16 (INT4 weight-only 量子化) と SAM 2.1 Tiny (静的量子化) の 2 つの例で解説します。">
   <link rel="canonical" href="https://docs.ailia.ai/setup/nxp/npu_model.html">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/nxp/npu_model.html">
   <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/nxp/npu_model.html">
@@ -22,11 +22,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/setup/nxp/npu_model.html">
   <meta property="og:title" content="NPU 対応モデルの作り方 - ailia SDK">
-  <meta property="og:description" content="NXP i.MX 95 の Neutron NPU で実行できる ONNX モデルの作り方を解説します。定数重みの MatMul を MatMulNBits (INT4) や MatMulInteger (INT8) に変換します。">
+  <meta property="og:description" content="NXP i.MX 95 の Neutron NPU で実行できる ONNX モデルの作り方を、ViT-B/16 (INT4 weight-only 量子化) と SAM 2.1 Tiny (静的量子化) の 2 つの例で解説します。">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="NPU 対応モデルの作り方 - ailia SDK">
-  <meta name="twitter:description" content="NXP i.MX 95 の Neutron NPU で実行できる ONNX モデルの作り方を解説します。定数重みの MatMul を MatMulNBits (INT4) や MatMulInteger (INT8) に変換します。">
+  <meta name="twitter:description" content="NXP i.MX 95 の Neutron NPU で実行できる ONNX モデルの作り方を、ViT-B/16 (INT4 weight-only 量子化) と SAM 2.1 Tiny (静的量子化) の 2 つの例で解説します。">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../../favicon.png">
   <link rel="stylesheet" href="../../css/common.css">
@@ -66,12 +66,40 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <section class="hero">
     <h1>NPU 対応モデルの作り方</h1>
-    <p>NXP i.MX 95 の Neutron NPU で実行できる ONNX モデルの作り方を説明します。ailia SDK のセットアップは <a href="./">NXP i.MX 95 セットアップガイド</a> を参照してください。</p>
+    <p>NXP i.MX 95 の Neutron NPU で実行できる ONNX モデルの作り方を、ViT-B/16 と SAM 2.1 Tiny の 2 つの例で説明します。ailia SDK のセットアップは <a href="./">NXP i.MX 95 セットアップガイド</a> を参照してください。</p>
   </section>
 
   <div class="guide-content">
 
-    <h2>基本構成: FP32 + NPU (INT8 MMA)</h2>
+    <h2>変換方式の選択</h2>
+    <p>Neutron NPU が実行するのは INT8 の行列積です。NPU 用のモデルは、FP32 の ONNX モデルの行列積や畳み込みを、ailia SDK が NPU 化できる標準 ONNX の整数演算 (<code>MatMulNBits</code>、<code>MatMulInteger</code>、<code>ConvInteger</code>) へ変換して作成します。変換方式は次の 3 つです。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>方式</th><th>変換先の演算</th><th>キャリブレーション</th><th>本ページの説明</th></tr>
+      <tr><td>INT4 weight-only 量子化</td><td>MatMulNBits (INT4 重み)</td><td>不要</td><td><a href="#int4">例 1: ViT-B/16</a></td></tr>
+      <tr><td>INT8 動的量子化</td><td>DynamicQuantizeLinear + MatMulInteger</td><td>不要</td><td><a href="#int8-dynamic">INT8 動的量子化</a></td></tr>
+      <tr><td>INT8 静的量子化</td><td>MatMulInteger / ConvInteger (QDQ から変換)</td><td>必要 (校正データセット)</td><td><a href="#int8-static">例 2: SAM 2.1 Tiny</a></td></tr>
+    </table>
+    </div>
+    <p>迷った場合は、キャリブレーション不要で精度を保ちやすい INT4 weight-only 量子化から始めることを推奨します。Transformer 系モデルの全結合層に適しています。Attention の QK / AV のような両入力が動的な行列積まで整数化して高速化したい場合は、静的量子化を使用します。いずれの方式でも、モデル全体を量子化する必要はなく、条件を満たさないノードは自動的に CPU (FP32) で実行されます。</p>
+
+    <h2>NPU で実行できるレイヤー</h2>
+    <p>ailia SDK と NXP ONNX Runtime (Neutron Execution Provider) が NPU で実行するレイヤーは次のとおりです。いずれも条件を満たさないノードは CPU で実行されます。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>ランタイム</th><th>レイヤー</th><th>条件</th></tr>
+      <tr><td rowspan="3">ailia SDK</td><td>MatMulNBits</td><td>INT4 / INT8、zero point なし、定数重み・scale、K % 16 == 0。INT8 は block_size &gt;= K</td></tr>
+      <tr><td>MatMulInteger</td><td>UINT8 入力、INT8 / UINT8 重み。定数重みと動的重み、scalar zero point、Cast・定数 scale・bias・UINT8 再量子化の融合に対応</td></tr>
+      <tr><td>ConvInteger</td><td>1D (NCL)、group 1、UINT8 入力、定数 INT8 / UINT8 重み。stride、dilation、auto padding、scalar / channel-wise weight zero point に対応</td></tr>
+      <tr><td rowspan="2">NXP ONNX Runtime</td><td>MatMulNBits</td><td>4 bit、zero point なし、定数重み、K % 16 == 0、N % 128 == 0</td></tr>
+      <tr><td>MatMulInteger、MatMulIntegerToFloat、QLinearMatMul、QGemm</td><td>定数重み、N % 16 == 0</td></tr>
+    </table>
+    </div>
+    <p>ailia SDK の NPU フロントエンドは static QDQ パターン (<code>DequantizeLinear → MatMul / Conv</code>) を直接 NPU 化しません。QDQ モデルを使用する場合は、量子化テンソル、scale、zero point、乗算順序を維持したまま、対象演算を事前に <code>MatMulInteger</code> または <code>ConvInteger</code> へ変換してください (<a href="#int8-static">例 2</a> を参照)。条件を満たさないノードは CPU で実行されます。</p>
+
+    <h2 id="int4">例 1: ViT-B/16 — INT4 weight-only 量子化 (MatMulNBits)</h2>
+
+    <h3>基本構成: FP32 + NPU (INT8 MMA)</h3>
     <p>NPU を使う場合も、モデル全体を INT8 に量子化する必要はありません。基本構成は、モデルは FP32 のまま、定数の重みを持つ MatMul (全結合層) だけを MatMulNBits (INT4 重み) に変換する形です。変換した MatMulNBits は NPU で INT8 の積和演算 (MMA) として実行され、それ以外のレイヤーは FP32 のまま CPU で実行されます。</p>
     <div class="table-wrap">
     <table class="version-table">
@@ -87,32 +115,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li><strong>精度を保ちやすい</strong>: 量子化に弱い LayerNorm や Softmax は FP32 のまま計算します。ViT-B/16 では FP32 と INT4 で top-5 の順位が一致しました。</li>
       <li><strong>モデルが小さい</strong>: 重みが 4 bit になるため、ViT-B/16 は 330.3 MiB から 49.3 MiB になります。</li>
     </ul>
-    <p>重みを 8 bit で量子化する場合は、標準 ONNX の <code>DynamicQuantizeLinear + MatMulInteger</code> 構成を推奨します。ONNX Runtime の <code>quantize_dynamic</code> で MatMul を量子化すると、この構成のモデルが得られます。この場合も入力は推論ごとに動的に量子化されるため、キャリブレーションは不要です。ailia SDK は <code>MatMulNBits</code> の INT8 も扱えますが、NPU 対応は出力チャネルごとに 1 block (<code>block_size &gt;= K</code>) の場合に限定され、既定では無効です。</p>
-    <pre><code class="language-python">from onnxruntime.quantization import quantize_dynamic, QuantType
 
-quantize_dynamic(
-    "ViT-B_16-224.onnx",
-    "ViT-B_16-224-int8.onnx",
-    op_types_to_quantize=["MatMul"],
-    weight_type=QuantType.QInt8,
-)</code></pre>
-
-    <h2>NPU で実行できるレイヤー</h2>
-    <p>ailia SDK と NXP ONNX Runtime (Neutron Execution Provider) が NPU で実行するレイヤーは次のとおりです。いずれも条件を満たさないノードは CPU で実行されます。</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>ランタイム</th><th>レイヤー</th><th>条件</th></tr>
-      <tr><td rowspan="3">ailia SDK</td><td>MatMulNBits</td><td>INT4 / INT8、zero point なし、定数重み・scale、K % 16 == 0。INT8 は block_size &gt;= K</td></tr>
-      <tr><td>MatMulInteger</td><td>UINT8 入力、INT8 / UINT8 重み。定数重みと動的重み、scalar zero point、Cast・定数 scale・bias・UINT8 再量子化の融合に対応</td></tr>
-      <tr><td>ConvInteger</td><td>1D (NCL)、group 1、UINT8 入力、定数 INT8 / UINT8 重み。stride、dilation、auto padding、scalar / channel-wise weight zero point に対応</td></tr>
-      <tr><td rowspan="2">NXP ONNX Runtime</td><td>MatMulNBits</td><td>4 bit、zero point なし、定数重み、K % 16 == 0、N % 128 == 0</td></tr>
-      <tr><td>MatMulInteger、MatMulIntegerToFloat、QLinearMatMul、QGemm</td><td>定数重み、N % 16 == 0</td></tr>
-    </table>
-    </div>
-    <p>ailia SDK の NPU フロントエンドは static QDQ パターンを直接 NPU 化しません。QDQ モデルを使用する場合は、量子化テンソル、scale、zero point、乗算順序を維持したまま、対象演算を事前に <code>MatMulInteger</code> または <code>ConvInteger</code> へ変換してください。条件を満たさないノードは CPU で実行されます。</p>
-
-    <h2>MatMulNBits への変換</h2>
-    <p>変換は PC で ONNX Runtime の <code>MatMulNBitsQuantizer</code> を使って行います。ailia-models の ViT のエクスポートサンプル (<code>image_classification/vit/export/export_int4.py</code>) が参考になります。このサンプルは <a href="https://github.com/ailia-ai/ailia-models/pull/1966" target="_blank">ailia-models PR #1966</a> で追加されました。MatMulNBits の仕組みについては <a href="https://tech.ailia.ai/matmulnbits-llm-vlm%E3%82%92onnx%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99%E3%81%9F%E3%82%81%E3%81%AE4bit%E9%87%8F%E5%AD%90%E5%8C%96-6cb572b43c19/" target="_blank">MatMulNBits : LLM や VLM を ONNX で動かすための 4bit 量子化</a> を参照してください。</p>
+    <h3>MatMulNBits への変換</h3>
+    <p>変換は PC で ONNX Runtime の <code>MatMulNBitsQuantizer</code> を使って行います。ailia-models の ViT のエクスポートサンプル <a href="https://github.com/ailia-ai/ailia-models/blob/master/image_classification/vit/export/export_int4.py" target="_blank">image_classification/vit/export/export_int4.py</a> が参考になります。MatMulNBits の仕組みについては <a href="https://tech.ailia.ai/matmulnbits-llm-vlm%E3%82%92onnx%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99%E3%81%9F%E3%82%81%E3%81%AE4bit%E9%87%8F%E5%AD%90%E5%8C%96-6cb572b43c19/" target="_blank">MatMulNBits : LLM や VLM を ONNX で動かすための 4bit 量子化</a> を参照してください。</p>
     <pre><code class="language-bash">pip3 install onnxruntime onnx numpy
 cd ailia-models/image_classification/vit/export
 python3 export_int4.py</code></pre>
@@ -143,6 +148,8 @@ onnx.save(quantizer.model.model, "ViT-B_16-224-int4.onnx")</code></pre>
     </table>
     </div>
     <p>ViT-B/16 では、定数重みの MatMul 72 個が MatMulNBits に変換され、Attention の MatMul 24 個と分類ヘッドの Gemm 1 個は FP32 のまま残ります。</p>
+
+    <h3>変換結果の確認</h3>
     <p>NPU で実行されるのは、MatMulNBits のうち <code>K</code> が 16 の倍数、<code>N</code> が 128 の倍数で、zero point を持たないものです。条件を満たさないノードは自動的に CPU で実行されるため、エラーにはなりません。変換後のモデルは次のように確認できます。</p>
     <pre><code class="language-python">import collections, onnx
 
@@ -156,15 +163,48 @@ for node in model.graph.node:
     <p>ailia で読み込むための <code>.prototxt</code> は <a href="https://github.com/ailia-ai/export-to-onnx" target="_blank">export-to-onnx</a> の <code>onnx2prototxt.py</code> で生成します (エクスポートサンプルは自動で生成します)。</p>
     <pre><code class="language-bash">python3 onnx2prototxt.py ViT-B_16-224-int4.onnx</code></pre>
 
+    <h2 id="int8-dynamic">INT8 動的量子化 (MatMulInteger)</h2>
+    <p>重みを 8 bit で量子化する場合は、標準 ONNX の <code>DynamicQuantizeLinear + MatMulInteger</code> 構成を推奨します。ONNX Runtime の <code>quantize_dynamic</code> で MatMul を量子化すると、この構成のモデルが得られます。この場合も入力は推論ごとに動的に量子化されるため、キャリブレーションは不要です。ailia SDK は <code>MatMulNBits</code> の INT8 も扱えますが、NPU 対応は出力チャネルごとに 1 block (<code>block_size &gt;= K</code>) の場合に限定され、既定では無効です。</p>
+    <pre><code class="language-python">from onnxruntime.quantization import quantize_dynamic, QuantType
+
+quantize_dynamic(
+    "ViT-B_16-224.onnx",
+    "ViT-B_16-224-int8.onnx",
+    op_types_to_quantize=["MatMul"],
+    weight_type=QuantType.QInt8,
+)</code></pre>
+
+    <h2 id="int8-static">例 2: SAM 2.1 Tiny — 静的量子化 (MatMulInteger)</h2>
+    <p>Attention の QK / AV のような両入力が動的な行列積を含めて、より多くの演算を整数化したい場合は、校正データセットによる静的量子化を使用します。QDQ 形式で量子化した後、量子化テンソルと scale を維持したまま、対象の MatMul を標準 ONNX の <code>MatMulInteger</code> へ変換します。ailia は両入力が動的な <code>MatMulInteger</code> も NPU で実行できるため、Attention の行列積も NPU 化できます。</p>
+    <p>i.MX 95 のベンチマークで使用した SAM 2.1 Tiny の COCO 校正済みモデルは、<a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> の <code>scripts/calibrate_sam2.py</code> で生成しています。変換済みモデルは同リポジトリの <code>models/</code> に同梱されているため、まず動かす場合は変換不要です。自分で生成する場合は、<a href="https://github.com/ailia-ai/ailia-models/tree/master/image_segmentation/segment-anything-2" target="_blank">ailia-models の SAM 2</a> の公開 SAM 2.1 Tiny ONNX と <a href="https://cocodataset.org/#download" target="_blank">COCO 2017 validation</a> の画像・アノテーションを用意し、ホスト PC で実行します。</p>
+    <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-nxp-demo.git
+cd ailia-sdk-nxp-demo
+python3 -m pip install -r scripts/requirements-calibration.txt
+python3 scripts/calibrate_sam2.py \
+  --source-dir /path/to/ailia-models/image_segmentation/segment-anything-2 \
+  --download-sources \
+  --coco-images /path/to/coco/val2017 \
+  --coco-annotations /path/to/coco/annotations/instances_val2017.json \
+  --output /path/to/sam2-calibrated</code></pre>
+    <p>校正は COCO val2017 の全 5,000 画像による Min/Max 方式で、活性値は tensor ごとの UINT8、定数重みはチャネルごとの INT8 に量子化します。Memory Attention の校正には、各画像から生成した 5 フレームの疑似動画を使用します。</p>
+    <p>生成されるモデルは INT8 / FP32 の混在です。量子化に弱い演算を FP32 に残す点は <a href="#int4">例 1</a> と同じです。</p>
+    <ul>
+      <li><strong>Image Encoder</strong>: MatMul を整数演算に変換します。Conv は QDQ のまま、Softmax・LayerNorm は入出力のみ量子化します。</li>
+      <li><strong>Memory Attention</strong>: MatMul (Attention の QK / AV を含む) を整数化し、RoPE は FP32 を維持します。</li>
+      <li><strong>その他の補助モデル</strong>: FP32 のままです。</li>
+    </ul>
+    <p>QDQ の MatMul ペアを <code>MatMulInteger</code> へ変換する処理は <code>scripts/convert_qdq_matmul.py</code> として独立しており、自作の QDQ モデルにも適用できます。scale と量子化テンソルを維持したまま変換し、再量子化は行いません。整数累積により浮動小数点の丸めが変わるため、変換後はモデルの出力を検証してから使用してください。</p>
+
     <h2>次のステップ</h2>
     <p>変換したモデルの実行方法とベンチマークは <a href="./">NXP i.MX 95 セットアップガイド</a> を参照してください。</p>
 
     <h2>参考資料</h2>
     <ul>
-      <li><a href="https://github.com/ailia-ai/ailia-models/pull/1966" target="_blank">ailia-models PR #1966 (ViT INT4 エクスポートサンプル)</a></li>
+      <li><a href="https://github.com/ailia-ai/ailia-models/blob/master/image_classification/vit/export/export_int4.py" target="_blank">ViT INT4 エクスポートサンプル (ailia-models)</a></li>
+      <li><a href="https://github.com/ailia-ai/ailia-models/tree/master/image_segmentation/segment-anything-2" target="_blank">SAM 2 (ailia-models)</a></li>
+      <li><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia SDK NXP NPU 対応版・SAM 2.1 デモ (ailia-sdk-nxp-demo)</a></li>
       <li><a href="https://github.com/ailia-ai/export-to-onnx" target="_blank">export-to-onnx (onnx2prototxt.py)</a></li>
       <li><a href="https://tech.ailia.ai/matmulnbits-llm-vlm%E3%82%92onnx%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99%E3%81%9F%E3%82%81%E3%81%AE4bit%E9%87%8F%E5%AD%90%E5%8C%96-6cb572b43c19/" target="_blank">MatMulNBits : LLM や VLM を ONNX で動かすための 4bit 量子化</a></li>
-      <li><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia SDK NXP NPU 対応版・SAM 2.1 デモ (ailia-sdk-nxp-demo)</a></li>
     </ul>
 
   </div>

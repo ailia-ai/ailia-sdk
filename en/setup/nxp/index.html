@@ -123,7 +123,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <strong>Note:</strong> The pip <code>libailia.so</code> actually requires only up to GLIBC 2.27 / GLIBCXX 3.4.22, so it runs as-is on i.MX 95 Yocto (glibc 2.43).
     </div>
 
-    <h3>Getting the License</h3>
+    <h3 id="license">Getting the License</h3>
     <p>The pip version downloads an evaluation license automatically on the first inference. If the board has no IPv6 default route, the connection to the license server can fail with <code>OSError: [Errno 101] Network is unreachable</code>. In that case, download it over IPv4 explicitly.</p>
     <pre><code class="language-bash">mkdir -p ~/.shalo
 curl -4 -fL https://axip-console.appspot.com/license/download/product/AILIA -o ~/.shalo/AILIA.lic</code></pre>
@@ -140,8 +140,67 @@ python3 scripts/copy_sdk.py --install-npu</code></pre>
     </div>
     <p>After replacing the files, <code>Neutron-i.MX95-NPU</code> is added to the environment list when <code>/dev/neutron0</code> and <code>libNeutronDriver.so</code> are found. On devices without the NPU or the Neutron driver, only CPU and Vulkan are listed.</p>
     <pre><code class="language-bash">python3 -c "import ailia; [print(i, ailia.get_environment(i)) for i in range(ailia.get_environment_count())]"</code></pre>
+    <pre><code class="language-text">0 CPU
+1 VulkanDNN-Mali-G310 (FP32)
+2 VulkanDNN-Mali-G310 (FP16)
+3 Neutron-i.MX95-NPU</code></pre>
+    <p>If <code>Neutron-i.MX95-NPU</code> is listed, the installation is complete. If it is not, see <a href="#troubleshooting">Troubleshooting</a>.</p>
+    <p>When the NPU is first used, ailia allocates one physically contiguous 512 MiB region from CMA (see <a href="#memory">Memory</a>). The BSP image of the tested environment (<code>imx-image-full</code>) allocates it without additional configuration. If the allocation fails, check the CMA size with <code>grep Cma /proc/meminfo</code> and enlarge it with the <code>cma=</code> kernel boot argument.</p>
+    <p>To run on the NPU, use a model in which matrix multiplications and convolutions are converted to standard ONNX integer operators (MatMulNBits, MatMulInteger and ConvInteger) (see <a href="npu_model.html">Creating Models for the NPU</a>). Nodes the NPU does not support run on the CPU automatically. Weights are converted for the NPU on the first inference, so only the first run takes longer.</p>
 
-    <p>To run on the NPU, use a model in which MatMuls with constant weights are converted to MatMulNBits (INT4) or MatMulInteger (INT8) (see <a href="npu_model.html">Creating Models for the NPU</a>). Nodes the NPU does not support run on the CPU automatically. Weights are converted for the NPU on the first inference, so only the first run takes longer.</p>
+    <h2 id="npu-model">Creating Models for the NPU</h2>
+    <p>For how to create models for the NPU by converting matrix multiplications and convolutions to standard ONNX integer operators (MatMulNBits, MatMulInteger and ConvInteger), see <a href="npu_model.html">Creating Models for the NPU</a>. It explains two examples: ViT-B/16 (INT4 weight-only quantization) and SAM 2.1 Tiny (static quantization).</p>
+
+    <h2>Running Models</h2>
+    <p>Use the samples in <a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a>. Specify the execution environment ID with the <code>-e</code> option.</p>
+    <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
+cd ailia-models
+pip3 install -r requirements.txt
+cd image_classification/vit
+
+# CPU
+python3 vit.py -e 0
+# Vulkan (Mali-G310 FP16)
+python3 vit.py -e 2
+# Benchmark mode (11 inferences)
+python3 vit.py -e 0 -b -bc 11</code></pre>
+    <p>To run on the NPU, use the INT4 (MatMulNBits) model and pass the ID of <code>Neutron-i.MX95-NPU</code> (3 in the listing above) to <code>-e</code>. For ViT, the <code>--quantize int4</code> option selects the INT4 model.</p>
+    <pre><code class="language-bash">python3 vit.py --quantize int4 -e &lt;ID of Neutron-i.MX95-NPU&gt; -b -bc 11</code></pre>
+    <div class="note">
+      <strong>Note:</strong> When running from the serial console, save the result to an image file, for example with <code>-s output.png</code>.
+    </div>
+
+    <h2>Benchmarks</h2>
+    <p>We compared ailia SDK with ONNX Runtime 1.24.3 bundled with the NXP BSP on the FRDM i.MX 95 on 2026-11-18. NPU results include CPU execution of unsupported layers. "Output variation" is the maximum output difference when the same input is inferred repeatedly (0 means the same result every time).</p>
+
+    <h3>ViT-B/16 (Image Classification, 224×224)</h3>
+    <p>The model converts constant-weight MatMuls to MatMulNBits INT4 and runs the remaining operations in FP32. The table reports median inference time over 10 runs with 6 CPU threads and profiling disabled. One dummy inference after opening the model and three warm-up inferences with the real input are excluded.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Condition</th><th class="num">Inference time (median)</th><th class="num">Top-1</th><th class="num">Output variation (max absolute difference)</th></tr>
+      <tr><td>ORT CPU</td><td class="num">672.9 ms</td><td class="num">208</td><td class="num">0</td></tr>
+      <tr><td>ORT NPU</td><td class="num">390.6 ms</td><td class="num">208</td><td class="num">0.2002</td></tr>
+      <tr><td>ailia CPU</td><td class="num">780.0 ms</td><td class="num">208</td><td class="num">0</td></tr>
+      <tr class="highlight"><td>ailia NPU</td><td class="num">317.3 ms</td><td class="num">208</td><td class="num">0</td></tr>
+    </table>
+    </div>
+    <p>ailia NPU is approximately 1.23x faster than ORT NPU. Top-1 was 208 for every condition and measurement. Only ORT NPU showed output variation for the same input (maximum absolute difference 0.2002); the other three conditions showed no variation.</p>
+
+    <h3>SAM 2.1 Tiny (Segmentation, 512×512)</h3>
+    <p>Measured with the COCO-calibrated <code>coco-val2017-v1</code> model from <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a>. The runtimes were NXP ONNX Runtime 1.24.3 and ailia SDK 1.7 (NXP NPU build), with 6 CPU threads and profiling disabled. All backends ran the same dummy input once when opening each model, then warmed up with one full pass over the 5 Bedroom frames using the same two points. The table reports the median of the next 3 runs and excludes warm-up time.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Operation</th><th class="num">Calls / video</th><th class="num">ORT CPU</th><th class="num">ORT NPU*</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Image Encoder (ms / call)</td><td class="num">5</td><td class="num">2,273.1</td><td class="num">2,194.3</td><td class="num">4,806.9</td><td class="num">883.2</td></tr>
+      <tr><td>Mask Decoder (ms / call)</td><td class="num">5</td><td class="num">169.6</td><td class="num">164.8</td><td class="num">126.9</td><td class="num">126.1</td></tr>
+      <tr><td>Memory Attention (ms / call)</td><td class="num">4</td><td class="num">1,487.2</td><td class="num">1,484.2</td><td class="num">3,822.7</td><td class="num">517.2</td></tr>
+      <tr><td>Memory Encoder (ms / call)</td><td class="num">5</td><td class="num">294.3</td><td class="num">299.9</td><td class="num">237.8</td><td class="num">238.7</td></tr>
+      <tr class="highlight"><td>5-frame total (seconds)</td><td class="num">—</td><td class="num">20.14</td><td class="num">19.75</td><td class="num">41.63</td><td class="num">8.72</td></tr>
+    </table>
+    </div>
+    <p>Per-model rows are the median of each run's average time per call. Total time includes image loading and pre/post-processing but excludes model loading, drawing and saving. All four backends use the same models. The NPU backends run the Image Encoder and Memory Attention with mixed CPU/NPU execution; all other networks run on the CPU.</p>
+    <p>* <strong>ORT NPU is a timing-only result because its output is invalid (the masks for later frames in the final measurement contain only 0–3 pixels).</strong></p>
+    <p>The mean mask IoU against the FP32 reference on Bedroom is 96.07% for host ORT CPU and 95.71% for ailia NPU on the device. This is not accuracy against ground-truth masks.</p>
 
     <h2>Architecture</h2>
     <p>ailia SDK takes ONNX as input, parses the graph and instantiates layers. Standard ONNX integer operators that can run on the NPU (<code>MatMulNBits</code>, <code>MatMulInteger</code> and <code>ConvInteger</code>) are replaced with NPU segments when the model is loaded, and the other layers run on ailia_cpu. Static QDQ <code>DequantizeLinear → MatMul / Conv</code> patterns are not recognized directly as NPU-supported layers. NPU segments do not go through an ONNX Runtime or TFLite Execution Provider; they call the low-level API of <code>libNeutronDriver.so</code> in the BSP directly. <code>libNeutronDriver.so</code> is loaded at runtime with <code>dlopen</code>, so on devices without the NPU there is no link error and only CPU and Vulkan are used.</p>
@@ -180,67 +239,13 @@ python3 scripts/copy_sdk.py --install-npu</code></pre>
     </table>
     </div>
 
-    <h3>Memory</h3>
+    <h3 id="memory">Memory</h3>
     <p>The i.MX 95 Neutron NPU shares the same DRAM as the Arm CPU. ailia allocates one physically contiguous 512 MiB CMA region with <code>allocateBuffer</code> and receives it as a pointer mapped into the process address space. The CPU reads and writes this region directly and the NPU accesses the same physical memory, so there is no transfer to device memory as with a PCIe GPU.</p>
     <ul>
       <li>First 320 MiB: data kept for the session, such as packed weights</li>
       <li>Last 192 MiB: per-inference work area, such as quantized inputs, INT32 outputs and the matrix multiplication settings (header)</li>
     </ul>
     <p>The settings header records the locations of the weights, inputs and outputs as offsets within the same region. ailia writes back data written by the CPU with <code>clean_cache</code> before calling <code>matmul</code>, and after completion it maintains the cache for the output region before reading it on the CPU. Because the region is shared by multiple models, NPU executions are serialized with a lock.</p>
-
-    <h2 id="npu-model">Creating Models for the NPU</h2>
-    <p>For how to create models for the NPU by converting MatMuls with constant weights to MatMulNBits (INT4) or MatMulInteger (INT8), see <a href="npu_model.html">Creating Models for the NPU</a>.</p>
-
-    <h2>Running Models</h2>
-    <p>Use the samples in <a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a>. Specify the execution environment ID with the <code>-e</code> option.</p>
-    <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
-cd ailia-models
-pip3 install -r requirements.txt
-cd image_classification/vit
-
-# CPU
-python3 vit.py -e 0
-# Vulkan (Mali-G310 FP16)
-python3 vit.py -e 2
-# Benchmark mode (11 inferences)
-python3 vit.py -e 0 -b -bc 11</code></pre>
-    <p>To run on the NPU, use the INT4 (MatMulNBits) model and pass the ID of <code>Neutron-i.MX95-NPU</code> to <code>-e</code>. The INT4 option for ViT was added in <a href="https://github.com/ailia-ai/ailia-models/pull/1966" target="_blank">ailia-models PR #1966</a>.</p>
-    <pre><code class="language-bash">python3 vit.py --quantize int4 -e &lt;ID of Neutron-i.MX95-NPU&gt; -b -bc 11</code></pre>
-    <div class="note">
-      <strong>Note:</strong> When running from the serial console, save the result to an image file, for example with <code>-s output.png</code>.
-    </div>
-
-    <h2>Benchmarks</h2>
-    <p>We compared ailia SDK with ONNX Runtime 1.24.3 bundled with the NXP BSP on the FRDM i.MX 95. NPU results include CPU execution of unsupported layers. "Output variation" is the maximum output difference when the same input is inferred repeatedly (0 means the same result every time).</p>
-
-    <h3>ViT-B/16 (Image Classification, 224×224)</h3>
-    <p>The model converts constant-weight MatMuls to MatMulNBits INT4 and runs the remaining operations in FP32. The table reports median inference time over 10 runs with 6 CPU threads and profiling disabled. One dummy inference after opening the model and three warm-up inferences with the real input are excluded.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Condition</th><th class="num">Inference time (median)</th><th class="num">Top-1</th><th class="num">Output variation (max absolute difference)</th></tr>
-      <tr><td>ORT CPU</td><td class="num">672.9 ms</td><td class="num">208</td><td class="num">0</td></tr>
-      <tr><td>ORT NPU</td><td class="num">390.6 ms</td><td class="num">208</td><td class="num">0.2002</td></tr>
-      <tr><td>ailia CPU</td><td class="num">780.0 ms</td><td class="num">208</td><td class="num">0</td></tr>
-      <tr class="highlight"><td>ailia NPU</td><td class="num">317.3 ms</td><td class="num">208</td><td class="num">0</td></tr>
-    </table>
-    </div>
-    <p>ailia NPU is approximately 1.23x faster than ORT NPU. Top-1 was 208 for every condition and measurement. Only ORT NPU showed output variation for the same input (maximum absolute difference 0.2002); the other three conditions showed no variation.</p>
-
-    <h3>SAM 2.1 Tiny (Segmentation, 512×512)</h3>
-    <p>Measured on 2026-11-18 on the i.MX95 with the COCO-calibrated <code>coco-val2017-v1</code> model from <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a>. The runtimes were NXP ONNX Runtime 1.24.3 and ailia SDK 1.7 (NXP NPU build), with 6 CPU threads and profiling disabled. All backends ran the same dummy input once when opening each model, then warmed up with one full pass over the 5 Bedroom frames using the same two points. The table reports the median of the next 3 runs and excludes warm-up time.</p>
-    <div class="table-wrap">
-    <table class="version-table">
-      <tr><th>Operation</th><th class="num">Calls / video</th><th class="num">ORT CPU</th><th class="num">ORT NPU*</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
-      <tr><td>Image Encoder (ms / call)</td><td class="num">5</td><td class="num">2,273.1</td><td class="num">2,194.3</td><td class="num">4,806.9</td><td class="num">883.2</td></tr>
-      <tr><td>Mask Decoder (ms / call)</td><td class="num">5</td><td class="num">169.6</td><td class="num">164.8</td><td class="num">126.9</td><td class="num">126.1</td></tr>
-      <tr><td>Memory Attention (ms / call)</td><td class="num">4</td><td class="num">1,487.2</td><td class="num">1,484.2</td><td class="num">3,822.7</td><td class="num">517.2</td></tr>
-      <tr><td>Memory Encoder (ms / call)</td><td class="num">5</td><td class="num">294.3</td><td class="num">299.9</td><td class="num">237.8</td><td class="num">238.7</td></tr>
-      <tr class="highlight"><td>5-frame total (seconds)</td><td class="num">—</td><td class="num">20.14</td><td class="num">19.75</td><td class="num">41.63</td><td class="num">8.72</td></tr>
-    </table>
-    </div>
-    <p>Per-model rows are the median of each run's average time per call. Total time includes image loading and pre/post-processing but excludes model loading, drawing and saving. All four backends use the same models. The NPU backends run the Image Encoder and Memory Attention with mixed CPU/NPU execution; all other networks run on the CPU.</p>
-    <p>* <strong>ORT NPU is a timing-only result because its output is invalid (the masks for later frames in the final measurement contain only 0–3 pixels).</strong></p>
-    <p>The mean mask IoU against the FP32 reference on Bedroom is 96.07% for host ORT CPU and 95.71% for ailia NPU on the device. This is not accuracy against ground-truth masks.</p>
 
     <h2>Benefits of Using ailia SDK</h2>
     <h3>NPU Results That Do Not Change Between Runs</h3>
@@ -257,6 +262,18 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
 
     <h3>400+ Models with Pre- and Post-processing</h3>
     <p>You can try more than 400 models from <a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> on the i.MX 95. Combined with libraries such as ailia Speech (Whisper), ailia Tokenizer and ailia LLM, you can build speech recognition and generative AI into embedded devices.</p>
+
+    <h2 id="troubleshooting">Troubleshooting</h2>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Symptom</th><th>What to check</th></tr>
+      <tr><td><code>Neutron-i.MX95-NPU</code> is not listed</td><td>Check the kernel driver with <code>ls /dev/neutron0</code> and the Neutron driver with <code>ls /usr/lib/libNeutronDriver.so</code>. Also confirm the BSP is 6.18-wrynose or equivalent and that <code>libailia.so</code> was replaced with <code>copy_sdk.py --install-npu</code>.</td></tr>
+      <tr><td>License download fails with <code>Network is unreachable</code></td><td>This happens when the board has no IPv6 default route. Download the license over IPv4 as described in <a href="#license">Getting the License</a>, and make sure the system clock is correct.</td></tr>
+      <tr><td>NPU memory allocation fails</td><td>ailia allocates one physically contiguous 512 MiB CMA region. Check the total and free CMA with <code>grep Cma /proc/meminfo</code> and enlarge it with the <code>cma=</code> kernel boot argument if needed.</td></tr>
+      <tr><td>Only the first inference is slow</td><td>Weights are converted (packed) for the NPU on the first inference. This is normal; subsequent inferences are faster.</td></tr>
+      <tr><td>No speedup when the NPU is selected</td><td>Nodes that do not meet the NPU conditions (no zero point, K % 16 == 0, etc.) run on the CPU. Use the check script in <a href="npu_model.html">Creating Models for the NPU</a> to see which nodes run on the NPU.</td></tr>
+    </table>
+    </div>
 
     <h2>References</h2>
     <ul>
