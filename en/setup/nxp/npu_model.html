@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creating Models for the NPU - ailia SDK</title>
+  <meta name="description" content="How to create ONNX models that run on the NXP i.MX 95 Neutron NPU, with two examples: ViT-B/16 (INT4 weight-only quantization) and SAM 2.1 Tiny (static quantization).">
+  <link rel="canonical" href="https://docs.ailia.ai/en/setup/nxp/npu_model.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/nxp/npu_model.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/nxp/npu_model.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/setup/nxp/npu_model.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/setup/nxp/npu_model.html">
+  <meta property="og:title" content="Creating Models for the NPU - ailia SDK">
+  <meta property="og:description" content="How to create ONNX models that run on the NXP i.MX 95 Neutron NPU, with two examples: ViT-B/16 (INT4 weight-only quantization) and SAM 2.1 Tiny (static quantization).">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Creating Models for the NPU - ailia SDK">
+  <meta name="twitter:description" content="How to create ONNX models that run on the NXP i.MX 95 Neutron NPU, with two examples: ViT-B/16 (INT4 weight-only quantization) and SAM 2.1 Tiny (static quantization).">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../../ailia_logo.png">
+  <link rel="stylesheet" href="../../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .guide-content .table-wrap { overflow-x: auto; margin-bottom: 16px; }
+    .guide-content .table-wrap .version-table { margin-bottom: 0; min-width: 560px; }
+    .guide-content .version-table td.num, .guide-content .version-table th.num { text-align: right; white-space: nowrap; }
+    .guide-content .version-table tr.highlight td { background: #eef6ff; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../sdk/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../js/">JS</a>
+        <a href="../../mp/">MP</a>
+        <a href="../../../setup/nxp/npu_model.html" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Creating Models for the NPU</h1>
+    <p>How to create ONNX models that run on the NXP i.MX 95 Neutron NPU, with two examples: ViT-B/16 and SAM 2.1 Tiny. For setting up ailia SDK, see the <a href="./">NXP i.MX 95 Setup Guide</a>.</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>Choosing a Conversion Method</h2>
+    <p>The Neutron NPU executes INT8 matrix multiplications. A model for the NPU is created by converting the matrix multiplications and convolutions of an FP32 ONNX model into the standard ONNX integer operators that ailia SDK can offload (<code>MatMulNBits</code>, <code>MatMulInteger</code> and <code>ConvInteger</code>). There are three conversion methods.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Method</th><th>Target operators</th><th>Calibration</th><th>On this page</th></tr>
+      <tr><td>INT4 weight-only quantization</td><td>MatMulNBits (INT4 weights)</td><td>Not required</td><td><a href="#int4">Example 1: ViT-B/16</a></td></tr>
+      <tr><td>INT8 dynamic quantization</td><td>DynamicQuantizeLinear + MatMulInteger</td><td>Not required</td><td><a href="#int8-dynamic">INT8 Dynamic Quantization</a></td></tr>
+      <tr><td>INT8 static quantization</td><td>MatMulInteger / ConvInteger (converted from QDQ)</td><td>Required (calibration dataset)</td><td><a href="#int8-static">Example 2: SAM 2.1 Tiny</a></td></tr>
+    </table>
+    </div>
+    <p>When in doubt, start with INT4 weight-only quantization: it needs no calibration, keeps accuracy well, and suits the fully connected layers of Transformer models. Use static quantization when you also want to run matrix multiplications with two dynamic inputs, such as Attention QK / AV, as integer operations. With any method, there is no need to quantize the whole model: nodes that do not meet the conditions automatically run on the CPU in FP32.</p>
+
+    <h2>Layers That Run on the NPU</h2>
+    <p>The layers that ailia SDK and NXP ONNX Runtime (Neutron Execution Provider) run on the NPU are listed below. In both, nodes that do not meet the conditions run on the CPU.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Runtime</th><th>Layer</th><th>Conditions</th></tr>
+      <tr><td rowspan="3">ailia SDK</td><td>MatMulNBits</td><td>INT4 / INT8, no zero point, constant weights and scales, K % 16 == 0. INT8 requires block_size &gt;= K</td></tr>
+      <tr><td>MatMulInteger</td><td>UINT8 input and INT8 / UINT8 weights. Supports constant and dynamic weights, scalar zero points, and fusion of Cast, constant scales, bias and UINT8 requantization</td></tr>
+      <tr><td>ConvInteger</td><td>1D (NCL), group 1, UINT8 input and constant INT8 / UINT8 weights. Supports stride, dilation, automatic padding, and scalar / channel-wise weight zero points</td></tr>
+      <tr><td rowspan="2">NXP ONNX Runtime</td><td>MatMulNBits</td><td>4 bit, no zero point, constant weights, K % 16 == 0, N % 128 == 0</td></tr>
+      <tr><td>MatMulInteger, MatMulIntegerToFloat, QLinearMatMul, QGemm</td><td>Constant weights, N % 16 == 0</td></tr>
+    </table>
+    </div>
+    <p>The ailia SDK NPU frontend does not offload static QDQ patterns (<code>DequantizeLinear → MatMul / Conv</code>) directly. When using a QDQ model, convert the target operations offline to <code>MatMulInteger</code> or <code>ConvInteger</code> while preserving the quantized tensors, scales, zero points and multiplication order (see <a href="#int8-static">Example 2</a>). Nodes that do not meet the conditions run on the CPU.</p>
+
+    <h2 id="int4">Example 1: ViT-B/16 — INT4 Weight-Only Quantization (MatMulNBits)</h2>
+
+    <h3>Basic Configuration: FP32 + NPU (INT8 MMA)</h3>
+    <p>Using the NPU does not require quantizing the whole model to INT8. The basic configuration keeps the model in FP32 and converts only MatMuls with constant weights (fully connected layers) to MatMulNBits (INT4 weights). The converted MatMulNBits nodes run on the NPU as INT8 multiply-accumulate (MMA), and the other layers stay FP32 and run on the CPU.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Operation</th><th>Format in the model</th><th>Where it runs and precision</th></tr>
+      <tr><td>MatMul with constant weights (Attention Q/K/V and output projections, MLP, etc.)</td><td>MatMulNBits (INT4 weights)</td><td>NPU: inputs are dynamically quantized to INT8, INT8 × INT8 is accumulated in INT32 and converted back to FP32</td></tr>
+      <tr><td>LayerNorm, Softmax, GELU, residual Add</td><td>FP32</td><td>CPU: FP32</td></tr>
+      <tr><td>MatMul between activations, such as Attention QK / AV</td><td>FP32</td><td>CPU: FP32</td></tr>
+    </table>
+    </div>
+    <p>This configuration has the following advantages:</p>
+    <ul>
+      <li><strong>No calibration</strong>: only the weights are quantized (weight-only) and inputs are quantized dynamically at each inference, so no calibration dataset is needed.</li>
+      <li><strong>Accuracy is easy to keep</strong>: LayerNorm and Softmax, which are sensitive to quantization, are computed in FP32. For ViT-B/16, the top-5 ranking matched between FP32 and INT4.</li>
+      <li><strong>Small models</strong>: weights become 4 bit, so ViT-B/16 shrinks from 330.3 MiB to 49.3 MiB.</li>
+    </ul>
+
+    <h3>Converting to MatMulNBits</h3>
+    <p>Convert on a PC with ONNX Runtime's <code>MatMulNBitsQuantizer</code>. The ViT export sample in ailia-models, <a href="https://github.com/ailia-ai/ailia-models/blob/master/image_classification/vit/export/export_int4.py" target="_blank">image_classification/vit/export/export_int4.py</a>, is a good reference. For how MatMulNBits works, see <a href="https://tech.ailia.ai/matmulnbits-llm-vlm%E3%82%92onnx%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99%E3%81%9F%E3%82%81%E3%81%AE4bit%E9%87%8F%E5%AD%90%E5%8C%96-6cb572b43c19/" target="_blank">MatMulNBits: 4-bit quantization for running LLMs and VLMs with ONNX (Japanese)</a>.</p>
+    <pre><code class="language-bash">pip3 install onnxruntime onnx numpy
+cd ailia-models/image_classification/vit/export
+python3 export_int4.py</code></pre>
+    <p>It downloads the FP32 model, converts it to MatMulNBits, and writes <code>ViT-B_16-224-int4.onnx</code> and the <code>.prototxt</code> for ailia. The core of the conversion is:</p>
+    <pre><code class="language-python">import onnx
+from onnxruntime.quantization.matmul_nbits_quantizer import MatMulNBitsQuantizer
+from onnxruntime.quantization.quant_utils import QuantFormat
+
+model = onnx.load("ViT-B_16-224.onnx")
+quantizer = MatMulNBitsQuantizer(
+    model=model,
+    block_size=128,
+    is_symmetric=True,
+    accuracy_level=4,
+    quant_format=QuantFormat.QOperator,
+    op_types_to_quantize=("MatMul",),
+)
+quantizer.process()
+onnx.save(quantizer.model.model, "ViT-B_16-224-int4.onnx")</code></pre>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Parameter</th><th>Value</th><th>Meaning</th></tr>
+      <tr><td><code>op_types_to_quantize</code></td><td><code>("MatMul",)</code></td><td>Convert only MatMul. MatMuls without constant weights (Attention QK / AV) automatically stay FP32.</td></tr>
+      <tr><td><code>block_size</code></td><td>128</td><td>Size of the weight blocks that share a scale</td></tr>
+      <tr><td><code>is_symmetric</code></td><td>True</td><td>Symmetric quantization without a zero point. The NPU does not support zero points.</td></tr>
+      <tr><td><code>accuracy_level</code></td><td>4</td><td>Quantize inputs to INT8 and accumulate in INT32</td></tr>
+      <tr><td><code>quant_format</code></td><td><code>QOperator</code></td><td>Output as MatMulNBits nodes</td></tr>
+    </table>
+    </div>
+    <p>For ViT-B/16, 72 MatMuls with constant weights become MatMulNBits, while the 24 Attention MatMuls and the classification-head Gemm stay FP32.</p>
+
+    <h3>Checking the Converted Model</h3>
+    <p>MatMulNBits nodes run on the NPU when <code>K</code> is a multiple of 16, <code>N</code> is a multiple of 128, and there is no zero point. Nodes that do not meet these conditions run on the CPU automatically, without errors. You can check the converted model as follows.</p>
+    <pre><code class="language-python">import collections, onnx
+
+model = onnx.load("ViT-B_16-224-int4.onnx")
+print(collections.Counter(n.op_type for n in model.graph.node))
+for node in model.graph.node:
+    if node.op_type == "MatMulNBits":
+        a = {x.name: onnx.helper.get_attribute_value(x) for x in node.attribute}
+        ok = a["bits"] == 4 and a["K"] % 16 == 0 and a["N"] % 128 == 0 and len(node.input) &lt;= 3
+        print(node.name, a["K"], a["N"], "OK" if ok else "CPU")</code></pre>
+    <p>Generate the <code>.prototxt</code> that ailia loads with <code>onnx2prototxt.py</code> from <a href="https://github.com/ailia-ai/export-to-onnx" target="_blank">export-to-onnx</a> (the export sample generates it automatically).</p>
+    <pre><code class="language-bash">python3 onnx2prototxt.py ViT-B_16-224-int4.onnx</code></pre>
+
+    <h2 id="int8-dynamic">INT8 Dynamic Quantization (MatMulInteger)</h2>
+    <p>For 8-bit weights, the recommended form is the standard ONNX <code>DynamicQuantizeLinear + MatMulInteger</code> graph. Quantizing MatMul with ONNX Runtime's <code>quantize_dynamic</code> produces a model in this form. Inputs are still quantized dynamically at each inference, so no calibration is needed. ailia SDK can also handle INT8 <code>MatMulNBits</code>, but NPU offload is limited to one block per output channel (<code>block_size &gt;= K</code>) and is disabled by default.</p>
+    <pre><code class="language-python">from onnxruntime.quantization import quantize_dynamic, QuantType
+
+quantize_dynamic(
+    "ViT-B_16-224.onnx",
+    "ViT-B_16-224-int8.onnx",
+    op_types_to_quantize=["MatMul"],
+    weight_type=QuantType.QInt8,
+)</code></pre>
+
+    <h2 id="int8-static">Example 2: SAM 2.1 Tiny — Static Quantization (MatMulInteger)</h2>
+    <p>To run more operations as integer arithmetic, including matrix multiplications with two dynamic inputs such as Attention QK / AV, use static quantization with a calibration dataset. After quantizing to the QDQ format, convert the target MatMuls to standard ONNX <code>MatMulInteger</code> while preserving the quantized tensors and scales. Because ailia can run <code>MatMulInteger</code> with two dynamic inputs on the NPU, the Attention matrix multiplications are also offloaded.</p>
+    <p>The COCO-calibrated SAM 2.1 Tiny model used in the i.MX 95 benchmarks is generated with <code>scripts/calibrate_sam2.py</code> in <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a>. The converted models are bundled in the repository's <code>models/</code> directory, so no conversion is needed to try them first. To generate them yourself, prepare the published SAM 2.1 Tiny ONNX exports from <a href="https://github.com/ailia-ai/ailia-models/tree/master/image_segmentation/segment-anything-2" target="_blank">SAM 2 in ailia-models</a> and the <a href="https://cocodataset.org/#download" target="_blank">COCO 2017 validation</a> images and annotations, and run on a host PC:</p>
+    <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-nxp-demo.git
+cd ailia-sdk-nxp-demo
+python3 -m pip install -r scripts/requirements-calibration.txt
+python3 scripts/calibrate_sam2.py \
+  --source-dir /path/to/ailia-models/image_segmentation/segment-anything-2 \
+  --download-sources \
+  --coco-images /path/to/coco/val2017 \
+  --coco-annotations /path/to/coco/annotations/instances_val2017.json \
+  --output /path/to/sam2-calibrated</code></pre>
+    <p>Calibration uses Min/Max over all 5,000 images of COCO val2017; activations are quantized to tensor-wise UINT8 and constant weights to channel-wise INT8. Memory Attention is calibrated with 5-frame pseudo-videos generated from each image.</p>
+    <p>The generated models mix INT8 and FP32. As in <a href="#int4">Example 1</a>, operations that are sensitive to quantization stay FP32.</p>
+    <ul>
+      <li><strong>Image Encoder</strong>: MatMuls are converted to integer arithmetic. Convs remain QDQ, and Softmax / LayerNorm quantize only their inputs and outputs.</li>
+      <li><strong>Memory Attention</strong>: MatMuls (including Attention QK / AV) are converted to integer arithmetic, and RoPE stays FP32.</li>
+      <li><strong>Other auxiliary models</strong>: remain FP32.</li>
+    </ul>
+    <p>The step that lowers QDQ MatMul pairs to <code>MatMulInteger</code> is a standalone script, <code>scripts/convert_qdq_matmul.py</code>, and can be applied to your own QDQ models. It preserves the scales and quantized tensors and performs no requantization. Integer accumulation changes floating-point rounding, so validate the model outputs before deploying the converted model.</p>
+
+    <h2>Next Steps</h2>
+    <p>For how to run the converted model and the benchmark results, see the <a href="./">NXP i.MX 95 Setup Guide</a>.</p>
+
+    <h2>References</h2>
+    <ul>
+      <li><a href="https://github.com/ailia-ai/ailia-models/blob/master/image_classification/vit/export/export_int4.py" target="_blank">ViT INT4 export sample (ailia-models)</a></li>
+      <li><a href="https://github.com/ailia-ai/ailia-models/tree/master/image_segmentation/segment-anything-2" target="_blank">SAM 2 (ailia-models)</a></li>
+      <li><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia SDK NXP NPU build and SAM 2.1 demo (ailia-sdk-nxp-demo)</a></li>
+      <li><a href="https://github.com/ailia-ai/export-to-onnx" target="_blank">export-to-onnx (onnx2prototxt.py)</a></li>
+      <li><a href="https://tech.ailia.ai/matmulnbits-llm-vlm%E3%82%92onnx%E3%81%A7%E5%8B%95%E3%81%8B%E3%81%99%E3%81%9F%E3%82%81%E3%81%AE4bit%E9%87%8F%E5%AD%90%E5%8C%96-6cb572b43c19/" target="_blank">MatMulNBits: 4-bit quantization for running LLMs and VLMs with ONNX (Japanese)</a></li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
