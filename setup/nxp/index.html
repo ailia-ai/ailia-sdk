@@ -193,7 +193,7 @@ sh launch.sh --model yolox</code></pre>
       <tr><td>YOLOX-S 320 (検出)</td><td>ConvInteger (2D)</td><td class="num">794.0 ms</td><td class="num">794.3 ms</td><td class="num">435.4 ms</td><td class="num">114.9 ms</td><td class="num">3.8 倍</td></tr>
     </table>
     </div>
-    <p>※ SAM 2.1 の ORT NPU は、以前の測定で追跡マスクの異常を確認しているため速度参考値です。各モデルの測定条件と詳細は以下のとおりです。「出力変動」は同じ入力を繰り返し推論したときの出力の最大差です (0 は毎回同じ結果)。</p>
+    <p>※ SAM 2.1 の ORT NPU は、以前の測定で追跡マスクの異常を確認しているため速度参考値です。</p>
 
     <h3>ViT-B/16 (画像分類、224×224)</h3>
     <p>2026-11-18 測定。定数重みの MatMul を MatMulNBits INT4 に変換し、その他の演算を FP32 で実行するモデルです。CPU 6 スレッド、プロファイル無効で 10 回測定した推論時間の中央値です。モデル Open 後のダミー推論 1 回と、実入力による 3 回のウォームアップは測定から除外しています。</p>
@@ -205,7 +205,7 @@ sh launch.sh --model yolox</code></pre>
       <tr><td>出力変動 (最大絶対差)</td><td class="num">0</td><td class="num">0.2002</td><td class="num">0</td><td class="num">0</td></tr>
     </table>
     </div>
-    <p>ailia NPU は ORT NPU の約 1.23 倍の速度です。全条件・全測定で Top-1 は 208 でした。ORT NPU のみ、同じ入力でも出力値の変動 (最大絶対差 0.2002) を観測し、他の 3 条件では変動はありませんでした。</p>
+    <p>「出力変動」は、同じ入力を繰り返し推論したときの出力の最大絶対差です (0 は毎回同じ結果)。ailia NPU は ORT NPU の約 1.23 倍の速度です。全条件・全測定で Top-1 は 208 でした。ORT NPU のみ、同じ入力でも出力値の変動 (最大絶対差 0.2002) を観測し、他の 3 条件では変動はありませんでした。</p>
 
     <h3>SAM 2.1 Tiny (セグメンテーション、512×512)</h3>
     <p>2026-11-20 測定。<a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> の COCO 校正済みモデル <code>coco-val2017-v1</code> を使用し、ailia の CPU 実行には NEON 最適化した整数 MatMul を使用しています。全方式でモデル Open 時に同じダミー入力で 1 回推論し、その後 Bedroom の 5 フレームを同じ 2 点で 1 周ウォームアップしました。続く 3 回の中央値で、ウォームアップは測定に含みません。</p>

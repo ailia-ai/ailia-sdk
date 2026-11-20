@@ -193,7 +193,7 @@ sh launch.sh --model yolox</code></pre>
       <tr><td>YOLOX-S 320 (detection)</td><td>ConvInteger (2D)</td><td class="num">794.0 ms</td><td class="num">794.3 ms</td><td class="num">435.4 ms</td><td class="num">114.9 ms</td><td class="num">3.8x</td></tr>
     </table>
     </div>
-    <p>* The SAM 2.1 ORT NPU result is timing-only because invalid tracking masks were observed in earlier measurements. Measurement conditions and details for each model follow. "Output variation" is the maximum output difference when the same input is inferred repeatedly (0 means the same result every time).</p>
+    <p>* The SAM 2.1 ORT NPU result is timing-only because invalid tracking masks were observed in earlier measurements.</p>
 
     <h3>ViT-B/16 (Image Classification, 224×224)</h3>
     <p>Measured on 2026-11-18. The model converts constant-weight MatMuls to MatMulNBits INT4 and runs the remaining operations in FP32. The table reports median inference time over 10 runs with 6 CPU threads and profiling disabled. One dummy inference after opening the model and three warm-up inferences with the real input are excluded.</p>
@@ -205,7 +205,7 @@ sh launch.sh --model yolox</code></pre>
       <tr><td>Output variation (max absolute difference)</td><td class="num">0</td><td class="num">0.2002</td><td class="num">0</td><td class="num">0</td></tr>
     </table>
     </div>
-    <p>ailia NPU is approximately 1.23x faster than ORT NPU. Top-1 was 208 for every condition and measurement. Only ORT NPU showed output variation for the same input (maximum absolute difference 0.2002); the other three conditions showed no variation.</p>
+    <p>"Output variation" is the maximum absolute output difference when the same input is inferred repeatedly (0 means the same result every time). ailia NPU is approximately 1.23x faster than ORT NPU. Top-1 was 208 for every condition and measurement. Only ORT NPU showed output variation for the same input (maximum absolute difference 0.2002); the other three conditions showed no variation.</p>
 
     <h3>SAM 2.1 Tiny (Segmentation, 512×512)</h3>
     <p>Measured on 2026-11-20 with the COCO-calibrated <code>coco-val2017-v1</code> model from <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a>. ailia's CPU execution uses NEON-optimized integer MatMul. All backends ran the same dummy input once when opening each model, then warmed up with one full pass over the 5 Bedroom frames using the same two points. The table reports the median of the next 3 runs and excludes warm-up time.</p>
