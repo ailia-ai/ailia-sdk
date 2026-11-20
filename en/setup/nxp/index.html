@@ -35,7 +35,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .guide-content .table-wrap { overflow-x: auto; margin-bottom: 16px; }
     .guide-content .table-wrap .version-table { margin-bottom: 0; min-width: 560px; }
     .guide-content .version-table td.num, .guide-content .version-table th.num { text-align: right; white-space: nowrap; }
-    .guide-content .version-table tr.highlight td { background: #eef6ff; font-weight: 600; }
     .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
     .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; max-width: 480px; }
     .arch-box .arch-name { font-weight: 600; color: var(--primary); }
@@ -186,12 +185,12 @@ sh launch.sh --model yolox</code></pre>
     <h3>Summary</h3>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Model</th><th>Main operators on the NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th><th class="num">ORT NPU</th><th class="num">vs. ailia CPU</th></tr>
-      <tr><td>ViT-B/16 (classification)</td><td>MatMulNBits (INT4)</td><td class="num">780.0 ms</td><td class="num">317.3 ms</td><td class="num">390.6 ms</td><td class="num">2.5x</td></tr>
-      <tr><td>SAM 2.1 Tiny (5-frame tracking)</td><td>MatMulInteger (fixed weights, Attention)</td><td class="num">18.87 s</td><td class="num">8.67 s</td><td class="num">20.14 s*</td><td class="num">2.2x</td></tr>
-      <tr><td>Grounding DINO (detection)</td><td>MatMulInteger (fixed weights)</td><td class="num">8,386.0 ms</td><td class="num">4,068.0 ms</td><td class="num">7,549.9 ms</td><td class="num">2.1x</td></tr>
-      <tr><td>Depth Anything V2 Small (depth)</td><td>MatMulInteger (fixed weights), MatMul (Attention, quantized to INT8 at runtime)</td><td class="num">3,614.5 ms</td><td class="num">2,629.3 ms</td><td class="num">3,315.9 ms</td><td class="num">1.4x</td></tr>
-      <tr class="highlight"><td>YOLOX-S 320 (detection)</td><td>ConvInteger (2D)</td><td class="num">435.4 ms</td><td class="num">114.9 ms</td><td class="num">794.3 ms</td><td class="num">3.8x</td></tr>
+      <tr><th>Model</th><th>Main operators on the NPU</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th><th class="num">vs. ailia CPU</th></tr>
+      <tr><td>ViT-B/16 (classification)</td><td>MatMulNBits (INT4)</td><td class="num">672.9 ms</td><td class="num">390.6 ms</td><td class="num">780.0 ms</td><td class="num">317.3 ms</td><td class="num">2.5x</td></tr>
+      <tr><td>SAM 2.1 Tiny (5-frame tracking)</td><td>MatMulInteger (fixed weights, Attention)</td><td class="num">20.23 s</td><td class="num">20.14 s*</td><td class="num">18.87 s</td><td class="num">8.67 s</td><td class="num">2.2x</td></tr>
+      <tr><td>Grounding DINO (detection)</td><td>MatMulInteger (fixed weights)</td><td class="num">7,553.2 ms</td><td class="num">7,549.9 ms</td><td class="num">8,386.0 ms</td><td class="num">4,068.0 ms</td><td class="num">2.1x</td></tr>
+      <tr><td>Depth Anything V2 Small (depth)</td><td>MatMulInteger (fixed weights), MatMul (Attention, quantized to INT8 at runtime)</td><td class="num">3,316.4 ms</td><td class="num">3,315.9 ms</td><td class="num">3,614.5 ms</td><td class="num">2,629.3 ms</td><td class="num">1.4x</td></tr>
+      <tr><td>YOLOX-S 320 (detection)</td><td>ConvInteger (2D)</td><td class="num">794.0 ms</td><td class="num">794.3 ms</td><td class="num">435.4 ms</td><td class="num">114.9 ms</td><td class="num">3.8x</td></tr>
     </table>
     </div>
     <p>* The SAM 2.1 ORT NPU result is timing-only because invalid tracking masks were observed in earlier measurements. Measurement conditions and details for each model follow. "Output variation" is the maximum output difference when the same input is inferred repeatedly (0 means the same result every time).</p>
@@ -200,11 +199,10 @@ sh launch.sh --model yolox</code></pre>
     <p>Measured on 2026-11-18. The model converts constant-weight MatMuls to MatMulNBits INT4 and runs the remaining operations in FP32. The table reports median inference time over 10 runs with 6 CPU threads and profiling disabled. One dummy inference after opening the model and three warm-up inferences with the real input are excluded.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Condition</th><th class="num">Inference time (median)</th><th class="num">Top-1</th><th class="num">Output variation (max absolute difference)</th></tr>
-      <tr><td>ORT CPU</td><td class="num">672.9 ms</td><td class="num">208</td><td class="num">0</td></tr>
-      <tr><td>ORT NPU</td><td class="num">390.6 ms</td><td class="num">208</td><td class="num">0.2002</td></tr>
-      <tr><td>ailia CPU</td><td class="num">780.0 ms</td><td class="num">208</td><td class="num">0</td></tr>
-      <tr class="highlight"><td>ailia NPU</td><td class="num">317.3 ms</td><td class="num">208</td><td class="num">0</td></tr>
+      <tr><th>Item</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Inference time (median)</td><td class="num">672.9 ms</td><td class="num">390.6 ms</td><td class="num">780.0 ms</td><td class="num">317.3 ms</td></tr>
+      <tr><td>Top-1</td><td class="num">208</td><td class="num">208</td><td class="num">208</td><td class="num">208</td></tr>
+      <tr><td>Output variation (max absolute difference)</td><td class="num">0</td><td class="num">0.2002</td><td class="num">0</td><td class="num">0</td></tr>
     </table>
     </div>
     <p>ailia NPU is approximately 1.23x faster than ORT NPU. Top-1 was 208 for every condition and measurement. Only ORT NPU showed output variation for the same input (maximum absolute difference 0.2002); the other three conditions showed no variation.</p>
@@ -218,7 +216,7 @@ sh launch.sh --model yolox</code></pre>
       <tr><td>Mask Decoder (ms / call)</td><td class="num">5</td><td class="num">173.1</td><td class="num">171.5</td><td class="num">125.8</td><td class="num">126.9</td></tr>
       <tr><td>Memory Attention (ms / call)</td><td class="num">4</td><td class="num">1,503.1</td><td class="num">1,502.2</td><td class="num">1,078.2</td><td class="num">517.6</td></tr>
       <tr><td>Memory Encoder (ms / call)</td><td class="num">5</td><td class="num">306.5</td><td class="num">292.0</td><td class="num">237.4</td><td class="num">240.7</td></tr>
-      <tr class="highlight"><td>5-frame total (seconds)</td><td class="num">—</td><td class="num">20.23</td><td class="num">20.14</td><td class="num">18.87</td><td class="num">8.67</td></tr>
+      <tr><td>5-frame total (seconds)</td><td class="num">—</td><td class="num">20.23</td><td class="num">20.14</td><td class="num">18.87</td><td class="num">8.67</td></tr>
     </table>
     </div>
     <p>Per-model rows are the median of each run's average time per call. Total time includes image loading and pre/post-processing but excludes model loading, drawing and saving. All four backends use the same models. The NPU backends run the Image Encoder and Memory Attention with mixed CPU/NPU execution; all other networks run on the CPU.</p>
@@ -229,9 +227,8 @@ sh launch.sh --model yolox</code></pre>
     <p>Measured on 2026-11-20 with the COCO-calibrated <code>grounding-coco-val2017-v1</code> model. The input image is <code>images/grounding_dino/demo.jpg</code> bundled with the demo, and the prompt is <code>Horse. Clouds. Grasses. Sky. Hill.</code>. One dummy inference at model Open is excluded, and the table reports the median of the next 3 runs. Model loading and pre/post-processing are excluded.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Runtime</th><th class="num">CPU</th><th class="num">NPU + CPU fallback</th></tr>
-      <tr><td>NXP ONNX Runtime 1.24.3</td><td class="num">7,553.2 ms</td><td class="num">7,549.9 ms</td></tr>
-      <tr class="highlight"><td>ailia SDK</td><td class="num">8,386.0 ms</td><td class="num">4,068.0 ms</td></tr>
+      <tr><th>Item</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Inference time (median)</td><td class="num">7,553.2 ms</td><td class="num">7,549.9 ms</td><td class="num">8,386.0 ms</td><td class="num">4,068.0 ms</td></tr>
     </table>
     </div>
     <p>All four backends detected the horse (this is a functional check, not a detection-accuracy benchmark). ailia NPU runs the 347 fixed-weight MatMuls on the NPU, and the runtime automatically selects where the dynamic Attention runs. ORT NPU outputs may vary between inferences.</p>
@@ -240,11 +237,8 @@ sh launch.sh --model yolox</code></pre>
     <p>Measured on 2026-11-20 with the COCO-calibrated model, using the first Bedroom frame (<code>00000.jpg</code>) as input. One dummy inference at model Open is excluded, and the table reports the median of the next 3 runs. Model loading, preprocessing and drawing are excluded.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Condition</th><th class="num">Inference time</th></tr>
-      <tr><td>ORT CPU</td><td class="num">3,316.4 ms</td></tr>
-      <tr><td>ORT NPU (Neutron EP, fixed-weight MatMuls)</td><td class="num">3,315.9 ms</td></tr>
-      <tr><td>ailia CPU</td><td class="num">3,614.5 ms</td></tr>
-      <tr class="highlight"><td>ailia NPU (fixed-weight + dynamic Attention MatMuls)</td><td class="num">2,629.3 ms</td></tr>
+      <tr><th>Item</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Inference time (median)</td><td class="num">3,316.4 ms</td><td class="num">3,315.9 ms</td><td class="num">3,614.5 ms</td><td class="num">2,629.3 ms</td></tr>
     </table>
     </div>
     <p>In addition to the 48 fixed-weight MatMuls, ailia NPU also runs the 24 dynamic Attention MatMuls, which remain FP32 in the model, on the NPU by quantizing them to INT8 at inference time. ORT runs only the fixed-weight MatMuls on the NPU. On this image, the ailia NPU output differed from the FP32 ORT CPU output by 6.06 cm on average (31.82 cm maximum). This is not accuracy against ground-truth depth.</p>
@@ -253,11 +247,9 @@ sh launch.sh --model yolox</code></pre>
     <p>Measured on 2026-11-20 with the COCO-calibrated INT8 model (83 <code>ConvInteger</code> nodes), batch 1, using <code>images/yolox/input.jpg</code> bundled with the demo. One dummy inference at model Open is excluded, and the table reports the median of the next 10 runs. Preprocessing, NMS and drawing are excluded.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Condition</th><th class="num">Inference time (median)</th><th class="num">FPS</th></tr>
-      <tr><td>ORT CPU</td><td class="num">794.0 ms</td><td class="num">1.26</td></tr>
-      <tr><td>ORT NPU (Neutron EP)</td><td class="num">794.3 ms</td><td class="num">1.26</td></tr>
-      <tr><td>ailia CPU</td><td class="num">435.4 ms</td><td class="num">2.30</td></tr>
-      <tr class="highlight"><td>ailia NPU</td><td class="num">114.9 ms</td><td class="num">8.70</td></tr>
+      <tr><th>Item</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Inference time (median)</td><td class="num">794.0 ms</td><td class="num">794.3 ms</td><td class="num">435.4 ms</td><td class="num">114.9 ms</td></tr>
+      <tr><td>FPS</td><td class="num">1.26</td><td class="num">1.26</td><td class="num">2.30</td><td class="num">8.70</td></tr>
     </table>
     </div>
     <p>The CPU figures measure the same ConvInteger model, not an optimized FP32 model. ailia's CPU execution uses tiled NEON INT8 kernels with cached fixed weights. The ORT Neutron EP runs ConvInteger on the CPU, so ORT NPU takes about the same time as ORT CPU. ailia NPU requantizes the outputs of supported operations on the NPU. This uses different rounding from CPU execution, so outputs are not bit-identical to the CPU.</p>

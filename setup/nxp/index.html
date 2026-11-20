@@ -35,7 +35,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .guide-content .table-wrap { overflow-x: auto; margin-bottom: 16px; }
     .guide-content .table-wrap .version-table { margin-bottom: 0; min-width: 560px; }
     .guide-content .version-table td.num, .guide-content .version-table th.num { text-align: right; white-space: nowrap; }
-    .guide-content .version-table tr.highlight td { background: #eef6ff; font-weight: 600; }
     .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
     .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; max-width: 480px; }
     .arch-box .arch-name { font-weight: 600; color: var(--primary); }
@@ -186,12 +185,12 @@ sh launch.sh --model yolox</code></pre>
     <h3>結果の概要</h3>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>モデル</th><th>NPU で実行する主な演算</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU 比</th></tr>
-      <tr><td>ViT-B/16 (分類)</td><td>MatMulNBits (INT4)</td><td class="num">780.0 ms</td><td class="num">317.3 ms</td><td class="num">390.6 ms</td><td class="num">2.5 倍</td></tr>
-      <tr><td>SAM 2.1 Tiny (5 フレーム追跡)</td><td>MatMulInteger (固定重み・Attention)</td><td class="num">18.87 秒</td><td class="num">8.67 秒</td><td class="num">20.14 秒※</td><td class="num">2.2 倍</td></tr>
-      <tr><td>Grounding DINO (検出)</td><td>MatMulInteger (固定重み)</td><td class="num">8,386.0 ms</td><td class="num">4,068.0 ms</td><td class="num">7,549.9 ms</td><td class="num">2.1 倍</td></tr>
-      <tr><td>Depth Anything V2 Small (深度)</td><td>MatMulInteger (固定重み)、MatMul (Attention、実行時に INT8 化)</td><td class="num">3,614.5 ms</td><td class="num">2,629.3 ms</td><td class="num">3,315.9 ms</td><td class="num">1.4 倍</td></tr>
-      <tr class="highlight"><td>YOLOX-S 320 (検出)</td><td>ConvInteger (2D)</td><td class="num">435.4 ms</td><td class="num">114.9 ms</td><td class="num">794.3 ms</td><td class="num">3.8 倍</td></tr>
+      <tr><th>モデル</th><th>NPU で実行する主な演算</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th><th class="num">ailia CPU 比</th></tr>
+      <tr><td>ViT-B/16 (分類)</td><td>MatMulNBits (INT4)</td><td class="num">672.9 ms</td><td class="num">390.6 ms</td><td class="num">780.0 ms</td><td class="num">317.3 ms</td><td class="num">2.5 倍</td></tr>
+      <tr><td>SAM 2.1 Tiny (5 フレーム追跡)</td><td>MatMulInteger (固定重み・Attention)</td><td class="num">20.23 秒</td><td class="num">20.14 秒※</td><td class="num">18.87 秒</td><td class="num">8.67 秒</td><td class="num">2.2 倍</td></tr>
+      <tr><td>Grounding DINO (検出)</td><td>MatMulInteger (固定重み)</td><td class="num">7,553.2 ms</td><td class="num">7,549.9 ms</td><td class="num">8,386.0 ms</td><td class="num">4,068.0 ms</td><td class="num">2.1 倍</td></tr>
+      <tr><td>Depth Anything V2 Small (深度)</td><td>MatMulInteger (固定重み)、MatMul (Attention、実行時に INT8 化)</td><td class="num">3,316.4 ms</td><td class="num">3,315.9 ms</td><td class="num">3,614.5 ms</td><td class="num">2,629.3 ms</td><td class="num">1.4 倍</td></tr>
+      <tr><td>YOLOX-S 320 (検出)</td><td>ConvInteger (2D)</td><td class="num">794.0 ms</td><td class="num">794.3 ms</td><td class="num">435.4 ms</td><td class="num">114.9 ms</td><td class="num">3.8 倍</td></tr>
     </table>
     </div>
     <p>※ SAM 2.1 の ORT NPU は、以前の測定で追跡マスクの異常を確認しているため速度参考値です。各モデルの測定条件と詳細は以下のとおりです。「出力変動」は同じ入力を繰り返し推論したときの出力の最大差です (0 は毎回同じ結果)。</p>
@@ -200,11 +199,10 @@ sh launch.sh --model yolox</code></pre>
     <p>2026-11-18 測定。定数重みの MatMul を MatMulNBits INT4 に変換し、その他の演算を FP32 で実行するモデルです。CPU 6 スレッド、プロファイル無効で 10 回測定した推論時間の中央値です。モデル Open 後のダミー推論 1 回と、実入力による 3 回のウォームアップは測定から除外しています。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>条件</th><th class="num">推論時間 (中央値)</th><th class="num">Top-1</th><th class="num">出力変動 (最大絶対差)</th></tr>
-      <tr><td>ORT CPU</td><td class="num">672.9 ms</td><td class="num">208</td><td class="num">0</td></tr>
-      <tr><td>ORT NPU</td><td class="num">390.6 ms</td><td class="num">208</td><td class="num">0.2002</td></tr>
-      <tr><td>ailia CPU</td><td class="num">780.0 ms</td><td class="num">208</td><td class="num">0</td></tr>
-      <tr class="highlight"><td>ailia NPU</td><td class="num">317.3 ms</td><td class="num">208</td><td class="num">0</td></tr>
+      <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">672.9 ms</td><td class="num">390.6 ms</td><td class="num">780.0 ms</td><td class="num">317.3 ms</td></tr>
+      <tr><td>Top-1</td><td class="num">208</td><td class="num">208</td><td class="num">208</td><td class="num">208</td></tr>
+      <tr><td>出力変動 (最大絶対差)</td><td class="num">0</td><td class="num">0.2002</td><td class="num">0</td><td class="num">0</td></tr>
     </table>
     </div>
     <p>ailia NPU は ORT NPU の約 1.23 倍の速度です。全条件・全測定で Top-1 は 208 でした。ORT NPU のみ、同じ入力でも出力値の変動 (最大絶対差 0.2002) を観測し、他の 3 条件では変動はありませんでした。</p>
@@ -218,7 +216,7 @@ sh launch.sh --model yolox</code></pre>
       <tr><td>Mask Decoder (ms／回)</td><td class="num">5</td><td class="num">173.1</td><td class="num">171.5</td><td class="num">125.8</td><td class="num">126.9</td></tr>
       <tr><td>Memory Attention (ms／回)</td><td class="num">4</td><td class="num">1,503.1</td><td class="num">1,502.2</td><td class="num">1,078.2</td><td class="num">517.6</td></tr>
       <tr><td>Memory Encoder (ms／回)</td><td class="num">5</td><td class="num">306.5</td><td class="num">292.0</td><td class="num">237.4</td><td class="num">240.7</td></tr>
-      <tr class="highlight"><td>5 フレーム全体 (秒)</td><td class="num">—</td><td class="num">20.23</td><td class="num">20.14</td><td class="num">18.87</td><td class="num">8.67</td></tr>
+      <tr><td>5 フレーム全体 (秒)</td><td class="num">—</td><td class="num">20.23</td><td class="num">20.14</td><td class="num">18.87</td><td class="num">8.67</td></tr>
     </table>
     </div>
     <p>モデル別は 1 回あたりの平均時間の中央値です。全体時間は画像読み込み・前後処理を含み、モデル読み込み・描画・保存を除きます。4 方式とも同じモデルを使用します。NPU 方式では Image Encoder と Memory Attention を CPU / NPU 混在で実行し、その他は CPU 実行です。</p>
@@ -229,9 +227,8 @@ sh launch.sh --model yolox</code></pre>
     <p>2026-11-20 測定。COCO 校正済みモデル <code>grounding-coco-val2017-v1</code> を使用し、入力画像はデモ同梱の <code>images/grounding_dino/demo.jpg</code>、プロンプトは <code>Horse. Clouds. Grasses. Sky. Hill.</code> です。モデル Open 時のダミー推論 1 回を除外し、続く 3 回の中央値を示します。モデル読み込みと前後処理は含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>ランタイム</th><th class="num">CPU</th><th class="num">NPU + CPU フォールバック</th></tr>
-      <tr><td>NXP ONNX Runtime 1.24.3</td><td class="num">7,553.2 ms</td><td class="num">7,549.9 ms</td></tr>
-      <tr class="highlight"><td>ailia SDK</td><td class="num">8,386.0 ms</td><td class="num">4,068.0 ms</td></tr>
+      <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">7,553.2 ms</td><td class="num">7,549.9 ms</td><td class="num">8,386.0 ms</td><td class="num">4,068.0 ms</td></tr>
     </table>
     </div>
     <p>4 方式とも馬を検出しました (検出精度のベンチマークではなく動作確認です)。ailia NPU では固定重みの MatMul 347 個を NPU で実行し、動的な Attention の実行先はランタイムが自動で選択します。ORT NPU は推論ごとに出力が変動することがあります。</p>
@@ -240,11 +237,8 @@ sh launch.sh --model yolox</code></pre>
     <p>2026-11-20 測定。COCO 校正済みモデルを使用し、入力は Bedroom の 1 フレーム目 (<code>00000.jpg</code>) です。モデル Open 時のダミー推論 1 回を除外し、続く 3 回の中央値を示します。モデル読み込み・前処理・描画は含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>条件</th><th class="num">推論時間</th></tr>
-      <tr><td>ORT CPU</td><td class="num">3,316.4 ms</td></tr>
-      <tr><td>ORT NPU (Neutron EP、固定重みの MatMul)</td><td class="num">3,315.9 ms</td></tr>
-      <tr><td>ailia CPU</td><td class="num">3,614.5 ms</td></tr>
-      <tr class="highlight"><td>ailia NPU (固定重み + 動的 Attention の MatMul)</td><td class="num">2,629.3 ms</td></tr>
+      <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">3,316.4 ms</td><td class="num">3,315.9 ms</td><td class="num">3,614.5 ms</td><td class="num">2,629.3 ms</td></tr>
     </table>
     </div>
     <p>ailia NPU は固定重みの MatMul 48 個に加えて、モデル内では FP32 のままの動的な Attention の MatMul 24 個も、推論時に INT8 に量子化して NPU で実行します。ORT は固定重みの MatMul のみを NPU で実行します。この画像では、ailia NPU の出力と FP32 の ORT CPU の出力の差は平均 6.06 cm (最大 31.82 cm) でした。正解深度に対する精度ではありません。</p>
@@ -253,11 +247,9 @@ sh launch.sh --model yolox</code></pre>
     <p>2026-11-20 測定。COCO 校正済みの INT8 モデル (<code>ConvInteger</code> 83 個) を使用し、バッチ 1、入力画像はデモ同梱の <code>images/yolox/input.jpg</code> です。モデル Open 時のダミー推論 1 回を除外し、続く 10 回の中央値を示します。前処理・NMS・描画は含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>条件</th><th class="num">推論時間 (中央値)</th><th class="num">FPS</th></tr>
-      <tr><td>ORT CPU</td><td class="num">794.0 ms</td><td class="num">1.26</td></tr>
-      <tr><td>ORT NPU (Neutron EP)</td><td class="num">794.3 ms</td><td class="num">1.26</td></tr>
-      <tr><td>ailia CPU</td><td class="num">435.4 ms</td><td class="num">2.30</td></tr>
-      <tr class="highlight"><td>ailia NPU</td><td class="num">114.9 ms</td><td class="num">8.70</td></tr>
+      <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">794.0 ms</td><td class="num">794.3 ms</td><td class="num">435.4 ms</td><td class="num">114.9 ms</td></tr>
+      <tr><td>FPS</td><td class="num">1.26</td><td class="num">1.26</td><td class="num">2.30</td><td class="num">8.70</td></tr>
     </table>
     </div>
     <p>CPU の値は最適化した FP32 モデルではなく、同じ ConvInteger モデルの値です。ailia の CPU 実行は、固定重みをキャッシュするタイル分割の NEON INT8 カーネルを使用します。ORT の Neutron EP では ConvInteger が CPU で実行されるため、ORT NPU は ORT CPU とほぼ同じ時間です。ailia NPU は、対応する演算の出力の再量子化を NPU 上で行います。CPU 実行とは丸め方が異なるため、出力は CPU 実行とビット単位では一致しません。</p>
