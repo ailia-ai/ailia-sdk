@@ -77,7 +77,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <table class="version-table">
       <tr><th>Method</th><th>MatMul becomes</th><th>Conv becomes</th><th>Calibration</th><th>On this page</th></tr>
       <tr><td>4 bit (weights only)</td><td>MatMulNBits</td><td>—</td><td>Not required</td><td><a href="#int4">Example 1: ViT-B/16</a></td></tr>
-      <tr><td>8 bit (dynamic quantization)</td><td>DynamicQuantizeLinear + MatMulInteger</td><td>DynamicQuantizeLinear + ConvInteger</td><td>Not required</td><td><a href="#int8-dynamic">INT8 Dynamic Quantization</a></td></tr>
+      <tr><td>8 bit (dynamic quantization)</td><td>DynamicQuantizeLinear + MatMulInteger</td><td>DynamicQuantizeLinear + ConvInteger</td><td>Not required</td><td><a href="#int8-dynamic">INT8 Dynamic Quantization</a>, <a href="#int8-static-matmul">Attention in Example 3</a></td></tr>
       <tr><td>8 bit (static quantization)</td><td>QuantizeLinear + MatMulInteger</td><td>QuantizeLinear + ConvInteger</td><td>Required (calibration dataset)</td><td><a href="#int8-static">Example 2: SAM 2.1 Tiny</a>, <a href="#int8-static-matmul">Example 3: Grounding DINO and Depth Anything V2</a>, <a href="#int8-conv">Example 4: YOLOX-S</a></td></tr>
     </table>
     </div>
@@ -85,8 +85,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Preceding quantization</th><th>Input scale</th><th>Characteristics</th></tr>
-      <tr><td><code>DynamicQuantizeLinear</code> (dynamic)</td><td>Computed at each inference from the minimum and maximum of the whole tensor</td><td>No calibration needed. <code>DynamicQuantizeLinear</code> itself runs on the CPU. Because the scale is not constant, the scale, bias and activation after <code>ConvInteger</code> cannot be fused on the NPU and are processed on the CPU.</td></tr>
-      <tr><td><code>QuantizeLinear</code> (static)</td><td>Constant determined with a calibration dataset</td><td>Requires calibration data. Because the scale is constant, the scale, bias, activation and requantization to UINT8 after <code>ConvInteger</code> are fused on the NPU, which makes it better suited to speeding up CNNs.</td></tr>
+      <tr><td><code>DynamicQuantizeLinear</code> (dynamic)</td><td>Computed at each inference from the minimum and maximum of the whole tensor</td><td>No calibration needed. <code>DynamicQuantizeLinear</code> itself runs on the CPU. Because the scale is not constant, the scale, bias and activation after <code>ConvInteger</code> cannot be fused into the segment and run as ordinary CPU layers.</td></tr>
+      <tr><td><code>QuantizeLinear</code> (static)</td><td>Constant determined with a calibration dataset</td><td>Requires calibration data. Because the scale is constant, the scale, bias, activation and requantization to UINT8 after <code>ConvInteger</code> are fused into the NPU segment, which writes UINT8 output without an FP32 intermediate tensor. Better suited to speeding up CNNs.</td></tr>
     </table>
     </div>
     <p>With any method, there is no need to quantize the whole model. Nodes that do not meet the conditions automatically run on the CPU in FP32.</p>
@@ -103,6 +103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>MatMulInteger, MatMulIntegerToFloat, QLinearMatMul, QGemm</td><td>Constant weights, N % 16 == 0</td></tr>
     </table>
     </div>
+    <p>FP32 <code>MatMul</code> and Attention run in FP32 regardless of size; the runtime never implicitly converts them to INT8. To run them as integer arithmetic, express the quantization in the model with <code>DynamicQuantizeLinear</code> or <code>QuantizeLinear</code> and <code>MatMulInteger</code>. <code>MatMulInteger</code> with two dynamic inputs runs on the NPU or on the CPU (NEON integer arithmetic) depending on the matrix size. Small or narrow matrices run on the CPU to avoid NPU setup and padding overhead.</p>
     <p>The ailia SDK NPU frontend does not offload static QDQ patterns (<code>DequantizeLinear → MatMul / Conv</code>) directly. When using a QDQ model, convert the target operations offline to <code>MatMulInteger</code> or <code>ConvInteger</code> while preserving the quantized tensors, scales, zero points and multiplication order (see <a href="#int8-static">Examples 2</a> to <a href="#int8-conv">4</a>). Nodes that do not meet the conditions run on the CPU.</p>
 
     <h2 id="int4">Example 1: ViT-B/16 — INT4 Weight-Only Quantization (MatMulNBits)</h2>
@@ -181,7 +182,7 @@ quantize_dynamic(
     op_types_to_quantize=["MatMul", "Conv"],
     weight_type=QuantType.QInt8,
 )</code></pre>
-    <p>For Transformer models, you can also quantize only MatMul (<code>op_types_to_quantize=["MatMul"]</code>). For CNNs, the processing after <code>ConvInteger</code> runs on the CPU, so consider static quantization as in <a href="#int8-conv">Example 4</a> when speed matters. The benchmarks on these pages do not include dynamically quantized models.</p>
+    <p>For Transformer models, you can also quantize only MatMul (<code>op_types_to_quantize=["MatMul"]</code>). For CNNs, the processing after <code>ConvInteger</code> runs on the CPU, so consider static quantization as in <a href="#int8-conv">Example 4</a> when speed matters. In <a href="#int8-static-matmul">Example 3</a>, Grounding DINO and Depth Anything V2 quantize the Attention MatMuls with two dynamic inputs as <code>MatMulInteger</code> with a <code>DynamicQuantizeLinear</code> on each input.</p>
 
     <h2 id="int8-static">Example 2: SAM 2.1 Tiny — Static Quantization (MatMulInteger)</h2>
     <p>This is an example of static quantization with a calibration dataset. After quantizing to the QDQ format, convert the target MatMuls to standard ONNX <code>MatMulInteger</code> while preserving the quantized tensors and scales. Because ailia can run <code>MatMulInteger</code> with two dynamic inputs on the NPU, the Attention matrix multiplications are also offloaded.</p>
@@ -206,8 +207,16 @@ python3 scripts/calibrate_sam2.py \
     <p>The step that lowers QDQ MatMul pairs to <code>MatMulInteger</code> is a standalone script, <code>scripts/convert_qdq_matmul.py</code>, and can be applied to your own QDQ models. It preserves the scales and quantized tensors and performs no requantization. Integer accumulation changes floating-point rounding, so validate the model outputs before deploying the converted model.</p>
     <p>Calibration records (<code>manifest.json</code>, <code>ranges_*.json</code> and <code>completion.json</code>) are saved in the output directory, and an interrupted conversion resumes when you run the same command again. The calibration records for the models bundled with the demo are in the repository's <code>calibration/</code> directory. The scripts in Examples 3 and 4 work the same way.</p>
 
-    <h2 id="int8-static-matmul">Example 3: Grounding DINO and Depth Anything V2 — Static Quantization of Fixed-Weight MatMuls</h2>
-    <p>For large Transformer models, another effective configuration statically quantizes only the constant-weight MatMuls to <code>MatMulInteger</code> and leaves the other operations in FP32. Activations are quantized to tensor-wise UINT8 and weights to channel-wise INT8, expressed with standard ONNX <code>QuantizeLinear</code> / <code>MatMulInteger</code> / <code>Cast</code> / <code>Mul</code> nodes. Both models are calibrated with global Min/Max over all 5,000 images of COCO val2017.</p>
+    <h2 id="int8-static-matmul">Example 3: Grounding DINO and Depth Anything V2 — Static Quantization of Fixed Weights and Dynamic Quantization of Attention</h2>
+    <p>Static and dynamic quantization can be combined in one model. In this example, constant-weight MatMuls are statically quantized with calibration data, and the Attention MatMuls, whose two inputs change at each inference, are dynamically quantized. Other operations such as Softmax and LayerNorm remain FP32.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Target</th><th>Converted form</th><th>Quantization</th></tr>
+      <tr><td>Constant-weight MatMul</td><td><code>QuantizeLinear</code> + <code>MatMulInteger</code> + <code>Cast</code> + <code>Mul</code></td><td>Tensor-wise UINT8 activations (calibrated with global Min/Max over all 5,000 COCO val2017 images) and channel-wise INT8 weights</td></tr>
+      <tr><td>MatMul with two dynamic inputs (Attention)</td><td><code>DynamicQuantizeLinear</code> on both inputs + <code>MatMulInteger</code> (using both zero points) + <code>Cast</code> + <code>Mul</code> by the two scales</td><td>Tensor-wise UINT8 for both inputs at each inference</td></tr>
+    </table>
+    </div>
+    <p>The calibrated ranges (<code>ranges.json</code>) for both models are bundled in the demo's <code>calibration/</code> directory, so you can redo only the model conversion without preparing COCO.</p>
 
     <h3>Grounding DINO Swin-T (400×599)</h3>
     <p>Convert the published <code>groundingdino_swint_ogc.onnx</code> from <a href="https://github.com/ailia-ai/ailia-models/tree/master/object_detection/groundingdino" target="_blank">Grounding DINO in ailia-models</a>.</p>
@@ -221,10 +230,15 @@ python3 scripts/calibrate_grounding.py \
   --workers 3 --threads 3</code></pre>
     <ul>
       <li>The input model is promoted to FP32 before activation ranges are collected. The 80 COCO category names are used as the text prompt, and image preprocessing and tokenization are shared with the demo.</li>
-      <li>The 347 fixed-weight MatMuls are converted to <code>MatMulInteger</code>; other operations remain FP32.</li>
+      <li>The 347 fixed-weight MatMuls are statically quantized, and the 109 MatMuls with two dynamic inputs are dynamically quantized. The converted model contains 456 <code>MatMulInteger</code> nodes and no FP32 <code>MatMul</code>.</li>
+      <li>On the ailia NPU, the fixed-weight MatMuls run on the NPU. Because the dynamic MatMuls are small, they run with NEON integer arithmetic on the CPU.</li>
       <li>The graph is rearranged so that ailia SDK's DeformableAttention fusion can be used.</li>
       <li>The output is <code>models/groundingdino_swint_ogc_400x599_int8.onnx</code> with external weight files (<code>.dataNN</code>). Keep the ONNX file and the weight files in the same folder.</li>
     </ul>
+    <p>To regenerate only the model from the bundled calibrated ranges, run:</p>
+    <pre><code class="language-bash">python3 scripts/grounding_convert.py --source groundingdino_swint_ogc.onnx \
+  --ranges calibration/grounding_dino/ranges.json \
+  --output models/groundingdino_swint_ogc_400x599_int8.onnx</code></pre>
 
     <h3>Depth Anything V2 Metric Depth Small (518×518)</h3>
     <p>Convert the indoor (Hypersim) Small model from ailia-models.</p>
@@ -236,13 +250,18 @@ python3 scripts/calibrate_depth.py \
   --coco-annotations /path/to/coco/annotations/instances_val2017.json \
   --output /path/to/depth-calibrated</code></pre>
     <ul>
-      <li>The input is fixed to 518×518, and the 48 fixed-weight MatMuls are converted to <code>MatMulInteger</code>.</li>
-      <li>The 24 dynamic Attention MatMuls remain FP32 in the model. On the ailia NPU, the runtime quantizes them to INT8 at inference time and runs them on the NPU. Softmax and convolutions run on the CPU.</li>
+      <li>The input is fixed to 518×518, and the 48 fixed-weight MatMuls are statically quantized.</li>
+      <li>Both inputs of the 24 Attention MatMuls are dynamically quantized with <code>DynamicQuantizeLinear</code>. On the ailia NPU, these 24 also run on the NPU. Softmax and convolutions remain FP32.</li>
       <li>Use <code>depth_anything_v2_metric_hypersim_vits_518_int8.onnx</code> after <code>completion.json</code> confirms that all 5,000 images were processed.</li>
     </ul>
+    <p>To regenerate only the model from the bundled calibrated ranges, run:</p>
+    <pre><code class="language-bash">python3 scripts/depth_convert.py \
+  --source /path/to/depth_anything_v2_metric_hypersim_vits.onnx \
+  --ranges calibration/depth_anything_v2/ranges.json \
+  --output models/depth_anything_v2_metric_hypersim_vits_518_int8.onnx</code></pre>
 
     <h2 id="int8-conv">Example 4: YOLOX-S 320 — Static Quantization of Convolutions (ConvInteger)</h2>
-    <p>For CNNs, convert convolutions to standard ONNX <code>ConvInteger</code> to run them on the NPU. ailia SDK fuses 2D <code>ConvInteger</code> with the following scale, bias and activation on the NPU side and writes UINT8 feature maps directly. Calibrate YOLOX-S (<code>yolox_s.opt.onnx</code>) from <a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> with Min/Max over all 5,000 images of COCO val2017.</p>
+    <p>For CNNs, convert convolutions to standard ONNX <code>ConvInteger</code> to run them on the NPU. ailia SDK fuses 2D <code>ConvInteger</code> with the following scale, bias and activation into the NPU segment and writes UINT8 feature maps directly. Calibrate YOLOX-S (<code>yolox_s.opt.onnx</code>) from <a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> with Min/Max over all 5,000 images of COCO val2017.</p>
     <pre><code class="language-bash">curl -L https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx -o yolox_s.opt.onnx
 python3 scripts/calibrate_yolox.py \
   --source yolox_s.opt.onnx \

@@ -71,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>Measurement Conditions</h2>
-    <p>We compared ailia SDK (NXP NPU build) with ONNX Runtime 1.24.3 (ORT) bundled with the NXP BSP on the FRDM i.MX 95. ViT-B/16 was measured on 2026-11-18, and the other models on 2026-11-20 with runtime <code>ac22f5086</code>. All measurements use 6 CPU threads with profiling disabled, and NPU results include CPU execution of unsupported layers. Each backend uses the same model.</p>
+    <p>We compared ailia SDK (NXP NPU build) with ONNX Runtime 1.24.3 (ORT) bundled with the NXP BSP on the FRDM i.MX 95. ViT-B/16 was measured on 2026-11-18, and the other models on 2026-11-20. The ailia runtime revision is given in each model section. All measurements use 6 CPU threads with profiling disabled, and NPU results include CPU execution of unsupported layers. Each backend uses the same model.</p>
 
 
     <h2 id="vit">ViT-B/16 (Image Classification, 224×224)</h2>
@@ -87,7 +87,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>"Output variation" is the maximum absolute output difference when the same input is inferred repeatedly (0 means the same result every time). ailia NPU is approximately 1.23x faster than ORT NPU. Top-1 was 208 for every condition and measurement. Only ORT NPU showed output variation for the same input (maximum absolute difference 0.2002); the other three conditions showed no variation.</p>
 
     <h2 id="sam2">SAM 2.1 Tiny (Segmentation, 512×512)</h2>
-    <p>Measured on 2026-11-20 with the COCO-calibrated <code>coco-val2017-v1</code> model from <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a>. ailia's CPU execution uses NEON-optimized integer MatMul. All backends ran the same dummy input once when opening each model, then warmed up with one full pass over the 5 Bedroom frames using the same two points. The table reports the median of the next 3 runs and excludes warm-up time.</p>
+    <p>Measured on 2026-11-20 with runtime <code>ac22f5086</code> and the COCO-calibrated <code>coco-val2017-v1</code> model from <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a>. ailia's CPU execution uses NEON-optimized integer MatMul. All backends ran the same dummy input once when opening each model, then warmed up with one full pass over the 5 Bedroom frames using the same two points. The table reports the median of the next 3 runs and excludes warm-up time.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Operation</th><th class="num">Calls / video</th><th class="num">ORT CPU</th><th class="num">ORT NPU*</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
@@ -103,27 +103,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>The mean mask IoU against the FP32 reference on Bedroom is 96.07% for host ORT CPU and 95.71% for ailia NPU on the device. This is not accuracy against ground-truth masks.</p>
 
     <h2 id="grounding-dino">Grounding DINO Swin-T (Open-Vocabulary Object Detection, 400×599)</h2>
-    <p>Measured on 2026-11-20 with the COCO-calibrated <code>grounding-coco-val2017-v1</code> model. The input image is <code>images/grounding_dino/demo.jpg</code> bundled with the demo, and the prompt is <code>Horse. Clouds. Grasses. Sky. Hill.</code>. One dummy inference at model Open is excluded, and the table reports the median of the next 3 runs. Model loading and pre/post-processing are excluded.</p>
+    <p>Measured on 2026-11-20 with runtime <code>c97d853c4</code> (plus an integer fusion and packing update) and the COCO-calibrated <code>grounding-coco-val2017-dql-v2</code> model. The input image is <code>images/grounding_dino/demo.jpg</code> bundled with the demo, and the prompt is <code>Horse. Clouds. Grasses. Sky. Hill.</code>. One dummy inference at model Open is excluded, and the table reports the median of the next 3 runs. Model loading and pre/post-processing are excluded.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Item</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
-      <tr><td>Inference time (median)</td><td class="num">7,553.2 ms</td><td class="num">7,549.9 ms</td><td class="num">8,386.0 ms</td><td class="num">4,068.0 ms</td></tr>
+      <tr><td>Inference time (median)</td><td class="num">7,654.0 ms</td><td class="num">7,626.0 ms</td><td class="num">8,926.2 ms</td><td class="num">4,053.6 ms</td></tr>
     </table>
     </div>
-    <p>All four backends detected the horse (this is a functional check, not a detection-accuracy benchmark). ailia NPU runs the 347 fixed-weight MatMuls on the NPU, and the runtime automatically selects where the dynamic Attention runs. ORT NPU outputs may vary between inferences.</p>
+    <p>All four backends detected the horse (this is a functional check, not a detection-accuracy benchmark). ailia NPU runs the 347 fixed-weight MatMuls on the NPU. The 109 MatMuls with two dynamic inputs are explicitly quantized as <code>DynamicQuantizeLinear</code> + <code>MatMulInteger</code>; because the matrices are small, they run with NEON integer arithmetic on the CPU. Compared with the model before the Attention was explicitly quantized, all seven horse detections are preserved, with a mean box IoU of 0.986. ORT NPU outputs may vary between inferences.</p>
 
     <h2 id="depth-anything-v2">Depth Anything V2 Metric Depth Small (Indoor Depth Estimation, 518×518)</h2>
-    <p>Measured on 2026-11-20 with the COCO-calibrated model, using the first Bedroom frame (<code>00000.jpg</code>) as input. One dummy inference at model Open is excluded, and the table reports the median of the next 3 runs. Model loading, preprocessing and drawing are excluded.</p>
+    <p>Measured on 2026-11-20 with runtime <code>c97d853c4</code> and the COCO-calibrated model, using the first Bedroom frame (<code>00000.jpg</code>) as input. One dummy inference at model Open is excluded, and the table reports the median of the next 3 runs. Model loading, preprocessing and drawing are excluded.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Item</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
-      <tr><td>Inference time (median)</td><td class="num">3,316.4 ms</td><td class="num">3,315.9 ms</td><td class="num">3,614.5 ms</td><td class="num">2,629.3 ms</td></tr>
+      <tr><td>Inference time (median)</td><td class="num">3,150.0 ms</td><td class="num">3,093.7 ms*</td><td class="num">3,381.8 ms</td><td class="num">2,693.5 ms</td></tr>
     </table>
     </div>
-    <p>In addition to the 48 fixed-weight MatMuls, ailia NPU also runs the 24 dynamic Attention MatMuls, which remain FP32 in the model, on the NPU by quantizing them to INT8 at inference time. ORT runs only the fixed-weight MatMuls on the NPU. On this image, the ailia NPU output differed from the FP32 ORT CPU output by 6.06 cm on average (31.82 cm maximum). This is not accuracy against ground-truth depth.</p>
+    <p>In addition to the 48 fixed-weight MatMuls, ailia NPU also runs the 24 Attention MatMuls on the NPU. The model expresses these Attention MatMuls as <code>MatMulInteger</code> with both inputs quantized by <code>DynamicQuantizeLinear</code>. ORT is configured to run only the fixed-weight MatMuls on the NPU.</p>
+    <p>* ORT NPU failed to allocate Neutron memory and fell back to the CPU, so this is not an NPU measurement.</p>
+    <p>On this image, the ailia CPU and ailia NPU outputs are identical. Against ORT CPU running the same model, the mean output difference is 2.93 cm (51.71 cm maximum). Against the previous model without Attention quantization, the mean difference is 33.83 cm (135.63 cm maximum), so quantization does affect the depth estimates. These are comparisons between outputs, not accuracy against ground-truth depth.</p>
 
     <h2 id="yolox">YOLOX-S (Object Detection, 320×320)</h2>
-    <p>Measured on 2026-11-20 with the COCO-calibrated INT8 model (83 <code>ConvInteger</code> nodes), batch 1, using <code>images/yolox/input.jpg</code> bundled with the demo. One dummy inference at model Open is excluded, and the table reports the median of the next 10 runs. Preprocessing, NMS and drawing are excluded.</p>
+    <p>Measured on 2026-11-20 with runtime <code>ac22f5086</code> and the COCO-calibrated INT8 model (83 <code>ConvInteger</code> nodes), batch 1, using <code>images/yolox/input.jpg</code> bundled with the demo. One dummy inference at model Open is excluded, and the table reports the median of the next 10 runs. Preprocessing, NMS and drawing are excluded.</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Item</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>

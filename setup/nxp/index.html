@@ -170,29 +170,30 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
     </div>
 
     <h3>ビジョンデモ (ailia-sdk-nxp-demo)</h3>
-    <p><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> は、SAM 2.1 Tiny、Grounding DINO、Depth Anything V2、YOLOX-S 320 の COCO 校正済み NPU 用モデルを同梱した HDMI 画面のデモです。ailia と NXP ONNX Runtime の CPU / NPU、計 4 方式の速度を同じ画面で比較できます。HDMI ディスプレイとマウスを接続し、Weston と同じユーザーで実行します。</p>
+    <p><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> は、SAM 2.1 Tiny、Grounding DINO、Depth Anything V2、YOLOX-S 320 の COCO 校正済み NPU 用モデルと、ViT-B/16 (INT4) を使用する HDMI 画面のデモです。ailia と NXP ONNX Runtime の CPU / NPU、計 4 方式の速度を同じ画面で比較できます。HDMI ディスプレイとマウスを接続し、Weston と同じユーザーで実行します。</p>
     <pre><code class="language-bash">cd ailia-sdk-nxp-demo
-python3 scripts/download_models.py   # SAM 2.1 の補助モデルを取得 (初回のみ)
+python3 scripts/download_models.py   # SAM 2.1 の補助モデルと ViT を取得 (初回のみ)
 sh launch.sh                          # SAM 2.1 Tiny (ailia NPU)
 sh launch.sh --model grounding --caption "Horse. Clouds. Grasses. Sky. Hill."
 sh launch.sh --model depth
-sh launch.sh --model yolox</code></pre>
-    <p>画面の <strong>Compare all 4</strong> で 4 方式の推論時間を比較できます。USB カメラや動画ファイルを入力にすることもできます。詳細はリポジトリの README を参照してください。</p>
+sh launch.sh --model yolox
+sh launch.sh --model vit</code></pre>
+    <p>画面の <strong>Compare all 4</strong> で 4 方式の推論時間を比較できます。入力は <strong>Image / Video / Camera</strong> で切り替えられ、USB カメラの映像を連続して推論することもできます (Video は SAM 2.1 の 5 フレーム追跡のみ)。詳細はリポジトリの README を参照してください。</p>
 
     <h2>ベンチマーク</h2>
-    <p>FRDM i.MX 95 で、ailia SDK (NXP NPU 対応版) と NXP BSP 同梱の ONNX Runtime 1.24.3 (ORT) を比較しました。ViT-B/16 は 2026-11-18、その他のモデルは 2026-11-20 にランタイム <code>ac22f5086</code> で測定しています。いずれも CPU 6 スレッド、プロファイル無効で、NPU の値は非対応レイヤーの CPU 実行を含みます。モデルは各方式で同じものを使用しています。</p>
+    <p>FRDM i.MX 95 で、ailia SDK (NXP NPU 対応版) と NXP BSP 同梱の ONNX Runtime 1.24.3 (ORT) を比較しました。ViT-B/16 は 2026-11-18、その他のモデルは 2026-11-20 に測定しています。いずれも CPU 6 スレッド、プロファイル無効で、NPU の値は非対応レイヤーの CPU 実行を含みます。モデルは各方式で同じものを使用しています。</p>
 
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>モデル</th><th>NPU で実行する主な演算</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th><th class="num">ailia CPU 比</th></tr>
       <tr><td><a href="benchmark.html#vit">ViT-B/16 (分類)</a></td><td>MatMulNBits (INT4)</td><td class="num">672.9 ms</td><td class="num">390.6 ms</td><td class="num">780.0 ms</td><td class="num">317.3 ms</td><td class="num">2.5 倍</td></tr>
-      <tr><td><a href="benchmark.html#sam2">SAM 2.1 Tiny (5 フレーム追跡)</a></td><td>MatMulInteger (固定重み・Attention)</td><td class="num">20.23 秒</td><td class="num">20.14 秒※</td><td class="num">18.87 秒</td><td class="num">8.67 秒</td><td class="num">2.2 倍</td></tr>
-      <tr><td><a href="benchmark.html#grounding-dino">Grounding DINO (検出)</a></td><td>MatMulInteger (固定重み)</td><td class="num">7,553.2 ms</td><td class="num">7,549.9 ms</td><td class="num">8,386.0 ms</td><td class="num">4,068.0 ms</td><td class="num">2.1 倍</td></tr>
-      <tr><td><a href="benchmark.html#depth-anything-v2">Depth Anything V2 Small (深度)</a></td><td>MatMulInteger (固定重み)、MatMul (Attention、実行時に INT8 化)</td><td class="num">3,316.4 ms</td><td class="num">3,315.9 ms</td><td class="num">3,614.5 ms</td><td class="num">2,629.3 ms</td><td class="num">1.4 倍</td></tr>
+      <tr><td><a href="benchmark.html#sam2">SAM 2.1 Tiny (5 フレーム追跡)</a></td><td>MatMulInteger (固定重み・Attention)</td><td class="num">20.23 秒</td><td class="num">20.14 秒※1</td><td class="num">18.87 秒</td><td class="num">8.67 秒</td><td class="num">2.2 倍</td></tr>
+      <tr><td><a href="benchmark.html#grounding-dino">Grounding DINO (検出)</a></td><td>MatMulInteger (固定重み)</td><td class="num">7,654.0 ms</td><td class="num">7,626.0 ms</td><td class="num">8,926.2 ms</td><td class="num">4,053.6 ms</td><td class="num">2.2 倍</td></tr>
+      <tr><td><a href="benchmark.html#depth-anything-v2">Depth Anything V2 Small (深度)</a></td><td>MatMulInteger (固定重み・Attention)</td><td class="num">3,150.0 ms</td><td class="num">3,093.7 ms※2</td><td class="num">3,381.8 ms</td><td class="num">2,693.5 ms</td><td class="num">1.3 倍</td></tr>
       <tr><td><a href="benchmark.html#yolox">YOLOX-S 320 (検出)</a></td><td>ConvInteger (2D)</td><td class="num">794.0 ms</td><td class="num">794.3 ms</td><td class="num">435.4 ms</td><td class="num">114.9 ms</td><td class="num">3.8 倍</td></tr>
     </table>
     </div>
-    <p>※ SAM 2.1 の ORT NPU は、以前の測定で追跡マスクの異常を確認しているため速度参考値です。</p>
+    <p>※1 SAM 2.1 の ORT NPU は、以前の測定で追跡マスクの異常を確認しているため速度参考値です。<br>※2 Depth Anything V2 の ORT NPU は、Neutron のメモリ確保に失敗して CPU にフォールバックしたため、NPU の測定値ではありません。</p>
     <p>各モデルの測定条件、処理ごとの内訳、精度は <a href="benchmark.html">ベンチマークの詳細</a> を参照してください。</p>
 
     <h2>アーキテクチャ</h2>
@@ -245,11 +246,11 @@ sh launch.sh --model yolox</code></pre>
     <p>NXP ONNX Runtime の Neutron 実行では、ViTおよびSAM 2.1 で同一入力に対する出力が推論ごとに変動することを確認しています。ailia は大きな行列を NPU が安定して処理できるサイズに分割することで出力変動 0 を実現しています。閾値判定や回帰テストなど、再現性が求められる製品用途に適しています。</p>
 
     <h3>Transformer と CNN の両方で高速</h3>
-    <p>MatMulNBits と MatMulInteger の NPU 実行により、ViT では ORT NPU の 390.6 ms に対して ailia NPU は 317.3 ms (約 1.23 倍高速)、Grounding DINO では 7,549.9 ms に対して 4,068.0 ms (約 1.86 倍高速) でした。COCO 校正済み SAM 2.1 では Image Encoder が ailia CPU の 2,474.7 ms に対して ailia NPU で 877.8 ms、5 フレーム全体が 18.87 秒に対して 8.67 秒です。</p>
+    <p>MatMulNBits と MatMulInteger の NPU 実行により、ViT では ORT NPU の 390.6 ms に対して ailia NPU は 317.3 ms (約 1.23 倍高速)、Grounding DINO では 7,626.0 ms に対して 4,053.6 ms (約 1.88 倍高速) でした。COCO 校正済み SAM 2.1 では Image Encoder が ailia CPU の 2,474.7 ms に対して ailia NPU で 877.8 ms、5 フレーム全体が 18.87 秒に対して 8.67 秒です。</p>
     <p>CNN の畳み込みも、2D の <code>ConvInteger</code> として NPU で実行できます。ORT の Neutron EP は ConvInteger を CPU で実行するため、YOLOX-S では ORT NPU の 794.3 ms に対して ailia NPU は 114.9 ms (約 6.9 倍高速) でした。</p>
 
     <h3>両入力が動的な Attention の MatMul も NPU で実行</h3>
-    <p>ONNX Runtime の Neutron EP が NPU で実行できるのは、右辺が定数重みの行列積だけです。Attention の QK・AV のように両入力が推論ごとに変わる MatMul は CPU に残ります。ailia は右辺を推論ごとに NPU 向けにパックすることで、両入力が動的な <code>MatMulInteger</code> も NPU で実行できます。SAM 2.1 の Memory Attention では、Attention の行列積を <code>MatMulInteger</code> として NPU で実行しています。Depth Anything V2 では、FP32 のまま残した Attention の MatMul 24 個を、ランタイムが推論時に INT8 に量子化して NPU で実行します。</p>
+    <p>ONNX Runtime の Neutron EP が NPU で実行できるのは、右辺が定数重みの行列積だけです。Attention の QK・AV のように両入力が推論ごとに変わる MatMul は CPU に残ります。ailia は右辺を推論ごとに NPU 向けにパックすることで、両入力が動的な <code>MatMulInteger</code> も NPU で実行できます。SAM 2.1 の Memory Attention では、Attention の行列積を <code>MatMulInteger</code> として NPU で実行しています。Depth Anything V2 では、両入力を <code>DynamicQuantizeLinear</code> で量子化した Attention の <code>MatMulInteger</code> 24 個を NPU で実行します。FP32 の MatMul は暗黙に INT8 化せず、量子化はモデル内の標準 ONNX 演算で明示します。</p>
 
     <h3>CPU・GPU・NPU を同じ API で切り替え</h3>
     <p>実行環境 ID を変えるだけで、同じモデル・同じコードを CPU、Mali-G310 (Vulkan)、Neutron NPU で実行できます。Windows、macOS、Linux、Android、iOS と共通の C++ / Python / C# / Flutter API のため、PC で開発したアプリケーションをそのまま i.MX 95 へ移植できます。</p>

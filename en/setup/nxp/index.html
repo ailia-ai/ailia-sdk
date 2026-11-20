@@ -170,29 +170,30 @@ python3 vit.py -e 0 -b -bc 11</code></pre>
     </div>
 
     <h3>Vision Demo (ailia-sdk-nxp-demo)</h3>
-    <p><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> is an HDMI demo that bundles COCO-calibrated NPU models for SAM 2.1 Tiny, Grounding DINO, Depth Anything V2 and YOLOX-S 320. It compares the speed of four backends, ailia and NXP ONNX Runtime on the CPU and NPU, on the same screen. Connect an HDMI display and a mouse, and run it as the same user as Weston.</p>
+    <p><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> is an HDMI demo that uses COCO-calibrated NPU models for SAM 2.1 Tiny, Grounding DINO, Depth Anything V2 and YOLOX-S 320, plus ViT-B/16 (INT4). It compares the speed of four backends, ailia and NXP ONNX Runtime on the CPU and NPU, on the same screen. Connect an HDMI display and a mouse, and run it as the same user as Weston.</p>
     <pre><code class="language-bash">cd ailia-sdk-nxp-demo
-python3 scripts/download_models.py   # Download SAM 2.1 auxiliary models (first time only)
+python3 scripts/download_models.py   # Download SAM 2.1 auxiliary models and ViT (first time only)
 sh launch.sh                          # SAM 2.1 Tiny (ailia NPU)
 sh launch.sh --model grounding --caption "Horse. Clouds. Grasses. Sky. Hill."
 sh launch.sh --model depth
-sh launch.sh --model yolox</code></pre>
-    <p>Press <strong>Compare all 4</strong> on the screen to compare the inference time of the four backends. A USB camera or a video file can also be used as input. See the repository README for details.</p>
+sh launch.sh --model yolox
+sh launch.sh --model vit</code></pre>
+    <p>Press <strong>Compare all 4</strong> on the screen to compare the inference time of the four backends. Switch the input with <strong>Image / Video / Camera</strong>; USB camera frames can be inferred continuously (Video is only for SAM 2.1 five-frame tracking). See the repository README for details.</p>
 
     <h2>Benchmarks</h2>
-    <p>We compared ailia SDK (NXP NPU build) with ONNX Runtime 1.24.3 (ORT) bundled with the NXP BSP on the FRDM i.MX 95. ViT-B/16 was measured on 2026-11-18, and the other models on 2026-11-20 with runtime <code>ac22f5086</code>. All measurements use 6 CPU threads with profiling disabled, and NPU results include CPU execution of unsupported layers. Each backend uses the same model.</p>
+    <p>We compared ailia SDK (NXP NPU build) with ONNX Runtime 1.24.3 (ORT) bundled with the NXP BSP on the FRDM i.MX 95. ViT-B/16 was measured on 2026-11-18, and the other models on 2026-11-20. All measurements use 6 CPU threads with profiling disabled, and NPU results include CPU execution of unsupported layers. Each backend uses the same model.</p>
 
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Model</th><th>Main operators on the NPU</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th><th class="num">vs. ailia CPU</th></tr>
       <tr><td><a href="benchmark.html#vit">ViT-B/16 (classification)</a></td><td>MatMulNBits (INT4)</td><td class="num">672.9 ms</td><td class="num">390.6 ms</td><td class="num">780.0 ms</td><td class="num">317.3 ms</td><td class="num">2.5x</td></tr>
-      <tr><td><a href="benchmark.html#sam2">SAM 2.1 Tiny (5-frame tracking)</a></td><td>MatMulInteger (fixed weights, Attention)</td><td class="num">20.23 s</td><td class="num">20.14 s*</td><td class="num">18.87 s</td><td class="num">8.67 s</td><td class="num">2.2x</td></tr>
-      <tr><td><a href="benchmark.html#grounding-dino">Grounding DINO (detection)</a></td><td>MatMulInteger (fixed weights)</td><td class="num">7,553.2 ms</td><td class="num">7,549.9 ms</td><td class="num">8,386.0 ms</td><td class="num">4,068.0 ms</td><td class="num">2.1x</td></tr>
-      <tr><td><a href="benchmark.html#depth-anything-v2">Depth Anything V2 Small (depth)</a></td><td>MatMulInteger (fixed weights), MatMul (Attention, quantized to INT8 at runtime)</td><td class="num">3,316.4 ms</td><td class="num">3,315.9 ms</td><td class="num">3,614.5 ms</td><td class="num">2,629.3 ms</td><td class="num">1.4x</td></tr>
+      <tr><td><a href="benchmark.html#sam2">SAM 2.1 Tiny (5-frame tracking)</a></td><td>MatMulInteger (fixed weights, Attention)</td><td class="num">20.23 s</td><td class="num">20.14 s*1</td><td class="num">18.87 s</td><td class="num">8.67 s</td><td class="num">2.2x</td></tr>
+      <tr><td><a href="benchmark.html#grounding-dino">Grounding DINO (detection)</a></td><td>MatMulInteger (fixed weights)</td><td class="num">7,654.0 ms</td><td class="num">7,626.0 ms</td><td class="num">8,926.2 ms</td><td class="num">4,053.6 ms</td><td class="num">2.2x</td></tr>
+      <tr><td><a href="benchmark.html#depth-anything-v2">Depth Anything V2 Small (depth)</a></td><td>MatMulInteger (fixed weights, Attention)</td><td class="num">3,150.0 ms</td><td class="num">3,093.7 ms*2</td><td class="num">3,381.8 ms</td><td class="num">2,693.5 ms</td><td class="num">1.3x</td></tr>
       <tr><td><a href="benchmark.html#yolox">YOLOX-S 320 (detection)</a></td><td>ConvInteger (2D)</td><td class="num">794.0 ms</td><td class="num">794.3 ms</td><td class="num">435.4 ms</td><td class="num">114.9 ms</td><td class="num">3.8x</td></tr>
     </table>
     </div>
-    <p>* The SAM 2.1 ORT NPU result is timing-only because invalid tracking masks were observed in earlier measurements.</p>
+    <p>*1 The SAM 2.1 ORT NPU result is timing-only because invalid tracking masks were observed in earlier measurements.<br>*2 The Depth Anything V2 ORT NPU run failed to allocate Neutron memory and fell back to the CPU, so it is not an NPU measurement.</p>
     <p>For the measurement conditions, per-component breakdowns and accuracy of each model, see <a href="benchmark.html">Benchmark Details</a>.</p>
 
     <h2>Architecture</h2>
@@ -245,11 +246,11 @@ sh launch.sh --model yolox</code></pre>
     <p>With NXP ONNX Runtime on Neutron, we confirmed that ViT and SAM 2.1 outputs change from run to run for the same input. ailia achieves zero output variation by splitting large matrices into sizes the NPU processes reliably. This suits products that need reproducibility, such as threshold decisions and regression testing.</p>
 
     <h3>Fast on Both Transformers and CNNs</h3>
-    <p>With MatMulNBits and MatMulInteger NPU execution, ViT takes 317.3 ms on ailia NPU versus 390.6 ms on ORT NPU (approximately 1.23x faster), and Grounding DINO takes 4,068.0 ms versus 7,549.9 ms (approximately 1.86x faster). For the COCO-calibrated SAM 2.1 model, the Image Encoder takes 877.8 ms on ailia NPU versus 2,474.7 ms on ailia CPU, and the 5-frame total takes 8.67 seconds versus 18.87 seconds.</p>
+    <p>With MatMulNBits and MatMulInteger NPU execution, ViT takes 317.3 ms on ailia NPU versus 390.6 ms on ORT NPU (approximately 1.23x faster), and Grounding DINO takes 4,053.6 ms versus 7,626.0 ms (approximately 1.88x faster). For the COCO-calibrated SAM 2.1 model, the Image Encoder takes 877.8 ms on ailia NPU versus 2,474.7 ms on ailia CPU, and the 5-frame total takes 8.67 seconds versus 18.87 seconds.</p>
     <p>CNN convolutions also run on the NPU as 2D <code>ConvInteger</code>. The ORT Neutron EP runs ConvInteger on the CPU, so for YOLOX-S ailia NPU takes 114.9 ms versus 794.3 ms on ORT NPU (approximately 6.9x faster).</p>
 
     <h3>Attention MatMuls with Two Dynamic Inputs Also Run on the NPU</h3>
-    <p>The ONNX Runtime Neutron EP can run only matrix multiplications whose right-hand side is a constant weight on the NPU. MatMuls whose two inputs both change at each inference, such as QK and AV in Attention, stay on the CPU. ailia packs the right-hand side for the NPU at each inference, so it can also run <code>MatMulInteger</code> with two dynamic inputs on the NPU. In SAM 2.1 Memory Attention, the Attention matrix multiplications run on the NPU as <code>MatMulInteger</code>. In Depth Anything V2, the runtime quantizes the 24 Attention MatMuls left in FP32 to INT8 at inference time and runs them on the NPU.</p>
+    <p>The ONNX Runtime Neutron EP can run only matrix multiplications whose right-hand side is a constant weight on the NPU. MatMuls whose two inputs both change at each inference, such as QK and AV in Attention, stay on the CPU. ailia packs the right-hand side for the NPU at each inference, so it can also run <code>MatMulInteger</code> with two dynamic inputs on the NPU. In SAM 2.1 Memory Attention, the Attention matrix multiplications run on the NPU as <code>MatMulInteger</code>. In Depth Anything V2, the 24 Attention <code>MatMulInteger</code> nodes, with both inputs quantized by <code>DynamicQuantizeLinear</code>, run on the NPU. FP32 MatMuls are never implicitly converted to INT8; quantization is expressed explicitly in the model with standard ONNX operators.</p>
 
     <h3>Switch Between CPU, GPU and NPU with the Same API</h3>
     <p>Changing the environment ID runs the same model and code on the CPU, Mali-G310 (Vulkan) or the Neutron NPU. The C++ / Python / C# / Flutter API is shared with Windows, macOS, Linux, Android and iOS, so applications developed on a PC can be ported to the i.MX 95 as-is.</p>

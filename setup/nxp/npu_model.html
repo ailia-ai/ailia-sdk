@@ -77,7 +77,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <table class="version-table">
       <tr><th>方式</th><th>MatMul の変換先</th><th>Conv の変換先</th><th>キャリブレーション</th><th>本ページの説明</th></tr>
       <tr><td>4 bit (重みのみ)</td><td>MatMulNBits</td><td>—</td><td>不要</td><td><a href="#int4">例 1: ViT-B/16</a></td></tr>
-      <tr><td>8 bit (動的量子化)</td><td>DynamicQuantizeLinear + MatMulInteger</td><td>DynamicQuantizeLinear + ConvInteger</td><td>不要</td><td><a href="#int8-dynamic">INT8 動的量子化</a></td></tr>
+      <tr><td>8 bit (動的量子化)</td><td>DynamicQuantizeLinear + MatMulInteger</td><td>DynamicQuantizeLinear + ConvInteger</td><td>不要</td><td><a href="#int8-dynamic">INT8 動的量子化</a>、<a href="#int8-static-matmul">例 3 の Attention</a></td></tr>
       <tr><td>8 bit (静的量子化)</td><td>QuantizeLinear + MatMulInteger</td><td>QuantizeLinear + ConvInteger</td><td>必要 (校正データセット)</td><td><a href="#int8-static">例 2: SAM 2.1 Tiny</a>、<a href="#int8-static-matmul">例 3: Grounding DINO・Depth Anything V2</a>、<a href="#int8-conv">例 4: YOLOX-S</a></td></tr>
     </table>
     </div>
@@ -85,8 +85,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>前段の量子化</th><th>入力の scale</th><th>特徴</th></tr>
-      <tr><td><code>DynamicQuantizeLinear</code> (動的)</td><td>推論ごとにテンソル全体の最小値・最大値から計算</td><td>キャリブレーション不要。<code>DynamicQuantizeLinear</code> 自体は CPU で実行します。scale が定数でないため、<code>ConvInteger</code> の後続の scale・bias・活性化は NPU で融合できず、CPU で処理します。</td></tr>
-      <tr><td><code>QuantizeLinear</code> (静的)</td><td>校正データセットで決めた定数</td><td>校正データが必要。scale が定数のため、<code>ConvInteger</code> の後続の scale・bias・活性化と UINT8 への再量子化まで NPU で融合できるため、CNN の高速化に向いています。</td></tr>
+      <tr><td><code>DynamicQuantizeLinear</code> (動的)</td><td>推論ごとにテンソル全体の最小値・最大値から計算</td><td>キャリブレーション不要。<code>DynamicQuantizeLinear</code> 自体は CPU で実行します。scale が定数でないため、<code>ConvInteger</code> の後続の scale・bias・活性化はセグメント内で融合できず、通常の CPU レイヤーとして処理します。</td></tr>
+      <tr><td><code>QuantizeLinear</code> (静的)</td><td>校正データセットで決めた定数</td><td>校正データが必要。scale が定数なので、<code>ConvInteger</code> の後続の scale・bias・活性化と UINT8 への再量子化を NPU セグメント内で融合でき、FP32 の中間テンソルを作らずに UINT8 で出力できます。CNN の高速化に向いています。</td></tr>
     </table>
     </div>
     <p>いずれの方式でも、モデル全体を量子化する必要はありません。条件を満たさないノードは自動的に CPU (FP32) で実行されます。</p>
@@ -103,6 +103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>MatMulInteger、MatMulIntegerToFloat、QLinearMatMul、QGemm</td><td>定数重み、N % 16 == 0</td></tr>
     </table>
     </div>
+    <p>FP32 の <code>MatMul</code> や Attention は、サイズにかかわらず FP32 のまま実行し、ランタイムが暗黙に INT8 化することはありません。整数演算で実行するには、モデル内で <code>DynamicQuantizeLinear</code> または <code>QuantizeLinear</code> と <code>MatMulInteger</code> を使って量子化を明示してください。両入力が動的な <code>MatMulInteger</code> は、行列の大きさに応じて NPU か CPU (NEON の整数演算) で実行します。小さい行列や細長い行列は、NPU の起動とパディングの負荷を避けるため CPU で実行します。</p>
     <p>ailia SDK の NPU フロントエンドは static QDQ パターン (<code>DequantizeLinear → MatMul / Conv</code>) を直接 NPU 化しません。QDQ モデルを使用する場合は、量子化テンソル、scale、zero point、乗算順序を維持したまま、対象演算を事前に <code>MatMulInteger</code> または <code>ConvInteger</code> へ変換してください (<a href="#int8-static">例 2</a>〜<a href="#int8-conv">例 4</a> を参照)。条件を満たさないノードは CPU で実行されます。</p>
 
     <h2 id="int4">例 1: ViT-B/16 — INT4 weight-only 量子化 (MatMulNBits)</h2>
@@ -181,7 +182,7 @@ quantize_dynamic(
     op_types_to_quantize=["MatMul", "Conv"],
     weight_type=QuantType.QInt8,
 )</code></pre>
-    <p>Transformer 系のモデルでは MatMul だけを量子化する (<code>op_types_to_quantize=["MatMul"]</code>) こともできます。CNN では、<code>ConvInteger</code> の後続の処理が CPU で実行されるため、速度を重視する場合は<a href="#int8-conv">例 4</a> の静的量子化を検討してください。本ページのベンチマークでは、動的量子化のモデルは測定していません。</p>
+    <p>Transformer 系のモデルでは MatMul だけを量子化する (<code>op_types_to_quantize=["MatMul"]</code>) こともできます。CNN では、<code>ConvInteger</code> の後続の処理が CPU で実行されるため、速度を重視する場合は<a href="#int8-conv">例 4</a> の静的量子化を検討してください。<a href="#int8-static-matmul">例 3</a> の Grounding DINO と Depth Anything V2 では、両入力が動的な Attention の MatMul を、両入力それぞれに <code>DynamicQuantizeLinear</code> を付けた <code>MatMulInteger</code> として量子化しています。</p>
 
     <h2 id="int8-static">例 2: SAM 2.1 Tiny — 静的量子化 (MatMulInteger)</h2>
     <p>校正データセットによる静的量子化の例です。QDQ 形式で量子化した後、量子化テンソルと scale を維持したまま、対象の MatMul を標準 ONNX の <code>MatMulInteger</code> へ変換します。ailia は両入力が動的な <code>MatMulInteger</code> も NPU で実行できるため、Attention の行列積も NPU 化できます。</p>
@@ -206,8 +207,16 @@ python3 scripts/calibrate_sam2.py \
     <p>QDQ の MatMul ペアを <code>MatMulInteger</code> へ変換する処理は <code>scripts/convert_qdq_matmul.py</code> として独立しており、自作の QDQ モデルにも適用できます。scale と量子化テンソルを維持したまま変換し、再量子化は行いません。整数累積により浮動小数点の丸めが変わるため、変換後はモデルの出力を検証してから使用してください。</p>
     <p>校正の記録 (<code>manifest.json</code>、<code>ranges_*.json</code>、<code>completion.json</code>) は出力先に保存され、中断しても同じコマンドで再開できます。デモに同梱したモデルの校正記録は、リポジトリの <code>calibration/</code> にあります。このページの例 3・例 4 のスクリプトも同様です。</p>
 
-    <h2 id="int8-static-matmul">例 3: Grounding DINO・Depth Anything V2 — 固定重みの MatMul の静的量子化</h2>
-    <p>Transformer 系の大きなモデルでは、定数重みの MatMul だけを静的量子化して <code>MatMulInteger</code> に変換し、その他の演算を FP32 のまま残す構成も有効です。活性値は tensor ごとの UINT8、重みはチャネルごとの INT8 に量子化し、標準 ONNX の <code>QuantizeLinear</code> / <code>MatMulInteger</code> / <code>Cast</code> / <code>Mul</code> で表現します。いずれも COCO val2017 の全 5,000 画像による global Min/Max 方式で校正します。</p>
+    <h2 id="int8-static-matmul">例 3: Grounding DINO・Depth Anything V2 — 固定重みの静的量子化と Attention の動的量子化</h2>
+    <p>静的量子化と動的量子化は、1 つのモデルの中で組み合わせることができます。この例では、定数重みの MatMul は校正データで静的量子化し、両入力が推論ごとに変わる Attention の MatMul は動的量子化します。Softmax や LayerNorm などその他の演算は FP32 のままです。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>対象</th><th>変換後の構成</th><th>量子化</th></tr>
+      <tr><td>定数重みの MatMul</td><td><code>QuantizeLinear</code> + <code>MatMulInteger</code> + <code>Cast</code> + <code>Mul</code></td><td>活性値は tensor ごとの UINT8 (COCO val2017 の全 5,000 画像による global Min/Max で校正)、重みはチャネルごとの INT8</td></tr>
+      <tr><td>両入力が動的な MatMul (Attention)</td><td>両入力の <code>DynamicQuantizeLinear</code> + <code>MatMulInteger</code> (両方の zero point を使用) + <code>Cast</code> + 2 つの scale の <code>Mul</code></td><td>両入力とも推論ごとに tensor ごとの UINT8</td></tr>
+    </table>
+    </div>
+    <p>どちらのモデルも、校正済みの範囲 (<code>ranges.json</code>) がデモの <code>calibration/</code> に同梱されています。COCO を用意せずに、モデル変換だけをやり直すこともできます。</p>
 
     <h3>Grounding DINO Swin-T (400×599)</h3>
     <p><a href="https://github.com/ailia-ai/ailia-models/tree/master/object_detection/groundingdino" target="_blank">ailia-models の Grounding DINO</a> の公開モデル <code>groundingdino_swint_ogc.onnx</code> を変換します。</p>
@@ -221,10 +230,15 @@ python3 scripts/calibrate_grounding.py \
   --workers 3 --threads 3</code></pre>
     <ul>
       <li>入力モデルを FP32 に昇格してから活性値の範囲を収集します。テキストプロンプトには COCO の 80 カテゴリ名を使用し、画像の前処理とトークナイズはデモと共通です。</li>
-      <li>固定重みの MatMul 347 個を <code>MatMulInteger</code> に変換し、その他の演算は FP32 のままです。</li>
+      <li>固定重みの MatMul 347 個を静的量子化し、両入力が動的な MatMul 109 個を動的量子化します。変換後のモデルは <code>MatMulInteger</code> が 456 個で、FP32 の <code>MatMul</code> は残りません。</li>
+      <li>ailia NPU では、固定重みの MatMul を NPU で実行します。動的な MatMul は行列が小さいため、CPU の NEON 整数演算で実行します。</li>
       <li>ailia SDK の DeformableAttention の融合を使えるように、グラフを組み替えます。</li>
       <li>出力は <code>models/groundingdino_swint_ogc_400x599_int8.onnx</code> と外部の重みファイル (<code>.dataNN</code>) です。ONNX ファイルと重みファイルは同じフォルダに置いてください。</li>
     </ul>
+    <p>同梱の校正済みの範囲からモデルだけを再生成する場合は、次のコマンドを使用します。</p>
+    <pre><code class="language-bash">python3 scripts/grounding_convert.py --source groundingdino_swint_ogc.onnx \
+  --ranges calibration/grounding_dino/ranges.json \
+  --output models/groundingdino_swint_ogc_400x599_int8.onnx</code></pre>
 
     <h3>Depth Anything V2 Metric Depth Small (518×518)</h3>
     <p>ailia-models の屋内向け (Hypersim) Small モデルを変換します。</p>
@@ -236,13 +250,18 @@ python3 scripts/calibrate_depth.py \
   --coco-annotations /path/to/coco/annotations/instances_val2017.json \
   --output /path/to/depth-calibrated</code></pre>
     <ul>
-      <li>入力を 518×518 に固定し、固定重みの MatMul 48 個を <code>MatMulInteger</code> に変換します。</li>
-      <li>Attention の動的な MatMul 24 個はモデル内では FP32 のままです。ailia の NPU 実行では、ランタイムが推論時に INT8 に量子化して NPU で実行します。Softmax と畳み込みは CPU で実行します。</li>
+      <li>入力を 518×518 に固定し、固定重みの MatMul 48 個を静的量子化します。</li>
+      <li>Attention の MatMul 24 個は、両入力を <code>DynamicQuantizeLinear</code> で動的量子化します。ailia NPU では、この 24 個も NPU で実行します。Softmax と畳み込みは FP32 のままです。</li>
       <li><code>completion.json</code> で 5,000 画像の処理完了を確認してから、<code>depth_anything_v2_metric_hypersim_vits_518_int8.onnx</code> を使用してください。</li>
     </ul>
+    <p>同梱の校正済みの範囲からモデルだけを再生成する場合は、次のコマンドを使用します。</p>
+    <pre><code class="language-bash">python3 scripts/depth_convert.py \
+  --source /path/to/depth_anything_v2_metric_hypersim_vits.onnx \
+  --ranges calibration/depth_anything_v2/ranges.json \
+  --output models/depth_anything_v2_metric_hypersim_vits_518_int8.onnx</code></pre>
 
     <h2 id="int8-conv">例 4: YOLOX-S 320 — 畳み込みの静的量子化 (ConvInteger)</h2>
-    <p>CNN では、畳み込みを標準 ONNX の <code>ConvInteger</code> に変換して NPU で実行します。ailia SDK は 2D の <code>ConvInteger</code> と、その後に続く scale・bias・活性化を NPU 側で融合し、UINT8 の特徴マップを直接出力します。<a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> の YOLOX-S (<code>yolox_s.opt.onnx</code>) を、COCO val2017 の全 5,000 画像による Min/Max 方式で校正します。</p>
+    <p>CNN では、畳み込みを標準 ONNX の <code>ConvInteger</code> に変換して NPU で実行します。ailia SDK は 2D の <code>ConvInteger</code> と、その後に続く scale・bias・活性化を NPU セグメント内で融合し、UINT8 の特徴マップを直接出力します。<a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> の YOLOX-S (<code>yolox_s.opt.onnx</code>) を、COCO val2017 の全 5,000 画像による Min/Max 方式で校正します。</p>
     <pre><code class="language-bash">curl -L https://storage.googleapis.com/ailia-models/yolox/yolox_s.opt.onnx -o yolox_s.opt.onnx
 python3 scripts/calibrate_yolox.py \
   --source yolox_s.opt.onnx \
