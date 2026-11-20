@@ -72,17 +72,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>Choosing a Conversion Method</h2>
-    <p>The Neutron NPU executes INT8 matrix multiplications. A model for the NPU is created by converting the matrix multiplications and convolutions of an FP32 ONNX model into the standard ONNX integer operators that ailia SDK can offload (<code>MatMulNBits</code>, <code>MatMulInteger</code> and <code>ConvInteger</code>). The conversion methods are as follows.</p>
+    <p>The Neutron NPU executes INT8 matrix multiplications. A model for the NPU is created by converting the matrix multiplications and convolutions of an FP32 ONNX model into the standard ONNX integer operators that ailia SDK can offload (<code>MatMulNBits</code>, <code>MatMulInteger</code> and <code>ConvInteger</code>). Choose one of the following three methods depending on the accuracy you need and whether calibration data is available.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Method</th><th>Target operators</th><th>Calibration</th><th>On this page</th></tr>
-      <tr><td>INT4 weight-only quantization</td><td>MatMulNBits (INT4 weights)</td><td>Not required</td><td><a href="#int4">Example 1: ViT-B/16</a></td></tr>
-      <tr><td>INT8 dynamic quantization</td><td>DynamicQuantizeLinear + MatMulInteger</td><td>Not required</td><td><a href="#int8-dynamic">INT8 Dynamic Quantization</a></td></tr>
-      <tr><td>INT8 static quantization (MatMul)</td><td>QuantizeLinear + MatMulInteger</td><td>Required (calibration dataset)</td><td><a href="#int8-static">Example 2: SAM 2.1 Tiny</a>, <a href="#int8-static-matmul">Example 3: Grounding DINO and Depth Anything V2</a></td></tr>
-      <tr><td>INT8 static quantization (convolution)</td><td>QuantizeLinear + ConvInteger</td><td>Required (calibration dataset)</td><td><a href="#int8-conv">Example 4: YOLOX-S</a></td></tr>
+      <tr><th>Method</th><th>MatMul becomes</th><th>Conv becomes</th><th>Calibration</th><th>On this page</th></tr>
+      <tr><td>4 bit (weights only)</td><td>MatMulNBits</td><td>—</td><td>Not required</td><td><a href="#int4">Example 1: ViT-B/16</a></td></tr>
+      <tr><td>8 bit (dynamic quantization)</td><td>DynamicQuantizeLinear + MatMulInteger</td><td>DynamicQuantizeLinear + ConvInteger</td><td>Not required</td><td><a href="#int8-dynamic">INT8 Dynamic Quantization</a></td></tr>
+      <tr><td>8 bit (static quantization)</td><td>QuantizeLinear + MatMulInteger</td><td>QuantizeLinear + ConvInteger</td><td>Required (calibration dataset)</td><td><a href="#int8-static">Example 2: SAM 2.1 Tiny</a>, <a href="#int8-static-matmul">Example 3: Grounding DINO and Depth Anything V2</a>, <a href="#int8-conv">Example 4: YOLOX-S</a></td></tr>
     </table>
     </div>
-    <p>When in doubt, start with INT4 weight-only quantization: it needs no calibration, keeps accuracy well, and suits the fully connected layers of Transformer models. Use static quantization of MatMuls when you also want to run matrix multiplications with two dynamic inputs, such as Attention QK / AV, as integer operations. To run CNN convolutions on the NPU, use static quantization of convolutions. With any method, there is no need to quantize the whole model: nodes that do not meet the conditions automatically run on the CPU in FP32.</p>
+    <p>If 4 bits give enough accuracy, start with MatMulNBits, which needs no calibration. It suits the fully connected layers of Transformer models. If you need 8 bits, use <code>MatMulInteger</code> / <code>ConvInteger</code>. Both <code>DynamicQuantizeLinear</code> and <code>QuantizeLinear</code> work as the preceding quantization step on the NPU, so choose based on accuracy, speed and whether calibration data is available.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Preceding quantization</th><th>Input scale</th><th>Characteristics</th></tr>
+      <tr><td><code>DynamicQuantizeLinear</code> (dynamic)</td><td>Computed at each inference from the minimum and maximum of the whole tensor</td><td>No calibration needed. <code>DynamicQuantizeLinear</code> itself runs on the CPU. Because the scale is not constant, the scale, bias and activation after <code>ConvInteger</code> cannot be fused on the NPU and are processed on the CPU.</td></tr>
+      <tr><td><code>QuantizeLinear</code> (static)</td><td>Constant determined with a calibration dataset</td><td>Requires calibration data. Because the scale is constant, the scale, bias, activation and requantization to UINT8 after <code>ConvInteger</code> are fused on the NPU, which makes it better suited to speeding up CNNs.</td></tr>
+    </table>
+    </div>
+    <p>With any method, there is no need to quantize the whole model. Nodes that do not meet the conditions automatically run on the CPU in FP32.</p>
 
     <h2>Layers That Run on the NPU</h2>
     <p>The layers that ailia SDK and NXP ONNX Runtime (Neutron Execution Provider) run on the NPU are listed below. In both, nodes that do not meet the conditions run on the CPU.</p>
@@ -90,8 +97,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <table class="version-table">
       <tr><th>Runtime</th><th>Layer</th><th>Conditions</th></tr>
       <tr><td rowspan="3">ailia SDK</td><td>MatMulNBits</td><td>INT4, no zero point, constant weights and scales, K % 16 == 0</td></tr>
-      <tr><td>MatMulInteger</td><td>UINT8 input and INT8 / UINT8 weights. Supports constant and dynamic weights, scalar zero points, and fusion of Cast, constant scales, bias and UINT8 requantization</td></tr>
-      <tr><td>ConvInteger</td><td>1D / 2D, group 1, UINT8 input and constant INT8 / UINT8 weights. Supports stride, dilation, automatic padding, scalar / channel-wise weight zero points, and fusion of the following scale, bias, activation (LUT, such as Swish) and UINT8 requantization</td></tr>
+      <tr><td>MatMulInteger</td><td>UINT8 input and INT8 / UINT8 weights. Supports constant and dynamic weights, scalar zero points, and fusion of Cast, scales, bias and UINT8 requantization</td></tr>
+      <tr><td>ConvInteger</td><td>1D / 2D, group 1, UINT8 input and constant INT8 / UINT8 weights. Supports stride, dilation, automatic padding and scalar / channel-wise weight zero points. When the scale is constant, the following scale, bias, activation (LUT, such as Swish) and UINT8 requantization are fused</td></tr>
       <tr><td rowspan="2">NXP ONNX Runtime</td><td>MatMulNBits</td><td>4 bit, no zero point, constant weights, K % 16 == 0, N % 128 == 0</td></tr>
       <tr><td>MatMulInteger, MatMulIntegerToFloat, QLinearMatMul, QGemm</td><td>Constant weights, N % 16 == 0</td></tr>
     </table>
@@ -164,19 +171,20 @@ for node in model.graph.node:
     <p>Generate the <code>.prototxt</code> that ailia loads with <code>onnx2prototxt.py</code> from <a href="https://github.com/ailia-ai/export-to-onnx" target="_blank">export-to-onnx</a> (the export sample generates it automatically).</p>
     <pre><code class="language-bash">python3 onnx2prototxt.py ViT-B_16-224-int4.onnx</code></pre>
 
-    <h2 id="int8-dynamic">INT8 Dynamic Quantization (MatMulInteger)</h2>
-    <p>For 8-bit weights, the recommended form is the standard ONNX <code>DynamicQuantizeLinear + MatMulInteger</code> graph. Quantizing MatMul with ONNX Runtime's <code>quantize_dynamic</code> produces a model in this form. Inputs are still quantized dynamically at each inference, so no calibration is needed.</p>
+    <h2 id="int8-dynamic">INT8 Dynamic Quantization (DynamicQuantizeLinear + MatMulInteger / ConvInteger)</h2>
+    <p>If 4 bits are not accurate enough and you do not prepare calibration data, use dynamic quantization. Weights are quantized to 8 bits, and inputs are quantized at each inference with <code>DynamicQuantizeLinear</code>. Quantizing MatMul and Conv with ONNX Runtime's <code>quantize_dynamic</code> produces a model with the standard ONNX <code>DynamicQuantizeLinear + MatMulInteger</code> / <code>DynamicQuantizeLinear + ConvInteger</code> form.</p>
     <pre><code class="language-python">from onnxruntime.quantization import quantize_dynamic, QuantType
 
 quantize_dynamic(
-    "ViT-B_16-224.onnx",
-    "ViT-B_16-224-int8.onnx",
-    op_types_to_quantize=["MatMul"],
+    "model.onnx",
+    "model-int8-dynamic.onnx",
+    op_types_to_quantize=["MatMul", "Conv"],
     weight_type=QuantType.QInt8,
 )</code></pre>
+    <p>For Transformer models, you can also quantize only MatMul (<code>op_types_to_quantize=["MatMul"]</code>). For CNNs, the processing after <code>ConvInteger</code> runs on the CPU, so consider static quantization as in <a href="#int8-conv">Example 4</a> when speed matters. The benchmarks on these pages do not include dynamically quantized models.</p>
 
     <h2 id="int8-static">Example 2: SAM 2.1 Tiny — Static Quantization (MatMulInteger)</h2>
-    <p>To run more operations as integer arithmetic, including matrix multiplications with two dynamic inputs such as Attention QK / AV, use static quantization with a calibration dataset. After quantizing to the QDQ format, convert the target MatMuls to standard ONNX <code>MatMulInteger</code> while preserving the quantized tensors and scales. Because ailia can run <code>MatMulInteger</code> with two dynamic inputs on the NPU, the Attention matrix multiplications are also offloaded.</p>
+    <p>This is an example of static quantization with a calibration dataset. After quantizing to the QDQ format, convert the target MatMuls to standard ONNX <code>MatMulInteger</code> while preserving the quantized tensors and scales. Because ailia can run <code>MatMulInteger</code> with two dynamic inputs on the NPU, the Attention matrix multiplications are also offloaded.</p>
     <p>The COCO-calibrated SAM 2.1 Tiny model used in the i.MX 95 benchmarks is generated with <code>scripts/calibrate_sam2.py</code> in <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a>. The converted models are bundled in the repository's <code>models/</code> directory, so no conversion is needed to try them first. To generate them yourself, prepare the published SAM 2.1 Tiny ONNX exports from <a href="https://github.com/ailia-ai/ailia-models/tree/master/image_segmentation/segment-anything-2" target="_blank">SAM 2 in ailia-models</a> and the <a href="https://cocodataset.org/#download" target="_blank">COCO 2017 validation</a> images and annotations, and run on a host PC:</p>
     <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-nxp-demo.git
 cd ailia-sdk-nxp-demo
