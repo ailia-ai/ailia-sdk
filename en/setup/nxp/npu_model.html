@@ -89,7 +89,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>Runtime</th><th>Layer</th><th>Conditions</th></tr>
-      <tr><td rowspan="3">ailia SDK</td><td>MatMulNBits</td><td>INT4 / INT8, no zero point, constant weights and scales, K % 16 == 0. INT8 requires block_size &gt;= K</td></tr>
+      <tr><td rowspan="3">ailia SDK</td><td>MatMulNBits</td><td>INT4, no zero point, constant weights and scales, K % 16 == 0</td></tr>
       <tr><td>MatMulInteger</td><td>UINT8 input and INT8 / UINT8 weights. Supports constant and dynamic weights, scalar zero points, and fusion of Cast, constant scales, bias and UINT8 requantization</td></tr>
       <tr><td>ConvInteger</td><td>1D / 2D, group 1, UINT8 input and constant INT8 / UINT8 weights. Supports stride, dilation, automatic padding, scalar / channel-wise weight zero points, and fusion of the following scale, bias, activation (LUT, such as Swish) and UINT8 requantization</td></tr>
       <tr><td rowspan="2">NXP ONNX Runtime</td><td>MatMulNBits</td><td>4 bit, no zero point, constant weights, K % 16 == 0, N % 128 == 0</td></tr>
@@ -165,7 +165,7 @@ for node in model.graph.node:
     <pre><code class="language-bash">python3 onnx2prototxt.py ViT-B_16-224-int4.onnx</code></pre>
 
     <h2 id="int8-dynamic">INT8 Dynamic Quantization (MatMulInteger)</h2>
-    <p>For 8-bit weights, the recommended form is the standard ONNX <code>DynamicQuantizeLinear + MatMulInteger</code> graph. Quantizing MatMul with ONNX Runtime's <code>quantize_dynamic</code> produces a model in this form. Inputs are still quantized dynamically at each inference, so no calibration is needed. ailia SDK can also handle INT8 <code>MatMulNBits</code>, but NPU offload is limited to one block per output channel (<code>block_size &gt;= K</code>) and is disabled by default.</p>
+    <p>For 8-bit weights, the recommended form is the standard ONNX <code>DynamicQuantizeLinear + MatMulInteger</code> graph. Quantizing MatMul with ONNX Runtime's <code>quantize_dynamic</code> produces a model in this form. Inputs are still quantized dynamically at each inference, so no calibration is needed.</p>
     <pre><code class="language-python">from onnxruntime.quantization import quantize_dynamic, QuantType
 
 quantize_dynamic(

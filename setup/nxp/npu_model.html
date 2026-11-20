@@ -89,7 +89,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>ランタイム</th><th>レイヤー</th><th>条件</th></tr>
-      <tr><td rowspan="3">ailia SDK</td><td>MatMulNBits</td><td>INT4 / INT8、zero point なし、定数重み・scale、K % 16 == 0。INT8 は block_size &gt;= K</td></tr>
+      <tr><td rowspan="3">ailia SDK</td><td>MatMulNBits</td><td>INT4、zero point なし、定数重み・scale、K % 16 == 0</td></tr>
       <tr><td>MatMulInteger</td><td>UINT8 入力、INT8 / UINT8 重み。定数重みと動的重み、scalar zero point、Cast・定数 scale・bias・UINT8 再量子化の融合に対応</td></tr>
       <tr><td>ConvInteger</td><td>1D / 2D、group 1、UINT8 入力、定数 INT8 / UINT8 重み。stride、dilation、auto padding、scalar / channel-wise weight zero point、後続の scale・bias・活性化 (Swish などの LUT) と UINT8 再量子化の融合に対応</td></tr>
       <tr><td rowspan="2">NXP ONNX Runtime</td><td>MatMulNBits</td><td>4 bit、zero point なし、定数重み、K % 16 == 0、N % 128 == 0</td></tr>
@@ -165,7 +165,7 @@ for node in model.graph.node:
     <pre><code class="language-bash">python3 onnx2prototxt.py ViT-B_16-224-int4.onnx</code></pre>
 
     <h2 id="int8-dynamic">INT8 動的量子化 (MatMulInteger)</h2>
-    <p>重みを 8 bit で量子化する場合は、標準 ONNX の <code>DynamicQuantizeLinear + MatMulInteger</code> 構成を推奨します。ONNX Runtime の <code>quantize_dynamic</code> で MatMul を量子化すると、この構成のモデルが得られます。この場合も入力は推論ごとに動的に量子化されるため、キャリブレーションは不要です。ailia SDK は <code>MatMulNBits</code> の INT8 も扱えますが、NPU 対応は出力チャネルごとに 1 block (<code>block_size &gt;= K</code>) の場合に限定され、既定では無効です。</p>
+    <p>重みを 8 bit で量子化する場合は、標準 ONNX の <code>DynamicQuantizeLinear + MatMulInteger</code> 構成を推奨します。ONNX Runtime の <code>quantize_dynamic</code> で MatMul を量子化すると、この構成のモデルが得られます。この場合も入力は推論ごとに動的に量子化されるため、キャリブレーションは不要です。</p>
     <pre><code class="language-python">from onnxruntime.quantization import quantize_dynamic, QuantType
 
 quantize_dynamic(
