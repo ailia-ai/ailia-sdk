@@ -71,66 +71,66 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="guide-content">
 
     <h2>測定条件</h2>
-    <p>FRDM i.MX 95 で、ailia SDK (NXP NPU 対応版) と NXP BSP 同梱の ONNX Runtime 1.24.3 (ORT) を比較しました。ViT-B/16 は 2026-11-18、その他のモデルは 2026-11-20 に測定しています。ailia のランタイムのリビジョンは各モデルの節に記載しています。いずれも CPU 6 スレッド、プロファイル無効で、NPU の値は非対応レイヤーの CPU 実行を含みます。モデルは各方式で同じものを使用しています。</p>
-
+    <p>FRDM i.MX 95 で、ailia SDK (NXP NPU 対応版) と NXP BSP 同梱の ONNX Runtime 1.24.3 (ORT) を比較しました。すべてのモデルを 2026-11-22 に ailia のランタイム <code>c8e3d217e</code> で測定しています。いずれも CPU 6 スレッド、プロファイル無効で、NPU の値は非対応レイヤーの CPU 実行を含みます。モデルは各方式で同じものを使用しています。</p>
+    <p>ORT は、NPU 用に確保する CMA を 512 MiB に固定して測定しています。動作確認環境のボードの CMA は 960 MiB で、ORT の既定の 2 GiB では確保に失敗し、CPU にフォールバックするためです。ailia はこの設定を使用しません。</p>
 
     <h2 id="vit">ViT-B/16 (画像分類、224×224)</h2>
-    <p>2026-11-18 測定。定数重みの MatMul を MatMulNBits INT4 に変換し、その他の演算を FP32 で実行するモデルです。CPU 6 スレッド、プロファイル無効で 10 回測定した推論時間の中央値です。モデル Open 後のダミー推論 1 回と、実入力による 3 回のウォームアップは測定から除外しています。</p>
+    <p>ailia-models で公開している INT4 モデル (<code>ViT-B_16-224-int4.onnx</code>) を使用しています。定数重みの MatMul を MatMulNBits INT4 に変換し、その他の演算を FP32 で実行するモデルです。入力画像はデモ同梱の <code>images/vit/input.jpg</code>、バッチ 1 です。モデル Open 時のダミー推論 1 回を除外し、続く 10 回の中央値を示します。前処理・後処理・描画は含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
-      <tr><td>推論時間 (中央値)</td><td class="num">672.9 ms</td><td class="num">390.6 ms</td><td class="num">780.0 ms</td><td class="num">317.3 ms</td></tr>
-      <tr><td>Top-1</td><td class="num">208</td><td class="num">208</td><td class="num">208</td><td class="num">208</td></tr>
-      <tr><td>出力変動 (最大絶対差)</td><td class="num">0</td><td class="num">0.2002</td><td class="num">0</td><td class="num">0</td></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">670.2 ms</td><td class="num">385.9 ms</td><td class="num">780.7 ms</td><td class="num">328.8 ms</td></tr>
+      <tr><td>FPS</td><td class="num">1.49</td><td class="num">2.59</td><td class="num">1.28</td><td class="num">3.04</td></tr>
     </table>
     </div>
-    <p>「出力変動」は、同じ入力を繰り返し推論したときの出力の最大絶対差です (0 は毎回同じ結果)。ailia NPU は ORT NPU の約 1.23 倍の速度です。全条件・全測定で Top-1 は 208 でした。ORT NPU のみ、同じ入力でも出力値の変動 (最大絶対差 0.2002) を観測し、他の 3 条件では変動はありませんでした。</p>
+    <p>ailia NPU は ORT NPU の約 1.17 倍の速度です。4 方式とも、10 回すべてで Labrador retriever (ImageNet のクラス 208) に分類しました。ORT NPU では、別途プロファイルを有効にした実行で、MatMulNBits 72 個がすべて Neutron で実行されることを確認しています。</p>
+    <p>2026-11-18 の測定では、同じ入力を繰り返し推論したときの出力の最大絶対差 (出力変動) も比較しました。ORT NPU のみ 0.2002 の変動があり、ORT CPU・ailia CPU・ailia NPU は 0 (毎回同じ結果) でした。</p>
 
     <h2 id="sam2">SAM 2.1 Tiny (セグメンテーション、512×512)</h2>
-    <p>2026-11-20 にランタイム <code>ac22f5086</code> で測定。<a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> の COCO 校正済みモデル <code>coco-val2017-v1</code> を使用し、ailia の CPU 実行には NEON 最適化した整数 MatMul を使用しています。全方式でモデル Open 時に同じダミー入力で 1 回推論し、その後 Bedroom の 5 フレームを同じ 2 点で 1 周ウォームアップしました。続く 3 回の中央値で、ウォームアップは測定に含みません。</p>
+    <p><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> の COCO 校正済みモデル <code>coco-val2017-v1</code> を使用し、ailia の CPU 実行には NEON 最適化した整数 MatMul を使用しています。全方式でモデル Open 時に同じダミー入力で 1 回推論し、その後 Bedroom の 5 フレームを同じ 2 点で 1 周ウォームアップしました。続く 3 回の中央値で、ウォームアップは測定に含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>処理</th><th class="num">回数／動画</th><th class="num">ORT CPU</th><th class="num">ORT NPU※</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
-      <tr><td>Image Encoder (ms／回)</td><td class="num">5</td><td class="num">2,279.8</td><td class="num">2,273.9</td><td class="num">2,474.7</td><td class="num">877.8</td></tr>
-      <tr><td>Mask Decoder (ms／回)</td><td class="num">5</td><td class="num">173.1</td><td class="num">171.5</td><td class="num">125.8</td><td class="num">126.9</td></tr>
-      <tr><td>Memory Attention (ms／回)</td><td class="num">4</td><td class="num">1,503.1</td><td class="num">1,502.2</td><td class="num">1,078.2</td><td class="num">517.6</td></tr>
-      <tr><td>Memory Encoder (ms／回)</td><td class="num">5</td><td class="num">306.5</td><td class="num">292.0</td><td class="num">237.4</td><td class="num">240.7</td></tr>
-      <tr><td>5 フレーム全体 (秒)</td><td class="num">—</td><td class="num">20.23</td><td class="num">20.14</td><td class="num">18.87</td><td class="num">8.67</td></tr>
+      <tr><td>Image Encoder (ms／回)</td><td class="num">5</td><td class="num">2,282.1</td><td class="num">2,199.6</td><td class="num">1,807.7</td><td class="num">886.4</td></tr>
+      <tr><td>Mask Decoder (ms／回)</td><td class="num">5</td><td class="num">172.3</td><td class="num">178.7</td><td class="num">126.5</td><td class="num">126.3</td></tr>
+      <tr><td>Memory Attention (ms／回)</td><td class="num">4</td><td class="num">1,502.5</td><td class="num">1,497.7</td><td class="num">882.2</td><td class="num">516.5</td></tr>
+      <tr><td>Memory Encoder (ms／回)</td><td class="num">5</td><td class="num">309.7</td><td class="num">300.9</td><td class="num">236.8</td><td class="num">236.7</td></tr>
+      <tr><td>5 フレーム全体 (秒)</td><td class="num">—</td><td class="num">20.32</td><td class="num">19.81</td><td class="num">14.81</td><td class="num">8.71</td></tr>
     </table>
     </div>
     <p>モデル別は 1 回あたりの平均時間の中央値です。全体時間は画像読み込み・前後処理を含み、モデル読み込み・描画・保存を除きます。4 方式とも同じモデルを使用します。NPU 方式では Image Encoder と Memory Attention を CPU / NPU 混在で実行し、その他は CPU 実行です。</p>
-    <p>※ <strong>ORT NPU は以前の測定で追跡マスクの異常 (後続フレームのマスクが 0〜3 画素) を確認しているため、速度参考値です。</strong>今回の速度測定は精度の確認を兼ねていません。</p>
-    <p>Bedroom での FP32 参照に対する平均マスク IoU は、ホスト ORT CPU で 96.07%、実機 ailia NPU で 95.71% です。正解マスクに対する精度ではありません。</p>
+    <p>※ <strong>ORT NPU はこの測定でも追跡マスクが正しくないため、速度参考値です。</strong>速度測定は精度の確認を兼ねていません。</p>
+    <p>以前の測定では、Bedroom での FP32 参照に対する平均マスク IoU は、ホスト ORT CPU で 96.07%、実機 ailia NPU で 95.71% でした。正解マスクに対する精度ではありません。</p>
 
     <h2 id="grounding-dino">Grounding DINO Swin-T (オープン語彙物体検出、400×599)</h2>
-    <p>2026-11-20 にランタイム <code>c97d853c4</code> (と整数演算の融合・パックの改良) で測定。COCO 校正済みモデル <code>grounding-coco-val2017-dql-v2</code> を使用し、入力画像はデモ同梱の <code>images/grounding_dino/demo.jpg</code>、プロンプトは <code>Horse. Clouds. Grasses. Sky. Hill.</code> です。モデル Open 時のダミー推論 1 回を除外し、続く 3 回の中央値を示します。モデル読み込みと前後処理は含みません。</p>
+    <p>COCO で校正したモデル <code>grounding-coco-val2017-ql-v3</code> を使用し、入力画像はデモ同梱の <code>images/grounding_dino/demo.jpg</code>、プロンプトは <code>Horse. Clouds. Grasses. Sky. Hill.</code> です。モデル Open 時のダミー推論 1 回を除外し、続く 3 回の中央値を示します。モデル読み込みと前後処理は含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
-      <tr><td>推論時間 (中央値)</td><td class="num">7,654.0 ms</td><td class="num">7,626.0 ms</td><td class="num">8,926.2 ms</td><td class="num">4,053.6 ms</td></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">7,531.2 ms</td><td class="num">6,979.8 ms</td><td class="num">6,104.4 ms</td><td class="num">3,840.2 ms</td></tr>
+      <tr><td>検出数</td><td class="num">15</td><td class="num">14</td><td class="num">15</td><td class="num">15</td></tr>
     </table>
     </div>
-    <p>4 方式とも馬を検出しました (検出精度のベンチマークではなく動作確認です)。ailia NPU では固定重みの MatMul 347 個を NPU で実行します。両入力が動的な MatMul 109 個は <code>DynamicQuantizeLinear</code> + <code>MatMulInteger</code> として明示的に量子化しており、行列が小さいため CPU の NEON 整数演算で実行します。Attention を明示的に量子化する前のモデルと比べて、馬の検出 7 個は維持され、検出枠の IoU は平均 0.986 でした。ORT NPU は推論ごとに出力が変動することがあります。</p>
+    <p>固定重みの MatMul 347 個と、両入力が動的な MatMul 109 個を、いずれも校正済みの <code>QuantizeLinear</code> + <code>MatMulInteger</code> に変換したモデルです。ailia NPU では固定重みの MatMul を NPU で実行し、両入力が動的な MatMul は行列が小さいため CPU の NEON 整数演算で実行します。以前の動的量子化のモデルと比べて馬の検出 7 個は維持され、検出枠の IoU は平均 0.987 (最小 0.978) でした。検出精度 (mAP) の評価ではなく、デモ画像での出力の比較です。ORT NPU は推論ごとに出力が変動することがあります。</p>
 
     <h2 id="depth-anything-v2">Depth Anything V2 Metric Depth Small (屋内深度推定、518×518)</h2>
-    <p>2026-11-20 にランタイム <code>c97d853c4</code> で測定。COCO 校正済みモデルを使用し、入力は Bedroom の 1 フレーム目 (<code>00000.jpg</code>) です。モデル Open 時のダミー推論 1 回を除外し、続く 3 回の中央値を示します。モデル読み込み・前処理・描画は含みません。</p>
+    <p>COCO で校正したモデル <code>depth-coco-val2017-conv-v4</code> を使用し、入力は Bedroom の 1 フレーム目 (<code>00000.jpg</code>) です。モデル Open 時のダミー推論 1 回を除外し、続く 3 回の中央値を示します。モデル読み込み・前処理・描画は含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
-      <tr><td>推論時間 (中央値)</td><td class="num">3,150.0 ms</td><td class="num">3,093.7 ms※</td><td class="num">3,381.8 ms</td><td class="num">2,693.5 ms</td></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">2,796.2 ms</td><td class="num">2,575.9 ms</td><td class="num">3,125.7 ms</td><td class="num">2,045.1 ms</td></tr>
     </table>
     </div>
-    <p>ailia NPU は固定重みの MatMul 48 個に加えて、Attention の MatMul 24 個も NPU で実行します。Attention の MatMul は、両入力を <code>DynamicQuantizeLinear</code> で量子化した <code>MatMulInteger</code> としてモデル内で明示しています。ORT は固定重みの MatMul のみを NPU で実行する構成です。</p>
-    <p>※ ORT NPU は Neutron のメモリ確保に失敗して CPU にフォールバックしたため、NPU の測定値ではありません。</p>
-    <p>この画像では、ailia CPU と ailia NPU の出力は一致しました。同じモデルの ORT CPU の出力との差は平均 2.93 cm (最大 51.71 cm) です。Attention を量子化していない以前のモデルとの差は平均 33.83 cm (最大 135.63 cm) あり、量子化が深度推定値に影響します。いずれも出力どうしの比較で、正解深度に対する精度ではありません。</p>
+    <p>固定重みの MatMul 48 個、Attention の MatMul 24 個、畳み込み 28 個を、校正済みの <code>QuantizeLinear</code> と <code>MatMulInteger</code> / <code>ConvInteger</code> に変換したモデルです。ailia NPU はこれらを NPU で実行します。出力側の高解像度で細い畳み込み 3 個は、NPU のほうが遅かったため FP32 のまま残しています。Softmax と ConvTranspose も FP32 です。ORT の Neutron EP が NPU で実行するのは固定重みの MatMul のみです。</p>
+    <p>以前の Bedroom 5 フレームでの比較では、ailia CPU と ailia NPU の出力の差は平均 1.14 cm (最大 23.84 cm)、ORT CPU との差は平均 4.55 cm (最大 50.15 cm)、畳み込みを量子化する前の NPU 用モデルとの差は平均 4.90 cm (最大 59.79 cm) でした。いずれも出力どうしの比較で、正解深度に対する精度ではありません。</p>
 
     <h2 id="yolox">YOLOX-S (物体検出、320×320)</h2>
-    <p>2026-11-20 にランタイム <code>ac22f5086</code> で測定。COCO 校正済みの INT8 モデル (<code>ConvInteger</code> 83 個) を使用し、バッチ 1、入力画像はデモ同梱の <code>images/yolox/input.jpg</code> です。モデル Open 時のダミー推論 1 回を除外し、続く 10 回の中央値を示します。前処理・NMS・描画は含みません。</p>
+    <p>COCO 校正済みの INT8 モデル (<code>ConvInteger</code> 83 個) を使用し、バッチ 1、入力画像はデモ同梱の <code>images/yolox/input.jpg</code> です。モデル Open 時のダミー推論 1 回を除外し、続く 10 回の中央値を示します。前処理・NMS・描画は含みません。</p>
     <div class="table-wrap">
     <table class="version-table">
       <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
-      <tr><td>推論時間 (中央値)</td><td class="num">794.0 ms</td><td class="num">794.3 ms</td><td class="num">435.4 ms</td><td class="num">114.9 ms</td></tr>
-      <tr><td>FPS</td><td class="num">1.26</td><td class="num">1.26</td><td class="num">2.30</td><td class="num">8.70</td></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">793.9 ms</td><td class="num">795.7 ms</td><td class="num">436.9 ms</td><td class="num">114.8 ms</td></tr>
+      <tr><td>FPS</td><td class="num">1.26</td><td class="num">1.26</td><td class="num">2.29</td><td class="num">8.71</td></tr>
     </table>
     </div>
     <p>CPU の値は最適化した FP32 モデルではなく、同じ ConvInteger モデルの値です。ailia の CPU 実行は、固定重みをキャッシュするタイル分割の NEON INT8 カーネルを使用します。ORT の Neutron EP では ConvInteger が CPU で実行されるため、ORT NPU は ORT CPU とほぼ同じ時間です。ailia NPU は、対応する演算の出力の再量子化を NPU 上で行います。CPU 実行とは丸め方が異なるため、出力は CPU 実行とビット単位では一致しません。</p>

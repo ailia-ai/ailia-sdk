@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Creating Models for the NPU - ailia SDK</title>
-  <meta name="description" content="How to create ONNX models that run on the NXP i.MX 95 Neutron NPU, with examples: ViT-B/16 (INT4 weight-only quantization), SAM 2.1 Tiny, Grounding DINO and Depth Anything V2 (static quantization of MatMuls), and YOLOX-S (static quantization of convolutions).">
+  <meta name="description" content="How to create ONNX models that run on the NXP i.MX 95 Neutron NPU, with examples: ViT-B/16 (INT4 weight-only quantization), SAM 2.1 Tiny, Grounding DINO and Depth Anything V2 (static quantization of MatMuls and convolutions), and YOLOX-S (static quantization of convolutions).">
   <link rel="canonical" href="https://docs.ailia.ai/en/setup/nxp/npu_model.html">
   <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/nxp/npu_model.html">
   <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/nxp/npu_model.html">
@@ -22,11 +22,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta property="og:site_name" content="ailia Documentation">
   <meta property="og:url" content="https://docs.ailia.ai/en/setup/nxp/npu_model.html">
   <meta property="og:title" content="Creating Models for the NPU - ailia SDK">
-  <meta property="og:description" content="How to create ONNX models that run on the NXP i.MX 95 Neutron NPU, with examples: ViT-B/16 (INT4 weight-only quantization), SAM 2.1 Tiny, Grounding DINO and Depth Anything V2 (static quantization of MatMuls), and YOLOX-S (static quantization of convolutions).">
+  <meta property="og:description" content="How to create ONNX models that run on the NXP i.MX 95 Neutron NPU, with examples: ViT-B/16 (INT4 weight-only quantization), SAM 2.1 Tiny, Grounding DINO and Depth Anything V2 (static quantization of MatMuls and convolutions), and YOLOX-S (static quantization of convolutions).">
   <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Creating Models for the NPU - ailia SDK">
-  <meta name="twitter:description" content="How to create ONNX models that run on the NXP i.MX 95 Neutron NPU, with examples: ViT-B/16 (INT4 weight-only quantization), SAM 2.1 Tiny, Grounding DINO and Depth Anything V2 (static quantization of MatMuls), and YOLOX-S (static quantization of convolutions).">
+  <meta name="twitter:description" content="How to create ONNX models that run on the NXP i.MX 95 Neutron NPU, with examples: ViT-B/16 (INT4 weight-only quantization), SAM 2.1 Tiny, Grounding DINO and Depth Anything V2 (static quantization of MatMuls and convolutions), and YOLOX-S (static quantization of convolutions).">
   <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
   <link rel="icon" type="image/png" href="../../../ailia_logo.png">
   <link rel="stylesheet" href="../../../css/common.css">
@@ -77,7 +77,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <table class="version-table">
       <tr><th>Method</th><th>MatMul becomes</th><th>Conv becomes</th><th>Calibration</th><th>On this page</th></tr>
       <tr><td>4 bit (weights only)</td><td>MatMulNBits</td><td>—</td><td>Not required</td><td><a href="#int4">Example 1: ViT-B/16</a></td></tr>
-      <tr><td>8 bit (dynamic quantization)</td><td>DynamicQuantizeLinear + MatMulInteger</td><td>DynamicQuantizeLinear + ConvInteger</td><td>Not required</td><td><a href="#int8-dynamic">INT8 Dynamic Quantization</a>, <a href="#int8-static-matmul">Attention in Example 3</a></td></tr>
+      <tr><td>8 bit (dynamic quantization)</td><td>DynamicQuantizeLinear + MatMulInteger</td><td>DynamicQuantizeLinear + ConvInteger</td><td>Not required</td><td><a href="#int8-dynamic">INT8 Dynamic Quantization</a></td></tr>
       <tr><td>8 bit (static quantization)</td><td>QuantizeLinear + MatMulInteger</td><td>QuantizeLinear + ConvInteger</td><td>Required (calibration dataset)</td><td><a href="#int8-static">Example 2: SAM 2.1 Tiny</a>, <a href="#int8-static-matmul">Example 3: Grounding DINO and Depth Anything V2</a>, <a href="#int8-conv">Example 4: YOLOX-S</a></td></tr>
     </table>
     </div>
@@ -182,7 +182,7 @@ quantize_dynamic(
     op_types_to_quantize=["MatMul", "Conv"],
     weight_type=QuantType.QInt8,
 )</code></pre>
-    <p>For Transformer models, you can also quantize only MatMul (<code>op_types_to_quantize=["MatMul"]</code>). For CNNs, the processing after <code>ConvInteger</code> runs on the CPU, so consider static quantization as in <a href="#int8-conv">Example 4</a> when speed matters. In <a href="#int8-static-matmul">Example 3</a>, Grounding DINO and Depth Anything V2 quantize the Attention MatMuls with two dynamic inputs as <code>MatMulInteger</code> with a <code>DynamicQuantizeLinear</code> on each input.</p>
+    <p>For Transformer models, you can also quantize only MatMul (<code>op_types_to_quantize=["MatMul"]</code>). For CNNs, the processing after <code>ConvInteger</code> runs on the CPU, so consider static quantization as in <a href="#int8-conv">Example 4</a> when speed matters. Attention MatMuls with two dynamic inputs can also be quantized as <code>MatMulInteger</code> with a <code>DynamicQuantizeLinear</code> on each input. The model produced in step 1 of <a href="#int8-static-matmul">Example 3</a> has this form.</p>
 
     <h2 id="int8-static">Example 2: SAM 2.1 Tiny — Static Quantization (MatMulInteger)</h2>
     <p>This is an example of static quantization with a calibration dataset. After quantizing to the QDQ format, convert the target MatMuls to standard ONNX <code>MatMulInteger</code> while preserving the quantized tensors and scales. Because ailia can run <code>MatMulInteger</code> with two dynamic inputs on the NPU, the Attention matrix multiplications are also offloaded.</p>
@@ -207,57 +207,82 @@ python3 scripts/calibrate_sam2.py \
     <p>The step that lowers QDQ MatMul pairs to <code>MatMulInteger</code> is a standalone script, <code>scripts/convert_qdq_matmul.py</code>, and can be applied to your own QDQ models. It preserves the scales and quantized tensors and performs no requantization. Integer accumulation changes floating-point rounding, so validate the model outputs before deploying the converted model.</p>
     <p>Calibration records (<code>manifest.json</code>, <code>ranges_*.json</code> and <code>completion.json</code>) are saved in the output directory, and an interrupted conversion resumes when you run the same command again. The calibration records for the models bundled with the demo are in the repository's <code>calibration/</code> directory. The scripts in Examples 3 and 4 work the same way.</p>
 
-    <h2 id="int8-static-matmul">Example 3: Grounding DINO and Depth Anything V2 — Static Quantization of Fixed Weights and Dynamic Quantization of Attention</h2>
-    <p>Static and dynamic quantization can be combined in one model. In this example, constant-weight MatMuls are statically quantized with calibration data, and the Attention MatMuls, whose two inputs change at each inference, are dynamically quantized. Other operations such as Softmax and LayerNorm remain FP32.</p>
+    <h2 id="int8-static-matmul">Example 3: Grounding DINO and Depth Anything V2 — Static Quantization of MatMuls, Attention and Convolutions</h2>
+    <p>Large Transformer models can also be statically quantized step by step: MatMuls, Attention and convolutions. Other operations such as Softmax and LayerNorm remain FP32. The models bundled with the demo are calibrated with global Min/Max over all 5,000 COCO val2017 images, one target at a time in the following order.</p>
     <div class="table-wrap">
     <table class="version-table">
-      <tr><th>Target</th><th>Converted form</th><th>Quantization</th></tr>
-      <tr><td>Constant-weight MatMul</td><td><code>QuantizeLinear</code> + <code>MatMulInteger</code> + <code>Cast</code> + <code>Mul</code></td><td>Tensor-wise UINT8 activations (calibrated with global Min/Max over all 5,000 COCO val2017 images) and channel-wise INT8 weights</td></tr>
-      <tr><td>MatMul with two dynamic inputs (Attention)</td><td><code>DynamicQuantizeLinear</code> on both inputs + <code>MatMulInteger</code> (using both zero points) + <code>Cast</code> + <code>Mul</code> by the two scales</td><td>Tensor-wise UINT8 for both inputs at each inference</td></tr>
+      <tr><th>Step</th><th>Target</th><th>Converted form</th><th>Script</th></tr>
+      <tr><td>1</td><td>Constant-weight MatMul</td><td><code>QuantizeLinear</code> + <code>MatMulInteger</code> + <code>Cast</code> + <code>Mul</code> (tensor-wise UINT8 activations, channel-wise INT8 weights)</td><td><code>calibrate_grounding.py</code> / <code>calibrate_depth.py</code></td></tr>
+      <tr><td>2</td><td>MatMul with two dynamic inputs (Attention)</td><td><code>QuantizeLinear</code> on both inputs + <code>MatMulInteger</code> (using both zero points) + <code>Cast</code> + <code>Mul</code> by the two scales</td><td><code>calibrate_attention.py --model grounding</code> / <code>--model depth</code></td></tr>
+      <tr><td>3</td><td>Convolution (Depth Anything V2 only)</td><td><code>QuantizeLinear</code> + <code>ConvInteger</code> + <code>Cast</code> + scale + bias</td><td><code>calibrate_attention.py --model depth-conv</code></td></tr>
     </table>
     </div>
-    <p>The calibrated ranges (<code>ranges.json</code>) for both models are bundled in the demo's <code>calibration/</code> directory, so you can redo only the model conversion without preparing COCO.</p>
+    <p>After step 1, the Attention MatMuls use dynamic quantization, with a <code>DynamicQuantizeLinear</code> on both inputs. This model can also be used as is (see <a href="#int8-dynamic">INT8 Dynamic Quantization</a>). Calibrating the Attention activation ranges in step 2 makes the scales constant. Fixed ranges can saturate inputs outside the calibration distribution, so validate the outputs after conversion.</p>
+    <p>Each step must process all 5,000 images and resumes when you run the same command again. Only a completed step writes the output model and <code>completion.json</code>. The calibrated ranges (<code>ranges.json</code>) of the bundled models are in <code>calibration/</code>, so you can redo only the model conversion without preparing COCO.</p>
 
     <h3>Grounding DINO Swin-T (400×599)</h3>
     <p>Convert the published <code>groundingdino_swint_ogc.onnx</code> from <a href="https://github.com/ailia-ai/ailia-models/tree/master/object_detection/groundingdino" target="_blank">Grounding DINO in ailia-models</a>.</p>
     <pre><code class="language-bash">curl --fail --location --output groundingdino_swint_ogc.onnx \
   https://storage.googleapis.com/ailia-models/groundingdino/groundingdino_swint_ogc.onnx
+# Step 1: constant-weight MatMuls
 python3 scripts/calibrate_grounding.py \
   --source groundingdino_swint_ogc.onnx \
   --coco-images /path/to/coco/val2017 \
   --coco-annotations /path/to/coco/annotations/instances_val2017.json \
   --output /path/to/grounding-calibrated \
-  --workers 3 --threads 3</code></pre>
+  --workers 3 --threads 3
+# Step 2: Attention
+python3 scripts/calibrate_attention.py --model grounding \
+  --source /path/to/grounding-calibrated/models/groundingdino_swint_ogc_400x599_int8.onnx \
+  --vocab models/grounding_tokenizer/vocab.txt \
+  --coco-images /path/to/coco/val2017 \
+  --coco-annotations /path/to/coco/annotations/instances_val2017.json \
+  --output /path/to/grounding-fixed-attention</code></pre>
     <ul>
-      <li>The input model is promoted to FP32 before activation ranges are collected. The 80 COCO category names are used as the text prompt, and image preprocessing and tokenization are shared with the demo.</li>
-      <li>The 347 fixed-weight MatMuls are statically quantized, and the 109 MatMuls with two dynamic inputs are dynamically quantized. The converted model contains 456 <code>MatMulInteger</code> nodes and no FP32 <code>MatMul</code>.</li>
-      <li>On the ailia NPU, the fixed-weight MatMuls run on the NPU. Because the dynamic MatMuls are small, they run with NEON integer arithmetic on the CPU.</li>
+      <li>The input model is promoted to FP32 before activation ranges are collected. Step 1 uses the 80 COCO category names as the text prompt, and step 2 runs every image with both the 80 category names and the demo's default prompt. Image preprocessing and tokenization are shared with the demo.</li>
+      <li>The 347 fixed-weight MatMuls and the 109 MatMuls with two dynamic inputs are converted. The converted model contains 456 <code>MatMulInteger</code> nodes and no FP32 <code>MatMul</code>.</li>
+      <li>On the ailia NPU, the fixed-weight MatMuls run on the NPU. Because the MatMuls with two dynamic inputs are small, they run with NEON integer arithmetic on the CPU.</li>
       <li>The graph is rearranged so that ailia SDK's DeformableAttention fusion can be used.</li>
-      <li>The output is <code>models/groundingdino_swint_ogc_400x599_int8.onnx</code> with external weight files (<code>.dataNN</code>). Keep the ONNX file and the weight files in the same folder.</li>
+      <li>The output is <code>groundingdino_swint_ogc_400x599_int8.onnx</code> with external weight files (<code>.dataNN</code>). Keep the ONNX file and the weight files in the same folder.</li>
     </ul>
     <p>To regenerate only the model from the bundled calibrated ranges, run:</p>
     <pre><code class="language-bash">python3 scripts/grounding_convert.py --source groundingdino_swint_ogc.onnx \
   --ranges calibration/grounding_dino/ranges.json \
+  --attention-ranges calibration/grounding_dino/attention/ranges.json \
   --output models/groundingdino_swint_ogc_400x599_int8.onnx</code></pre>
 
     <h3>Depth Anything V2 Metric Depth Small (518×518)</h3>
     <p>Convert the indoor (Hypersim) Small model from ailia-models.</p>
     <pre><code class="language-bash">curl -fL https://storage.googleapis.com/ailia-models/depth_anything_v2/depth_anything_v2_metric_hypersim_vits.onnx \
   -o /path/to/depth_anything_v2_metric_hypersim_vits.onnx
+# Step 1: constant-weight MatMuls
 python3 scripts/calibrate_depth.py \
   --source /path/to/depth_anything_v2_metric_hypersim_vits.onnx \
   --coco-images /path/to/coco/val2017 \
   --coco-annotations /path/to/coco/annotations/instances_val2017.json \
-  --output /path/to/depth-calibrated</code></pre>
+  --output /path/to/depth-calibrated
+# Step 2: Attention
+python3 scripts/calibrate_attention.py --model depth \
+  --source /path/to/depth-calibrated/depth_anything_v2_metric_hypersim_vits_518_int8.onnx \
+  --coco-images /path/to/coco/val2017 \
+  --coco-annotations /path/to/coco/annotations/instances_val2017.json \
+  --output /path/to/depth-fixed-attention
+# Step 3: convolutions
+python3 scripts/calibrate_attention.py --model depth-conv \
+  --source /path/to/depth-fixed-attention/depth_anything_v2_metric_hypersim_vits_518_int8.onnx \
+  --coco-images /path/to/coco/val2017 \
+  --coco-annotations /path/to/coco/annotations/instances_val2017.json \
+  --output /path/to/depth-conv-calibrated</code></pre>
     <ul>
-      <li>The input is fixed to 518×518, and the 48 fixed-weight MatMuls are statically quantized.</li>
-      <li>Both inputs of the 24 Attention MatMuls are dynamically quantized with <code>DynamicQuantizeLinear</code>. On the ailia NPU, these 24 also run on the NPU. Softmax and convolutions remain FP32.</li>
-      <li>Use <code>depth_anything_v2_metric_hypersim_vits_518_int8.onnx</code> after <code>completion.json</code> confirms that all 5,000 images were processed.</li>
+      <li>The input is fixed to 518×518, and the 48 fixed-weight MatMuls, 24 Attention MatMuls and 28 convolutions are converted. ailia NPU runs them on the NPU.</li>
+      <li>The three narrow, high-resolution output-head convolutions remain FP32 because they are slower on the NPU. Softmax and ConvTranspose also remain FP32.</li>
     </ul>
     <p>To regenerate only the model from the bundled calibrated ranges, run:</p>
     <pre><code class="language-bash">python3 scripts/depth_convert.py \
   --source /path/to/depth_anything_v2_metric_hypersim_vits.onnx \
   --ranges calibration/depth_anything_v2/ranges.json \
+  --attention-ranges calibration/depth_anything_v2/attention/ranges.json \
+  --conv-ranges calibration/depth_anything_v2/convolution/ranges.json \
   --output models/depth_anything_v2_metric_hypersim_vits_518_int8.onnx</code></pre>
 
     <h2 id="int8-conv">Example 4: YOLOX-S 320 — Static Quantization of Convolutions (ConvInteger)</h2>
