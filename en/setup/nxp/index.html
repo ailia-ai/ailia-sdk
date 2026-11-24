@@ -187,13 +187,14 @@ sh launch.sh --model vit</code></pre>
     <table class="version-table">
       <tr><th>Model</th><th>Main operators on the NPU</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th><th class="num">vs. ailia CPU</th></tr>
       <tr><td><a href="benchmark.html#vit">ViT-B/16 (classification)</a></td><td>MatMulNBits (INT4)</td><td class="num">670.2 ms</td><td class="num">385.9 ms</td><td class="num">780.7 ms</td><td class="num">328.8 ms</td><td class="num">2.4x</td></tr>
-      <tr><td><a href="benchmark.html#sam2">SAM 2.1 Tiny (5-frame tracking)</a></td><td>MatMulInteger (fixed weights, Attention)</td><td class="num">20.32 s</td><td class="num">19.81 s*</td><td class="num">14.81 s</td><td class="num">8.71 s</td><td class="num">1.7x</td></tr>
+      <tr><td><a href="benchmark.html#sam2">SAM 2.1 Tiny (still image)</a></td><td>MatMulInteger (fixed weights)</td><td class="num">2,454.4 ms</td><td class="num">2,378.3 ms*</td><td class="num">1,934.2 ms</td><td class="num">1,012.7 ms</td><td class="num">1.9x</td></tr>
+      <tr><td><a href="benchmark.html#sam2">SAM 2.1 Tiny (video tracking, average per frame)</a></td><td>MatMulInteger (fixed weights, Attention)</td><td class="num">4,064 ms</td><td class="num">3,962 ms*</td><td class="num">2,962 ms</td><td class="num">1,742 ms</td><td class="num">1.7x</td></tr>
       <tr><td><a href="benchmark.html#grounding-dino">Grounding DINO (detection)</a></td><td>MatMulInteger (fixed weights)</td><td class="num">7,531.2 ms</td><td class="num">6,979.8 ms</td><td class="num">6,104.4 ms</td><td class="num">3,840.2 ms</td><td class="num">1.6x</td></tr>
       <tr><td><a href="benchmark.html#depth-anything-v2">Depth Anything V2 Small (depth)</a></td><td>MatMulInteger (fixed weights, Attention), ConvInteger (2D)</td><td class="num">2,796.2 ms</td><td class="num">2,575.9 ms</td><td class="num">3,125.7 ms</td><td class="num">2,045.1 ms</td><td class="num">1.5x</td></tr>
       <tr><td><a href="benchmark.html#yolox">YOLOX-S 320 (detection)</a></td><td>ConvInteger (2D)</td><td class="num">793.9 ms</td><td class="num">795.7 ms</td><td class="num">436.9 ms</td><td class="num">114.8 ms</td><td class="num">3.8x</td></tr>
     </table>
     </div>
-    <p>* The SAM 2.1 ORT NPU result is timing-only because its tracking masks are incorrect. ORT was measured with its NPU CMA allocation fixed to 512 MiB.</p>
+    <p>For SAM 2.1, the still image value is the sum of the Image Encoder and Mask Decoder, and the video tracking value is the total time for the 5 Bedroom frames (including pre/post-processing) divided by 5. * The SAM 2.1 ORT NPU result is timing-only because its tracking masks are incorrect. ORT was measured with its NPU CMA allocation fixed to 512 MiB.</p>
     <p>For the measurement conditions, per-component breakdowns and accuracy of each model, see <a href="benchmark.html">Benchmark Details</a>.</p>
 
     <h2>Architecture</h2>
@@ -246,7 +247,7 @@ sh launch.sh --model vit</code></pre>
     <p>With NXP ONNX Runtime on Neutron, we confirmed that ViT and SAM 2.1 outputs change from run to run for the same input. ailia achieves zero output variation by splitting large matrices into sizes the NPU processes reliably. This suits products that need reproducibility, such as threshold decisions and regression testing.</p>
 
     <h3>Fast on Both Transformers and CNNs</h3>
-    <p>With MatMulNBits and MatMulInteger NPU execution, ViT takes 328.8 ms on ailia NPU versus 385.9 ms on ORT NPU (approximately 1.17x faster), and Grounding DINO takes 3,840.2 ms versus 6,979.8 ms (approximately 1.82x faster). For the COCO-calibrated SAM 2.1 model, the Image Encoder takes 886.4 ms on ailia NPU versus 1,807.7 ms on ailia CPU, and the 5-frame total takes 8.71 seconds versus 14.81 seconds.</p>
+    <p>With MatMulNBits and MatMulInteger NPU execution, ViT takes 328.8 ms on ailia NPU versus 385.9 ms on ORT NPU (approximately 1.17x faster), and Grounding DINO takes 3,840.2 ms versus 6,979.8 ms (approximately 1.82x faster). For the COCO-calibrated SAM 2.1 model, the Image Encoder takes 886.4 ms on ailia NPU versus 1,807.7 ms on ailia CPU, and video tracking takes 1,742 ms per frame on average versus 2,962 ms.</p>
     <p>CNN convolutions also run on the NPU as 2D <code>ConvInteger</code>. The ORT Neutron EP runs ConvInteger on the CPU, so for YOLOX-S ailia NPU takes 114.8 ms versus 795.7 ms on ORT NPU (approximately 6.9x faster). Depth Anything V2, which combines a Transformer and convolutions, also runs both MatMuls and convolutions on the NPU and takes 2,045.1 ms versus 2,575.9 ms on ORT NPU.</p>
 
     <h3>Attention MatMuls with Two Dynamic Inputs Also Run on the NPU</h3>

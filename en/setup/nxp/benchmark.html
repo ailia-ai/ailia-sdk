@@ -95,10 +95,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>Mask Decoder (ms / call)</td><td class="num">5</td><td class="num">172.3</td><td class="num">178.7</td><td class="num">126.5</td><td class="num">126.3</td></tr>
       <tr><td>Memory Attention (ms / call)</td><td class="num">4</td><td class="num">1,502.5</td><td class="num">1,497.7</td><td class="num">882.2</td><td class="num">516.5</td></tr>
       <tr><td>Memory Encoder (ms / call)</td><td class="num">5</td><td class="num">309.7</td><td class="num">300.9</td><td class="num">236.8</td><td class="num">236.7</td></tr>
-      <tr><td>5-frame total (seconds)</td><td class="num">—</td><td class="num">20.32</td><td class="num">19.81</td><td class="num">14.81</td><td class="num">8.71</td></tr>
+      <tr><td>Still image (ms / image)</td><td class="num">—</td><td class="num">2,454.4</td><td class="num">2,378.3</td><td class="num">1,934.2</td><td class="num">1,012.7</td></tr>
+      <tr><td>Video, average per frame (ms)</td><td class="num">—</td><td class="num">4,064</td><td class="num">3,962</td><td class="num">2,962</td><td class="num">1,742</td></tr>
     </table>
     </div>
-    <p>Per-model rows are the median of each run's average time per call. Total time includes image loading and pre/post-processing but excludes model loading, drawing and saving. All four backends use the same models. The NPU backends run the Image Encoder and Memory Attention with mixed CPU/NPU execution; all other networks run on the CPU.</p>
+    <p>Per-model rows are the median of each run's average time per call. The still image value is the sum of the Image Encoder and Mask Decoder and excludes pre/post-processing. The video per-frame average is the 5-frame total time divided by 5; it includes image loading and pre/post-processing but excludes model loading, drawing and saving. All four backends use the same models. The NPU backends run the Image Encoder and Memory Attention with mixed CPU/NPU execution; all other networks run on the CPU.</p>
     <p>* <strong>ORT NPU is a timing-only result because its tracking masks were incorrect in this measurement as well.</strong> These timing measurements do not verify accuracy.</p>
     <p>In an earlier measurement, the mean mask IoU against the FP32 reference on Bedroom was 96.07% for host ORT CPU and 95.71% for ailia NPU on the device. This is not accuracy against ground-truth masks.</p>
 

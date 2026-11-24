@@ -187,13 +187,14 @@ sh launch.sh --model vit</code></pre>
     <table class="version-table">
       <tr><th>モデル</th><th>NPU で実行する主な演算</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th><th class="num">ailia CPU 比</th></tr>
       <tr><td><a href="benchmark.html#vit">ViT-B/16 (分類)</a></td><td>MatMulNBits (INT4)</td><td class="num">670.2 ms</td><td class="num">385.9 ms</td><td class="num">780.7 ms</td><td class="num">328.8 ms</td><td class="num">2.4 倍</td></tr>
-      <tr><td><a href="benchmark.html#sam2">SAM 2.1 Tiny (5 フレーム追跡)</a></td><td>MatMulInteger (固定重み・Attention)</td><td class="num">20.32 秒</td><td class="num">19.81 秒※</td><td class="num">14.81 秒</td><td class="num">8.71 秒</td><td class="num">1.7 倍</td></tr>
+      <tr><td><a href="benchmark.html#sam2">SAM 2.1 Tiny (静止画)</a></td><td>MatMulInteger (固定重み)</td><td class="num">2,454.4 ms</td><td class="num">2,378.3 ms※</td><td class="num">1,934.2 ms</td><td class="num">1,012.7 ms</td><td class="num">1.9 倍</td></tr>
+      <tr><td><a href="benchmark.html#sam2">SAM 2.1 Tiny (動画追跡、1 フレーム平均)</a></td><td>MatMulInteger (固定重み・Attention)</td><td class="num">4,064 ms</td><td class="num">3,962 ms※</td><td class="num">2,962 ms</td><td class="num">1,742 ms</td><td class="num">1.7 倍</td></tr>
       <tr><td><a href="benchmark.html#grounding-dino">Grounding DINO (検出)</a></td><td>MatMulInteger (固定重み)</td><td class="num">7,531.2 ms</td><td class="num">6,979.8 ms</td><td class="num">6,104.4 ms</td><td class="num">3,840.2 ms</td><td class="num">1.6 倍</td></tr>
       <tr><td><a href="benchmark.html#depth-anything-v2">Depth Anything V2 Small (深度)</a></td><td>MatMulInteger (固定重み・Attention)、ConvInteger (2D)</td><td class="num">2,796.2 ms</td><td class="num">2,575.9 ms</td><td class="num">3,125.7 ms</td><td class="num">2,045.1 ms</td><td class="num">1.5 倍</td></tr>
       <tr><td><a href="benchmark.html#yolox">YOLOX-S 320 (検出)</a></td><td>ConvInteger (2D)</td><td class="num">793.9 ms</td><td class="num">795.7 ms</td><td class="num">436.9 ms</td><td class="num">114.8 ms</td><td class="num">3.8 倍</td></tr>
     </table>
     </div>
-    <p>※ SAM 2.1 の ORT NPU は、追跡マスクが正しくないため速度参考値です。ORT は NPU 用の CMA 確保を 512 MiB に固定して測定しています。</p>
+    <p>SAM 2.1 の静止画は Image Encoder と Mask Decoder の合計、動画追跡は Bedroom 5 フレームの全体時間 (前後処理を含む) を 5 で割った 1 フレームあたりの平均です。※ SAM 2.1 の ORT NPU は、追跡マスクが正しくないため速度参考値です。ORT は NPU 用の CMA 確保を 512 MiB に固定して測定しています。</p>
     <p>各モデルの測定条件、処理ごとの内訳、精度は <a href="benchmark.html">ベンチマークの詳細</a> を参照してください。</p>
 
     <h2>アーキテクチャ</h2>
@@ -246,7 +247,7 @@ sh launch.sh --model vit</code></pre>
     <p>NXP ONNX Runtime の Neutron 実行では、ViT および SAM 2.1 で同一入力に対する出力が推論ごとに変動することを確認しています。ailia は大きな行列を NPU が安定して処理できるサイズに分割することで出力変動 0 を実現しています。閾値判定や回帰テストなど、再現性が求められる製品用途に適しています。</p>
 
     <h3>Transformer と CNN の両方で高速</h3>
-    <p>MatMulNBits と MatMulInteger の NPU 実行により、ViT では ORT NPU の 385.9 ms に対して ailia NPU は 328.8 ms (約 1.17 倍高速)、Grounding DINO では 6,979.8 ms に対して 3,840.2 ms (約 1.82 倍高速) でした。COCO 校正済み SAM 2.1 では Image Encoder が ailia CPU の 1,807.7 ms に対して ailia NPU で 886.4 ms、5 フレーム全体が 14.81 秒に対して 8.71 秒です。</p>
+    <p>MatMulNBits と MatMulInteger の NPU 実行により、ViT では ORT NPU の 385.9 ms に対して ailia NPU は 328.8 ms (約 1.17 倍高速)、Grounding DINO では 6,979.8 ms に対して 3,840.2 ms (約 1.82 倍高速) でした。COCO 校正済み SAM 2.1 では Image Encoder が ailia CPU の 1,807.7 ms に対して ailia NPU で 886.4 ms、動画追跡の 1 フレーム平均が 2,962 ms に対して 1,742 ms です。</p>
     <p>CNN の畳み込みも、2D の <code>ConvInteger</code> として NPU で実行できます。ORT の Neutron EP は ConvInteger を CPU で実行するため、YOLOX-S では ORT NPU の 795.7 ms に対して ailia NPU は 114.8 ms (約 6.9 倍高速) でした。Transformer と畳み込みを組み合わせた Depth Anything V2 でも、MatMul と畳み込みの両方を NPU で実行し、ORT NPU の 2,575.9 ms に対して 2,045.1 ms です。</p>
 
     <h3>両入力が動的な Attention の MatMul も NPU で実行</h3>
