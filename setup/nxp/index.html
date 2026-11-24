@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NXP i.MX 95 セットアップガイド - ailia SDK</title>
+  <meta name="description" content="NXP FRDM i.MX 95 で ailia SDK をセットアップし、CPU・Mali-G310 Vulkan・Neutron NPU で推論を実行する手順、ベンチマーク、ailia SDK を使用するメリットを解説します。">
+  <link rel="canonical" href="https://docs.ailia.ai/setup/nxp/">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/nxp/">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/nxp/">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/setup/nxp/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/setup/nxp/">
+  <meta property="og:title" content="NXP i.MX 95 セットアップガイド - ailia SDK">
+  <meta property="og:description" content="NXP FRDM i.MX 95 で ailia SDK をセットアップし、CPU・Mali-G310 Vulkan・Neutron NPU で推論を実行する手順、ベンチマーク、ailia SDK を使用するメリットを解説します。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="NXP i.MX 95 セットアップガイド - ailia SDK">
+  <meta name="twitter:description" content="NXP FRDM i.MX 95 で ailia SDK をセットアップし、CPU・Mali-G310 Vulkan・Neutron NPU で推論を実行する手順、ベンチマーク、ailia SDK を使用するメリットを解説します。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .guide-content .table-wrap { overflow-x: auto; margin-bottom: 16px; }
+    .guide-content .table-wrap .version-table { margin-bottom: 0; min-width: 560px; }
+    .guide-content .version-table td.num, .guide-content .version-table th.num { text-align: right; white-space: nowrap; }
+    .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 24px 0; }
+    .arch-box { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; text-align: center; min-width: 260px; max-width: 480px; }
+    .arch-box .arch-name { font-weight: 600; color: var(--primary); }
+    .arch-box .arch-desc { font-size: 13px; color: var(--text-light); }
+    .arch-arrow { color: var(--text-light); font-size: 18px; line-height: 1; }
+    .arch-split { display: flex; justify-content: center; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+    .arch-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .arch-col .arch-box { min-width: 220px; max-width: 320px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../sdk/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../js/">JS</a>
+        <a href="../../mp/">MP</a>
+        <a href="../../en/setup/nxp/" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>NXP i.MX 95 セットアップガイド</h1>
+    <p>NXP FRDM i.MX 95 で ailia SDK をセットアップし、CPU・GPU (Vulkan)・NPU (Neutron) で推論を実行する手順を説明します。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>概要</h2>
+    <p>NXP i.MX 95 は、Arm Cortex-A55 CPU、Arm Mali-G310 GPU、NXP eIQ Neutron NPU を搭載した産業・車載向けのアプリケーションプロセッサです。本ページでは、開発ボード FRDM i.MX 95 上の Yocto Linux で ailia SDK を使用するためのセットアップ手順、実行方法、ベンチマーク結果を説明します。</p>
+    <p>ailia SDK が i.MX 95 で利用できる実行環境は次のとおりです。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>実行環境</th><th>ハードウェア</th><th>ailia SDK 公開版 (pip)</th><th>ailia SDK NXP NPU 対応版 (ベータ)</th></tr>
+      <tr><td>CPU</td><td>Arm Cortex-A55</td><td>対応</td><td>対応</td></tr>
+      <tr><td>VulkanDNN (FP32 / FP16)</td><td>Arm Mali-G310</td><td>対応</td><td>対応</td></tr>
+      <tr><td>Neutron-i.MX95-NPU</td><td>NXP eIQ Neutron NPU</td><td>非対応</td><td>対応</td></tr>
+    </table>
+    </div>
+    <p>NXP NPU 対応版は、ailia SDK 1.7 のベータ版という扱いで提供しています。</p>
+
+    <h2>動作確認環境</h2>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>項目</th><th>確認値</th></tr>
+      <tr><td>ボード</td><td>NXP FRDM-IMX95 (<code>imx95-15x15-lpddr4x-frdm</code>)</td></tr>
+      <tr><td>アーキテクチャ</td><td>AArch64</td></tr>
+      <tr><td>Yocto Project</td><td>6.0 Wrynose (LTS)</td></tr>
+      <tr><td>NXP Linux BSP</td><td>LF6.18.20 2.0.0 (<code>imx-linux-wrynose</code> / <code>imx-6.18.20-2.0.0.xml</code>)</td></tr>
+      <tr><td>DISTRO</td><td><code>fsl-imx-xwayland</code></td></tr>
+      <tr><td>Linux カーネル</td><td>6.18.20-2.0.0</td></tr>
+      <tr><td>glibc</td><td>2.43</td></tr>
+      <tr><td>Python</td><td>3.14.4</td></tr>
+      <tr><td>ailia SDK</td><td>1.7.0.0</td></tr>
+    </table>
+    </div>
+
+    <h2>ボードのセットアップ</h2>
+    <p>電源と USB シリアルの接続、Linux イメージの microSD への書き込み、起動とログインの手順は <a href="board.html">FRDM i.MX 95 ボードセットアップ</a> を参照してください。</p>
+
+    <h2>ailia SDK のインストール</h2>
+    <p>Ethernet を接続した状態で、pip から ailia SDK をインストールします。AArch64 向けの wheel (<code>manylinux2014_aarch64</code>) が自動的に選択されます。</p>
+    <pre><code class="language-bash">pip3 install ailia</code></pre>
+    <p>インストール後、利用可能な実行環境を確認します。</p>
+    <pre><code class="language-bash">python3 -c "import ailia; [print(i, ailia.get_environment(i)) for i in range(ailia.get_environment_count())]"</code></pre>
+    <pre><code class="language-text">0 CPU
+1 VulkanDNN-Mali-G310 (FP32)
+2 VulkanDNN-Mali-G310 (FP16)</code></pre>
+    <div class="note">
+      <strong>注意:</strong> pip 版の <code>libailia.so</code> が実際に参照するのは GLIBC 2.27 / GLIBCXX 3.4.22 までです。i.MX 95 の Yocto (glibc 2.43) ではそのまま動作します。
+    </div>
+
+    <h3 id="license">ライセンスの取得</h3>
+    <p>pip 版は初回推論時に評価ライセンスを自動取得します。ボードに IPv6 のデフォルトルートがない環境では、ライセンスサーバーへの接続が <code>OSError: [Errno 101] Network is unreachable</code> で失敗することがあります。その場合は IPv4 を明示して取得してください。</p>
+    <pre><code class="language-bash">mkdir -p ~/.shalo
+curl -4 -fL https://axip-console.appspot.com/license/download/product/AILIA -o ~/.shalo/AILIA.lic</code></pre>
+    <p>システム時刻が正しく設定されていることも確認してください。</p>
+
+    <h2>NPU (Neutron) 対応版の導入</h2>
+    <p>Neutron NPU を使用するには、ailia SDK の NXP NPU 対応版バイナリ (ベータ版) を使用します。NXP NPU 対応版は <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> リポジトリで配布しています。pip 版をインストールした後、パッケージ内の <code>libailia.so</code> を NXP NPU 対応版に差し替えます。</p>
+    <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-sdk-nxp-demo.git
+cd ailia-sdk-nxp-demo
+python3 scripts/copy_sdk.py --install-npu</code></pre>
+    <p>差し替え前に、ailia を使用しているアプリケーションを終了してください。</p>
+    <div class="note">
+      <strong>注意:</strong> NXP NPU 対応版は NXP i.MX Distro 6.18-wrynose 向けにビルドしています (<code>GLIBC_2.43</code> などに依存)。古い BSP では差し替えだけでは動作しません。
+    </div>
+    <p>差し替え後に実行環境を列挙すると、<code>/dev/neutron0</code> と <code>libNeutronDriver.so</code> が検出できる場合に <code>Neutron-i.MX95-NPU</code> が追加されます。NPU のない端末や Neutron ドライバのない環境では、CPU と Vulkan のみが列挙されます。</p>
+    <pre><code class="language-bash">python3 -c "import ailia; [print(i, ailia.get_environment(i)) for i in range(ailia.get_environment_count())]"</code></pre>
+    <pre><code class="language-text">0 CPU
+1 VulkanDNN-Mali-G310 (FP32)
+2 VulkanDNN-Mali-G310 (FP16)
+3 Neutron-i.MX95-NPU</code></pre>
+    <p><code>Neutron-i.MX95-NPU</code> が表示されれば導入は完了です。表示されない場合は<a href="#troubleshooting">トラブルシューティング</a>を確認してください。</p>
+    <p>ailia は NPU の初回利用時に、物理的に連続した 512 MiB の領域を CMA から確保します (<a href="#memory">メモリ</a>を参照)。動作確認環境の BSP イメージ (<code>imx-image-full</code>) では追加の設定なしで確保できます。確保に失敗する場合は <code>grep Cma /proc/meminfo</code> で CMA サイズを確認し、カーネル起動引数 <code>cma=</code> で拡大してください。</p>
+    <p>NPU で実行するには、行列積や畳み込みを標準 ONNX の整数演算 (MatMulNBits、MatMulInteger、ConvInteger) に変換したモデルを使用します (<a href="npu_model.html">NPU 対応モデルの作り方</a>を参照)。NPU に対応しないノードは自動的に CPU で実行されます。初回推論時に重みを NPU 向けに変換するため、初回のみ時間がかかります。</p>
+
+    <h2 id="npu-model">NPU 対応モデルの作り方</h2>
+    <p>行列積や畳み込みを標準 ONNX の整数演算 (MatMulNBits、MatMulInteger、ConvInteger) に変換して NPU 用のモデルを作成する手順は、<a href="npu_model.html">NPU 対応モデルの作り方</a> を参照してください。Transformer 向けの INT4 weight-only 量子化 (ViT-B/16)、MatMul の静的量子化 (SAM 2.1 Tiny、Grounding DINO、Depth Anything V2)、CNN 向けの畳み込みの静的量子化 (YOLOX-S) を例に説明しています。</p>
+
+    <h2>実行方法</h2>
+    <p><a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> のサンプルを使用して実行します。<code>-e</code> オプションで実行環境の ID を指定します。</p>
+    <pre><code class="language-bash">git clone https://github.com/ailia-ai/ailia-models.git
+cd ailia-models
+pip3 install -r requirements.txt
+cd image_classification/vit
+
+# CPU
+python3 vit.py -e 0
+# Vulkan (Mali-G310 FP16)
+python3 vit.py -e 2
+# ベンチマークモード (11 回推論)
+python3 vit.py -e 0 -b -bc 11</code></pre>
+    <p>NPU で実行する場合は、INT4 (MatMulNBits) モデルを指定し、<code>-e</code> に <code>Neutron-i.MX95-NPU</code> の ID (上の列挙例では 3) を指定します。ViT では <code>--quantize int4</code> オプションで INT4 モデルを使用できます。</p>
+    <pre><code class="language-bash">python3 vit.py --quantize int4 -e &lt;Neutron-i.MX95-NPU の ID&gt; -b -bc 11</code></pre>
+    <div class="note">
+      <strong>注意:</strong> シリアルコンソールから実行する場合は、<code>-s output.png</code> などで結果を画像ファイルとして保存してください。
+    </div>
+
+    <h3>ビジョンデモ (ailia-sdk-nxp-demo)</h3>
+    <p><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> は、SAM 2.1 Tiny、Grounding DINO、Depth Anything V2、YOLOX-S 320 の COCO 校正済み NPU 用モデルと、ViT-B/16 (INT4) を使用する HDMI 画面のデモです。ailia と NXP ONNX Runtime の CPU / NPU、計 4 方式の速度を同じ画面で比較できます。HDMI ディスプレイとマウスを接続し、Weston と同じユーザーで実行します。</p>
+    <pre><code class="language-bash">cd ailia-sdk-nxp-demo
+python3 scripts/download_models.py   # SAM 2.1 の補助モデルと ViT を取得 (初回のみ)
+sh launch.sh                          # SAM 2.1 Tiny (ailia NPU)
+sh launch.sh --model grounding --caption "Horse. Clouds. Grasses. Sky. Hill."
+sh launch.sh --model depth
+sh launch.sh --model yolox
+sh launch.sh --model vit</code></pre>
+    <p>画面の <strong>Compare all 4</strong> で 4 方式の推論時間を比較できます。入力は <strong>Image / Video / Camera</strong> で切り替えられ、USB カメラの映像を連続して推論することもできます (Video は SAM 2.1 の 5 フレーム追跡のみ)。詳細はリポジトリの README を参照してください。</p>
+
+    <h2>ベンチマーク</h2>
+    <p>FRDM i.MX 95 で、ailia SDK (NXP NPU 対応版) と NXP BSP 同梱の ONNX Runtime 1.24.3 (ORT) を比較しました。すべてのモデルを 2026-11-22 に測定しています。いずれも CPU 6 スレッド、プロファイル無効で、NPU の値は非対応レイヤーの CPU 実行を含みます。モデルは各方式で同じものを使用しています。</p>
+
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>モデル</th><th>NPU で実行する主な演算</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th><th class="num">ailia CPU 比</th></tr>
+      <tr><td><a href="benchmark.html#vit">ViT-B/16 (分類)</a></td><td>MatMulNBits (INT4)</td><td class="num">670.2 ms</td><td class="num">385.9 ms</td><td class="num">780.7 ms</td><td class="num">328.8 ms</td><td class="num">2.4 倍</td></tr>
+      <tr><td><a href="benchmark.html#sam2">SAM 2.1 Tiny (5 フレーム追跡)</a></td><td>MatMulInteger (固定重み・Attention)</td><td class="num">20.32 秒</td><td class="num">19.81 秒※</td><td class="num">14.81 秒</td><td class="num">8.71 秒</td><td class="num">1.7 倍</td></tr>
+      <tr><td><a href="benchmark.html#grounding-dino">Grounding DINO (検出)</a></td><td>MatMulInteger (固定重み)</td><td class="num">7,531.2 ms</td><td class="num">6,979.8 ms</td><td class="num">6,104.4 ms</td><td class="num">3,840.2 ms</td><td class="num">1.6 倍</td></tr>
+      <tr><td><a href="benchmark.html#depth-anything-v2">Depth Anything V2 Small (深度)</a></td><td>MatMulInteger (固定重み・Attention)、ConvInteger (2D)</td><td class="num">2,796.2 ms</td><td class="num">2,575.9 ms</td><td class="num">3,125.7 ms</td><td class="num">2,045.1 ms</td><td class="num">1.5 倍</td></tr>
+      <tr><td><a href="benchmark.html#yolox">YOLOX-S 320 (検出)</a></td><td>ConvInteger (2D)</td><td class="num">793.9 ms</td><td class="num">795.7 ms</td><td class="num">436.9 ms</td><td class="num">114.8 ms</td><td class="num">3.8 倍</td></tr>
+    </table>
+    </div>
+    <p>※ SAM 2.1 の ORT NPU は、追跡マスクが正しくないため速度参考値です。ORT は NPU 用の CMA 確保を 512 MiB に固定して測定しています。</p>
+    <p>各モデルの測定条件、処理ごとの内訳、精度は <a href="benchmark.html">ベンチマークの詳細</a> を参照してください。</p>
+
+    <h2>アーキテクチャ</h2>
+    <p>ailia SDK は ONNX を入力し、グラフをパースし、レイヤーをインスタンス化します。NPU で実行できる標準 ONNX 整数演算 (<code>MatMulNBits</code>、<code>MatMulInteger</code>、<code>ConvInteger</code>) はモデルの読み込み時に NPU セグメントへ置き換えられ、それ以外のレイヤーは ailia CPU バックエンドで実行されます。static QDQ の <code>DequantizeLinear → MatMul / Conv</code> パターンは NPU 対応レイヤーとして直接認識しません。NPU セグメントは ONNX Runtime や TFLite の Execution Provider を経由せず、BSP に含まれる <code>libNeutronDriver.so</code> の低レベル API を直接呼び出します。<code>libNeutronDriver.so</code> は実行時に <code>dlopen</code> で読み込むため、NPU のない端末ではリンクエラーにならず、CPU と Vulkan のみで動作します。</p>
+    <div class="arch-diagram">
+        <div class="arch-box"><div class="arch-name">ONNX</div><div class="arch-desc">モデルファイル</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">ailia</div><div class="arch-desc">グラフ管理</div></div>
+        <div class="arch-arrow">↙ ↘</div>
+        <div class="arch-split">
+          <div class="arch-col">
+        <div class="arch-box"><div class="arch-name">ailia Neutron バックエンド</div><div class="arch-desc">NPU セグメント管理、重みの pack・圧縮、整数 GEMM、スケール・bias・活性化 (LUT) の融合と出力変換</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">libNeutronDriver.so</div><div class="arch-desc">NXP Neutron ドライバ (低レベル API)</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">/dev/neutron0</div><div class="arch-desc">カーネルドライバ (Neutron ファームウェア NeutronFirmware.elf を起動)</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">Neutron NPU</div><div class="arch-desc">INT8 行列積、INT32 累積</div></div>
+          </div>
+          <div class="arch-col">
+        <div class="arch-box"><div class="arch-name">ailia CPU バックエンド</div><div class="arch-desc">CPU レイヤー処理 (LayerNorm、Softmax、Attention など NPU 非対応オペレータ)</div></div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-box"><div class="arch-name">CPU</div><div class="arch-desc">Arm Cortex-A55 (NEON)</div></div>
+          </div>
+        </div>
+    </div>
+
+    <h3>使用する API</h3>
+    <p>ailia は <code>libNeutronDriver.so</code> から次の関数を取得して使用します。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>関数</th><th>用途</th></tr>
+      <tr><td><code>allocateBuffer</code> / <code>releaseBuffer</code></td><td>NPU から参照できる CMA 領域の確保と解放</td></tr>
+      <tr><td><code>tiling_solver</code> / <code>weight_packer</code> / <code>compress_weight_tensor</code> など</td><td>重みを NPU 向けのタイル形式に変換 (pack)・圧縮</td></tr>
+      <tr><td><code>clean_cache</code></td><td>CPU のデータキャッシュを書き戻し、NPU と CPU の間でデータの一貫性を保つ</td></tr>
+      <tr><td><code>matmul</code></td><td>NPU で行列積を実行 (完了まで待つ同期呼び出し)</td></tr>
+    </table>
+    </div>
+
+    <h3 id="memory">メモリ</h3>
+    <p>i.MX 95 の Neutron NPU は Arm CPU と同じ DRAM を共有します。ailia は <code>allocateBuffer</code> で物理的に連続した 512 MiB の CMA 領域を 1 つ確保し、プロセスのアドレス空間にマップされたポインタとして受け取ります。CPU はこの領域へ直接読み書きし、NPU は同じ物理メモリを参照するため、PCIe 接続の GPU のようなデバイスメモリへの転送はありません。</p>
+    <ul>
+      <li>先頭 320 MiB: pack 済みの重みなど、セッションの間保持するデータ</li>
+      <li>末尾 192 MiB: 量子化した入力、INT32 の出力、行列積の設定 (ヘッダ) など、推論ごとに使う作業領域</li>
+    </ul>
+    <p>行列積の設定ヘッダには、重み・入力・出力の位置を同じ領域内のオフセットとして記録します。ailia は CPU で書いたデータを <code>clean_cache</code> でメモリへ書き戻してから <code>matmul</code> を呼び、終了後に出力領域のキャッシュを整えてから CPU で読み出します。同じ領域を複数のモデルで共有するため、NPU の実行は排他制御で 1 つずつ行います。</p>
+
+    <h2>ailia SDK を使用するメリット</h2>
+    <h3>推論ごとに結果が変わらない NPU 実行</h3>
+    <p>NXP ONNX Runtime の Neutron 実行では、ViT および SAM 2.1 で同一入力に対する出力が推論ごとに変動することを確認しています。ailia は大きな行列を NPU が安定して処理できるサイズに分割することで出力変動 0 を実現しています。閾値判定や回帰テストなど、再現性が求められる製品用途に適しています。</p>
+
+    <h3>Transformer と CNN の両方で高速</h3>
+    <p>MatMulNBits と MatMulInteger の NPU 実行により、ViT では ORT NPU の 385.9 ms に対して ailia NPU は 328.8 ms (約 1.17 倍高速)、Grounding DINO では 6,979.8 ms に対して 3,840.2 ms (約 1.82 倍高速) でした。COCO 校正済み SAM 2.1 では Image Encoder が ailia CPU の 1,807.7 ms に対して ailia NPU で 886.4 ms、5 フレーム全体が 14.81 秒に対して 8.71 秒です。</p>
+    <p>CNN の畳み込みも、2D の <code>ConvInteger</code> として NPU で実行できます。ORT の Neutron EP は ConvInteger を CPU で実行するため、YOLOX-S では ORT NPU の 795.7 ms に対して ailia NPU は 114.8 ms (約 6.9 倍高速) でした。Transformer と畳み込みを組み合わせた Depth Anything V2 でも、MatMul と畳み込みの両方を NPU で実行し、ORT NPU の 2,575.9 ms に対して 2,045.1 ms です。</p>
+
+    <h3>両入力が動的な Attention の MatMul も NPU で実行</h3>
+    <p>ONNX Runtime の Neutron EP が NPU で実行できるのは、右辺が定数重みの行列積だけです。Attention の QK・AV のように両入力が推論ごとに変わる MatMul は CPU に残ります。ailia は右辺を推論ごとに NPU 向けにパックすることで、両入力が動的な <code>MatMulInteger</code> も NPU で実行できます。SAM 2.1 の Memory Attention では、Attention の行列積を <code>MatMulInteger</code> として NPU で実行しています。Depth Anything V2 でも、両入力を校正済みの <code>QuantizeLinear</code> で量子化した Attention の <code>MatMulInteger</code> 24 個を NPU で実行します。FP32 の MatMul は暗黙に INT8 化せず、量子化はモデル内の標準 ONNX 演算で明示します。</p>
+
+    <h3>CPU・GPU・NPU を同じ API で切り替え</h3>
+    <p>実行環境 ID を変えるだけで、同じモデル・同じコードを CPU、Mali-G310 (Vulkan)、Neutron NPU で実行できます。Windows、macOS、Linux、Android、iOS と共通の C++ / Python / C# / Flutter API のため、PC で開発したアプリケーションをそのまま i.MX 95 へ移植できます。</p>
+
+    <h3>400 以上のモデルと前後処理</h3>
+    <p><a href="https://github.com/ailia-ai/ailia-models" target="_blank">ailia-models</a> の 400 種類以上のモデルを i.MX 95 で試すことができます。また、ailia Speech (Whisper)、ailia Tokenizer、ailia LLM などのライブラリと組み合わせて、音声認識や生成 AI を組み込み機器に実装できます。</p>
+
+    <h2 id="troubleshooting">トラブルシューティング</h2>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>症状</th><th>確認・対処</th></tr>
+      <tr><td><code>Neutron-i.MX95-NPU</code> が列挙されない</td><td><code>ls /dev/neutron0</code> でカーネルドライバを、<code>ls /usr/lib/libNeutronDriver.so</code> で Neutron ドライバを確認します。BSP が 6.18-wrynose 相当であること、<code>copy_sdk.py --install-npu</code> で <code>libailia.so</code> を差し替えたことも確認してください。</td></tr>
+      <tr><td>ライセンス取得が <code>Network is unreachable</code> で失敗する</td><td>IPv6 のデフォルトルートがない環境で発生します。<a href="#license">ライセンスの取得</a>の手順で IPv4 を明示して取得してください。システム時刻が正しいことも確認してください。</td></tr>
+      <tr><td>NPU のメモリ確保に失敗する</td><td>ailia は物理的に連続した 512 MiB の CMA 領域を確保します。<code>grep Cma /proc/meminfo</code> で CMA の合計と空きを確認し、不足する場合はカーネル起動引数 <code>cma=</code> で拡大してください。</td></tr>
+      <tr><td>初回の推論だけ遅い</td><td>初回推論時に重みを NPU 向けに変換 (pack) するためで、正常な動作です。2 回目以降は短くなります。</td></tr>
+      <tr><td>NPU を指定しても速くならない</td><td>NPU の対応条件 (zero point なし、K % 16 == 0 など) を満たさないノードは CPU で実行されます。<a href="npu_model.html">NPU 対応モデルの作り方</a>の確認スクリプトで、各ノードが NPU で実行されるか確認してください。</td></tr>
+    </table>
+    </div>
+
+    <h2>参考資料</h2>
+    <ul>
+      <li><a href="https://www.nxp.jp/document/guide/getting-started-with-frdm-imx95:GS-FRDM-IMX95" target="_blank">Quick Start Guide FRDM-IMX95 (NXP)</a></li>
+      <li><a href="https://docs.nxp.com/bundle/UG10163/page/topics/overview.html" target="_blank">UG10163: i.MX Linux User's Guide</a></li>
+      <li><a href="https://docs.nxp.com/bundle/UG10164/page/topics/overview.html" target="_blank">UG10164: i.MX Yocto Project User's Guide</a></li>
+      <li><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia SDK NXP NPU 対応版・ビジョンデモ (ailia-sdk-nxp-demo)</a></li>
+      <li><a href="https://ailia.ai/license/" target="_blank">ailia SDK ライセンス</a></li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

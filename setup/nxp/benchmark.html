@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NXP i.MX 95 ベンチマーク - ailia SDK</title>
+  <meta name="description" content="NXP i.MX 95 で ailia SDK と NXP ONNX Runtime の CPU・NPU 実行を比較したベンチマークの詳細です。ViT-B/16、SAM 2.1 Tiny、Grounding DINO、Depth Anything V2、YOLOX-S の測定条件、内訳、精度を掲載します。">
+  <link rel="canonical" href="https://docs.ailia.ai/setup/nxp/benchmark.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/nxp/benchmark.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/nxp/benchmark.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/setup/nxp/benchmark.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/setup/nxp/benchmark.html">
+  <meta property="og:title" content="NXP i.MX 95 ベンチマーク - ailia SDK">
+  <meta property="og:description" content="NXP i.MX 95 で ailia SDK と NXP ONNX Runtime の CPU・NPU 実行を比較したベンチマークの詳細です。ViT-B/16、SAM 2.1 Tiny、Grounding DINO、Depth Anything V2、YOLOX-S の測定条件、内訳、精度を掲載します。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="NXP i.MX 95 ベンチマーク - ailia SDK">
+  <meta name="twitter:description" content="NXP i.MX 95 で ailia SDK と NXP ONNX Runtime の CPU・NPU 実行を比較したベンチマークの詳細です。ViT-B/16、SAM 2.1 Tiny、Grounding DINO、Depth Anything V2、YOLOX-S の測定条件、内訳、精度を掲載します。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .guide-content .table-wrap { overflow-x: auto; margin-bottom: 16px; }
+    .guide-content .table-wrap .version-table { margin-bottom: 0; min-width: 560px; }
+    .guide-content .version-table td.num, .guide-content .version-table th.num { text-align: right; white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../sdk/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../js/">JS</a>
+        <a href="../../mp/">MP</a>
+        <a href="../../en/setup/nxp/benchmark.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>NXP i.MX 95 ベンチマーク</h1>
+    <p>NXP FRDM i.MX 95 で、ailia SDK (NXP NPU 対応版) と NXP ONNX Runtime の CPU・NPU 実行を比較したベンチマークの詳細です。結果の概要とセットアップ手順は <a href="./">NXP i.MX 95 セットアップガイド</a> を参照してください。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>測定条件</h2>
+    <p>FRDM i.MX 95 で、ailia SDK (NXP NPU 対応版) と NXP BSP 同梱の ONNX Runtime 1.24.3 (ORT) を比較しました。すべてのモデルを 2026-11-22 に ailia のランタイム <code>c8e3d217e</code> で測定しています。いずれも CPU 6 スレッド、プロファイル無効で、NPU の値は非対応レイヤーの CPU 実行を含みます。モデルは各方式で同じものを使用しています。</p>
+    <p>ORT は、NPU 用に確保する CMA を 512 MiB に固定して測定しています。動作確認環境のボードの CMA は 960 MiB で、ORT の既定の 2 GiB では確保に失敗し、CPU にフォールバックするためです。ailia はこの設定を使用しません。</p>
+
+    <h2 id="vit">ViT-B/16 (画像分類、224×224)</h2>
+    <p>ailia-models で公開している INT4 モデル (<code>ViT-B_16-224-int4.onnx</code>) を使用しています。定数重みの MatMul を MatMulNBits INT4 に変換し、その他の演算を FP32 で実行するモデルです。入力画像はデモ同梱の <code>images/vit/input.jpg</code>、バッチ 1 です。モデル Open 時のダミー推論 1 回を除外し、続く 10 回の中央値を示します。前処理・後処理・描画は含みません。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">670.2 ms</td><td class="num">385.9 ms</td><td class="num">780.7 ms</td><td class="num">328.8 ms</td></tr>
+      <tr><td>FPS</td><td class="num">1.49</td><td class="num">2.59</td><td class="num">1.28</td><td class="num">3.04</td></tr>
+    </table>
+    </div>
+    <p>ailia NPU は ORT NPU の約 1.17 倍の速度です。4 方式とも、10 回すべてで Labrador retriever (ImageNet のクラス 208) に分類しました。ORT NPU では、別途プロファイルを有効にした実行で、MatMulNBits 72 個がすべて Neutron で実行されることを確認しています。</p>
+    <p>2026-11-18 の測定では、同じ入力を繰り返し推論したときの出力の最大絶対差 (出力変動) も比較しました。ORT NPU のみ 0.2002 の変動があり、ORT CPU・ailia CPU・ailia NPU は 0 (毎回同じ結果) でした。</p>
+
+    <h2 id="sam2">SAM 2.1 Tiny (セグメンテーション、512×512)</h2>
+    <p><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a> の COCO 校正済みモデル <code>coco-val2017-v1</code> を使用し、ailia の CPU 実行には NEON 最適化した整数 MatMul を使用しています。全方式でモデル Open 時に同じダミー入力で 1 回推論し、その後 Bedroom の 5 フレームを同じ 2 点で 1 周ウォームアップしました。続く 3 回の中央値で、ウォームアップは測定に含みません。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>処理</th><th class="num">回数／動画</th><th class="num">ORT CPU</th><th class="num">ORT NPU※</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Image Encoder (ms／回)</td><td class="num">5</td><td class="num">2,282.1</td><td class="num">2,199.6</td><td class="num">1,807.7</td><td class="num">886.4</td></tr>
+      <tr><td>Mask Decoder (ms／回)</td><td class="num">5</td><td class="num">172.3</td><td class="num">178.7</td><td class="num">126.5</td><td class="num">126.3</td></tr>
+      <tr><td>Memory Attention (ms／回)</td><td class="num">4</td><td class="num">1,502.5</td><td class="num">1,497.7</td><td class="num">882.2</td><td class="num">516.5</td></tr>
+      <tr><td>Memory Encoder (ms／回)</td><td class="num">5</td><td class="num">309.7</td><td class="num">300.9</td><td class="num">236.8</td><td class="num">236.7</td></tr>
+      <tr><td>5 フレーム全体 (秒)</td><td class="num">—</td><td class="num">20.32</td><td class="num">19.81</td><td class="num">14.81</td><td class="num">8.71</td></tr>
+    </table>
+    </div>
+    <p>モデル別は 1 回あたりの平均時間の中央値です。全体時間は画像読み込み・前後処理を含み、モデル読み込み・描画・保存を除きます。4 方式とも同じモデルを使用します。NPU 方式では Image Encoder と Memory Attention を CPU / NPU 混在で実行し、その他は CPU 実行です。</p>
+    <p>※ <strong>ORT NPU はこの測定でも追跡マスクが正しくないため、速度参考値です。</strong>速度測定は精度の確認を兼ねていません。</p>
+    <p>以前の測定では、Bedroom での FP32 参照に対する平均マスク IoU は、ホスト ORT CPU で 96.07%、実機 ailia NPU で 95.71% でした。正解マスクに対する精度ではありません。</p>
+
+    <h2 id="grounding-dino">Grounding DINO Swin-T (オープン語彙物体検出、400×599)</h2>
+    <p>COCO で校正したモデル <code>grounding-coco-val2017-ql-v3</code> を使用し、入力画像はデモ同梱の <code>images/grounding_dino/demo.jpg</code>、プロンプトは <code>Horse. Clouds. Grasses. Sky. Hill.</code> です。モデル Open 時のダミー推論 1 回を除外し、続く 3 回の中央値を示します。モデル読み込みと前後処理は含みません。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">7,531.2 ms</td><td class="num">6,979.8 ms</td><td class="num">6,104.4 ms</td><td class="num">3,840.2 ms</td></tr>
+      <tr><td>検出数</td><td class="num">15</td><td class="num">14</td><td class="num">15</td><td class="num">15</td></tr>
+    </table>
+    </div>
+    <p>固定重みの MatMul 347 個と、両入力が動的な MatMul 109 個を、いずれも校正済みの <code>QuantizeLinear</code> + <code>MatMulInteger</code> に変換したモデルです。ailia NPU では固定重みの MatMul を NPU で実行し、両入力が動的な MatMul は行列が小さいため CPU の NEON 整数演算で実行します。以前の動的量子化のモデルと比べて馬の検出 7 個は維持され、検出枠の IoU は平均 0.987 (最小 0.978) でした。検出精度 (mAP) の評価ではなく、デモ画像での出力の比較です。ORT NPU は推論ごとに出力が変動することがあります。</p>
+
+    <h2 id="depth-anything-v2">Depth Anything V2 Metric Depth Small (屋内深度推定、518×518)</h2>
+    <p>COCO で校正したモデル <code>depth-coco-val2017-conv-v4</code> を使用し、入力は Bedroom の 1 フレーム目 (<code>00000.jpg</code>) です。モデル Open 時のダミー推論 1 回を除外し、続く 3 回の中央値を示します。モデル読み込み・前処理・描画は含みません。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">2,796.2 ms</td><td class="num">2,575.9 ms</td><td class="num">3,125.7 ms</td><td class="num">2,045.1 ms</td></tr>
+    </table>
+    </div>
+    <p>固定重みの MatMul 48 個、Attention の MatMul 24 個、畳み込み 28 個を、校正済みの <code>QuantizeLinear</code> と <code>MatMulInteger</code> / <code>ConvInteger</code> に変換したモデルです。ailia NPU はこれらを NPU で実行します。出力側の高解像度で細い畳み込み 3 個は、NPU のほうが遅かったため FP32 のまま残しています。Softmax と ConvTranspose も FP32 です。ORT の Neutron EP が NPU で実行するのは固定重みの MatMul のみです。</p>
+    <p>以前の Bedroom 5 フレームでの比較では、ailia CPU と ailia NPU の出力の差は平均 1.14 cm (最大 23.84 cm)、ORT CPU との差は平均 4.55 cm (最大 50.15 cm)、畳み込みを量子化する前の NPU 用モデルとの差は平均 4.90 cm (最大 59.79 cm) でした。いずれも出力どうしの比較で、正解深度に対する精度ではありません。</p>
+
+    <h2 id="yolox">YOLOX-S (物体検出、320×320)</h2>
+    <p>COCO 校正済みの INT8 モデル (<code>ConvInteger</code> 83 個) を使用し、バッチ 1、入力画像はデモ同梱の <code>images/yolox/input.jpg</code> です。モデル Open 時のダミー推論 1 回を除外し、続く 10 回の中央値を示します。前処理・NMS・描画は含みません。</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>項目</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>推論時間 (中央値)</td><td class="num">793.9 ms</td><td class="num">795.7 ms</td><td class="num">436.9 ms</td><td class="num">114.8 ms</td></tr>
+      <tr><td>FPS</td><td class="num">1.26</td><td class="num">1.26</td><td class="num">2.29</td><td class="num">8.71</td></tr>
+    </table>
+    </div>
+    <p>CPU の値は最適化した FP32 モデルではなく、同じ ConvInteger モデルの値です。ailia の CPU 実行は、固定重みをキャッシュするタイル分割の NEON INT8 カーネルを使用します。ORT の Neutron EP では ConvInteger が CPU で実行されるため、ORT NPU は ORT CPU とほぼ同じ時間です。ailia NPU は、対応する演算の出力の再量子化を NPU 上で行います。CPU 実行とは丸め方が異なるため、出力は CPU 実行とビット単位では一致しません。</p>
+    <p>COCO val2017 全 5,000 枚での AP は、FP32 (ホスト ORT CPU) の 30.42 に対し、INT8 (ailia NPU) で 29.00 (-1.42 ポイント) です。評価に使用した画像は校正データと同じため、独立したテストセットでの精度ではありません。</p>
+
+    <h2>参考資料</h2>
+    <ul>
+      <li><a href="./">NXP i.MX 95 セットアップガイド</a></li>
+      <li><a href="npu_model.html">NPU 対応モデルの作り方</a></li>
+      <li><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia SDK NXP NPU 対応版・ビジョンデモ (ailia-sdk-nxp-demo)</a></li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRDM i.MX 95 ボードセットアップ - ailia SDK</title>
+  <meta name="description" content="NXP FRDM i.MX 95 の電源・USB シリアルの接続、Linux イメージの microSD への書き込みと起動の手順を解説します。">
+  <link rel="canonical" href="https://docs.ailia.ai/setup/nxp/board.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/nxp/board.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/nxp/board.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/setup/nxp/board.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/setup/nxp/board.html">
+  <meta property="og:title" content="FRDM i.MX 95 ボードセットアップ - ailia SDK">
+  <meta property="og:description" content="NXP FRDM i.MX 95 の電源・USB シリアルの接続、Linux イメージの microSD への書き込みと起動の手順を解説します。">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="FRDM i.MX 95 ボードセットアップ - ailia SDK">
+  <meta name="twitter:description" content="NXP FRDM i.MX 95 の電源・USB シリアルの接続、Linux イメージの microSD への書き込みと起動の手順を解説します。">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .guide-content .table-wrap { overflow-x: auto; margin-bottom: 16px; }
+    .guide-content .table-wrap .version-table { margin-bottom: 0; min-width: 560px; }
+    .guide-content .version-table td.num, .guide-content .version-table th.num { text-align: right; white-space: nowrap; }
+    .guide-content .version-table tr.highlight td { background: #eef6ff; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/" class="logo-icon"><img src="../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../sdk/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../js/">JS</a>
+        <a href="../../mp/">MP</a>
+        <a href="../../en/setup/nxp/board.html" hreflang="en" lang="en">EN</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>FRDM i.MX 95 ボードセットアップ</h1>
+    <p>NXP FRDM i.MX 95 の接続、Linux イメージの書き込み、起動とログインの手順を説明します。ailia SDK のセットアップは <a href="./">NXP i.MX 95 セットアップガイド</a> を参照してください。</p>
+  </section>
+
+  <div class="guide-content">
+
+    <p>ailia SDK を使用する前に、FRDM i.MX 95 を起動してシリアルコンソールからログインできる状態にします。</p>
+
+    <h2>ボードのセットアップ</h2>
+
+    <h3>必要な機材</h3>
+    <p>FRDM i.MX 95 の付属品に加えて、以下を用意します。</p>
+    <ul>
+      <li><strong>USB-C PD 対応 AC アダプター</strong>: 13.4V / 5A (67W) を供給できるもの。量販店では 100W クラスのアダプターが該当します。</li>
+      <li><strong>Ethernet 接続</strong>: pip によるインストールとライセンス取得に必要です。</li>
+      <li><strong>microSD カード (32GB 程度)</strong>: 最新の Linux イメージから起動する場合に使用します。</li>
+    </ul>
+
+    <h3>ボードの接続</h3>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>コネクタ / スイッチ</th><th>用途</th></tr>
+      <tr><td>J25 (USB-C)</td><td>電源。付属の電源供給対応 Type-C to C ケーブルで AC アダプターと接続します。</td></tr>
+      <tr><td>J1 (USB-C)</td><td>デバッグ用 USB シリアル。付属の Type-C to A ケーブルで PC と接続します (電源供給には使用できません)。</td></tr>
+      <tr><td>SW1 (DIP スイッチ)</td><td>ブートデバイス選択。eMMC: SW1-1 ON / SW1-2 OFF、microSD: SW1-1 ON / SW1-2 ON</td></tr>
+      <tr><td>SW5 (スライドスイッチ)</td><td>電源 ON / OFF</td></tr>
+    </table>
+    </div>
+
+    <h3>USB シリアルの設定</h3>
+    <p>PC にボードを接続すると、USB シリアル (CH344) の COM ポートが 4 つ認識されます。Windows では Tera Term、Linux では minicom などで各ポートを開き、次の設定にします。ログインプロンプトは 4 つのうち 1 つのポートに表示されます。</p>
+    <pre><code class="language-text">Speed: 115200
+Data: 8 bit
+Parity: none
+Stop bits: 1</code></pre>
+
+    <h3>起動とログイン</h3>
+    <p>SW5 を ON にすると電源が入り、シリアルターミナルにブートログが表示されます。ログインプロンプトが表示されたら <code>root</code> でログインします (パスワードなし)。</p>
+    <pre><code class="language-text">NXP i.MX Distro with Wayland and XWayland 6.18-wrynose imx95-15x15-lpddr4x-frdm ttyLP0
+
+imx95-15x15-lpddr4x-frdm login: root</code></pre>
+
+    <h2>Linux イメージの準備</h2>
+    <p>出荷時に eMMC へ書き込まれている Linux イメージは古いため、Yocto Project 6.0 Wrynose ベースの最新 BSP イメージを microSD カードへ書き込み、microSD から起動することを推奨します。</p>
+
+    <h3>microSD カードへの書き込み</h3>
+    <p><a href="https://www.nxp.com/design/design-center/software/embedded-software/i-mx-software/embedded-linux-for-i-mx-applications-processors:IMXLINUX" target="_blank">Embedded Linux for i.MX (NXP)</a> から FRDM i.MX 95 (<code>imx95-15x15-lpddr4x-frdm</code>) 向けのビルド済みイメージ (<code>imx-image-full-imx95-15x15-lpddr4x-frdm.rootfs.wic.zst</code>) をダウンロードします。</p>
+    <p>Ubuntu 22.04 などの Linux PC に SD カードリーダーで microSD を接続し、デバイス名を確認します。以下では <code>/dev/sdX</code> と記載しています。<strong>デバイス名を誤ると PC のディスクを上書きするため、必ず確認してください。</strong></p>
+    <pre><code class="language-bash">lsblk -p</code></pre>
+    <pre><code class="language-bash">zstdcat imx-image-full-imx95-15x15-lpddr4x-frdm.rootfs.wic.zst | sudo dd of=/dev/sdX bs=1M conv=fsync</code></pre>
+    <p>書き込み後、SW1 を両方 (SW1-1、SW1-2) ON にして電源を入れると microSD から起動します。イメージは約 13GB を使用します。</p>
+
+    <h2>次のステップ</h2>
+    <p>ボードにログインできたら、<a href="./">NXP i.MX 95 セットアップガイド</a> に従って ailia SDK をインストールしてください。</p>
+
+    <h2>参考資料</h2>
+    <ul>
+      <li><a href="https://www.nxp.jp/document/guide/getting-started-with-frdm-imx95:GS-FRDM-IMX95" target="_blank">Quick Start Guide FRDM-IMX95 (NXP)</a></li>
+      <li><a href="https://docs.nxp.com/bundle/UG10163/page/topics/overview.html" target="_blank">UG10163: i.MX Linux User's Guide</a></li>
+      <li><a href="https://docs.nxp.com/bundle/UG10164/page/topics/overview.html" target="_blank">UG10164: i.MX Yocto Project User's Guide</a></li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>

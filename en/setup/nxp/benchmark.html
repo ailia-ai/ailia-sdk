@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q579RMM');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NXP i.MX 95 Benchmarks - ailia SDK</title>
+  <meta name="description" content="Detailed benchmarks comparing CPU and NPU execution of ailia SDK and NXP ONNX Runtime on the NXP i.MX 95: measurement conditions, breakdowns and accuracy for ViT-B/16, SAM 2.1 Tiny, Grounding DINO, Depth Anything V2 and YOLOX-S.">
+  <link rel="canonical" href="https://docs.ailia.ai/en/setup/nxp/benchmark.html">
+  <link rel="alternate" hreflang="en" href="https://docs.ailia.ai/en/setup/nxp/benchmark.html">
+  <link rel="alternate" hreflang="ja" href="https://docs.ailia.ai/setup/nxp/benchmark.html">
+  <link rel="alternate" hreflang="x-default" href="https://docs.ailia.ai/en/setup/nxp/benchmark.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ja_JP">
+  <meta property="og:site_name" content="ailia Documentation">
+  <meta property="og:url" content="https://docs.ailia.ai/en/setup/nxp/benchmark.html">
+  <meta property="og:title" content="NXP i.MX 95 Benchmarks - ailia SDK">
+  <meta property="og:description" content="Detailed benchmarks comparing CPU and NPU execution of ailia SDK and NXP ONNX Runtime on the NXP i.MX 95: measurement conditions, breakdowns and accuracy for ViT-B/16, SAM 2.1 Tiny, Grounding DINO, Depth Anything V2 and YOLOX-S.">
+  <meta property="og:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="NXP i.MX 95 Benchmarks - ailia SDK">
+  <meta name="twitter:description" content="Detailed benchmarks comparing CPU and NPU execution of ailia SDK and NXP ONNX Runtime on the NXP i.MX 95: measurement conditions, breakdowns and accuracy for ViT-B/16, SAM 2.1 Tiny, Grounding DINO, Depth Anything V2 and YOLOX-S.">
+  <meta name="twitter:image" content="https://docs.ailia.ai/ailia_logo.png">
+  <link rel="icon" type="image/png" href="../../../ailia_logo.png">
+  <link rel="stylesheet" href="../../../css/common.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>
+    .guide-content .table-wrap { overflow-x: auto; margin-bottom: 16px; }
+    .guide-content .table-wrap .version-table { margin-bottom: 0; min-width: 560px; }
+    .guide-content .version-table td.num, .guide-content .version-table th.num { text-align: right; white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <a href="https://docs.ailia.ai/en/" class="logo-icon"><img src="../../../ailia_logo.png" alt="ailia"></a>
+        <a href="../../" class="logo-text">ailia SDK Docs</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="header-links">
+        <a href="../../">Top</a>
+        <a href="../../sdk/">SDK</a>
+        <a href="../../tflite/">TFLite</a>
+        <a href="../../llm/">LLM</a>
+        <a href="../../speech/">Speech</a>
+        <a href="../../voice/">Voice</a>
+        <a href="../../tokenizer/">Tokenizer</a>
+        <a href="../../tracker/">Tracker</a>
+        <a href="../../js/">JS</a>
+        <a href="../../mp/">MP</a>
+        <a href="../../../setup/nxp/benchmark.html" hreflang="ja" lang="ja">JA</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>NXP i.MX 95 Benchmarks</h1>
+    <p>Detailed benchmarks comparing CPU and NPU execution of ailia SDK (NXP NPU build) and NXP ONNX Runtime on the NXP FRDM i.MX 95. For the summary and setup instructions, see the <a href="./">NXP i.MX 95 Setup Guide</a>.</p>
+  </section>
+
+  <div class="guide-content">
+
+    <h2>Measurement Conditions</h2>
+    <p>We compared ailia SDK (NXP NPU build) with ONNX Runtime 1.24.3 (ORT) bundled with the NXP BSP on the FRDM i.MX 95. All models were measured on 2026-11-22 with ailia runtime <code>c8e3d217e</code>. All measurements use 6 CPU threads with profiling disabled, and NPU results include CPU execution of unsupported layers. Each backend uses the same model.</p>
+    <p>ORT was measured with its NPU CMA allocation fixed to 512 MiB. The tested board has 960 MiB of CMA, and ORT's default 2 GiB allocation fails and falls back to the CPU. ailia does not use this setting.</p>
+
+    <h2 id="vit">ViT-B/16 (Image Classification, 224×224)</h2>
+    <p>Uses the INT4 model published in ailia-models (<code>ViT-B_16-224-int4.onnx</code>), which converts constant-weight MatMuls to MatMulNBits INT4 and runs the remaining operations in FP32. The input is <code>images/vit/input.jpg</code> bundled with the demo, batch 1. One dummy inference at model Open is excluded, and the table reports the median of the next 10 runs. Pre/post-processing and drawing are excluded.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Item</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Inference time (median)</td><td class="num">670.2 ms</td><td class="num">385.9 ms</td><td class="num">780.7 ms</td><td class="num">328.8 ms</td></tr>
+      <tr><td>FPS</td><td class="num">1.49</td><td class="num">2.59</td><td class="num">1.28</td><td class="num">3.04</td></tr>
+    </table>
+    </div>
+    <p>ailia NPU is approximately 1.17x faster than ORT NPU. All four backends classified the image as Labrador retriever (ImageNet class 208) in all ten runs. A separate profiling run confirmed that all 72 MatMulNBits nodes run on Neutron with ORT NPU.</p>
+    <p>The 2026-11-18 measurement also compared the maximum absolute output difference when the same input is inferred repeatedly (output variation). Only ORT NPU varied (0.2002); ORT CPU, ailia CPU and ailia NPU were 0 (the same result every time).</p>
+
+    <h2 id="sam2">SAM 2.1 Tiny (Segmentation, 512×512)</h2>
+    <p>Uses the COCO-calibrated <code>coco-val2017-v1</code> model from <a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia-sdk-nxp-demo</a>. ailia's CPU execution uses NEON-optimized integer MatMul. All backends ran the same dummy input once when opening each model, then warmed up with one full pass over the 5 Bedroom frames using the same two points. The table reports the median of the next 3 runs and excludes warm-up time.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Operation</th><th class="num">Calls / video</th><th class="num">ORT CPU</th><th class="num">ORT NPU*</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Image Encoder (ms / call)</td><td class="num">5</td><td class="num">2,282.1</td><td class="num">2,199.6</td><td class="num">1,807.7</td><td class="num">886.4</td></tr>
+      <tr><td>Mask Decoder (ms / call)</td><td class="num">5</td><td class="num">172.3</td><td class="num">178.7</td><td class="num">126.5</td><td class="num">126.3</td></tr>
+      <tr><td>Memory Attention (ms / call)</td><td class="num">4</td><td class="num">1,502.5</td><td class="num">1,497.7</td><td class="num">882.2</td><td class="num">516.5</td></tr>
+      <tr><td>Memory Encoder (ms / call)</td><td class="num">5</td><td class="num">309.7</td><td class="num">300.9</td><td class="num">236.8</td><td class="num">236.7</td></tr>
+      <tr><td>5-frame total (seconds)</td><td class="num">—</td><td class="num">20.32</td><td class="num">19.81</td><td class="num">14.81</td><td class="num">8.71</td></tr>
+    </table>
+    </div>
+    <p>Per-model rows are the median of each run's average time per call. Total time includes image loading and pre/post-processing but excludes model loading, drawing and saving. All four backends use the same models. The NPU backends run the Image Encoder and Memory Attention with mixed CPU/NPU execution; all other networks run on the CPU.</p>
+    <p>* <strong>ORT NPU is a timing-only result because its tracking masks were incorrect in this measurement as well.</strong> These timing measurements do not verify accuracy.</p>
+    <p>In an earlier measurement, the mean mask IoU against the FP32 reference on Bedroom was 96.07% for host ORT CPU and 95.71% for ailia NPU on the device. This is not accuracy against ground-truth masks.</p>
+
+    <h2 id="grounding-dino">Grounding DINO Swin-T (Open-Vocabulary Object Detection, 400×599)</h2>
+    <p>Uses the COCO-calibrated <code>grounding-coco-val2017-ql-v3</code> model. The input image is <code>images/grounding_dino/demo.jpg</code> bundled with the demo, and the prompt is <code>Horse. Clouds. Grasses. Sky. Hill.</code>. One dummy inference at model Open is excluded, and the table reports the median of the next 3 runs. Model loading and pre/post-processing are excluded.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Item</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Inference time (median)</td><td class="num">7,531.2 ms</td><td class="num">6,979.8 ms</td><td class="num">6,104.4 ms</td><td class="num">3,840.2 ms</td></tr>
+      <tr><td>Detections</td><td class="num">15</td><td class="num">14</td><td class="num">15</td><td class="num">15</td></tr>
+    </table>
+    </div>
+    <p>In this model, the 347 fixed-weight MatMuls and the 109 MatMuls with two dynamic inputs are all converted to calibrated <code>QuantizeLinear</code> + <code>MatMulInteger</code>. ailia NPU runs the fixed-weight MatMuls on the NPU; because the MatMuls with two dynamic inputs are small, they run with NEON integer arithmetic on the CPU. Compared with the previous dynamic-quantization model, all seven horse detections are preserved, with a mean box IoU of 0.987 (minimum 0.978). This is an output comparison on the demo image, not a detection-accuracy (mAP) evaluation. ORT NPU outputs may vary between inferences.</p>
+
+    <h2 id="depth-anything-v2">Depth Anything V2 Metric Depth Small (Indoor Depth Estimation, 518×518)</h2>
+    <p>Uses the COCO-calibrated <code>depth-coco-val2017-conv-v4</code> model, with the first Bedroom frame (<code>00000.jpg</code>) as input. One dummy inference at model Open is excluded, and the table reports the median of the next 3 runs. Model loading, preprocessing and drawing are excluded.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Item</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Inference time (median)</td><td class="num">2,796.2 ms</td><td class="num">2,575.9 ms</td><td class="num">3,125.7 ms</td><td class="num">2,045.1 ms</td></tr>
+    </table>
+    </div>
+    <p>In this model, the 48 fixed-weight MatMuls, 24 Attention MatMuls and 28 convolutions are converted to calibrated <code>QuantizeLinear</code> with <code>MatMulInteger</code> / <code>ConvInteger</code>, and ailia NPU runs them on the NPU. The three narrow, high-resolution output-head convolutions remain FP32 because they were slower on the NPU. Softmax and ConvTranspose also remain FP32. The ORT Neutron EP runs only the fixed-weight MatMuls on the NPU.</p>
+    <p>In an earlier comparison over the five Bedroom frames, the ailia CPU and ailia NPU outputs differed by 1.14 cm on average (23.84 cm maximum), the difference from ORT CPU was 4.55 cm on average (50.15 cm maximum), and the difference from the NPU model before convolution quantization was 4.90 cm on average (59.79 cm maximum). These are comparisons between outputs, not accuracy against ground-truth depth.</p>
+
+    <h2 id="yolox">YOLOX-S (Object Detection, 320×320)</h2>
+    <p>Uses the COCO-calibrated INT8 model (83 <code>ConvInteger</code> nodes), batch 1, with <code>images/yolox/input.jpg</code> bundled with the demo. One dummy inference at model Open is excluded, and the table reports the median of the next 10 runs. Preprocessing, NMS and drawing are excluded.</p>
+    <div class="table-wrap">
+    <table class="version-table">
+      <tr><th>Item</th><th class="num">ORT CPU</th><th class="num">ORT NPU</th><th class="num">ailia CPU</th><th class="num">ailia NPU</th></tr>
+      <tr><td>Inference time (median)</td><td class="num">793.9 ms</td><td class="num">795.7 ms</td><td class="num">436.9 ms</td><td class="num">114.8 ms</td></tr>
+      <tr><td>FPS</td><td class="num">1.26</td><td class="num">1.26</td><td class="num">2.29</td><td class="num">8.71</td></tr>
+    </table>
+    </div>
+    <p>The CPU figures measure the same ConvInteger model, not an optimized FP32 model. ailia's CPU execution uses tiled NEON INT8 kernels with cached fixed weights. The ORT Neutron EP runs ConvInteger on the CPU, so ORT NPU takes about the same time as ORT CPU. ailia NPU requantizes the outputs of supported operations on the NPU. This uses different rounding from CPU execution, so outputs are not bit-identical to the CPU.</p>
+    <p>On all 5,000 COCO val2017 images, AP is 29.00 for INT8 (ailia NPU) versus 30.42 for FP32 (host ORT CPU), a decrease of 1.42 points. The evaluation images are the same as the calibration data, so this is not accuracy on an independent test set.</p>
+
+    <h2>References</h2>
+    <ul>
+      <li><a href="./">NXP i.MX 95 Setup Guide</a></li>
+      <li><a href="npu_model.html">Creating Models for the NPU</a></li>
+      <li><a href="https://github.com/ailia-ai/ailia-sdk-nxp-demo" target="_blank">ailia SDK NXP NPU build and vision demo (ailia-sdk-nxp-demo)</a></li>
+    </ul>
+
+  </div>
+
+  <footer>
+    <p><a href="https://ailia.ai/en/" target="_blank">ailia Inc.</a></p>
+    <p class="footer-copy">&copy; ailia Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    document.querySelectorAll('.menu-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const links = btn.parentElement.querySelector('.header-links');
+        const isOpen = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
