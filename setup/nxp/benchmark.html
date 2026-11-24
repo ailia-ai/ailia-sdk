@@ -95,10 +95,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <tr><td>Mask Decoder (ms／回)</td><td class="num">5</td><td class="num">172.3</td><td class="num">178.7</td><td class="num">126.5</td><td class="num">126.3</td></tr>
       <tr><td>Memory Attention (ms／回)</td><td class="num">4</td><td class="num">1,502.5</td><td class="num">1,497.7</td><td class="num">882.2</td><td class="num">516.5</td></tr>
       <tr><td>Memory Encoder (ms／回)</td><td class="num">5</td><td class="num">309.7</td><td class="num">300.9</td><td class="num">236.8</td><td class="num">236.7</td></tr>
-      <tr><td>5 フレーム全体 (秒)</td><td class="num">—</td><td class="num">20.32</td><td class="num">19.81</td><td class="num">14.81</td><td class="num">8.71</td></tr>
+      <tr><td>静止画 1 枚 (ms)</td><td class="num">—</td><td class="num">2,454.4</td><td class="num">2,378.3</td><td class="num">1,934.2</td><td class="num">1,012.7</td></tr>
+      <tr><td>動画 1 フレーム平均 (ms)</td><td class="num">—</td><td class="num">4,064</td><td class="num">3,962</td><td class="num">2,962</td><td class="num">1,742</td></tr>
     </table>
     </div>
-    <p>モデル別は 1 回あたりの平均時間の中央値です。全体時間は画像読み込み・前後処理を含み、モデル読み込み・描画・保存を除きます。4 方式とも同じモデルを使用します。NPU 方式では Image Encoder と Memory Attention を CPU / NPU 混在で実行し、その他は CPU 実行です。</p>
+    <p>モデル別は 1 回あたりの平均時間の中央値です。静止画 1 枚は Image Encoder と Mask Decoder の合計で、前後処理を含みません。動画 1 フレーム平均は 5 フレーム全体の時間を 5 で割った値で、画像読み込み・前後処理を含み、モデル読み込み・描画・保存を除きます。4 方式とも同じモデルを使用します。NPU 方式では Image Encoder と Memory Attention を CPU / NPU 混在で実行し、その他は CPU 実行です。</p>
     <p>※ <strong>ORT NPU はこの測定でも追跡マスクが正しくないため、速度参考値です。</strong>速度測定は精度の確認を兼ねていません。</p>
     <p>以前の測定では、Bedroom での FP32 参照に対する平均マスク IoU は、ホスト ORT CPU で 96.07%、実機 ailia NPU で 95.71% でした。正解マスクに対する精度ではありません。</p>
 
